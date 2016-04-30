@@ -81,6 +81,7 @@ function load_game() {
     	if (player.fifthAmount != 0) document.getElementById("sixthRow").style.visibility = "visible";
     	if (player.sixthAmount != 0) document.getElementById("seventhRow").style.visibility = "visible";
     	if (player.seventhAmount != 0) document.getElementById("eightRow").style.visibility = "visible";
+    	updateCosts;
 }
 
 function save_game() {
