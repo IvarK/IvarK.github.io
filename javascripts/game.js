@@ -355,6 +355,7 @@ document.getElementById("reset").onclick = function() {
   set_cookie('dimensionSave', defaultStart)
   load_game();
   updateCosts();
+  clearInterval(player.interval)
 	updateInterval();
 	updateDimensions();
   document.getElementById("secondRow").style.visibility = "hidden";
