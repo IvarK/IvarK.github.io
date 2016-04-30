@@ -12,6 +12,8 @@
        url('../fonts/Noto-Sans-regular/Noto-Sans-regular.svg#NotoSans') format('svg');
 }
 
+@font-face { font-family: Typewriter; src: url('MonospaceTypewriter.ttf'); }
+
 .storebtn {
   color: #E0E0E0;
   background: #E0E0E0;
