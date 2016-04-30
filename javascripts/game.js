@@ -152,12 +152,15 @@ player.interval = setInterval(function() {
 }
 
 function updateCosts() {
+document.getElementById("first").innerHTML = 'Cost: ' + shorten(player.firstCost)
+document.getElementById("second").innerHTML = 'Cost: ' + shorten(player.secondCost)
 document.getElementById("third").innerHTML = 'Cost: ' + shorten(player.thirdCost)
 document.getElementById("fourth").innerHTML = 'Cost: ' + shorten(player.fourthCost)
 document.getElementById("fifth").innerHTML = 'Cost: ' + shorten(player.fifthCost)
 document.getElementById("sixth").innerHTML = 'Cost: ' + shorten(player.sixthCost)
 document.getElementById("seventh").innerHTML = 'Cost: ' + shorten(player.seventhCost)
 document.getElementById("eight").innerHTML = 'Cost: ' + shorten(player.eightCost)
+document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickSpeedCost)
 }
 
 
