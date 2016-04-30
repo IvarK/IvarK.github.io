@@ -28,6 +28,20 @@
   background: #5AC467;
 }
 
+.unavailablebtn {
+  color: #000000;
+  background: #D13D58;
+  font-weight: bold;
+  border: 1px solid #127A20;
+  width:120px;
+  height:30px;
+}
+ 
+.unavailablebtn:hover {
+  color: #000000;
+  background: #FA002E;
+}
+
 @font-face {
   font-family: 'Noto Sans';
   font-weight: 700;
