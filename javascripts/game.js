@@ -245,8 +245,11 @@ document.getElementById("tickSpeed").onclick = function() {
   player.money -= player.tickSpeedCost;
   player.tickspeed = player.tickspeed * .9;
   player.tickSpeedCost = player.tickSpeedCost*10;
-  document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed);
   document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickSpeedCost);
+  if (player.tickspeed <= 100) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*10)  + ' x10';
+  else if (player.tickspeed <= 10) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*100)  + ' x100';
+  else document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed);
+  
   updateMoney();
   updateInterval();
   }
@@ -424,6 +427,7 @@ document.getElementById("reset").onclick = function() {
   document.getElementById("sixthRow").style.visibility = "hidden";
   document.getElementById("seventhRow").style.visibility = "hidden";
   document.getElementById("eightRow").style.visibility = "hidden";
+  document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed);
   }
 }
 
