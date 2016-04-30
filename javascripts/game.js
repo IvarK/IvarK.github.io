@@ -1,4 +1,4 @@
-var money = 10;
+var money = 100;
 var tickSpeedCost = 1000;
 var tickspeed = 1000;
 var firstCost = 10;
