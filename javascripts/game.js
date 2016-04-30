@@ -126,6 +126,7 @@ interval = setInterval(function() {
 
 $(window).focus(function() {
     if (!interval)
+    clearInterval(interval)
         interval = setInterval(function() {
 	money += firstAmount/(tickspeed/100);
   updateMoney();
