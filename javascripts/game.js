@@ -69,6 +69,18 @@ function load_game() {
     var save_data = get_cookie('dimensionSave');
        if (!save_data) return;
     	player = save_data;
+    	if (player.firstAmount != 0) document.getElementById("secondRow").style.visibility = "visible";
+    	if (player.secondAmount != 0) { 
+    		document.getElementById("thirdRow").style.visibility = "visible";
+  		document.getElementById("tickSpeed").style.visibility = "visible";
+  		document.getElementById("tickLabel").style.visibility = "visible";
+  		document.getElementById("tickSpeedAmount").style.visibility = "visible";
+    	}
+    	if (player.thirdAmount != 0) document.getElementById("fourthRow").style.visibility = "visible";
+    	if (player.fourthAmount != 0) document.getElementById("fifthRow").style.visibility = "visible";
+    	if (player.fifthAmount != 0) document.getElementById("sixthRow").style.visibility = "visible";
+    	if (player.sixthAmount != 0) document.getElementById("seventhRow").style.visibility = "visible";
+    	if (player.seventhAmount != 0) document.getElementById("eightRow").style.visibility = "visible";
 }
 
 function save_game() {
