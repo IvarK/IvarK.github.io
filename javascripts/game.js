@@ -60,6 +60,7 @@ function updateDimensions() {
 }
 
 function updateInterval() {
+if (tickspeed > 100) {
 clearInterval(interval)
 interval = setInterval(function() {
 	firstAmount += secondAmount * secondPow;
@@ -71,6 +72,33 @@ interval = setInterval(function() {
   seventhAmount += eightAmount * eightPow;
   updateDimensions();
 }, tickspeed*10);
+}
+else if (tickspeed > 10) {
+clearInterval(interval)
+interval = setInterval(function() {
+	firstAmount += secondAmount * secondPow*10;
+  secondAmount += thirdAmount * thirdPow*10;
+  thirdAmount += fourthAmount * fourthPow*10;
+  fourthAmount += fifthAmount * fifthPow*10;
+  fifthAmount += sixthAmount * sixthPow*10;
+  sixthAmount += seventhAmount * seventhPow*10;
+  seventhAmount += eightAmount * eightPow*10;
+  updateDimensions();
+}, tickspeed*100);
+}
+else {
+clearInterval(interval)
+interval = setInterval(function() {
+	firstAmount += secondAmount * secondPow*100;
+  secondAmount += thirdAmount * thirdPow*100;
+  thirdAmount += fourthAmount * fourthPow*100;
+  fourthAmount += fifthAmount * fifthPow*100;
+  fifthAmount += sixthAmount * sixthPow*100;
+  sixthAmount += seventhAmount * seventhPow*100;
+  seventhAmount += eightAmount * eightPow*100;
+  updateDimensions();
+}, tickspeed*1000);
+}
 }
 
 function updateCosts() {
