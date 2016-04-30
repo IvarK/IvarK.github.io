@@ -36,6 +36,7 @@ var player = {
 	eightPow: 1,
 	interval: null
 };
+var defaultStart = player
 var firstButton = document.getElementById("first")
 var secondButton = document.getElementById("second")
 var thirdButton = document.getElementById("third")
@@ -346,6 +347,16 @@ document.getElementById("eight").onclick = function() {
   element.innerHTML = 'Cost: ' + shorten(player.eightCost);
   updateMoney();
   updateDimensions();
+  }
+}
+
+document.getElementById("reset").onclick = function() {
+	if(confirm("Do you really want to erase all your progress?")) {
+  set_cookie('dimensionSave', defaultStart)
+  load_game();
+  updateCosts();
+	updateInterval();
+	updateDimensions();
   }
 }
 
