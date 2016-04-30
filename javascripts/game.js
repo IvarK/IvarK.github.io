@@ -10,6 +10,10 @@ var secondAmount = 0;
 var thirdAmount = 0;
 var fourthAmount = 0;
 var interval;
+var firstButton = document.getElementById("first")
+var secondButton = document.getElementById("second")
+var thirdButton = document.getElementById("third")
+var fourthButton = document.getElementById("fourth")
 function updateMoney() {
 	var element = document.getElementById("coinAmount");
   element.innerHTML = 'You have ' + shorten(Math.round(money * 10) /10) + ' antimatter.'
@@ -41,6 +45,7 @@ function updateCosts() {
 document.getElementById("third").innerHTML = 'Cost ' + shorten(thirdCost)
 document.getElementById("fourth").innerHTML = 'Cost ' + shorten(fourthCost)
 }
+
 
 function shorten(x) {
 if (x < 1000) return x;
@@ -116,7 +121,7 @@ document.getElementById("fourth").onclick = function() {
 setInterval(function() {
 	money += firstAmount/(tickspeed/100);
   updateMoney();
-  updateCoinPerSec();;
+  updateCoinPerSec();
 }, 100);
 
 updateCosts();
