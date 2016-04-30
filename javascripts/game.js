@@ -177,6 +177,12 @@ document.getElementById("eight").innerHTML = 'Cost: ' + shorten(player.eightCost
 document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickSpeedCost)
 }
 
+function updateTickSpeed() {
+	if (player.tickspeed <= 100) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*10)  + ' x10';
+  	else if (player.tickspeed <= 10) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*100)  + ' x100';
+  	else document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed);
+}
+
 
 function shorten(x) {
 if (x < 1000) return x;
@@ -246,10 +252,7 @@ document.getElementById("tickSpeed").onclick = function() {
   player.tickspeed = player.tickspeed * .9;
   player.tickSpeedCost = player.tickSpeedCost*10;
   document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickSpeedCost);
-  if (player.tickspeed <= 100) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*10)  + ' x10';
-  else if (player.tickspeed <= 10) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*100)  + ' x100';
-  else document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed);
-  
+  updateTickSpeed();
   updateMoney();
   updateInterval();
   }
@@ -427,7 +430,7 @@ document.getElementById("reset").onclick = function() {
   document.getElementById("sixthRow").style.visibility = "hidden";
   document.getElementById("seventhRow").style.visibility = "hidden";
   document.getElementById("eightRow").style.visibility = "hidden";
-  document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed);
+  updateTickSpeed();
   }
 }
 
@@ -460,4 +463,4 @@ setInterval(function () { save_game(); }, 10000);
 updateCosts();
 updateInterval();
 updateDimensions();
-document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed);
+updateTickSpeed();
