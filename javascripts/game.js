@@ -118,11 +118,29 @@ document.getElementById("fourth").onclick = function() {
   }
 }
 
-setInterval(function() {
+interval = setInterval(function() {
 	money += firstAmount/(tickspeed/100);
   updateMoney();
   updateCoinPerSec();
 }, 100);
+
+$(window).focus(function() {
+    if (!interval)
+        interval = setInterval(function() {
+	money += firstAmount/(tickspeed/100);
+  updateMoney();
+  updateCoinPerSec();
+}, 100);
+});
+
+$(window).blur(function() {
+    clearInterval(interval);
+    interval = setInterval(function() {
+	money += firstAmount/(tickspeed/10);
+  updateMoney();
+  updateCoinPerSec();
+}, 1000);;
+});
 
 updateCosts();
 updateInterval();
