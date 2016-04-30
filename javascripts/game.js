@@ -91,7 +91,7 @@ function save_game() {
 
 function updateMoney() {
 	var element = document.getElementById("coinAmount");
-  element.innerHTML = 'You have ' + shorten(Math.round(player.money * 10) /10) + ' antimatter.'
+  element.innerHTML = 'You have ' + shortenMoney(player.money) + ' antimatter.'
 }
 
 function updateCoinPerSec() {
@@ -183,6 +183,25 @@ else if (x < 1e39) return Math.round(x/1e36 * 100)/100 + ' UDc'
 else if (x < 1e42) return Math.round(x/1e39 * 100)/100 + ' DDc'
 else if (x < 1e45) return Math.round(x/1e42 * 100)/100 + ' TDc'
 else if (x < 1e48) return Math.round(x/1e45 * 100)/100 + ' QdDc'
+}
+
+function shortenMoney(x) {
+if (x < 1000) return x.toFixed(1);
+else if (x < 1000000) return (x/1e3).toFixed(2) + ' K';
+else if (x < 1000000000) return (x/1e6).toFixed(2) + ' M';
+else if (x < 1000000000000) return (x/1e9).toFixed(2) + ' B';
+else if (x < 1e15) return (x/1e12).toFixed(2) + ' T'
+else if (x < 1e18) return (x/1e15).toFixed(2) + ' Qd'
+else if (x < 1e21) return (x/1e18).toFixed(2) + ' Qt'
+else if (x < 1e24) return (x/1e21).toFixed(2) + ' Sx'
+else if (x < 1e27) return (x/1e24).toFixed(2) + ' Sp'
+else if (x < 1e30) return (x/1e27).toFixed(2) + ' Oc'
+else if (x < 1e33) return (x/1e30).toFixed(2) + ' No'
+else if (x < 1e36) return (x/1e33).toFixed(2) + ' Dc'
+else if (x < 1e39) return (x/1e36).toFixed(2) + ' UDc'
+else if (x < 1e42) return (x/1e39).toFixed(2) + ' DDc'
+else if (x < 1e45) return (x/1e42).toFixed(2) + ' TDc'
+else if (x < 1e48) return (x/1e45).toFixed(2) + ' QdDc'
 }
 
 document.getElementById("tickSpeed").onclick = function() {
