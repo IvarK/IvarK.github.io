@@ -69,9 +69,6 @@ function load_game() {
     var save_data = getCookie('dimensionSave');
        if (!save_data) return;
     	player = save_data;
-    	updateCosts();
-	updateInterval();
-	updateDimensions();
 }
 
 function save_game() {
