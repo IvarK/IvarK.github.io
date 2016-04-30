@@ -1,113 +1,151 @@
-var money = 10;
-var tickSpeedCost = 1000;
-var tickspeed = 1000;
-var firstCost = 10;
-var secondCost = 100;
-var thirdCost = 10000;
-var fourthCost = 1000000;
-var fifthCost = 1e9;
-var sixthCost = 1e13;
-var seventhCost = 1e18;
-var eightCost = 1e24;
-var firstAmount = 0;
-var secondAmount = 0;
-var thirdAmount = 0;
-var fourthAmount = 0;
-var firstBought = 0;
-var secondBought = 0;
-var thirdBought = 0;
-var fourthBought = 0;
-var fifthAmount = 0;
-var sixthAmount = 0;
-var seventhAmount = 0;
-var eightAmount = 0;
-var fifthBought = 0;
-var sixthBought = 0;
-var seventhBought = 0;
-var eightBought = 0;
-var firstPow = 1
-var secondPow = 1
-var thirdPow = 1
-var fourthPow = 1
-var fifthPow = 1
-var sixthPow = 1
-var seventhPow = 1
-var eightPow = 1
-var interval;
+var player = {
+	money: 10,
+	tickSpeedCost: 1000,
+	tickspeed: 1000,
+	firstCost: 10,
+	secondCost: 100,
+	thirdCost: 10000,
+	fourthCost: 1000000,
+	fifthCost: 1e9,
+	sixthCost: 1e13,
+	seventhCost: 1e18,
+	eightCost: 1e24,
+	firstAmount: 0,
+	secondAmount: 0,
+	thirdAmount: 0,
+	fourthAmount: 0,
+	firstBought: 0,
+	secondBought: 0,
+	thirdBought: 0,
+	fourthBought: 0,
+	fifthAmount: 0,
+	sixthAmount: 0,
+	seventhAmount: 0,
+	eightAmount: 0,
+	fifthBought: 0,
+	sixthBought: 0,
+	seventhBought: 0,
+	eightBought: 0,
+	firstPow: 1,
+	secondPow: 1,
+	thirdPow: 1,
+	fourthPow: 1,
+	fifthPow: 1,
+	sixthPow: 1,
+	seventhPow: 1,
+	eightPow: 1,
+	interval: null
+};
 var firstButton = document.getElementById("first")
 var secondButton = document.getElementById("second")
 var thirdButton = document.getElementById("third")
 var fourthButton = document.getElementById("fourth")
+
+function set_cookie(cookie_name,value) {
+    expiry = new Date();   
+    expiry.setTime(new Date().getTime() + (10*60*1000)); 
+    var c_value=escape(btoa(JSON.stringify(value))) + 
+    "; expires="+expiry.toUTCString();
+    document.cookie=cookie_name + "=" + c_value;
+}
+
+function get_cookie(cookie_name) {
+    var c_value = document.cookie;
+    var c_start = c_value.indexOf(" " + cookie_name + "=");
+    if (c_start == -1) {
+        c_start = c_value.indexOf(cookie_name + "=");
+    }
+    if (c_start == -1) return false;
+    c_start = c_value.indexOf("=", c_start) + 1;
+    var c_end = c_value.indexOf(";", c_start);
+    if (c_end == -1) {
+        c_end = c_value.length;
+    }
+    c_value = atob(unescape(c_value.substring(c_start,c_end)));
+    return JSON.parse(c_value);
+}
+
+function load_game() {
+    var save_data = getCookie('dimensionSave');
+       if (!save_data) return;
+    player = save_data;
+    update_view();
+}
+
+function save_game() {
+    set_cookie('dimensionSave', player);
+}
+
 function updateMoney() {
 	var element = document.getElementById("coinAmount");
-  element.innerHTML = 'You have ' + shorten(Math.round(money * 10) /10) + ' antimatter.'
+  element.innerHTML = 'You have ' + shorten(Math.round(player.money * 10) /10) + ' antimatter.'
 }
 
 function updateCoinPerSec() {
 	var element = document.getElementById("coinsPerSec")
-  element.innerHTML = 'You are getting ' + shorten(Math.round(firstAmount* firstPow*(1000/tickspeed)*10)/10) + ' antimatter per second.'
+  element.innerHTML = 'You are getting ' + shorten(Math.round(player.firstAmount* player.firstPow*(1000/player.tickspeed)*10)/10) + ' antimatter per second.'
 }
 
 function updateDimensions() {
-	document.getElementById("firstAmount").innerHTML = 'x' + firstPow + '  ' + shorten(firstAmount) + ' (' + firstBought + ')';
-  document.getElementById("secondAmount").innerHTML = 'x' + secondPow + '  ' + shorten(secondAmount) + ' (' + secondBought + ')';
-  document.getElementById("thirdAmount").innerHTML = 'x' + thirdPow + '  ' + shorten(thirdAmount) + ' (' + thirdBought + ')';
-  document.getElementById("fourthAmount").innerHTML = 'x' + fourthPow + '  ' + shorten(fourthAmount) + ' (' + fourthBought + ')';
-  	document.getElementById("fifthAmount").innerHTML = 'x' + fifthPow + '  ' + shorten(fifthAmount) + ' (' + fifthBought + ')';
-  document.getElementById("sixthAmount").innerHTML = 'x' + sixthPow + '  ' + shorten(sixthAmount) + ' (' + sixthBought + ')';
-  document.getElementById("seventhAmount").innerHTML = 'x' + seventhPow + '  ' + shorten(seventhAmount) + ' (' + seventhBought + ')';
-  document.getElementById("eightAmount").innerHTML = 'x' + eightPow + '  ' + shorten(eightAmount) + ' (' + eightBought + ')';
+	document.getElementById("firstAmount").innerHTML = 'x' + player.firstPow + '  ' + shorten(player.firstAmount) + ' (' + player.firstBought + ')';
+  document.getElementById("secondAmount").innerHTML = 'x' + player.secondPow + '  ' + shorten(player.secondAmount) + ' (' + player.secondBought + ')';
+  document.getElementById("thirdAmount").innerHTML = 'x' + player.thirdPow + '  ' + shorten(player.thirdAmount) + ' (' + player.thirdBought + ')';
+  document.getElementById("fourthAmount").innerHTML = 'x' + player.fourthPow + '  ' + shorten(player.fourthAmount) + ' (' + player.fourthBought + ')';
+  document.getElementById("fifthAmount").innerHTML = 'x' + player.fifthPow + '  ' + shorten(player.fifthAmount) + ' (' + player.fifthBought + ')';
+  document.getElementById("sixthAmount").innerHTML = 'x' + player.sixthPow + '  ' + shorten(player.sixthAmount) + ' (' + player.sixthBought + ')';
+  document.getElementById("seventhAmount").innerHTML = 'x' + player.seventhPow + '  ' + shorten(player.seventhAmount) + ' (' + player.seventhBought + ')';
+  document.getElementById("eightAmount").innerHTML = 'x' + player.eightPow + '  ' + shorten(player.eightAmount) + ' (' + player.eightBought + ')';
 }
 
 function updateInterval() {
-if (tickspeed > 100) {
-clearInterval(interval)
-interval = setInterval(function() {
-	firstAmount += secondAmount * secondPow;
-  secondAmount += thirdAmount * thirdPow;
-  thirdAmount += fourthAmount * fourthPow;
-  fourthAmount += fifthAmount * fifthPow;
-  fifthAmount += sixthAmount * sixthPow;
-  sixthAmount += seventhAmount * seventhPow;
-  seventhAmount += eightAmount * eightPow;
+if (player.tickspeed > 100) {
+clearInterval(player.interval)
+player.interval = setInterval(function() {
+	player.firstAmount += player.secondAmount * player.secondPow;
+  player.secondAmount += player.thirdAmount * player.thirdPow;
+  player.thirdAmount += player.fourthAmount * player.fourthPow;
+  player.fourthAmount += player.fifthAmount * player.fifthPow;
+  player.fifthAmount += player.sixthAmount * player.sixthPow;
+  player.sixthAmount += player.seventhAmount * player.seventhPow;
+  player.seventhAmount += player.eightAmount * player.eightPow;
   updateDimensions();
-}, tickspeed*10);
+}, player.tickspeed*10);
 }
-else if (tickspeed > 10) {
-clearInterval(interval)
-interval = setInterval(function() {
-	firstAmount += secondAmount * secondPow*10;
-  secondAmount += thirdAmount * thirdPow*10;
-  thirdAmount += fourthAmount * fourthPow*10;
-  fourthAmount += fifthAmount * fifthPow*10;
-  fifthAmount += sixthAmount * sixthPow*10;
-  sixthAmount += seventhAmount * seventhPow*10;
-  seventhAmount += eightAmount * eightPow*10;
+else if (player.tickspeed > 10) {
+clearInterval(player.interval)
+player.interval = setInterval(function() {
+	player.firstAmount += player.secondAmount * player.secondPow*10;
+  player.secondAmount += player.thirdAmount * player.thirdPow*10;
+  player.thirdAmount += player.fourthAmount * player.fourthPow*10;
+  player.fourthAmount += player.fifthAmount * player.fifthPow*10;
+  player.fifthAmount += player.sixthAmount * player.sixthPow*10;
+  player.sixthAmount += player.seventhAmount * player.seventhPow*10;
+  player.seventhAmount += player.eightAmount * player.eightPow*10;
   updateDimensions();
-}, tickspeed*100);
+}, player.tickspeed*100);
 }
 else {
-clearInterval(interval)
-interval = setInterval(function() {
-	firstAmount += secondAmount * secondPow*100;
-  secondAmount += thirdAmount * thirdPow*100;
-  thirdAmount += fourthAmount * fourthPow*100;
-  fourthAmount += fifthAmount * fifthPow*100;
-  fifthAmount += sixthAmount * sixthPow*100;
-  sixthAmount += seventhAmount * seventhPow*100;
-  seventhAmount += eightAmount * eightPow*100;
+clearInterval(player.interval)
+player.interval = setInterval(function() {
+	player.firstAmount += player.secondAmount * player.secondPow*100;
+  player.secondAmount += player.thirdAmount * player.thirdPow*100;
+  player.thirdAmount += player.fourthAmount * player.fourthPow*100;
+  player.fourthAmount += player.fifthAmount * player.fifthPow*100;
+  player.fifthAmount += player.sixthAmount * player.sixthPow*100;
+  player.sixthAmount += player.seventhAmount * player.seventhPow*100;
+  player.seventhAmount += player.eightAmount * player.eightPow*100;
   updateDimensions();
-}, tickspeed*1000);
+}, player.tickspeed*1000);
 }
 }
 
 function updateCosts() {
-document.getElementById("third").innerHTML = 'Cost: ' + shorten(thirdCost)
-document.getElementById("fourth").innerHTML = 'Cost: ' + shorten(fourthCost)
-document.getElementById("fifth").innerHTML = 'Cost: ' + shorten(fifthCost)
-document.getElementById("sixth").innerHTML = 'Cost: ' + shorten(sixthCost)
-document.getElementById("seventh").innerHTML = 'Cost: ' + shorten(seventhCost)
-document.getElementById("eight").innerHTML = 'Cost: ' + shorten(eightCost)
+document.getElementById("third").innerHTML = 'Cost: ' + shorten(player.thirdCost)
+document.getElementById("fourth").innerHTML = 'Cost: ' + shorten(player.fourthCost)
+document.getElementById("fifth").innerHTML = 'Cost: ' + shorten(player.fifthCost)
+document.getElementById("sixth").innerHTML = 'Cost: ' + shorten(player.sixthCost)
+document.getElementById("seventh").innerHTML = 'Cost: ' + shorten(player.seventhCost)
+document.getElementById("eight").innerHTML = 'Cost: ' + shorten(player.eightCost)
 }
 
 
@@ -131,30 +169,30 @@ else if (x < 1e48) return Math.round(x/1e45 * 100)/100 + ' QdDc'
 }
 
 document.getElementById("tickSpeed").onclick = function() {
-	if (money >= tickSpeedCost) {
-  money -= tickSpeedCost;
-  tickspeed = tickspeed * .9;
-  tickSpeedCost = tickSpeedCost*5;
-  document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(tickspeed);
-  document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(tickSpeedCost);
+	if (player.money >= player.tickSpeedCost) {
+  player.money -= player.tickSpeedCost;
+  player.tickspeed = player.tickspeed * .9;
+  player.tickSpeedCost = player.tickSpeedCost*5;
+  document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed);
+  document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickSpeedCost);
   updateMoney();
   updateInterval();
   }
 }
 
 document.getElementById("first").onclick = function() {
-	if (money >= firstCost) {
-	firstAmount++;
-  money -= firstCost;
-  if (firstBought == 9) {
-  firstBought = 0
-  firstPow = firstPow * 2
-  firstCost = firstCost*100
+	if (player.money >= player.firstCost) {
+	player.firstAmount++;
+  player.money -= player.firstCost;
+  if (player.firstBought == 9) {
+  player.firstBought = 0
+  player.firstPow = player.firstPow * 2
+  player.firstCost = player.firstCost*100
   }
-  else firstBought++;
+  else player.firstBought++;
   updateCoinPerSec();
   var element = document.getElementById("first");
-  element.innerHTML = 'Cost: ' + shorten(firstCost);
+  element.innerHTML = 'Cost: ' + shorten(player.firstCost);
   updateMoney();
   updateDimensions();
   document.getElementById("secondRow").style.visibility = "visible";
@@ -162,18 +200,18 @@ document.getElementById("first").onclick = function() {
 }
 
 document.getElementById("second").onclick = function() {
-	if (money >= secondCost) {
-	secondAmount++;
-  money -= secondCost;
-  if (secondBought == 9) {
-  secondBought = 0
-  secondPow = secondPow * 2
-  secondCost = secondCost*1000
+	if (player.money >= player.secondCost) {
+	player.secondAmount++;
+  player.money -= player.secondCost;
+  if (player.secondBought == 9) {
+  player.secondBought = 0
+  player.secondPow = player.secondPow * 2
+  player.secondCost = player.secondCost*1000
   }
-  else secondBought++;
+  else player.secondBought++;
   updateCoinPerSec();
   var element = document.getElementById("second");
-  element.innerHTML = 'Cost: ' + shorten(secondCost);
+  element.innerHTML = 'Cost: ' + shorten(player.secondCost);
   updateMoney();
   updateDimensions();
   document.getElementById("thirdRow").style.visibility = "visible";
@@ -184,18 +222,18 @@ document.getElementById("second").onclick = function() {
 }
 
 document.getElementById("third").onclick = function() {
-	if (money >= thirdCost) {
-	thirdAmount++;
-  money -= thirdCost;
-  if (thirdBought == 9) {
-  thirdBought = 0
-  thirdPow = thirdPow * 2
-  thirdCost = thirdCost*10000
+	if (player.money >= player.thirdCost) {
+	player.thirdAmount++;
+  player.money -= player.thirdCost;
+  if (player.thirdBought == 9) {
+  player.thirdBought = 0
+  player.thirdPow = player.thirdPow * 2
+  player.thirdCost = player.thirdCost*10000
   }
-  else thirdBought++;
+  else player.thirdBought++;
   updateCoinPerSec();
   var element = document.getElementById("third");
-  element.innerHTML = 'Cost: ' + shorten(thirdCost);
+  element.innerHTML = 'Cost: ' + shorten(player.thirdCost);
   updateMoney();
   updateDimensions();
   document.getElementById("fourthRow").style.visibility = "visible";
@@ -203,18 +241,18 @@ document.getElementById("third").onclick = function() {
 }
 
 document.getElementById("fourth").onclick = function() {
-	if (money >= fourthCost) {
-	fourthAmount++;
-  money -= fourthCost;
-  if (fourthBought == 9) {
-  fourthBought = 0
-  fourthPow = fourthPow * 2
-  fourthCost = fourthCost*100000
+	if (player.money >= player.fourthCost) {
+	player.fourthAmount++;
+  player.money -= player.fourthCost;
+  if (player.fourthBought == 9) {
+  player.fourthBought = 0
+  player.fourthPow = player.fourthPow * 2
+  player.fourthCost = player.fourthCost*100000
   }
-  else fourthBought++;
+  else player.fourthBought++;
   updateCoinPerSec();
   var element = document.getElementById("fourth");
-  element.innerHTML = 'Cost: ' + shorten(fourthCost);
+  element.innerHTML = 'Cost: ' + shorten(player.fourthCost);
   updateMoney();
   updateDimensions();
   document.getElementById("fifthRow").style.visibility="visible";
@@ -222,18 +260,18 @@ document.getElementById("fourth").onclick = function() {
 }
 
 document.getElementById("fifth").onclick = function() {
-	if (money >= fifthCost) {
-	fifthAmount++;
-  money -= fifthCost;
-  if (fifthBought == 9) {
-  fifthBought = 0
-  fifthPow = fifthPow * 2
-  fifthCost = fifthCost*1e6
+	if (player.money >= player.fifthCost) {
+	player.fifthAmount++;
+  player.money -= player.fifthCost;
+  if (player.fifthBought == 9) {
+  player.fifthBought = 0
+  player.fifthPow = player.fifthPow * 2
+  player.fifthCost = player.fifthCost*1e6
   }
-  else fifthBought++;
+  else player.fifthBought++;
   updateCoinPerSec();
   var element = document.getElementById("fifth");
-  element.innerHTML = 'Cost: ' + shorten(fifthCost);
+  element.innerHTML = 'Cost: ' + shorten(player.fifthCost);
   updateMoney();
   updateDimensions();
   document.getElementById("sixthRow").style.visibility = "visible";
@@ -241,18 +279,18 @@ document.getElementById("fifth").onclick = function() {
 }
 
 document.getElementById("sixth").onclick = function() {
-	if (money >= sixthCost) {
-	sixthAmount++;
-  money -= sixthCost;
-  if (sixthBought == 9) {
-  sixthBought = 0
-  sixthPow = sixthPow * 2
-  sixthCost = sixthCost*1e7
+	if (player.money >= player.sixthCost) {
+	player.sixthAmount++;
+  player.money -= player.sixthCost;
+  if (player.sixthBought == 9) {
+  player.sixthBought = 0
+  player.sixthPow = player.sixthPow * 2
+  player.sixthCost = player.sixthCost*1e7
   }
-  else sixthBought++;
+  else player.sixthBought++;
   updateCoinPerSec();
   var element = document.getElementById("sixth");
-  element.innerHTML = 'Cost: ' + shorten(sixthCost);
+  element.innerHTML = 'Cost: ' + shorten(player.sixthCost);
   updateMoney();
   updateDimensions();
   document.getElementById("seventhRow").style.visibility = "visible";
@@ -260,18 +298,18 @@ document.getElementById("sixth").onclick = function() {
 }
 
 document.getElementById("seventh").onclick = function() {
-	if (money >= seventhCost) {
-	seventhAmount++;
-  money -= seventhCost;
-  if (seventhBought == 9) {
-  seventhBought = 0
-  seventhPow = seventhPow * 2
-  seventhCost = seventhCost*1e8
+	if (player.money >= player.seventhCost) {
+	player.seventhAmount++;
+  player.money -= player.seventhCost;
+  if (player.seventhBought == 9) {
+  player.seventhBought = 0
+  player.seventhPow = player.seventhPow * 2
+  player.seventhCost = player.seventhCost*1e8
   }
-  else seventhBought++;
+  else player.seventhBought++;
   updateCoinPerSec();
   var element = document.getElementById("seventh");
-  element.innerHTML = 'Cost: ' + shorten(seventhCost);
+  element.innerHTML = 'Cost: ' + shorten(player.seventhCost);
   updateMoney();
   updateDimensions();
   document.getElementById("eightRow").style.visibility = "visible";
@@ -279,18 +317,18 @@ document.getElementById("seventh").onclick = function() {
 }
 
 document.getElementById("eight").onclick = function() {
-	if (money >= eightCost) {
-	eightAmount++;
-  money -= eightCost;
-  if (eightBought == 9) {
-  eightBought = 0
-  eightPow = eightPow * 2
-  eightCost = eightCost*1e9
+	if (player.money >= player.eightCost) {
+	player.eightAmount++;
+  player.money -= player.eightCost;
+  if (player.eightBought == 9) {
+  player.eightBought = 0
+  player.eightPow = player.eightPow * 2
+  player.eightCost = player.eightCost*1e9
   }
-  else eightBought++;
+  else player.eightBought++;
   updateCoinPerSec();
   var element = document.getElementById("eight");
-  element.innerHTML = 'Cost: ' + shorten(eightCost);
+  element.innerHTML = 'Cost: ' + shorten(player.eightCost);
   updateMoney();
   updateDimensions();
   }
@@ -298,11 +336,13 @@ document.getElementById("eight").onclick = function() {
 
 
 setInterval(function() {
-	money += firstAmount*firstPow/(tickspeed/100);
+	player.money += player.firstAmount*player.firstPow/(player.tickspeed/100);
   updateMoney();
   updateCoinPerSec();
   updateVisibility
 }, 100);
+
+setInterval(function () { save_game(); }, 10000);
 
 updateCosts();
 updateInterval();
