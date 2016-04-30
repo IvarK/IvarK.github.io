@@ -12,6 +12,20 @@
        url('../fonts/Noto-Sans-regular/Noto-Sans-regular.svg#NotoSans') format('svg');
 }
 
+.storebtn {
+  color: #E0E0E0;
+  background: #E0E0E0;
+  font-weight: bold;
+  border: 1px solid #127A20;
+  width:120px;
+  height:30px;
+}
+ 
+.storebtn:hover {
+  color: #FFF;
+  background: #5AC467;
+}
+
 @font-face {
   font-family: 'Noto Sans';
   font-weight: 700;
