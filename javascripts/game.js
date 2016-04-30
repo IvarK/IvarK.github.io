@@ -108,6 +108,7 @@ function updateDimensions() {
   document.getElementById("sixthAmount").innerHTML = 'x' + player.sixthPow + '  ' + shorten(player.sixthAmount) + ' (' + player.sixthBought + ')';
   document.getElementById("seventhAmount").innerHTML = 'x' + player.seventhPow + '  ' + shorten(player.seventhAmount) + ' (' + player.seventhBought + ')';
   document.getElementById("eightAmount").innerHTML = 'x' + player.eightPow + '  ' + shorten(player.eightAmount) + ' (' + player.eightBought + ')';
+  document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed);
 }
 
 function updateInterval() {
@@ -379,7 +380,6 @@ setInterval(function() {
 }, 100);
 
 setInterval(function () { save_game(); }, 10000);
-
 updateCosts();
 updateInterval();
 updateDimensions();
