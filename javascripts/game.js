@@ -100,15 +100,22 @@ function updateCoinPerSec() {
 }
 
 function updateDimensions() {
-	document.getElementById("firstAmount").innerHTML = 'x' + player.firstPow + '  ' + shorten(player.firstAmount) + ' (' + player.firstBought + ')';
-  document.getElementById("secondAmount").innerHTML = 'x' + player.secondPow + '  ' + shorten(player.secondAmount) + ' (' + player.secondBought + ')';
-  document.getElementById("thirdAmount").innerHTML = 'x' + player.thirdPow + '  ' + shorten(player.thirdAmount) + ' (' + player.thirdBought + ')';
-  document.getElementById("fourthAmount").innerHTML = 'x' + player.fourthPow + '  ' + shorten(player.fourthAmount) + ' (' + player.fourthBought + ')';
-  document.getElementById("fifthAmount").innerHTML = 'x' + player.fifthPow + '  ' + shorten(player.fifthAmount) + ' (' + player.fifthBought + ')';
-  document.getElementById("sixthAmount").innerHTML = 'x' + player.sixthPow + '  ' + shorten(player.sixthAmount) + ' (' + player.sixthBought + ')';
-  document.getElementById("seventhAmount").innerHTML = 'x' + player.seventhPow + '  ' + shorten(player.seventhAmount) + ' (' + player.seventhBought + ')';
-  document.getElementById("eightAmount").innerHTML = 'x' + player.eightPow + '  ' + shorten(player.eightAmount) + ' (' + player.eightBought + ')';
-  document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed);
+	document.getElementById("firstAmount").innerHTML = shorten(player.firstAmount) + ' (' + player.firstBought + ')';
+  document.getElementById("secondAmount").innerHTML = shorten(player.secondAmount) + ' (' + player.secondBought + ')';
+  document.getElementById("thirdAmount").innerHTML = shorten(player.thirdAmount) + ' (' + player.thirdBought + ')';
+  document.getElementById("fourthAmount").innerHTML = shorten(player.fourthAmount) + ' (' + player.fourthBought + ')';
+  document.getElementById("fifthAmount").innerHTML = shorten(player.fifthAmount) + ' (' + player.fifthBought + ')';
+  document.getElementById("sixthAmount").innerHTML = shorten(player.sixthAmount) + ' (' + player.sixthBought + ')';
+  document.getElementById("seventhAmount").innerHTML = shorten(player.seventhAmount) + ' (' + player.seventhBought + ')';
+  document.getElementById("eightAmount").innerHTML = shorten(player.eightAmount) + ' (' + player.eightBought + ')';
+  document.getElementById("firstD").innerHTML = 'First Dimension  ' +  'x' + player.firstPow
+  document.getElementById("secondD").innerHTML = 'Second Dimension  ' +  'x' + player.secondPow
+  document.getElementById("thirdD").innerHTML = 'Third Dimension  ' +  'x' + player.thirdPow
+  document.getElementById("fourthD").innerHTML = 'Fourth Dimension  ' +  'x' + player.fourthPow
+  document.getElementById("fifthD").innerHTML = 'Fifth Dimension  ' +  'x' + player.fifthPow
+  document.getElementById("sixthD").innerHTML = 'Sixth Dimension  ' +  'x' + player.sixthPow
+  document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' +  'x' + player.seventhPow
+  document.getElementById("eightD").innerHTML = 'Eight Dimension  ' +  'x' + player.eightPow
 }
 
 function updateInterval() {
