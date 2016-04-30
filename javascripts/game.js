@@ -188,7 +188,7 @@ document.getElementById("tickSpeed").onclick = function() {
 	if (player.money >= player.tickSpeedCost) {
   player.money -= player.tickSpeedCost;
   player.tickspeed = player.tickspeed * .9;
-  player.tickSpeedCost = player.tickSpeedCost*5;
+  player.tickSpeedCost = player.tickSpeedCost*10;
   document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed);
   document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickSpeedCost);
   updateMoney();
@@ -203,7 +203,7 @@ document.getElementById("first").onclick = function() {
   if (player.firstBought == 9) {
   player.firstBought = 0
   player.firstPow = player.firstPow * 2
-  player.firstCost = player.firstCost*100
+  player.firstCost = player.firstCost*1000
   }
   else player.firstBought++;
   updateCoinPerSec();
@@ -222,7 +222,7 @@ document.getElementById("second").onclick = function() {
   if (player.secondBought == 9) {
   player.secondBought = 0
   player.secondPow = player.secondPow * 2
-  player.secondCost = player.secondCost*1000
+  player.secondCost = player.secondCost*10000
   }
   else player.secondBought++;
   updateCoinPerSec();
@@ -244,7 +244,7 @@ document.getElementById("third").onclick = function() {
   if (player.thirdBought == 9) {
   player.thirdBought = 0
   player.thirdPow = player.thirdPow * 2
-  player.thirdCost = player.thirdCost*10000
+  player.thirdCost = player.thirdCost*100000
   }
   else player.thirdBought++;
   updateCoinPerSec();
@@ -263,7 +263,7 @@ document.getElementById("fourth").onclick = function() {
   if (player.fourthBought == 9) {
   player.fourthBought = 0
   player.fourthPow = player.fourthPow * 2
-  player.fourthCost = player.fourthCost*100000
+  player.fourthCost = player.fourthCost*1000000
   }
   else player.fourthBought++;
   updateCoinPerSec();
@@ -282,7 +282,7 @@ document.getElementById("fifth").onclick = function() {
   if (player.fifthBought == 9) {
   player.fifthBought = 0
   player.fifthPow = player.fifthPow * 2
-  player.fifthCost = player.fifthCost*1e6
+  player.fifthCost = player.fifthCost*1e7
   }
   else player.fifthBought++;
   updateCoinPerSec();
@@ -301,7 +301,7 @@ document.getElementById("sixth").onclick = function() {
   if (player.sixthBought == 9) {
   player.sixthBought = 0
   player.sixthPow = player.sixthPow * 2
-  player.sixthCost = player.sixthCost*1e7
+  player.sixthCost = player.sixthCost*1e8
   }
   else player.sixthBought++;
   updateCoinPerSec();
@@ -320,7 +320,7 @@ document.getElementById("seventh").onclick = function() {
   if (player.seventhBought == 9) {
   player.seventhBought = 0
   player.seventhPow = player.seventhPow * 2
-  player.seventhCost = player.seventhCost*1e8
+  player.seventhCost = player.seventhCost*1e9
   }
   else player.seventhBought++;
   updateCoinPerSec();
@@ -339,7 +339,7 @@ document.getElementById("eight").onclick = function() {
   if (player.eightBought == 9) {
   player.eightBought = 0
   player.eightPow = player.eightPow * 2
-  player.eightCost = player.eightCost*1e9
+  player.eightCost = player.eightCost*1e10
   }
   else player.eightBought++;
   updateCoinPerSec();
