@@ -357,6 +357,16 @@ document.getElementById("reset").onclick = function() {
   updateCosts();
 	updateInterval();
 	updateDimensions();
+  document.getElementById("secondRow").style.visibility = "hidden";
+  document.getElementById("thirdRow").style.visibility = "hidden";
+  document.getElementById("tickSpeed").style.visibility = "hidden";
+ 	document.getElementById("tickLabel").style.visibility = "hidden";
+ 	document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+  document.getElementById("fourthRow").style.visibility = "hidden";
+  document.getElementById("fifthRow").style.visibility = "hidden";
+  document.getElementById("sixthRow").style.visibility = "hidden";
+  document.getElementById("seventhRow").style.visibility = "hidden";
+  document.getElementById("eightRow").style.visibility = "hidden";
   }
 }
 
@@ -365,7 +375,6 @@ setInterval(function() {
 	player.money += player.firstAmount*player.firstPow/(player.tickspeed/100);
   updateMoney();
   updateCoinPerSec();
-  updateVisibility
 }, 100);
 
 setInterval(function () { save_game(); }, 10000);
