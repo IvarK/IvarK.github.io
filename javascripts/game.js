@@ -335,15 +335,17 @@ document.getElementById("eight").onclick = function() {
 }
 
 
+
+
+
+load_game();
+updateCosts();
+updateInterval();
+updateDimensions();
+setInterval(function () { save_game(); }, 10000);
 setInterval(function() {
 	player.money += player.firstAmount*player.firstPow/(player.tickspeed/100);
   updateMoney();
   updateCoinPerSec();
   updateVisibility
 }, 100);
-
-setInterval(function () { save_game(); }, 10000);
-
-updateCosts();
-updateInterval();
-updateDimensions();
