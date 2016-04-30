@@ -41,6 +41,11 @@ var firstButton = document.getElementById("first")
 var secondButton = document.getElementById("second")
 var thirdButton = document.getElementById("third")
 var fourthButton = document.getElementById("fourth")
+var fifthButton = document.getElementById("fifth")
+var sixthButton = document.getElementById("sixth")
+var seventhButton = document.getElementById("seventh")
+var eightButton = document.getElementById("eight")
+var tickSpeedButton = document.getElementById("tickSpeed")
 
 function set_cookie(cookie_name,value) {
     expiry = new Date();   
@@ -403,6 +408,24 @@ setInterval(function() {
 	player.money += player.firstAmount*player.firstPow/(player.tickspeed/100);
   updateMoney();
   updateCoinPerSec();
+  if (player.firstCost > player.money) firstButton.className = 'unavailablebtn'
+  else firstButton.className = 'storebtn'
+  if (player.secondCost > player.money) secondButton.className = 'unavailablebtn'
+  else secondButton.className = 'storebtn'
+  if (player.thirdCost > player.money) thirdButton.className = 'unavailablebtn'
+  else thirdButton.className = 'storebtn'
+  if (player.fourthCost > player.money) fourthButton.className = 'unavailablebtn'
+  else fourthButton.className = 'storebtn'
+  if (player.fifthCost > player.money) fifthButton.className = 'unavailablebtn'
+  else fifthButton.className = 'storebtn'
+  if (player.sixthCost > player.money) sixthButton.className = 'unavailablebtn'
+  else sixthButton.className = 'storebtn'
+  if (player.seventhCost > player.money) seventhButton.className = 'unavailablebtn'
+  else seventhButton.className = 'storebtn'
+  if (player.eightCost > player.money) eightButton.className = 'unavailablebtn'
+  else eightButton.className = 'storebtn'
+  if (player.tickSpeedCost > player.money) tickSpeedButton.className = 'unavailablebtn'
+  else tickSpeedButton.className = 'storebtn'
 }, 100);
 
 setInterval(function () { save_game(); }, 10000);
