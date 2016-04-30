@@ -460,3 +460,4 @@ setInterval(function () { save_game(); }, 10000);
 updateCosts();
 updateInterval();
 updateDimensions();
+document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed);
