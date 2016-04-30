@@ -1,10 +1,14 @@
-var money = 10;
+var money = 1e30;
 var tickSpeedCost = 1000;
 var tickspeed = 1000;
 var firstCost = 10;
 var secondCost = 100;
 var thirdCost = 10000;
 var fourthCost = 1000000;
+var fifthCost = 1e9;
+var sixthCost = 1e13;
+var seventhCost = 1e18;
+var eightCost = 1e24;
 var firstAmount = 0;
 var secondAmount = 0;
 var thirdAmount = 0;
@@ -13,10 +17,22 @@ var firstBought = 0;
 var secondBought = 0;
 var thirdBought = 0;
 var fourthBought = 0;
+var fifthAmount = 0;
+var sixthAmount = 0;
+var seventhAmount = 0;
+var eightAmount = 0;
+var fifthBought = 0;
+var sixthBought = 0;
+var seventhBought = 0;
+var eightBought = 0;
 var firstPow = 1
 var secondPow = 1
 var thirdPow = 1
 var fourthPow = 1
+var fifthPow = 1
+var sixthPow = 1
+var seventhPow = 1
+var eightPow = 1
 var interval;
 var firstButton = document.getElementById("first")
 var secondButton = document.getElementById("second")
@@ -37,6 +53,10 @@ function updateDimensions() {
   document.getElementById("secondAmount").innerHTML = 'x' + secondPow + '  ' + shorten(secondAmount) + ' (' + secondBought + ')';
   document.getElementById("thirdAmount").innerHTML = 'x' + thirdPow + '  ' + shorten(thirdAmount) + ' (' + thirdBought + ')';
   document.getElementById("fourthAmount").innerHTML = 'x' + fourthPow + '  ' + shorten(fourthAmount) + ' (' + fourthBought + ')';
+  	document.getElementById("fifthAmount").innerHTML = 'x' + fifthPow + '  ' + shorten(fifthAmount) + ' (' + fifthBought + ')';
+  document.getElementById("sixthAmount").innerHTML = 'x' + sixthPow + '  ' + shorten(sixthAmount) + ' (' + sixthBought + ')';
+  document.getElementById("seventhAmount").innerHTML = 'x' + seventhPow + '  ' + shorten(seventhAmount) + ' (' + seventhBought + ')';
+  document.getElementById("eightAmount").innerHTML = 'x' + eightPow + '  ' + shorten(eightAmount) + ' (' + eightBought + ')';
 }
 
 function updateInterval() {
@@ -45,13 +65,21 @@ interval = setInterval(function() {
 	firstAmount += secondAmount * secondPow;
   secondAmount += thirdAmount * thirdPow;
   thirdAmount += fourthAmount * fourthPow;
+  fourthAmount += fifthAmount * fifthPow;
+  fifthAmount += sixthAmount * sixthPow;
+  sixthAmount += seventhAmount * seventhPow;
+  seventhAmount += eightAmount * eightPow;
   updateDimensions();
 }, tickspeed*10);
 }
 
 function updateCosts() {
-document.getElementById("third").innerHTML = 'Cost ' + shorten(thirdCost)
-document.getElementById("fourth").innerHTML = 'Cost ' + shorten(fourthCost)
+document.getElementById("third").innerHTML = 'Cost: ' + shorten(thirdCost)
+document.getElementById("fourth").innerHTML = 'Cost: ' + shorten(fourthCost)
+document.getElementById("fifth").innerHTML = 'Cost: ' + shorten(fifthCost)
+document.getElementById("sixth").innerHTML = 'Cost: ' + shorten(sixthCost)
+document.getElementById("seventh").innerHTML = 'Cost: ' + shorten(seventhCost)
+document.getElementById("eight").innerHTML = 'Cost: ' + shorten(eightCost)
 }
 
 
@@ -66,12 +94,12 @@ else if (x < 1e21) return Math.round(x/1e18 * 100)/100 + ' Qt'
 else if (x < 1e24) return Math.round(x/1e21 * 100)/100 + ' Sx'
 else if (x < 1e27) return Math.round(x/1e24 * 100)/100 + ' Sp'
 else if (x < 1e30) return Math.round(x/1e27 * 100)/100 + ' Oc'
-}
-
-function updateVisibility() {
-if (money >= 100) {
-	document.getElementById("second").style.visibility = "visible";
-  }
+else if (x < 1e33) return Math.round(x/1e30 * 100)/100 + ' No'
+else if (x < 1e36) return Math.round(x/1e33 * 100)/100 + ' Dc'
+else if (x < 1e39) return Math.round(x/1e36 * 100)/100 + ' UDc'
+else if (x < 1e42) return Math.round(x/1e39 * 100)/100 + ' DDc'
+else if (x < 1e45) return Math.round(x/1e42 * 100)/100 + ' TDc'
+else if (x < 1e48) return Math.round(x/1e45 * 100)/100 + ' QdDc'
 }
 
 document.getElementById("tickSpeed").onclick = function() {
@@ -161,8 +189,85 @@ document.getElementById("fourth").onclick = function() {
   element.innerHTML = 'Cost: ' + shorten(fourthCost);
   updateMoney();
   updateDimensions();
+  document.getElementById("fifthRow").style.visibility="visible";
   }
 }
+
+document.getElementById("fifth").onclick = function() {
+	if (money >= fifthCost) {
+	fifthAmount++;
+  money -= fifthCost;
+  if (fifthBought == 9) {
+  fifthBought = 0
+  fifthPow = fifthPow * 2
+  fifthCost = fifthCost*1e6
+  }
+  else fifthBought++;
+  updateCoinPerSec();
+  var element = document.getElementById("fifth");
+  element.innerHTML = 'Cost: ' + shorten(fifthCost);
+  updateMoney();
+  updateDimensions();
+  document.getElementById("sixthRow").style.visibility = "visible";
+  }
+}
+
+document.getElementById("sixth").onclick = function() {
+	if (money >= sixthCost) {
+	sixthAmount++;
+  money -= sixthCost;
+  if (sixthBought == 9) {
+  sixthBought = 0
+  sixthPow = sixthPow * 2
+  sixthCost = sixthCost*1e7
+  }
+  else sixthBought++;
+  updateCoinPerSec();
+  var element = document.getElementById("sixth");
+  element.innerHTML = 'Cost: ' + shorten(sixthCost);
+  updateMoney();
+  updateDimensions();
+  document.getElementById("seventhRow").style.visibility = "visible";
+  }
+}
+
+document.getElementById("seventh").onclick = function() {
+	if (money >= seventhCost) {
+	seventhAmount++;
+  money -= seventhCost;
+  if (seventhBought == 9) {
+  seventhBought = 0
+  seventhPow = seventhPow * 2
+  seventhCost = seventhCost*1e8
+  }
+  else seventhBought++;
+  updateCoinPerSec();
+  var element = document.getElementById("seventh");
+  element.innerHTML = 'Cost: ' + shorten(seventhCost);
+  updateMoney();
+  updateDimensions();
+  document.getElementById("eightRow").style.visibility = "visible";
+  }
+}
+
+document.getElementById("eight").onclick = function() {
+	if (money >= eightCost) {
+	eightAmount++;
+  money -= eightCost;
+  if (eightBought == 9) {
+  eightBought = 0
+  eightPow = eightPow * 2
+  eightCost = eightCost*1e9
+  }
+  else eightBought++;
+  updateCoinPerSec();
+  var element = document.getElementById("eight");
+  element.innerHTML = 'Cost: ' + shorten(eightCost);
+  updateMoney();
+  updateDimensions();
+  }
+}
+
 
 setInterval(function() {
 	money += firstAmount*firstPow/(tickspeed/100);
