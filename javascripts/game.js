@@ -168,21 +168,21 @@ document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickS
 
 function shorten(x) {
 if (x < 1000) return x;
-else if (x < 1000000) return Math.round(x/1000 * 100)/100 + ' K';
-else if (x < 1000000000) return Math.round(x/1000000 * 100)/100 + ' M';
-else if (x < 1000000000000) return Math.round(x/1000000000 * 100)/100 + ' B';
-else if (x < 1e15) return Math.round(x/1e12 * 100)/100 + ' T'
-else if (x < 1e18) return Math.round(x/1e15 * 100)/100 + ' Qd'
-else if (x < 1e21) return Math.round(x/1e18 * 100)/100 + ' Qt'
-else if (x < 1e24) return Math.round(x/1e21 * 100)/100 + ' Sx'
-else if (x < 1e27) return Math.round(x/1e24 * 100)/100 + ' Sp'
-else if (x < 1e30) return Math.round(x/1e27 * 100)/100 + ' Oc'
-else if (x < 1e33) return Math.round(x/1e30 * 100)/100 + ' No'
-else if (x < 1e36) return Math.round(x/1e33 * 100)/100 + ' Dc'
-else if (x < 1e39) return Math.round(x/1e36 * 100)/100 + ' UDc'
-else if (x < 1e42) return Math.round(x/1e39 * 100)/100 + ' DDc'
-else if (x < 1e45) return Math.round(x/1e42 * 100)/100 + ' TDc'
-else if (x < 1e48) return Math.round(x/1e45 * 100)/100 + ' QdDc'
+else if (Math.round(x * 100)/100 < 1000000) return Math.round(x/1000 * 100)/100 + ' K';
+else if (Math.round(x * 100)/100 < 1000000000) return Math.round(x/1000000 * 100)/100 + ' M';
+else if (Math.round(x * 100)/100 < 1000000000000) return Math.round(x/1000000000 * 100)/100 + ' B';
+else if (Math.round(x * 100)/100 < 1e15) return Math.round(x/1e12 * 100)/100 + ' T'
+else if (Math.round(x * 100)/100 < 1e18) return Math.round(x/1e15 * 100)/100 + ' Qd'
+else if (Math.round(x * 100)/100 < 1e21) return Math.round(x/1e18 * 100)/100 + ' Qt'
+else if (Math.round(x * 100)/100 < 1e24) return Math.round(x/1e21 * 100)/100 + ' Sx'
+else if (Math.round(x * 100)/100 < 1e27) return Math.round(x/1e24 * 100)/100 + ' Sp'
+else if (Math.round(x * 100)/100 < 1e30) return Math.round(x/1e27 * 100)/100 + ' Oc'
+else if (Math.round(x * 100)/100 < 1e33) return Math.round(x/1e30 * 100)/100 + ' No'
+else if (Math.round(x * 100)/100 < 1e36) return Math.round(x/1e33 * 100)/100 + ' Dc'
+else if (Math.round(x * 100)/100 < 1e39) return Math.round(x/1e36 * 100)/100 + ' UDc'
+else if (Math.round(x * 100)/100 < 1e42) return Math.round(x/1e39 * 100)/100 + ' DDc'
+else if (Math.round(x * 100)/100 < 1e45) return Math.round(x/1e42 * 100)/100 + ' TDc'
+else if (Math.round(x * 100)/100 < 1e48) return Math.round(x/1e45 * 100)/100 + ' QdDc'
 }
 
 function shortenMoney(x) {
