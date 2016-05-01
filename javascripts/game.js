@@ -385,7 +385,6 @@ document.getElementById("tickSpeed").onclick = function() {
   document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickSpeedCost);
   updateTickSpeed();
   updateMoney();
-  updateInterval();
   }
 }
 
