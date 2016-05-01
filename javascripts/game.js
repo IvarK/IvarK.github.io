@@ -183,6 +183,62 @@ function updateTickSpeed() {
   	else document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed);
 }
 
+function softReset() {
+player = {
+	money: 1e40,
+	tickSpeedCost: 1000,
+	tickspeed: 1000,
+	firstCost: 10,
+	secondCost: 100,
+	thirdCost: 10000,
+	fourthCost: 1000000,
+	fifthCost: 1e9,
+	sixthCost: 1e13,
+	seventhCost: 1e18,
+	eightCost: 1e24,
+	firstAmount: 0,
+	secondAmount: 0,
+	thirdAmount: 0,
+	fourthAmount: 0,
+	firstBought: 0,
+	secondBought: 0,
+	thirdBought: 0,
+	fourthBought: 0,
+	fifthAmount: 0,
+	sixthAmount: 0,
+	seventhAmount: 0,
+	eightAmount: 0,
+	fifthBought: 0,
+	sixthBought: 0,
+	seventhBought: 0,
+	eightBought: 0,
+	firstPow: Math.pow(2, player.resets +1),
+	secondPow: Math.pow(2, player.resets),
+	thirdPow: Math.max(Math.pow(2, player.resets - 1), 1),
+	fourthPow: Math.max(Math.pow(2, player.resets - 2), 1),
+	fifthPow: 1,
+	sixthPow: 1,
+	seventhPow: 1,
+	eightPow: 1,
+  resets: player.resets,
+	interval: null
+};
+player.resets++;
+updateInterval();
+	updateDimensions();
+  document.getElementById("secondRow").style.visibility = "hidden";
+  document.getElementById("thirdRow").style.visibility = "hidden";
+  document.getElementById("tickSpeed").style.visibility = "hidden";
+ 	document.getElementById("tickLabel").style.visibility = "hidden";
+ 	document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+  document.getElementById("fourthRow").style.visibility = "hidden";
+  document.getElementById("fifthRow").style.visibility = "hidden";
+  document.getElementById("sixthRow").style.visibility = "hidden";
+  document.getElementById("seventhRow").style.visibility = "hidden";
+  document.getElementById("eightRow").style.visibility = "hidden";
+  updateTickSpeed();
+}
+
 
 function shorten(x) {
 if (x < 1000) return Math.floor(x);
@@ -333,7 +389,7 @@ document.getElementById("fourth").onclick = function() {
   element.innerHTML = 'Cost: ' + shorten(player.fourthCost);
   updateMoney();
   updateDimensions();
-  document.getElementById("fifthRow").style.visibility="visible";
+  if(player.resets > 0) document.getElementById("fifthRow").style.visibility="visible";
   }
 }
 
@@ -352,7 +408,7 @@ document.getElementById("fifth").onclick = function() {
   element.innerHTML = 'Cost: ' + shorten(player.fifthCost);
   updateMoney();
   updateDimensions();
-  document.getElementById("sixthRow").style.visibility = "visible";
+  if(player.resets > 1) document.getElementById("sixthRow").style.visibility = "visible";
   }
 }
 
@@ -371,7 +427,7 @@ document.getElementById("sixth").onclick = function() {
   element.innerHTML = 'Cost: ' + shorten(player.sixthCost);
   updateMoney();
   updateDimensions();
-  document.getElementById("seventhRow").style.visibility = "visible";
+  if(player.resets > 2) document.getElementById("seventhRow").style.visibility = "visible";
   }
 }
 
@@ -390,7 +446,7 @@ document.getElementById("seventh").onclick = function() {
   element.innerHTML = 'Cost: ' + shorten(player.seventhCost);
   updateMoney();
   updateDimensions();
-  document.getElementById("eightRow").style.visibility = "visible";
+  if(player.resets > 3) document.getElementById("eightRow").style.visibility = "visible";
   }
 }
 
@@ -411,6 +467,34 @@ document.getElementById("eight").onclick = function() {
   updateDimensions();
   }
 }
+
+document.getElementById("softReset").onclick = function() {
+	if (player.resets == 0) {
+  	if (player.fourthAmount >= 20) {
+    softReset();
+    document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Fifth Dimension'
+    }
+  }
+  if (player.resets == 1) {
+  	if (player.fifthAmount >= 20) {
+    softReset();
+    document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Sixth Dimension'
+    }
+  }
+  if (player.resets == 2) {
+  	if (player.sixthAmount >= 20) {
+    softReset();
+    document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Seventh Dimension'
+    }
+  }
+  if (player.resets == 3) {
+  	if (player.seventhAmount >= 20) {
+    softReset();
+    document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Eight Dimension'
+    }
+  }
+}
+
 
 document.getElementById("reset").onclick = function() {
 	if(confirm("Do you really want to erase all your progress?")) {
