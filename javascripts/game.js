@@ -1,5 +1,5 @@
 var player = {
-	money: 10,
+	money: 1e40,
 	tickSpeedCost: 1000,
 	tickspeed: 1000,
 	firstCost: 10,
@@ -34,6 +34,7 @@ var player = {
 	sixthPow: 1,
 	seventhPow: 1,
 	eightPow: 1,
+  resets: 0,
 	interval: null
 };
 var defaultStart = player
@@ -121,6 +122,22 @@ function updateDimensions() {
   document.getElementById("sixthD").innerHTML = 'Sixth Dimension  ' +  'x' + player.sixthPow
   document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' +  'x' + player.seventhPow
   document.getElementById("eightD").innerHTML = 'Eight Dimension  ' +  'x' + player.eightPow
+  
+ 
+  	if (player.resets > 0) {
+    document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Fifth Dimension'
+    }
+  	if (player.resets > 1) {
+    document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Sixth Dimension'
+  }
+
+  	if (player.resets > 2) {
+    document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Seventh Dimension'
+  }
+  	if (player.resets > 3) {
+    document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Eight Dimension'
+    
+  }
 }
 
 function updateInterval() {
@@ -185,7 +202,7 @@ function updateTickSpeed() {
 
 function softReset() {
 player = {
-	money: 10,
+	money: 1e40,
 	tickSpeedCost: 1000,
 	tickspeed: 1000,
 	firstCost: 10,
@@ -224,6 +241,7 @@ player = {
 	interval: null
 };
 player.resets++;
+clearInterval(player.interval)
 updateInterval();
 	updateDimensions();
   document.getElementById("secondRow").style.visibility = "hidden";
@@ -389,7 +407,7 @@ document.getElementById("fourth").onclick = function() {
   element.innerHTML = 'Cost: ' + shorten(player.fourthCost);
   updateMoney();
   updateDimensions();
-  if(player.resets > 0) document.getElementById("fifthRow").style.visibility="visible";
+  if (player.resets > 0) document.getElementById("fifthRow").style.visibility="visible";
   }
 }
 
@@ -408,7 +426,7 @@ document.getElementById("fifth").onclick = function() {
   element.innerHTML = 'Cost: ' + shorten(player.fifthCost);
   updateMoney();
   updateDimensions();
-  if(player.resets > 1) document.getElementById("sixthRow").style.visibility = "visible";
+  if (player.resets > 1) document.getElementById("sixthRow").style.visibility = "visible";
   }
 }
 
@@ -427,7 +445,7 @@ document.getElementById("sixth").onclick = function() {
   element.innerHTML = 'Cost: ' + shorten(player.sixthCost);
   updateMoney();
   updateDimensions();
-  if(player.resets > 2) document.getElementById("seventhRow").style.visibility = "visible";
+  if (player.resets > 2) document.getElementById("seventhRow").style.visibility = "visible";
   }
 }
 
@@ -446,7 +464,7 @@ document.getElementById("seventh").onclick = function() {
   element.innerHTML = 'Cost: ' + shorten(player.seventhCost);
   updateMoney();
   updateDimensions();
-  if(player.resets > 3) document.getElementById("eightRow").style.visibility = "visible";
+  if (player.resets > 3) document.getElementById("eightRow").style.visibility = "visible";
   }
 }
 
@@ -494,7 +512,6 @@ document.getElementById("softReset").onclick = function() {
     }
   }
 }
-
 
 document.getElementById("reset").onclick = function() {
 	if(confirm("Do you really want to erase all your progress?")) {
