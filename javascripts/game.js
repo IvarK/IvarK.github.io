@@ -185,7 +185,7 @@ function updateTickSpeed() {
 
 function softReset() {
 player = {
-	money: 1e40,
+	money: 10,
 	tickSpeedCost: 1000,
 	tickspeed: 1000,
 	firstCost: 10,
