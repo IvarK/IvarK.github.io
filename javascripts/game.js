@@ -122,8 +122,9 @@ function updateDimensions() {
   document.getElementById("sixthD").innerHTML = 'Sixth Dimension  ' +  'x' + player.sixthPow
   document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' +  'x' + player.seventhPow
   document.getElementById("eightD").innerHTML = 'Eight Dimension  ' +  'x' + player.eightPow
+  if (player.resets == 0) document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Fourth Dimension'
   
- if (player.resets == 0) document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Fourth Dimension'
+ 
   	if (player.resets > 0) {
     document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Fifth Dimension'
     }
@@ -488,30 +489,28 @@ document.getElementById("eight").onclick = function() {
 }
 
 document.getElementById("softReset").onclick = function() {
-	if (player.resets == 0) {
-  	if (player.fourthAmount >= 20) {
-    softReset();
-    document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Fifth Dimension'
-    }
-  }
-  if (player.resets == 1) {
+   if (player.resets == 1) {
   	if (player.fifthAmount >= 20) {
     softReset();
     document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Sixth Dimension'
     }
   }
-  if (player.resets == 2) {
+  else if (player.resets == 2) {
   	if (player.sixthAmount >= 20) {
     softReset();
     document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Seventh Dimension'
     }
   }
-  if (player.resets == 3) {
+  else if (player.resets == 3) {
   	if (player.seventhAmount >= 20) {
     softReset();
     document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Eight Dimension'
     }
   }
+  else if (player.fourthAmount >= 20) {
+    softReset();
+    document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Fifth Dimension'
+    }
 }
 
 document.getElementById("reset").onclick = function() {
