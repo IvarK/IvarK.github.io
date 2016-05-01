@@ -185,34 +185,34 @@ function updateTickSpeed() {
 
 
 function shorten(x) {
-if (x < 1000) return x;
-else if (Math.round(x * 100)/100 < 1000000) return Math.round(x/1000 * 100)/100 + ' K';
-else if (Math.round(x * 100)/100 < 1000000000) return Math.round(x/1000000 * 100)/100 + ' M';
-else if (Math.round(x * 100)/100 < 1000000000000) return Math.round(x/1000000000 * 100)/100 + ' B';
-else if (Math.round(x * 100)/100 < 1e15) return Math.round(x/1e12 * 100)/100 + ' T'
-else if (Math.round(x * 100)/100 < 1e18) return Math.round(x/1e15 * 100)/100 + ' Qd'
-else if (Math.round(x * 100)/100 < 1e21) return Math.round(x/1e18 * 100)/100 + ' Qt'
-else if (Math.round(x * 100)/100 < 1e24) return Math.round(x/1e21 * 100)/100 + ' Sx'
-else if (Math.round(x * 100)/100 < 1e27) return Math.round(x/1e24 * 100)/100 + ' Sp'
-else if (Math.round(x * 100)/100 < 1e30) return Math.round(x/1e27 * 100)/100 + ' Oc'
-else if (Math.round(x * 100)/100 < 1e33) return Math.round(x/1e30 * 100)/100 + ' No'
-else if (Math.round(x * 100)/100 < 1e36) return Math.round(x/1e33 * 100)/100 + ' Dc'
-else if (Math.round(x * 100)/100 < 1e39) return Math.round(x/1e36 * 100)/100 + ' UDc'
-else if (Math.round(x * 100)/100 < 1e42) return Math.round(x/1e39 * 100)/100 + ' DDc'
-else if (Math.round(x * 100)/100 < 1e45) return Math.round(x/1e42 * 100)/100 + ' TDc'
-else if (Math.round(x * 100)/100 < 1e48) return Math.round(x/1e45 * 100)/100 + ' QdDc'
-else if (Math.round(x * 100)/100 < 1e51) return Math.round(x/1e48 * 100)/100 + ' QtDc'
-else if (Math.round(x * 100)/100 < 1e54) return Math.round(x/1e51 * 100)/100 + ' SxDc'
-else if (Math.round(x * 100)/100 < 1e57) return Math.round(x/1e54 * 100)/100 + ' SpDc'
-else if (Math.round(x * 100)/100 < 1e60) return Math.round(x/1e57 * 100)/100 + ' ODc'
-else if (Math.round(x * 100)/100 < 1e63) return Math.round(x/1e60 * 100)/100 + ' NDc'
-else if (Math.round(x * 100)/100 < 1e66) return Math.round(x/1e63 * 100)/100 + ' Vg'
-else if (Math.round(x * 100)/100 < 1e69) return Math.round(x/1e66 * 100)/100 + ' UVg'
-else if (Math.round(x * 100)/100 < 1e72) return Math.round(x/1e69 * 100)/100 + ' DVg'
-else if (Math.round(x * 100)/100 < 1e75) return Math.round(x/1e72 * 100)/100 + ' TVg'
-else if (Math.round(x * 100)/100 < 1e78) return Math.round(x/1e75 * 100)/100 + ' QdVg'
-else if (Math.round(x * 100)/100 < 1e81) return Math.round(x/1e78 * 100)/100 + ' QtVg'
-else if (Math.round(x * 100)/100 < 1e84) return Math.round(x/1e81 * 100)/100 + ' SxVg'
+if (x < 1000) return Math.floor(x);
+else if (Math.log10(x) < 6) return Math.round(x/1000 * 100)/100 + ' K';
+else if (Math.log10(x) < 9) return Math.round(x/1000000 * 100)/100 + ' M';
+else if (Math.log10(x) < 12) return Math.round(x/1000000000 * 100)/100 + ' B';
+else if (Math.log10(x) < 15) return Math.round(x/1e12 * 100)/100 + ' T'
+else if (Math.log10(x) < 18) return Math.round(x/1e15 * 100)/100 + ' Qd'
+else if (Math.log10(x) < 21) return Math.round(x/1e18 * 100)/100 + ' Qt'
+else if (Math.log10(x) < 24) return Math.round(x/1e21 * 100)/100 + ' Sx'
+else if (Math.log10(x) < 27) return Math.round(x/1e24 * 100)/100 + ' Sp'
+else if (Math.log10(x) < 30) return Math.round(x/1e27 * 100)/100 + ' Oc'
+else if (Math.log10(x) < 33) return Math.round(x/1e30 * 100)/100 + ' No'
+else if (Math.log10(x) < 36) return Math.round(x/1e33 * 100)/100 + ' Dc'
+else if (Math.log10(x) < 39) return Math.round(x/1e36 * 100)/100 + ' UDc'
+else if (Math.log10(x) < 42) return Math.round(x/1e39 * 100)/100 + ' DDc'
+else if (Math.log10(x) < 45) return Math.round(x/1e42 * 100)/100 + ' TDc'
+else if (Math.log10(x) < 48) return Math.round(x/1e45 * 100)/100 + ' QdDc'
+else if (Math.log10(x) < 51) return Math.round(x/1e48 * 100)/100 + ' QtDc'
+else if (Math.log10(x) < 54) return Math.round(x/1e51 * 100)/100 + ' SxDc'
+else if (Math.log10(x) < 57) return Math.round(x/1e54 * 100)/100 + ' SpDc'
+else if (Math.log10(x) < 60) return Math.round(x/1e57 * 100)/100 + ' ODc'
+else if (Math.log10(x) < 63) return Math.round(x/1e60 * 100)/100 + ' NDc'
+else if (Math.log10(x) < 66) return Math.round(x/1e63 * 100)/100 + ' Vg'
+else if (Math.log10(x) < 69) return Math.round(x/1e66 * 100)/100 + ' UVg'
+else if (Math.log10(x) < 72) return Math.round(x/1e69 * 100)/100 + ' DVg'
+else if (Math.log10(x) < 75) return Math.round(x/1e72 * 100)/100 + ' TVg'
+else if (Math.log10(x) < 78) return Math.round(x/1e75 * 100)/100 + ' QdVg'
+else if (Math.log10(x) < 81) return Math.round(x/1e78 * 100)/100 + ' QtVg'
+else if (Math.log10(x) < 84) return Math.round(x/1e81 * 100)/100 + ' SxVg'
 }
 
 function shortenMoney(x) {
