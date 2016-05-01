@@ -654,7 +654,7 @@ document.getElementById("seventhMax").onclick = function() {
 
 document.getElementById("eightMax").onclick = function() {
 	if (player.money >= player.eightCost*(10-player.eightBought)) {
-	player.fourthAmount += (10-player.eightBought);
+	player.eightAmount += (10-player.eightBought);
   player.money -= player.eightCost*(10-player.eightBought)
 	player.eightBought = 0;
 	player.eightPow *= 2
