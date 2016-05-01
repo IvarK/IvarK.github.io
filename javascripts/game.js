@@ -123,7 +123,7 @@ function updateDimensions() {
   document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' +  'x' + player.seventhPow
   document.getElementById("eightD").innerHTML = 'Eight Dimension  ' +  'x' + player.eightPow
   	if (player.resets > 3) {
-    document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Eight Dimension';
+    document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires '+ (player.resets - 3)*20 +' Eight Dimension';
     if (player.seventhAmount != 0) document.getElementById("eightRow").style.visibility="visible";
     }
   	else if (player.resets > 2) {
@@ -140,7 +140,7 @@ function updateDimensions() {
   } else document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Fourth Dimension'
 }
 
-function updateInterval() {
+/*function updateInterval() {
 if (player.tickspeed > 100) {
 clearInterval(player.interval)
 player.interval = setInterval(function() {
@@ -181,7 +181,7 @@ player.interval = setInterval(function() {
 }, player.tickspeed*1000);
 }
 }
-
+*/
 function updateCosts() {
 document.getElementById("first").innerHTML = 'Cost: ' + shorten(player.firstCost)
 document.getElementById("second").innerHTML = 'Cost: ' + shorten(player.secondCost)
@@ -192,12 +192,20 @@ document.getElementById("sixth").innerHTML = 'Cost: ' + shorten(player.sixthCost
 document.getElementById("seventh").innerHTML = 'Cost: ' + shorten(player.seventhCost)
 document.getElementById("eight").innerHTML = 'Cost: ' + shorten(player.eightCost)
 document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickSpeedCost)
+document.getElementById("firstMax").innerHTML = 'Until 10, Cost: ' + shorten(player.firstCost*(10-player.firstBought))
+document.getElementById("secondMax").innerHTML = 'Until 10, Cost: ' + shorten(player.secondCost*(10-player.secondBought))
+document.getElementById("thirdMax").innerHTML = 'Until 10, Cost: ' + shorten(player.thirdCost*(10-player.thirdBought))
+document.getElementById("fourthMax").innerHTML = 'Until 10, Cost: ' + shorten(player.fourthCost*(10-player.fourthBought))
+document.getElementById("fifthMax").innerHTML = 'Until 10, Cost: ' + shorten(player.fifthCost*(10-player.fifthBought))
+document.getElementById("sixthMax").innerHTML = 'Until 10, Cost: ' + shorten(player.sixthCost*(10-player.sixthBought))
+document.getElementById("seventhMax").innerHTML = 'Until 10, Cost: ' + shorten(player.seventhCost*(10-player.seventhBought))
+document.getElementById("eightMax").innerHTML = 'Until 10, Cost: ' + shorten(player.eightCost*(10-player.eightBought))
 }
 
 function updateTickSpeed() {
-	if (player.tickspeed <= 100) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*10)  + ' x10';
-  	else if (player.tickspeed <= 10) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*100)  + ' x100';
-  	else document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed);
+	if (player.tickspeed > 100) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed);
+  	else if (player.tickspeed > 10) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*10)  + ' x10';
+  	else document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*100) + ' x100';
 }
 
 function softReset() {
@@ -233,17 +241,17 @@ player = {
 	secondPow: Math.pow(2, player.resets),
 	thirdPow: Math.max(Math.pow(2, player.resets - 1), 1),
 	fourthPow: Math.max(Math.pow(2, player.resets - 2), 1),
-	fifthPow: 1,
-	sixthPow: 1,
-	seventhPow: 1,
-	eightPow: 1,
+	fifthPow: Math.max(Math.pow(2, player.resets - 3), 1),
+	sixthPow: Math.max(Math.pow(2, player.resets - 4), 1),
+	seventhPow: Math.max(Math.pow(2, player.resets - 5), 1),
+	eightPow: Math.max(Math.pow(2, player.resets - 6), 1),
   resets: player.resets,
 	interval: null
 };
 player.resets++;
 updateCosts();
   clearInterval(player.interval)
-	updateInterval();
+	//updateInterval();
 	updateDimensions();
   document.getElementById("secondRow").style.visibility = "hidden";
   document.getElementById("thirdRow").style.visibility = "hidden";
@@ -288,6 +296,30 @@ else if (Math.log10(x) < 75) return Math.round(x/1e72 * 100)/100 + ' TVg'
 else if (Math.log10(x) < 78) return Math.round(x/1e75 * 100)/100 + ' QdVg'
 else if (Math.log10(x) < 81) return Math.round(x/1e78 * 100)/100 + ' QtVg'
 else if (Math.log10(x) < 84) return Math.round(x/1e81 * 100)/100 + ' SxVg'
+else if (Math.log10(x) < 87) return Math.round(x/1e84 * 100)/100 + ' SpVg'
+else if (Math.log10(x) < 90) return Math.round(x/1e87 * 100)/100 + ' OVg'
+else if (Math.log10(x) < 93) return Math.round(x/1e90 * 100)/100 + ' NVg'
+else if (Math.log10(x) < 96) return Math.round(x/1e93 * 100)/100 + ' Tg'
+else if (Math.log10(x) < 99) return Math.round(x/1e96 * 100)/100 + ' UTg'
+else if (Math.log10(x) < 102) return Math.round(x/1e99 * 100)/100 + ' DTg'
+else if (Math.log10(x) < 105) return Math.round(x/1e102 * 100)/100 + ' TTg'
+else if (Math.log10(x) < 108) return Math.round(x/1e105 * 100)/100 + ' QdTg'
+else if (Math.log10(x) < 111) return Math.round(x/1e108 * 100)/100 + ' QtTg'
+else if (Math.log10(x) < 114) return Math.round(x/1e111 * 100)/100 + ' SxTg'
+else if (Math.log10(x) < 117) return Math.round(x/1e114 * 100)/100 + ' SpTg'
+else if (Math.log10(x) < 120) return Math.round(x/1e117 * 100)/100 + ' OTg'
+else if (Math.log10(x) < 123) return Math.round(x/1e120 * 100)/100 + ' NTg'
+else if (Math.log10(x) < 126) return Math.round(x/1e123 * 100)/100 + ' Qa'
+else if (Math.log10(x) < 129) return Math.round(x/1e126 * 100)/100 + ' UQa'
+else if (Math.log10(x) < 132) return Math.round(x/1e129 * 100)/100 + ' DQa'
+else if (Math.log10(x) < 135) return Math.round(x/1e132 * 100)/100 + ' TQa'
+else if (Math.log10(x) < 138) return Math.round(x/1e135 * 100)/100 + ' QdQa'
+else if (Math.log10(x) < 141) return Math.round(x/1e138 * 100)/100 + ' QtQa'
+else if (Math.log10(x) < 144) return Math.round(x/1e141 * 100)/100 + ' SxQa'
+else if (Math.log10(x) < 147) return Math.round(x/1e144 * 100)/100 + ' SpQa'
+else if (Math.log10(x) < 150) return Math.round(x/1e147 * 100)/100 + ' OQa'
+else if (Math.log10(x) < 153) return Math.round(x/1e150 * 100)/100 + ' NQa'
+else if (Math.log10(x) < 156) return Math.round(x/1e153 * 100)/100 + ' Qi'
 }
 
 function shortenMoney(x) {
@@ -319,6 +351,30 @@ else if (x < 1e75) return (x/1e72).toFixed(2) + ' TVg'
 else if (x < 1e78) return (x/1e75).toFixed(2) + ' QdVg'
 else if (x < 1e81) return (x/1e78).toFixed(2) + ' QtVg'
 else if (x < 1e84) return (x/1e81).toFixed(2) + ' SxVg'
+else if (x < 1e87) return (x/1e84).toFixed(2) + ' SpVg'
+else if (x < 1e90) return (x/1e87).toFixed(2) + ' OVg'
+else if (x < 1e93) return (x/1e90).toFixed(2) + ' NVg'
+else if (x < 1e96) return (x/1e93).toFixed(2) + ' Tg'
+else if (x < 1e99) return (x/1e96).toFixed(2) + ' UTg'
+else if (x < 1e102) return (x/1e99).toFixed(2) + ' DTg'
+else if (x < 1e105) return (x/1e102).toFixed(2) + ' TTg'
+else if (x < 1e108) return (x/1e105).toFixed(2) + ' QdTg'
+else if (x < 1e111) return (x/1e108).toFixed(2) + ' QtTg'
+else if (x < 1e114) return (x/1e111).toFixed(2) + ' SxTg'
+else if (x < 1e117) return (x/1e114).toFixed(2) + ' SpTg'
+else if (x < 1e120) return (x/1e117).toFixed(2) + ' OTg'
+else if (x < 1e123) return (x/1e120).toFixed(2) + ' NTg'
+else if (x < 1e126) return (x/1e123).toFixed(2) + ' Qa'
+else if (x < 1e129) return (x/1e126).toFixed(2) + ' UQa'
+else if (x < 1e132) return (x/1e129).toFixed(2) + ' DQa'
+else if (x < 1e135) return (x/1e132).toFixed(2) + ' TQa'
+else if (x < 1e138) return (x/1e135).toFixed(2) + ' QdQa'
+else if (x < 1e141) return (x/1e138).toFixed(2) + ' QtQa'
+else if (x < 1e144) return (x/1e141).toFixed(2) + ' SxQa'
+else if (x < 1e147) return (x/1e144).toFixed(2) + ' SpQa'
+else if (x < 1e150) return (x/1e147).toFixed(2) + ' OQa'
+else if (x < 1e153) return (x/1e150).toFixed(2) + ' NQa'
+else if (x < 1e156) return (x/1e153).toFixed(2) + ' Qi'
 }
 
 document.getElementById("tickSpeed").onclick = function() {
@@ -346,6 +402,7 @@ document.getElementById("first").onclick = function() {
   updateCoinPerSec();
   var element = document.getElementById("first");
   element.innerHTML = 'Cost: ' + shorten(player.firstCost);
+  updateCosts()
   updateMoney();
   updateDimensions();
   document.getElementById("secondRow").style.visibility = "visible";
@@ -365,6 +422,7 @@ document.getElementById("second").onclick = function() {
   updateCoinPerSec();
   var element = document.getElementById("second");
   element.innerHTML = 'Cost: ' + shorten(player.secondCost);
+  updateCosts()
   updateMoney();
   updateDimensions();
   document.getElementById("thirdRow").style.visibility = "visible";
@@ -387,6 +445,7 @@ document.getElementById("third").onclick = function() {
   updateCoinPerSec();
   var element = document.getElementById("third");
   element.innerHTML = 'Cost: ' + shorten(player.thirdCost);
+  updateCosts()
   updateMoney();
   updateDimensions();
   document.getElementById("fourthRow").style.visibility = "visible";
@@ -406,6 +465,7 @@ document.getElementById("fourth").onclick = function() {
   updateCoinPerSec();
   var element = document.getElementById("fourth");
   element.innerHTML = 'Cost: ' + shorten(player.fourthCost);
+  updateCosts()
   updateMoney();
   updateDimensions();
   if (player.resets > 0) document.getElementById("fifthRow").style.visibility="visible";
@@ -419,12 +479,13 @@ document.getElementById("fifth").onclick = function() {
   if (player.fifthBought == 9) {
   player.fifthBought = 0
   player.fifthPow = player.fifthPow * 2
-  player.fifthCost = player.fifthCost*1e7
+  player.fifthCost = player.fifthCost*1e8
   }
   else player.fifthBought++;
   updateCoinPerSec();
   var element = document.getElementById("fifth");
   element.innerHTML = 'Cost: ' + shorten(player.fifthCost);
+  updateCosts()
   updateMoney();
   updateDimensions();
   if (player.resets > 1) document.getElementById("sixthRow").style.visibility = "visible";
@@ -438,12 +499,13 @@ document.getElementById("sixth").onclick = function() {
   if (player.sixthBought == 9) {
   player.sixthBought = 0
   player.sixthPow = player.sixthPow * 2
-  player.sixthCost = player.sixthCost*1e8
+  player.sixthCost = player.sixthCost*1e10
   }
   else player.sixthBought++;
   updateCoinPerSec();
   var element = document.getElementById("sixth");
   element.innerHTML = 'Cost: ' + shorten(player.sixthCost);
+  updateCosts()
   updateMoney();
   updateDimensions();
   if (player.resets > 2) document.getElementById("seventhRow").style.visibility = "visible";
@@ -457,12 +519,13 @@ document.getElementById("seventh").onclick = function() {
   if (player.seventhBought == 9) {
   player.seventhBought = 0
   player.seventhPow = player.seventhPow * 2
-  player.seventhCost = player.seventhCost*1e9
+  player.seventhCost = player.seventhCost*1e12
   }
   else player.seventhBought++;
   updateCoinPerSec();
   var element = document.getElementById("seventh");
   element.innerHTML = 'Cost: ' + shorten(player.seventhCost);
+  updateCosts()
   updateMoney();
   updateDimensions();
   if (player.resets > 3) document.getElementById("eightRow").style.visibility = "visible";
@@ -476,19 +539,137 @@ document.getElementById("eight").onclick = function() {
   if (player.eightBought == 9) {
   player.eightBought = 0
   player.eightPow = player.eightPow * 2
-  player.eightCost = player.eightCost*1e10
+  player.eightCost = player.eightCost*1e15
   }
   else player.eightBought++;
   updateCoinPerSec();
   var element = document.getElementById("eight");
   element.innerHTML = 'Cost: ' + shorten(player.eightCost);
+  updateCosts()
   updateMoney();
   updateDimensions();
   }
 }
 
+document.getElementById("firstMax").onclick = function() {
+if (player.money >= player.firstCost*(10-player.firstBought)) {
+	player.firstAmount += (10-player.firstBought);
+	player.firstBought = 0;
+	player.money -= player.firstCost*(10-player.firstBought)
+	player.firstPow *= 2
+	player.firstCost *= 1e3
+  updateCosts();
+  updateMoney();
+  updateDimensions();
+  document.getElementById("secondRow").style.visibility = "visible";
+}
+}
+
+document.getElementById("secondMax").onclick = function() {
+if (player.money >= player.secondCost*(10-player.secondBought)) {
+	player.secondAmount += (10-player.secondBought);
+	player.secondBought = 0;
+	player.money -= player.secondCost*(10-player.secondBought)
+	player.secondPow *= 2
+	player.secondCost *= 1e4
+  updateCosts();
+  updateMoney();
+  updateDimensions();
+  document.getElementById("thirdRow").style.visibility = "visible";
+}
+}
+
+document.getElementById("thirdMax").onclick = function() {
+if (player.money >= player.thirdCost*(10-player.thirdBought)) {
+	player.thirdAmount += (10-player.thirdBought);
+	player.thirdBought = 0;
+	player.money -= player.thirdCost*(10-player.thirdBought)
+	player.thirdPow *= 2
+	player.thirdCost *= 1e5
+  updateCosts();
+  updateMoney();
+  updateDimensions();
+  document.getElementById("fourthRow").style.visibility = "visible";
+}
+}
+
+document.getElementById("fourthMax").onclick = function() {
+	if (player.money >= player.fourthCost*(10-player.fourthBought)) {
+	player.fourthAmount += (10-player.fourthBought);
+	player.fourthBought = 0;
+	player.money -= player.fourthCost*(10-player.fourthBought)
+	player.fourthPow *= 2
+	player.fourthCost *= 1e6
+  updateCosts();
+  updateMoney();
+  updateDimensions();
+  if (player.resets > 0) document.getElementById("fifthRow").style.visibility = "visible";
+}
+}
+
+document.getElementById("fifthMax").onclick = function() {
+	if (player.money >= player.fifthCost*(10-player.fifthBought)) {
+	player.fifthAmount += (10-player.fifthBought);
+	player.fifthBought = 0;
+	player.money -= player.fifthCost*(10-player.fifthBought)
+	player.fifthPow *= 2
+	player.fifthCost *= 1e8
+  updateCosts();
+  updateMoney();
+  updateDimensions();
+  if (player.resets > 1) document.getElementById("sixthRow").style.visibility = "visible";
+}
+}
+
+document.getElementById("sixthMax").onclick = function() {
+	if (player.money >= player.sixthCost*(10-player.sixthBought)) {
+	player.sixthAmount += (10-player.sixthBought);
+	player.sixthBought = 0;
+	player.money -= player.sixthCost*(10-player.sixthBought)
+	player.sixthPow *= 2
+	player.sixthCost *= 1e10
+  updateCosts();
+  updateMoney();
+  updateDimensions();
+  if (player.resets > 2) document.getElementById("seventhRow").style.visibility = "visible";
+}
+}
+
+document.getElementById("seventhMax").onclick = function() {
+	if (player.money >= player.seventhCost*(10-player.seventhBought)) {
+	player.seventhAmount += (10-player.seventhBought);
+	player.seventhBought = 0;
+	player.money -= player.seventhCost*(10-player.seventhBought)
+	player.seventhPow *= 2
+	player.seventhCost *= 1e12
+  updateCosts();
+  updateMoney();
+  updateDimensions();
+  if (player.resets > 3) document.getElementById("eightRow").style.visibility = "visible";
+}
+}
+
+document.getElementById("eightMax").onclick = function() {
+	if (player.money >= player.eightCost*(10-player.eightBought)) {
+	player.fourthAmount += (10-player.eightBought);
+	player.eightBought = 0;
+	player.money -= player.eightCost*(10-player.eightBought)
+	player.eightPow *= 2
+	player.eightCost *= 1e15
+  updateCosts();
+  updateMoney();
+  updateDimensions();
+}
+}
+
 document.getElementById("softReset").onclick = function() {
-   if (player.resets == 1) {
+	if (player.resets == 0) {
+  	if (player.fourthAmount >= 20) {
+  		softReset();
+    	document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Fifth Dimension'
+      }
+    }
+  else if (player.resets == 1) {
   	if (player.fifthAmount >= 20) {
     softReset();
     document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Sixth Dimension'
@@ -506,9 +687,11 @@ document.getElementById("softReset").onclick = function() {
     document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Eight Dimension'
     }
   }
-  else if (player.fourthAmount >= 20) {
+  else if (player.resets > 3) {
+  if (player.eightAmount >= (player.resets - 3)*20) {
     softReset();
-    document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Fifth Dimension'
+    document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires ' + (player.resets - 3)*20 +' Eight Dimension'
+    }
     }
 }
 
@@ -518,7 +701,7 @@ document.getElementById("reset").onclick = function() {
   load_game();
   updateCosts();
   clearInterval(player.interval)
-	updateInterval();
+	//updateInterval();
 	updateDimensions();
   document.getElementById("secondRow").style.visibility = "hidden";
   document.getElementById("thirdRow").style.visibility = "hidden";
@@ -533,7 +716,7 @@ document.getElementById("reset").onclick = function() {
   updateTickSpeed();
   }
 }
-
+var index = 0;
 load_game();
 setInterval(function() {
 	player.money += player.firstAmount*player.firstPow/(player.tickspeed/100);
@@ -557,6 +740,27 @@ setInterval(function() {
   else eightButton.className = 'storebtn'
   if (player.tickSpeedCost > player.money) tickSpeedButton.className = 'unavailablebtn'
   else tickSpeedButton.className = 'storebtn'
+  if (player.firstCost*(10-player.firstBought) > player.money) document.getElementById("firstMax").className = 'unavailablebtn'
+  else document.getElementById("firstMax").className = 'storebtn'
+  if (player.secondCost*(10-player.secondBought) > player.money) document.getElementById("secondMax").className = 'unavailablebtn'
+  else document.getElementById("secondMax").className = 'storebtn'
+  if (player.thirdCost*(10-player.thirdBought) > player.money) document.getElementById("thirdMax").className = 'unavailablebtn'
+  else document.getElementById("thirdMax").className = 'storebtn'
+  if (player.fourthCost*(10-player.fourthBought) > player.money) document.getElementById("fourthMax").className = 'unavailablebtn'
+  else document.getElementById("fourthMax").className = 'storebtn'
+  if (player.fifthCost*(10-player.fifthBought) > player.money) document.getElementById("fifthMax").className = 'unavailablebtn'
+  else document.getElementById("fifthMax").className = 'storebtn'
+  if (player.sixthCost*(10-player.sixthBought) > player.money) document.getElementById("sixthMax").className = 'unavailablebtn'
+  else document.getElementById("sixthMax").className = 'storebtn'
+  if (player.seventhCost*(10-player.seventhBought) > player.money) document.getElementById("seventhMax").className = 'unavailablebtn'
+  else document.getElementById("seventhMax").className = 'storebtn'
+  if (player.eightCost*(10-player.eightBought) > player.money) document.getElementById("eightMax").className = 'unavailablebtn'
+  else document.getElementById("eightMax").className = 'storebtn'
+  if (player.resets == 0) {
+  	if (player.fourthAmount >= 20) {
+    	document.getElementById("softReset").className = 'storebtn'
+    } else document.getElementById("softReset").className = 'unavailablebtn'
+  }
   if (player.resets == 1) {
   	if (player.fifthAmount >= 20) {
     	document.getElementById("softReset").className = 'storebtn'
@@ -572,13 +776,56 @@ setInterval(function() {
     document.getElementById("softReset").className = 'storebtn'
     } else document.getElementById("softReset").className = 'unavailablebtn'
   }
-  else if (player.fourthAmount >= 20) {
+  else if (player.resets > 3) {
+  	if (player.eightAmount >= (player.resets - 3)*20) {
     document.getElementById("softReset").className = 'storebtn'
     } else document.getElementById("softReset").className = 'unavailablebtn'
+    }
+    
+    index++;
+    if (player.tickspeed > 100) {
+    	if (index >= player.tickspeed/10) {
+    		index = 0;
+        player.firstAmount += player.secondAmount * player.secondPow;
+  			player.secondAmount += player.thirdAmount * player.thirdPow;
+  			player.thirdAmount += player.fourthAmount * player.fourthPow;
+  			player.fourthAmount += player.fifthAmount * player.fifthPow;
+  			player.fifthAmount += player.sixthAmount * player.sixthPow;
+  			player.sixthAmount += player.seventhAmount * player.seventhPow;
+  			player.seventhAmount += player.eightAmount * player.eightPow;
+  			updateDimensions();
+    		}
+    }
+    else if (player.tickspeed > 10) {
+    	if (index >= player.tickspeed) {
+    		index = 0;
+        player.firstAmount += player.secondAmount * player.secondPow*10;
+  			player.secondAmount += player.thirdAmount * player.thirdPow*10;
+  			player.thirdAmount += player.fourthAmount * player.fourthPow*10;
+  			player.fourthAmount += player.fifthAmount * player.fifthPow*10;
+  			player.fifthAmount += player.sixthAmount * player.sixthPow*10;
+  			player.sixthAmount += player.seventhAmount * player.seventhPow*10;
+  			player.seventhAmount += player.eightAmount * player.eightPow*10;
+  			updateDimensions();
+    		}
+    }
+    else {
+    	if (index >= player.tickspeed*10) {
+    		index = 0;
+        player.firstAmount += player.secondAmount * player.secondPow*100;
+  			player.secondAmount += player.thirdAmount * player.thirdPow*100;
+  			player.thirdAmount += player.fourthAmount * player.fourthPow*100;
+  			player.fourthAmount += player.fifthAmount * player.fifthPow*100;
+  			player.fifthAmount += player.sixthAmount * player.sixthPow*100;
+  			player.sixthAmount += player.seventhAmount * player.seventhPow*100;
+  			player.seventhAmount += player.eightAmount * player.eightPow*100;
+  			updateDimensions();
+    		}
+    }
 }, 100);
 
 setInterval(function () { save_game(); }, 10000);
 updateCosts();
-updateInterval();
+//updateInterval();
 updateDimensions();
 updateTickSpeed();
