@@ -84,10 +84,10 @@ function load_game() {
   		document.getElementById("tickSpeedAmount").style.visibility = "visible";
     	}
     	if (player.thirdAmount != 0) document.getElementById("fourthRow").style.visibility = "visible";
-    	if (player.fourthAmount != 0) document.getElementById("fifthRow").style.visibility = "visible";
-    	if (player.fifthAmount != 0) document.getElementById("sixthRow").style.visibility = "visible";
-    	if (player.sixthAmount != 0) document.getElementById("seventhRow").style.visibility = "visible";
-    	if (player.seventhAmount != 0) document.getElementById("eightRow").style.visibility = "visible";
+    	if (player.fourthAmount != 0) if (player.resets > 0) document.getElementById("fifthRow").style.visibility = "visible";
+    	if (player.fifthAmount != 0) if (player.resets > 1) document.getElementById("sixthRow").style.visibility = "visible";
+    	if (player.sixthAmount != 0) if (player.resets > 2) document.getElementById("seventhRow").style.visibility = "visible";
+    	if (player.seventhAmount != 0) if (player.resets > 3) document.getElementById("eightRow").style.visibility = "visible";
     	updateCosts;
 }
 
