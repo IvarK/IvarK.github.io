@@ -255,6 +255,7 @@ updateInterval();
   document.getElementById("seventhRow").style.visibility = "hidden";
   document.getElementById("eightRow").style.visibility = "hidden";
   updateTickSpeed();
+  updateCosts();
 }
 
 
