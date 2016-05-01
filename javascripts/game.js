@@ -122,23 +122,22 @@ function updateDimensions() {
   document.getElementById("sixthD").innerHTML = 'Sixth Dimension  ' +  'x' + player.sixthPow
   document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' +  'x' + player.seventhPow
   document.getElementById("eightD").innerHTML = 'Eight Dimension  ' +  'x' + player.eightPow
-  if (player.resets == 0) document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Fourth Dimension'
-  
- 
   	if (player.resets > 0) {
-    document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Fifth Dimension'
+    document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Fifth Dimension';
+    if (player.fourthAmount != 0) document.getElementById("fifthRow").style.visibility="visible";
     }
-  	if (player.resets > 1) {
+  	else if (player.resets > 1) {
     document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Sixth Dimension'
+    if (player.fifthAmount != 0) document.getElementById("sixthRow").style.visibility="visible";
   }
-
-  	if (player.resets > 2) {
+  	else if (player.resets > 2) {
     document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Seventh Dimension'
+    if (player.sixthAmount != 0) document.getElementById("seventhRow").style.visibility="visible";
   }
-  	if (player.resets > 3) {
+  	else if (player.resets > 3) {
     document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Eight Dimension'
-    
-  }
+    if (player.seventhAmount != 0) document.getElementById("eightRow").style.visibility="visible";
+  } else document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Fourth Dimension'
 }
 
 function updateInterval() {
@@ -242,8 +241,9 @@ player = {
 	interval: null
 };
 player.resets++;
-clearInterval(player.interval)
-updateInterval();
+updateCosts();
+  clearInterval(player.interval)
+	updateInterval();
 	updateDimensions();
   document.getElementById("secondRow").style.visibility = "hidden";
   document.getElementById("thirdRow").style.visibility = "hidden";
@@ -256,7 +256,6 @@ updateInterval();
   document.getElementById("seventhRow").style.visibility = "hidden";
   document.getElementById("eightRow").style.visibility = "hidden";
   updateTickSpeed();
-  updateCosts();
 }
 
 
@@ -558,6 +557,24 @@ setInterval(function() {
   else eightButton.className = 'storebtn'
   if (player.tickSpeedCost > player.money) tickSpeedButton.className = 'unavailablebtn'
   else tickSpeedButton.className = 'storebtn'
+  if (player.resets == 1) {
+  	if (player.fifthAmount >= 20) {
+    	document.getElementById("softReset").className = 'storebtn'
+    } else document.getElementById("softReset").className = 'unavailablebtn'
+  }
+  else if (player.resets == 2) {
+  	if (player.sixthAmount >= 20) {
+    document.getElementById("softReset").className = 'storebtn'
+    } else document.getElementById("softReset").className = 'unavailablebtn'
+  }
+  else if (player.resets == 3) {
+  	if (player.seventhAmount >= 20) {
+    document.getElementById("softReset").className = 'storebtn'
+    } else document.getElementById("softReset").className = 'unavailablebtn'
+  }
+  else if (player.fourthAmount >= 20) {
+    document.getElementById("softReset").className = 'storebtn'
+    } else document.getElementById("softReset").className = 'unavailablebtn'
 }, 100);
 
 setInterval(function () { save_game(); }, 10000);
