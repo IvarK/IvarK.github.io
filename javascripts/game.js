@@ -123,7 +123,7 @@ function updateDimensions() {
   document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' +  'x' + player.seventhPow
   document.getElementById("eightD").innerHTML = 'Eight Dimension  ' +  'x' + player.eightPow
   
- 
+ if (player.resets == 0) document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Fourth Dimension'
   	if (player.resets > 0) {
     document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Fifth Dimension'
     }
