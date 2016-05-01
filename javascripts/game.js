@@ -122,20 +122,20 @@ function updateDimensions() {
   document.getElementById("sixthD").innerHTML = 'Sixth Dimension  ' +  'x' + player.sixthPow
   document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' +  'x' + player.seventhPow
   document.getElementById("eightD").innerHTML = 'Eight Dimension  ' +  'x' + player.eightPow
-  	if (player.resets > 0) {
-    document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Fifth Dimension';
+  	if (player.resets > 3) {
+    document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Eight Dimension';
     if (player.fourthAmount != 0) document.getElementById("fifthRow").style.visibility="visible";
     }
-  	else if (player.resets > 1) {
-    document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Sixth Dimension'
-    if (player.fifthAmount != 0) document.getElementById("sixthRow").style.visibility="visible";
-  }
   	else if (player.resets > 2) {
     document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Seventh Dimension'
+    if (player.fifthAmount != 0) document.getElementById("sixthRow").style.visibility="visible";
+  }
+  	else if (player.resets > 1) {
+    document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Sixth Dimension'
     if (player.sixthAmount != 0) document.getElementById("seventhRow").style.visibility="visible";
   }
-  	else if (player.resets > 3) {
-    document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Eight Dimension'
+  	else if (player.resets > 0) {
+    document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Fifth Dimension'
     if (player.seventhAmount != 0) document.getElementById("eightRow").style.visibility="visible";
   } else document.getElementById("resetLabel").innerHTML = 'Soft Reset: requires 20 Fourth Dimension'
 }
