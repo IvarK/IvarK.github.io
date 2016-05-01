@@ -554,8 +554,8 @@ document.getElementById("eight").onclick = function() {
 document.getElementById("firstMax").onclick = function() {
 if (player.money >= player.firstCost*(10-player.firstBought)) {
 	player.firstAmount += (10-player.firstBought);
+  player.money -= player.firstCost*(10-player.firstBought);
 	player.firstBought = 0;
-	player.money -= player.firstCost*(10-player.firstBought)
 	player.firstPow *= 2
 	player.firstCost *= 1e3
   updateCosts();
@@ -568,8 +568,8 @@ if (player.money >= player.firstCost*(10-player.firstBought)) {
 document.getElementById("secondMax").onclick = function() {
 if (player.money >= player.secondCost*(10-player.secondBought)) {
 	player.secondAmount += (10-player.secondBought);
+  player.money -= player.secondCost*(10-player.secondBought)
 	player.secondBought = 0;
-	player.money -= player.secondCost*(10-player.secondBought)
 	player.secondPow *= 2
 	player.secondCost *= 1e4
   updateCosts();
@@ -585,8 +585,8 @@ if (player.money >= player.secondCost*(10-player.secondBought)) {
 document.getElementById("thirdMax").onclick = function() {
 if (player.money >= player.thirdCost*(10-player.thirdBought)) {
 	player.thirdAmount += (10-player.thirdBought);
+  player.money -= player.thirdCost*(10-player.thirdBought)
 	player.thirdBought = 0;
-	player.money -= player.thirdCost*(10-player.thirdBought)
 	player.thirdPow *= 2
 	player.thirdCost *= 1e5
   updateCosts();
@@ -599,8 +599,8 @@ if (player.money >= player.thirdCost*(10-player.thirdBought)) {
 document.getElementById("fourthMax").onclick = function() {
 	if (player.money >= player.fourthCost*(10-player.fourthBought)) {
 	player.fourthAmount += (10-player.fourthBought);
+  player.money -= player.fourthCost*(10-player.fourthBought)
 	player.fourthBought = 0;
-	player.money -= player.fourthCost*(10-player.fourthBought)
 	player.fourthPow *= 2
 	player.fourthCost *= 1e6
   updateCosts();
@@ -613,8 +613,8 @@ document.getElementById("fourthMax").onclick = function() {
 document.getElementById("fifthMax").onclick = function() {
 	if (player.money >= player.fifthCost*(10-player.fifthBought)) {
 	player.fifthAmount += (10-player.fifthBought);
+  player.money -= player.fifthCost*(10-player.fifthBought)
 	player.fifthBought = 0;
-	player.money -= player.fifthCost*(10-player.fifthBought)
 	player.fifthPow *= 2
 	player.fifthCost *= 1e8
   updateCosts();
@@ -627,8 +627,8 @@ document.getElementById("fifthMax").onclick = function() {
 document.getElementById("sixthMax").onclick = function() {
 	if (player.money >= player.sixthCost*(10-player.sixthBought)) {
 	player.sixthAmount += (10-player.sixthBought);
+  player.money -= player.sixthCost*(10-player.sixthBought)
 	player.sixthBought = 0;
-	player.money -= player.sixthCost*(10-player.sixthBought)
 	player.sixthPow *= 2
 	player.sixthCost *= 1e10
   updateCosts();
@@ -641,8 +641,8 @@ document.getElementById("sixthMax").onclick = function() {
 document.getElementById("seventhMax").onclick = function() {
 	if (player.money >= player.seventhCost*(10-player.seventhBought)) {
 	player.seventhAmount += (10-player.seventhBought);
+  player.money -= player.seventhCost*(10-player.seventhBought)
 	player.seventhBought = 0;
-	player.money -= player.seventhCost*(10-player.seventhBought)
 	player.seventhPow *= 2
 	player.seventhCost *= 1e12
   updateCosts();
@@ -655,8 +655,8 @@ document.getElementById("seventhMax").onclick = function() {
 document.getElementById("eightMax").onclick = function() {
 	if (player.money >= player.eightCost*(10-player.eightBought)) {
 	player.fourthAmount += (10-player.eightBought);
+  player.money -= player.eightCost*(10-player.eightBought)
 	player.eightBought = 0;
-	player.money -= player.eightCost*(10-player.eightBought)
 	player.eightPow *= 2
 	player.eightCost *= 1e15
   updateCosts();
