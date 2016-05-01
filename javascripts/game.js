@@ -576,6 +576,9 @@ if (player.money >= player.secondCost*(10-player.secondBought)) {
   updateMoney();
   updateDimensions();
   document.getElementById("thirdRow").style.visibility = "visible";
+  document.getElementById("tickSpeed").style.visibility = "visible";
+  document.getElementById("tickLabel").style.visibility = "visible";
+  document.getElementById("tickSpeedAmount").style.visibility = "visible";
 }
 }
 
