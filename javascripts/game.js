@@ -124,7 +124,7 @@ function updateDimensions() {
   document.getElementById("eightD").innerHTML = 'Eight Dimension  ' +  'x' + player.eightPow;
   document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round(((1 - player.tickDecrease) * 100)) + '% faster.';
   	if (player.resets > 3) {
-    document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires '+ ((player.resets - 3)*15+20) +' Eight Dimension';
+    document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires '+ ((player.resets - 4)*15+20) +' Eight Dimension';
     if (player.seventhAmount !== 0) document.getElementById("eightRow").style.visibility="visible";
     }
   	else if (player.resets > 2) {
