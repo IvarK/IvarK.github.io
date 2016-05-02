@@ -660,6 +660,7 @@ document.getElementById("softReset").onclick = function() {
 };
 
 document.getElementById("secondSoftReset").onclick = function() {
+	if (player.eightAmount >= 80) {
 player = {
 	money: 10,
 	tickSpeedCost: 1000,
@@ -713,6 +714,7 @@ player = {
   document.getElementById("sixthRow").style.visibility = "hidden";
   document.getElementById("seventhRow").style.visibility = "hidden";
   document.getElementById("eightRow").style.visibility = "hidden";
+	}
 };
 
 document.getElementById("reset").onclick = function() {
