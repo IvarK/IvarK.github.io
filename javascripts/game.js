@@ -38,7 +38,6 @@ var player = {
   tickDecrease: 0.9,
 	interval: null
 };
-var scientific = false;
 var defaultStart = player;
 var firstButton = document.getElementById("first");
 var secondButton = document.getElementById("second");
@@ -237,10 +236,11 @@ MoneyFormat.reverse();
 shorten = function(money) {
 	var temp = MoneyFormat.length;
 	var digitMul = Math.pow(10, 2);
+	money = Math.round(money)
 	for (var i = 0; i < MoneyFormat.length; i++) {
 		if ( Math.pow(10, temp * 3) <= money ) {
 			money = money / Math.pow(10, temp * 3);
-			return scientific ? (Math.round(money * digitMul) / digitMul) + 'e+' + (80-i)*3 :(Math.round(money * digitMul) / digitMul) + ' ' + MoneyFormat[i];
+			return (Math.round(money * digitMul) / digitMul) + ' ' + MoneyFormat[i];
 		}
 		temp--;
 	}
@@ -253,7 +253,7 @@ shortenMoney = function(money) {
 	for (var i = 0; i < MoneyFormat.length; i++) {
 		if ( Math.pow(10, temp * 3) <= money ) {
 			money = money / Math.pow(10, temp * 3);
-			return scientific ? money.toFixed(2) + 'e+' + (80-i)*3 : money.toFixed(2) + ' ' + MoneyFormat[i];
+			return money.toFixed(2) + ' ' + MoneyFormat[i];
 		}
 		temp--;
 	}
@@ -661,14 +661,6 @@ document.getElementById("reset").onclick = function() {
   updateTickSpeed();
   }
 };
-
-document.getElementById("notation").onclick = function() {
-  scientific = !scientific;
-  updateDimensions();
-  updateCosts();
-};
-
-
 var index = 0;
 load_game();
 setInterval(function() {
