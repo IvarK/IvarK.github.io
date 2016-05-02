@@ -141,6 +141,8 @@ function updateDimensions() {
   } else document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 20 Fourth Dimension';
   if (player.resets > 3) document.getElementById("softReset").innerHTML = "Reset the game for a Boost";
   else document.getElementById("softReset").innerHTML = "Reset the game for a new Dimension";
+  document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + Math.round((((1-player.tickDecrease)*100-7)/3*80)) + ' Eight Dimensions';
+  
 }
 function updateCosts() {
 document.getElementById("first").innerHTML = 'Cost: ' + shorten(player.firstCost);
