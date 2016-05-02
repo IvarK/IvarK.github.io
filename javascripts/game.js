@@ -236,6 +236,7 @@ MoneyFormat.reverse();
 shorten = function(money) {
 	var temp = MoneyFormat.length;
 	var digitMul = Math.pow(10, 2);
+	money = Math.round(money * 100)/100
 	for (var i = 0; i < MoneyFormat.length; i++) {
 		if ( Math.pow(10, temp * 3) <= money ) {
 			money = money / Math.pow(10, temp * 3);
