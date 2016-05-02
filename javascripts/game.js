@@ -1,5 +1,5 @@
 var player = {
-	money: 1e120,
+	money: 10,
 	tickSpeedCost: 1000,
 	tickspeed: 1000,
 	firstCost: 10,
@@ -34,7 +34,7 @@ var player = {
 	sixthPow: 1,
 	seventhPow: 1,
 	eightPow: 1,
-  resets: 5,
+  resets: 0,
   tickDecrease: 0.9,
 	interval: null
 };
@@ -171,7 +171,7 @@ function updateTickSpeed() {
 
 function softReset() {
 player = {
-	money: 1e150,
+	money: 10,
 	tickSpeedCost: 1000,
 	tickspeed: 1000,
 	firstCost: 10,
