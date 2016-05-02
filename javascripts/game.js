@@ -656,11 +656,12 @@ document.getElementById("softReset").onclick = function() {
     softReset();
     document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + (player.resets - 3)*20 +' Eight Dimension';
     }
+    document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + (((1-player.tickDecrease)*100-7)/3*80) + 'Eight Dimensions';
     }
 };
 
 document.getElementById("secondSoftReset").onclick = function() {
-	if (player.eightAmount >= 80) {
+	if (player.eightAmount >= (((1-player.tickDecrease)*100-7)/3*80)) {
 player = {
 	money: 10,
 	tickSpeedCost: 1000,
@@ -803,7 +804,7 @@ setInterval(function() {
     document.getElementById("softReset").className = 'storebtn';
     } else document.getElementById("softReset").className = 'unavailablebtn';
     }
-    if (player.eightAmount >= 80) document.getElementById("secondSoftReset").className = 'storebtn';
+    if (player.eightAmount >= (((1-player.tickDecrease)*100-7)/3*80)) document.getElementById("secondSoftReset").className = 'storebtn';
     else document.getElementById("secondSoftReset").className = 'unavailablebtn';
     index++;
   
