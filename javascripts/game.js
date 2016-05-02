@@ -560,7 +560,7 @@ document.getElementById("softReset").onclick = function() {
     }
   }
   else if (player.resets > 3) {
-  if (player.eightAmount >= (player.resets - 3)*15+20) {
+  if (player.eightAmount >= (player.resets - 4)*15+20) {
     softReset();
     document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + (player.resets - 3)*20 +' Eight Dimension';
     }
@@ -708,7 +708,7 @@ setInterval(function() {
     } else document.getElementById("softReset").className = 'unavailablebtn';
   }
   else if (player.resets > 3) {
-  	if (player.eightAmount >= (player.resets - 3)*15+20) {
+  	if (player.eightAmount >= (player.resets - 4)*15+20) {
     document.getElementById("softReset").className = 'storebtn';
     } else document.getElementById("softReset").className = 'unavailablebtn';
     }
