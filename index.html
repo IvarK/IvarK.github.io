@@ -3,11 +3,14 @@
   <link rel="stylesheet" type="text/css" href="IvarK.github.io/stylesheets/styles.css">
   
   
+
 <div class="container" style="color:#4F5957; font-family: Typewriter; text-align:center; font-size: 140%">
   <h1 style="text-align:center; background-color: #A6A6A6"><img src="Untitled_000000.png" style="height:150px"></h1>
   <hr>
   <p>
-    <div id="coinAmount" >You have 0 antimatter.</div>
+      <div>
+      <p>You have <span id="coinAmount" style="font-size:200%; color:black">0</span> antimatter.</p>
+      </div>
     <div id="coinsPerSec">You are getting 0 antimatter per second.</div>
     <tr id="tickSpeedRow" style="visibility: hidden">
       <div id="tickLabel" style= "visibility: hidden">Make the game 10% faster.</div>
@@ -122,23 +125,33 @@
       <td>
         <button id="eightMax" style="color:black; width:160px; height:50px" class="storebtn">Cost: 10</button>
     </tr>
+    </table>
+    <table>
     <hr>
      <tr style="font-size: 170%">
       <td id="resetLabel">
-        Soft Reset: requires 20 Fourth Dimension
+        Dimension Shift: requires 20 Fourth Dimension
       </td>
       <td>
-        <button id="softReset" style="color:black; width: 150px; height: 50px" class="storebtn">Soft reset the game, boosting your progress</button>
+        <button id="softReset" style="color:black; width: 200px; height: 50px" class="storebtn">Reset the game for a new Dimension</button>
+      </td>
+    </tr>
+    <tr style="font-size: 170%">
+      <td id="secondResetLabel">
+        Antimatter Galaxies: requires 80 Eight Dimension
+      </td>
+      <td>
+        <button id="secondSoftReset" style="color:black; width: 200px; height: 50px" class="storebtn">Lose all your previous progress but get a tickspeed boost</button>
       </td>
     </tr>
   </table>
 </div>
 <tr>
   <td>
-    <div style="text-align:center;font-size:160%"><a href="howto.html" target="_newtab">How to play</a></div>
-  </td>
-  <td>
-    <div style="text-align:center; font-size:160%"><a href="about.html" target="_newtab">About me</a></div>
+    <div style="text-align:center;font-size:160%">
+    <a href="howto.html" target="_newtab">How to play  </a>   |
+    <a href="about.html" target="_newtab">About me</a>
+    </div>
   </td>
 </tr>
 <div style="text-align: center">
