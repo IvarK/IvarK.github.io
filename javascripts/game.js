@@ -97,7 +97,7 @@ function save_game() {
 
 function updateMoney() {
 	var element = document.getElementById("coinAmount");
-  element.innerHTML =shortenMoney(player.money);
+  element.innerHTML =shorten(player.money);
 }
 
 function updateCoinPerSec() {
@@ -230,116 +230,22 @@ updateCosts();
   updateTickSpeed();
 }
 
+MoneyFormat = ['K', 'M', 'B', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QdDc', 'QtDc', 'SxDc', 'SpDc', 'ODc', 'NDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QdVg', 'QtVg', 'SxVg', 'SpVg', 'OVg', 'NVg', 'Tg', 'UTg', 'DTg', 'TTg', 'QdTg', 'QtTg', 'SxTg', 'SpTg', 'OTg','NTg', 'Qa', 'UQa', 'DQa', 'TQa', 'QdQa', 'QtQa', 'SxQa', 'SpQa', 'OQa', 'NQa', 'Qi', 'UQi', 'DQi', 'TQi', 'QaQi', 'QtQi', 'SxQi', 'SpQi', 'OQi', 'NQi', 'Se', 'USe', 'DSe', 'TSe', 'QaSe', 'QtSe', 'SxSe', 'SpSe', 'OSe', 'NSe', 'St', 'USt', 'DSt', 'TSt', 'QaSt', 'QtSt', 'SxSt', 'SpSt', 'OSt', 'NSt'];
+MoneyFormat.reverse();
 
-function shorten(x) {
-if (x < 1000) return Math.floor(x);
-else if (Math.log10(x) < 6) return Math.round(x/1000 * 100)/100 + ' K';
-else if (Math.log10(x) < 9) return Math.round(x/1000000 * 100)/100 + ' M';
-else if (Math.log10(x) < 12) return Math.round(x/1000000000 * 100)/100 + ' B';
-else if (Math.log10(x) < 15) return Math.round(x/1e12 * 100)/100 + ' T';
-else if (Math.log10(x) < 18) return Math.round(x/1e15 * 100)/100 + ' Qd';
-else if (Math.log10(x) < 21) return Math.round(x/1e18 * 100)/100 + ' Qt';
-else if (Math.log10(x) < 24) return Math.round(x/1e21 * 100)/100 + ' Sx';
-else if (Math.log10(x) < 27) return Math.round(x/1e24 * 100)/100 + ' Sp';
-else if (Math.log10(x) < 30) return Math.round(x/1e27 * 100)/100 + ' Oc';
-else if (Math.log10(x) < 33) return Math.round(x/1e30 * 100)/100 + ' No';
-else if (Math.log10(x) < 36) return Math.round(x/1e33 * 100)/100 + ' Dc';
-else if (Math.log10(x) < 39) return Math.round(x/1e36 * 100)/100 + ' UDc';
-else if (Math.log10(x) < 42) return Math.round(x/1e39 * 100)/100 + ' DDc';
-else if (Math.log10(x) < 45) return Math.round(x/1e42 * 100)/100 + ' TDc';
-else if (Math.log10(x) < 48) return Math.round(x/1e45 * 100)/100 + ' QdDc';
-else if (Math.log10(x) < 51) return Math.round(x/1e48 * 100)/100 + ' QtDc';
-else if (Math.log10(x) < 54) return Math.round(x/1e51 * 100)/100 + ' SxDc';
-else if (Math.log10(x) < 57) return Math.round(x/1e54 * 100)/100 + ' SpDc';
-else if (Math.log10(x) < 60) return Math.round(x/1e57 * 100)/100 + ' ODc';
-else if (Math.log10(x) < 63) return Math.round(x/1e60 * 100)/100 + ' NDc';
-else if (Math.log10(x) < 66) return Math.round(x/1e63 * 100)/100 + ' Vg';
-else if (Math.log10(x) < 69) return Math.round(x/1e66 * 100)/100 + ' UVg';
-else if (Math.log10(x) < 72) return Math.round(x/1e69 * 100)/100 + ' DVg';
-else if (Math.log10(x) < 75) return Math.round(x/1e72 * 100)/100 + ' TVg';
-else if (Math.log10(x) < 78) return Math.round(x/1e75 * 100)/100 + ' QdVg';
-else if (Math.log10(x) < 81) return Math.round(x/1e78 * 100)/100 + ' QtVg';
-else if (Math.log10(x) < 84) return Math.round(x/1e81 * 100)/100 + ' SxVg';
-else if (Math.log10(x) < 87) return Math.round(x/1e84 * 100)/100 + ' SpVg';
-else if (Math.log10(x) < 90) return Math.round(x/1e87 * 100)/100 + ' OVg';
-else if (Math.log10(x) < 93) return Math.round(x/1e90 * 100)/100 + ' NVg';
-else if (Math.log10(x) < 96) return Math.round(x/1e93 * 100)/100 + ' Tg';
-else if (Math.log10(x) < 99) return Math.round(x/1e96 * 100)/100 + ' UTg';
-else if (Math.log10(x) < 102) return Math.round(x/1e99 * 100)/100 + ' DTg';
-else if (Math.log10(x) < 105) return Math.round(x/1e102 * 100)/100 + ' TTg';
-else if (Math.log10(x) < 108) return Math.round(x/1e105 * 100)/100 + ' QdTg';
-else if (Math.log10(x) < 111) return Math.round(x/1e108 * 100)/100 + ' QtTg';
-else if (Math.log10(x) < 114) return Math.round(x/1e111 * 100)/100 + ' SxTg';
-else if (Math.log10(x) < 117) return Math.round(x/1e114 * 100)/100 + ' SpTg';
-else if (Math.log10(x) < 120) return Math.round(x/1e117 * 100)/100 + ' OTg';
-else if (Math.log10(x) < 123) return Math.round(x/1e120 * 100)/100 + ' NTg';
-else if (Math.log10(x) < 126) return Math.round(x/1e123 * 100)/100 + ' Qa';
-else if (Math.log10(x) < 129) return Math.round(x/1e126 * 100)/100 + ' UQa';
-else if (Math.log10(x) < 132) return Math.round(x/1e129 * 100)/100 + ' DQa';
-else if (Math.log10(x) < 135) return Math.round(x/1e132 * 100)/100 + ' TQa';
-else if (Math.log10(x) < 138) return Math.round(x/1e135 * 100)/100 + ' QdQa';
-else if (Math.log10(x) < 141) return Math.round(x/1e138 * 100)/100 + ' QtQa';
-else if (Math.log10(x) < 144) return Math.round(x/1e141 * 100)/100 + ' SxQa';
-else if (Math.log10(x) < 147) return Math.round(x/1e144 * 100)/100 + ' SpQa';
-else if (Math.log10(x) < 150) return Math.round(x/1e147 * 100)/100 + ' OQa';
-else if (Math.log10(x) < 153) return Math.round(x/1e150 * 100)/100 + ' NQa';
-else if (Math.log10(x) < 156) return Math.round(x/1e153 * 100)/100 + ' Qi';
+shorten = function(money, digits = 2, spacing = ' ') {
+	var temp = MoneyFormat.length;
+	var digitMul = Math.pow(10, digits);
+	for (var i = 0; i < MoneyFormat.length; i++) {
+		if ( Math.pow(10, temp * 3) <= money ) {
+			money = money / Math.pow(10, temp * 3);
+			return (Math.round(money * digitMul) / digitMul) + spacing + MoneyFormat[i];
+		}
+		temp--;
+	}
+	return (Math.round(money * digitMul) / digitMul);
 }
 
-function shortenMoney(x) {
-if (x < 1000) return x.toFixed(1);
-else if (x < 1000000) return (x/1e3).toFixed(2) + ' K';
-else if (x < 1000000000) return (x/1e6).toFixed(2) + ' M';
-else if (x < 1000000000000) return (x/1e9).toFixed(2) + ' B';
-else if (x < 1e15) return (x/1e12).toFixed(2) + ' T';
-else if (x < 1e18) return (x/1e15).toFixed(2) + ' Qd';
-else if (x < 1e21) return (x/1e18).toFixed(2) + ' Qt';
-else if (x < 1e24) return (x/1e21).toFixed(2) + ' Sx';
-else if (x < 1e27) return (x/1e24).toFixed(2) + ' Sp';
-else if (x < 1e30) return (x/1e27).toFixed(2) + ' Oc';
-else if (x < 1e33) return (x/1e30).toFixed(2) + ' No';
-else if (x < 1e36) return (x/1e33).toFixed(2) + ' Dc';
-else if (x < 1e39) return (x/1e36).toFixed(2) + ' UDc';
-else if (x < 1e42) return (x/1e39).toFixed(2) + ' DDc';
-else if (x < 1e45) return (x/1e42).toFixed(2) + ' TDc';
-else if (x < 1e48) return (x/1e45).toFixed(2) + ' QdDc';
-else if (x < 1e51) return (x/1e48).toFixed(2) + ' QtDc';
-else if (x < 1e54) return (x/1e51).toFixed(2) + ' SxDc';
-else if (x < 1e57) return (x/1e54).toFixed(2) + ' SpDc';
-else if (x < 1e60) return (x/1e57).toFixed(2) + ' ODc';
-else if (x < 1e63) return (x/1e60).toFixed(2) + ' NDc';
-else if (x < 1e66) return (x/1e63).toFixed(2) + ' Vg';
-else if (x < 1e69) return (x/1e66).toFixed(2) + ' UVg';
-else if (x < 1e72) return (x/1e69).toFixed(2) + ' DVg';
-else if (x < 1e75) return (x/1e72).toFixed(2) + ' TVg';
-else if (x < 1e78) return (x/1e75).toFixed(2) + ' QdVg';
-else if (x < 1e81) return (x/1e78).toFixed(2) + ' QtVg';
-else if (x < 1e84) return (x/1e81).toFixed(2) + ' SxVg';
-else if (x < 1e87) return (x/1e84).toFixed(2) + ' SpVg';
-else if (x < 1e90) return (x/1e87).toFixed(2) + ' OVg';
-else if (x < 1e93) return (x/1e90).toFixed(2) + ' NVg';
-else if (x < 1e96) return (x/1e93).toFixed(2) + ' Tg';
-else if (x < 1e99) return (x/1e96).toFixed(2) + ' UTg';
-else if (x < 1e102) return (x/1e99).toFixed(2) + ' DTg';
-else if (x < 1e105) return (x/1e102).toFixed(2) + ' TTg';
-else if (x < 1e108) return (x/1e105).toFixed(2) + ' QdTg';
-else if (x < 1e111) return (x/1e108).toFixed(2) + ' QtTg';
-else if (x < 1e114) return (x/1e111).toFixed(2) + ' SxTg';
-else if (x < 1e117) return (x/1e114).toFixed(2) + ' SpTg';
-else if (x < 1e120) return (x/1e117).toFixed(2) + ' OTg';
-else if (x < 1e123) return (x/1e120).toFixed(2) + ' NTg';
-else if (x < 1e126) return (x/1e123).toFixed(2) + ' Qa';
-else if (x < 1e129) return (x/1e126).toFixed(2) + ' UQa';
-else if (x < 1e132) return (x/1e129).toFixed(2) + ' DQa';
-else if (x < 1e135) return (x/1e132).toFixed(2) + ' TQa';
-else if (x < 1e138) return (x/1e135).toFixed(2) + ' QdQa';
-else if (x < 1e141) return (x/1e138).toFixed(2) + ' QtQa';
-else if (x < 1e144) return (x/1e141).toFixed(2) + ' SxQa';
-else if (x < 1e147) return (x/1e144).toFixed(2) + ' SpQa';
-else if (x < 1e150) return (x/1e147).toFixed(2) + ' OQa';
-else if (x < 1e153) return (x/1e150).toFixed(2) + ' NQa';
-else if (x < 1e156) return (x/1e153).toFixed(2) + ' Qi';
-}
 
 document.getElementById("tickSpeed").onclick = function() {
 	if (player.money >= player.tickSpeedCost) {
