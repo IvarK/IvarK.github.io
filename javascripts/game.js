@@ -707,6 +707,46 @@ player = {
 	}
 };
 
+document.getElementById("exportbtn").onclick = function() {
+  prompt("Save this somewhere.",btoa(JSON.stringify(player)));
+};
+
+
+function verify_save(obj) {
+    if (typeof obj != 'object') return false;
+    
+
+    return true;
+}
+
+document.getElementById("importbtn").onclick = function() {
+  var save_data = prompt("Input your save.");
+  save_data = JSON.parse(atob(save_data));
+    if (!save_data || !verify_save(save_data)){
+      alert('could not load the save..');
+      load_custom_game();
+      return;
+    }
+  player = save_data;
+  if (player.firstAmount !== 0) document.getElementById("secondRow").style.display = "table-row";
+    	if (player.secondAmount !== 0) { 
+    		document.getElementById("thirdRow").style.display = "table-row";
+  		document.getElementById("tickSpeed").style.visibility = "visible";
+        document.getElementById("tickSpeedMax").style.visibility = "visible";
+  		document.getElementById("tickLabel").style.visibility = "visible";
+  		document.getElementById("tickSpeedAmount").style.visibility = "visible";
+    	}
+    	if (player.thirdAmount !== 0) document.getElementById("fourthRow").style.display = "table-row";
+    	if (player.fourthAmount !== 0) if (player.resets > 0) document.getElementById("fifthRow").style.display = "table-row";
+    	if (player.fifthAmount !== 0) if (player.resets > 1) document.getElementById("sixthRow").style.display = "table-row";
+    	if (player.sixthAmount !== 0) if (player.resets > 2) document.getElementById("seventhRow").style.display = "table-row";
+    	if (player.seventhAmount !== 0) if (player.resets > 3) document.getElementById("eightRow").style.display = "table-row";
+    	updateCosts();
+};
+
+
+
+
 document.getElementById("reset").onclick = function() {
 	if(confirm("Do you really want to erase all your progress?")) {
   set_cookie('dimensionSave', defaultStart);
