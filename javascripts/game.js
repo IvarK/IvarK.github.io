@@ -776,7 +776,7 @@ setInterval(function () { save_game(); }, 10000);
 setInterval(function() {
   var thisUpdate = new Date().getTime();
   var diff = thisUpdate - lastUpdate
-  diff = diff/1000
+  diff = diff/10000
   player.firstAmount += (Math.floor(player.secondAmount) * player.secondPow/10)*diff/(player.tickspeed/1000);
   player.secondAmount += (Math.floor(player.thirdAmount) * player.thirdPow/10)*diff/(player.tickspeed/1000);
   player.thirdAmount += (Math.floor(player.fourthAmount) * player.fourthPow/10)*diff/(player.tickspeed/1000);
