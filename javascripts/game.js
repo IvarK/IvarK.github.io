@@ -38,6 +38,7 @@ var player = {
   tickDecrease: 0.9,
 	interval: null
 };
+var lastUpdate = new Date().getTime();
 var scientific = false;
 var defaultStart = player;
 var firstButton = document.getElementById("first");
@@ -698,7 +699,10 @@ document.getElementById("notation").onclick = function() {
 var index = 0;
 load_game();
 setInterval(function() {
-	player.money += player.firstAmount*player.firstPow/(player.tickspeed/100);
+  var thisUpdate = new Date().getTime();
+  var diff = thisUpdate - lastUpdate
+  diff = diff/1000
+  player.money += player.firstAmount*player.firstPow*diff/(player.tickspeed/100);
   updateMoney();
   updateCoinPerSec();
   if (player.firstCost > player.money) firstButton.className = 'unavailablebtn';
@@ -770,13 +774,16 @@ setInterval(function() {
 
 setInterval(function () { save_game(); }, 10000);
 setInterval(function() {
-  player.firstAmount += (Math.floor(player.secondAmount) * player.secondPow/10)/(player.tickspeed/1000);
-  player.secondAmount += (Math.floor(player.thirdAmount) * player.thirdPow/10)/(player.tickspeed/1000);
-  player.thirdAmount += (Math.floor(player.fourthAmount) * player.fourthPow/10)/(player.tickspeed/1000);
-  player.fourthAmount += (Math.floor(player.fifthAmount) * player.fifthPow/10)/(player.tickspeed/1000);
-  player.fifthAmount += (Math.floor(player.sixthAmount) * player.sixthPow/10)/(player.tickspeed/1000);
-  player.sixthAmount += (Math.floor(player.seventhAmount) * player.seventhPow/10)/(player.tickspeed/1000);
-  player.seventhAmount += (Math.floor(player.eightAmount) * player.eightPow/10)/(player.tickspeed/1000);
+  var thisUpdate = new Date().getTime();
+  var diff = thisUpdate - lastUpdate
+  diff = diff/1000
+  player.firstAmount += (Math.floor(player.secondAmount) * player.secondPow/10)*diff/(player.tickspeed/1000);
+  player.secondAmount += (Math.floor(player.thirdAmount) * player.thirdPow/10)*diff/(player.tickspeed/1000);
+  player.thirdAmount += (Math.floor(player.fourthAmount) * player.fourthPow/10)*diff/(player.tickspeed/1000);
+  player.fourthAmount += (Math.floor(player.fifthAmount) * player.fifthPow/10)*diff/(player.tickspeed/1000);
+  player.fifthAmount += (Math.floor(player.sixthAmount) * player.sixthPow/10)*diff/(player.tickspeed/1000);
+  player.sixthAmount += (Math.floor(player.seventhAmount) * player.seventhPow/10)*diff/(player.tickspeed/1000);
+  player.seventhAmount += (Math.floor(player.eightAmount) * player.eightPow/10)*diff/(player.tickspeed/1000);
   updateDimensions();
 }, 1000);
 updateCosts();
