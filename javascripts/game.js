@@ -105,7 +105,7 @@ function updateMoney() {
 
 function updateCoinPerSec() {
 	var element = document.getElementById("coinsPerSec");
-  element.innerHTML = 'You are getting ' + shorten(Math.round(player.firstAmount* player.firstPow*(1000/player.tickspeed)*10)/10) + ' antimatter per second.';
+  element.innerHTML = 'You are getting ' + shortenDimensions(Math.round(player.firstAmount* player.firstPow*(1000/player.tickspeed)*10)/10) + ' antimatter per second.';
 }
 
 function updateDimensions() {
