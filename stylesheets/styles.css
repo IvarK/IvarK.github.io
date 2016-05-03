@@ -21,12 +21,15 @@
 @font-face { font-family: Typewriter; src: url('MonospaceTypewriter.ttf'); }
 
 .storebtn {
-  color: #E0E0E0;
+  color: black;
   background: #E0E0E0;
   font-weight: bold;
   border: 1px solid #127A20;
   width:120px;
   height:30px;
+  transition-duration: 0.2s;
+  cursor: pointer;
+  border-radius: 4px
 }
  
 .storebtn:hover {
@@ -41,12 +44,34 @@
   border: 1px solid #127A20;
   width:120px;
   height:30px;
+  transition-duration: 0.2s;
+  border-radius: 4px
 }
  
 .unavailablebtn:hover {
   color: #000000;
   background: #B84B5F;
 }
+
+.tabbtn {
+  color:#FF;
+  background: #E0E0E0;
+  font-weight: bold;
+  border: 2px solid #4980CC;
+  border-radius: 4px;
+  transition-duration: 0.2s;
+  cursor: pointer;
+  
+}
+.tabbtn:hover {
+  color:#FFFFFF;
+  background: #4980CC;
+  font-weight: bold;
+  border: 2px solid #4980CC;
+  border-radius: 4px;
+  
+}
+
 
 @font-face {
   font-family: 'Noto Sans';
