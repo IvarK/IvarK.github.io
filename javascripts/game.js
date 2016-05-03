@@ -36,6 +36,7 @@ var player = {
 	eightPow: 1,
   resets: 0,
   tickDecrease: 0.9,
+  totalmoney: 0,
 	interval: null
 };
 var lastUpdate = new Date().getTime();
@@ -78,24 +79,42 @@ function load_game() {
     var save_data = get_cookie('dimensionSave');
        if (!save_data) return;
     	player = save_data;
-    	if (player.firstAmount !== 0) document.getElementById("secondRow").style.visibility = "visible";
+        if (player.totalmoney === undefined) player.totalmoney = player.money;
+    	if (player.firstAmount !== 0) document.getElementById("secondRow").style.display = "table-row";
     	if (player.secondAmount !== 0) { 
-    		document.getElementById("thirdRow").style.visibility = "visible";
+    		document.getElementById("thirdRow").style.display = "table-row";
   		document.getElementById("tickSpeed").style.visibility = "visible";
         document.getElementById("tickSpeedMax").style.visibility = "visible";
   		document.getElementById("tickLabel").style.visibility = "visible";
   		document.getElementById("tickSpeedAmount").style.visibility = "visible";
     	}
-    	if (player.thirdAmount !== 0) document.getElementById("fourthRow").style.visibility = "visible";
-    	if (player.fourthAmount !== 0) if (player.resets > 0) document.getElementById("fifthRow").style.visibility = "visible";
-    	if (player.fifthAmount !== 0) if (player.resets > 1) document.getElementById("sixthRow").style.visibility = "visible";
-    	if (player.sixthAmount !== 0) if (player.resets > 2) document.getElementById("seventhRow").style.visibility = "visible";
-    	if (player.seventhAmount !== 0) if (player.resets > 3) document.getElementById("eightRow").style.visibility = "visible";
+    	if (player.thirdAmount !== 0) document.getElementById("fourthRow").style.display = "table-row";
+    	if (player.fourthAmount !== 0) if (player.resets > 0) document.getElementById("fifthRow").style.display = "table-row";
+    	if (player.fifthAmount !== 0) if (player.resets > 1) document.getElementById("sixthRow").style.display = "table-row";
+    	if (player.sixthAmount !== 0) if (player.resets > 2) document.getElementById("seventhRow").style.display = "table-row";
+    	if (player.seventhAmount !== 0) if (player.resets > 3) document.getElementById("eightRow").style.display = "table-row";
     	updateCosts();
 }
 
 function save_game() {
     set_cookie('dimensionSave', player);
+}
+
+
+function showTab(tabName) {
+    console.log('show tab ' + tabName);
+    
+    //iterate over all elements in div_tab class. Hide everything that's not tabName and show tabName
+    var tabs = document.getElementsByClassName('tab');
+    var tab;
+    for (var i = 0; i < tabs.length; i++) {
+        tab = tabs.item(i);
+        if (tab.id === tabName) {
+            tab.style.display = 'block';
+        } else {
+            tab.style.display = 'none';
+        }
+    }
 }
 
 function updateMoney() {
@@ -145,6 +164,9 @@ function updateDimensions() {
   if (player.resets > 3) document.getElementById("softReset").innerHTML = "Reset the game for a Boost";
   else document.getElementById("softReset").innerHTML = "Reset the game for a new Dimension";
   document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + Math.round((((1-player.tickDecrease)*100-7)/3*80)) + ' Eight Dimensions';
+  document.getElementById("totalmoney").innerHTML = 'You have made a total of ' + shortenMoney(player.totalmoney) + ' antimatter.';
+  document.getElementById("totalresets").innerHTML = 'You have done ' + player.resets + ' soft resets.';
+  document.getElementById("galaxies").innerHTML = 'You have ' + Math.round((((1-player.tickDecrease)*100-7)/3)-1) + ' Antimatter Galaxies.';
   
 }
 function updateCosts() {
@@ -219,24 +241,26 @@ player = {
 	eightPow: Math.max(Math.pow(2, player.resets - 6), 1),
   resets: player.resets,
   tickDecrease: player.tickDecrease,
+  totalmoney: player.totalmoney,
 	interval: null
+  
 };
 player.resets++;
 updateCosts();
   clearInterval(player.interval);
 	//updateInterval();
 	updateDimensions();
-  document.getElementById("secondRow").style.visibility = "hidden";
-  document.getElementById("thirdRow").style.visibility = "hidden";
+  document.getElementById("secondRow").style.display= "none";
+  document.getElementById("thirdRow").style.display= "none";
   document.getElementById("tickSpeed").style.visibility = "hidden";
   document.getElementById("tickSpeedMax").style.visibility = "hidden";
  	document.getElementById("tickLabel").style.visibility = "hidden";
  	document.getElementById("tickSpeedAmount").style.visibility = "hidden";
-  document.getElementById("fourthRow").style.visibility = "hidden";
-  document.getElementById("fifthRow").style.visibility = "hidden";
-  document.getElementById("sixthRow").style.visibility = "hidden";
-  document.getElementById("seventhRow").style.visibility = "hidden";
-  document.getElementById("eightRow").style.visibility = "hidden";
+  document.getElementById("fourthRow").style.display= "none";
+  document.getElementById("fifthRow").style.display= "none";
+  document.getElementById("sixthRow").style.display= "none";
+  document.getElementById("seventhRow").style.display= "none";
+  document.getElementById("eightRow").style.display= "none";
   updateTickSpeed();
 }
 
@@ -270,7 +294,7 @@ shortenDimensions = function(money) {
 		temp--;
 	}
 	return Math.round(money);
-}
+};
 
 shortenMoney = function(money) {
 	var temp = MoneyFormat.length;
@@ -327,7 +351,7 @@ document.getElementById("first").onclick = function() {
   updateCosts();
   updateMoney();
   updateDimensions();
-  document.getElementById("secondRow").style.visibility = "visible";
+  document.getElementById("secondRow").style.display = "table-row";
   }
 };
 
@@ -347,7 +371,7 @@ document.getElementById("second").onclick = function() {
   updateCosts();
   updateMoney();
   updateDimensions();
-  document.getElementById("thirdRow").style.visibility = "visible";
+  document.getElementById("thirdRow").style.display = "table-row";
   document.getElementById("tickSpeed").style.visibility = "visible";
   document.getElementById("tickSpeedMax").style.visibility = "visible";
   document.getElementById("tickLabel").style.visibility = "visible";
@@ -371,7 +395,7 @@ document.getElementById("third").onclick = function() {
   updateCosts();
   updateMoney();
   updateDimensions();
-  document.getElementById("fourthRow").style.visibility = "visible";
+  document.getElementById("fourthRow").style.display = "table-row";
   }
 };
 
@@ -391,7 +415,7 @@ document.getElementById("fourth").onclick = function() {
   updateCosts();
   updateMoney();
   updateDimensions();
-  if (player.resets > 0) document.getElementById("fifthRow").style.visibility="visible";
+  if (player.resets > 0) document.getElementById("fifthRow").style.display = "table-row";
   }
 };
 
@@ -411,7 +435,7 @@ document.getElementById("fifth").onclick = function() {
   updateCosts();
   updateMoney();
   updateDimensions();
-  if (player.resets > 1) document.getElementById("sixthRow").style.visibility = "visible";
+  if (player.resets > 1) document.getElementById("sixthRow").style.display = "table-row";
   }
 };
 
@@ -431,7 +455,7 @@ document.getElementById("sixth").onclick = function() {
   updateCosts();
   updateMoney();
   updateDimensions();
-  if (player.resets > 2) document.getElementById("seventhRow").style.visibility = "visible";
+  if (player.resets > 2) document.getElementById("seventhRow").style.display = "table-row";
   }
 };
 
@@ -451,7 +475,7 @@ document.getElementById("seventh").onclick = function() {
   updateCosts();
   updateMoney();
   updateDimensions();
-  if (player.resets > 3) document.getElementById("eightRow").style.visibility = "visible";
+  if (player.resets > 3) document.getElementById("eightRow").style.display = "table-row";
   }
 };
 
@@ -484,7 +508,7 @@ if (player.money >= player.firstCost*(10-player.firstBought)) {
   updateCosts();
   updateMoney();
   updateDimensions();
-  document.getElementById("secondRow").style.visibility = "visible";
+  document.getElementById("secondRow").style.display = "table-row";
 }
 };
 
@@ -498,7 +522,7 @@ if (player.money >= player.secondCost*(10-player.secondBought)) {
   updateCosts();
   updateMoney();
   updateDimensions();
-  document.getElementById("thirdRow").style.visibility = "visible";
+  document.getElementById("thirdRow").style.display = "table-row";
   document.getElementById("tickSpeed").style.visibility = "visible";
   document.getElementById("tickSpeedMax").style.visibility = "visible";
   document.getElementById("tickLabel").style.visibility = "visible";
@@ -516,7 +540,7 @@ if (player.money >= player.thirdCost*(10-player.thirdBought)) {
   updateCosts();
   updateMoney();
   updateDimensions();
-  document.getElementById("fourthRow").style.visibility = "visible";
+  document.getElementById("fourthRow").style.display = "table-row";
 }
 };
 
@@ -530,7 +554,7 @@ document.getElementById("fourthMax").onclick = function() {
   updateCosts();
   updateMoney();
   updateDimensions();
-  if (player.resets > 0) document.getElementById("fifthRow").style.visibility = "visible";
+  if (player.resets > 0) document.getElementById("fifthRow").style.display = "table-row";
 }
 };
 
@@ -544,7 +568,7 @@ document.getElementById("fifthMax").onclick = function() {
   updateCosts();
   updateMoney();
   updateDimensions();
-  if (player.resets > 1) document.getElementById("sixthRow").style.visibility = "visible";
+  if (player.resets > 1) document.getElementById("sixthRow").style.display = "table-row";
 }
 };
 
@@ -558,7 +582,7 @@ document.getElementById("sixthMax").onclick = function() {
   updateCosts();
   updateMoney();
   updateDimensions();
-  if (player.resets > 2) document.getElementById("seventhRow").style.visibility = "visible";
+  if (player.resets > 2) document.getElementById("seventhRow").style.display = "table-row";
 }
 };
 
@@ -572,7 +596,7 @@ document.getElementById("seventhMax").onclick = function() {
   updateCosts();
   updateMoney();
   updateDimensions();
-  if (player.resets > 3) document.getElementById("eightRow").style.visibility = "visible";
+  if (player.resets > 3) document.getElementById("eightRow").style.display = "table-row";
 }
 };
 
@@ -662,23 +686,24 @@ player = {
 	seventhPow: 1,
 	eightPow: 1,
   resets: 0,
+  totalmoney: player.totalmoney,
   tickDecrease: player.tickDecrease - 0.03,
 	interval: null
   };
   updateDimensions();
   updateCosts();
   updateTickSpeed();
-  document.getElementById("secondRow").style.visibility = "hidden";
-  document.getElementById("thirdRow").style.visibility = "hidden";
+  document.getElementById("secondRow").style.display= "none";
+  document.getElementById("thirdRow").style.display= "none";
   document.getElementById("tickSpeed").style.visibility = "hidden";
   document.getElementById("tickSpeedMax").style.visibility = "hidden";
   document.getElementById("tickLabel").style.visibility = "hidden";
   document.getElementById("tickSpeedAmount").style.visibility = "hidden";
-  document.getElementById("fourthRow").style.visibility = "hidden";
-  document.getElementById("fifthRow").style.visibility = "hidden";
-  document.getElementById("sixthRow").style.visibility = "hidden";
-  document.getElementById("seventhRow").style.visibility = "hidden";
-  document.getElementById("eightRow").style.visibility = "hidden";
+  document.getElementById("fourthRow").style.visibility = display= "none";
+  document.getElementById("fifthRow").style.visibility = display= "none";
+  document.getElementById("sixthRow").style.visibility = display= "none";
+  document.getElementById("seventhRow").style.visibility = display= "none";
+  document.getElementById("eightRow").style.visibility = display= "none";
 	}
 };
 
@@ -690,17 +715,17 @@ document.getElementById("reset").onclick = function() {
   clearInterval(player.interval);
 	//updateInterval();
 	updateDimensions();
-  document.getElementById("secondRow").style.visibility = "hidden";
-  document.getElementById("thirdRow").style.visibility = "hidden";
+  document.getElementById("secondRow").style.display= "none";
+  document.getElementById("thirdRow").style.display= "none";
   document.getElementById("tickSpeed").style.visibility = "hidden";
       document.getElementById("tickSpeedMax").style.visibility = "hidden";
   document.getElementById("tickLabel").style.visibility = "hidden";
   document.getElementById("tickSpeedAmount").style.visibility = "hidden";
-  document.getElementById("fourthRow").style.visibility = "hidden";
-  document.getElementById("fifthRow").style.visibility = "hidden";
-  document.getElementById("sixthRow").style.visibility = "hidden";
-  document.getElementById("seventhRow").style.visibility = "hidden";
-  document.getElementById("eightRow").style.visibility = "hidden";
+  document.getElementById("fourthRow").style.display= "none";
+  document.getElementById("fifthRow").style.display= "none";
+  document.getElementById("sixthRow").style.display= "none";
+  document.getElementById("seventhRow").style.display= "none";
+  document.getElementById("eightRow").style.display= "none";
   updateTickSpeed();
   }
 };
@@ -716,8 +741,9 @@ var index = 0;
 load_game();
 setInterval(function() {
   var thisUpdate = new Date().getTime();
-  var diff = thisUpdate - lastUpdate
-  diff = diff/100
+  var diff = thisUpdate - lastUpdate;
+  diff = diff/100;
+  player.totalmoney += player.firstAmount*player.firstPow*diff/(player.tickspeed/100);
   player.money += player.firstAmount*player.firstPow*diff/(player.tickspeed/100);
   player.firstAmount += (Math.floor(player.secondAmount) * player.secondPow/10)*diff/(player.tickspeed/100);
   player.secondAmount += (Math.floor(player.thirdAmount) * player.thirdPow/10)*diff/(player.tickspeed/100);
@@ -793,11 +819,26 @@ setInterval(function() {
     if (player.eightAmount >= (((1-player.tickDecrease)*100-7)/3*80)) document.getElementById("secondSoftReset").className = 'storebtn';
     else document.getElementById("secondSoftReset").className = 'unavailablebtn';
     index++;
-  lastUpdate = thisUpdate
+  lastUpdate = thisUpdate;
 }, 100);
+
+
+function init() {
+    console.log('init');
+    
+    //setup the onclick callbacks for the buttons
+    document.getElementById('dimensionsbtn').onclick=function () {showTab('dimensions');};
+    document.getElementById('optionsbtn').onclick=function () {showTab('options');};
+    document.getElementById('statisticsbtn').onclick=function () {showTab('statistics');};
+    
+    //show one tab during init or they'll all start hidden
+    showTab('dimensions');
+}
+
 
 setInterval(function () { save_game(); }, 10000);
 updateCosts();
 //updateInterval();
 updateDimensions();
 updateTickSpeed();
+init();
