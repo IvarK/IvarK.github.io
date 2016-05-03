@@ -1,10 +1,11 @@
+
 <!doctype html>
 <html>
   <link rel="stylesheet" type="text/css" href="IvarK.github.io/stylesheets/styles.css">
   
 <title>Antimatter Dimensions</title>
 <div class="container" style="color:#4F5957; font-family: Typewriter; text-align:center; font-size: 130%">
-  <h1 style="text-align:center; background-color: #A6A6A6"><img src="Untitled_000000.png" style="height:150px"></h1>
+  <h1 style="text-align:center; background-color: #A6A6A6; border: 2px solid #4980CC"><img src="Untitled_000000.png" style="height:150px"></h1>
   <hr>
   <p>
       <div>
@@ -19,7 +20,10 @@
     </tr>
     
   </p>
-  <h3 style="font-family: Open Sans Condensed; font-size: 240%">Dimensions</h3>
+  <button id="dimensionsbtn" style="font-family: Open Sans Condensed; font-size: 240%" class="tabbtn">Dimensions</button>
+  <button id="optionsbtn" style="font-family: Open Sans Condensed; font-size: 240%" class="tabbtn">Options</button>
+  <button id="statisticsbtn" style="font-family: Open Sans Condensed; font-size: 240%" class="tabbtn">Statistics</button>
+  <div id="dimensions" class="tab">
     <table class="table">
   <tr style="font-size: 170%">
       <td id="firstD" width="40%">
@@ -35,7 +39,7 @@
         <button id="firstMax" style="color:black; width:160px; height:50px" class="storebtn" align="right">Cost: 10</button>
       </td>
     </tr>
-    <tr id="secondRow" style="visibility: hidden; font-size: 170%">
+    <tr id="secondRow" style="display: none; font-size: 170%">
       <td id="secondD">
         Second Dimension
       </td>
@@ -47,7 +51,7 @@
       <td>
         <button id="secondMax" style="color:black; width:160px; height:50px" class="storebtn">Cost: 10</button>
     </tr>
-     <tr id="thirdRow" style="visibility: hidden; font-size: 170%">
+     <tr id="thirdRow" style="display: none; font-size: 170%">
       <td id="thirdD">
         Third Dimension
       </td>
@@ -60,7 +64,7 @@
       <td>
         <button id="thirdMax" style="color:black; width:160px; height:50px" class="storebtn">Cost: 10</button>
     </tr>
-    <tr id="fourthRow" style="visibility: hidden; font-size: 170%">
+    <tr id="fourthRow" style="display: none; font-size: 170%">
       <td id="fourthD">
         Fourth Dimension
       </td>
@@ -73,7 +77,7 @@
       <td>
         <button id="fourthMax" style="color:black; width:160px; height:50px" class="storebtn">Cost: 10</button>
     </tr>
-    <tr id="fifthRow" style="visibility: hidden; font-size: 170%">
+    <tr id="fifthRow" style="display: none; font-size: 170%">
       <td id="fifthD">
         Fifth Dimension
       </td>
@@ -86,7 +90,7 @@
       <td>
         <button id="fifthMax" style="color:black; width:160px; height:50px" class="storebtn">Cost: 10</button>
     </tr>
-    <tr id="sixthRow" style="visibility: hidden; font-size: 170%">
+    <tr id="sixthRow" style="display: none; font-size: 170%">
       <td id="sixthD">
         Sixth Dimension
       </td>
@@ -99,7 +103,7 @@
       <td>
         <button id="sixthMax" style="color:black; width:160px; height:50px" class="storebtn">Cost: 10</button>
     </tr>
-    <tr id="seventhRow" style="visibility: hidden; font-size: 170%">
+    <tr id="seventhRow" style="display: none; font-size: 170%">
       <td id="seventhD">
         Seventh Dimension
       </td>
@@ -112,7 +116,7 @@
       <td>
         <button id="seventhMax" style="color:black; width:160px; height:50px" class="storebtn">Cost: 10</button>
     </tr>
-    <tr id="eightRow" style="visibility: hidden; font-size: 170%">
+    <tr id="eightRow" style="display: none; font-size: 170%">
       <td id="eightD">
         Eight Dimension
       </td>
@@ -127,13 +131,12 @@
     </tr>
     </table>
     <table>
-    <hr>
-     <tr style="font-size: 170%">
+     <tr style="font-size: 170%" >
       <td id="resetLabel">
         Dimension Shift: requires 20 Fourth Dimension
       </td>
-      <td>
-        <button id="softReset" style="color:black; width: 200px; height: 50px" class="storebtn">Reset the game for a new Dimension</button>
+      <td >
+        <button id="softReset" style="color:black; width: 200px; height: 50px" class="storebtn" >Reset the game for a new Dimension</button>
       </td>
     </tr>
     <tr style="font-size: 170%">
@@ -145,8 +148,20 @@
       </td>
     </tr>
   </table>
+  </div>
 </div>
-<div align="center"><button id="notation">Change notation</button></div>
+<div id="options" class="tab" align="center">
+  <br>
+  <div><button id="notation" class="storebtn" style="color:black; width: 200px; height: 50px">Change notation</button></div>
+  
+  <div><button id="reset" class="storebtn" style="color:black; width: 200px; height: 50px">RESET THE GAME</button></div>
+</div>
+<div id="statistics" class="tab" align="left" style="color: black; font-size: 140%">
+  <br>
+  <div id="totalmoney">You have made x antimatter.</div>
+  <div id="totalresets">You have made x soft resets.</div>
+  <div id="galaxies">You have made x Antimatter galaxies.</div>
+</div>
 <tr>
   <td>
     <div style="text-align:center;font-size:160%">
@@ -157,7 +172,7 @@
   </td>
 </tr>
 <div style="text-align: center">
-<button id="reset">RESET THE GAME</button>
+
 </div>
 
 
