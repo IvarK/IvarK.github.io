@@ -261,7 +261,7 @@ shortenMoney = function(money) {
 	for (var i = 0; i < MoneyFormat.length; i++) {
 		if ( Math.pow(10, temp * 3) <= money ) {
 			money = money / Math.pow(10, temp * 3);
-			return scientific ? money.toFixed(2) + 'e+' + (80-i)*3 : money.toFixed(2) + ' ' + MoneyFormat[i];
+			return scientific ? money.toFixed(2) + 'e+' + (MoneyFormat.length-i)*3 : money.toFixed(2) + ' ' + MoneyFormat[i];
 		}
 		temp--;
 	}
