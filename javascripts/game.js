@@ -318,6 +318,7 @@ document.getElementById("tickSpeed").onclick = function() {
   document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickSpeedCost);
   updateTickSpeed();
   updateMoney();
+      _gaq.push(['_trackEvent', 'Buttons', 'Purchase', 'tickSpeed']);
   }
 };
 
@@ -330,6 +331,7 @@ function buyMaxTickSpeed() {
     updateTickSpeed();
     updateMoney();
     buyMaxTickSpeed();
+    _gaq.push(['_trackEvent', 'Buttons', 'Purchase', 'tickSpeedMax']);
   }
 }
 
@@ -352,6 +354,7 @@ document.getElementById("first").onclick = function() {
   updateMoney();
   updateDimensions();
   document.getElementById("secondRow").style.display = "table-row";
+      _gaq.push(['_trackEvent', 'Buttons', 'Purchase', 'first']);
   }
 };
 
@@ -376,6 +379,7 @@ document.getElementById("second").onclick = function() {
   document.getElementById("tickSpeedMax").style.visibility = "visible";
   document.getElementById("tickLabel").style.visibility = "visible";
   document.getElementById("tickSpeedAmount").style.visibility = "visible";
+      _gaq.push(['_trackEvent', 'Buttons', 'Purchase', 'second']);
   }
 };
 
@@ -396,6 +400,7 @@ document.getElementById("third").onclick = function() {
   updateMoney();
   updateDimensions();
   document.getElementById("fourthRow").style.display = "table-row";
+      _gaq.push(['_trackEvent', 'Buttons', 'Purchase', 'third']);
   }
 };
 
@@ -416,6 +421,7 @@ document.getElementById("fourth").onclick = function() {
   updateMoney();
   updateDimensions();
   if (player.resets > 0) document.getElementById("fifthRow").style.display = "table-row";
+      _gaq.push(['_trackEvent', 'Buttons', 'Purchase', 'fourth']);
   }
 };
 
@@ -435,7 +441,9 @@ document.getElementById("fifth").onclick = function() {
   updateCosts();
   updateMoney();
   updateDimensions();
+      _gaq.push(['_trackEvent', 'Buttons', 'Purchase', '5th']);
   if (player.resets > 1) document.getElementById("sixthRow").style.display = "table-row";
+      
   }
 };
 
@@ -455,7 +463,9 @@ document.getElementById("sixth").onclick = function() {
   updateCosts();
   updateMoney();
   updateDimensions();
+      _gaq.push(['_trackEvent', 'Buttons', 'Purchase', '6th']);
   if (player.resets > 2) document.getElementById("seventhRow").style.display = "table-row";
+       
   }
 };
 
@@ -475,6 +485,7 @@ document.getElementById("seventh").onclick = function() {
   updateCosts();
   updateMoney();
   updateDimensions();
+      _gaq.push(['_trackEvent', 'Buttons', 'Purchase', '7th']);
   if (player.resets > 3) document.getElementById("eightRow").style.display = "table-row";
   }
 };
@@ -495,6 +506,7 @@ document.getElementById("eight").onclick = function() {
   updateCosts();
   updateMoney();
   updateDimensions();
+      _gaq.push(['_trackEvent', 'Buttons', 'Purchase', '8th']);
   }
 };
 
@@ -509,6 +521,7 @@ if (player.money >= player.firstCost*(10-player.firstBought)) {
   updateMoney();
   updateDimensions();
   document.getElementById("secondRow").style.display = "table-row";
+  _gaq.push(['_trackEvent', 'Buttons', 'Purchase', '1stMax']);
 }
 };
 
@@ -527,6 +540,7 @@ if (player.money >= player.secondCost*(10-player.secondBought)) {
   document.getElementById("tickSpeedMax").style.visibility = "visible";
   document.getElementById("tickLabel").style.visibility = "visible";
   document.getElementById("tickSpeedAmount").style.visibility = "visible";
+  _gaq.push(['_trackEvent', 'Buttons', 'Purchase', '2ndMax']);
 }
 };
 
@@ -541,6 +555,7 @@ if (player.money >= player.thirdCost*(10-player.thirdBought)) {
   updateMoney();
   updateDimensions();
   document.getElementById("fourthRow").style.display = "table-row";
+  _gaq.push(['_trackEvent', 'Buttons', 'Purchase', '3rdMax']);
 }
 };
 
@@ -554,6 +569,7 @@ document.getElementById("fourthMax").onclick = function() {
   updateCosts();
   updateMoney();
   updateDimensions();
+      _gaq.push(['_trackEvent', 'Buttons', 'Purchase', '4thMax']);
   if (player.resets > 0) document.getElementById("fifthRow").style.display = "table-row";
 }
 };
@@ -568,6 +584,7 @@ document.getElementById("fifthMax").onclick = function() {
   updateCosts();
   updateMoney();
   updateDimensions();
+      _gaq.push(['_trackEvent', 'Buttons', 'Purchase', '5thMax']);
   if (player.resets > 1) document.getElementById("sixthRow").style.display = "table-row";
 }
 };
@@ -582,6 +599,7 @@ document.getElementById("sixthMax").onclick = function() {
   updateCosts();
   updateMoney();
   updateDimensions();
+      _gaq.push(['_trackEvent', 'Buttons', 'Purchase', '6thMax']);
   if (player.resets > 2) document.getElementById("seventhRow").style.display = "table-row";
 }
 };
@@ -596,6 +614,7 @@ document.getElementById("seventhMax").onclick = function() {
   updateCosts();
   updateMoney();
   updateDimensions();
+      _gaq.push(['_trackEvent', 'Buttons', 'Purchase', '7thMax']);
   if (player.resets > 3) document.getElementById("eightRow").style.display = "table-row";
 }
 };
@@ -610,6 +629,7 @@ document.getElementById("eightMax").onclick = function() {
   updateCosts();
   updateMoney();
   updateDimensions();
+      _gaq.push(['_trackEvent', 'Buttons', 'Purchase', '8thMax']);
 }
 };
 
@@ -618,37 +638,43 @@ document.getElementById("softReset").onclick = function() {
   	if (player.fourthAmount >= 20) {
   		softReset();
     	document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 20 Fifth Dimension';
+      _gaq.push(['_trackEvent', 'Buttons', 'Purchase', 'softReset']);
       }
     }
   else if (player.resets == 1) {
   	if (player.fifthAmount >= 20) {
     softReset();
     document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 20 Sixth Dimension';
+      _gaq.push(['_trackEvent', 'Buttons', 'Purchase', 'softReset']);
     }
   }
   else if (player.resets == 2) {
   	if (player.sixthAmount >= 20) {
     softReset();
     document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 20 Seventh Dimension';
+      _gaq.push(['_trackEvent', 'Buttons', 'Purchase', 'softReset']);
     }
   }
   else if (player.resets == 3) {
   	if (player.seventhAmount >= 20) {
     softReset();
     document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 20 Eight Dimension';
+      _gaq.push(['_trackEvent', 'Buttons', 'Purchase', 'softReset']);
     }
   }
   else if (player.resets > 3) {
   if (player.eightAmount >= (player.resets - 4)*15+20) {
     softReset();
     document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + (player.resets - 3)*20 +' Eight Dimension';
+    _gaq.push(['_trackEvent', 'Buttons', 'Purchase', 'softReset']);
     }
-    document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + Math.round((((1-player.tickDecrease)*100-7)/3*80)) + 'Eight Dimensions';
+    document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + Math.round((((1-player.tickDecrease)*100-7)/3*80)) + ' Eight Dimensions';
     }
 };
 
 document.getElementById("secondSoftReset").onclick = function() {
 	if (player.eightAmount >= (((1-player.tickDecrease)*100-7)/3*80)) {
+      _gaq.push(['_trackEvent', 'Buttons', 'Purchase', 'SecondSoftReset']);
 player = {
 	money: 10,
 	tickSpeedCost: 1000,
