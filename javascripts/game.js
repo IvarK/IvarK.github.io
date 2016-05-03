@@ -1,5 +1,5 @@
 var player = {
-	money: 10,
+	money: 1e120,
 	tickSpeedCost: 1000,
 	tickspeed: 1000,
 	firstCost: 10,
@@ -81,6 +81,7 @@ function load_game() {
     	if (player.secondAmount !== 0) { 
     		document.getElementById("thirdRow").style.visibility = "visible";
   		document.getElementById("tickSpeed").style.visibility = "visible";
+        document.getElementById("tickSpeedMax").style.visibility = "visible";
   		document.getElementById("tickLabel").style.visibility = "visible";
   		document.getElementById("tickSpeedAmount").style.visibility = "visible";
     	}
@@ -115,14 +116,14 @@ function updateDimensions() {
   document.getElementById("sixthAmount").innerHTML = shorten(player.sixthAmount) + ' (' + player.sixthBought + ')';
   document.getElementById("seventhAmount").innerHTML = shorten(player.seventhAmount) + ' (' + player.seventhBought + ')';
   document.getElementById("eightAmount").innerHTML = shorten(player.eightAmount) + ' (' + player.eightBought + ')';
-  document.getElementById("firstD").innerHTML = 'First Dimension  ' +  'x' + player.firstPow;
-  document.getElementById("secondD").innerHTML = 'Second Dimension  ' +  'x' + player.secondPow;
-  document.getElementById("thirdD").innerHTML = 'Third Dimension  ' +  'x' + player.thirdPow;
-  document.getElementById("fourthD").innerHTML = 'Fourth Dimension  ' +  'x' + player.fourthPow;
-  document.getElementById("fifthD").innerHTML = 'Fifth Dimension  ' +  'x' + player.fifthPow;
-  document.getElementById("sixthD").innerHTML = 'Sixth Dimension  ' +  'x' + player.sixthPow;
-  document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' +  'x' + player.seventhPow;
-  document.getElementById("eightD").innerHTML = 'Eight Dimension  ' +  'x' + player.eightPow;
+  document.getElementById("firstD").innerHTML = 'First Dimension  ' +  'x' + shorten(player.firstPow);
+  document.getElementById("secondD").innerHTML = 'Second Dimension  ' +  'x' + shorten(player.secondPow);
+  document.getElementById("thirdD").innerHTML = 'Third Dimension  ' +  'x' + shorten(player.thirdPow);
+  document.getElementById("fourthD").innerHTML = 'Fourth Dimension  ' +  'x' + shorten(player.fourthPow);
+  document.getElementById("fifthD").innerHTML = 'Fifth Dimension  ' +  'x' + shorten(player.fifthPow);
+  document.getElementById("sixthD").innerHTML = 'Sixth Dimension  ' +  'x' + shorten(player.sixthPow);
+  document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' +  'x' + shorten(player.seventhPow);
+  document.getElementById("eightD").innerHTML = 'Eight Dimension  ' +  'x' + shorten(player.eightPow);
   document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round(((1 - player.tickDecrease) * 100)) + '% faster.';
   	if (player.resets > 3) {
     document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires '+ ((player.resets - 4)*15+20) +' Eight Dimension';
@@ -166,11 +167,16 @@ document.getElementById("eightMax").innerHTML = 'Until 10, Cost: ' + shorten(pla
 }
 
 function updateTickSpeed() {
-	if (player.tickspeed > 100) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed);
-  	else if (player.tickspeed > 10) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*10)  + ' / 10';
+  var exp = Math.floor(Math.log10(player.tickspeed));
+	if (exp > 1) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed);
+    else {
+      document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*(100/Math.pow(10, exp))) + ' / ' + shorten(100/Math.pow(10, exp));
+    }
+  
+  /*	else if (player.tickspeed > 10) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*10)  + ' / 10';
   	else if (player.tickspeed > 1) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*100) + ' / 100';
   else if (player.tickspeed > .1) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*1000) + ' / 1000';
-  else document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*10000) + ' / 10000';
+  else document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*10000) + ' / 10000';*/
 }
 
 function softReset() {
@@ -222,6 +228,7 @@ updateCosts();
   document.getElementById("secondRow").style.visibility = "hidden";
   document.getElementById("thirdRow").style.visibility = "hidden";
   document.getElementById("tickSpeed").style.visibility = "hidden";
+  document.getElementById("tickSpeedMax").style.visibility = "hidden";
  	document.getElementById("tickLabel").style.visibility = "hidden";
  	document.getElementById("tickSpeedAmount").style.visibility = "hidden";
   document.getElementById("fourthRow").style.visibility = "hidden";
@@ -273,6 +280,20 @@ document.getElementById("tickSpeed").onclick = function() {
   }
 };
 
+function buyMaxTickSpeed() {
+  if (player.money >= player.tickSpeedCost) {
+    player.money -= player.tickSpeedCost;
+    player.tickspeed = player.tickspeed * player.tickDecrease;
+    player.tickSpeedCost = player.tickSpeedCost*10;
+    document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickSpeedCost);
+    updateTickSpeed();
+    updateMoney();
+    buyMaxTickSpeed();
+  }
+}
+
+
+
 document.getElementById("first").onclick = function() {
 	if (player.money >= player.firstCost) {
 	player.firstAmount++;
@@ -311,6 +332,7 @@ document.getElementById("second").onclick = function() {
   updateDimensions();
   document.getElementById("thirdRow").style.visibility = "visible";
   document.getElementById("tickSpeed").style.visibility = "visible";
+  document.getElementById("tickSpeedMax").style.visibility = "visible";
   document.getElementById("tickLabel").style.visibility = "visible";
   document.getElementById("tickSpeedAmount").style.visibility = "visible";
   }
@@ -461,6 +483,7 @@ if (player.money >= player.secondCost*(10-player.secondBought)) {
   updateDimensions();
   document.getElementById("thirdRow").style.visibility = "visible";
   document.getElementById("tickSpeed").style.visibility = "visible";
+  document.getElementById("tickSpeedMax").style.visibility = "visible";
   document.getElementById("tickLabel").style.visibility = "visible";
   document.getElementById("tickSpeedAmount").style.visibility = "visible";
 }
@@ -631,8 +654,9 @@ player = {
   document.getElementById("secondRow").style.visibility = "hidden";
   document.getElementById("thirdRow").style.visibility = "hidden";
   document.getElementById("tickSpeed").style.visibility = "hidden";
- 	document.getElementById("tickLabel").style.visibility = "hidden";
- 	document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+  document.getElementById("tickSpeedMax").style.visibility = "hidden";
+  document.getElementById("tickLabel").style.visibility = "hidden";
+  document.getElementById("tickSpeedAmount").style.visibility = "hidden";
   document.getElementById("fourthRow").style.visibility = "hidden";
   document.getElementById("fifthRow").style.visibility = "hidden";
   document.getElementById("sixthRow").style.visibility = "hidden";
@@ -652,8 +676,9 @@ document.getElementById("reset").onclick = function() {
   document.getElementById("secondRow").style.visibility = "hidden";
   document.getElementById("thirdRow").style.visibility = "hidden";
   document.getElementById("tickSpeed").style.visibility = "hidden";
- 	document.getElementById("tickLabel").style.visibility = "hidden";
- 	document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+      document.getElementById("tickSpeedMax").style.visibility = "hidden";
+  document.getElementById("tickLabel").style.visibility = "hidden";
+  document.getElementById("tickSpeedAmount").style.visibility = "hidden";
   document.getElementById("fourthRow").style.visibility = "hidden";
   document.getElementById("fifthRow").style.visibility = "hidden";
   document.getElementById("sixthRow").style.visibility = "hidden";
@@ -694,6 +719,8 @@ setInterval(function() {
   else eightButton.className = 'storebtn';
   if (player.tickSpeedCost > player.money) tickSpeedButton.className = 'unavailablebtn';
   else tickSpeedButton.className = 'storebtn';
+  if (player.tickSpeedCost > player.money) document.getElementById("tickSpeedMax").className = 'unavailablebtn';
+  else document.getElementById("tickSpeedMax").className = 'storebtn';
   if (player.firstCost*(10-player.firstBought) > player.money) document.getElementById("firstMax").className = 'unavailablebtn';
   else document.getElementById("firstMax").className = 'storebtn';
   if (player.secondCost*(10-player.secondBought) > player.money) document.getElementById("secondMax").className = 'unavailablebtn';
