@@ -1,5 +1,5 @@
 var player = {
-	money: 1e120,
+	money: 10,
 	tickSpeedCost: 1000,
 	tickspeed: 1000,
 	firstCost: 10,
