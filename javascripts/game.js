@@ -701,7 +701,7 @@ load_game();
 setInterval(function() {
   var thisUpdate = new Date().getTime();
   var diff = thisUpdate - lastUpdate
-  diff = diff/1000
+  diff = diff/100
   player.money += player.firstAmount*player.firstPow*diff/(player.tickspeed/100);
   updateMoney();
   updateCoinPerSec();
