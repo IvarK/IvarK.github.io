@@ -109,14 +109,14 @@ function updateCoinPerSec() {
 }
 
 function updateDimensions() {
-	document.getElementById("firstAmount").innerHTML = shorten(player.firstAmount) + ' (' + player.firstBought + ')';
-  document.getElementById("secondAmount").innerHTML = shorten(player.secondAmount) + ' (' + player.secondBought + ')';
-  document.getElementById("thirdAmount").innerHTML = shorten(player.thirdAmount) + ' (' + player.thirdBought + ')';
-  document.getElementById("fourthAmount").innerHTML = shorten(player.fourthAmount) + ' (' + player.fourthBought + ')';
-  document.getElementById("fifthAmount").innerHTML = shorten(player.fifthAmount) + ' (' + player.fifthBought + ')';
-  document.getElementById("sixthAmount").innerHTML = shorten(player.sixthAmount) + ' (' + player.sixthBought + ')';
-  document.getElementById("seventhAmount").innerHTML = shorten(player.seventhAmount) + ' (' + player.seventhBought + ')';
-  document.getElementById("eightAmount").innerHTML = shorten(player.eightAmount) + ' (' + player.eightBought + ')';
+	document.getElementById("firstAmount").innerHTML = shortenDimensions(player.firstAmount) + ' (' + player.firstBought + ')';
+  document.getElementById("secondAmount").innerHTML = shortenDimensions(player.secondAmount) + ' (' + player.secondBought + ')';
+  document.getElementById("thirdAmount").innerHTML = shortenDimensions(player.thirdAmount) + ' (' + player.thirdBought + ')';
+  document.getElementById("fourthAmount").innerHTML = shortenDimensions(player.fourthAmount) + ' (' + player.fourthBought + ')';
+  document.getElementById("fifthAmount").innerHTML = shortenDimensions(player.fifthAmount) + ' (' + player.fifthBought + ')';
+  document.getElementById("sixthAmount").innerHTML = shortenDimensions(player.sixthAmount) + ' (' + player.sixthBought + ')';
+  document.getElementById("seventhAmount").innerHTML = shortenDimensions(player.seventhAmount) + ' (' + player.seventhBought + ')';
+  document.getElementById("eightAmount").innerHTML = shortenDimensions(player.eightAmount) + ' (' + player.eightBought + ')';
   document.getElementById("firstD").innerHTML = 'First Dimension  ' +  'x' + shorten(player.firstPow);
   document.getElementById("secondD").innerHTML = 'Second Dimension  ' +  'x' + shorten(player.secondPow);
   document.getElementById("thirdD").innerHTML = 'Third Dimension  ' +  'x' + shorten(player.thirdPow);
@@ -249,12 +249,28 @@ shorten = function(money) {
 	for (var i = 0; i < MoneyFormat.length; i++) {
 		if ( Math.pow(10, temp * 3) <= money ) {
 			money = money / Math.pow(10, temp * 3);
-			return scientific ? (Math.round(money * digitMul) / digitMul) + 'e+' + (MoneyFormat.length-i)*3 :(Math.round(money * digitMul) / digitMul) + ' ' + MoneyFormat[i];
+          if ((Math.round(money * digitMul) / digitMul) == 1000) {
+            return scientific ? (Math.round((money * digitMul) / digitMul)/1000) + 'e+' + (MoneyFormat.length-i-1)*3 :(Math.round((money * digitMul) / digitMul)/1000) + ' ' + MoneyFormat[i-1];
+          }
+			else return scientific ? (Math.round(money * digitMul) / digitMul) + 'e+' + (MoneyFormat.length-i)*3 :(Math.round(money * digitMul) / digitMul) + ' ' + MoneyFormat[i];
 		}
 		temp--;
 	}
 	return Math.floor(money);
 };
+
+shortenDimensions = function(money) {
+  var temp = MoneyFormat.length;
+	var digitMul = Math.pow(10, 2);
+	for (var i = 0; i < MoneyFormat.length; i++) {
+		if ( Math.pow(10, temp * 3) <= money ) {
+			money = money / Math.pow(10, temp * 3);
+			return scientific ? money.toFixed(2) + 'e+' + (MoneyFormat.length-i)*3 : money.toFixed(2) + ' ' + MoneyFormat[i];
+		}
+		temp--;
+	}
+	return Math.round(money);
+}
 
 shortenMoney = function(money) {
 	var temp = MoneyFormat.length;
