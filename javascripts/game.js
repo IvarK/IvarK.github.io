@@ -690,20 +690,22 @@ player = {
   tickDecrease: player.tickDecrease - 0.03,
 	interval: null
   };
-  updateDimensions();
   updateCosts();
-  updateTickSpeed();
+  clearInterval(player.interval);
+	//updateInterval();
+	updateDimensions();
   document.getElementById("secondRow").style.display= "none";
   document.getElementById("thirdRow").style.display= "none";
   document.getElementById("tickSpeed").style.visibility = "hidden";
   document.getElementById("tickSpeedMax").style.visibility = "hidden";
-  document.getElementById("tickLabel").style.visibility = "hidden";
-  document.getElementById("tickSpeedAmount").style.visibility = "hidden";
-  document.getElementById("fourthRow").style.visibility = display= "none";
-  document.getElementById("fifthRow").style.visibility = display= "none";
-  document.getElementById("sixthRow").style.visibility = display= "none";
-  document.getElementById("seventhRow").style.visibility = display= "none";
-  document.getElementById("eightRow").style.visibility = display= "none";
+ 	document.getElementById("tickLabel").style.visibility = "hidden";
+ 	document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+  document.getElementById("fourthRow").style.display= "none";
+  document.getElementById("fifthRow").style.display= "none";
+  document.getElementById("sixthRow").style.display= "none";
+  document.getElementById("seventhRow").style.display= "none";
+  document.getElementById("eightRow").style.display= "none";
+  updateTickSpeed();
 	}
 };
 
@@ -758,7 +760,7 @@ document.getElementById("reset").onclick = function() {
   updateCosts();
   clearInterval(player.interval);
 	//updateInterval();
-	updateDimensions();
+	
   document.getElementById("secondRow").style.display= "none";
   document.getElementById("thirdRow").style.display= "none";
   document.getElementById("tickSpeed").style.visibility = "hidden";
@@ -771,6 +773,7 @@ document.getElementById("reset").onclick = function() {
   document.getElementById("seventhRow").style.display= "none";
   document.getElementById("eightRow").style.display= "none";
   updateTickSpeed();
+      updateDimensions();
   }
 };
 
