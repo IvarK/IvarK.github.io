@@ -712,6 +712,10 @@ document.getElementById("exportbtn").onclick = function() {
 };
 
 
+document.getElementById("save").onclick = function() {
+  save_game();
+};
+
 function verify_save(obj) {
     if (typeof obj != 'object') return false;
     
