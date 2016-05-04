@@ -647,6 +647,47 @@ document.getElementById("softReset").onclick = function() {
     }
 };
 
+function maxAll() {
+  buyMaxTickSpeed();
+  if (player.money >= player.eightCost*(10-player.eightBought) && player.resets > 3) {
+    document.getElementById("eightMax").click();
+    maxAll();
+  }
+  else if (player.money >= player.seventhCost*(10-player.seventhBought) && player.resets == 3) {
+    document.getElementById("seventhMax").click();
+    maxAll();
+  }
+  else if (player.money >= player.sixthCost*(10-player.sixthBought) && player.resets == 2) {
+    document.getElementById("sixthMax").click();
+    maxAll();
+  }
+  else if (player.money >= player.fifthCost*(10-player.fifthBought) && player.resets == 1) {
+    document.getElementById("fifthMax").click();
+    maxAll();
+  }
+  else if (player.money >= player.fourthCost*(10-player.fourthBought)) {
+    document.getElementById("fourthMax").click();
+    maxAll();
+  }
+  else if (player.money >= player.thirdCost*(10-player.thirdBought)) {
+    document.getElementById("thirdMax").click();
+    maxAll();
+  }
+  else if (player.money >= player.secondCost*(10-player.secondBought)) {
+    document.getElementById("secondMax").click();
+    maxAll();
+  }
+  else if (player.money >= player.firstCost*(10-player.firstBought)) {
+    document.getElementById("firstMax").click();
+    maxAll();
+  }
+  
+}
+
+document.getElementById("maxall").onclick = function() {
+  maxAll();
+};
+
 document.getElementById("secondSoftReset").onclick = function() {
 	if (player.eightAmount >= (((1-player.tickDecrease)*100-7)/3*80)) {
 player = {
