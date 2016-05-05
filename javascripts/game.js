@@ -929,4 +929,5 @@ updateCosts();
 //updateInterval();
 updateDimensions();
 updateTickSpeed();
+document.getElementById("hiddenheader").style.display = "none";
 init();
