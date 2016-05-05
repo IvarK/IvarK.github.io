@@ -274,7 +274,7 @@ shorten = function(money) {
 		if ( Math.pow(10, temp * 3) <= money ) {
 			money = money / Math.pow(10, temp * 3);
           if ((Math.round(money * digitMul) / digitMul) == 1000) {
-            return scientific ? (Math.round((money * digitMul) / digitMul)/1000) + 'e+' + (MoneyFormat.length-i+1)*3 :(Math.round((money * digitMul) / digitMul)/1000) + ' ' + MoneyFormat[i+1];
+            return scientific ? (Math.round((money * digitMul) / digitMul)/1000) + 'e+' + (MoneyFormat.length-i+1)*3 :(Math.round((money * digitMul) / digitMul)/1000) + ' ' + MoneyFormat[i-1];
           }
 			else return scientific ? (Math.round(money * digitMul) / digitMul) + 'e+' + (MoneyFormat.length-i)*3 :(Math.round(money * digitMul) / digitMul) + ' ' + MoneyFormat[i];
 		}
