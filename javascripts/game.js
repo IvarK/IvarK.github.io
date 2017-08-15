@@ -34,6 +34,11 @@ var player = {
 	sixthPow: 1,
 	seventhPow: 1,
 	eightPow: 1,
+	infinityPoints: 0,
+	infinitied: 0,
+	totalTimePlayed: 0,
+	bestInfinityTime: 9999999999,
+	thisInfinityTime: 0,
   resets: 0,
   tickDecrease: 0.9,
   totalmoney: 0,
@@ -120,6 +125,8 @@ function showTab(tabName) {
 function updateMoney() {
 	var element = document.getElementById("coinAmount");
   element.innerHTML =shortenMoney(player.money);
+  
+  
 }
 
 function updateCoinPerSec() {
@@ -167,7 +174,14 @@ function updateDimensions() {
   document.getElementById("totalmoney").innerHTML = 'You have made a total of ' + shortenMoney(player.totalmoney) + ' antimatter.';
   document.getElementById("totalresets").innerHTML = 'You have done ' + player.resets + ' soft resets.';
   document.getElementById("galaxies").innerHTML = 'You have ' + Math.round((((1-player.tickDecrease)*100-7)/3)-1) + ' Antimatter Galaxies.';
-  
+  document.getElementById("totalTime").innerHTML = "You have played for " + timeDisplay(player.totalTimePlayed)
+  document.getElementById("thisInfinity").innerHTML = "You have spent " + timeDisplay(player.thisInfinityTime) + " in this infinity."
+  document.getElementById("infinityPoints").innerHTML = "You have  " + player.infinityPoints + " Infinity points."
+  document.getElementById("infinitied").innerHTML = "You have infinitied " + player.infinitied + " times."
+  document.getElementById("totalTime").innerHTML = "You have played for " + timeDisplay(player.totalTimePlayed)
+  if (player.bestInfinityTime == 9999999999 ) {
+    document.getElementById("bestInfinity").innerHTML = ""
+  } else document.getElementById("bestInfinity").innerHTML = "Your fastest infinity is in " + timeDisplay(player.bestInfinityTime) + "."
 }
 function updateCosts() {
 document.getElementById("first").innerHTML = 'Cost: ' + shorten(player.firstCost);
@@ -231,6 +245,11 @@ player = {
 	sixthBought: 0,
 	seventhBought: 0,
 	eightBought: 0,
+	infinityPoints: player.infinityPoints,
+	infinitied: player.infinitied,
+	totalTimePlayed: player.totalTimePlayed,
+	bestInfinityTime: player.bestInfinityTime,
+	thisInfinityTime: player.thisInfinityTime,
 	firstPow: Math.pow(2, player.resets +1),
 	secondPow: Math.pow(2, player.resets),
 	thirdPow: Math.max(Math.pow(2, player.resets - 1), 1),
@@ -332,6 +351,22 @@ function buyMaxTickSpeed() {
     buyMaxTickSpeed();
   }
 }
+
+function timeDisplay(time) {
+  time = Math.floor(time/10)
+  if (time >= 31536000) {
+    return Math.floor(time/31536000) + " years, " + Math.round((time%31536000)/86400) + " days, " + Math.round((time%86400)/3600) + " hours, " + Math.round((time%3600)/60) + " minutes and " + Math.round(time%60) + " seconds"
+  } else if (time >= 86400) {
+    return Math.floor(time/86400) + " days, " + Math.round((time%86400)/3600) + " hours, " + Math.round((time%3600)/60) + " minutes and " + Math.round(time%60) + " seconds"
+  } else if (time >= 3600) {
+      return Math.floor(time/3600) + " hours, " + Math.round((time%3600)/60) + " minutes and " + Math.round(time%60) + " seconds"
+    } else if (time >= 60) {
+      return Math.floor(time/60) + " minutes and " + Math.round(time%60) + " seconds"
+    }
+  else return Math.floor(time%60) + " seconds"
+}
+
+
 
 
 
@@ -726,6 +761,11 @@ player = {
 	sixthPow: 1,
 	seventhPow: 1,
 	eightPow: 1,
+	infinityPoints: player.infinityPoints,
+	infinitied: player.infinitied,
+	totalTimePlayed: player.totalTimePlayed,
+	bestInfinityTime: player.bestInfinityTime,
+	thisInfinityTime: player.thisInfinityTime,
   resets: 0,
   totalmoney: player.totalmoney,
   tickDecrease: player.tickDecrease - 0.03,
@@ -824,6 +864,58 @@ document.getElementById("notation").onclick = function() {
   updateCosts();
 };
 
+document.getElementById("bigcrunch").onclick = function() {
+  player = {
+	money: 10,
+	tickSpeedCost: 1000,
+	tickspeed: 1000,
+	firstCost: 10,
+	secondCost: 100,
+	thirdCost: 10000,
+	fourthCost: 1000000,
+	fifthCost: 1e9,
+	sixthCost: 1e13,
+	seventhCost: 1e18,
+	eightCost: 1e24,
+	firstAmount: 0,
+	secondAmount: 0,
+	thirdAmount: 0,
+	fourthAmount: 0,
+	firstBought: 0,
+	secondBought: 0,
+	thirdBought: 0,
+	fourthBought: 0,
+	fifthAmount: 0,
+	sixthAmount: 0,
+	seventhAmount: 0,
+	eightAmount: 0,
+	fifthBought: 0,
+	sixthBought: 0,
+	seventhBought: 0,
+	eightBought: 0,
+	firstPow: 1,
+	secondPow: 1,
+	thirdPow: 1,
+	fourthPow: 1,
+	fifthPow: 1,
+	sixthPow: 1,
+	seventhPow: 1,
+	eightPow: 1,
+	infinityPoints: player.infinityPoints + 1,
+	infinitied: player.infinitied + 1,
+	totalTimePlayed: player.totalTimePlayed,
+	bestInfinityTime: Math.min(player.bestInfinityTime, player.thisInfinityTime),
+	thisInfinityTime: 0,
+  resets: 0,
+  tickDecrease: 0.9,
+  totalmoney: 0,
+	interval: null
+};
+
+}
+
+
+
 
 var index = 0;
 load_game();
@@ -831,8 +923,8 @@ setInterval(function() {
   var thisUpdate = new Date().getTime();
   var diff = thisUpdate - lastUpdate;
   diff = diff/100;
-  player.totalmoney += player.firstAmount*player.firstPow*diff/(player.tickspeed/100);
-  player.money += player.firstAmount*player.firstPow*diff/(player.tickspeed/100);
+  if (player.money != Infinity) player.totalmoney += player.firstAmount*player.firstPow*diff/(player.tickspeed/100);
+  if (player.money != Infinity) player.money += player.firstAmount*player.firstPow*diff/(player.tickspeed/100);
   player.firstAmount += (Math.floor(player.secondAmount) * player.secondPow/10)*diff/(player.tickspeed/100);
   player.secondAmount += (Math.floor(player.thirdAmount) * player.thirdPow/10)*diff/(player.tickspeed/100);
   player.thirdAmount += (Math.floor(player.fourthAmount) * player.fourthPow/10)*diff/(player.tickspeed/100);
@@ -840,9 +932,17 @@ setInterval(function() {
   player.fifthAmount += (Math.floor(player.sixthAmount) * player.sixthPow/10)*diff/(player.tickspeed/100);
   player.sixthAmount += (Math.floor(player.seventhAmount) * player.seventhPow/10)*diff/(player.tickspeed/100);
   player.seventhAmount += (Math.floor(player.eightAmount) * player.eightPow/10)*diff/(player.tickspeed/100);
+  player.totalTimePlayed += diff
+  player.thisInfinityTime += diff
+  if (player.money == Infinity) {
+    document.getElementById("bigcrunch").style.display = 'inline-block';
+    showTab('emptiness');
+  }
+  else document.getElementById("bigcrunch").style.display = 'none';
   updateMoney();
   updateCoinPerSec();
   updateDimensions();
+
   if (player.firstCost > player.money) firstButton.className = 'unavailablebtn';
   else firstButton.className = 'storebtn';
   if (player.secondCost > player.money) secondButton.className = 'unavailablebtn';
