@@ -1,0 +1,24 @@
+
+
+So you get one infinity point for reaching infinity (1.7e308), game also tracks time it takes to get it.
+There would be an infinity upgrade tree and challenges.
+
+Upgrades:
+multiplier for 10 dimensions bought 2x -> 2.2x
+production increase over time +0.5*(minutes)^0.8%
+Multiply the production of 2 Dimensions at a time, sets could be 1,8 ; 2,7 ; 3,6 ; 4,5 and multiplier is 1+(Infinitied*0.2)
+Production multi based on challenges (full challenges give x3 to all dimensions)
+Decrease the number of dimensions needed for resets by 9
+
+
+Challenges:
+All dimensions produce 50% less antimatter
+More production initially, with lowering with time(1000% first, after 1 hour 100%, after 2 hours 10%)
+except for the first dimension, all dimensions are less efficient for every higher dimension purchased (mult = 1/2^(highestDimension - ThisDimension))
+You can't increase tick speed
+You start with 8 Dimensions but can't reset
+Buying anything halts your progression to 10%, gradually returning in 3 minutes
+
+
+Challenge rewards:
+Buy 1 Dimension every 30 seconds?
