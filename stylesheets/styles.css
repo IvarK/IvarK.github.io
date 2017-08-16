@@ -37,6 +37,72 @@
   background: #5AC467;
 }
 
+.infinistorebtn1 {
+  color: white;
+  background: #1F1F1F;
+  font-weight: bold;
+  font-size: 100%;
+  border: 1px solid #ED85DF;
+  width:160px;
+  height:80px;
+  transition-duration: 0.2s;
+  cursor: pointer;
+  border-radius: 4px
+}
+ 
+.infinistorebtn1:hover {
+  color: #000;
+  background: #A53B98;
+}
+
+.infinistorebtn2 {
+  color: white;
+  background: #1F1F1F;
+  font-weight: bold;
+  font-size: 100%;
+  border: 1px solid #ED85DF;
+  width:160px;
+  height:80px;
+  transition-duration: 0.2s;
+  cursor: pointer;
+  border-radius: 4px
+}
+ 
+.infinistorebtn2:hover {
+  color: #000;
+  background: #ff3300;
+}
+
+.infinistorebtnlocked {
+  color: black;
+  background: #F7F7F7;
+  font-weight: bold;
+  font-size: 100%;
+  border: 1px solid #ED85DF;
+  width:160px;
+  height:80px;
+  transition-duration: 0.2s;
+  cursor: pointer;
+  border-radius: 4px
+}
+ 
+.infinistorebtnlocked:hover {
+  color: #000;
+  background: white;
+}
+
+.infinistorebtnbought {
+  color: black;
+  background: #5AC467;
+  font-weight: bold;
+  font-size: 100%;
+  border: 1px solid #ED85DF;
+  width:160px;
+  height:80px;
+  transition-duration: 0.2s;
+  border-radius: 4px
+}
+
 .unavailablebtn {
   color: #000000;
   background: #808080;
@@ -54,7 +120,6 @@
 }
 
 .tabbtn {
-  color:#FF;
   background: #E0E0E0;
   font-weight: bold;
   border: 2px solid #4980CC;
@@ -71,6 +136,28 @@
   border-radius: 4px;
   
 }
+
+.infinitybtn {
+  color: #FFFFFF;
+  background: #1F1F1F;
+  font-weight: bold;
+  border: 2px solid #B67F33;
+  border-radius: 4px;
+  transition-duration: 0.2s;
+  cursor: pointer;
+  
+}
+.infinitybtn:hover {
+  color:#000000;
+  background: #B67F33;
+  font-weight: bold;
+  border: 2px solid #B67F33;
+  border-radius: 4px;
+  
+}
+
+
+
 
 
 @font-face {
@@ -195,7 +282,7 @@ pre {
 }
 
 table {
-  width:100%;
+
   border-collapse:collapse;
 }
 
