@@ -336,6 +336,7 @@ MoneyFormat = ['K', 'M', 'B', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UD
 MoneyFormat.reverse();
 
 shorten = function(money) {
+    if (money == Infinity) return "Infinite"
 	var temp = MoneyFormat.length;
 	var digitMul = Math.pow(10, 2);
 	for (var i = 0; i < MoneyFormat.length; i++) {
@@ -352,6 +353,7 @@ shorten = function(money) {
 };
 
 shortenDimensions = function(money) {
+  if (money == Infinity) return "Infinite"
   var temp = MoneyFormat.length;
 	var digitMul = Math.pow(10, 2);
 	for (var i = 0; i < MoneyFormat.length; i++) {
@@ -365,6 +367,7 @@ shortenDimensions = function(money) {
 };
 
 shortenMoney = function(money) {
+  if (money == Infinity) return "Infinite"
 	var temp = MoneyFormat.length;
 	var digitMul = Math.pow(10, 2);
 	for (var i = 0; i < MoneyFormat.length; i++) {
@@ -1045,8 +1048,8 @@ document.getElementById("bigcrunch").onclick = function() {
   document.getElementById("thirdRow").style.display= "none";
   document.getElementById("tickSpeed").style.visibility = "hidden";
   document.getElementById("tickSpeedMax").style.visibility = "hidden";
- 	document.getElementById("tickLabel").style.visibility = "hidden";
- 	document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+  document.getElementById("tickLabel").style.visibility = "hidden";
+  document.getElementById("tickSpeedAmount").style.visibility = "hidden";
   document.getElementById("fourthRow").style.display= "none";
   document.getElementById("fifthRow").style.display= "none";
   document.getElementById("sixthRow").style.display= "none";
@@ -1229,6 +1232,19 @@ setInterval(function() {
   if (player.infinityUpgrades.includes("resetBoost")) document.getElementById("infi14").className = "infinistorebtnbought"
     if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("infi24").className = "infinistorebtnbought"
   
+    
+    
+  if (player.money == Infinity) {
+    document.getElementById("tickSpeed").style.visibility = "hidden";
+    document.getElementById("tickSpeedMax").style.visibility = "hidden";
+    document.getElementById("tickLabel").style.visibility = "hidden";
+    document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+  } else {
+    document.getElementById("tickSpeed").style.visibility = "visible";
+    document.getElementById("tickSpeedMax").style.visibility = "visible";
+    document.getElementById("tickLabel").style.visibility = "visible";
+    document.getElementById("tickSpeedAmount").style.visibility = "visible";
+  }
     
     
     
