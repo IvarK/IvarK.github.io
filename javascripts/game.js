@@ -34,7 +34,7 @@ var player = {
 	sixthPow: 1,
 	seventhPow: 1,
 	eightPow: 1,
-    infinityUpgrades: [],
+  infinityUpgrades: [],
 	infinityPoints: 0,
 	infinitied: 0,
 	totalTimePlayed: 0,
@@ -44,10 +44,14 @@ var player = {
   galaxies: 0,
   tickDecrease: 0.9,
   totalmoney: 0,
-	interval: null
+	interval: null,
+  lastUpdate: new Date().getTime(),
+  options: {
+    scientific: false,
+    animationsOn: true
+  }
 };
-var lastUpdate = new Date().getTime();
-var scientific = false;
+
 var defaultStart = player;
 var firstButton = document.getElementById("first");
 var secondButton = document.getElementById("second");
@@ -157,7 +161,7 @@ function updateDimensions() {
     document.getElementById("fifthD").innerHTML = 'Fifth Dimension  ' +  'x' + shortenMoney(!player.infinityUpgrades.includes("45Mult") ? player.fifthPow : player.fifthPow * dimMults());
     document.getElementById("sixthD").innerHTML = 'Sixth Dimension  ' +  'x' + shortenMoney(!player.infinityUpgrades.includes("36Mult") ? player.sixthPow : player.sixthPow * dimMults());
     document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' +  'x' + shortenMoney(!player.infinityUpgrades.includes("27Mult") ? player.seventhPow : player.seventhPow * dimMults());
-    document.getElementById("eightD").innerHTML = 'Eighth Dimension  ' +  'x' + shortenMoney(!player.infinityUpgrades.includes("18Mult") ? player.eightPow : player.eightPow * dimMults());
+    document.getElementById("eightD").innerHTML = 'Eight Dimension  ' +  'x' + shortenMoney(!player.infinityUpgrades.includes("18Mult") ? player.eightPow : player.eightPow * dimMults());
   } else {
     document.getElementById("firstD").innerHTML = 'First Dimension  ' +  'x' + shortenMoney((!player.infinityUpgrades.includes("18Mult") ? player.firstPow : player.firstPow * dimMults())*timeMult());
     document.getElementById("secondD").innerHTML = 'Second Dimension  ' +  'x' + shortenMoney((!player.infinityUpgrades.includes("27Mult") ? player.secondPow : player.secondPow * dimMults())*timeMult());
@@ -166,13 +170,13 @@ function updateDimensions() {
     document.getElementById("fifthD").innerHTML = 'Fifth Dimension  ' +  'x' + shortenMoney((!player.infinityUpgrades.includes("45Mult") ? player.fifthPow : player.fifthPow * dimMults())*timeMult());
     document.getElementById("sixthD").innerHTML = 'Sixth Dimension  ' +  'x' + shortenMoney((!player.infinityUpgrades.includes("36Mult") ? player.sixthPow : player.sixthPow * dimMults())*timeMult());
     document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' +  'x' + shortenMoney((!player.infinityUpgrades.includes("27Mult") ? player.seventhPow : player.seventhPow * dimMults())*timeMult());
-    document.getElementById("eightD").innerHTML = 'Eighth Dimension  ' +  'x' + shortenMoney((!player.infinityUpgrades.includes("18Mult") ? player.eightPow : player.eightPow * dimMults())*timeMult());
+    document.getElementById("eightD").innerHTML = 'Eight Dimension  ' +  'x' + shortenMoney((!player.infinityUpgrades.includes("18Mult") ? player.eightPow : player.eightPow * dimMults())*timeMult());
   }
-  if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round(((1-(0.9 - (player.galaxies*0.06))) * 100)) + '% faster.';
-  else document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round(((1-(0.9 - (player.galaxies*0.03))) * 100)) + '% faster.';
+  if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round(((0.9 - (player.galaxies*0.06)) * 100)) + '% faster.';
+  else document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round(((0.9 - (player.galaxies*0.03)) * 100)) + '% faster.';
   if (player.infinityUpgrades.includes("resetBoost")) {
     if (player.resets > 3) {
-      document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires '+ ((player.resets - 4)*15+11) +' Eighth Dimension';
+      document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires '+ ((player.resets - 4)*15+11) +' Eight Dimension';
       if (player.seventhAmount !== 0) document.getElementById("eightRow").style.visibility="visible";
     }
     else if (player.resets > 2) {
@@ -189,7 +193,7 @@ function updateDimensions() {
     } else document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 11 Fourth Dimension';
   } else {
     if (player.resets > 3) {
-      document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires '+ ((player.resets - 4)*15+20) +' Eighth Dimension';
+      document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires '+ ((player.resets - 4)*15+20) +' Eight Dimension';
       if (player.seventhAmount !== 0) document.getElementById("eightRow").style.visibility="visible";
     }
     else if (player.resets > 2) {
@@ -207,7 +211,7 @@ function updateDimensions() {
   }
   if (player.resets > 3) document.getElementById("softReset").innerHTML = "Reset the game for a Boost";
   else document.getElementById("softReset").innerHTML = "Reset the game for a new Dimension";
-  document.getElementById("secondResetLabel").innerHTML = player.infinityUpgrades.includes("resetBoost") ? 'Antimatter Galaxies: requires ' + Math.round((player.galaxies*80+80) - 9) + ' Eighth Dimensions' : 'Antimatter Galaxies: requires ' + Math.round((player.galaxies*80+80)) + ' Eighth Dimensions';
+  document.getElementById("secondResetLabel").innerHTML = player.infinityUpgrades.includes("resetBoost") ? 'Antimatter Galaxies: requires ' + Math.round((((1-player.tickDecrease)*100-7)/3*80) - 9) + ' Eight Dimensions' : 'Antimatter Galaxies: requires ' + Math.round((((1-player.tickDecrease)*100-7)/3*80)) + ' Eight Dimensions';
   document.getElementById("totalmoney").innerHTML = 'You have made a total of ' + shortenMoney(player.totalmoney) + ' antimatter.';
   document.getElementById("totalresets").innerHTML = 'You have done ' + player.resets + ' soft resets.';
   document.getElementById("galaxies").innerHTML = 'You have ' + Math.round((((1-player.tickDecrease)*100-7)/3)-1) + ' Antimatter Galaxies.';
@@ -310,8 +314,12 @@ player = {
   galaxies: player.galaxies,
   tickDecrease: player.tickDecrease,
   totalmoney: player.totalmoney,
-	interval: null
-  
+	interval: null,
+  lastUpdate: player.lastUpdate,
+  options: {
+    scientific: player.options.scientific,
+    animationsOn: player.options.animationsOn
+  }
 };
 player.resets++;
 updateCosts();
@@ -336,16 +344,15 @@ MoneyFormat = ['K', 'M', 'B', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UD
 MoneyFormat.reverse();
 
 shorten = function(money) {
-    if (money == Infinity) return "Infinite"
 	var temp = MoneyFormat.length;
 	var digitMul = Math.pow(10, 2);
 	for (var i = 0; i < MoneyFormat.length; i++) {
 		if ( Math.pow(10, temp * 3) <= money ) {
 			money = money / Math.pow(10, temp * 3);
           if ((Math.round(money * digitMul) / digitMul) == 1000) {
-            return scientific ? (Math.round((money * digitMul) / digitMul)/1000) + 'e+' + (MoneyFormat.length-i+1)*3 :(Math.round((money * digitMul) / digitMul)/1000) + ' ' + MoneyFormat[i-1];
+            return player.options.scientific ? (Math.round((money * digitMul) / digitMul)/1000) + 'e+' + (MoneyFormat.length-i+1)*3 :(Math.round((money * digitMul) / digitMul)/1000) + ' ' + MoneyFormat[i-1];
           }
-			else return scientific ? (Math.round(money * digitMul) / digitMul) + 'e+' + (MoneyFormat.length-i)*3 :(Math.round(money * digitMul) / digitMul) + ' ' + MoneyFormat[i];
+			else return player.options.scientific ? (Math.round(money * digitMul) / digitMul) + 'e+' + (MoneyFormat.length-i)*3 :(Math.round(money * digitMul) / digitMul) + ' ' + MoneyFormat[i];
 		}
 		temp--;
 	}
@@ -353,13 +360,12 @@ shorten = function(money) {
 };
 
 shortenDimensions = function(money) {
-  if (money == Infinity) return "Infinite"
   var temp = MoneyFormat.length;
 	var digitMul = Math.pow(10, 2);
 	for (var i = 0; i < MoneyFormat.length; i++) {
 		if ( Math.pow(10, temp * 3) <= money ) {
 			money = money / Math.pow(10, temp * 3);
-			return scientific ? money.toFixed(2) + 'e+' + (MoneyFormat.length-i)*3 : money.toFixed(2) + ' ' + MoneyFormat[i];
+			return player.options.scientific ? money.toFixed(2) + 'e+' + (MoneyFormat.length-i)*3 : money.toFixed(2) + ' ' + MoneyFormat[i];
 		}
 		temp--;
 	}
@@ -367,13 +373,12 @@ shortenDimensions = function(money) {
 };
 
 shortenMoney = function(money) {
-  if (money == Infinity) return "Infinite"
 	var temp = MoneyFormat.length;
 	var digitMul = Math.pow(10, 2);
 	for (var i = 0; i < MoneyFormat.length; i++) {
 		if ( Math.pow(10, temp * 3) <= money ) {
 			money = money / Math.pow(10, temp * 3);
-			return scientific ? money.toFixed(2) + 'e+' + (MoneyFormat.length-i)*3 : money.toFixed(2) + ' ' + MoneyFormat[i];
+			return player.options.scientific ? money.toFixed(2) + 'e+' + (MoneyFormat.length-i)*3 : money.toFixed(2) + ' ' + MoneyFormat[i];
 		}
 		temp--;
 	}
@@ -410,16 +415,18 @@ function buyMaxTickSpeed() {
 function timeDisplay(time) {
   time = Math.floor(time/10)
   if (time >= 31536000) {
-    return Math.floor(time/31536000) + " years, " + Math.floor((time%31536000)/86400) + " days, " + Math.floor((time%86400)/3600) + " hours, " + Math.floor((time%3600)/60) + " minutes and " + Math.floor(time%60) + " seconds"
+    return Math.floor(time/31536000) + " years, " + Math.round((time%31536000)/86400) + " days, " + Math.round((time%86400)/3600) + " hours, " + Math.round((time%3600)/60) + " minutes and " + Math.round(time%60) + " seconds"
   } else if (time >= 86400) {
-    return Math.floor(time/86400) + " days, " + Math.floor((time%86400)/3600) + " hours, " + Math.floor((time%3600)/60) + " minutes and " + Math.floor(time%60) + " seconds"
+    return Math.floor(time/86400) + " days, " + Math.round((time%86400)/3600) + " hours, " + Math.round((time%3600)/60) + " minutes and " + Math.round(time%60) + " seconds"
   } else if (time >= 3600) {
-      return Math.floor(time/3600) + " hours, " + Math.floor((time%3600)/60) + " minutes and " + Math.floor(time%60) + " seconds"
+      return Math.floor(time/3600) + " hours, " + Math.round((time%3600)/60) + " minutes and " + Math.round(time%60) + " seconds"
     } else if (time >= 60) {
-      return Math.floor(time/60) + " minutes and " + Math.floor(time%60) + " seconds"
+      return Math.floor(time/60) + " minutes and " + Math.round(time%60) + " seconds"
     }
   else return Math.floor(time%60) + " seconds"
 }
+
+
 
 
 
@@ -794,6 +801,21 @@ document.getElementById("maxall").onclick = function() {
   maxAll();
 };
 
+document.getElementById("animation").onclick = function() {
+  if (player.options.animationsOn) {
+    player.options.animationsOn = false;
+    document.getElementById("logoanimation").src = "animation.png"
+  }
+  
+  else {
+    player.options.animationsOn = true;
+    document.getElementById("logoanimation").src = "animation.gif"
+  }
+  
+}
+
+
+
 
 function buyInfinityUpgrade(name) {
   if (player.infinityPoints >= 1 ) {
@@ -849,7 +871,7 @@ document.getElementById("infi24").onclick = function() {
 
 
 document.getElementById("secondSoftReset").onclick = function() {
-	if (player.infinityUpgrades.includes("resetBoost") ? player.eightAmount >= (player.galaxies*80+80) - 9 : player.eightAmount >= (player.galaxies*60+80)) {
+	if (player.infinityUpgrades.includes("resetBoost") ? player.eightAmount >= (((1-player.tickDecrease)*100-7)/3*80) - 9 : player.eightAmount >= (((1-player.tickDecrease)*100-7)/3*80)) {
 player = {
 	money: 10,
 	tickSpeedCost: 1000,
@@ -896,7 +918,12 @@ player = {
   galaxies: player.galaxies+1,
   totalmoney: player.totalmoney,
   tickDecrease: player.tickDecrease - 0.03,
-	interval: null
+	interval: null,
+  lastUpdate: player.lastUpdate,
+  options: {
+    scientific: player.options.scientific,
+    animationsOn: player.options.animationsOn
+  }
   };
   updateCosts();
   clearInterval(player.interval);
@@ -986,7 +1013,7 @@ document.getElementById("reset").onclick = function() {
 };
 
 document.getElementById("notation").onclick = function() {
-  scientific = !scientific;
+  player.options.scientific = !player.options.scientific;
   updateDimensions();
   updateCosts();
 };
@@ -1038,7 +1065,12 @@ document.getElementById("bigcrunch").onclick = function() {
   galaxies: 0,
   tickDecrease: 0.9,
   totalmoney: 0,
-	interval: null
+	interval: null,
+  lastUpdate: player.lastUpdate,
+  options: {
+    scientific: player.options.scientific,
+    animationsOn: player.options.animationsOn
+  }
 };
   updateCosts();
   clearInterval(player.interval);
@@ -1048,8 +1080,8 @@ document.getElementById("bigcrunch").onclick = function() {
   document.getElementById("thirdRow").style.display= "none";
   document.getElementById("tickSpeed").style.visibility = "hidden";
   document.getElementById("tickSpeedMax").style.visibility = "hidden";
-  document.getElementById("tickLabel").style.visibility = "hidden";
-  document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+ 	document.getElementById("tickLabel").style.visibility = "hidden";
+ 	document.getElementById("tickSpeedAmount").style.visibility = "hidden";
   document.getElementById("fourthRow").style.display= "none";
   document.getElementById("fifthRow").style.display= "none";
   document.getElementById("sixthRow").style.display= "none";
@@ -1064,10 +1096,10 @@ document.getElementById("bigcrunch").onclick = function() {
 
 
 var index = 0;
-load_game();
+
 setInterval(function() {
   var thisUpdate = new Date().getTime();
-  var diff = thisUpdate - lastUpdate;
+  var diff = thisUpdate - player.lastUpdate;
   diff = diff/100;
   if (!player.infinityUpgrades.includes("timeMult")) {
     if (!player.infinityUpgrades.includes("18Mult")) {
@@ -1230,21 +1262,8 @@ setInterval(function() {
   if (player.infinityUpgrades.includes("36Mult")) document.getElementById("infi13").className = "infinistorebtnbought"
   if (player.infinityUpgrades.includes("45Mult")) document.getElementById("infi23").className = "infinistorebtnbought"
   if (player.infinityUpgrades.includes("resetBoost")) document.getElementById("infi14").className = "infinistorebtnbought"
-    if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("infi24").className = "infinistorebtnbought"
+    if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("infi14").className = "infinistorebtnbought"
   
-    
-    
-  if (player.money == Infinity) {
-    document.getElementById("tickSpeed").style.visibility = "hidden";
-    document.getElementById("tickSpeedMax").style.visibility = "hidden";
-    document.getElementById("tickLabel").style.visibility = "hidden";
-    document.getElementById("tickSpeedAmount").style.visibility = "hidden";
-  } else {
-    document.getElementById("tickSpeed").style.visibility = "visible";
-    document.getElementById("tickSpeedMax").style.visibility = "visible";
-    document.getElementById("tickLabel").style.visibility = "visible";
-    document.getElementById("tickSpeedAmount").style.visibility = "visible";
-  }
     
     
     
@@ -1275,7 +1294,7 @@ setInterval(function() {
         document.getElementById("softReset").className = 'storebtn';
       } else document.getElementById("softReset").className = 'unavailablebtn';
     }
-    if (player.eightAmount >= player.galaxies*80+71) document.getElementById("secondSoftReset").className = 'storebtn';
+    if (player.eightAmount >= player.galaxies*60+71) document.getElementById("secondSoftReset").className = 'storebtn';
     else document.getElementById("secondSoftReset").className = 'unavailablebtn';
   } else {
     if (player.resets === 0) {
@@ -1303,11 +1322,11 @@ setInterval(function() {
         document.getElementById("softReset").className = 'storebtn';
       } else document.getElementById("softReset").className = 'unavailablebtn';
     }
-    if (player.eightAmount >= (player.galaxies*80+80)) document.getElementById("secondSoftReset").className = 'storebtn';
+    if (player.eightAmount >= (player.galaxies*60+80)) document.getElementById("secondSoftReset").className = 'storebtn';
     else document.getElementById("secondSoftReset").className = 'unavailablebtn';
   }
     index++;
-  lastUpdate = thisUpdate;
+  player.lastUpdate = thisUpdate;
 }, 100);
 
 
@@ -1321,6 +1340,15 @@ function init() {
     document.getElementById('infinitybtn').onclick=function () {showTab('infinity');};
     //show one tab during init or they'll all start hidden
     showTab('dimensions');
+    load_game();
+    if (!player.options.animationsOn) document.getElementById("logoanimation").src = "animation.png";
+    if (player.options == undefined) {
+      player.options = {
+        scientific: false,
+        animationsOn: true
+      }
+    }
+    if (player.lastUpdate == undefined) player.lastUpdate = new Date().getTime();
 }
 
 
