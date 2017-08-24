@@ -106,6 +106,13 @@ function load_game() {
 			    animationOn: true
       	}
       }
+	    if (player.infinityUpgrades === undefined) player.infinityUpgrades = [];
+      if (player.infinityPoints === undefined) player.infinityPoints = 0;
+	    if (player.infinitied === undefined) player.infinitied = 0;
+	    if (player.totalTimePlayed === undefined) player.totalTimePlayed = 0;
+	    if (player.bestInfinityTime === undefined) player.bestInfinityTime = 9999999999;
+	    if (player.thisInfinityTime === undefined) player.thisInfinityTime = 9999999999;
+	    if (player.galaxies === undefined) player.galaxies = 0;
       if (player.lastUpdate === undefined) player.lastUpdate = new Date().getTime();
     	if (player.firstAmount !== 0) document.getElementById("secondRow").style.display = "table-row";
     	if (player.secondAmount !== 0) { 
