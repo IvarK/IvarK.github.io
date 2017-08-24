@@ -51,7 +51,7 @@ var player = {
     animationsOn: true
   }
 };
-init();
+
 var defaultStart = player;
 var firstButton = document.getElementById("first");
 var secondButton = document.getElementById("second");
@@ -1341,15 +1341,16 @@ function init() {
     //show one tab during init or they'll all start hidden
     showTab('dimensions');
     load_game();
-    if (!player.options.animationsOn) document.getElementById("logoanimation").src = "animation.png";
-    if (typeof player.options === undefined) {
-      player.options = {
-	scientific: false,
-	animationOn: true
-      }
+	if (typeof player.options === undefined) {
+      		player.options = {
+			scientific: false,
+			animationOn: true
+      		}
      
     }
     if (typeof player.lastUpdate === undefined) player.lastUpdate = new Date().getTime();
+    if (!player.options.animationsOn) document.getElementById("logoanimation").src = "animation.png";
+    
 }
 
 
@@ -1359,4 +1360,4 @@ updateCosts();
 updateDimensions();
 updateTickSpeed();
 document.getElementById("hiddenheader").style.display = "none";
-
+init();
