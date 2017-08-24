@@ -1342,12 +1342,14 @@ function init() {
     showTab('dimensions');
     load_game();
     if (!player.options.animationsOn) document.getElementById("logoanimation").src = "animation.png";
-    if (player.options == undefined) {
-      player.options.scientific = false;
-      player.options.animationsOn = true;
+    if (typeof player.options === undefined) {
+      player.options = {
+	scientific: false,
+	animationOn: true
+      }
      
     }
-    if (player.lastUpdate == undefined) player.lastUpdate = new Date().getTime();
+    if (typeof player.lastUpdate === undefined) player.lastUpdate = new Date().getTime();
 }
 
 
