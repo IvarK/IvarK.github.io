@@ -181,7 +181,7 @@ function updateDimensions() {
     document.getElementById("eightD").innerHTML = 'Eight Dimension  ' +  'x' + shortenMoney((!player.infinityUpgrades.includes("18Mult") ? player.eightPow : player.eightPow * dimMults())*timeMult());
   }
   if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round(((0.9 - (player.galaxies*0.06)) * 100)) + '% faster.';
-  else document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round(((0.9 - (player.galaxies*0.03)) * 100)) + '% faster.';
+  else document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1-(0.9 - (player.galaxies*0.03))) * 100) + '% faster.';
   if (player.infinityUpgrades.includes("resetBoost")) {
     if (player.resets > 3) {
       document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires '+ ((player.resets - 4)*15+11) +' Eight Dimension';
