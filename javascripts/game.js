@@ -1340,7 +1340,6 @@ function init() {
     document.getElementById('infinitybtn').onclick=function () {showTab('infinity');};
     //show one tab during init or they'll all start hidden
     showTab('dimensions');
-    load_game();
 	if (typeof player.options === undefined) {
       		player.options = {
 			scientific: false,
@@ -1349,6 +1348,7 @@ function init() {
      
     }
     if (typeof player.lastUpdate === undefined) player.lastUpdate = new Date().getTime();
+	load_game();
     if (!player.options.animationsOn) document.getElementById("logoanimation").src = "animation.png";
     
 }
