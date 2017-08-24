@@ -1,16 +1,4 @@
-@font-face {
-  font-family: 'Noto Sans';
-  font-weight: 400;
-  font-style: normal;
-  src: url('../fonts/Noto-Sans-regular/Noto-Sans-regular.eot');
-  src: url('../fonts/Noto-Sans-regular/Noto-Sans-regular.eot?#iefix') format('embedded-opentype'),
-       local('Noto Sans'),
-       local('Noto-Sans-regular'),
-       url('../fonts/Noto-Sans-regular/Noto-Sans-regular.woff2') format('woff2'),
-       url('../fonts/Noto-Sans-regular/Noto-Sans-regular.woff') format('woff'),
-       url('../fonts/Noto-Sans-regular/Noto-Sans-regular.ttf') format('truetype'),
-       url('../fonts/Noto-Sans-regular/Noto-Sans-regular.svg#NotoSans') format('svg');
-}
+
 @font-face {
   font-family: 'Open Sans Condensed';
   font-style: normal;
@@ -20,16 +8,36 @@
 }
 @font-face { font-family: Typewriter; src: url('MonospaceTypewriter.ttf'); }
 
+.logo {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+#logoanimation {
+  position: absolute;
+  height: 200px;
+  top: 6%;
+  left: calc(50% - 100px);
+  z-index: 1;
+}
+
+
+
+
+
 .storebtn {
   color: black;
   background: #E0E0E0;
   font-weight: bold;
+  font-family: Typewriter;
   border: 1px solid #127A20;
   width:120px;
   height:30px;
   transition-duration: 0.2s;
   cursor: pointer;
-  border-radius: 4px
+  border-radius: 4px;
+  font-size: 50%;
 }
  
 .storebtn:hover {
@@ -37,15 +45,87 @@
   background: #5AC467;
 }
 
+.infinistorebtn1 {
+  color: white;
+  background: #1F1F1F;
+  font-weight: bold;
+  font-size: 80%;
+  border: 1px solid #ED85DF;
+  width:160px;
+  height:65px;
+  transition-duration: 0.2s;
+  cursor: pointer;
+  border-radius: 4px;
+  font-family: Typewriter;
+}
+ 
+.infinistorebtn1:hover {
+  color: #000;
+  background: #A53B98;
+}
+
+.infinistorebtn2 {
+  color: white;
+  background: #1F1F1F;
+  font-weight: bold;
+  font-size: 80%;
+  border: 1px solid #ED85DF;
+  width:160px;
+  height:65px;
+  transition-duration: 0.2s;
+  cursor: pointer;
+  border-radius: 4px;
+  font-family: Typewriter;
+}
+ 
+.infinistorebtn2:hover {
+  color: #000;
+  background: #ff3300;
+}
+
+.infinistorebtnlocked {
+  color: black;
+  background: #F7F7F7;
+  font-weight: bold;
+  font-size: 80%;
+  border: 1px solid #ED85DF;
+  width:160px;
+  height:65px;
+  transition-duration: 0.2s;
+  cursor: pointer;
+  border-radius: 4px;
+  font-family: Typewriter;
+}
+ 
+.infinistorebtnlocked:hover {
+  color: #000;
+  background: white;
+}
+
+.infinistorebtnbought {
+  color: black;
+  background: #5AC467;
+  font-weight: bold;
+  font-size: 80%;
+  border: 1px solid #ED85DF;
+  width:160px;
+  height:65px;
+  transition-duration: 0.2s;
+  border-radius: 4px;
+  font-family: Typewriter;
+}
+
 .unavailablebtn {
   color: #000000;
-  background: #808080;
+  background: #B3B3B3;
   font-weight: bold;
+  font-family: Typewriter;
   border: 1px solid #127A20;
   width:120px;
   height:30px;
   transition-duration: 0.2s;
-  border-radius: 4px
+  border-radius: 4px;
+  font-size: 50%;
 }
  
 .unavailablebtn:hover {
@@ -54,7 +134,6 @@
 }
 
 .tabbtn {
-  color:#FF;
   background: #E0E0E0;
   font-weight: bold;
   border: 2px solid #4980CC;
@@ -72,47 +151,23 @@
   
 }
 
-
-@font-face {
-  font-family: 'Noto Sans';
-  font-weight: 700;
-  font-style: normal;
-  src: url('../fonts/Noto-Sans-700/Noto-Sans-700.eot');
-  src: url('../fonts/Noto-Sans-700/Noto-Sans-700.eot?#iefix') format('embedded-opentype'),
-       local('Noto Sans Bold'),
-       local('Noto-Sans-700'),
-       url('../fonts/Noto-Sans-700/Noto-Sans-700.woff2') format('woff2'),
-       url('../fonts/Noto-Sans-700/Noto-Sans-700.woff') format('woff'),
-       url('../fonts/Noto-Sans-700/Noto-Sans-700.ttf') format('truetype'),
-       url('../fonts/Noto-Sans-700/Noto-Sans-700.svg#NotoSans') format('svg');
+.infinitybtn {
+  color: #FFFFFF;
+  background: #1F1F1F;
+  font-weight: bold;
+  border: 2px solid #B67F33;
+  border-radius: 4px;
+  transition-duration: 0.2s;
+  cursor: pointer;
+  
 }
-
-@font-face {
-  font-family: 'Noto Sans';
-  font-weight: 400;
-  font-style: italic;
-  src: url('../fonts/Noto-Sans-italic/Noto-Sans-italic.eot');
-  src: url('../fonts/Noto-Sans-italic/Noto-Sans-italic.eot?#iefix') format('embedded-opentype'),
-       local('Noto Sans Italic'),
-       local('Noto-Sans-italic'),
-       url('../fonts/Noto-Sans-italic/Noto-Sans-italic.woff2') format('woff2'),
-       url('../fonts/Noto-Sans-italic/Noto-Sans-italic.woff') format('woff'),
-       url('../fonts/Noto-Sans-italic/Noto-Sans-italic.ttf') format('truetype'),
-       url('../fonts/Noto-Sans-italic/Noto-Sans-italic.svg#NotoSans') format('svg');
-}
-
-@font-face {
-  font-family: 'Noto Sans';
-  font-weight: 700;
-  font-style: italic;
-  src: url('../fonts/Noto-Sans-700italic/Noto-Sans-700italic.eot');
-  src: url('../fonts/Noto-Sans-700italic/Noto-Sans-700italic.eot?#iefix') format('embedded-opentype'),
-       local('Noto Sans Bold Italic'),
-       local('Noto-Sans-700italic'),
-       url('../fonts/Noto-Sans-700italic/Noto-Sans-700italic.woff2') format('woff2'),
-       url('../fonts/Noto-Sans-700italic/Noto-Sans-700italic.woff') format('woff'),
-       url('../fonts/Noto-Sans-700italic/Noto-Sans-700italic.ttf') format('truetype'),
-       url('../fonts/Noto-Sans-700italic/Noto-Sans-700italic.svg#NotoSans') format('svg');
+.infinitybtn:hover {
+  color:#000000;
+  background: #B67F33;
+  font-weight: bold;
+  border: 2px solid #B67F33;
+  border-radius: 4px;
+  
 }
 
 body {
@@ -195,7 +250,7 @@ pre {
 }
 
 table {
-  width:100%;
+
   border-collapse:collapse;
 }
 
