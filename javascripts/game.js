@@ -86,6 +86,15 @@ function get_cookie(cookie_name) {
     return JSON.parse(c_value);
 }
 
+kongregateAPI.loadAPI(function(){
+  window.kongregate = kongregateAPI.getAPI();
+  // You can now access the Kongregate API with:
+  // kongregate.services.getUsername(), etc
+  // Proceed with loading your game...
+});
+
+
+
 function load_game() {
     var save_data = get_cookie('dimensionSave');
       if (!save_data) return;
@@ -352,46 +361,52 @@ MoneyFormat = ['K', 'M', 'B', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UD
 MoneyFormat.reverse();
 
 shorten = function(money) {
-	var temp = MoneyFormat.length;
-	var digitMul = Math.pow(10, 2);
-	for (var i = 0; i < MoneyFormat.length; i++) {
-		if ( Math.pow(10, temp * 3) <= money ) {
-			money = money / Math.pow(10, temp * 3);
-          if ((Math.round(money * digitMul) / digitMul) == 1000) {
-            return player.options.scientific ? (Math.round((money * digitMul) / digitMul)/1000) + 'e+' + (MoneyFormat.length-i+1)*3 :(Math.round((money * digitMul) / digitMul)/1000) + ' ' + MoneyFormat[i-1];
-          }
-			else return player.options.scientific ? (Math.round(money * digitMul) / digitMul) + 'e+' + (MoneyFormat.length-i)*3 :(Math.round(money * digitMul) / digitMul) + ' ' + MoneyFormat[i];
-		}
-		temp--;
-	}
-	return Math.floor(money);
+  if (money != Infinity) {
+    var temp = MoneyFormat.length;
+    var digitMul = Math.pow(10, 2);
+    for (var i = 0; i < MoneyFormat.length; i++) {
+      if ( Math.pow(10, temp * 3) <= money ) {
+        money = money / Math.pow(10, temp * 3);
+            if ((Math.round(money * digitMul) / digitMul) == 1000) {
+              return player.options.scientific ? (Math.round((money * digitMul) / digitMul)/1000) + 'e' + (MoneyFormat.length-i+1)*3 :(Math.round((money * digitMul) / digitMul)/1000) + ' ' + MoneyFormat[i-1];
+            }
+        else return player.options.scientific ? (Math.round(money * digitMul) / digitMul) + 'e' + (MoneyFormat.length-i)*3 :(Math.round(money * digitMul) / digitMul) + ' ' + MoneyFormat[i];
+      }
+      temp--;
+    }
+    return Math.floor(money);
+  } else return "Infinite";
 };
 
 shortenDimensions = function(money) {
-  var temp = MoneyFormat.length;
-	var digitMul = Math.pow(10, 2);
-	for (var i = 0; i < MoneyFormat.length; i++) {
-		if ( Math.pow(10, temp * 3) <= money ) {
-			money = money / Math.pow(10, temp * 3);
-			return player.options.scientific ? money.toFixed(2) + 'e+' + (MoneyFormat.length-i)*3 : money.toFixed(2) + ' ' + MoneyFormat[i];
-		}
-		temp--;
-	}
-	return Math.round(money);
+  if (money != Infinity) {
+    var temp = MoneyFormat.length;
+    var digitMul = Math.pow(10, 2);
+    for (var i = 0; i < MoneyFormat.length; i++) {
+      if ( Math.pow(10, temp * 3) <= money ) {
+        money = money / Math.pow(10, temp * 3);
+        return player.options.scientific ? money.toFixed(2) + 'e' + (MoneyFormat.length-i)*3 : money.toFixed(2) + ' ' + MoneyFormat[i];
+      }
+      temp--;
+    }
+    return Math.round(money);
+  } else return "Infinite";
 };
 
 shortenMoney = function(money) {
-	var temp = MoneyFormat.length;
-	var digitMul = Math.pow(10, 2);
-	for (var i = 0; i < MoneyFormat.length; i++) {
-		if ( Math.pow(10, temp * 3) <= money ) {
-			money = money / Math.pow(10, temp * 3);
-			return player.options.scientific ? money.toFixed(2) + 'e+' + (MoneyFormat.length-i)*3 : money.toFixed(2) + ' ' + MoneyFormat[i];
-		}
-		temp--;
-	}
-  if (money == 1) return 1
-  else return money.toFixed(1);
+  if (money != Infinity) {
+    var temp = MoneyFormat.length;
+    var digitMul = Math.pow(10, 2);
+    for (var i = 0; i < MoneyFormat.length; i++) {
+      if ( Math.pow(10, temp * 3) <= money ) {
+        money = money / Math.pow(10, temp * 3);
+        return player.options.scientific ? money.toFixed(2) + 'e' + (MoneyFormat.length-i)*3 : money.toFixed(2) + ' ' + MoneyFormat[i];
+      }
+      temp--;
+    }
+    if (money == 1) return 1
+    else return money.toFixed(1);
+  } else return "Infinite";
 };
 
 
@@ -1097,7 +1112,8 @@ document.getElementById("bigcrunch").onclick = function() {
   document.getElementById("eightRow").style.display= "none";
   updateTickSpeed();
   showTab("dimensions")
-	
+	kongregate.stats.submit('Infinitied', player.infinitied);
+  kongregate.stats.submit('Infinity time score', Math.floor(2592000/player.bestInfinityTime))
 }
 
 
