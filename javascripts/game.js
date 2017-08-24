@@ -1120,7 +1120,7 @@ document.getElementById("bigcrunch").onclick = function() {
   updateTickSpeed();
   showTab("dimensions")
 	kongregate.stats.submit('Infinitied', player.infinitied);
-  kongregate.stats.submit('Infinity time score', Math.floor(2592000/player.bestInfinityTime))
+  kongregate.stats.submit('Infinity time score', Math.floor(player.bestInfinityTime/10))
 }
 
 
