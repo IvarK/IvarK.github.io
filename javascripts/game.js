@@ -1343,10 +1343,9 @@ function init() {
     load_game();
     if (!player.options.animationsOn) document.getElementById("logoanimation").src = "animation.png";
     if (player.options == undefined) {
-      player.options: {
-        scientific: false,
-        animationsOn: true
-      }
+      player.options.scientific = false;
+      player.options.animationsOn = true;
+     
     }
     if (player.lastUpdate == undefined) player.lastUpdate = new Date().getTime();
 }
