@@ -1343,7 +1343,7 @@ function init() {
     load_game();
     if (!player.options.animationsOn) document.getElementById("logoanimation").src = "animation.png";
     if (player.options == undefined) {
-      player.options = {
+      player.options: {
         scientific: false,
         animationsOn: true
       }
