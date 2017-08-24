@@ -20,6 +20,24 @@
 }
 @font-face { font-family: Typewriter; src: url('MonospaceTypewriter.ttf'); }
 
+.logo {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+#logoanimation {
+  position: absolute;
+  height: 200px;
+  top: 6%;
+  left: 44%;
+  z-index: 1;
+}
+
+
+
+
+
 .storebtn {
   color: black;
   background: #E0E0E0;
@@ -44,7 +62,7 @@
   font-size: 100%;
   border: 1px solid #ED85DF;
   width:160px;
-  height:65px;
+  height:80px;
   transition-duration: 0.2s;
   cursor: pointer;
   border-radius: 4px
@@ -62,7 +80,7 @@
   font-size: 100%;
   border: 1px solid #ED85DF;
   width:160px;
-  height:65px;
+  height:80px;
   transition-duration: 0.2s;
   cursor: pointer;
   border-radius: 4px
@@ -80,7 +98,7 @@
   font-size: 100%;
   border: 1px solid #ED85DF;
   width:160px;
-  height:65px;
+  height:80px;
   transition-duration: 0.2s;
   cursor: pointer;
   border-radius: 4px
@@ -98,7 +116,7 @@
   font-size: 100%;
   border: 1px solid #ED85DF;
   width:160px;
-  height:65px;
+  height:80px;
   transition-duration: 0.2s;
   border-radius: 4px
 }
@@ -122,7 +140,6 @@
 .tabbtn {
   background: #E0E0E0;
   font-weight: bold;
-  margin:2px;
   border: 2px solid #4980CC;
   border-radius: 4px;
   transition-duration: 0.2s;
