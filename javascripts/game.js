@@ -99,11 +99,20 @@ function load_game() {
   		document.getElementById("tickLabel").style.visibility = "visible";
   		document.getElementById("tickSpeedAmount").style.visibility = "visible";
     	}
+	
     	if (player.thirdAmount !== 0) document.getElementById("fourthRow").style.display = "table-row";
     	if (player.fourthAmount !== 0) if (player.resets > 0) document.getElementById("fifthRow").style.display = "table-row";
     	if (player.fifthAmount !== 0) if (player.resets > 1) document.getElementById("sixthRow").style.display = "table-row";
     	if (player.sixthAmount !== 0) if (player.resets > 2) document.getElementById("seventhRow").style.display = "table-row";
     	if (player.seventhAmount !== 0) if (player.resets > 3) document.getElementById("eightRow").style.display = "table-row";
+	if (typeof player.options === 'undefined') {
+      		player.options = {
+			scientific: false,
+			animationOn: true
+      		}
+     
+    }
+    if (typeof player.lastUpdate === 'undefined') player.lastUpdate = new Date().getTime();
     	updateCosts();
 }
 
@@ -1339,16 +1348,8 @@ function init() {
     document.getElementById('statisticsbtn').onclick=function () {showTab('statistics');};
     document.getElementById('infinitybtn').onclick=function () {showTab('infinity');};
     //show one tab during init or they'll all start hidden
-    showTab('dimensions');
-	if (typeof player.options === undefined) {
-      		player.options = {
-			scientific: false,
-			animationOn: true
-      		}
-     
-    }
-    if (typeof player.lastUpdate === undefined) player.lastUpdate = new Date().getTime();
-	load_game();
+    showTab('dimensions')
+    load_game();
     if (!player.options.animationsOn) document.getElementById("logoanimation").src = "animation.png";
     
 }
