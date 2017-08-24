@@ -51,7 +51,7 @@ var player = {
     animationsOn: true
   }
 };
-
+init();
 var defaultStart = player;
 var firstButton = document.getElementById("first");
 var secondButton = document.getElementById("second");
@@ -1359,4 +1359,4 @@ updateCosts();
 updateDimensions();
 updateTickSpeed();
 document.getElementById("hiddenheader").style.display = "none";
-init();
+
