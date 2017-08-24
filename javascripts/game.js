@@ -88,14 +88,21 @@ function get_cookie(cookie_name) {
 
 function load_game() {
     var save_data = get_cookie('dimensionSave');
-       if (!save_data) return;
+      if (!save_data) return;
     	player = save_data;
-        if (player.totalmoney === undefined) player.totalmoney = player.money;
+      if (player.totalmoney === undefined) player.totalmoney = player.money;
+      if (player.options === undefined) {
+        player.options = {
+			    scientific: false,
+			    animationOn: true
+      	}
+      }
+      if (player.lastUpdate === undefined) player.lastUpdate = new Date().getTime();
     	if (player.firstAmount !== 0) document.getElementById("secondRow").style.display = "table-row";
     	if (player.secondAmount !== 0) { 
-    		document.getElementById("thirdRow").style.display = "table-row";
+    	document.getElementById("thirdRow").style.display = "table-row";
   		document.getElementById("tickSpeed").style.visibility = "visible";
-        document.getElementById("tickSpeedMax").style.visibility = "visible";
+      document.getElementById("tickSpeedMax").style.visibility = "visible";
   		document.getElementById("tickLabel").style.visibility = "visible";
   		document.getElementById("tickSpeedAmount").style.visibility = "visible";
     	}
@@ -105,14 +112,6 @@ function load_game() {
     	if (player.fifthAmount !== 0) if (player.resets > 1) document.getElementById("sixthRow").style.display = "table-row";
     	if (player.sixthAmount !== 0) if (player.resets > 2) document.getElementById("seventhRow").style.display = "table-row";
     	if (player.seventhAmount !== 0) if (player.resets > 3) document.getElementById("eightRow").style.display = "table-row";
-	if (typeof player.options === 'undefined') {
-      		player.options = {
-			scientific: false,
-			animationOn: true
-      		}
-     
-    }
-    if (typeof player.lastUpdate === 'undefined') player.lastUpdate = new Date().getTime();
     	updateCosts();
 }
 
