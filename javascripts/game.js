@@ -1123,7 +1123,7 @@ var index = 0;
 
 setInterval(function() {
   var thisUpdate = new Date().getTime();
-  var diff = thisUpdate - player.lastUpdate;
+  var diff = Math.min(thisUpdate - player.lastUpdate, 21600000);
   diff = diff/100;
   if (!player.infinityUpgrades.includes("timeMult")) {
     if (!player.infinityUpgrades.includes("18Mult")) {
