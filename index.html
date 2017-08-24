@@ -8,6 +8,7 @@
 <title>Antimatter Dimensions</title>
 <meta name="Antimatter Dimensions" content="A game about huge numbers and watching them go up." />
 <h1 id="hiddenheader"style="display: inline">Antimatter Dimensions</h1>
+<script src='https://cdn1.kongregate.com/javascripts/kongregate_api.js'></script>
 </head>
   <body>
     <script>
@@ -34,20 +35,20 @@
     <div id="coinsPerSec">You are getting 0 antimatter per second.</div>
     <tr id="tickSpeedRow" style="visibility: hidden">
       <div id="tickLabel" style= "visibility: hidden">Make the game 10% faster.</div>
-      <button id="tickSpeed" style="color:black; visibility: hidden; height: 35px" class="storebtn">Cost: 1000</button>
-      <button id="tickSpeedMax" onclick="buyMaxTickSpeed()" style="color:black; visibility: hidden; height: 35px" class="storebtn">Buy Max</button>
+      <button id="tickSpeed" style="color:black; visibility: hidden; height: 40px; font-size: 70%" class="storebtn">Cost: 1000</button>
+      <button id="tickSpeedMax" onclick="buyMaxTickSpeed()" style="color:black; visibility: hidden; height: 40px; font-size: 80%" class="storebtn">Buy Max</button>
       <div id="tickSpeedAmount" style= "visibility: hidden">Tickspeed: 1000</div>
     </tr>
     
   </p>
     <div>
-      <button id="bigcrunch" style="font-family: Open Sans Condensed; font-size: 240%; display: none" class="tabbtn">Big Crunch</button>
+      <button id="bigcrunch" style="font-family: Typewriter; font-size: 240%; display: none" class="tabbtn">Big Crunch</button>
     </div>
     <div >
-  <button id="dimensionsbtn" style="font-family: Open Sans Condensed; font-size: 200%" class="tabbtn">Dimensions</button>
-  <button id="optionsbtn" style="font-family: Open Sans Condensed; font-size: 200%" class="tabbtn">Options</button>
-  <button id="statisticsbtn" style="font-family: Open Sans Condensed; font-size: 200%" class="tabbtn">Statistics</button>
-  <button id="infinitybtn" style="font-family: Open Sans Condensed; font-size: 200%" class="infinitybtn">Infinity</button>      
+  <button id="dimensionsbtn" style="font-family: Typewriter; font-size: 200%" class="tabbtn">Dimensions</button>
+  <button id="optionsbtn" style="font-family: Typewriter; font-size: 200%" class="tabbtn">Options</button>
+  <button id="statisticsbtn" style="font-family: Typewriter; font-size: 200%" class="tabbtn">Statistics</button>
+  <button id="infinitybtn" style="font-family: Typewriter; font-size: 200%" class="infinitybtn">Infinity</button>      
     </div>
   <div id="emptiness" class="tab" style="font-size: 150%">
     <br>
@@ -57,7 +58,7 @@
   </div>
   <div id="dimensions" class="tab">
     <br>
-    <button id="maxall" class="storebtn">Max all</Button>
+    <button id="maxall" class="storebtn" style="font-size: 80%">Max all</Button>
     <table class="table">
   <tr style="font-size: 135%">
       <td id="firstD" width="40%">
@@ -70,7 +71,7 @@
         <button id="first" style="color:black; height: 35px" class="storebtn" align="right">Cost: 10</button>
       </td>
       <td align="right" width="10%">
-        <button id="firstMax" style="color:black; width:170px; height:35px" class="storebtn" align="right">Cost: 10</button>
+        <button id="firstMax" style="color:black; width:185px; height:35px" class="storebtn" align="right">Cost: 10</button>
       </td>
     </tr>
     <tr id="secondRow" style="display: none; font-size: 135%">
@@ -83,7 +84,7 @@
       <td><button id="second" style="color:black; height: 35px" class="storebtn">Cost: 100</button>
       </td>
       <td>
-        <button id="secondMax" style="color:black; width:170px; height:35px" class="storebtn">Cost: 10</button>
+        <button id="secondMax" style="color:black; width:185px; height:35px" class="storebtn">Cost: 10</button>
     </tr>
      <tr id="thirdRow" style="display: none; font-size: 135%">
       <td id="thirdD">
@@ -96,7 +97,7 @@
         <button id="third" style="color:black; height: 35px" class="storebtn">Cost: 10000</button>
       </td>
       <td>
-        <button id="thirdMax" style="color:black; width:170px; height:35px" class="storebtn">Cost: 10</button>
+        <button id="thirdMax" style="color:black; width:185px; height:35px" class="storebtn">Cost: 10</button>
     </tr>
     <tr id="fourthRow" style="display: none; font-size: 135%">
       <td id="fourthD">
@@ -109,7 +110,7 @@
         <button id="fourth" style="color:black; height: 35px" class="storebtn">Cost: 1000000</button>
       </td>
       <td>
-        <button id="fourthMax" style="color:black; width:170px; height:35px" class="storebtn">Cost: 10</button>
+        <button id="fourthMax" style="color:black; width:185px; height:35px" class="storebtn">Cost: 10</button>
     </tr>
     <tr id="fifthRow" style="display: none; font-size: 135%">
       <td id="fifthD">
@@ -122,7 +123,7 @@
         <button id="fifth" style="color:black; height: 35px" class="storebtn">Cost: 1000000</button>
       </td>
       <td>
-        <button id="fifthMax" style="color:black; width:170px; height:35px" class="storebtn">Cost: 10</button>
+        <button id="fifthMax" style="color:black; width:185px; height:35px" class="storebtn">Cost: 10</button>
     </tr>
     <tr id="sixthRow" style="display: none; font-size: 135%">
       <td id="sixthD">
@@ -135,7 +136,7 @@
         <button id="sixth" style="color:black; height: 35px" class="storebtn">Cost: 1000000</button>
       </td>
       <td>
-        <button id="sixthMax" style="color:black; width:170px; height:35px" class="storebtn">Cost: 10</button>
+        <button id="sixthMax" style="color:black; width:185px; height:35px" class="storebtn">Cost: 10</button>
     </tr>
     <tr id="seventhRow" style="display: none; font-size: 135%">
       <td id="seventhD">
@@ -148,7 +149,7 @@
         <button id="seventh" style="color:black; height: 35px" class="storebtn">Cost: 1000000</button>
       </td>
       <td>
-        <button id="seventhMax" style="color:black; width:170px; height:35px" class="storebtn">Cost: 10</button>
+        <button id="seventhMax" style="color:black; width:185px; height:35px" class="storebtn">Cost: 10</button>
     </tr>
     <tr id="eightRow" style="display: none; font-size: 135%">
       <td id="eightD">
@@ -161,7 +162,7 @@
         <button id="eight" style="color:black; height: 35px" class="storebtn">Cost: 1000000</button>
       </td>
       <td>
-        <button id="eightMax" style="color:black; width:170px; height:35px" class="storebtn">Cost: 10</button>
+        <button id="eightMax" style="color:black; width:185px; height:35px" class="storebtn">Cost: 10</button>
     </tr>
     </table>
     <table style="width: 100%">
@@ -170,7 +171,7 @@
         Dimension Shift: requires 20 Fourth Dimension
       </td>
       <td >
-        <button id="softReset" style="color:black; width: 200px; height: 50px" class="storebtn" >Reset the game for a new Dimension</button>
+        <button id="softReset" style="color:black; width: 200px; height: 50px; font-size: 45%" class="storebtn" >Reset the game for a new Dimension</button>
       </td>
     </tr>
     <tr style="font-size: 170%">
@@ -178,7 +179,7 @@
         Antimatter Galaxies: requires 80 Eight Dimension
       </td>
       <td>
-        <button id="secondSoftReset" style="color:black; width: 200px; height: 50px" class="storebtn">Lose all your previous progress but get a tickspeed boost</button>
+        <button id="secondSoftReset" style="color:black; width: 200px; height: 60px; font-size: 45%" class="storebtn">Lose all your previous progress but get a tickspeed boost</button>
       </td>
     </tr>
   </table>
@@ -186,14 +187,14 @@
 </div>
 <div id="options" class="tab" align="center">
   <br>
-  <div><button id="animation" class="storebtn" style="color:black; width: 200px; height: 50px; font-size:130%">Enable/Disable animations</button></div>
-  <div><button id="notation" class="storebtn" style="color:black; width: 200px; height: 50px; font-size:130%">Change notation</button></div>
-  <div><button id="save" class="storebtn" style="color:black; width: 200px; height: 50px; font-size:130%">Save</button></div>
-  <div><button id="exportbtn" class="storebtn" style="color:black; width: 200px; height: 50px; font-size:130%">Export</button></div>
-  <div><button id="importbtn" class="storebtn" style="color:black; width: 200px; height: 50px; font-size:130%">Import</button></div>
-  <div><button id="reset" class="storebtn" style="color:black; width: 200px; height: 50px; font-size:130%">RESET THE GAME</button></div>
+  <div><button id="animation" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:130%">Enable/Disable animations</button></div>
+  <div><button id="notation" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:130%">Change notation</button></div>
+  <div><button id="save" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:130%">Save</button></div>
+  <div><button id="exportbtn" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:130%">Export</button></div>
+  <div><button id="importbtn" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:130%">Import</button></div>
+  <div><button id="reset" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:130%">RESET THE GAME</button></div>
 </div>
-<div id="statistics" class="tab" align="left" style="color: black; font-size: 140%; width: 60%; margin: 0 auto">
+<div id="statistics" class="tab" align="left" style="color: black; font-size: 140%; font-family: Typewriter; width: 60%; margin: 0 auto">
   <br>
   <div id="totalmoney">You have made x antimatter.</div>
   <div id="totalresets">You have made x soft resets.</div>
