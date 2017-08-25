@@ -166,21 +166,20 @@ function updateMoney() {
 
 function updateCoinPerSec() {
 	var element = document.getElementById("coinsPerSec");
-  if (!player.infinityUpgrades.includes("timeMult")) {
-    element.innerHTML = 'You are getting ' + shortenDimensions(Math.round(player.firstAmount* player.firstPow*(1000/player.tickspeed)*10)/10) + ' antimatter per second.';
-  } else {
-    element.innerHTML = 'You are getting ' + shortenDimensions(Math.round(player.firstAmount*timeMult()* player.firstPow*(1000/player.tickspeed)*10)/10) + ' antimatter per second.';
-  }
+  element.innerHTML = 'You are getting ' + shortenDimensions(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult"))) + ' antimatter per second.';
 }
 
+
+
+
 function updateDimensions() {
-	document.getElementById("firstAmount").innerHTML = shortenDimensions(player.firstAmount) + ' (' + player.firstBought + ')';
-  document.getElementById("secondAmount").innerHTML = shortenDimensions(player.secondAmount) + ' (' + player.secondBought + ')';
-  document.getElementById("thirdAmount").innerHTML = shortenDimensions(player.thirdAmount) + ' (' + player.thirdBought + ')';
-  document.getElementById("fourthAmount").innerHTML = shortenDimensions(player.fourthAmount) + ' (' + player.fourthBought + ')';
-  document.getElementById("fifthAmount").innerHTML = shortenDimensions(player.fifthAmount) + ' (' + player.fifthBought + ')';
-  document.getElementById("sixthAmount").innerHTML = shortenDimensions(player.sixthAmount) + ' (' + player.sixthBought + ')';
-  document.getElementById("seventhAmount").innerHTML = shortenDimensions(player.seventhAmount) + ' (' + player.seventhBought + ')';
+	document.getElementById("firstAmount").innerHTML = shortenDimensions(player.firstAmount) + ' (' + player.firstBought + ')  (+' + (calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult"))*10/Math.max(player.firstAmount, 1)).toFixed(1) + '%/s)';
+  document.getElementById("secondAmount").innerHTML = shortenDimensions(player.secondAmount) + ' (' + player.secondBought + ')  (+' + (calcPerSec(player.thirdAmount, player.thirdPow, player.infinityUpgrades.includes("36Mult"))*10/Math.max(player.secondAmount, 1)).toFixed(1) + '%/s)';
+  document.getElementById("thirdAmount").innerHTML = shortenDimensions(player.thirdAmount) + ' (' + player.thirdBought + ')  (+' + (calcPerSec(player.fourthAmount, player.fourthPow, player.infinityUpgrades.includes("45Mult"))*10/Math.max(player.thirdAmount, 1)).toFixed(1) + '%/s)';
+  document.getElementById("fourthAmount").innerHTML = shortenDimensions(player.fourthAmount) + ' (' + player.fourthBought + ')  (+' + (calcPerSec(player.fifthAmount, player.fifthPow, player.infinityUpgrades.includes("45Mult"))*10/Math.max(player.fourthAmount, 1)).toFixed(1) + '%/s)';
+  document.getElementById("fifthAmount").innerHTML = shortenDimensions(player.fifthAmount) + ' (' + player.fifthBought + ')  (+' + (calcPerSec(player.sixthAmount, player.sixthPow, player.infinityUpgrades.includes("36Mult"))*10/Math.max(player.fifthAmount, 1)).toFixed(1) + '%/s)';
+  document.getElementById("sixthAmount").innerHTML = shortenDimensions(player.sixthAmount) + ' (' + player.sixthBought + ')  (+' + (calcPerSec(player.seventhAmount, player.seventhPow, player.infinityUpgrades.includes("27Mult"))*10/Math.max(player.sixthAmount, 1)).toFixed(1) + '%/s)';
+  document.getElementById("seventhAmount").innerHTML = shortenDimensions(player.seventhAmount) + ' (' + player.seventhBought + ')  (+' + (calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult"))*10/Math.max(player.seventhAmount, 1)).toFixed(1) + '%/s)';
   document.getElementById("eightAmount").innerHTML = shortenDimensions(player.eightAmount) + ' (' + player.eightBought + ')';
   if (!player.infinityUpgrades.includes("timeMult")) {
     document.getElementById("firstD").innerHTML = 'First Dimension  ' +  'x' + shortenMoney(!player.infinityUpgrades.includes("18Mult") ? player.firstPow : player.firstPow * dimMults());
@@ -785,15 +784,15 @@ document.getElementById("softReset").onclick = function() {
   else if (player.resets == 3) {
   	if (player.infinityUpgrades.includes("resetBoost") ? player.seventhAmount >= 11 : player.seventhAmount >= 20) {
     softReset();
-    document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 20 Eight Dimension';
+    document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 20 Eighth Dimension';
     }
   }
   else if (player.resets > 3) {
   if (player.infinityUpgrades.includes("resetBoost") ? player.eightAmount >= (player.resets - 4)*15+11 : player.eightAmount >= (player.resets - 4)*15+20) {
     softReset();
-    document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + (player.resets - 3)*20 +' Eight Dimension';
+    document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + (player.resets - 3)*20 +' Eighth Dimension';
     }
-    document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + Math.round((((1-player.tickDecrease)*100-7)/3*80)) + 'Eight Dimensions';
+    document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + Math.round((((1-player.tickDecrease)*100-7)/3*80)) + 'Eighth Dimensions';
     }
 };
 
@@ -867,7 +866,7 @@ document.getElementById("logo").onclick = function() {
     player.options.logoVisible = false;
     document.getElementById("logoanimation").style.display = "none";
     document.getElementById("logodiv").style.display = "none";
-	  document.getElementById("logospace").style.display = "none";
+    document.getElementById("logospace").style.display = "none";
   } else {
     player.options.logoVisible = true;
     document.getElementById("logoanimation").style.display = "block";
@@ -1161,6 +1160,14 @@ document.getElementById("bigcrunch").onclick = function() {
 
 
 
+function calcPerSec(amount, pow,  hasMult) {
+  var hasTimeMult = player.infinityUpgrades.includes("timeMult")
+  if (!hasMult && !hasTimeMult) return Math.floor(amount)*pow/(player.tickspeed/1000);
+  else if (!hasMult && hasTimeMult) return Math.floor(amount)*pow*timeMult()/(player.tickspeed/1000);
+  else if (hasMult && !hasTimeMult) return Math.floor(amount)*pow*dimMults()/(player.tickspeed/1000);
+  else return Math.floor(amount)*pow*dimMults()*timeMult()/(player.tickspeed/1000);
+}
+
 
 var index = 0;
 
@@ -1168,68 +1175,16 @@ setInterval(function() {
   var thisUpdate = new Date().getTime();
   var diff = Math.min(thisUpdate - player.lastUpdate, 21600000);
   diff = diff/100;
-  if (!player.infinityUpgrades.includes("timeMult")) {
-    if (!player.infinityUpgrades.includes("18Mult")) {
-      if (player.money != Infinity) player.totalmoney += player.firstAmount*player.firstPow*diff/(player.tickspeed/100);
-      if (player.money != Infinity) player.money += player.firstAmount*player.firstPow*diff/(player.tickspeed/100);
-      player.seventhAmount += (Math.floor(player.eightAmount) * player.eightPow/10)*diff/(player.tickspeed/100);
-    } else {
-      if (player.money != Infinity) player.totalmoney += player.firstAmount*player.firstPow*diff*dimMults()/(player.tickspeed/100);
-      if (player.money != Infinity) player.money += player.firstAmount*player.firstPow*diff*dimMults()/(player.tickspeed/100);
-      player.seventhAmount += (Math.floor(player.eightAmount) * player.eightPow/10)*diff*dimMults()/(player.tickspeed/100);
-    }
-    if (!player.infinityUpgrades.includes("27Mult")) {
-      player.firstAmount += (Math.floor(player.secondAmount) * player.secondPow/10)*diff/(player.tickspeed/100);
-      player.sixthAmount += (Math.floor(player.seventhAmount) * player.seventhPow/10)*diff/(player.tickspeed/100);
-    } else {
-      player.firstAmount += (Math.floor(player.secondAmount) * player.secondPow/10)*diff*dimMults()/(player.tickspeed/100);
-      player.sixthAmount += (Math.floor(player.seventhAmount) * player.seventhPow/10)*diff*dimMults()/(player.tickspeed/100);
-    }
-    if (!player.infinityUpgrades.includes("36Mult")) {
-      player.secondAmount += (Math.floor(player.thirdAmount) * player.thirdPow/10)*diff/(player.tickspeed/100);
-      player.fifthAmount += (Math.floor(player.sixthAmount) * player.sixthPow/10)*diff/(player.tickspeed/100);
-    } else {
-      player.secondAmount += (Math.floor(player.thirdAmount) * player.thirdPow/10)*diff*dimMults()/(player.tickspeed/100);
-      player.fifthAmount += (Math.floor(player.sixthAmount) * player.sixthPow/10)*diff*dimMults()/(player.tickspeed/100);
-    }
-    if (!player.infinityUpgrades.includes("45Mult")) {
-      player.thirdAmount += (Math.floor(player.fourthAmount) * player.fourthPow/10)*diff/(player.tickspeed/100);
-      player.fourthAmount += (Math.floor(player.fifthAmount) * player.fifthPow/10)*diff/(player.tickspeed/100);
-    } else {
-      player.thirdAmount += (Math.floor(player.fourthAmount) * player.fourthPow/10)*diff*dimMults()/(player.tickspeed/100);
-      player.fourthAmount += (Math.floor(player.fifthAmount) * player.fifthPow/10)*diff*dimMults()/(player.tickspeed/100);
-    }
-  } else {
-    if (!player.infinityUpgrades.includes("18Mult")) {
-      if (player.money != Infinity) player.totalmoney += player.firstAmount*player.firstPow*diff*timeMult()/(player.tickspeed/100);
-      if (player.money != Infinity) player.money += player.firstAmount*player.firstPow*diff*timeMult()/(player.tickspeed/100);
-      player.seventhAmount += (Math.floor(player.eightAmount) * player.eightPow/10)*diff*timeMult()/(player.tickspeed/100);
-    } else {
-      if (player.money != Infinity) player.totalmoney += player.firstAmount*player.firstPow*diff*dimMults()*timeMult()/(player.tickspeed/100);
-      if (player.money != Infinity) player.money += player.firstAmount*player.firstPow*diff*dimMults()*timeMult()/(player.tickspeed/100);
-      player.seventhAmount += (Math.floor(player.eightAmount) * player.eightPow/10)*diff*dimMults()*timeMult()/(player.tickspeed/100);
-    }
-    if (!player.infinityUpgrades.includes("27Mult")) {
-      player.firstAmount += (Math.floor(player.secondAmount) * player.secondPow/10)*diff*timeMult()/(player.tickspeed/100);
-      player.sixthAmount += (Math.floor(player.seventhAmount) * player.seventhPow/10)*diff*timeMult()/(player.tickspeed/100);
-    } else {
-      player.firstAmount += (Math.floor(player.secondAmount) * player.secondPow/10)*diff*dimMults()*timeMult()/(player.tickspeed/100);
-      player.sixthAmount += (Math.floor(player.seventhAmount) * player.seventhPow/10)*diff*dimMults()*timeMult()/(player.tickspeed/100);
-    }
-    if (!player.infinityUpgrades.includes("36Mult")) {
-      player.secondAmount += (Math.floor(player.thirdAmount) * player.thirdPow/10)*diff*timeMult()/(player.tickspeed/100);
-      player.fifthAmount += (Math.floor(player.sixthAmount) * player.sixthPow/10)*diff*timeMult()/(player.tickspeed/100);
-    } else {
-      player.secondAmount += (Math.floor(player.thirdAmount) * player.thirdPow/10)*diff*dimMults()*timeMult()/(player.tickspeed/100);
-      player.fifthAmount += (Math.floor(player.sixthAmount) * player.sixthPow/10)*diff*dimMults()*timeMult()/(player.tickspeed/100);
-    }
-    if (!player.infinityUpgrades.includes("45Mult")) {
-      player.thirdAmount += (Math.floor(player.fourthAmount) * player.fourthPow/10)*diff*timeMult()/(player.tickspeed/100);
-      player.fourthAmount += (Math.floor(player.fifthAmount) * player.fifthPow/10)*diff*timeMult()/(player.tickspeed/100);
-    } else {
-      player.thirdAmount += (Math.floor(player.fourthAmount) * player.fourthPow/10)*diff*dimMults()*timeMult()/(player.tickspeed/100);
-      player.fourthAmount += (Math.floor(player.fifthAmount) * player.fifthPow/10)*diff*dimMults()*timeMult()/(player.tickspeed/100);
-    }
+  player.seventhAmount += calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult"))/100;
+  player.sixthAmount += calcPerSec(player.seventhAmount, player.seventhPow, player.infinityUpgrades.includes("27Mult"))/100;
+  player.fifthAmount += calcPerSec(player.sixthAmount, player.sixthPow, player.infinityUpgrades.includes("36Mult"))/100;
+  player.fourthAmount += calcPerSec(player.fifthAmount, player.fifthPow, player.infinityUpgrades.includes("45Mult"))/100;
+  player.thirdAmount += calcPerSec(player.fourthAmount, player.fourthPow, player.infinityUpgrades.includes("45Mult"))/100;
+  player.secondAmount += calcPerSec(player.thirdAmount, player.thirdPow, player.infinityUpgrades.includes("36Mult"))/100;
+  player.firstAmount += calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult"))/100;
+  if (player.money != Infinity) {
+    player.money += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult"))/10;
+    player.totalMoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult"))/10;
   }
   player.totalTimePlayed += diff
   player.thisInfinityTime += diff
