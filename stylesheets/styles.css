@@ -22,11 +22,11 @@
   z-index: 1;
 }
 
-
 .invert {
   filter: invert(100%);
   background-color: black;
 }
+
 
 
 
@@ -42,7 +42,7 @@
   transition-duration: 0.2s;
   cursor: pointer;
   border-radius: 4px;
-  font-size: 50%;
+  font-size: 55%;
 }
  
 .storebtn:hover {
@@ -130,7 +130,7 @@
   height:30px;
   transition-duration: 0.2s;
   border-radius: 4px;
-  font-size: 50%;
+  font-size: 55%;
 }
  
 .unavailablebtn:hover {
@@ -189,7 +189,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 p, ul, ol, table, pre, dl {
-  margin:0 0 20px;
+  margin:0 0 5px;
 }
 
 h1, h2, h3 {
