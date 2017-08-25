@@ -190,7 +190,7 @@ function updateDimensions() {
     document.getElementById("fifthD").innerHTML = 'Fifth Dimension  ' +  'x' + shortenMoney(!player.infinityUpgrades.includes("45Mult") ? player.fifthPow : player.fifthPow * dimMults());
     document.getElementById("sixthD").innerHTML = 'Sixth Dimension  ' +  'x' + shortenMoney(!player.infinityUpgrades.includes("36Mult") ? player.sixthPow : player.sixthPow * dimMults());
     document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' +  'x' + shortenMoney(!player.infinityUpgrades.includes("27Mult") ? player.seventhPow : player.seventhPow * dimMults());
-    document.getElementById("eightD").innerHTML = 'Eight Dimension  ' +  'x' + shortenMoney(!player.infinityUpgrades.includes("18Mult") ? player.eightPow : player.eightPow * dimMults());
+    document.getElementById("eightD").innerHTML = 'Eighth Dimension  ' +  'x' + shortenMoney(!player.infinityUpgrades.includes("18Mult") ? player.eightPow : player.eightPow * dimMults());
   } else {
     document.getElementById("firstD").innerHTML = 'First Dimension  ' +  'x' + shortenMoney((!player.infinityUpgrades.includes("18Mult") ? player.firstPow : player.firstPow * dimMults())*timeMult());
     document.getElementById("secondD").innerHTML = 'Second Dimension  ' +  'x' + shortenMoney((!player.infinityUpgrades.includes("27Mult") ? player.secondPow : player.secondPow * dimMults())*timeMult());
@@ -199,7 +199,7 @@ function updateDimensions() {
     document.getElementById("fifthD").innerHTML = 'Fifth Dimension  ' +  'x' + shortenMoney((!player.infinityUpgrades.includes("45Mult") ? player.fifthPow : player.fifthPow * dimMults())*timeMult());
     document.getElementById("sixthD").innerHTML = 'Sixth Dimension  ' +  'x' + shortenMoney((!player.infinityUpgrades.includes("36Mult") ? player.sixthPow : player.sixthPow * dimMults())*timeMult());
     document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' +  'x' + shortenMoney((!player.infinityUpgrades.includes("27Mult") ? player.seventhPow : player.seventhPow * dimMults())*timeMult());
-    document.getElementById("eightD").innerHTML = 'Eight Dimension  ' +  'x' + shortenMoney((!player.infinityUpgrades.includes("18Mult") ? player.eightPow : player.eightPow * dimMults())*timeMult());
+    document.getElementById("eightD").innerHTML = 'Eighth Dimension  ' +  'x' + shortenMoney((!player.infinityUpgrades.includes("18Mult") ? player.eightPow : player.eightPow * dimMults())*timeMult());
   }
   if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round(((0.9 - (player.galaxies*0.06)) * 100)) + '% faster.';
   else document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1-(0.9 - (player.galaxies*0.03))) * 100) + '% faster.';
