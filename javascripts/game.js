@@ -855,10 +855,10 @@ document.getElementById("animation").onclick = function() {
 document.getElementById("invert").onclick = function() {
   if (player.options.invert) {
     player.options.invert = false;
-    document.getElementById("body").classList.add("invert");
+    document.getElementById("body").classList.remove("invert");
   } else {
     player.options.invert = true;
-    document.getElementById("body").classList.remove("invert");
+    document.getElementById("body").classList.add("invert");
   }
 }
 
