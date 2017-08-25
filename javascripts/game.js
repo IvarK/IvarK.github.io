@@ -131,6 +131,7 @@ function load_game() {
     	if (player.sixthAmount !== 0) if (player.resets > 2) document.getElementById("seventhRow").style.display = "table-row";
     	if (player.seventhAmount !== 0) if (player.resets > 3) document.getElementById("eightRow").style.display = "table-row";
     	updateCosts();
+	updateTickSpeed();
 }
 
 function save_game() {
@@ -1390,7 +1391,6 @@ function init() {
     //show one tab during init or they'll all start hidden
     showTab('dimensions')
     load_game();
-    updateTickSpeed();
     if (!player.options.animationsOn) document.getElementById("logoanimation").src = "animation.png";
     if (player.options.invert) {
       document.getElementById("body").style.filter = "invert()";
