@@ -855,12 +855,10 @@ document.getElementById("animation").onclick = function() {
 document.getElementById("invert").onclick = function() {
   if (player.options.invert) {
     player.options.invert = false;
-    document.getElementById("body").style.filter = "none";
-    document.getElementById("body").style.backgroundColor = "white";
+    document.getElementById("body").classList.add("invert");
   } else {
     player.options.invert = true;
-    document.getElementById("body").style.filter = "invert()";
-    document.getElementById("body").style.backgroundColor = "black";
+    document.getElementById("body").classList.remove("invert");
   }
 }
 
@@ -1411,8 +1409,7 @@ function init() {
     updateTickSpeed();
     if (!player.options.animationsOn) document.getElementById("logoanimation").src = "animation.png";
     if (player.options.invert) {
-      document.getElementById("body").style.filter = "invert()";
-      document.getElementById("body").style.backgroundColor = "black";
+      document.getElementById("body").classList.add("invert");
     }
     if (!player.options.logoVisible) {
       document.getElementById("logoanimation").style.display = "none";
