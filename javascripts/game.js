@@ -49,7 +49,8 @@ var player = {
   options: {
     scientific: false,
     animationsOn: true,
-    invert: false
+    invert: false,
+    logoVisible: true
   }
 };
 
@@ -108,6 +109,7 @@ function load_game() {
       	}
       }
       if (player.options.invert === undefined) player.options.invert = false;
+      if (player.options.logoVisible === undefined) player.options.logoVisible = true;
 	    if (player.infinityUpgrades === undefined) player.infinityUpgrades = [];
       if (player.infinityPoints === undefined) player.infinityPoints = 0;
 	    if (player.infinitied === undefined) player.infinitied = 0;
@@ -131,7 +133,7 @@ function load_game() {
     	if (player.sixthAmount !== 0) if (player.resets > 2) document.getElementById("seventhRow").style.display = "table-row";
     	if (player.seventhAmount !== 0) if (player.resets > 3) document.getElementById("eightRow").style.display = "table-row";
     	updateCosts();
-	updateTickSpeed();
+      updateTickSpeed();
 }
 
 function save_game() {
@@ -346,7 +348,8 @@ player = {
   options: {
     scientific: player.options.scientific,
     animationsOn: player.options.animationsOn,
-    invert: player.options.invert
+    invert: player.options.invert,
+    logoVisible: player.options.logoVisible
   }
 };
 player.resets++;
@@ -861,6 +864,18 @@ document.getElementById("invert").onclick = function() {
   }
 }
 
+document.getElementById("logo").onclick = function() {
+  if (player.options.logoVisible) {
+    player.options.logoVisible = false;
+    document.getElementById("logoanimation").style.display = "none";
+    document.getElementById("logodiv").style.display = "none";
+  } else {
+    player.options.logoVisible = true;
+    document.getElementById("logoanimation").style.display = "block";
+    document.getElementById("logodiv").style.display = "block";
+  }
+}
+
 
 
 
@@ -970,7 +985,8 @@ player = {
   options: {
     scientific: player.options.scientific,
     animationsOn: player.options.animationsOn,
-    invert: player.options.invert
+    invert: player.options.invert,
+    logoVisible: player.options.logoVisible
   }
   };
   updateCosts();
@@ -1118,7 +1134,8 @@ document.getElementById("bigcrunch").onclick = function() {
   options: {
     scientific: player.options.scientific,
     animationsOn: player.options.animationsOn,
-    invert: player.options.invert
+    invert: player.options.invert,
+    logoVisible: player.options.logoVisible
   }
 };
   updateCosts();
@@ -1391,10 +1408,15 @@ function init() {
     //show one tab during init or they'll all start hidden
     showTab('dimensions')
     load_game();
+    updateTickSpeed();
     if (!player.options.animationsOn) document.getElementById("logoanimation").src = "animation.png";
     if (player.options.invert) {
       document.getElementById("body").style.filter = "invert()";
       document.getElementById("body").style.backgroundColor = "black";
+    }
+    if (!player.options.logoVisible) {
+      document.getElementById("logoanimation").style.display = "none";
+      document.getElementById("logodiv").style.display = "none";
     }
     
 }
