@@ -17,7 +17,7 @@
 #logoanimation {
   position: absolute;
   height: 200px;
-  top: 6%;
+  top: 2%;
   left: calc(50% - 100px);
   z-index: 1;
 }
