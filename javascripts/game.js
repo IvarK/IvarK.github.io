@@ -867,10 +867,12 @@ document.getElementById("logo").onclick = function() {
     player.options.logoVisible = false;
     document.getElementById("logoanimation").style.display = "none";
     document.getElementById("logodiv").style.display = "none";
+	  document.getElementById("logospace").style.display = "none";
   } else {
     player.options.logoVisible = true;
     document.getElementById("logoanimation").style.display = "block";
     document.getElementById("logodiv").style.display = "block";
+    document.getElementById("logospace").style.display = "block";
   }
 }
 
@@ -1414,6 +1416,7 @@ function init() {
     if (!player.options.logoVisible) {
       document.getElementById("logoanimation").style.display = "none";
       document.getElementById("logodiv").style.display = "none";
+      document.getElementById("logospace").style.display = "none";
     }
     
 }
