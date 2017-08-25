@@ -48,7 +48,8 @@ var player = {
   lastUpdate: new Date().getTime(),
   options: {
     scientific: false,
-    animationsOn: true
+    animationsOn: true,
+    invert: false
   }
 };
 
@@ -106,6 +107,7 @@ function load_game() {
 			    animationOn: true
       	}
       }
+      if (player.options.invert === undefined) player.options.invert = false;
 	    if (player.infinityUpgrades === undefined) player.infinityUpgrades = [];
       if (player.infinityPoints === undefined) player.infinityPoints = 0;
 	    if (player.infinitied === undefined) player.infinitied = 0;
@@ -342,7 +344,8 @@ player = {
   lastUpdate: player.lastUpdate,
   options: {
     scientific: player.options.scientific,
-    animationsOn: player.options.animationsOn
+    animationsOn: player.options.animationsOn,
+    invert: player.options.invert
   }
 };
 player.resets++;
@@ -834,14 +837,27 @@ document.getElementById("maxall").onclick = function() {
 document.getElementById("animation").onclick = function() {
   if (player.options.animationsOn) {
     player.options.animationsOn = false;
-    document.getElementById("logoanimation").src = "animation.png"
+    document.getElementById("logoanimation").src = "animation.png";
   }
+  
   
   else {
     player.options.animationsOn = true;
-    document.getElementById("logoanimation").src = "animation.gif"
+    document.getElementById("logoanimation").src = "animation.gif";
   }
   
+}
+
+document.getElementById("invert").onclick = function() {
+  if (player.options.invert) {
+    player.options.invert = false;
+    document.getElementById("body").style.filter = "none";
+    document.getElementById("body").style.backgroundColor = "white";
+  } else {
+    player.options.invert = true;
+    document.getElementById("body").style.filter = "invert()";
+    document.getElementById("body").style.backgroundColor = "black";
+  }
 }
 
 
@@ -952,7 +968,8 @@ player = {
   lastUpdate: player.lastUpdate,
   options: {
     scientific: player.options.scientific,
-    animationsOn: player.options.animationsOn
+    animationsOn: player.options.animationsOn,
+    invert: player.options.invert
   }
   };
   updateCosts();
@@ -1099,7 +1116,8 @@ document.getElementById("bigcrunch").onclick = function() {
   lastUpdate: player.lastUpdate,
   options: {
     scientific: player.options.scientific,
-    animationsOn: player.options.animationsOn
+    animationsOn: player.options.animationsOn,
+    invert: player.options.invert
   }
 };
   updateCosts();
@@ -1372,7 +1390,12 @@ function init() {
     //show one tab during init or they'll all start hidden
     showTab('dimensions')
     load_game();
+    updateTickSpeed();
     if (!player.options.animationsOn) document.getElementById("logoanimation").src = "animation.png";
+    if (player.options.invert) {
+      document.getElementById("body").style.filter = "invert()";
+      document.getElementById("body").style.backgroundColor = "black";
+    }
     
 }
 
@@ -1381,6 +1404,5 @@ setInterval(function () { save_game(); }, 10000);
 updateCosts();
 //updateInterval();
 updateDimensions();
-updateTickSpeed();
 document.getElementById("hiddenheader").style.display = "none";
 init();
