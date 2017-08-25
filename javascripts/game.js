@@ -205,7 +205,7 @@ function updateDimensions() {
   else document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1-(0.9 - (player.galaxies*0.03))) * 100) + '% faster.';
   if (player.infinityUpgrades.includes("resetBoost")) {
     if (player.resets > 3) {
-      document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires '+ ((player.resets - 4)*15+11) +' Eight Dimension';
+      document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires '+ ((player.resets - 4)*15+11) +' Eighth Dimension';
       if (player.seventhAmount !== 0) document.getElementById("eightRow").style.visibility="visible";
     }
     else if (player.resets > 2) {
@@ -222,7 +222,7 @@ function updateDimensions() {
     } else document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 11 Fourth Dimension';
   } else {
     if (player.resets > 3) {
-      document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires '+ ((player.resets - 4)*15+20) +' Eight Dimension';
+      document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires '+ ((player.resets - 4)*15+20) +' Eighth Dimension';
       if (player.seventhAmount !== 0) document.getElementById("eightRow").style.visibility="visible";
     }
     else if (player.resets > 2) {
@@ -240,7 +240,7 @@ function updateDimensions() {
   }
   if (player.resets > 3) document.getElementById("softReset").innerHTML = "Reset the game for a Boost";
   else document.getElementById("softReset").innerHTML = "Reset the game for a new Dimension";
-  document.getElementById("secondResetLabel").innerHTML = player.infinityUpgrades.includes("resetBoost") ? 'Antimatter Galaxies: requires ' + Math.round((((1-player.tickDecrease)*100-7)/3*80) - 9) + ' Eight Dimensions' : 'Antimatter Galaxies: requires ' + Math.round((((1-player.tickDecrease)*100-7)/3*80)) + ' Eight Dimensions';
+  document.getElementById("secondResetLabel").innerHTML = player.infinityUpgrades.includes("resetBoost") ? 'Antimatter Galaxies: requires ' + Math.round((((1-player.tickDecrease)*100-7)/3*80) - 9) + ' Eighth Dimensions' : 'Antimatter Galaxies: requires ' + Math.round((((1-player.tickDecrease)*100-7)/3*80)) + ' Eighth Dimensions';
   document.getElementById("totalmoney").innerHTML = 'You have made a total of ' + shortenMoney(player.totalmoney) + ' antimatter.';
   document.getElementById("totalresets").innerHTML = 'You have done ' + player.resets + ' soft resets.';
   document.getElementById("galaxies").innerHTML = 'You have ' + Math.round((((1-player.tickDecrease)*100-7)/3)-1) + ' Antimatter Galaxies.';
