@@ -696,6 +696,9 @@ if (player.money >= player.firstCost*(10-player.firstBought)) {
   updateMoney();
   updateDimensions();
   document.getElementById("secondRow").style.display = "table-row";
+	if (!player.achievements.includes("You gotta start somewhere")) {
+    giveAchievement("You gotta start somewhere")
+  }
 }
 };
 
@@ -715,6 +718,9 @@ if (player.money >= player.secondCost*(10-player.secondBought)) {
   document.getElementById("tickSpeedMax").style.visibility = "visible";
   document.getElementById("tickLabel").style.visibility = "visible";
   document.getElementById("tickSpeedAmount").style.visibility = "visible";
+	if (!player.achievements.includes("100 antimatter is a lot")) {
+    giveAchievement("100 antimatter is a lot")
+  }
 }
 };
 
@@ -730,6 +736,9 @@ if (player.money >= player.thirdCost*(10-player.thirdBought)) {
   updateMoney();
   updateDimensions();
   document.getElementById("fourthRow").style.display = "table-row";
+	if (!player.achievements.includes("Half life 3 confirmed")) {
+    giveAchievement("Half life 3 confirmed")
+  }
 }
 };
 
@@ -745,6 +754,9 @@ document.getElementById("fourthMax").onclick = function() {
   updateMoney();
   updateDimensions();
   if (player.resets > 0) document.getElementById("fifthRow").style.display = "table-row";
+		if (!player.achievements.includes("L4D: Left 4 Dimensions")) {
+    giveAchievement("L4D: Left 4 Dimensions")
+  }
 }
 };
 
@@ -760,6 +772,9 @@ document.getElementById("fifthMax").onclick = function() {
   updateMoney();
   updateDimensions();
   if (player.resets > 1) document.getElementById("sixthRow").style.display = "table-row";
+		if (!player.achievements.includes("5 Dimension Antimatter Punch")) {
+    giveAchievement("5 Dimension Antimatter Punch")
+  }
 }
 };
 
@@ -775,6 +790,9 @@ document.getElementById("sixthMax").onclick = function() {
   updateMoney();
   updateDimensions();
   if (player.resets > 2) document.getElementById("seventhRow").style.display = "table-row";
+		if (!player.achievements.includes("We couldn't afford 9")) {
+    giveAchievement("We couldn't afford 9")
+  }
 }
 };
 
@@ -790,6 +808,9 @@ document.getElementById("seventhMax").onclick = function() {
   updateMoney();
   updateDimensions();
   if (player.resets > 3) document.getElementById("eightRow").style.display = "table-row";
+		if (!player.achievements.includes("Not a luck related achievement")) {
+    giveAchievement("Not a luck related achievement")
+  }
 }
 };
 
@@ -804,6 +825,9 @@ document.getElementById("eightMax").onclick = function() {
   updateCosts();
   updateMoney();
   updateDimensions();
+	if (!player.achievements.includes("90 degrees to infinity")) {
+    giveAchievement("90 degrees to infinity")
+  }
 }
 };
 
