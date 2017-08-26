@@ -1,3 +1,4 @@
+
 var player = {
 	money: 10,
 	tickSpeedCost: 1000,
@@ -1430,3 +1431,4 @@ updateCosts();
 updateDimensions();
 document.getElementById("hiddenheader").style.display = "none";
 init();
+
