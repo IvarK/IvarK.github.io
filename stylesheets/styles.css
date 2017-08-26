@@ -202,6 +202,21 @@
 }
 
 
+#progress {
+    width: 100%;
+    background-color: #A3A3A3;
+    border-radius: 5px;
+}
+#progressbar {
+    width: 0%;
+    height: 30px;
+    background-color: #127A20;
+    color: black;
+    font-size:130%;
+    border-radius: 5px;
+}
+
+
 [ach-tooltip] {
   position: relative;
   z-index: 2;
