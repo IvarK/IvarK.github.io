@@ -34,6 +34,7 @@ var player = {
 	sixthPow: 1,
 	seventhPow: 1,
 	eightPow: 1,
+  achievements: [],
   infinityUpgrades: [],
 	infinityPoints: 0,
 	infinitied: 0,
@@ -110,6 +111,7 @@ function load_game() {
       }
       if (player.options.invert === undefined) player.options.invert = false;
       if (player.options.logoVisible === undefined) player.options.logoVisible = true;
+      if (player.achievements === undefined) player.achievements = []; 
 	    if (player.infinityUpgrades === undefined) player.infinityUpgrades = [];
       if (player.infinityPoints === undefined) player.infinityPoints = 0;
 	    if (player.infinitied === undefined) player.infinitied = 0;
@@ -134,16 +136,25 @@ function load_game() {
     	if (player.seventhAmount !== 0) if (player.resets > 3) document.getElementById("eightRow").style.display = "table-row";
     	updateCosts();
       updateTickSpeed();
+      
+      var achievements = document.getElementsByClassName('achievement');
+      var achievement;
+      for (var i = 0; i < achievements.length; i++) {
+        achievement = achievements.item(i);
+        if (player.achievements.includes(achievement.id)) {
+            achievement.className = 'achievement achievementunlocked';
+        }
+      }
+      
 }
 
 function save_game() {
     set_cookie('dimensionSave', player);
+    $.notify("Game saved", "info")
 }
 
 
 function showTab(tabName) {
-    console.log('show tab ' + tabName);
-    
     //iterate over all elements in div_tab class. Hide everything that's not tabName and show tabName
     var tabs = document.getElementsByClassName('tab');
     var tab;
@@ -324,7 +335,8 @@ player = {
 	sixthBought: 0,
 	seventhBought: 0,
 	eightBought: 0,
-    infinityUpgrades: player.infinityUpgrades,
+  achievements: player.achievements,
+  infinityUpgrades: player.infinityUpgrades,
 	infinityPoints: player.infinityPoints,
 	infinitied: player.infinitied,
 	totalTimePlayed: player.totalTimePlayed,
@@ -462,7 +474,11 @@ function timeDisplay(time) {
   else return Math.floor(time%60) + " seconds"
 }
 
-
+function giveAchievement(name) {
+  $.notify(name, "success");
+  player.achievements += name;
+  document.getElementById(name).className = "achievementunlocked"
+}
 
 
 
@@ -486,6 +502,10 @@ document.getElementById("first").onclick = function() {
   updateMoney();
   updateDimensions();
   document.getElementById("secondRow").style.display = "table-row";
+  
+  if (!player.achievements.includes("You gotta start somewhere")) {
+    giveAchievement("You gotta start somewhere")
+  }
   }
 };
 
@@ -511,6 +531,9 @@ document.getElementById("second").onclick = function() {
   document.getElementById("tickSpeedMax").style.visibility = "visible";
   document.getElementById("tickLabel").style.visibility = "visible";
   document.getElementById("tickSpeedAmount").style.visibility = "visible";
+  if (!player.achievements.includes("100 antimatter is a lot")) {
+    giveAchievement("100 antimatter is a lot")
+  }
   }
 };
 
@@ -532,6 +555,9 @@ document.getElementById("third").onclick = function() {
   updateMoney();
   updateDimensions();
   document.getElementById("fourthRow").style.display = "table-row";
+  if (!player.achievements.includes("Half life 3 confirmed")) {
+    giveAchievement("Half life 3 confirmed")
+  }
   }
 };
 
@@ -553,6 +579,9 @@ document.getElementById("fourth").onclick = function() {
   updateMoney();
   updateDimensions();
   if (player.resets > 0) document.getElementById("fifthRow").style.display = "table-row";
+  if (!player.achievements.includes("L4D: Left 4 Dimensions")) {
+    giveAchievement("L4D: Left 4 Dimensions")
+  }
   }
 };
 
@@ -574,6 +603,9 @@ document.getElementById("fifth").onclick = function() {
   updateMoney();
   updateDimensions();
   if (player.resets > 1) document.getElementById("sixthRow").style.display = "table-row";
+  if (!player.achievements.includes("5 Dimension Antimatter Punch")) {
+    giveAchievement("5 Dimension Antimatter Punch")
+  }
   }
 };
 
@@ -595,6 +627,9 @@ document.getElementById("sixth").onclick = function() {
   updateMoney();
   updateDimensions();
   if (player.resets > 2) document.getElementById("seventhRow").style.display = "table-row";
+  if (!player.achievements.includes("We couldn't afford 9")) {
+    giveAchievement("We couldn't afford 9")
+  }
   }
 };
 
@@ -616,6 +651,9 @@ document.getElementById("seventh").onclick = function() {
   updateMoney();
   updateDimensions();
   if (player.resets > 3) document.getElementById("eightRow").style.display = "table-row";
+  if (!player.achievements.includes("Not a luck related achievement")) {
+    giveAchievement("Not a luck related achievement")
+  }
   }
 };
 
@@ -636,6 +674,9 @@ document.getElementById("eight").onclick = function() {
   updateCosts();
   updateMoney();
   updateDimensions();
+  if (!player.achievements.includes("90 degrees to infinity")) {
+    giveAchievement("90 degrees to infinity")
+  }
   }
 };
 
@@ -848,7 +889,7 @@ document.getElementById("animation").onclick = function() {
     player.options.animationsOn = true;
     document.getElementById("logoanimation").src = "animation.gif";
   }
-  
+  $.notify("Achievement unlocked", "success")
 }
 
 document.getElementById("invert").onclick = function() {
@@ -879,7 +920,7 @@ document.getElementById("logo").onclick = function() {
 
 
 function buyInfinityUpgrade(name) {
-  if (player.infinityPoints >= 1 ) {
+  if (player.infinityPoints >= 1 && !player.infinityUpgrades.includes(name)) {
     player.infinityUpgrades += name;
     player.infinityPoints -= 1;
     return true
@@ -969,7 +1010,8 @@ player = {
 	sixthPow: 1,
 	seventhPow: 1,
 	eightPow: 1,
-    infinityUpgrades: player.infinityUpgrades,
+  achievements: player.achievements,
+  infinityUpgrades: player.infinityUpgrades,
 	infinityPoints: player.infinityPoints,
 	infinitied: player.infinitied,
 	totalTimePlayed: player.totalTimePlayed,
@@ -1032,20 +1074,8 @@ document.getElementById("importbtn").onclick = function() {
       return;
     }
   player = save_data;
-  if (player.firstAmount !== 0) document.getElementById("secondRow").style.display = "table-row";
-    	if (player.secondAmount !== 0) { 
-    		document.getElementById("thirdRow").style.display = "table-row";
-  		document.getElementById("tickSpeed").style.visibility = "visible";
-        document.getElementById("tickSpeedMax").style.visibility = "visible";
-  		document.getElementById("tickLabel").style.visibility = "visible";
-  		document.getElementById("tickSpeedAmount").style.visibility = "visible";
-    	}
-    	if (player.thirdAmount !== 0) document.getElementById("fourthRow").style.display = "table-row";
-    	if (player.fourthAmount !== 0) if (player.resets > 0) document.getElementById("fifthRow").style.display = "table-row";
-    	if (player.fifthAmount !== 0) if (player.resets > 1) document.getElementById("sixthRow").style.display = "table-row";
-    	if (player.sixthAmount !== 0) if (player.resets > 2) document.getElementById("seventhRow").style.display = "table-row";
-    	if (player.seventhAmount !== 0) if (player.resets > 3) document.getElementById("eightRow").style.display = "table-row";
-    	updateCosts();
+  save_game();
+  load_game();
 };
 
 
@@ -1118,7 +1148,8 @@ document.getElementById("bigcrunch").onclick = function() {
 	sixthPow: 1,
 	seventhPow: 1,
 	eightPow: 1,
-    infinityUpgrades: player.infinityUpgrades,
+  achievements: player.achievements,
+  infinityUpgrades: player.infinityUpgrades,
 	infinityPoints: player.infinityPoints + 1,
 	infinitied: player.infinitied + 1,
 	totalTimePlayed: player.totalTimePlayed,
@@ -1284,7 +1315,7 @@ setInterval(function() {
   if (player.infinityUpgrades.includes("36Mult")) document.getElementById("infi13").className = "infinistorebtnbought"
   if (player.infinityUpgrades.includes("45Mult")) document.getElementById("infi23").className = "infinistorebtnbought"
   if (player.infinityUpgrades.includes("resetBoost")) document.getElementById("infi14").className = "infinistorebtnbought"
-    if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("infi14").className = "infinistorebtnbought"
+  if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("infi24").className = "infinistorebtnbought"
   
     
     
@@ -1359,6 +1390,7 @@ function init() {
     document.getElementById('dimensionsbtn').onclick=function () {showTab('dimensions');};
     document.getElementById('optionsbtn').onclick=function () {showTab('options');};
     document.getElementById('statisticsbtn').onclick=function () {showTab('statistics');};
+    document.getElementById('achievementsbtn').onclick=function () {showTab('achievements');};
     document.getElementById('infinitybtn').onclick=function () {showTab('infinity');};
     //show one tab during init or they'll all start hidden
     showTab('dimensions')
@@ -1377,7 +1409,7 @@ function init() {
 }
 
 
-setInterval(function () { save_game(); }, 10000);
+setInterval(function () { save_game(); }, 30000);
 updateCosts();
 //updateInterval();
 updateDimensions();
