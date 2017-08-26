@@ -1217,16 +1217,16 @@ setInterval(function() {
   var thisUpdate = new Date().getTime();
   var diff = Math.min(thisUpdate - player.lastUpdate, 21600000);
   diff = diff/100;
-  player.seventhAmount += calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult"))/100;
-  player.sixthAmount += calcPerSec(player.seventhAmount, player.seventhPow, player.infinityUpgrades.includes("27Mult"))/100;
-  player.fifthAmount += calcPerSec(player.sixthAmount, player.sixthPow, player.infinityUpgrades.includes("36Mult"))/100;
-  player.fourthAmount += calcPerSec(player.fifthAmount, player.fifthPow, player.infinityUpgrades.includes("45Mult"))/100;
-  player.thirdAmount += calcPerSec(player.fourthAmount, player.fourthPow, player.infinityUpgrades.includes("45Mult"))/100;
-  player.secondAmount += calcPerSec(player.thirdAmount, player.thirdPow, player.infinityUpgrades.includes("36Mult"))/100;
-  player.firstAmount += calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult"))/100;
+  player.seventhAmount += calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult"))*diff/100;
+  player.sixthAmount += calcPerSec(player.seventhAmount, player.seventhPow, player.infinityUpgrades.includes("27Mult"))*diff/100;
+  player.fifthAmount += calcPerSec(player.sixthAmount, player.sixthPow, player.infinityUpgrades.includes("36Mult"))*diff/100;
+  player.fourthAmount += calcPerSec(player.fifthAmount, player.fifthPow, player.infinityUpgrades.includes("45Mult"))*diff/100;
+  player.thirdAmount += calcPerSec(player.fourthAmount, player.fourthPow, player.infinityUpgrades.includes("45Mult"))*diff/100;
+  player.secondAmount += calcPerSec(player.thirdAmount, player.thirdPow, player.infinityUpgrades.includes("36Mult"))*diff/100;
+  player.firstAmount += calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult"))*diff/100;
   if (player.money != Infinity) {
-    player.money += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult"))/10;
-    player.totalMoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult"))/10;
+    player.money += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult"))*diff/10;
+    player.totalMoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult"))*diff/10;
   }
   player.totalTimePlayed += diff
   player.thisInfinityTime += diff
