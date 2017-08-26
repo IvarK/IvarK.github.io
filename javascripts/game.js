@@ -481,7 +481,7 @@ function giveAchievement(name) {
   player.achievements.push(name);
   document.getElementById(name).className = "achievementunlocked"
   
-  kongregate.stats.submit('Achievements', player.achievement.length);
+  kongregate.stats.submit('Achievements', player.achievements.length);
 }
 
 
