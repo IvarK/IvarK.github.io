@@ -35,6 +35,7 @@ var player = {
 	sixthPow: 1,
 	seventhPow: 1,
 	eightPow: 1,
+  sacrificed: 0,
   achievements: [],
   infinityUpgrades: [],
 	infinityPoints: 0,
@@ -113,6 +114,7 @@ function load_game() {
       if (player.options.invert === undefined) player.options.invert = false;
       if (player.options.logoVisible === undefined) player.options.logoVisible = true;
       if (player.achievements === undefined) player.achievements = []; 
+      if (player.sacrificed === undefined) player.sacrificed = 0;
 	    if (player.infinityUpgrades === undefined) player.infinityUpgrades = [];
       if (player.infinityPoints === undefined) player.infinityPoints = 0;
 	    if (player.infinitied === undefined) player.infinitied = 0;
@@ -251,10 +253,10 @@ function updateDimensions() {
   }
   if (player.resets > 3) document.getElementById("softReset").innerHTML = "Reset the game for a Boost";
   else document.getElementById("softReset").innerHTML = "Reset the game for a new Dimension";
-  document.getElementById("secondResetLabel").innerHTML = player.infinityUpgrades.includes("resetBoost") ? 'Antimatter Galaxies: requires ' + Math.round((((1-player.tickDecrease)*100-7)/3*80) - 9) + ' Eighth Dimensions' : 'Antimatter Galaxies: requires ' + Math.round((((1-player.tickDecrease)*100-7)/3*80)) + ' Eighth Dimensions';
+  document.getElementById("secondResetLabel").innerHTML = player.infinityUpgrades.includes("resetBoost") ? 'Antimatter Galaxies: requires ' + (player.galaxies*60+80) + ' Eighth Dimensions' : 'Antimatter Galaxies: requires ' + (player.galaxies*60+80) + ' Eighth Dimensions';
   document.getElementById("totalmoney").innerHTML = 'You have made a total of ' + shortenMoney(player.totalmoney) + ' antimatter.';
   document.getElementById("totalresets").innerHTML = 'You have done ' + player.resets + ' soft resets.';
-  document.getElementById("galaxies").innerHTML = 'You have ' + Math.round((((1-player.tickDecrease)*100-7)/3)-1) + ' Antimatter Galaxies.';
+  document.getElementById("galaxies").innerHTML = 'You have ' + Math.round(player.galaxies) + ' Antimatter Galaxies.';
   document.getElementById("totalTime").innerHTML = "You have played for " + timeDisplay(player.totalTimePlayed)
 
   if (player.bestInfinityTime == 9999999999 ) {
@@ -336,6 +338,7 @@ player = {
 	sixthBought: 0,
 	seventhBought: 0,
 	eightBought: 0,
+  sacrificed: 0,
   achievements: player.achievements,
   infinityUpgrades: player.infinityUpgrades,
 	infinityPoints: player.infinityPoints,
@@ -861,7 +864,7 @@ document.getElementById("softReset").onclick = function() {
     softReset();
     document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + (player.resets - 3)*20 +' Eighth Dimension';
     }
-    document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + Math.round((((1-player.tickDecrease)*100-7)/3*80)) + 'Eighth Dimensions';
+    document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + (player.galaxies*60+80) + 'Eighth Dimensions';
     }
 };
 
@@ -1037,6 +1040,7 @@ player = {
 	sixthPow: 1,
 	seventhPow: 1,
 	eightPow: 1,
+  sacrificed: 0,
   achievements: player.achievements,
   infinityUpgrades: player.infinityUpgrades,
 	infinityPoints: player.infinityPoints,
@@ -1140,6 +1144,38 @@ document.getElementById("notation").onclick = function() {
   updateCosts();
 };
 
+
+function calcSacrificeBoost() {
+  if (player.firstAmount != 0)return Math.max(Math.pow((Math.log10(player.firstAmount)/10.0), 2) / Math.max(Math.pow((Math.log10(Math.max(player.sacrificed, 1))/10.0), 2), 1), 1);
+  else return 1;
+}
+
+
+function sacrifice() {
+  player.eightPow *= calcSacrificeBoost()
+  player.sacrificed += player.firstAmount;
+  player.firstAmount = 0;
+  player.secondAmount = 0;
+  player.thirdAmount = 0;
+  player.fourthAmount = 0;
+  player.fifthAmount = 0;
+  player.sixthAmount = 0;
+  player.seventhAmount = 0;
+ 
+}
+
+
+
+
+
+document.getElementById("sacrifice").onclick = function() {
+  if (document.getElementById("confirmation").checked) sacrifice();
+  else if (confirm("Dimensional Sacrifice will sacrifice your dimensions 1-7, but you will get a boost to Eighth Dimension")) sacrifice();
+  
+}
+
+
+
 document.getElementById("bigcrunch").onclick = function() {
   if (!player.achievements.includes("That's fast!") && player.thisInfinityTime <= 72000) giveAchievement("That's fast!");
   if (!player.achievements.includes("You didn't need it anyway") && player.eightAmount == 0) giveAchievement("You didn't need it anyway");
@@ -1179,6 +1215,7 @@ document.getElementById("bigcrunch").onclick = function() {
 	sixthPow: 1,
 	seventhPow: 1,
 	eightPow: 1,
+  sacrificed: 0,
   achievements: player.achievements,
   infinityUpgrades: player.infinityUpgrades,
 	infinityPoints: player.infinityPoints + 1,
@@ -1216,9 +1253,8 @@ document.getElementById("bigcrunch").onclick = function() {
   document.getElementById("eightRow").style.display= "none";
   updateTickSpeed();
   showTab("dimensions")
-	kongregate.stats.submit('Infinitied', player.infinitied);
+  kongregate.stats.submit('Infinitied', player.infinitied);
   kongregate.stats.submit('Fastest Infinity time', Math.floor(player.bestInfinityTime/10))
-  
   if (!player.achievements.includes("To infinity!")) giveAchievement("To infinity!");
   if (!player.achievements.includes("That's a lot of infinites") && player.infinitied >= 10) giveAchievement("That's a lot of infinites");
 }
@@ -1249,7 +1285,7 @@ setInterval(function() {
   player.firstAmount += calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult"))*diff/100;
   if (player.money != Infinity) {
     player.money += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult"))*diff/10;
-    player.totalMoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult"))*diff/10;
+    player.totalmoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult"))*diff/10;
   }
   player.totalTimePlayed += diff
   player.thisInfinityTime += diff
@@ -1329,6 +1365,13 @@ setInterval(function() {
     document.getElementById("infi24").className = "infinistorebtnlocked"
   }
   
+  if (player.resets > 4) {
+    document.getElementById("confirmation").style.display = "inline-block";
+    document.getElementById("sacrifice").style.display = "inline-block";
+  } else {
+    document.getElementById("confirmation").style.display = "none";
+    document.getElementById("sacrifice").style.display = "none";
+  }
   
   if (player.money == Infinity) {
     document.getElementById("dimensionsbtn").style.display = "none";
@@ -1411,9 +1454,12 @@ setInterval(function() {
         document.getElementById("softReset").className = 'storebtn';
       } else document.getElementById("softReset").className = 'unavailablebtn';
     }
-    if (player.eightAmount >= (player.galaxies*60+80)) document.getElementById("secondSoftReset").className = 'storebtn';
+    if (player.eightAmount >= ((player.galaxies*60+80))) document.getElementById("secondSoftReset").className = 'storebtn';
     else document.getElementById("secondSoftReset").className = 'unavailablebtn';
   }
+  
+  document.getElementById("sacrifice").setAttribute('ach-tooltip', "Boosts 8th Dimension by "+ calcSacrificeBoost().toFixed(2) +"x");
+  
   
   if (!player.achievements.includes("One for each dimension") && player.totalTimePlayed >= 10*60*60*24*8) giveAchievement("One for each dimension")
   
