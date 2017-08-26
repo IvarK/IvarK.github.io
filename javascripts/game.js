@@ -879,7 +879,7 @@ document.getElementById("logo").onclick = function() {
 
 
 function buyInfinityUpgrade(name) {
-  if (player.infinityPoints >= 1 ) {
+  if (player.infinityPoints >= 1 && !player.infinityUpgrades.includes(name)) {
     player.infinityUpgrades += name;
     player.infinityPoints -= 1;
     return true
@@ -1284,7 +1284,7 @@ setInterval(function() {
   if (player.infinityUpgrades.includes("36Mult")) document.getElementById("infi13").className = "infinistorebtnbought"
   if (player.infinityUpgrades.includes("45Mult")) document.getElementById("infi23").className = "infinistorebtnbought"
   if (player.infinityUpgrades.includes("resetBoost")) document.getElementById("infi14").className = "infinistorebtnbought"
-    if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("infi14").className = "infinistorebtnbought"
+  if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("infi24").className = "infinistorebtnbought"
   
     
     
