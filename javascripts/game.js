@@ -893,7 +893,6 @@ document.getElementById("animation").onclick = function() {
     player.options.animationsOn = true;
     document.getElementById("logoanimation").src = "animation.gif";
   }
-  $.notify("Achievement unlocked", "success")
 }
 
 document.getElementById("invert").onclick = function() {
