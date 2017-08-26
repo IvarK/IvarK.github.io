@@ -380,6 +380,7 @@ updateCosts();
   document.getElementById("seventhRow").style.display= "none";
   document.getElementById("eightRow").style.display= "none";
   updateTickSpeed();
+  if (!player.achievements.includes("Boosting to the max") && player.resets >= 10) giveAchievement("Boosting to the max")
 }
 
 MoneyFormat = ['K', 'M', 'B', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QdDc', 'QtDc', 'SxDc', 'SpDc', 'ODc', 'NDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QdVg', 'QtVg', 'SxVg', 'SpVg', 'OVg', 'NVg', 'Tg', 'UTg', 'DTg', 'TTg', 'QdTg', 'QtTg', 'SxTg', 'SpTg', 'OTg','NTg', 'Qa', 'UQa', 'DQa', 'TQa', 'QdQa', 'QtQa', 'SxQa', 'SpQa', 'OQa', 'NQa', 'Qi', 'UQi', 'DQi', 'TQi', 'QaQi', 'QtQi', 'SxQi', 'SpQi', 'OQi', 'NQi', 'Se', 'USe', 'DSe', 'TSe', 'QaSe', 'QtSe', 'SxSe', 'SpSe', 'OSe', 'NSe', 'St', 'USt', 'DSt', 'TSt', 'QaSt', 'QtSt', 'SxSt', 'SpSt', 'OSt', 'NSt', 'Og', 'UOg', 'DOg', 'TOg', 'QdOg', 'QtOg', 'SxOg', 'SpOg', 'OOg', 'NOg', 'Nn', 'UNn', 'DNn', 'TNn', 'QdNn', 'QtNn', 'SxNn', 'SpNn', 'ONn', 'NNn', 'Ce', 'UCe'];
@@ -476,8 +477,10 @@ function timeDisplay(time) {
 
 function giveAchievement(name) {
   $.notify(name, "success");
-  player.achievements += name;
+  player.achievements.push(name);
   document.getElementById(name).className = "achievementunlocked"
+  
+  kongregate.stats.submit('Achievements', player.achievement.length);
 }
 
 
@@ -921,7 +924,7 @@ document.getElementById("logo").onclick = function() {
 
 function buyInfinityUpgrade(name) {
   if (player.infinityPoints >= 1 && !player.infinityUpgrades.includes(name)) {
-    player.infinityUpgrades += name;
+    player.infinityUpgrades.push(name);
     player.infinityPoints -= 1;
     return true
   } else return false
@@ -1046,6 +1049,8 @@ player = {
   document.getElementById("seventhRow").style.display= "none";
   document.getElementById("eightRow").style.display= "none";
   updateTickSpeed();
+  if (!player.achievements.includes("Double Galaxy") && player.galaxies >= 2) giveAchievement("Double Galaxy");
+  if (!player.achievements.includes("You got past The Big Wall") && player.galaxies >= 1) giveAchievement("You got past The Big Wall");
 	}
 };
 
@@ -1112,6 +1117,8 @@ document.getElementById("notation").onclick = function() {
 };
 
 document.getElementById("bigcrunch").onclick = function() {
+  if (!player.achievements.includes("That's fast!") && player.thisInfinityTime <= 72000) giveAchievement("That's fast!");
+  if (!player.achievements.includes("You didn't need it anyway") && player.eightAmount == 0) giveAchievement("You didn't need it anyway");
   player = {
 	money: 10,
 	tickSpeedCost: 1000,
@@ -1187,6 +1194,9 @@ document.getElementById("bigcrunch").onclick = function() {
   showTab("dimensions")
 	kongregate.stats.submit('Infinitied', player.infinitied);
   kongregate.stats.submit('Fastest Infinity time', Math.floor(player.bestInfinityTime/10))
+  
+  if (!player.achievements.includes("To infinity!")) giveAchievement("To infinity!");
+  if (!player.achievements.includes("That's a lot of infinites") && player.infinitied >= 10) giveAchievement("That's a lot of infinites");
 }
 
 
@@ -1300,11 +1310,13 @@ setInterval(function() {
     document.getElementById("dimensionsbtn").style.display = "none";
     document.getElementById("optionsbtn").style.display = "none";
     document.getElementById("statisticsbtn").style.display = "none";
+    document.getElementById("achievementsbtn").style.display = "none";
     document.getElementById("infinitybtn").style.display = "none";
   } else {
     document.getElementById("dimensionsbtn").style.display = "inline-block";
     document.getElementById("optionsbtn").style.display = "inline-block";
     document.getElementById("statisticsbtn").style.display = "inline-block";
+    document.getElementById("achievementsbtn").style.display = "inline-block";
     if (player.infinitied > 0) document.getElementById("infinitybtn").style.display = "inline-block";
   }
   
@@ -1318,8 +1330,8 @@ setInterval(function() {
   if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("infi24").className = "infinistorebtnbought"
   
     
-    
-    
+  document.getElementById("progressbar").style.width = (Math.log10(player.money)*0.3247).toFixed(2) + "%"
+  document.getElementById("progressbar").innerHTML = (Math.log10(player.money)*0.3247).toFixed(2) + "%"
   
   if (player.infinityUpgrades.includes("resetBoost")) {
     if (player.resets === 0) {
@@ -1378,6 +1390,9 @@ setInterval(function() {
     if (player.eightAmount >= (player.galaxies*60+80)) document.getElementById("secondSoftReset").className = 'storebtn';
     else document.getElementById("secondSoftReset").className = 'unavailablebtn';
   }
+  
+  if (!player.achievements.includes("One for each dimension") && player.totalTimePlayed >= 10*60*60*24*8) giveAchievement("One for each dimension")
+  
     index++;
   player.lastUpdate = thisUpdate;
 }, 100);
