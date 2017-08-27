@@ -259,7 +259,7 @@ function updateDimensions() {
   document.getElementById("totalmoney").innerHTML = 'You have made a total of ' + shortenMoney(player.totalmoney) + ' antimatter.';
   document.getElementById("totalresets").innerHTML = 'You have done ' + player.resets + ' soft resets.';
   document.getElementById("galaxies").innerHTML = 'You have ' + Math.round(player.galaxies) + ' Antimatter Galaxies.';
-  document.getElementById("totalTime").innerHTML = "You have played for " + timeDisplay(player.totalTimePlayed)
+  document.getElementById("totalTime").innerHTML = "You have played for " + timeDisplay(player.totalTimePlayed) + ".";
 
   if (player.bestInfinityTime == 9999999999 ) {
     document.getElementById("bestInfinity").innerHTML = ""
