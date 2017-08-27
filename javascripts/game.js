@@ -1003,7 +1003,7 @@ document.getElementById("infi24").onclick = function() {
 
 
 document.getElementById("secondSoftReset").onclick = function() {
-	if (player.infinityUpgrades.includes("resetBoost") ? player.eightAmount >= (((1-player.tickDecrease)*100-7)/3*80) - 9 : player.eightAmount >= (((1-player.tickDecrease)*100-7)/3*80)) {
+	if (player.infinityUpgrades.includes("resetBoost") ? player.eightAmount >= (player.galaxies*60+80) - 9 : player.eightAmount >= (player.galaxies*60+80)) {
 player = {
 	money: 10,
 	tickSpeedCost: 1000,
