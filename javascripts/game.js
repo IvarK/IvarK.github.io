@@ -146,7 +146,9 @@ function load_game() {
         achievement = achievements.item(i);
         if (player.achievements.includes(achievement.id)) {
             achievement.className = 'achievement achievementunlocked';
-        }
+        } else {
+						achievement.className = 'achievement achievementlocked';
+	}
       }
       
 }
