@@ -995,7 +995,7 @@ document.getElementById("infi14").onclick = function() {
 }
 
 document.getElementById("infi24").onclick = function() {
-  if (player.infinityUpgrades.includes("45Mult")); buyInfinityUpgrade("galaxyBoost")
+  if (player.infinityUpgrades.includes("45Mult")) buyInfinityUpgrade("galaxyBoost");
 }
 
 
