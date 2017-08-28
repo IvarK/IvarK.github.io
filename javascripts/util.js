@@ -1,3 +1,10 @@
+kongregateAPI.loadAPI(function(){
+  window.kongregate = kongregateAPI.getAPI();
+  // You can now access the Kongregate API with:
+  // kongregate.services.getUsername(), etc
+  // Proceed with loading your game...
+});
+
 function set_cookie(cookie_name,value) {
     expiry = new Date();   
     expiry.setTime(new Date().getTime() + (365*24*60*60*1000)); 
