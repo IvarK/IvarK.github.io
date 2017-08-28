@@ -22,6 +22,11 @@ function get_cookie(cookie_name) {
     return JSON.parse(c_value);
 }
 
+function save_game() {
+    set_cookie('dimensionSave', player);
+    $.notify("Game saved", "info")
+}
+
 function load_game() {
     var save_data = get_cookie('dimensionSave');
       if (!save_data) return;
