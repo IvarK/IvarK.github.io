@@ -236,8 +236,8 @@ function updateDimensions() {
     document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' +  'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("27Mult") ? player.seventhPow : player.seventhPow * dimMults(), 1, 0);
     document.getElementById("eightD").innerHTML = 'Eighth Dimension  ' +  'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("18Mult") ? player.eightPow : player.eightPow * dimMults(), 1, 0); 
   } else {
-    document.getElementById("firstD").innerHTML = 'First Dimension  ' +  'x' + formatValue(player.optionss.notation, (!player.infinityUpgrades.includes("18Mult") ? player.firstPow : player.firstPow * dimMults())*timeMult(), 1, 0);
-    document.getElementById("secondD").innerHTML = 'Second Dimension  ' +  'x' + formatValue(player.optionss.notation, (!player.infinityUpgrades.includes("27Mult") ? player.secondPow : player.secondPow * dimMults())*timeMult(), 1, 0);
+    document.getElementById("firstD").innerHTML = 'First Dimension  ' +  'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("18Mult") ? player.firstPow : player.firstPow * dimMults())*timeMult(), 1, 0);
+    document.getElementById("secondD").innerHTML = 'Second Dimension  ' +  'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("27Mult") ? player.secondPow : player.secondPow * dimMults())*timeMult(), 1, 0);
     document.getElementById("thirdD").innerHTML = 'Third Dimension  ' +  'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("36Mult") ? player.thirdPow : player.thirdPow * dimMults())*timeMult(), 1, 0);
     document.getElementById("fourthD").innerHTML = 'Fourth Dimension  ' +  'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("45Mult") ? player.fourthPow : player.fourthPow * dimMults())*timeMult(), 1, 0);
     document.getElementById("fifthD").innerHTML = 'Fifth Dimension  ' +  'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("45Mult") ? player.fifthPow : player.fifthPow * dimMults())*timeMult(), 1, 0);
