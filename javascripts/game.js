@@ -143,6 +143,8 @@ function load_game() {
     	updateCosts();
       updateTickSpeed();
       
+			document.getElementById("notation").innerHTML = "Notation: " + player.options.notation
+	
       var achievements = document.getElementsByClassName('achievement');
       var achievement;
       for (var i = 0; i < achievements.length; i++) {
@@ -1138,10 +1140,13 @@ document.getElementById("notation").onclick = function() {
   player.options.scientific = !player.options.scientific;
     if (player.options.notation === "Standard") {
         player.options.notation = "Scientific";
+				document.getElementById("notation").innerHTML = ("Notation: Scientific")
     } else if (player.options.notation === "Scientific") {
         player.options.notation = "Engineering";
+				document.getElementById("notation").innerHTML = ("Notation: Engineering")
     } else if (player.options.notation === "Engineering") {
         player.options.notation = "Standard";
+				document.getElementById("notation").innerHTML = ("Notation: Standard")
     }
   updateDimensions();
   updateCosts();
