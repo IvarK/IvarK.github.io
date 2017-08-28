@@ -184,7 +184,7 @@ function formatValue(notation, value, places) {
         var power = Math.floor(Math.log10(value));
         
         if ((notation === "Standard") && (((power - (power % 3)) / 3) < FormatList.length - 1)) {
-            return (Math.round(matissa * Math.pow(10, power % 3) * Math.pow(10, places)) / Math.pow(10, places) + FormatList[(power - (power % 3)) / 3]);
+            return (Math.round(matissa * Math.pow(10, power % 3) * Math.pow(10, places)) / Math.pow(10, places) + " " +FormatList[(power - (power % 3)) / 3]);
         } else if (notation === "Scientific") {
             return (Math.round(matissa * Math.pow(10, places)) / Math.pow(10, places) + "e" + power);
         } else if (notation === "Engineering") {
@@ -424,7 +424,7 @@ shorten = function(money) {
 };
 
 shortenDimensions = function(money) {
-    return formatValue(player.options.notation, money, 1);
+    return formatValue(player.options.notation, money, 2);
 };
 
 shortenMoney = function(money) {
