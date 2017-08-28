@@ -50,6 +50,8 @@ var player = {
 	interval: null,
   lastUpdate: new Date().getTime(),
   options: {
+    notation: "Standard",
+    //Standard = normal prefixed numbers, Scientific = standard form, Engineering = powers of 3.
     scientific: false,
     animationsOn: true,
     invert: false,
@@ -107,7 +109,8 @@ function load_game() {
       if (player.totalmoney === undefined) player.totalmoney = player.money;
       if (player.options === undefined) {
         player.options = {
-			    scientific: false,
+			    notation: "Standard",
+                scientific: false,
 			    animationOn: true
       	}
       }
@@ -173,9 +176,44 @@ function showTab(tabName) {
     }
 }
 
+var FormatList = ['', 'K', 'M', 'B', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QdDc', 'QtDc', 'SxDc', 'SpDc', 'ODc', 'NDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QdVg', 'QtVg', 'SxVg', 'SpVg', 'OVg', 'NVg', 'Tg', 'UTg', 'DTg', 'TTg', 'QdTg', 'QtTg', 'SxTg', 'SpTg', 'OTg','NTg', 'Qa', 'UQa', 'DQa', 'TQa', 'QdQa', 'QtQa', 'SxQa', 'SpQa', 'OQa', 'NQa', 'Qi', 'UQi', 'DQi', 'TQi', 'QaQi', 'QtQi', 'SxQi', 'SpQi', 'OQi', 'NQi', 'Se', 'USe', 'DSe', 'TSe', 'QaSe', 'QtSe', 'SxSe', 'SpSe', 'OSe', 'NSe', 'St', 'USt', 'DSt', 'TSt', 'QaSt', 'QtSt', 'SxSt', 'SpSt', 'OSt', 'NSt', 'Og', 'UOg', 'DOg', 'TOg', 'QdOg', 'QtOg', 'SxOg', 'SpOg', 'OOg', 'NOg', 'Nn', 'UNn', 'DNn', 'TNn', 'QdNn', 'QtNn', 'SxNn', 'SpNn', 'ONn', 'NNn', 'Ce', 'UCe'];
+
+function formatValue(notation, value) {
+    if ((value != Infinity) && (value > 1000)) {
+        var matissa = value / Math.pow(10, Math.floor(Math.log10(value)));
+        var power = Math.floor(Math.log10(value));
+        
+        if (notation === "Standard") {
+            return (Math.round(matissa * Math.pow(10, power % 3) * 100) / 100 + FormatList[(power - (power % 3)) / 3]);
+        } else if (notation === "Scientific") {
+            return (Math.round(matissa * 100) / 100 + "e" + power);
+        } else if (notation === "Engineering") {
+            var matissa = value / Math.pow(10, Math.floor(Math.log10(value)));
+            return (Math.round(matissa * Math.pow(10, power % 3) * 100) / 100  + "E" + (power - (power % 3)));
+        }
+    } else if (value <= 1000) {
+        return Math.round(value);
+    } else {
+        return "Infinite";
+    }
+}
+
+console.log(Math.log10(1000));
+console.log(formatValue("Standard", 1000));
+console.log(formatValue("Scientific", 1000));
+console.log(formatValue("Engineering", 1000));
+console.log(formatValue("Standard", 10000));
+console.log(formatValue("Scientific", 10000));
+console.log(formatValue("Engineering", 10000));
+console.log("e5 = " + FormatList[(5 - (5 % 3)) / 3]);
+console.log("e6 = " + FormatList[(6 - (6 % 3)) / 3]);
+console.log("e8 = " + FormatList[(8 - (8 % 3)) / 3]);
+console.log("e9 = " + FormatList[(9 - (9 % 3)) / 3]);
+
+
 function updateMoney() {
 	var element = document.getElementById("coinAmount");
-  element.innerHTML =shortenMoney(player.money);
+  element.innerHTML = formatValue(player.options.notation, player.money);
   
   
 }
@@ -363,7 +401,7 @@ player = {
 	interval: null,
   lastUpdate: player.lastUpdate,
   options: {
-    scientific: player.options.scientific,
+    notation: player.options.notation,
     animationsOn: player.options.animationsOn,
     invert: player.options.invert,
     logoVisible: player.options.logoVisible
@@ -393,54 +431,16 @@ MoneyFormat = ['K', 'M', 'B', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UD
 MoneyFormat.reverse();
 
 shorten = function(money) {
-  if (money != Infinity) {
-    var temp = MoneyFormat.length;
-    var digitMul = Math.pow(10, 2);
-    for (var i = 0; i < MoneyFormat.length; i++) {
-      if ( Math.pow(10, temp * 3) <= money ) {
-        money = money / Math.pow(10, temp * 3);
-            if ((Math.round(money * digitMul) / digitMul) == 1000) {
-              return player.options.scientific ? (Math.round((money * digitMul) / digitMul)/1000) + 'e' + (MoneyFormat.length-i+1)*3 :(Math.round((money * digitMul) / digitMul)/1000) + ' ' + MoneyFormat[i-1];
-            }
-        else return player.options.scientific ? (Math.round(money * digitMul) / digitMul) + 'e' + (MoneyFormat.length-i)*3 :(Math.round(money * digitMul) / digitMul) + ' ' + MoneyFormat[i];
-      }
-      temp--;
-    }
-    return Math.floor(money);
-  } else return "Infinite";
+  return formatValue(player.options.notation, money);
 };
 
 shortenDimensions = function(money) {
-  if (money != Infinity) {
-    var temp = MoneyFormat.length;
-    var digitMul = Math.pow(10, 2);
-    for (var i = 0; i < MoneyFormat.length; i++) {
-      if ( Math.pow(10, temp * 3) <= money ) {
-        money = money / Math.pow(10, temp * 3);
-        return player.options.scientific ? money.toFixed(2) + 'e' + (MoneyFormat.length-i)*3 : money.toFixed(2) + ' ' + MoneyFormat[i];
-      }
-      temp--;
-    }
-    return Math.round(money);
-  } else return "Infinite";
+    return formatValue(player.options.notation, money);
 };
 
 shortenMoney = function(money) {
-  if (money != Infinity) {
-    var temp = MoneyFormat.length;
-    var digitMul = Math.pow(10, 2);
-    for (var i = 0; i < MoneyFormat.length; i++) {
-      if ( Math.pow(10, temp * 3) <= money ) {
-        money = money / Math.pow(10, temp * 3);
-        return player.options.scientific ? money.toFixed(2) + 'e' + (MoneyFormat.length-i)*3 : money.toFixed(2) + ' ' + MoneyFormat[i];
-      }
-      temp--;
-    }
-    if (money == 1) return 1
-    else return money.toFixed(1);
-  } else return "Infinite";
+  return formatValue(player.options.notation, money);
 };
-
 
 document.getElementById("tickSpeed").onclick = function() {
 	if (player.money >= player.tickSpeedCost) {
@@ -1142,6 +1142,13 @@ document.getElementById("reset").onclick = function() {
 
 document.getElementById("notation").onclick = function() {
   player.options.scientific = !player.options.scientific;
+    if (player.options.notation === "Standard") {
+        player.options.notation = "Scientific";
+    } else if (player.options.notation === "Scientific") {
+        player.options.notation = "Engineering";
+    } else if (player.options.notation === "Engineering") {
+        player.options.notation = "Standard";
+    }
   updateDimensions();
   updateCosts();
 };
