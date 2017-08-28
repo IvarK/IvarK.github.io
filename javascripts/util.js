@@ -1,3 +1,11 @@
+function set_cookie(cookie_name,value) {
+    expiry = new Date();   
+    expiry.setTime(new Date().getTime() + (365*24*60*60*1000)); 
+    var c_value=escape(btoa(JSON.stringify(value))) + 
+    "; expires="+expiry.toUTCString();
+    document.cookie=cookie_name + "=" + c_value;
+}
+
 function get_cookie(cookie_name) {
     var c_value = document.cookie;
     var c_start = c_value.indexOf(" " + cookie_name + "=");
