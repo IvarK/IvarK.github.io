@@ -178,7 +178,7 @@ function showTab(tabName) {
 
 var FormatList = ['', 'K', 'M', 'B', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QdDc', 'QtDc', 'SxDc', 'SpDc', 'ODc', 'NDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QdVg', 'QtVg', 'SxVg', 'SpVg', 'OVg', 'NVg', 'Tg', 'UTg', 'DTg', 'TTg', 'QdTg', 'QtTg', 'SxTg', 'SpTg', 'OTg','NTg', 'Qa', 'UQa', 'DQa', 'TQa', 'QdQa', 'QtQa', 'SxQa', 'SpQa', 'OQa', 'NQa', 'Qi', 'UQi', 'DQi', 'TQi', 'QaQi', 'QtQi', 'SxQi', 'SpQi', 'OQi', 'NQi', 'Se', 'USe', 'DSe', 'TSe', 'QaSe', 'QtSe', 'SxSe', 'SpSe', 'OSe', 'NSe', 'St', 'USt', 'DSt', 'TSt', 'QaSt', 'QtSt', 'SxSt', 'SpSt', 'OSt', 'NSt', 'Og', 'UOg', 'DOg', 'TOg', 'QdOg', 'QtOg', 'SxOg', 'SpOg', 'OOg', 'NOg', 'Nn', 'UNn', 'DNn', 'TNn', 'QdNn', 'QtNn', 'SxNn', 'SpNn', 'ONn', 'NNn', 'Ce', 'UCe'];
 
-function formatValue(notation, value, places) {
+function formatValue(notation, value, places, placesUnder1000) {
     if ((value != Infinity) && (value > 1000)) {
         var matissa = value / Math.pow(10, Math.floor(Math.log10(value)));
         var power = Math.floor(Math.log10(value));
@@ -193,7 +193,7 @@ function formatValue(notation, value, places) {
             return ((Math.round(matissa * 100) / 100).toFixed(places) + "e" + power);
         }
     } else if (value <= 1000) {
-        return ((Math.round(value * Math.pow(10, places)) / Math.pow(10, places))).toFixed(places);
+        return ((Math.round(value * Math.pow(10, places)) / Math.pow(10, places))).toFixed(placesUnder1000);
     } else {
         return "Infinite";
     }
@@ -202,7 +202,7 @@ function formatValue(notation, value, places) {
 
 function updateMoney() {
 	var element = document.getElementById("coinAmount");
-  element.innerHTML = formatValue(player.options.notation, player.money, 2);
+  element.innerHTML = formatValue(player.options.notation, player.money, 2, 1);
   
   
 }
@@ -225,23 +225,23 @@ function updateDimensions() {
   document.getElementById("seventhAmount").innerHTML = shortenDimensions(player.seventhAmount) + ' (' + player.seventhBought + ')  (+' + (calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult"))*10/Math.max(player.seventhAmount, 1)).toFixed(1) + '%/s)';
   document.getElementById("eightAmount").innerHTML = shortenDimensions(player.eightAmount) + ' (' + player.eightBought + ')';
   if (!player.infinityUpgrades.includes("timeMult")) {
-    document.getElementById("firstD").innerHTML = 'First Dimension  ' +  'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("18Mult") ? player.firstPow : player.firstPow * dimMults(), 1);
-    document.getElementById("secondD").innerHTML = 'Second Dimension  ' +  'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("27Mult") ? player.secondPow : player.secondPow * dimMults(), 1);
-    document.getElementById("thirdD").innerHTML = 'Third Dimension  ' +  'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("36Mult") ? player.thirdPow : player.thirdPow * dimMults(), 1);
-    document.getElementById("fourthD").innerHTML = 'Fourth Dimension  ' +  'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("45Mult") ? player.fourthPow : player.fourthPow * dimMults(), 1);
-    document.getElementById("fifthD").innerHTML = 'Fifth Dimension  ' +  'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("45Mult") ? player.fifthPow : player.fifthPow * dimMults(), 1);
-    document.getElementById("sixthD").innerHTML = 'Sixth Dimension  ' +  'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("36Mult") ? player.sixthPow : player.sixthPow * dimMults(), 1);
-    document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' +  'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("27Mult") ? player.seventhPow : player.seventhPow * dimMults(), 1);
-    document.getElementById("eightD").innerHTML = 'Eighth Dimension  ' +  'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("18Mult") ? player.eightPow : player.eightPow * dimMults(), 1); 
+    document.getElementById("firstD").innerHTML = 'First Dimension  ' +  'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("18Mult") ? player.firstPow : player.firstPow * dimMults(), 1, 0);
+    document.getElementById("secondD").innerHTML = 'Second Dimension  ' +  'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("27Mult") ? player.secondPow : player.secondPow * dimMults(), 1, 0);
+    document.getElementById("thirdD").innerHTML = 'Third Dimension  ' +  'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("36Mult") ? player.thirdPow : player.thirdPow * dimMults(), 1, 0);
+    document.getElementById("fourthD").innerHTML = 'Fourth Dimension  ' +  'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("45Mult") ? player.fourthPow : player.fourthPow * dimMults(), 1, 0);
+    document.getElementById("fifthD").innerHTML = 'Fifth Dimension  ' +  'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("45Mult") ? player.fifthPow : player.fifthPow * dimMults(), 1, 0);
+    document.getElementById("sixthD").innerHTML = 'Sixth Dimension  ' +  'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("36Mult") ? player.sixthPow : player.sixthPow * dimMults(), 1, 0);
+    document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' +  'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("27Mult") ? player.seventhPow : player.seventhPow * dimMults(), 1, 0);
+    document.getElementById("eightD").innerHTML = 'Eighth Dimension  ' +  'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("18Mult") ? player.eightPow : player.eightPow * dimMults(), 1, 0); 
   } else {
-    document.getElementById("firstD").innerHTML = 'First Dimension  ' +  'x' + formatValue(player.optionss.notation, (!player.infinityUpgrades.includes("18Mult") ? player.firstPow : player.firstPow * dimMults())*timeMult(), 1);
-    document.getElementById("secondD").innerHTML = 'Second Dimension  ' +  'x' + formatValue(player.optionss.notation, (!player.infinityUpgrades.includes("27Mult") ? player.secondPow : player.secondPow * dimMults())*timeMult(), 1);
-    document.getElementById("thirdD").innerHTML = 'Third Dimension  ' +  'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("36Mult") ? player.thirdPow : player.thirdPow * dimMults())*timeMult(), 1);
-    document.getElementById("fourthD").innerHTML = 'Fourth Dimension  ' +  'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("45Mult") ? player.fourthPow : player.fourthPow * dimMults())*timeMult(), 1);
-    document.getElementById("fifthD").innerHTML = 'Fifth Dimension  ' +  'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("45Mult") ? player.fifthPow : player.fifthPow * dimMults())*timeMult(), 1);
-    document.getElementById("sixthD").innerHTML = 'Sixth Dimension  ' +  'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("36Mult") ? player.sixthPow : player.sixthPow * dimMults())*timeMult(), 1);
-    document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' +  'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("27Mult") ? player.seventhPow : player.seventhPow * dimMults())*timeMult(), 1);
-    document.getElementById("eightD").innerHTML = 'Eighth Dimension  ' +  'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("18Mult") ? player.eightPow : player.eightPow * dimMults())*timeMult(),1);
+    document.getElementById("firstD").innerHTML = 'First Dimension  ' +  'x' + formatValue(player.optionss.notation, (!player.infinityUpgrades.includes("18Mult") ? player.firstPow : player.firstPow * dimMults())*timeMult(), 1, 0);
+    document.getElementById("secondD").innerHTML = 'Second Dimension  ' +  'x' + formatValue(player.optionss.notation, (!player.infinityUpgrades.includes("27Mult") ? player.secondPow : player.secondPow * dimMults())*timeMult(), 1, 0);
+    document.getElementById("thirdD").innerHTML = 'Third Dimension  ' +  'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("36Mult") ? player.thirdPow : player.thirdPow * dimMults())*timeMult(), 1, 0);
+    document.getElementById("fourthD").innerHTML = 'Fourth Dimension  ' +  'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("45Mult") ? player.fourthPow : player.fourthPow * dimMults())*timeMult(), 1, 0);
+    document.getElementById("fifthD").innerHTML = 'Fifth Dimension  ' +  'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("45Mult") ? player.fifthPow : player.fifthPow * dimMults())*timeMult(), 1, 0);
+    document.getElementById("sixthD").innerHTML = 'Sixth Dimension  ' +  'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("36Mult") ? player.sixthPow : player.sixthPow * dimMults())*timeMult(), 1, 0);
+    document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' +  'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("27Mult") ? player.seventhPow : player.seventhPow * dimMults())*timeMult(), 1, 0);
+    document.getElementById("eightD").innerHTML = 'Eighth Dimension  ' +  'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("18Mult") ? player.eightPow : player.eightPow * dimMults())*timeMult(),1, 0);
   }
   if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round(((0.9 - (player.galaxies*0.06)) * 100)) + '% faster.';
   else document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1-(0.9 - (player.galaxies*0.03))) * 100) + '% faster.';
@@ -420,19 +420,19 @@ MoneyFormat = ['K', 'M', 'B', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UD
 MoneyFormat.reverse();
 
 shorten = function(money) {
-  return formatValue(player.options.notation, money, 2);
+  return formatValue(player.options.notation, money, 2, 2);
 };
 
 shortenCosts = function(money) {
-  return formatValue(player.options.notation, money, 0);
+  return formatValue(player.options.notation, money, 0, 0);
 };
 
 shortenDimensions = function(money) {
-    return formatValue(player.options.notation, money, 2);
+    return formatValue(player.options.notation, money, 2, 0);
 };
 
 shortenMoney = function(money) {
-  return formatValue(player.options.notation, money, 2);
+  return formatValue(player.options.notation, money, 2, 1);
 };
 
 document.getElementById("tickSpeed").onclick = function() {
