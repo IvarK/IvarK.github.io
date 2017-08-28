@@ -1381,7 +1381,10 @@ setInterval(function() {
     document.getElementById("statisticsbtn").style.display = "none";
     document.getElementById("achievementsbtn").style.display = "none";
     document.getElementById("infinitybtn").style.display = "none";
-	  document.getElementById("tickSpeedRow").style.visibility = "hidden"
+		document.getElementById("tickSpeed").style.visibility = "hidden";
+ 	 	document.getElementById("tickSpeedMax").style.visibility = "hidden";
+ 		document.getElementById("tickLabel").style.visibility = "hidden";
+ 		document.getElementById("tickSpeedAmount").style.visibility = "hidden";
   } else {
     document.getElementById("dimensionsbtn").style.display = "inline-block";
     document.getElementById("optionsbtn").style.display = "inline-block";
