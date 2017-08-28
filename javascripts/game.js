@@ -109,11 +109,11 @@ function load_game() {
       if (player.totalmoney === undefined) player.totalmoney = player.money;
       if (player.options === undefined) {
         player.options = {
-			    notation: "Standard",
                 scientific: false,
 			    animationOn: true
       	}
       }
+			if (player.options.notation === undefined) player.options.notation = "Standard"
       if (player.options.invert === undefined) player.options.invert = false;
       if (player.options.logoVisible === undefined) player.options.logoVisible = true;
       if (player.achievements === undefined) player.achievements = []; 
