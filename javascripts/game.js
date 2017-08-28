@@ -216,8 +216,8 @@ function updateDimensions() {
     document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' +  'x' + shortenMoney((!player.infinityUpgrades.includes("27Mult") ? player.seventhPow : player.seventhPow * dimMults())*timeMult());
     document.getElementById("eightD").innerHTML = 'Eighth Dimension  ' +  'x' + shortenMoney((!player.infinityUpgrades.includes("18Mult") ? player.eightPow : player.eightPow * dimMults())*timeMult());
   }
-  if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round(((0.9 - (player.galaxies*0.06)) * 100)) + '% faster.';
-  else document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1-(0.9 - (player.galaxies*0.03))) * 100) + '% faster.';
+  if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1-(0.9 - (player.galaxies*0.04)) * 100)) + '% faster.';
+  else document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1-(0.9 - (player.galaxies*0.02))) * 100) + '% faster.';
   if (player.infinityUpgrades.includes("resetBoost")) {
     if (player.resets > 3) {
       document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires '+ ((player.resets - 4)*15+11) +' Eighth Dimension';
@@ -445,8 +445,8 @@ shortenMoney = function(money) {
 document.getElementById("tickSpeed").onclick = function() {
 	if (player.money >= player.tickSpeedCost) {
   player.money -= player.tickSpeedCost;
-  if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9-(player.galaxies*0.06));
-  else player.tickspeed = player.tickspeed * (0.9-(player.galaxies*0.03));
+  if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9-(player.galaxies*0.04));
+  else player.tickspeed = player.tickspeed * (0.9-(player.galaxies*0.02));
   player.tickSpeedCost = player.tickSpeedCost*10;
   document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickSpeedCost);
   updateTickSpeed();
@@ -457,8 +457,8 @@ document.getElementById("tickSpeed").onclick = function() {
 function buyMaxTickSpeed() {
   if (player.money >= player.tickSpeedCost) {
     player.money -= player.tickSpeedCost;
-    if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9-(player.galaxies*0.06));
-    else player.tickspeed = player.tickspeed * (0.9-(player.galaxies*0.03));
+    if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9-(player.galaxies*0.04));
+    else player.tickspeed = player.tickspeed * (0.9-(player.galaxies*0.02));
     player.tickSpeedCost = player.tickSpeedCost*10;
     document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickSpeedCost);
     updateTickSpeed();
