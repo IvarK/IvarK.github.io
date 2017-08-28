@@ -186,14 +186,14 @@ function formatValue(notation, value, places) {
         if ((notation === "Standard") && (((power - (power % 3)) / 3) < FormatList.length - 1)) {
             return ((Math.round(matissa * Math.pow(10, power % 3) * Math.pow(10, places)) / Math.pow(10, places)).toFixed(places) + " " +FormatList[(power - (power % 3)) / 3]);
         } else if (notation === "Scientific") {
-            return (Math.round(matissa * Math.pow(10, places)) / Math.pow(10, places) + "e" + power);
+            return ((Math.round(matissa * Math.pow(10, places)) / Math.pow(10, places)).toFixed(places) + "e" + power);
         } else if (notation === "Engineering") {
-            return (Math.round(matissa * Math.pow(10, power % 3) * Math.pow(10, places)) / Math.pow(10, places)  + "E" + (power - (power % 3)));
+            return ((Math.round(matissa * Math.pow(10, power % 3) * Math.pow(10, places)) / Math.pow(10, places)).toFixed(places)  + "E" + (power - (power % 3)));
         } else {
-            return (Math.round(matissa * 100) / 100 + "e" + power);
+            return ((Math.round(matissa * 100) / 100).toFixed(places) + "e" + power);
         }
     } else if (value <= 1000) {
-        return (Math.round(value * Math.pow(10, places)) / Math.pow(10, places));
+        return ((Math.round(value * Math.pow(10, places)) / Math.pow(10, places))).toFixed(places);
     } else {
         return "Infinite";
     }
