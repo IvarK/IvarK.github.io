@@ -178,18 +178,19 @@ function showTab(tabName) {
 
 var FormatList = ['', 'K', 'M', 'B', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QdDc', 'QtDc', 'SxDc', 'SpDc', 'ODc', 'NDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QdVg', 'QtVg', 'SxVg', 'SpVg', 'OVg', 'NVg', 'Tg', 'UTg', 'DTg', 'TTg', 'QdTg', 'QtTg', 'SxTg', 'SpTg', 'OTg','NTg', 'Qa', 'UQa', 'DQa', 'TQa', 'QdQa', 'QtQa', 'SxQa', 'SpQa', 'OQa', 'NQa', 'Qi', 'UQi', 'DQi', 'TQi', 'QaQi', 'QtQi', 'SxQi', 'SpQi', 'OQi', 'NQi', 'Se', 'USe', 'DSe', 'TSe', 'QaSe', 'QtSe', 'SxSe', 'SpSe', 'OSe', 'NSe', 'St', 'USt', 'DSt', 'TSt', 'QaSt', 'QtSt', 'SxSt', 'SpSt', 'OSt', 'NSt', 'Og', 'UOg', 'DOg', 'TOg', 'QdOg', 'QtOg', 'SxOg', 'SpOg', 'OOg', 'NOg', 'Nn', 'UNn', 'DNn', 'TNn', 'QdNn', 'QtNn', 'SxNn', 'SpNn', 'ONn', 'NNn', 'Ce', 'UCe'];
 
-function formatValue(notation, value) {
+function formatValue(notation, value, places) {
     if ((value != Infinity) && (value > 1000)) {
         var matissa = value / Math.pow(10, Math.floor(Math.log10(value)));
         var power = Math.floor(Math.log10(value));
         
-        if (notation === "Standard") {
-            return (Math.round(matissa * Math.pow(10, power % 3) * 100) / 100 + FormatList[(power - (power % 3)) / 3]);
+        if ((notation === "Standard") && (((power - (power % 3)) / 3) < FormatList.length - 1)) {
+            return (Math.round(matissa * Math.pow(10, power % 3) * Math.pow(10, places)) / Math.pow(10, places) + FormatList[(power - (power % 3)) / 3]);
         } else if (notation === "Scientific") {
-            return (Math.round(matissa * 100) / 100 + "e" + power);
+            return (Math.round(matissa * 100 * Math.pow(10, places)) / Math.pow(10, places) + "e" + power);
         } else if (notation === "Engineering") {
-            var matissa = value / Math.pow(10, Math.floor(Math.log10(value)));
-            return (Math.round(matissa * Math.pow(10, power % 3) * 100) / 100  + "E" + (power - (power % 3)));
+            return (Math.round(matissa * Math.pow(10, power % 3) * Math.pow(10, places)) / Math.pow(10, places)  + "E" + (power - (power % 3)));
+        } else {
+            return (Math.round(matissa * 100) / 100 + "e" + power);
         }
     } else if (value <= 1000) {
         return Math.round(value);
@@ -198,22 +199,10 @@ function formatValue(notation, value) {
     }
 }
 
-console.log(Math.log10(1000));
-console.log(formatValue("Standard", 1000));
-console.log(formatValue("Scientific", 1000));
-console.log(formatValue("Engineering", 1000));
-console.log(formatValue("Standard", 10000));
-console.log(formatValue("Scientific", 10000));
-console.log(formatValue("Engineering", 10000));
-console.log("e5 = " + FormatList[(5 - (5 % 3)) / 3]);
-console.log("e6 = " + FormatList[(6 - (6 % 3)) / 3]);
-console.log("e8 = " + FormatList[(8 - (8 % 3)) / 3]);
-console.log("e9 = " + FormatList[(9 - (9 % 3)) / 3]);
-
 
 function updateMoney() {
 	var element = document.getElementById("coinAmount");
-  element.innerHTML = formatValue(player.options.notation, player.money);
+  element.innerHTML = formatValue(player.options.notation, player.money, 2);
   
   
 }
@@ -431,15 +420,15 @@ MoneyFormat = ['K', 'M', 'B', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UD
 MoneyFormat.reverse();
 
 shorten = function(money) {
-  return formatValue(player.options.notation, money);
+  return formatValue(player.options.notation, money, 2);
 };
 
 shortenDimensions = function(money) {
-    return formatValue(player.options.notation, money);
+    return formatValue(player.options.notation, money, 0);
 };
 
 shortenMoney = function(money) {
-  return formatValue(player.options.notation, money);
+  return formatValue(player.options.notation, money, 2);
 };
 
 document.getElementById("tickSpeed").onclick = function() {
@@ -1056,6 +1045,7 @@ player = {
   lastUpdate: player.lastUpdate,
   options: {
     scientific: player.options.scientific,
+    notation: player.options.notation,
     animationsOn: player.options.animationsOn,
     invert: player.options.invert,
     logoVisible: player.options.logoVisible
@@ -1240,6 +1230,7 @@ document.getElementById("bigcrunch").onclick = function() {
   lastUpdate: player.lastUpdate,
   options: {
     scientific: player.options.scientific,
+    notation: player.options.notation,
     animationsOn: player.options.animationsOn,
     invert: player.options.invert,
     logoVisible: player.options.logoVisible
@@ -1467,7 +1458,7 @@ setInterval(function() {
     else document.getElementById("secondSoftReset").className = 'unavailablebtn';
   }
   
-  document.getElementById("sacrifice").setAttribute('ach-tooltip', "Boosts 8th Dimension by "+ calcSacrificeBoost().toFixed(2) +"x");
+  document.getElementById("sacrifice").setAttribute('ach-tooltip', "Boosts 8th Dimension by "+ formatValue(player.options.notation, calcSacrificeBoost(), 2) +"x");
   
   
   if (!player.achievements.includes("One for each dimension") && player.totalTimePlayed >= 10*60*60*24*8) giveAchievement("One for each dimension")
