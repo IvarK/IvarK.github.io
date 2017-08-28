@@ -193,7 +193,7 @@ function formatValue(notation, value, places) {
             return (Math.round(matissa * 100) / 100 + "e" + power);
         }
     } else if (value <= 1000) {
-        return (Math.round(valueMath.pow(10, places)) / Math.pow(10, places));
+        return (Math.round(value * Math.pow(10, places)) / Math.pow(10, places));
     } else {
         return "Infinite";
     }
