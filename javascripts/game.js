@@ -424,7 +424,7 @@ shorten = function(money) {
 };
 
 shortenCosts = function(money) {
-  return formatValue(player.options.notation, money, 2);
+  return formatValue(player.options.notation, money, 0);
 };
 
 shortenDimensions = function(money) {
