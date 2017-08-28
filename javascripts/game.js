@@ -1467,7 +1467,7 @@ setInterval(function() {
     else document.getElementById("secondSoftReset").className = 'unavailablebtn';
   }
   
-  document.getElementById("sacrifice").setAttribute('ach-tooltip', "Boosts 8th Dimension by "+ formatValue(player.options.notation, calcSacrificeBoost(), 2) +"x");
+  document.getElementById("sacrifice").setAttribute('ach-tooltip', "Boosts 8th Dimension by "+ formatValue(player.options.notation, calcSacrificeBoost(), 2, 2) +"x");
   
   
   if (!player.achievements.includes("One for each dimension") && player.totalTimePlayed >= 10*60*60*24*8) giveAchievement("One for each dimension")
