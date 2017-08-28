@@ -306,15 +306,15 @@ function updateDimensions() {
   document.getElementById("infi23").innerHTML = "Fourth and Fifth Dimension power <br>" + dimMults().toFixed(2)
 }
 function updateCosts() {
-document.getElementById("first").innerHTML = 'Cost: ' + shorten(player.firstCost);
-document.getElementById("second").innerHTML = 'Cost: ' + shorten(player.secondCost);
-document.getElementById("third").innerHTML = 'Cost: ' + shorten(player.thirdCost);
-document.getElementById("fourth").innerHTML = 'Cost: ' + shorten(player.fourthCost);
-document.getElementById("fifth").innerHTML = 'Cost: ' + shorten(player.fifthCost);
-document.getElementById("sixth").innerHTML = 'Cost: ' + shorten(player.sixthCost);
-document.getElementById("seventh").innerHTML = 'Cost: ' + shorten(player.seventhCost);
-document.getElementById("eight").innerHTML = 'Cost: ' + shorten(player.eightCost);
-document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickSpeedCost);
+document.getElementById("first").innerHTML = 'Cost: '+ shortenCosts(player.firstCost);
+document.getElementById("second").innerHTML = 'Cost: '+ shortenCosts(player.secondCost);
+document.getElementById("third").innerHTML = 'Cost: '+ shortenCosts(player.thirdCost);
+document.getElementById("fourth").innerHTML = 'Cost: '+ shortenCosts(player.fourthCost);
+document.getElementById("fifth").innerHTML = 'Cost: '+ shortenCosts(player.fifthCost);
+document.getElementById("sixth").innerHTML = 'Cost: '+ shortenCosts(player.sixthCost);
+document.getElementById("seventh").innerHTML = 'Cost: '+ shortenCosts(player.seventhCost);
+document.getElementById("eight").innerHTML = 'Cost: '+ shortenCosts(player.eightCost);
+document.getElementById("tickSpeed").innerHTML = 'Cost: '+ shortenCosts(player.tickSpeedCost);
 document.getElementById("firstMax").innerHTML = 'Until 10, Cost: ' + shorten(player.firstCost*(10-player.firstBought));
 document.getElementById("secondMax").innerHTML = 'Until 10, Cost: ' + shorten(player.secondCost*(10-player.secondBought));
 document.getElementById("thirdMax").innerHTML = 'Until 10, Cost: ' + shorten(player.thirdCost*(10-player.thirdBought));
@@ -423,6 +423,10 @@ shorten = function(money) {
   return formatValue(player.options.notation, money, 2);
 };
 
+shortenCosts = function(money) {
+  return formatValue(player.options.notation, money, 2);
+};
+
 shortenDimensions = function(money) {
     return formatValue(player.options.notation, money, 2);
 };
@@ -437,7 +441,7 @@ document.getElementById("tickSpeed").onclick = function() {
   if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9-(player.galaxies*0.06));
   else player.tickspeed = player.tickspeed * (0.9-(player.galaxies*0.03));
   player.tickSpeedCost = player.tickSpeedCost*10;
-  document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickSpeedCost);
+  document.getElementById("tickSpeed").innerHTML = 'Cost: '+ shortenCosts(player.tickSpeedCost);
   updateTickSpeed();
   updateMoney();
   }
@@ -449,7 +453,7 @@ function buyMaxTickSpeed() {
     if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9-(player.galaxies*0.06));
     else player.tickspeed = player.tickspeed * (0.9-(player.galaxies*0.03));
     player.tickSpeedCost = player.tickSpeedCost*10;
-    document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickSpeedCost);
+    document.getElementById("tickSpeed").innerHTML = 'Cost: '+ shortenCosts(player.tickSpeedCost);
     updateTickSpeed();
     updateMoney();
     buyMaxTickSpeed();
@@ -495,7 +499,7 @@ document.getElementById("first").onclick = function() {
   else player.firstBought++;
   updateCoinPerSec();
   var element = document.getElementById("first");
-  element.innerHTML = 'Cost: ' + shorten(player.firstCost);
+  element.innerHTML = 'Cost: '+ shortenCosts(player.firstCost);
   updateCosts();
   updateMoney();
   updateDimensions();
@@ -520,7 +524,7 @@ document.getElementById("second").onclick = function() {
   else player.secondBought++;
   updateCoinPerSec();
   var element = document.getElementById("second");
-  element.innerHTML = 'Cost: ' + shorten(player.secondCost);
+  element.innerHTML = 'Cost: '+ shortenCosts(player.secondCost);
   updateCosts();
   updateMoney();
   updateDimensions();
@@ -548,7 +552,7 @@ document.getElementById("third").onclick = function() {
   else player.thirdBought++;
   updateCoinPerSec();
   var element = document.getElementById("third");
-  element.innerHTML = 'Cost: ' + shorten(player.thirdCost);
+  element.innerHTML = 'Cost: '+ shortenCosts(player.thirdCost);
   updateCosts();
   updateMoney();
   updateDimensions();
@@ -572,7 +576,7 @@ document.getElementById("fourth").onclick = function() {
   else player.fourthBought++;
   updateCoinPerSec();
   var element = document.getElementById("fourth");
-  element.innerHTML = 'Cost: ' + shorten(player.fourthCost);
+  element.innerHTML = 'Cost: '+ shortenCosts(player.fourthCost);
   updateCosts();
   updateMoney();
   updateDimensions();
@@ -596,7 +600,7 @@ document.getElementById("fifth").onclick = function() {
   else player.fifthBought++;
   updateCoinPerSec();
   var element = document.getElementById("fifth");
-  element.innerHTML = 'Cost: ' + shorten(player.fifthCost);
+  element.innerHTML = 'Cost: '+ shortenCosts(player.fifthCost);
   updateCosts();
   updateMoney();
   updateDimensions();
@@ -620,7 +624,7 @@ document.getElementById("sixth").onclick = function() {
   else player.sixthBought++;
   updateCoinPerSec();
   var element = document.getElementById("sixth");
-  element.innerHTML = 'Cost: ' + shorten(player.sixthCost);
+  element.innerHTML = 'Cost: '+ shortenCosts(player.sixthCost);
   updateCosts();
   updateMoney();
   updateDimensions();
@@ -644,7 +648,7 @@ document.getElementById("seventh").onclick = function() {
   else player.seventhBought++;
   updateCoinPerSec();
   var element = document.getElementById("seventh");
-  element.innerHTML = 'Cost: ' + shorten(player.seventhCost);
+  element.innerHTML = 'Cost: '+ shortenCosts(player.seventhCost);
   updateCosts();
   updateMoney();
   updateDimensions();
@@ -668,7 +672,7 @@ document.getElementById("eight").onclick = function() {
   else player.eightBought++;
   updateCoinPerSec();
   var element = document.getElementById("eight");
-  element.innerHTML = 'Cost: ' + shorten(player.eightCost);
+  element.innerHTML = 'Cost: '+ shortenCosts(player.eightCost);
   updateCosts();
   updateMoney();
   updateDimensions();
