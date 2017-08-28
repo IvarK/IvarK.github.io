@@ -190,7 +190,7 @@ function formatValue(notation, value, places, placesUnder1000) {
         } else if (notation === "Scientific") {
             return ((Math.round(matissa * Math.pow(10, places)) / Math.pow(10, places)).toFixed(places) + "e" + power);
         } else if (notation === "Engineering") {
-            return ((Math.round(matissa * Math.pow(10, power % 3) * Math.pow(10, places)) / Math.pow(10, places)).toFixed(places)  + "E" + (power - (power % 3)));
+            return ((Math.round(matissa * Math.pow(10, power % 3) * Math.pow(10, places)) / Math.pow(10, places)).toFixed(places)  + "ᴇ" + (power - (power % 3)));
         } else {
             return ((Math.round(matissa * 100) / 100).toFixed(places) + "e" + power);
         }
