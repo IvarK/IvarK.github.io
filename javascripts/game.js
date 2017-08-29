@@ -262,8 +262,8 @@ function updateDimensions() {
         document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("27Mult") ? player.seventhPow * player.achPow : player.seventhPow * player.achPow * dimMults()) * timeMult(), 1, 0);
         document.getElementById("eightD").innerHTML = 'Eighth Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("18Mult") ? player.eightPow * player.achPow : player.eightPow * player.achPow * dimMults()) * timeMult(), 1, 0);
     }
-    if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.9 - (player.galaxies * 0.06))) * 100) + '% faster.';
-    else document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.9 - (player.galaxies * 0.03))) * 100) + '% faster.';
+    if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.9 - (player.galaxies * 0.04))) * 100) + '% faster.';
+    else document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.9 - (player.galaxies * 0.02))) * 100) + '% faster.';
     if (player.infinityUpgrades.includes("resetBoost")) {
         if (player.resets > 3) {
             document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + ((player.resets - 4) * 15 + 11) + ' Eighth Dimension';
@@ -295,7 +295,7 @@ function updateDimensions() {
     }
     if (player.resets > 3) document.getElementById("softReset").innerHTML = "Reset the game for a Boost";
     else document.getElementById("softReset").innerHTML = "Reset the game for a new Dimension";
-    document.getElementById("secondResetLabel").innerHTML = player.infinityUpgrades.includes("resetBoost") ? 'Antimatter Galaxies: requires ' + (player.galaxies * 60 + 80) + ' Eighth Dimensions' : 'Antimatter Galaxies: requires ' + (player.galaxies * 60 + 80) + ' Eighth Dimensions';
+    document.getElementById("secondResetLabel").innerHTML = player.infinityUpgrades.includes("resetBoost") ? 'Antimatter Galaxies: requires ' + (player.galaxies * 60 + 80)-9 + ' Eighth Dimensions' : 'Antimatter Galaxies: requires ' + (player.galaxies * 60 + 80) + ' Eighth Dimensions';
     document.getElementById("totalmoney").innerHTML = 'You have made a total of ' + shortenMoney(player.totalmoney) + ' antimatter.';
     document.getElementById("totalresets").innerHTML = 'You have done ' + player.resets + ' soft resets.';
     document.getElementById("galaxies").innerHTML = 'You have ' + Math.round(player.galaxies) + ' Antimatter Galaxies.';
@@ -450,29 +450,29 @@ shortenMoney = function (money) {
     return formatValue(player.options.notation, money, 2, 1);
 };
 
-document.getElementById("tickSpeed").onclick = function () {
-    if (player.money >= player.tickSpeedCost) {
-        player.money -= player.tickSpeedCost;
-        if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.06));
-        else player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.03));
-        player.tickSpeedCost = player.tickSpeedCost * 10;
-        document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shortenCosts(player.tickSpeedCost);
-        updateTickSpeed();
-        updateMoney();
-    }
+document.getElementById("tickSpeed").onclick = function() {
+	if (player.money >= player.tickSpeedCost) {
+  player.money -= player.tickSpeedCost;
+  if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9-(player.galaxies*0.04));
+  else player.tickspeed = player.tickspeed * (0.9-(player.galaxies*0.02));
+  player.tickSpeedCost = player.tickSpeedCost*10;
+  document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickSpeedCost);
+  updateTickSpeed();
+  updateMoney();
+  }
 };
 
 function buyMaxTickSpeed() {
-    if (player.money >= player.tickSpeedCost) {
-        player.money -= player.tickSpeedCost;
-        if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.06));
-        else player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.03));
-        player.tickSpeedCost = player.tickSpeedCost * 10;
-        document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shortenCosts(player.tickSpeedCost);
-        updateTickSpeed();
-        updateMoney();
-        buyMaxTickSpeed();
-    }
+  if (player.money >= player.tickSpeedCost) {
+    player.money -= player.tickSpeedCost;
+    if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9-(player.galaxies*0.04));
+    else player.tickspeed = player.tickspeed * (0.9-(player.galaxies*0.02));
+    player.tickSpeedCost = player.tickSpeedCost*10;
+    document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickSpeedCost);
+    updateTickSpeed();
+    updateMoney();
+    buyMaxTickSpeed();
+  }
 }
 
 function timeDisplay(time) {
