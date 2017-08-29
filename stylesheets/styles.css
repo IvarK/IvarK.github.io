@@ -27,7 +27,11 @@
   background-color: black;
 }
 
-
+.completedrow {
+  background: #007308;
+  border: 2px solid #127A20;
+  border-radius: 10px;
+}
 
 
 
