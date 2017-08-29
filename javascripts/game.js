@@ -1205,6 +1205,9 @@ document.getElementById("notation").onclick = function () {
         player.options.notation = "Engineering";
         document.getElementById("notation").innerHTML = ("Notation: Engineering")
     } else if (player.options.notation === "Engineering") {
+        player.options.notation = "Letters";
+        document.getElementById("notation").innerHTML = ("Notation: Letters")
+    } else if (player.options.notation === "Letters") {
         player.options.notation = "Standard";
         document.getElementById("notation").innerHTML = ("Notation: Standard")
     }
