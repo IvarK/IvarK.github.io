@@ -1140,17 +1140,28 @@ document.getElementById("reset").onclick = function() {
 };
 
 document.getElementById("notation").onclick = function() {
+    //<td><div id="Antimatter Apocalypse" class="achievement achievementlocked" ach-tooltip="Get over 10 QtVg (10e79) antimatter"><br>Antimatter Apocalypse</div></td>
+    //<td><div id="There's no point in doing that" class="achievement achievementlocked" ach-tooltip="Buy a single First Dimension when you have over 1e150 of them"><br>There's no point in doing that</div></td>
+    
+    var apocAchieve = document.getElementById("Antimatter Apocalypse");
+    var noPointAchieve = document.getElementById("There's no point in doing that");
+    
+    console.log(apocAchieve.attributes[2].textContent);
+    
   player.options.scientific = !player.options.scientific;
     if (player.options.notation === "Standard") {
         player.options.notation = "Scientific";
-				document.getElementById("notation").innerHTML = ("Notation: Scientific")
+        document.getElementById("notation").innerHTML = ("Notation: Scientific");
     } else if (player.options.notation === "Scientific") {
         player.options.notation = "Engineering";
-				document.getElementById("notation").innerHTML = ("Notation: Engineering")
+        document.getElementById("notation").innerHTML = ("Notation: Engineering");
     } else if (player.options.notation === "Engineering") {
         player.options.notation = "Standard";
-				document.getElementById("notation").innerHTML = ("Notation: Standard")
+        document.getElementById("notation").innerHTML = ("Notation: Standard");
     }
+    
+    apocAchieve.setAttribute('ach-tooltip', "Get over " + formatValue(player.options.notation, 1e80, 0, 0) + " antimatter");
+    noPointAchieve.setAttribute('ach-tooltip', "Buy a single First Dimension when you have over " + formatValue(player.options.notation, 1e150, 0, 0) + " of them");
   updateDimensions();
   updateCosts();
 };
