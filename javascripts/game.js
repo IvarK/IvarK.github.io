@@ -1118,10 +1118,11 @@ document.getElementById("reset").onclick = function () {
 function setAchieveTooltip() {
     var apocAchieve = document.getElementById("Antimatter Apocalypse");
     var noPointAchieve = document.getElementById("There's no point in doing that");
-
+    var forgotAchieve = document.getElementById("I forgot to nerf that")
 
     apocAchieve.setAttribute('ach-tooltip', "Get over " + formatValue(player.options.notation, 1e80, 0, 0) + " antimatter");
     noPointAchieve.setAttribute('ach-tooltip', "Buy a single First Dimension when you have over " + formatValue(player.options.notation, 1e150, 0, 0) + " of them");
+    forgotAchieve.setAttribute('ach-tooltip', "Get any Dimension multiplier over " + formatValue(player.options.notation, 1e31, 0, 0));
 }
 
 document.getElementById("notation").onclick = function () {
