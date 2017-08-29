@@ -94,7 +94,7 @@ function get_cookie(cookie_name) {
     return JSON.parse(c_value);
 }
 
-kongregateAPI.loadAPI(function() {
+kongregateAPI.loadAPI(function () {
     window.kongregate = kongregateAPI.getAPI();
     // You can now access the Kongregate API with:
     // kongregate.services.getUsername(), etc
@@ -162,7 +162,7 @@ function load_game() {
             achievement.className = 'achievement achievementlocked';
         }
     }
-
+    setAchieveTooltip();
 }
 
 function save_game() {
@@ -424,23 +424,23 @@ function softReset() {
 MoneyFormat = ['K', 'M', 'B', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QdDc', 'QtDc', 'SxDc', 'SpDc', 'ODc', 'NDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QdVg', 'QtVg', 'SxVg', 'SpVg', 'OVg', 'NVg', 'Tg', 'UTg', 'DTg', 'TTg', 'QdTg', 'QtTg', 'SxTg', 'SpTg', 'OTg', 'NTg', 'Qa', 'UQa', 'DQa', 'TQa', 'QdQa', 'QtQa', 'SxQa', 'SpQa', 'OQa', 'NQa', 'Qi', 'UQi', 'DQi', 'TQi', 'QaQi', 'QtQi', 'SxQi', 'SpQi', 'OQi', 'NQi', 'Se', 'USe', 'DSe', 'TSe', 'QaSe', 'QtSe', 'SxSe', 'SpSe', 'OSe', 'NSe', 'St', 'USt', 'DSt', 'TSt', 'QaSt', 'QtSt', 'SxSt', 'SpSt', 'OSt', 'NSt', 'Og', 'UOg', 'DOg', 'TOg', 'QdOg', 'QtOg', 'SxOg', 'SpOg', 'OOg', 'NOg', 'Nn', 'UNn', 'DNn', 'TNn', 'QdNn', 'QtNn', 'SxNn', 'SpNn', 'ONn', 'NNn', 'Ce', 'UCe'];
 MoneyFormat.reverse();
 
-shorten = function(money) {
+shorten = function (money) {
     return formatValue(player.options.notation, money, 2, 2);
 };
 
-shortenCosts = function(money) {
+shortenCosts = function (money) {
     return formatValue(player.options.notation, money, 0, 0);
 };
 
-shortenDimensions = function(money) {
+shortenDimensions = function (money) {
     return formatValue(player.options.notation, money, 2, 0);
 };
 
-shortenMoney = function(money) {
+shortenMoney = function (money) {
     return formatValue(player.options.notation, money, 2, 1);
 };
 
-document.getElementById("tickSpeed").onclick = function() {
+document.getElementById("tickSpeed").onclick = function () {
     if (player.money >= player.tickSpeedCost) {
         player.money -= player.tickSpeedCost;
         if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.06));
@@ -495,7 +495,7 @@ function giveAchievement(name) {
 
 
 
-document.getElementById("first").onclick = function() {
+document.getElementById("first").onclick = function () {
     if (player.money >= player.firstCost) {
         player.firstAmount++;
         player.money -= player.firstCost;
@@ -520,7 +520,7 @@ document.getElementById("first").onclick = function() {
     }
 };
 
-document.getElementById("second").onclick = function() {
+document.getElementById("second").onclick = function () {
     if (player.money >= player.secondCost) {
         player.secondAmount++;
         player.money -= player.secondCost;
@@ -547,7 +547,7 @@ document.getElementById("second").onclick = function() {
     }
 };
 
-document.getElementById("third").onclick = function() {
+document.getElementById("third").onclick = function () {
     if (player.money >= player.thirdCost) {
         player.thirdAmount++;
         player.money -= player.thirdCost;
@@ -570,7 +570,7 @@ document.getElementById("third").onclick = function() {
     }
 };
 
-document.getElementById("fourth").onclick = function() {
+document.getElementById("fourth").onclick = function () {
     if (player.money >= player.fourthCost) {
         player.fourthAmount++;
         player.money -= player.fourthCost;
@@ -593,7 +593,7 @@ document.getElementById("fourth").onclick = function() {
     }
 };
 
-document.getElementById("fifth").onclick = function() {
+document.getElementById("fifth").onclick = function () {
     if (player.money >= player.fifthCost) {
         player.fifthAmount++;
         player.money -= player.fifthCost;
@@ -616,7 +616,7 @@ document.getElementById("fifth").onclick = function() {
     }
 };
 
-document.getElementById("sixth").onclick = function() {
+document.getElementById("sixth").onclick = function () {
     if (player.money >= player.sixthCost) {
         player.sixthAmount++;
         player.money -= player.sixthCost;
@@ -639,7 +639,7 @@ document.getElementById("sixth").onclick = function() {
     }
 };
 
-document.getElementById("seventh").onclick = function() {
+document.getElementById("seventh").onclick = function () {
     if (player.money >= player.seventhCost) {
         player.seventhAmount++;
         player.money -= player.seventhCost;
@@ -662,7 +662,7 @@ document.getElementById("seventh").onclick = function() {
     }
 };
 
-document.getElementById("eight").onclick = function() {
+document.getElementById("eight").onclick = function () {
     if (player.money >= player.eightCost) {
         player.eightAmount++;
         player.money -= player.eightCost;
@@ -685,7 +685,7 @@ document.getElementById("eight").onclick = function() {
     }
 };
 
-document.getElementById("firstMax").onclick = function() {
+document.getElementById("firstMax").onclick = function () {
     if (player.money >= player.firstCost * (10 - player.firstBought)) {
         player.firstAmount += (10 - player.firstBought);
         player.money -= player.firstCost * (10 - player.firstBought);
@@ -703,7 +703,7 @@ document.getElementById("firstMax").onclick = function() {
     }
 };
 
-document.getElementById("secondMax").onclick = function() {
+document.getElementById("secondMax").onclick = function () {
     if (player.money >= player.secondCost * (10 - player.secondBought)) {
         player.secondAmount += (10 - player.secondBought);
         player.money -= player.secondCost * (10 - player.secondBought);
@@ -725,7 +725,7 @@ document.getElementById("secondMax").onclick = function() {
     }
 };
 
-document.getElementById("thirdMax").onclick = function() {
+document.getElementById("thirdMax").onclick = function () {
     if (player.money >= player.thirdCost * (10 - player.thirdBought)) {
         player.thirdAmount += (10 - player.thirdBought);
         player.money -= player.thirdCost * (10 - player.thirdBought);
@@ -743,7 +743,7 @@ document.getElementById("thirdMax").onclick = function() {
     }
 };
 
-document.getElementById("fourthMax").onclick = function() {
+document.getElementById("fourthMax").onclick = function () {
     if (player.money >= player.fourthCost * (10 - player.fourthBought)) {
         player.fourthAmount += (10 - player.fourthBought);
         player.money -= player.fourthCost * (10 - player.fourthBought);
@@ -761,7 +761,7 @@ document.getElementById("fourthMax").onclick = function() {
     }
 };
 
-document.getElementById("fifthMax").onclick = function() {
+document.getElementById("fifthMax").onclick = function () {
     if (player.money >= player.fifthCost * (10 - player.fifthBought)) {
         player.fifthAmount += (10 - player.fifthBought);
         player.money -= player.fifthCost * (10 - player.fifthBought);
@@ -779,7 +779,7 @@ document.getElementById("fifthMax").onclick = function() {
     }
 };
 
-document.getElementById("sixthMax").onclick = function() {
+document.getElementById("sixthMax").onclick = function () {
     if (player.money >= player.sixthCost * (10 - player.sixthBought)) {
         player.sixthAmount += (10 - player.sixthBought);
         player.money -= player.sixthCost * (10 - player.sixthBought);
@@ -797,7 +797,7 @@ document.getElementById("sixthMax").onclick = function() {
     }
 };
 
-document.getElementById("seventhMax").onclick = function() {
+document.getElementById("seventhMax").onclick = function () {
     if (player.money >= player.seventhCost * (10 - player.seventhBought)) {
         player.seventhAmount += (10 - player.seventhBought);
         player.money -= player.seventhCost * (10 - player.seventhBought);
@@ -815,7 +815,7 @@ document.getElementById("seventhMax").onclick = function() {
     }
 };
 
-document.getElementById("eightMax").onclick = function() {
+document.getElementById("eightMax").onclick = function () {
     if (player.money >= player.eightCost * (10 - player.eightBought)) {
         player.eightAmount += (10 - player.eightBought);
         player.money -= player.eightCost * (10 - player.eightBought);
@@ -832,7 +832,7 @@ document.getElementById("eightMax").onclick = function() {
     }
 };
 
-document.getElementById("softReset").onclick = function() {
+document.getElementById("softReset").onclick = function () {
     if (player.resets === 0) {
         if (player.infinityUpgrades.includes("resetBoost") ? player.fourthAmount >= 11 : player.fourthAmount >= 20) {
             softReset();
@@ -892,11 +892,11 @@ function maxAll() {
 
 }
 
-document.getElementById("maxall").onclick = function() {
+document.getElementById("maxall").onclick = function () {
     maxAll();
 };
 
-document.getElementById("animation").onclick = function() {
+document.getElementById("animation").onclick = function () {
     if (player.options.animationsOn) {
         player.options.animationsOn = false;
         document.getElementById("logoanimation").src = "animation.png";
@@ -906,7 +906,7 @@ document.getElementById("animation").onclick = function() {
     }
 }
 
-document.getElementById("invert").onclick = function() {
+document.getElementById("invert").onclick = function () {
     if (player.options.invert) {
         player.options.invert = false;
         document.getElementById("body").classList.remove("invert");
@@ -916,7 +916,7 @@ document.getElementById("invert").onclick = function() {
     }
 }
 
-document.getElementById("logo").onclick = function() {
+document.getElementById("logo").onclick = function () {
     if (player.options.logoVisible) {
         player.options.logoVisible = false;
         document.getElementById("logoanimation").style.display = "none";
@@ -999,41 +999,41 @@ function dimMults() {
 
 
 
-document.getElementById("infi11").onclick = function() {
+document.getElementById("infi11").onclick = function () {
     buyInfinityUpgrade("timeMult");
 }
 
-document.getElementById("infi21").onclick = function() {
+document.getElementById("infi21").onclick = function () {
     buyInfinityUpgrade("dimMult");
 }
 
-document.getElementById("infi12").onclick = function() {
+document.getElementById("infi12").onclick = function () {
     if (player.infinityUpgrades.includes("timeMult")) buyInfinityUpgrade("18Mult");
 }
 
-document.getElementById("infi22").onclick = function() {
+document.getElementById("infi22").onclick = function () {
     if (player.infinityUpgrades.includes("dimMult")) buyInfinityUpgrade("27Mult");
 }
 
-document.getElementById("infi13").onclick = function() {
+document.getElementById("infi13").onclick = function () {
     if (player.infinityUpgrades.includes("18Mult")) buyInfinityUpgrade("36Mult");
 }
-document.getElementById("infi23").onclick = function() {
+document.getElementById("infi23").onclick = function () {
     if (player.infinityUpgrades.includes("27Mult")) buyInfinityUpgrade("45Mult");
 }
 
-document.getElementById("infi14").onclick = function() {
+document.getElementById("infi14").onclick = function () {
     if (player.infinityUpgrades.includes("36Mult")) buyInfinityUpgrade("resetBoost");
 }
 
-document.getElementById("infi24").onclick = function() {
+document.getElementById("infi24").onclick = function () {
     if (player.infinityUpgrades.includes("45Mult")) buyInfinityUpgrade("galaxyBoost");
 }
 
 
 
 
-document.getElementById("secondSoftReset").onclick = function() {
+document.getElementById("secondSoftReset").onclick = function () {
     if (player.infinityUpgrades.includes("resetBoost") ? player.eightAmount >= (player.galaxies * 60 + 80) - 9 : player.eightAmount >= (player.galaxies * 60 + 80)) {
         player = {
             money: 10,
@@ -1116,12 +1116,12 @@ document.getElementById("secondSoftReset").onclick = function() {
     }
 };
 
-document.getElementById("exportbtn").onclick = function() {
+document.getElementById("exportbtn").onclick = function () {
     prompt("Save this somewhere.", btoa(JSON.stringify(player)));
 };
 
 
-document.getElementById("save").onclick = function() {
+document.getElementById("save").onclick = function () {
     save_game();
 };
 
@@ -1132,7 +1132,7 @@ function verify_save(obj) {
     return true;
 }
 
-document.getElementById("importbtn").onclick = function() {
+document.getElementById("importbtn").onclick = function () {
     var save_data = prompt("Input your save.");
     save_data = JSON.parse(atob(save_data));
     if (!save_data || !verify_save(save_data)) {
@@ -1148,7 +1148,7 @@ document.getElementById("importbtn").onclick = function() {
 
 
 
-document.getElementById("reset").onclick = function() {
+document.getElementById("reset").onclick = function () {
     if (confirm("Do you really want to erase all your progress?")) {
         set_cookie('dimensionSave', defaultStart);
         player = defaultStart
@@ -1174,7 +1174,19 @@ document.getElementById("reset").onclick = function() {
     }
 };
 
-document.getElementById("notation").onclick = function() {
+function setAchieveTooltip() {
+    var apocAchieve = document.getElementById("Antimatter Apocalypse");
+    var noPointAchieve = document.getElementById("There's no point in doing that");
+
+    var forgotAchieve = document.getElementById("I forgot to nerf that")
+
+    apocAchieve.setAttribute('ach-tooltip', "Get over " + formatValue(player.options.notation, 1e80, 0, 0) + " antimatter");
+    noPointAchieve.setAttribute('ach-tooltip', "Buy a single First Dimension when you have over " + formatValue(player.options.notation, 1e150, 0, 0) + " of them");
+    forgotAchieve.setAttribute('ach-tooltip', "Get any Dimension multiplier over " + formatValue(player.options.notation, 1e31, 0, 0));
+
+}
+
+document.getElementById("notation").onclick = function () {
     player.options.scientific = !player.options.scientific;
     if (player.options.notation === "Standard") {
         player.options.notation = "Scientific";
@@ -1186,6 +1198,7 @@ document.getElementById("notation").onclick = function() {
         player.options.notation = "Standard";
         document.getElementById("notation").innerHTML = ("Notation: Standard")
     }
+    setAchieveTooltip();
     updateDimensions();
     updateCosts();
 };
@@ -1215,7 +1228,7 @@ function sacrifice() {
 
 
 
-document.getElementById("sacrifice").onclick = function() {
+document.getElementById("sacrifice").onclick = function () {
     if (document.getElementById("confirmation").checked && player.eightAmount != 0) sacrifice();
     else if (confirm("Dimensional Sacrifice will reduce the amount of dimensions from 1 to 7 to 0, but the cost and the multiplier stays the same, you will also get a boost to Eighth Dimension. THIS MIGHT AFFECT YOUR PROGRESS NEGATIVELY.") && player.eightAmount != 0) sacrifice();
 
@@ -1223,7 +1236,7 @@ document.getElementById("sacrifice").onclick = function() {
 
 
 
-document.getElementById("bigcrunch").onclick = function() {
+document.getElementById("bigcrunch").onclick = function () {
     if (!player.achievements.includes("That's fast!") && player.thisInfinityTime <= 72000) giveAchievement("That's fast!");
     if (!player.achievements.includes("You didn't need it anyway") && player.eightAmount == 0) giveAchievement("You didn't need it anyway");
     if (!player.achievements.includes("Claustrophobic") && player.galaxies == 1) giveAchievement("Claustrophobic");
@@ -1322,7 +1335,7 @@ function calcPerSec(amount, pow, hasMult) {
 
 var index = 0;
 
-setInterval(function() {
+setInterval(function () {
     var thisUpdate = new Date().getTime();
     if (!player.achievements.includes("Don't you dare to sleep") && thisUpdate - player.lastUpdate >= 21600000) giveAchievement("Don't you dare to sleep")
     var diff = Math.min(thisUpdate - player.lastUpdate, 21600000);
@@ -1520,19 +1533,19 @@ function init() {
     console.log('init');
 
     //setup the onclick callbacks for the buttons
-    document.getElementById('dimensionsbtn').onclick = function() {
+    document.getElementById('dimensionsbtn').onclick = function () {
         showTab('dimensions');
     };
-    document.getElementById('optionsbtn').onclick = function() {
+    document.getElementById('optionsbtn').onclick = function () {
         showTab('options');
     };
-    document.getElementById('statisticsbtn').onclick = function() {
+    document.getElementById('statisticsbtn').onclick = function () {
         showTab('statistics');
     };
-    document.getElementById('achievementsbtn').onclick = function() {
+    document.getElementById('achievementsbtn').onclick = function () {
         showTab('achievements');
     };
-    document.getElementById('infinitybtn').onclick = function() {
+    document.getElementById('infinitybtn').onclick = function () {
         showTab('infinity');
     };
     //show one tab during init or they'll all start hidden
@@ -1552,7 +1565,7 @@ function init() {
 }
 
 
-setInterval(function() {
+setInterval(function () {
     save_game();
 }, 30000);
 updateCosts();
