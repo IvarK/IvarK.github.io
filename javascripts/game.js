@@ -510,6 +510,7 @@ document.getElementById("first").onclick = function() {
   if (!player.achievements.includes("You gotta start somewhere")) {
     giveAchievement("You gotta start somewhere")
   }
+  if (!player.achievements.includes("There's no point in doing that") && player.firstAmount >= 1e150) giveAchievement("There's no point in doing that");
   }
 };
 
@@ -681,6 +682,7 @@ document.getElementById("eight").onclick = function() {
   if (!player.achievements.includes("90 degrees to infinity")) {
     giveAchievement("90 degrees to infinity")
   }
+  if (!player.achievements.includes("The 9th Dimension is a lie") && player.eightAmount == 99) giveAchievement("The 9th Dimension is a lie")
   }
 };
 
@@ -1075,6 +1077,7 @@ player = {
   updateTickSpeed();
   if (!player.achievements.includes("Double Galaxy") && player.galaxies >= 2) giveAchievement("Double Galaxy");
   if (!player.achievements.includes("You got past The Big Wall") && player.galaxies >= 1) giveAchievement("You got past The Big Wall");
+  if (!player.achievements.includes("I don't believe in Gods") && player.sacrificed == 0) giveAchievement("I don't believe in Gods");
 	}
 };
 
@@ -1169,6 +1172,8 @@ function sacrifice() {
   player.fifthAmount = 0;
   player.sixthAmount = 0;
   player.seventhAmount = 0;
+  
+  if (Math.max(Math.pow((Math.log10(Math.max(player.sacrificed, 1))/10.0), 2), 2) >= 600 && !player.achievements.includes("The Gods are pleased")) giveAchievement("The Gods are pleased");
  
 }
 
@@ -1187,6 +1192,7 @@ document.getElementById("sacrifice").onclick = function() {
 document.getElementById("bigcrunch").onclick = function() {
   if (!player.achievements.includes("That's fast!") && player.thisInfinityTime <= 72000) giveAchievement("That's fast!");
   if (!player.achievements.includes("You didn't need it anyway") && player.eightAmount == 0) giveAchievement("You didn't need it anyway");
+  if (!player.achievements.includes("Claustrophobic") && player.galaxies == 1) giveAchievement("Claustrophobic");
   player = {
 	money: 10,
 	tickSpeedCost: 1000,
@@ -1283,6 +1289,7 @@ var index = 0;
 
 setInterval(function() {
   var thisUpdate = new Date().getTime();
+  if (!player.achievements.includes("Don't you dare to sleep") && thisUpdate - player.lastUpdate >= 21600000) giveAchievement("Don't you dare to sleep")
   var diff = Math.min(thisUpdate - player.lastUpdate, 21600000);
   diff = diff/100;
   player.seventhAmount += calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult"))*diff/100;
@@ -1473,7 +1480,8 @@ setInterval(function() {
   
   document.getElementById("sacrifice").setAttribute('ach-tooltip', "Boosts 8th Dimension by "+ formatValue(player.options.notation, calcSacrificeBoost(), 2, 2) +"x");
   
-  
+  if (!player.achievements.includes("I forgot to nerf that") && player.firstPow >= 10e30) giveAchievement("I forgot to nerf that")
+  if (!player.achievements.includes("Antimatter Apocalypse") && player.money >= 10e79) giveAchievement("Antimatter Apocalypse")
   if (!player.achievements.includes("One for each dimension") && player.totalTimePlayed >= 10*60*60*24*8) giveAchievement("One for each dimension")
   
     index++;
