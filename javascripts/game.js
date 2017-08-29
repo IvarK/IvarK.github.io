@@ -456,7 +456,7 @@ document.getElementById("tickSpeed").onclick = function () {
         if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.04));
         else player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.02));
         player.tickSpeedCost = player.tickSpeedCost * 10;
-        document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickSpeedCost);
+        document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shortenCosts(player.tickSpeedCost);
         updateTickSpeed();
         updateMoney();
     }
@@ -468,7 +468,7 @@ function buyMaxTickSpeed() {
         if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.04));
         else player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.02));
         player.tickSpeedCost = player.tickSpeedCost * 10;
-        document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickSpeedCost);
+        document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shortenCosts(player.tickSpeedCost);
         updateTickSpeed();
         updateMoney();
         buyMaxTickSpeed();
