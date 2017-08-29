@@ -450,29 +450,29 @@ shortenMoney = function (money) {
     return formatValue(player.options.notation, money, 2, 1);
 };
 
-document.getElementById("tickSpeed").onclick = function () {
-    if (player.money >= player.tickSpeedCost) {
-        player.money -= player.tickSpeedCost;
-        if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.06));
-        else player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.03));
-        player.tickSpeedCost = player.tickSpeedCost * 10;
-        document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shortenCosts(player.tickSpeedCost);
-        updateTickSpeed();
-        updateMoney();
-    }
+document.getElementById("tickSpeed").onclick = function() {
+	if (player.money >= player.tickSpeedCost) {
+  player.money -= player.tickSpeedCost;
+  if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9-(player.galaxies*0.04));
+  else player.tickspeed = player.tickspeed * (0.9-(player.galaxies*0.02));
+  player.tickSpeedCost = player.tickSpeedCost*10;
+  document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickSpeedCost);
+  updateTickSpeed();
+  updateMoney();
+  }
 };
 
 function buyMaxTickSpeed() {
-    if (player.money >= player.tickSpeedCost) {
-        player.money -= player.tickSpeedCost;
-        if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.06));
-        else player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.03));
-        player.tickSpeedCost = player.tickSpeedCost * 10;
-        document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shortenCosts(player.tickSpeedCost);
-        updateTickSpeed();
-        updateMoney();
-        buyMaxTickSpeed();
-    }
+  if (player.money >= player.tickSpeedCost) {
+    player.money -= player.tickSpeedCost;
+    if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9-(player.galaxies*0.04));
+    else player.tickspeed = player.tickspeed * (0.9-(player.galaxies*0.02));
+    player.tickSpeedCost = player.tickSpeedCost*10;
+    document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickSpeedCost);
+    updateTickSpeed();
+    updateMoney();
+    buyMaxTickSpeed();
+  }
 }
 
 function timeDisplay(time) {
