@@ -282,7 +282,7 @@ function updateDimensions() {
     }
     if (player.resets > 3) document.getElementById("softReset").innerHTML = "Reset the game for a Boost";
     else document.getElementById("softReset").innerHTML = "Reset the game for a new Dimension";
-    document.getElementById("secondResetLabel").innerHTML = player.infinityUpgrades.includes("resetBoost") ? 'Antimatter Galaxies: requires ' + (player.galaxies * 60 + 80) + ' Eighth Dimensions' : 'Antimatter Galaxies: requires ' + (player.galaxies * 60 + 80) + ' Eighth Dimensions';
+    document.getElementById("secondResetLabel").innerHTML = player.infinityUpgrades.includes("resetBoost") ? 'Antimatter Galaxies: requires ' + (player.galaxies * 60 + 80)-9 + ' Eighth Dimensions' : 'Antimatter Galaxies: requires ' + (player.galaxies * 60 + 80) + ' Eighth Dimensions';
     document.getElementById("totalmoney").innerHTML = 'You have made a total of ' + shortenMoney(player.totalmoney) + ' antimatter.';
     document.getElementById("totalresets").innerHTML = 'You have done ' + player.resets + ' soft resets.';
     document.getElementById("galaxies").innerHTML = 'You have ' + Math.round(player.galaxies) + ' Antimatter Galaxies.';
