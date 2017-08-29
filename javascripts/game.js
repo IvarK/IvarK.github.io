@@ -207,7 +207,7 @@ function formatValue(notation, value, places, placesUnder1000) {
         } else if (notation === "Letters") {
             power -= 3;
             return ((Math.round(matissa * Math.pow(10, power % 3) * Math.pow(10, places)) / Math.pow(10, places)).toFixed(places) +
-                letterList1[Math.floor(((power - (power % 3)) / 3) / letterList1.length)] + letterList2[((power - (power % 3)) / 3) % letterList2.length]);
+                letterList1[Math.floor(((power - (power % 3)) / 3) / letterList2.length)] + letterList2[((power - (power % 3)) / 3) % letterList2.length]);
         } else {
             return ((Math.round(matissa * 100) / 100).toFixed(places) + "e" + power);
         }
@@ -295,7 +295,7 @@ function updateDimensions() {
     }
     if (player.resets > 3) document.getElementById("softReset").innerHTML = "Reset the game for a Boost";
     else document.getElementById("softReset").innerHTML = "Reset the game for a new Dimension";
-    document.getElementById("secondResetLabel").innerHTML = player.infinityUpgrades.includes("resetBoost") ? 'Antimatter Galaxies: requires ' + (player.galaxies * 60 + 80)-9 + ' Eighth Dimensions' : 'Antimatter Galaxies: requires ' + (player.galaxies * 60 + 80) + ' Eighth Dimensions';
+    document.getElementById("secondResetLabel").innerHTML = player.infinityUpgrades.includes("resetBoost") ? 'Antimatter Galaxies: requires ' + (player.galaxies * 60 + 80) - 9 + ' Eighth Dimensions' : 'Antimatter Galaxies: requires ' + (player.galaxies * 60 + 80) + ' Eighth Dimensions';
     document.getElementById("totalmoney").innerHTML = 'You have made a total of ' + shortenMoney(player.totalmoney) + ' antimatter.';
     document.getElementById("totalresets").innerHTML = 'You have done ' + player.resets + ' soft resets.';
     document.getElementById("galaxies").innerHTML = 'You have ' + Math.round(player.galaxies) + ' Antimatter Galaxies.';
@@ -450,29 +450,29 @@ shortenMoney = function (money) {
     return formatValue(player.options.notation, money, 2, 1);
 };
 
-document.getElementById("tickSpeed").onclick = function() {
-	if (player.money >= player.tickSpeedCost) {
-  player.money -= player.tickSpeedCost;
-  if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9-(player.galaxies*0.04));
-  else player.tickspeed = player.tickspeed * (0.9-(player.galaxies*0.02));
-  player.tickSpeedCost = player.tickSpeedCost*10;
-  document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickSpeedCost);
-  updateTickSpeed();
-  updateMoney();
-  }
+document.getElementById("tickSpeed").onclick = function () {
+    if (player.money >= player.tickSpeedCost) {
+        player.money -= player.tickSpeedCost;
+        if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.04));
+        else player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.02));
+        player.tickSpeedCost = player.tickSpeedCost * 10;
+        document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickSpeedCost);
+        updateTickSpeed();
+        updateMoney();
+    }
 };
 
 function buyMaxTickSpeed() {
-  if (player.money >= player.tickSpeedCost) {
-    player.money -= player.tickSpeedCost;
-    if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9-(player.galaxies*0.04));
-    else player.tickspeed = player.tickspeed * (0.9-(player.galaxies*0.02));
-    player.tickSpeedCost = player.tickSpeedCost*10;
-    document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickSpeedCost);
-    updateTickSpeed();
-    updateMoney();
-    buyMaxTickSpeed();
-  }
+    if (player.money >= player.tickSpeedCost) {
+        player.money -= player.tickSpeedCost;
+        if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.04));
+        else player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.02));
+        player.tickSpeedCost = player.tickSpeedCost * 10;
+        document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shorten(player.tickSpeedCost);
+        updateTickSpeed();
+        updateMoney();
+        buyMaxTickSpeed();
+    }
 }
 
 function timeDisplay(time) {
@@ -1044,6 +1044,7 @@ document.getElementById("infi24").onclick = function () {
 
 
 document.getElementById("secondSoftReset").onclick = function () {
+    if (!player.achievements.includes("I don't believe in Gods") && player.sacrificed == 0) giveAchievement("I don't believe in Gods");
     if (player.infinityUpgrades.includes("resetBoost") ? player.eightAmount >= (player.galaxies * 60 + 80) - 9 : player.eightAmount >= (player.galaxies * 60 + 80)) {
         player = {
             money: 10,
@@ -1122,7 +1123,6 @@ document.getElementById("secondSoftReset").onclick = function () {
         updateTickSpeed();
         if (!player.achievements.includes("Double Galaxy") && player.galaxies >= 2) giveAchievement("Double Galaxy");
         if (!player.achievements.includes("You got past The Big Wall") && player.galaxies >= 1) giveAchievement("You got past The Big Wall");
-        if (!player.achievements.includes("I don't believe in Gods") && player.sacrificed == 0) giveAchievement("I don't believe in Gods");
     }
 };
 
