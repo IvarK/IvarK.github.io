@@ -207,7 +207,7 @@ function formatValue(notation, value, places, placesUnder1000) {
         } else if (notation === "Letters") {
             power -= 3;
             return ((Math.round(matissa * Math.pow(10, power % 3) * Math.pow(10, places)) / Math.pow(10, places)).toFixed(places) +
-                letterList1[Math.floor(((power - (power % 3)) / 3) / letterList1.length)] + " " + letterList2[((power - (power % 3)) / 3) % letterList2.length]);
+                letterList1[Math.floor(((power - (power % 3)) / 3) / letterList1.length)] + letterList2[((power - (power % 3)) / 3) % letterList2.length]);
         } else {
             return ((Math.round(matissa * 100) / 100).toFixed(places) + "e" + power);
         }
