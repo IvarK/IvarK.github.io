@@ -1572,7 +1572,11 @@ var newsArray = ["You just made your 1,000,000,000,000,000 antimatter. This one 
 "A new religion has been created, and it's spreading like wildfire. The believers of this religion worship the Heavenly Pelle, the goddess of antimatter. They also believe that 10^308 is infinite.",
 "Someone has just touched a blob, and blown up. Was the blob antimatter, or was the guy made of Explodium?", "Antimatter people seem to be even more afraid of 13 then we are. They destroyed entire galaxies just to remove 13 from their percents.",
 "If you are not playing on Kongregate or ivark.github.io, the site is bootleg.", "Rate 5 on Kongregate so more people can experience this 5 star Rating", "BOO!", "You ate for too long. \n-hevipelle", "I hate myself. \n-Boo-chan",
-"Gee golly \n-Xandawesome", "Need more quotes! \n-hevipelle"]
+"Gee golly \n-Xandawesome", "Need more quotes! \n-hevipelle", "Above us, there is nothing above, But the stars, above.", "If black lives matter, do white lives antimatter?", "Somebody wasn't nice, he got an antimatter-storm.",
+"You are living, you occupy space, you have a mass, you matter... unless you antimatter.", "I clicked too fast... my PC is now dematerialised.",
+"If an alien lands on your front lawn and extends an appendage as a gesture of greeting, before you get friendly, toss it an eightball. If the appendage explodes, then the alien was probably made of antimatter. If not, then you can proceed to take it to your leader.",
+"THIS NEWS STATION HAS SHUT DOWN DUE TO COLLAPSING UNIVERSE", "There always must be equal matter than there is antimatter, I guess your mom balances that a bit", "Nothing is created, nothing is destroyed.", "We dug a big hole to store this antimatter... Adele's rolling in it.",
+"If everything is antimatter, how can you see yourself?", "The stock markets have crashed due to antimatter beings somehow knowing what they will be tomorrow.", "My dog ate too much antimatter, now he is doing 'miau!'", "If you put infinity into your calulator it will result in 42!"]
 
 var initpos = c.width;
 var newsText = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
