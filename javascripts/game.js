@@ -1544,6 +1544,7 @@ setInterval(function () {
     player.lastUpdate = thisUpdate;
 }, 100);
 
+
 var newsArray = ["You just made your 1,000,000,000,000,000 antimatter. This one tastes like chicken", "Nerf the galaxies please.", "9th Dimension is a lie.",
 "The cookie is a lie.", "Antimatter cookies have been confirmed to not exist, whoever claims that, stop.", "Antimatter ghosts do not exist. Just like matter ghosts. They don't have any matter, for that matter.",
 "Nuclear power plants have been abandoned in favor of antimatter power.", "What do you mean, more than two dimensions??? We're on a screen, clearly there are only 2 dimensions.",
@@ -1575,6 +1576,8 @@ setInterval(function () {
         newsText = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
     }
 }, 1000 / 60);
+
+
 
 
 function init() {
