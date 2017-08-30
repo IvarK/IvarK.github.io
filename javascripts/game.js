@@ -59,6 +59,9 @@ var player = {
     }
 };
 
+var c = document.getElementById("game");
+var ctx = c.getContext("2d");
+
 var defaultStart = player;
 var firstButton = document.getElementById("first");
 var secondButton = document.getElementById("second");
@@ -1542,26 +1545,37 @@ setInterval(function () {
 }, 100);
 
 
-var newsArray = ["You just made your 1,000,000,000,000,000 antimatter. This one tastes like chicken", "Nerf the galaxies please.", "9th Dimension is a lie.", 
-"The cookie is a lie.", "Antimatter cookies have been confirmed to not exist, whoever claims that, stop.", "Antimatter ghosts do not exist. Just like matter ghosts. They don't have any matter, for that matter.", 
-"Nuclear power plants have been abandoned in favor of antimatter power.", "What do you mean, more than two dimensions??? We're on a screen, clearly there are only 2 dimensions.", 
-"Antimatter prices have drastically dropped due to newfound abundance.", "In the news today, humans make a antimatter animal sacrifice to the antimatter god.", "You made one antimatter! Whatever that means.", 
-"Scientists confirm that the colour of antimatter is Blurple", "How does it matter if its antimatter?", "None of this matters", "IN THE END, IT DOESN'T ANTIMATTER \n-hevipelle", 
-"New news company has become rivals with us. They are made entirely of antimatter.", "How much is Infinity? \n-literally everyone at least once", "How does NASA organise a party? They planet.", 
-"The square root of 9 is 3, therefore the 9th dimension can't exist.", "Electrons are now seeing the happy things in life. We're calling these happy electrons 'Positrons.' Wait, that's taken?", 
-"This completely useless sentence will get you nowhere and you know it. What a horrible obnoxious man would come up with it, he will probably go to hell, and why would the developer even implement it? Even if you kept reading it you wouldn't be able to finish it (the first time).", 
-"GHOST SAYS HELLO \n-Boo-chan", "Can someone tell hevi to calm down? \n-Mee6", "Due to Antimatter messing with physics, a creature that was once a moose is now a human", "!hi", "Eh, the Fourth Dimension is alright...", 
-"Alright \n-Alright", "The English greeting is not present in Antimatter speak.", "To buy max or not to buy max, that is the question", "You do know that you won't reach Infinity in -1 seconds, right?", "This antimatter triggers me", 
-"No, mom, I can't pause this game.", "Scientific notation has entered the battlefield.", "Make the Universe Great Again! \n-Tronald Dump", "#dank-maymays", 
-"A new religion has been created, and it's spreading like wildfire. The believers of this religion worship the Heavenly Pelle, the goddess of antimatter. They also believe that 10^308 is infinite.", 
-"Someone has just touched a blob, and blown up. Was the blob antimatter, or was the guy made of Explodium?", "Antimatter people seem to be even more afraid of 13 then we are. They destroyed entire galaxies just to remove 13 from their percents.", 
-"If you are not playing on Kongregate or ivark.github.io, the site is bootleg.", "Rate 5 on Kongregate so more people can experience this 5 star Rating", "BOO!", "You ate for too long. \n-hevipelle", "I hate myself. \n-Boo-chan", 
+var newsArray = ["You just made your 1,000,000,000,000,000 antimatter. This one tastes like chicken", "Nerf the galaxies please.", "9th Dimension is a lie.",
+"The cookie is a lie.", "Antimatter cookies have been confirmed to not exist, whoever claims that, stop.", "Antimatter ghosts do not exist. Just like matter ghosts. They don't have any matter, for that matter.",
+"Nuclear power plants have been abandoned in favor of antimatter power.", "What do you mean, more than two dimensions??? We're on a screen, clearly there are only 2 dimensions.",
+"Antimatter prices have drastically dropped due to newfound abundance.", "In the news today, humans make a antimatter animal sacrifice to the antimatter god.", "You made one antimatter! Whatever that means.",
+"Scientists confirm that the colour of antimatter is Blurple", "How does it matter if its antimatter?", "None of this matters", "IN THE END, IT DOESN'T ANTIMATTER \n-hevipelle",
+"New news company has become rivals with us. They are made entirely of antimatter.", "How much is Infinity? \n-literally everyone at least once", "How does NASA organise a party? They planet.",
+"The square root of 9 is 3, therefore the 9th dimension can't exist.", "Electrons are now seeing the happy things in life. We're calling these happy electrons 'Positrons.' Wait, that's taken?",
+"This completely useless sentence will get you nowhere and you know it. What a horrible obnoxious man would come up with it, he will probably go to hell, and why would the developer even implement it? Even if you kept reading it you wouldn't be able to finish it (the first time).",
+"GHOST SAYS HELLO \n-Boo-chan", "Can someone tell hevi to calm down? \n-Mee6", "Due to Antimatter messing with physics, a creature that was once a moose is now a human", "!hi", "Eh, the Fourth Dimension is alright...",
+"Alright \n-Alright", "The English greeting is not present in Antimatter speak.", "To buy max or not to buy max, that is the question", "You do know that you won't reach Infinity in -1 seconds, right?", "This antimatter triggers me",
+"No, mom, I can't pause this game.", "Scientific notation has entered the battlefield.", "Make the Universe Great Again! \n-Tronald Dump", "#dank-maymays",
+"A new religion has been created, and it's spreading like wildfire. The believers of this religion worship the Heavenly Pelle, the goddess of antimatter. They also believe that 10^308 is infinite.",
+"Someone has just touched a blob, and blown up. Was the blob antimatter, or was the guy made of Explodium?", "Antimatter people seem to be even more afraid of 13 then we are. They destroyed entire galaxies just to remove 13 from their percents.",
+"If you are not playing on Kongregate or ivark.github.io, the site is bootleg.", "Rate 5 on Kongregate so more people can experience this 5 star Rating", "BOO!", "You ate for too long. \n-hevipelle", "I hate myself. \n-Boo-chan",
 "Gee golly \n-Xandawesome", "Need more quotes! \n-hevipelle"]
 
+var initpos = c.width;
+var newsText = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
+ctx.textBaseline = 'top';
 
 setInterval(function () {
-  document.getElementById("news").innerHTML = newsArray[Math.round(Math.random()*(newsArray.length-1))]
-}, 3000);
+    //document.getElementById("news").innerHTML = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
+    ctx.clearRect(0, 0, c.width, c.height);
+    ctx.font = "32px Typewriter";
+    ctx.fillText(newsText, initpos, 30);
+    initpos -= 2;
+    if (initpos < (newsText.length * 32 * -1)) {
+        initpos = c.width;
+        newsText = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
+    }
+}, 1000 / 60);
 
 
 
@@ -1610,3 +1624,9 @@ updateCosts();
 updateDimensions();
 document.getElementById("hiddenheader").style.display = "none";
 init();
+
+function resize() {
+    c.width = window.innerWidth;
+    c.height = 64;
+}
+resize();
