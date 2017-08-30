@@ -871,7 +871,7 @@ document.getElementById("softReset").onclick = function () {
             softReset();
             document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + (player.resets - 3) * 20 + ' Eighth Dimension';
         }
-        document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + (player.galaxies * 60 + 80) + 'Eighth Dimensions';
+        
     }
 };
 
