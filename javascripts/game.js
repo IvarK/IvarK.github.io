@@ -537,7 +537,7 @@ function doubleAllDimensionCosts() {
 	
     for (let i = 1; i <= 8; ++i) {
         player[tiers[i] + "Cost"] *= 2;
-	}
+    }
 }
 
 document.getElementById("first").onclick = function () {
@@ -549,9 +549,9 @@ document.getElementById("first").onclick = function () {
             if (player.infinityUpgrades.includes('dimMult')) player.firstPow *= 2.2;
             else player.firstPow *= 2;
             player.firstCost = player.firstCost * 1000;
-			if (player.currentChallenge === "doubling cost") {
-				doubleAllDimensionCosts()
-			}
+            if (player.currentChallenge === "doubling cost") {
+                doubleAllDimensionCosts()
+            }
         } else player.firstBought++;
         updateCoinPerSec();
         var element = document.getElementById("first");
@@ -577,9 +577,9 @@ document.getElementById("second").onclick = function () {
             if (player.infinityUpgrades.includes('dimMult')) player.secondPow *= 2.2;
             else player.secondPow *= 2;
             player.secondCost = player.secondCost * 10000;
-			if (player.currentChallenge === "doubling cost") {
-				doubleAllDimensionCosts()
-			}
+            if (player.currentChallenge === "doubling cost") {
+                doubleAllDimensionCosts()
+            }
         } else player.secondBought++;
         updateCoinPerSec();
         var element = document.getElementById("second");
@@ -607,9 +607,9 @@ document.getElementById("third").onclick = function () {
             if (player.infinityUpgrades.includes('dimMult')) player.thirdPow *= 2.2;
             else player.thirdPow *= 2;
             player.thirdCost = player.thirdCost * 100000;
-			if (player.currentChallenge === "doubling cost") {
-				doubleAllDimensionCosts()
-			}
+            if (player.currentChallenge === "doubling cost") {
+                doubleAllDimensionCosts()
+            }
         } else player.thirdBought++;
         updateCoinPerSec();
         var element = document.getElementById("third");
@@ -633,9 +633,9 @@ document.getElementById("fourth").onclick = function () {
             if (player.infinityUpgrades.includes('dimMult')) player.fourthPow *= 2.2;
             else player.fourthPow *= 2;
             player.fourthCost = player.fourthCost * 1000000;
-			if (player.currentChallenge === "doubling cost") {
-				doubleAllDimensionCosts()
-			}
+            if (player.currentChallenge === "doubling cost") {
+                doubleAllDimensionCosts()
+            }
         } else player.fourthBought++;
         updateCoinPerSec();
         var element = document.getElementById("fourth");
@@ -659,9 +659,9 @@ document.getElementById("fifth").onclick = function () {
             if (player.infinityUpgrades.includes('dimMult')) player.fifthPow *= 2.2;
             else player.fifthPow *= 2;
             player.fifthCost = player.fifthCost * 1e8;
-			if (player.currentChallenge === "doubling cost") {
-				doubleAllDimensionCosts()
-			}
+            if (player.currentChallenge === "doubling cost") {
+                doubleAllDimensionCosts()
+            }
         } else player.fifthBought++;
         updateCoinPerSec();
         var element = document.getElementById("fifth");
@@ -685,9 +685,9 @@ document.getElementById("sixth").onclick = function () {
             if (player.infinityUpgrades.includes('dimMult')) player.sixthPow *= 2.2;
             else player.sixthPow *= 2;
             player.sixthCost = player.sixthCost * 1e10;
-			if (player.currentChallenge === "doubling cost") {
-				doubleAllDimensionCosts()
-			}
+            if (player.currentChallenge === "doubling cost") {
+                doubleAllDimensionCosts()
+            }
         } else player.sixthBought++;
         updateCoinPerSec();
         var element = document.getElementById("sixth");
@@ -711,9 +711,9 @@ document.getElementById("seventh").onclick = function () {
             if (player.infinityUpgrades.includes('dimMult')) player.seventhPow *= 2.2;
             else player.seventhPow *= 2;
             player.seventhCost = player.seventhCost * 1e12;
-			if (player.currentChallenge === "doubling cost") {
-				doubleAllDimensionCosts()
-			}
+            if (player.currentChallenge === "doubling cost") {
+                doubleAllDimensionCosts()
+            }
         } else player.seventhBought++;
         updateCoinPerSec();
         var element = document.getElementById("seventh");
@@ -737,9 +737,9 @@ document.getElementById("eight").onclick = function () {
             if (player.infinityUpgrades.includes('dimMult')) player.eightPow *= 2.2;
             else player.eightPow *= 2;
             player.eightCost = player.eightCost * 1e15;
-			if (player.currentChallenge === "doubling cost") {
-				doubleAllDimensionCosts()
-			}
+            if (player.currentChallenge === "doubling cost") {
+                doubleAllDimensionCosts()
+            }
         } else player.eightBought++;
         updateCoinPerSec();
         var element = document.getElementById("eight");
@@ -762,9 +762,9 @@ document.getElementById("firstMax").onclick = function () {
         if (player.infinityUpgrades.includes('dimMult')) player.firstPow *= 2.2;
         else player.firstPow *= 2;
         player.firstCost *= 1e3;
-		if (player.currentChallenge === "doubling cost") {
-			doubleAllDimensionCosts()
-		}
+        if (player.currentChallenge === "doubling cost") {
+            doubleAllDimensionCosts()
+        }
         updateCosts();
         updateMoney();
         updateDimensions();
@@ -783,9 +783,9 @@ document.getElementById("secondMax").onclick = function () {
         if (player.infinityUpgrades.includes('dimMult')) player.secondPow *= 2.2;
         else player.secondPow *= 2;
         player.secondCost *= 1e4;
-		if (player.currentChallenge === "doubling cost") {
-			doubleAllDimensionCosts()
-		}
+        if (player.currentChallenge === "doubling cost") {
+            doubleAllDimensionCosts()
+        }
         updateCosts();
         updateMoney();
         updateDimensions();
@@ -808,9 +808,9 @@ document.getElementById("thirdMax").onclick = function () {
         if (player.infinityUpgrades.includes('dimMult')) player.thirdPow *= 2.2;
         else player.thirdPow *= 2;
         player.thirdCost *= 1e5;
-		if (player.currentChallenge === "doubling cost") {
-			doubleAllDimensionCosts()
-		}
+        if (player.currentChallenge === "doubling cost") {
+            doubleAllDimensionCosts()
+        }
         updateCosts();
         updateMoney();
         updateDimensions();
@@ -829,9 +829,9 @@ document.getElementById("fourthMax").onclick = function () {
         if (player.infinityUpgrades.includes('dimMult')) player.fourthPow *= 2.2;
         else player.fourthPow *= 2;
         player.fourthCost *= 1e6;
-		if (player.currentChallenge === "doubling cost") {
-			doubleAllDimensionCosts()
-		}
+        if (player.currentChallenge === "doubling cost") {
+            doubleAllDimensionCosts()
+        }
         updateCosts();
         updateMoney();
         updateDimensions();
@@ -850,9 +850,9 @@ document.getElementById("fifthMax").onclick = function () {
         if (player.infinityUpgrades.includes('dimMult')) player.fifthPow *= 2.2;
         else player.fifthPow *= 2;
         player.fifthCost *= 1e8;
-		if (player.currentChallenge === "doubling cost") {
-			doubleAllDimensionCosts()
-		}
+        if (player.currentChallenge === "doubling cost") {
+            doubleAllDimensionCosts()
+        }
         updateCosts();
         updateMoney();
         updateDimensions();
@@ -871,9 +871,9 @@ document.getElementById("sixthMax").onclick = function () {
         if (player.infinityUpgrades.includes('dimMult')) player.sixthPow *= 2.2;
         else player.sixthPow *= 2;
         player.sixthCost *= 1e10;
-		if (player.currentChallenge === "doubling cost") {
-			doubleAllDimensionCosts()
-		}
+        if (player.currentChallenge === "doubling cost") {
+            doubleAllDimensionCosts()
+        }
         updateCosts();
         updateMoney();
         updateDimensions();
@@ -892,9 +892,9 @@ document.getElementById("seventhMax").onclick = function () {
         if (player.infinityUpgrades.includes('dimMult')) player.seventhPow *= 2.2;
         else player.seventhPow *= 2;
         player.seventhCost *= 1e12;
-		if (player.currentChallenge === "doubling cost") {
-			doubleAllDimensionCosts()
-		}
+        if (player.currentChallenge === "doubling cost") {
+            doubleAllDimensionCosts()
+        }
         updateCosts();
         updateMoney();
         updateDimensions();
@@ -913,9 +913,9 @@ document.getElementById("eightMax").onclick = function () {
         if (player.infinityUpgrades.includes('dimMult')) player.eightPow *= 2.2;
         else player.eightPow *= 2;
         player.eightCost *= 1e15;
-		if (player.currentChallenge === "doubling cost") {
-			doubleAllDimensionCosts()
-		}
+        if (player.currentChallenge === "doubling cost") {
+            doubleAllDimensionCosts()
+        }
         updateCosts();
         updateMoney();
         updateDimensions();
