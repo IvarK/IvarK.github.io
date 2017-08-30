@@ -53,11 +53,12 @@
             <button id="bigcrunch" style="font-family: Typewriter; font-size: 240%; display: none" class="tabbtn">Big Crunch</button>
         </div>
         <div>
-            <button id="dimensionsbtn" style="font-family: Typewriter; font-size: 200%" class="tabbtn">Dimensions</button>
-            <button id="optionsbtn" style="font-family: Typewriter; font-size: 200%" class="tabbtn">Options</button>
-            <button id="statisticsbtn" style="font-family: Typewriter; font-size: 200%" class="tabbtn">Statistics</button>
-            <button id="achievementsbtn" style="font-family: Typewriter; font-size: 200%" class="tabbtn">Achievements</button>
-            <button id="infinitybtn" style="font-family: Typewriter; font-size: 200%" class="infinitybtn">Infinity</button>
+            <button id="dimensionsbtn" style="font-family: Typewriter; font-size: 180%" class="tabbtn">Dimensions</button>
+            <button id="optionsbtn" style="font-family: Typewriter; font-size: 180%" class="tabbtn">Options</button>
+            <button id="statisticsbtn" style="font-family: Typewriter; font-size: 180%" class="tabbtn">Statistics</button>
+            <button id="achievementsbtn" style="font-family: Typewriter; font-size: 180%" class="tabbtn">Achievements</button>
+            <button id="challengesbtn" style="font-family: Typewriter; font-size: 180%" class="tabbtn">Challenges</button>
+            <button id="infinitybtn" style="font-family: Typewriter; font-size: 180%" class="infinitybtn">Infinity</button>
         </div>
         <div id="emptiness" class="tab" style="font-size: 150%">
             <br> The world has collapsed on itself due to excess of antimatter.
@@ -69,8 +70,9 @@
             <input id="confirmation" type="checkbox" style="width:20px; height:20px; display: none" ach-tooltip="No confirmation when doing Dimensional Sacrifice">
             <button id="sacrifice" class="storebtn" style="font-size:80%; width: 200px; display: none" ach-tooltip="">Dimensional Sacrifice</button>
             <button id="maxall" class="storebtn" style="font-size: 80%">Max all</Button>
-            <table class="table">
-                <tr style="font-size: 135%">
+            <table class="table" >
+            <tbody id="parent">
+                <tr style="font-size: 135%" id="firstRow">
                     <td id="firstD" width="32%">
                         First Dimension x1
                     </td>
@@ -182,6 +184,7 @@
                         <button id="eightMax" style="color:black; width:195px; height:35px" class="storebtn">Cost: 10</button>
                     </td>
                 </tr>
+                </body>
             </table>
             <table style="width: 100%">
                 <tr style="font-size: 145%">
@@ -313,6 +316,24 @@
             </table>
         </div>
 
+        
+        <div id="challenges" class="tab">
+          <br>
+          <div class="divider"><br></div>
+          <button id="challenge1" class="challengesbtn">Reach infinity for the first time</button>
+          <div class="divider"><br></div>
+          <button id="challenge2" class="challengesbtn">Some annoying stuff going on</button>
+          <div class="divider"><br></div>
+          <button id="challenge3" class="challengesbtn">Buying anything halts your production for 3 minutes</button>
+          <div class="divider"><br></div>
+          <button id="challenge4" class="challengesbtn">Challenge</button>
+          <div class="divider"><br></div>
+          <button id="challenge5" class="challengesbtn">Challenge</button>
+          <div class="divider"><br></div>
+          <button id="challenge6" class="challengesbtn">Challenge</button>
+          <div class="divider"><br></div>
+        </div>
+        
         <div id="infinity" class="tab" alight="center">
             <br>
             <div id="infinityPoints" style="color: black; font-size: 140%; width: 25%; margin: 0 auto">You have made x Infinity points.</div>
