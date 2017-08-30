@@ -1568,7 +1568,7 @@ ctx.textBaseline = 'top';
 setInterval(function () {
     //document.getElementById("news").innerHTML = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
     ctx.clearRect(0, 0, c.width, c.height);
-    ctx.font = "16px Typewriter";
+    ctx.font = "24px Typewriter";
     ctx.fillText(newsText, initpos, 30);
     initpos -= 6;
     if (initpos < (newsText.length * 32 * -1)) {
