@@ -1219,6 +1219,19 @@ document.getElementById("notation").onclick = function () {
     updateCosts();
 };
 
+var newsHidden = false
+document.getElementById("newsbtn").onclick = function() {
+  if (!newsHidden) {
+    document.getElementById("game").style.display = "none";
+    newsHidden = true
+  } else {
+    document.getElementById("game").style.display = "inline-block";
+    newsHidden = false
+  }
+}
+
+
+
 
 function calcSacrificeBoost() {
     if (player.firstAmount != 0) return Math.max(Math.pow((Math.log10(player.firstAmount) / 10.0), 2) / Math.max(Math.pow((Math.log10(Math.max(player.sacrificed, 1)) / 10.0), 2), 1), 1);
@@ -1610,7 +1623,6 @@ function init() {
     if (!player.options.logoVisible) {
         document.getElementById("logoanimation").style.display = "none";
         document.getElementById("logodiv").style.display = "none";
-        document.getElementById("logospace").style.display = "none";
     }
 
 }
