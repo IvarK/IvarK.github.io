@@ -201,7 +201,7 @@ function formatValue(notation, value, places, placesUnder1000) {
         var matissa = value / Math.pow(10, Math.floor(Math.log10(value)));
         var power = Math.floor(Math.log10(value));
 
-        if ((notation === "Standard") && (((power - (power % 3)) / 3) < FormatList.length - 1)) {
+        if ((notation === "Standard") && (((power - (power % 3)) / 3) <= FormatList.length - 1)) {
             return ((Math.round(matissa * Math.pow(10, power % 3) * Math.pow(10, places)) / Math.pow(10, places)).toFixed(places) + " " + FormatList[(power - (power % 3)) / 3]);
         } else if (notation === "Scientific") {
             return ((Math.round(matissa * Math.pow(10, places)) / Math.pow(10, places)).toFixed(places) + "e" + power);
