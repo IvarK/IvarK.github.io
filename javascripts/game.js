@@ -1575,7 +1575,7 @@ setInterval(function () {
         initpos = c.width;
         newsText = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
     }
-}, 1000 / 60);
+}, 1000 / 30);
 
 
 
