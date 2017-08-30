@@ -203,7 +203,7 @@ function formatValue(notation, value, places, placesUnder1000) {
         var matissa = value / Math.pow(10, Math.floor(Math.log10(value)));
         var power = Math.floor(Math.log10(value));
 
-        if ((notation === "Standard") && (((power - (power % 3)) / 3) < FormatList.length - 1)) {
+        if ((notation === "Standard") && (((power - (power % 3)) / 3) <= FormatList.length - 1)) {
             return ((Math.round(matissa * Math.pow(10, power % 3) * Math.pow(10, places)) / Math.pow(10, places)).toFixed(places) + " " + FormatList[(power - (power % 3)) / 3]);
         } else if (notation === "Scientific") {
             return ((Math.round(matissa * Math.pow(10, places)) / Math.pow(10, places)).toFixed(places) + "e" + power);
@@ -369,12 +369,6 @@ function updateChallenges() {
     document.getElementById(player.currentChallenge).className = "onchallengebtn"
   }
   
-  var buttons = document.getElementsByClassName('challengesbtn')
-  if (player.currentChallenge == "") buttons[0].style.display = "inline-block"
-  for (var i=1; i < buttons.length; i++) {
-      buttons[i].style.display = "none";
-    
-  }
   
   
   
@@ -904,7 +898,6 @@ document.getElementById("softReset").onclick = function () {
             softReset();
             document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + (player.resets - 3) * 20 + ' Eighth Dimension';
         }
-        document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + (player.galaxies * 60 + 80) + 'Eighth Dimensions';
     }
 };
 
@@ -1307,7 +1300,6 @@ document.getElementById("bigcrunch").onclick = function () {
     if (player.currentChallenge != "") {
     player.challenges.push(player.currentChallenge);
   }
-   if (player.currentChallenge != "challenge2")
     player = {
         money: 10,
         tickSpeedCost: 1000,
@@ -1473,6 +1465,7 @@ function startChallenge(name) {
     document.getElementById("eightRow").style.display= "none";
     updateTickSpeed();
     showTab('dimensions');
+    updateChallenges();
   }
 }
 
@@ -1677,11 +1670,7 @@ setInterval(function () {
         else document.getElementById("secondSoftReset").className = 'unavailablebtn';
     }
     
-    if (player.currentChallenge == "challenge2") {
-      $("#maxall")[0].style.display = "none"
-    } else {
-      $("#maxall")[0].style.display = "inline-block"
-    }
+
 
     document.getElementById("sacrifice").setAttribute('ach-tooltip', "Boosts 8th Dimension by " + formatValue(player.options.notation, calcSacrificeBoost(), 2, 2) + "x");
 
@@ -1731,23 +1720,11 @@ setInterval(function () {
 }, 1000 / 30);
 
 document.getElementById("challenge2").onclick = function () {
-  startChallenge("challenge2")
+  startChallenge("challenge2") //TODO
 }
 
 
-setInterval(function () {
-  var parent = $("#parent");
-  var rows = parent.children();
-  if (player.currentChallenge == "challenge2") {
-    for (var i = rows.length - 1; i > 0; i--) {
-          var j = Math.floor(Math.random() * (i + 1));
-          var temp = rows[i];
-          rows.eq(i - 1).after(rows[j]);
-          rows.eq(j - 1).after(temp);
-      }
-  }
 
-}, 3000)
 
 
 
