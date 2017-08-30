@@ -37,6 +37,8 @@ var player = {
     sacrificed: 0,
     achievements: [],
     infinityUpgrades: [],
+    challenges: [],
+    currentChallenge: "",
     infinityPoints: 0,
     infinitied: 0,
     totalTimePlayed: 0,
@@ -355,6 +357,35 @@ function updateTickSpeed() {
     else document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*10000) + ' / 10000';*/
 }
 
+
+function updateChallenges() {
+  
+  for (challenge in player.challenges) {
+    document.getElementById(player.challenges[challenge]).className = "completedchallengesbtn";
+  }
+  
+  
+  if (player.currentChallenge != "") {
+    document.getElementById(player.currentChallenge).className = "onchallengebtn"
+  }
+  
+  var buttons = document.getElementsByClassName('challengesbtn')
+  if (player.currentChallenge == "") buttons[0].style.display = "inline-block"
+  for (var i=1; i < buttons.length; i++) {
+      buttons[i].style.display = "none";
+    
+  }
+  
+  
+  
+}
+
+
+
+
+
+
+
 function softReset() {
     player = {
         money: 10,
@@ -386,6 +417,8 @@ function softReset() {
         eightBought: 0,
         sacrificed: 0,
         achievements: player.achievements,
+        challenges: player.challenges,
+        currentChallenge: player.currentChallenge,
         infinityUpgrades: player.infinityUpgrades,
         infinityPoints: player.infinityPoints,
         infinitied: player.infinitied,
@@ -694,7 +727,7 @@ document.getElementById("eight").onclick = function () {
         if (!player.achievements.includes("90 degrees to infinity")) {
             giveAchievement("90 degrees to infinity")
         }
-        if (!player.achievements.includes("The 9th Dimension is a lie") && player.eightAmount == 99) giveAchievement("The 9th Dimension is a lie")
+        if (!player.achievements.includes("The 9th Dimension is a lie") && player.eightAmount == 99) giveAchivement("The 9th Dimension is a lie")
     }
 };
 
@@ -1048,7 +1081,7 @@ document.getElementById("infi24").onclick = function () {
 
 document.getElementById("secondSoftReset").onclick = function () {
     if (player.infinityUpgrades.includes("resetBoost") ? player.eightAmount >= (player.galaxies * 60 + 80) - 9 : player.eightAmount >= (player.galaxies * 60 + 80)) {
-        if (!player.achievements.includes("I don't believe in Gods") && player.sacrificed == 0) giveAchievement("I don't believe in Gods");
+      if (!player.achievements.includes("I don't believe in Gods") && player.sacrificed == 0) giveAchievement("I don't believe in Gods");
         player = {
             money: 10,
             tickSpeedCost: 1000,
@@ -1087,6 +1120,8 @@ document.getElementById("secondSoftReset").onclick = function () {
             eightPow: 1,
             sacrificed: 0,
             achievements: player.achievements,
+            challenges: player.challenges,
+            currentChallenge: player.currentChallenge,
             infinityUpgrades: player.infinityUpgrades,
             infinityPoints: player.infinityPoints,
             infinitied: player.infinitied,
@@ -1269,6 +1304,10 @@ document.getElementById("bigcrunch").onclick = function () {
     if (!player.achievements.includes("That's fast!") && player.thisInfinityTime <= 72000) giveAchievement("That's fast!");
     if (!player.achievements.includes("You didn't need it anyway") && player.eightAmount == 0) giveAchievement("You didn't need it anyway");
     if (!player.achievements.includes("Claustrophobic") && player.galaxies == 1) giveAchievement("Claustrophobic");
+    if (player.currentChallenge != "") {
+    player.challenges.push(player.currentChallenge);
+  }
+   if (player.currentChallenge != "challenge2")
     player = {
         money: 10,
         tickSpeedCost: 1000,
@@ -1307,6 +1346,8 @@ document.getElementById("bigcrunch").onclick = function () {
         eightPow: 1,
         sacrificed: 0,
         achievements: player.achievements,
+        challenges: player.challenges,
+        currentChallenge: "",
         infinityUpgrades: player.infinityUpgrades,
         infinityPoints: player.infinityPoints + 1,
         infinitied: player.infinitied + 1,
@@ -1349,7 +1390,94 @@ document.getElementById("bigcrunch").onclick = function () {
     kongregate.stats.submit('Fastest Infinity time', Math.floor(player.bestInfinityTime / 10))
     if (!player.achievements.includes("To infinity!")) giveAchievement("To infinity!");
     if (!player.achievements.includes("That's a lot of infinites") && player.infinitied >= 10) giveAchievement("That's a lot of infinites");
+    if (player.infinitied == 1) player.challenges.push("challenge1");
+    updateChallenges();
 }
+
+function startChallenge(name) {
+  if(confirm("You will start over with just your infinity upgrades and achievements. You need to reach infinity with special conditions.")) {
+    player = {
+      money: 10,
+      tickSpeedCost: 1000,
+      tickspeed: 1000,
+      firstCost: 10,
+      secondCost: 100,
+      thirdCost: 10000,
+      fourthCost: 1000000,
+      fifthCost: 1e9,
+      sixthCost: 1e13,
+      seventhCost: 1e18,
+      eightCost: 1e24,
+      firstAmount: 0,
+      secondAmount: 0,
+      thirdAmount: 0,
+      fourthAmount: 0,
+      firstBought: 0,
+      secondBought: 0,
+      thirdBought: 0,
+      fourthBought: 0,
+      fifthAmount: 0,
+      sixthAmount: 0,
+      seventhAmount: 0,
+      eightAmount: 0,
+      fifthBought: 0,
+      sixthBought: 0,
+      seventhBought: 0,
+      eightBought: 0,
+      firstPow: 1,
+      secondPow: 1,
+      thirdPow: 1,
+      fourthPow: 1,
+      fifthPow: 1,
+      sixthPow: 1,
+      seventhPow: 1,
+      eightPow: 1,
+      sacrificed: 0,
+      achievements: player.achievements,
+      challenges: player.challenges,
+      currentChallenge: name,
+      infinityUpgrades: player.infinityUpgrades,
+      infinityPoints: player.infinityPoints,
+      infinitied: player.infinitied,
+      totalTimePlayed: player.totalTimePlayed,
+      bestInfinityTime: player.bestInfinityTime,
+      thisInfinityTime: 0,
+      resets: 0,
+      galaxies: 0,
+      tickDecrease: 0.9,
+      totalmoney: 0,
+      interval: null,
+      lastUpdate: player.lastUpdate,
+      achPow: player.achPow,
+      options: {
+        scientific: player.options.scientific,
+        animationsOn: player.options.animationsOn,
+        invert: player.options.invert,
+        logoVisible: player.options.logoVisible
+      }
+    };
+    updateCosts();
+    clearInterval(player.interval);
+    //updateInterval();
+    updateDimensions();
+    document.getElementById("secondRow").style.display= "none";
+    document.getElementById("thirdRow").style.display= "none";
+    document.getElementById("tickSpeed").style.visibility = "hidden";
+    document.getElementById("tickSpeedMax").style.visibility = "hidden";
+    document.getElementById("tickLabel").style.visibility = "hidden";
+    document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+    document.getElementById("fourthRow").style.display= "none";
+    document.getElementById("fifthRow").style.display= "none";
+    document.getElementById("sixthRow").style.display= "none";
+    document.getElementById("seventhRow").style.display= "none";
+    document.getElementById("eightRow").style.display= "none";
+    updateTickSpeed();
+    showTab('dimensions');
+  }
+}
+
+
+
 
 
 
@@ -1428,59 +1556,61 @@ setInterval(function () {
     if (player.eightCost * (10 - player.eightBought) > player.money) document.getElementById("eightMax").className = 'unavailablebtn';
     else document.getElementById("eightMax").className = 'storebtn';
     if (player.infinityPoints > 0) {
-        document.getElementById("infinitybtn").style.display = "block";
-        document.getElementById("infi11").className = "infinistorebtn1"
-        document.getElementById("infi21").className = "infinistorebtn2"
-        if (player.infinityUpgrades.includes("timeMult")) document.getElementById("infi12").className = "infinistorebtn1"
-        else document.getElementById("infi12").className = "infinistorebtnlocked"
-        if (player.infinityUpgrades.includes("dimMult")) document.getElementById("infi22").className = "infinistorebtn2"
-        else document.getElementById("infi22").className = "infinistorebtnlocked"
-        if (player.infinityUpgrades.includes("18Mult")) document.getElementById("infi13").className = "infinistorebtn1"
-        else document.getElementById("infi13").className = "infinistorebtnlocked"
-        if (player.infinityUpgrades.includes("27Mult")) document.getElementById("infi23").className = "infinistorebtn2"
-        else document.getElementById("infi23").className = "infinistorebtnlocked"
-        if (player.infinityUpgrades.includes("36Mult")) document.getElementById("infi14").className = "infinistorebtn1"
-        else document.getElementById("infi14").className = "infinistorebtnlocked"
-        if (player.infinityUpgrades.includes("45Mult")) document.getElementById("infi24").className = "infinistorebtn2"
-        else document.getElementById("infi24").className = "infinistorebtnlocked"
-
-    } else {
-        document.getElementById("infinitybtn").style.display = "none";
-        document.getElementById("infi11").className = "infinistorebtnlocked"
-        document.getElementById("infi21").className = "infinistorebtnlocked"
-        document.getElementById("infi12").className = "infinistorebtnlocked"
-        document.getElementById("infi22").className = "infinistorebtnlocked"
-        document.getElementById("infi13").className = "infinistorebtnlocked"
-        document.getElementById("infi23").className = "infinistorebtnlocked"
-        document.getElementById("infi14").className = "infinistorebtnlocked"
-        document.getElementById("infi24").className = "infinistorebtnlocked"
+    document.getElementById("infinitybtn").style.display = "inline-block";
+    document.getElementById("challengesbtn").style.display = "inline-block";
+    document.getElementById("infi11").className = "infinistorebtn1"
+    document.getElementById("infi21").className = "infinistorebtn2"
+    if (player.infinityUpgrades.includes("timeMult")) document.getElementById("infi12").className = "infinistorebtn1"
+    else document.getElementById("infi12").className = "infinistorebtnlocked"
+    if (player.infinityUpgrades.includes("dimMult")) document.getElementById("infi22").className = "infinistorebtn2"
+    else document.getElementById("infi22").className = "infinistorebtnlocked"
+    if (player.infinityUpgrades.includes("18Mult")) document.getElementById("infi13").className = "infinistorebtn1"
+    else document.getElementById("infi13").className = "infinistorebtnlocked"
+    if (player.infinityUpgrades.includes("27Mult")) document.getElementById("infi23").className = "infinistorebtn2"
+    else document.getElementById("infi23").className = "infinistorebtnlocked"
+    if (player.infinityUpgrades.includes("36Mult")) document.getElementById("infi14").className = "infinistorebtn1"
+    else document.getElementById("infi14").className = "infinistorebtnlocked"
+    if (player.infinityUpgrades.includes("45Mult")) document.getElementById("infi24").className = "infinistorebtn2"
+    else document.getElementById("infi24").className = "infinistorebtnlocked"
+    
+  }
+  else {
+    document.getElementById("infinitybtn").style.display = "none";
+    document.getElementById("challengesbtn").style.display = "none";
+    document.getElementById("infi11").className = "infinistorebtnlocked"
+    document.getElementById("infi21").className = "infinistorebtnlocked"
+    document.getElementById("infi12").className = "infinistorebtnlocked"
+    document.getElementById("infi22").className = "infinistorebtnlocked"
+    document.getElementById("infi13").className = "infinistorebtnlocked"
+    document.getElementById("infi23").className = "infinistorebtnlocked"
+    document.getElementById("infi14").className = "infinistorebtnlocked"
+    document.getElementById("infi24").className = "infinistorebtnlocked"
+  }
+  
+  if (player.resets > 4) {
+    document.getElementById("confirmation").style.display = "inline-block";
+    document.getElementById("sacrifice").style.display = "inline-block";
+  } else {
+    document.getElementById("confirmation").style.display = "none";
+    document.getElementById("sacrifice").style.display = "none";
+  }
+  
+  if (player.money == Infinity) {
+    document.getElementById("dimensionsbtn").style.display = "none";
+    document.getElementById("optionsbtn").style.display = "none";
+    document.getElementById("statisticsbtn").style.display = "none";
+    document.getElementById("achievementsbtn").style.display = "none";
+    document.getElementById("infinitybtn").style.display = "none";
+  } else {
+    document.getElementById("dimensionsbtn").style.display = "inline-block";
+    document.getElementById("optionsbtn").style.display = "inline-block";
+    document.getElementById("statisticsbtn").style.display = "inline-block";
+    document.getElementById("achievementsbtn").style.display = "inline-block";
+    if (player.infinitied > 0) {
+      document.getElementById("infinitybtn").style.display = "inline-block";
+      document.getElementById("challengesbtn").style.display = "inline-block";
     }
-
-    if (player.resets > 4) {
-        document.getElementById("confirmation").style.display = "inline-block";
-        document.getElementById("sacrifice").style.display = "inline-block";
-    } else {
-        document.getElementById("confirmation").style.display = "none";
-        document.getElementById("sacrifice").style.display = "none";
-    }
-
-    if (player.money == Infinity) {
-        document.getElementById("dimensionsbtn").style.display = "none";
-        document.getElementById("optionsbtn").style.display = "none";
-        document.getElementById("statisticsbtn").style.display = "none";
-        document.getElementById("achievementsbtn").style.display = "none";
-        document.getElementById("infinitybtn").style.display = "none";
-        document.getElementById("tickSpeed").style.visibility = "hidden";
-        document.getElementById("tickSpeedMax").style.visibility = "hidden";
-        document.getElementById("tickLabel").style.visibility = "hidden";
-        document.getElementById("tickSpeedAmount").style.visibility = "hidden";
-    } else {
-        document.getElementById("dimensionsbtn").style.display = "inline-block";
-        document.getElementById("optionsbtn").style.display = "inline-block";
-        document.getElementById("statisticsbtn").style.display = "inline-block";
-        document.getElementById("achievementsbtn").style.display = "inline-block";
-        if (player.infinitied > 0) document.getElementById("infinitybtn").style.display = "inline-block";
-    }
+  }
 
     if (player.infinityUpgrades.includes("timeMult")) document.getElementById("infi11").className = "infinistorebtnbought"
     if (player.infinityUpgrades.includes("dimMult")) document.getElementById("infi21").className = "infinistorebtnbought"
@@ -1546,6 +1676,12 @@ setInterval(function () {
         if (player.eightAmount >= ((player.galaxies * 60 + 80))) document.getElementById("secondSoftReset").className = 'storebtn';
         else document.getElementById("secondSoftReset").className = 'unavailablebtn';
     }
+    
+    if (player.currentChallenge == "challenge2") {
+      $("#maxall")[0].style.display = "none"
+    } else {
+      $("#maxall")[0].style.display = "inline-block"
+    }
 
     document.getElementById("sacrifice").setAttribute('ach-tooltip', "Boosts 8th Dimension by " + formatValue(player.options.notation, calcSacrificeBoost(), 2, 2) + "x");
 
@@ -1572,7 +1708,11 @@ var newsArray = ["You just made your 1,000,000,000,000,000 antimatter. This one 
 "A new religion has been created, and it's spreading like wildfire. The believers of this religion worship the Heavenly Pelle, the goddess of antimatter. They also believe that 10^308 is infinite.",
 "Someone has just touched a blob, and blown up. Was the blob antimatter, or was the guy made of Explodium?", "Antimatter people seem to be even more afraid of 13 then we are. They destroyed entire galaxies just to remove 13 from their percents.",
 "If you are not playing on Kongregate or ivark.github.io, the site is bootleg.", "Rate 5 on Kongregate so more people can experience this 5 star Rating", "BOO!", "You ate for too long. \n-hevipelle", "I hate myself. \n-Boo-chan",
-"Gee golly \n-Xandawesome", "Need more quotes! \n-hevipelle"]
+"Gee golly \n-Xandawesome", "Need more quotes! \n-hevipelle", "This world situation is a SOS situation to the world!! MAYDAY, MAYDAY!!", "As for sure as the sun rises in the west, of all the singers and poets on earth, I am the bestest. - hevipelle", 
+"Above us, there is nothing above, But the stars, above.", "Antimatter has been confirmed to smell like kittens", "To understand dimensional sacrifice, you do actually need a PhD in theoretical physics. Sorry!",
+"You have found the rarest antimatter pepe, it's ultra rare!", "Can we get 1e169 likes on this video??? Smash that like button!!", "you got assimilated by the 9th dimension? just call your doctor for mental ilness!", 
+"If black lives matter, do white lives antimatter?", "Just another antimatter in the wall", "Thanks a lot -dankesehr", "You are living, you occupy space, you have a mass, you matter. Unless you antimatter.", 
+"If an alien lands on your front lawn and extends an appendage as a gesture of greeting, before you get friendly, toss it an eightball. If the appendage explodes, then the alien was probably made of antimatter. If not, then you can proceed to take it to your leader. -Neil deGrasse Tyson"]
 
 var initpos = c.width;
 var newsText = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
@@ -1589,6 +1729,26 @@ setInterval(function () {
         newsText = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
     }
 }, 1000 / 30);
+
+document.getElementById("challenge2").onclick = function () {
+  startChallenge("challenge2")
+}
+
+
+setInterval(function () {
+  var parent = $("#parent");
+  var rows = parent.children();
+  if (player.currentChallenge == "challenge2") {
+    for (var i = rows.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var temp = rows[i];
+          rows.eq(i - 1).after(rows[j]);
+          rows.eq(j - 1).after(temp);
+      }
+  }
+
+}, 3000)
+
 
 
 
@@ -1608,6 +1768,9 @@ function init() {
     };
     document.getElementById('achievementsbtn').onclick = function () {
         showTab('achievements');
+    };
+    document.getElementById('challengesbtn').onclick=function () {
+      showTab('challenges');
     };
     document.getElementById('infinitybtn').onclick = function () {
         showTab('infinity');
