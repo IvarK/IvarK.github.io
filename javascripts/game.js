@@ -136,7 +136,7 @@ function load_game() {
     if (player.lastUpdate === undefined) player.lastUpdate = new Date().getTime();
     if (player.achPow === undefined) player.achPow = 1;
     if (player.chall2Pow === undefined) player.chall2Pow = 1;
-    if (player.chall3Pow === undefined) player.chall3Pow = 1800;
+    if (player.chall3Pow === undefined) player.chall3Pow = 0.01;
     if (player.firstAmount !== 0) document.getElementById("secondRow").style.display = "table-row";
     if (player.challenges === undefined) player.challenges = []
     if (player.currentChallenge === undefined) player.currentChallenge = ""
@@ -442,7 +442,7 @@ function softReset() {
         lastUpdate: player.lastUpdate,
         achPow: player.achPow,
         chall2Pow: player.chall2Pow,
-        chall3Pow: player.chall3Pow,
+        chall3Pow: 0.01,
         options: {
             notation: player.options.notation,
             animationsOn: player.options.animationsOn,
@@ -1208,7 +1208,7 @@ document.getElementById("secondSoftReset").onclick = function () {
             lastUpdate: player.lastUpdate,
             achPow: player.achPow,
             chall2Pow: player.chall2Pow,
-            chall3Pow: player.chall3Pow,
+            chall3Pow: 0.01,
             options: {
                 scientific: player.options.scientific,
                 notation: player.options.notation,
