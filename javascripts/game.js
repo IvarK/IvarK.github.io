@@ -234,88 +234,118 @@ function updateCoinPerSec() {
     element.innerHTML = 'You are getting ' + shortenDimensions(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult"))) + ' antimatter per second.';
 }
 
+function hasInfinityMult(tier) {
+    switch (tier) {
+        case 1: case 8: return player.infinityUpgrades.includes("18Mult");
+        case 2: case 7: return player.infinityUpgrades.includes("27Mult");
+        case 3: case 6: return player.infinityUpgrades.includes("36Mult");
+        case 4: case 5: return player.infinityUpgrades.includes("45Mult");
+    }
+}
 
+function getDimensionFinalMultiplier(tier) {
+    const name = TIER_NAMES[tier];
 
-
-function updateDimensions() {
-    document.getElementById("firstAmount").innerHTML = shortenDimensions(player.firstAmount) + ' (' + player.firstBought + ')  (+' + (calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult")) * 10 / Math.max(player.firstAmount, 1)).toFixed(1) + '%/s)';
-    document.getElementById("secondAmount").innerHTML = shortenDimensions(player.secondAmount) + ' (' + player.secondBought + ')  (+' + (calcPerSec(player.thirdAmount, player.thirdPow, player.infinityUpgrades.includes("36Mult")) * 10 / Math.max(player.secondAmount, 1)).toFixed(1) + '%/s)';
-    document.getElementById("thirdAmount").innerHTML = shortenDimensions(player.thirdAmount) + ' (' + player.thirdBought + ')  (+' + (calcPerSec(player.fourthAmount, player.fourthPow, player.infinityUpgrades.includes("45Mult")) * 10 / Math.max(player.thirdAmount, 1)).toFixed(1) + '%/s)';
-    document.getElementById("fourthAmount").innerHTML = shortenDimensions(player.fourthAmount) + ' (' + player.fourthBought + ')  (+' + (calcPerSec(player.fifthAmount, player.fifthPow, player.infinityUpgrades.includes("45Mult")) * 10 / Math.max(player.fourthAmount, 1)).toFixed(1) + '%/s)';
-    document.getElementById("fifthAmount").innerHTML = shortenDimensions(player.fifthAmount) + ' (' + player.fifthBought + ')  (+' + (calcPerSec(player.sixthAmount, player.sixthPow, player.infinityUpgrades.includes("36Mult")) * 10 / Math.max(player.fifthAmount, 1)).toFixed(1) + '%/s)';
-    document.getElementById("sixthAmount").innerHTML = shortenDimensions(player.sixthAmount) + ' (' + player.sixthBought + ')  (+' + (calcPerSec(player.seventhAmount, player.seventhPow, player.infinityUpgrades.includes("27Mult")) * 10 / Math.max(player.sixthAmount, 1)).toFixed(1) + '%/s)';
-    document.getElementById("seventhAmount").innerHTML = shortenDimensions(player.seventhAmount) + ' (' + player.seventhBought + ')  (+' + (calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult")) * 10 / Math.max(player.seventhAmount, 1)).toFixed(1) + '%/s)';
-    document.getElementById("eightAmount").innerHTML = shortenDimensions(player.eightAmount) + ' (' + player.eightBought + ')';
-    if (!player.infinityUpgrades.includes("timeMult")) {
-        document.getElementById("firstD").innerHTML = 'First Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("18Mult") ? player.firstPow * player.achPow : player.firstPow * player.achPow * dimMults(), 1, 0);
-        document.getElementById("secondD").innerHTML = 'Second Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("27Mult") ? player.secondPow * player.achPow : player.secondPow * player.achPow * dimMults(), 1, 0);
-        document.getElementById("thirdD").innerHTML = 'Third Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("36Mult") ? player.thirdPow * player.achPow : player.thirdPow * player.achPow * dimMults(), 1, 0);
-        document.getElementById("fourthD").innerHTML = 'Fourth Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("45Mult") ? player.fourthPow * player.achPow : player.fourthPow * player.achPow * dimMults(), 1, 0);
-        document.getElementById("fifthD").innerHTML = 'Fifth Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("45Mult") ? player.fifthPow * player.achPow : player.fifthPow * player.achPow * dimMults(), 1, 0);
-        document.getElementById("sixthD").innerHTML = 'Sixth Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("36Mult") ? player.sixthPow * player.achPow : player.sixthPow * player.achPow * dimMults(), 1, 0);
-        document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("27Mult") ? player.seventhPow * player.achPow : player.seventhPow * player.achPow * dimMults(), 1, 0);
-        document.getElementById("eightD").innerHTML = 'Eighth Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("18Mult") ? player.eightPow * player.achPow : player.eightPow * player.achPow * dimMults(), 1, 0);
-    } else {
-        document.getElementById("firstD").innerHTML = 'First Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("18Mult") ? player.firstPow * player.achPow : player.firstPow * player.achPow * dimMults()) * timeMult(), 1, 0);
-        document.getElementById("secondD").innerHTML = 'Second Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("27Mult") ? player.secondPow * player.achPow : player.secondPow * player.achPow * dimMults()) * timeMult(), 1, 0);
-        document.getElementById("thirdD").innerHTML = 'Third Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("36Mult") ? player.thirdPow * player.achPow : player.thirdPow * player.achPow * dimMults()) * timeMult(), 1, 0);
-        document.getElementById("fourthD").innerHTML = 'Fourth Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("45Mult") ? player.fourthPow * player.achPow : player.fourthPow * player.achPow * dimMults()) * timeMult(), 1, 0);
-        document.getElementById("fifthD").innerHTML = 'Fifth Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("45Mult") ? player.fifthPow * player.achPow : player.fifthPow * player.achPow * dimMults()) * timeMult(), 1, 0);
-        document.getElementById("sixthD").innerHTML = 'Sixth Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("36Mult") ? player.sixthPow * player.achPow : player.sixthPow * player.achPow * dimMults()) * timeMult(), 1, 0);
-        document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("27Mult") ? player.seventhPow * player.achPow : player.seventhPow * player.achPow * dimMults()) * timeMult(), 1, 0);
-        document.getElementById("eightD").innerHTML = 'Eighth Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("18Mult") ? player.eightPow * player.achPow : player.eightPow * player.achPow * dimMults()) * timeMult(), 1, 0);
+    let multiplier = player[name + 'Pow'];
+    
+    multiplier *= player.achPow;
+    
+    if (hasInfinityMult(tier)) {
+        multiplier *= dimMults();
     }
     
-    document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - getTickSpeedMultiplier()) * 100) + '% faster.';
+    if (player.infinityUpgrades.includes("timeMult")) {
+        multiplier *= timeMult();
+    }
     
+    return multiplier;
+}
+
+function getDimensionDescription(tier) {
+    const name = TIER_NAMES[tier];
+    
+    let description = shortenDimensions(player[name + 'Amount']) + ' (' + player[name + 'Bought'] + ')';
+    
+    if (tier < 8) {
+        description += '  (+' + getDimensionRateOfChange(tier).toFixed(1) + '%/s)';
+    }
+    
+    return description;
+}
+
+function getDimensionRateOfChange(tier) {
+    if (tier == 8) {
+        return 0;
+    }
+    
+    const name = TIER_NAMES[tier];
+    const next = TIER_NAMES[tier + 1];
+    
+    const toGain = calcPerSec(player[next + 'Amount'], player[next + 'Pow'], hasInfinityMult(tier + 1));
+    const have = Math.max(player[name + 'Amount'], 1);
+    const change = toGain * 10 / have;
+    
+    return change;
+}
+
+function getShiftRequirement() {
+    let tier   = Math.min(player.resets + 4, 8);
+    let amount = 20;
+    
+    if (tier == 8) {
+        amount += (resets - 4) * 15;
+    }
+    
+    if (player.infinityUpgrades.includes("resetBoost")) {
+        amount -= 9;
+    }
+    
+    return { tier: tier, amount: amount };
+}
+
+function getGalaxyRequirement() {
+    let amount = 80 + (player.galaxies * 60);
+    
+    if (player.infinityUpgrades.includes("resetBoost")) {
+        amount -= 9;
+    }
+    
+    return amount;
+}
+
+function updateDimensions() {
     for (let tier = 1; tier <= 8; ++tier) {
         const name = TIER_NAMES[tier];
         
-        if (canBuyDimension(tier)) {
-            document.getElementById(name + "Row").style.display = "table-row";
-            document.getElementById(name + "Row").style.visibility = "visible";
+        if (!canBuyDimension(tier)) {
+            break;
         }
+        
+        document.getElementById(name + "Row").style.display = "table-row";
+        document.getElementById(name + "Row").style.visibility = "visible";
+        
+        document.getElementById(name + "D").innerHTML = DISPLAY_NAMES[tier] + " Dimension x" + formatValue(player.options.notation, getDimensionFinalMultiplier(tier), 1, 0);
+        document.getElementById(name + "Amount").innerHTML = getDimensionDescription(tier);
     }
     
     if (canBuyTickSpeed()) {
+        document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - getTickSpeedMultiplier()) * 100) + '% faster.';
         document.getElementById("tickSpeed").style.visibility = "visible";
         document.getElementById("tickSpeedMax").style.visibility = "visible";
         document.getElementById("tickLabel").style.visibility = "visible";
         document.getElementById("tickSpeedAmount").style.visibility = "visible";
     }
     
-    if (player.infinityUpgrades.includes("resetBoost")) {
-        if (player.resets > 3) {
-            document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + ((player.resets - 4) * 15 + 11) + ' Eighth Dimension';
-            if (player.seventhAmount !== 0) document.getElementById("eightRow").style.visibility = "visible";
-        } else if (player.resets > 2) {
-            document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 11 Seventh Dimension';
-            if (player.sixthAmount !== 0) document.getElementById("seventhRow").style.visibility = "visible";
-        } else if (player.resets > 1) {
-            document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 11 Sixth Dimension';
-            if (player.fifthAmount !== 0) document.getElementById("sixthRow").style.visibility = "visible";
-        } else if (player.resets > 0) {
-            document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 11 Fifth Dimension';
-            if (player.fourthAmount !== 0) document.getElementById("fifthRow").style.visibility = "visible";
-        } else document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 11 Fourth Dimension';
+    const shiftRequirement = getShiftRequirement();
+    document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + shiftRequirement.amount + " " + DISPLAY_NAMES[shiftRequirement.tier] + " Dimensions";
+    
+    if (player.resets > 3) {
+        document.getElementById("softReset").innerHTML = "Reset the game for a Boost";
     } else {
-        if (player.resets > 3) {
-            document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + ((player.resets - 4) * 15 + 20) + ' Eighth Dimension';
-            if (player.seventhAmount !== 0) document.getElementById("eightRow").style.visibility = "visible";
-        } else if (player.resets > 2) {
-            document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 20 Seventh Dimension';
-            if (player.sixthAmount !== 0) document.getElementById("seventhRow").style.visibility = "visible";
-        } else if (player.resets > 1) {
-            document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 20 Sixth Dimension';
-            if (player.fifthAmount !== 0) document.getElementById("sixthRow").style.visibility = "visible";
-        } else if (player.resets > 0) {
-            document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 20 Fifth Dimension';
-            if (player.fourthAmount !== 0) document.getElementById("fifthRow").style.visibility = "visible";
-        } else document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 20 Fourth Dimension';
+        document.getElementById("softReset").innerHTML = "Reset the game for a new Dimension";
     }
-    if (player.resets > 3) document.getElementById("softReset").innerHTML = "Reset the game for a Boost";
-    else document.getElementById("softReset").innerHTML = "Reset the game for a new Dimension";
-    document.getElementById("secondResetLabel").innerHTML = player.infinityUpgrades.includes("resetBoost") ? 'Antimatter Galaxies: requires ' + ((player.galaxies * 60 + 80) - 9) + ' Eighth Dimensions' : 'Antimatter Galaxies: requires ' + (player.galaxies * 60 + 80) + ' Eighth Dimensions';
+    
+    document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + getGalaxyRequirement() + ' Eighth Dimensions';
     document.getElementById("totalmoney").innerHTML = 'You have made a total of ' + shortenMoney(player.totalmoney) + ' antimatter.';
     document.getElementById("totalresets").innerHTML = 'You have done ' + player.resets + ' soft resets.';
     document.getElementById("galaxies").innerHTML = 'You have ' + Math.round(player.galaxies) + ' Antimatter Galaxies.';
@@ -332,6 +362,7 @@ function updateDimensions() {
         document.getElementById("infinityPoints").innerHTML = "You have  " + player.infinityPoints + " Infinity points."
         document.getElementById("infinitied").innerHTML = "You have infinitied " + player.infinitied + " times."
     }
+    
     document.getElementById("infi11").innerHTML = "Production increase over time <br>currently: " + timeMult().toFixed(2)
     document.getElementById("infi12").innerHTML = "First and Eighth Dimension power <br>" + dimMults().toFixed(2)
     document.getElementById("infi13").innerHTML = "Third and Sixth Dimension power <br>" + dimMults().toFixed(2)
@@ -549,6 +580,7 @@ function giveAchievement(name) {
 }
 
 const TIER_NAMES = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
+const DISPLAY_NAMES = [ null, "First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth" ];
 
 function canAfford(cost) {
     return cost < Infinity && cost <= player.money;
