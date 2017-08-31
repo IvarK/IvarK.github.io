@@ -1788,6 +1788,7 @@ var newsArray = ["You just made your 1,000,000,000,000,000 antimatter. This one 
 
 var initpos = c.width;
 ctx.textBaseline = 'top';
+var newsText = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
 
 setInterval(function () {
     //document.getElementById("news").innerHTML = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
