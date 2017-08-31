@@ -49,6 +49,7 @@ var player = {
     tickDecrease: 0.9,
     totalmoney: 0,
     achPow: 1,
+    newsArray: [],
     interval: null,
     lastUpdate: new Date().getTime(),
     options: {
@@ -133,6 +134,7 @@ function load_game() {
     if (player.galaxies === undefined) player.galaxies = 0;
     if (player.lastUpdate === undefined) player.lastUpdate = new Date().getTime();
     if (player.achPow === undefined) player.achPow = 1;
+    if (player.newsArray === undefined) player.newsArray = [];
     if (player.firstAmount !== 0) document.getElementById("secondRow").style.display = "table-row";
     if (player.secondAmount !== 0) {
         document.getElementById("thirdRow").style.display = "table-row";
@@ -434,6 +436,7 @@ function softReset() {
         interval: null,
         lastUpdate: player.lastUpdate,
         achPow: player.achPow,
+	newsArray: player.newsArray,
         options: {
             notation: player.options.notation,
             animationsOn: player.options.animationsOn,
@@ -1181,6 +1184,7 @@ document.getElementById("secondSoftReset").onclick = function () {
             interval: null,
             lastUpdate: player.lastUpdate,
             achPow: player.achPow,
+	    newsArray: player.newsArray,
             options: {
                 scientific: player.options.scientific,
                 notation: player.options.notation,
@@ -1406,6 +1410,7 @@ document.getElementById("bigcrunch").onclick = function () {
         interval: null,
         lastUpdate: player.lastUpdate,
         achPow: player.achPow,
+	newsArray: player.newsArray,
         options: {
             scientific: player.options.scientific,
             notation: player.options.notation,
@@ -1494,6 +1499,7 @@ function startChallenge(name) {
       interval: null,
       lastUpdate: player.lastUpdate,
       achPow: player.achPow,
+      newsArray: player.newsArray,
       options: {
         scientific: player.options.scientific,
         animationsOn: player.options.animationsOn,
@@ -1758,6 +1764,9 @@ var newsArray = ["You just made your 1,000,000,000,000,000 antimatter. This one 
 
 var initpos = c.width;
 var newsText = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
+if (player.newsArray.includes(newsText)) {
+  player.newsArray.push(newsText);
+  if (player.newsArray.length<=50 && !player.achievements.includes("Devoted Viewer")) giveAchievement("Devoted Viewer") }}
 ctx.textBaseline = 'top';
 
 setInterval(function () {
