@@ -279,11 +279,10 @@ function getDimensionRateOfChange(tier) {
     }
     
     const name = TIER_NAMES[tier];
-    const next = TIER_NAMES[tier + 1];
     
-    const toGain = getDimensionProductionPerSecond(tier);
-    const have = Math.max(player[name + 'Amount'], 1);
-    const change = toGain * 10 / have;
+    const toGain  = getDimensionProductionPerSecond(tier + 1);
+    const current = Math.max(player[name + 'Amount'], 1);
+    const change  = toGain * 10 / current;
     
     return change;
 }
