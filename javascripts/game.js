@@ -240,7 +240,11 @@ function updateMoney() {
 
 function updateCoinPerSec() {
     var element = document.getElementById("coinsPerSec");
-    element.innerHTML = 'You are getting ' + shortenDimensions(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult"))) + ' antimatter per second.';
+    if (player.currentChallenge == "challenge3") {
+      element.innerHTML = 'You are getting ' + shortenDimensions(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult"))*player.chall3Pow) + ' antimatter per second.';
+    } else {
+      element.innerHTML = 'You are getting ' + shortenDimensions(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult"))) + ' antimatter per second.';
+    }
 }
 
 
@@ -1524,7 +1528,7 @@ function startChallenge(name) {
       interval: null,
       lastUpdate: player.lastUpdate,
       achPow: player.achPow,
-      chall2Pow: player.chall2Pow,
+      chall2Pow: 1,
       chall3Pow: 0.01,
       options: {
         scientific: player.options.scientific,
@@ -1561,12 +1565,11 @@ function startChallenge(name) {
 
 function calcPerSec(amount, pow, hasMult) {
     var hasTimeMult = player.infinityUpgrades.includes("timeMult")
-    if (player.chall3Pow > 1800 || !player.currentChallenge = "challenge3") {
     if (!hasMult && !hasTimeMult) return Math.floor(amount) * pow * player.achPow * player.chall2Pow / (player.tickspeed / 1000);
     else if (!hasMult && hasTimeMult) return Math.floor(amount) * pow * player.achPow * timeMult() * player.chall2Pow / (player.tickspeed / 1000);
     else if (hasMult && !hasTimeMult) return Math.floor(amount) * pow * player.achPow * dimMults() * player.chall2Pow / (player.tickspeed / 1000);
     else return Math.floor(amount) * pow * player.achPow * dimMults() * timeMult() * player.chall2Pow / (player.tickspeed / 1000);
-}}
+}
 
 
 var index = 0;
@@ -1576,8 +1579,8 @@ setInterval(function () {
     if (!player.achievements.includes("Don't you dare to sleep") && thisUpdate - player.lastUpdate >= 21600000) giveAchievement("Don't you dare to sleep")
     var diff = Math.min(thisUpdate - player.lastUpdate, 21600000);
     diff = diff / 100;
+    player.chall3Pow *= 1.00038
     player.chall2Pow = Math.min(player.chall2Pow + diff/1800, 1)
-    player.chall3Pow += diff/18000
     player.seventhAmount += calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult")) * diff / 100;
     player.sixthAmount += calcPerSec(player.seventhAmount, player.seventhPow, player.infinityUpgrades.includes("27Mult")) * diff / 100;
     player.fifthAmount += calcPerSec(player.sixthAmount, player.sixthPow, player.infinityUpgrades.includes("36Mult")) * diff / 100;
@@ -1586,12 +1589,13 @@ setInterval(function () {
     player.secondAmount += calcPerSec(player.thirdAmount, player.thirdPow, player.infinityUpgrades.includes("36Mult")) * diff / 100;
     player.firstAmount += calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult")) * diff / 100;
     if (player.money != Infinity) {
-    if (player.currentChallenge = "challenge3") {
-        player.money += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * player.chall3Pow * diff / 10;
-        player.totalmoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * player.chall3Pow * diff / 10;
-    } else {
+      if (player.currentChallenge == "challenge3") {
+        player.money += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff * player.chall3Pow / 10;
+        player.totalmoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff * player.chall3Pow / 10;
+      } else {
         player.money += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff / 10;
-        player.totalmoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff / 10;
+        player.totalmoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff * player.chall3Pow / 10;
+      }
     }
     player.totalTimePlayed += diff
     player.thisInfinityTime += diff
@@ -1762,11 +1766,13 @@ setInterval(function () {
         else document.getElementById("secondSoftReset").className = 'unavailablebtn';
     }
     
-    if (player.currentChallenge = "challenge2") document.getElementById("chall2Pow").style.display = "inline-block"
+    if (player.currentChallenge == "challenge2") document.getElementById("chall2Pow").style.display = "inline-block"
     else document.getElementById("chall2Pow").style.display = "none"
+    if (player.currentChallenge == "challenge3") document.getElementById("chall3Pow").style.display = "inline-block"
+    else document.getElementById("chall3Pow").style.display = "none"
     
     document.getElementById("chall2Pow").innerHTML = (player.chall2Pow*100).toFixed(2) + "%"
-    
+    document.getElementById("chall3Pow").innerHTML = (player.chall3Pow*100).toFixed(2) + "%"
 
 
     document.getElementById("sacrifice").setAttribute('ach-tooltip', "Boosts 8th Dimension by " + formatValue(player.options.notation, calcSacrificeBoost(), 2, 2) + "x");
@@ -1837,12 +1843,13 @@ setInterval(function () {
 }, 1000 / 30);
 
 document.getElementById("challenge2").onclick = function () {
-  startChallenge("challenge2")
+  startChallenge("challenge2") //TODO
 }
 
 document.getElementById("challenge3").onclick = function () {
-  startChallenge("challenge3")
+  startChallenge("challenge3") //TODO
 }
+
 
 document.getElementById("challenge5").onclick = function () {
   startChallenge("challenge5");
