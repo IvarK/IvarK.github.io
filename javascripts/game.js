@@ -52,6 +52,7 @@ var player = {
     interval: null,
     lastUpdate: new Date().getTime(),
     chall2Pow: 1,
+    chall3Pow: 1800,
     options: {
         notation: "Standard",
         //Standard = normal prefixed numbers, Scientific = standard form, Engineering = powers of 3.
@@ -135,6 +136,7 @@ function load_game() {
     if (player.lastUpdate === undefined) player.lastUpdate = new Date().getTime();
     if (player.achPow === undefined) player.achPow = 1;
     if (player.chall2Pow === undefined) player.chall2Pow = 1;
+    if (player.chall3Pow === undefined) player.chall3Pow = 1800;
     if (player.firstAmount !== 0) document.getElementById("secondRow").style.display = "table-row";
     if (player.challenges === undefined) player.challenges = []
     if (player.currentChallenge === undefined) player.currentChallenge = ""
@@ -440,6 +442,7 @@ function softReset() {
         lastUpdate: player.lastUpdate,
         achPow: player.achPow,
         chall2Pow: player.chall2Pow,
+        chall3Pow: player.chall3Pow,
         options: {
             notation: player.options.notation,
             animationsOn: player.options.animationsOn,
@@ -496,6 +499,7 @@ document.getElementById("tickSpeed").onclick = function () {
         updateTickSpeed();
         updateMoney();
         if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        player.chall3Pow=0
     }
 };
 
@@ -509,6 +513,7 @@ function buyMaxTickSpeed() {
         updateTickSpeed();
         updateMoney();
         if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        player.chall3Pow=0
         buyMaxTickSpeed();
     }
 }
@@ -572,6 +577,7 @@ document.getElementById("first").onclick = function () {
             giveAchievement("You gotta start somewhere")
         }
         if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        player.chall3Pow=0
         if (!player.achievements.includes("There's no point in doing that") && player.firstAmount >= 1e150) giveAchievement("There's no point in doing that");
     }
 };
@@ -604,6 +610,7 @@ document.getElementById("second").onclick = function () {
             giveAchievement("100 antimatter is a lot")
         }
         if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        player.chall3Pow=0
     }
 };
 
@@ -631,6 +638,7 @@ document.getElementById("third").onclick = function () {
             giveAchievement("Half life 3 confirmed")
         }
         if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        player.chall3Pow=0
     }
 };
 
@@ -658,6 +666,7 @@ document.getElementById("fourth").onclick = function () {
             giveAchievement("L4D: Left 4 Dimensions")
         }
         if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        player.chall3Pow=0
     }
 };
 
@@ -685,6 +694,7 @@ document.getElementById("fifth").onclick = function () {
             giveAchievement("5 Dimension Antimatter Punch")
         }
         if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        player.chall3Pow=0
     }
 };
 
@@ -712,6 +722,7 @@ document.getElementById("sixth").onclick = function () {
             giveAchievement("We couldn't afford 9")
         }
         if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        player.chall3Pow=0
     }
 };
 
@@ -739,6 +750,7 @@ document.getElementById("seventh").onclick = function () {
             giveAchievement("Not a luck related achievement")
         }
         if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        player.chall3Pow=0
     }
 };
 
@@ -765,6 +777,7 @@ document.getElementById("eight").onclick = function () {
             giveAchievement("90 degrees to infinity")
         }
         if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        player.chall3Pow=0
         if (!player.achievements.includes("The 9th Dimension is a lie") && player.eightAmount == 99) giveAchivement("The 9th Dimension is a lie")
     }
 };
@@ -788,6 +801,7 @@ document.getElementById("firstMax").onclick = function () {
             giveAchievement("You gotta start somewhere")
         }
         if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        player.chall3Pow=0
     }
 };
 
@@ -814,6 +828,7 @@ document.getElementById("secondMax").onclick = function () {
             giveAchievement("100 antimatter is a lot")
         }
         if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        player.chall3Pow=0
     }
 };
 
@@ -836,6 +851,7 @@ document.getElementById("thirdMax").onclick = function () {
             giveAchievement("Half life 3 confirmed")
         }
         if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        player.chall3Pow=0
     }
 };
 
@@ -858,6 +874,7 @@ document.getElementById("fourthMax").onclick = function () {
             giveAchievement("L4D: Left 4 Dimensions")
         }
         if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        player.chall3Pow=0
     }
 };
 
@@ -880,6 +897,7 @@ document.getElementById("fifthMax").onclick = function () {
             giveAchievement("5 Dimension Antimatter Punch")
         }
         if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        player.chall3Pow=0
     }
 };
 
@@ -902,6 +920,7 @@ document.getElementById("sixthMax").onclick = function () {
             giveAchievement("We couldn't afford 9")
         }
         if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        player.chall3Pow=0
     }
 };
 
@@ -924,6 +943,7 @@ document.getElementById("seventhMax").onclick = function () {
             giveAchievement("Not a luck related achievement")
         }
         if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        player.chall3Pow=0
     }
 };
 
@@ -945,6 +965,7 @@ document.getElementById("eightMax").onclick = function () {
             giveAchievement("90 degrees to infinity")
         }
         if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        player.chall3Pow=0
     }
 };
 
@@ -1205,6 +1226,7 @@ document.getElementById("secondSoftReset").onclick = function () {
             lastUpdate: player.lastUpdate,
             achPow: player.achPow,
             chall2Pow: player.chall2Pow,
+            chall3Pow: player.chall3Pow,
             options: {
                 scientific: player.options.scientific,
                 notation: player.options.notation,
@@ -1431,6 +1453,7 @@ document.getElementById("bigcrunch").onclick = function () {
         lastUpdate: player.lastUpdate,
         achPow: player.achPow,
         chall2Pow: 1,
+        chall3Pow: 1800,
         options: {
             scientific: player.options.scientific,
             notation: player.options.notation,
@@ -1520,6 +1543,7 @@ function startChallenge(name) {
       lastUpdate: player.lastUpdate,
       achPow: player.achPow,
       chall2Pow: player.chall2Pow,
+      chall3Pow: player.chall3Pow,
       options: {
         scientific: player.options.scientific,
         animationsOn: player.options.animationsOn,
@@ -1555,11 +1579,12 @@ function startChallenge(name) {
 
 function calcPerSec(amount, pow, hasMult) {
     var hasTimeMult = player.infinityUpgrades.includes("timeMult")
+    if (player.chall3Pow > 1800 || !player.currentChallenge = "challenge3") {
     if (!hasMult && !hasTimeMult) return Math.floor(amount) * pow * player.achPow * player.chall2Pow / (player.tickspeed / 1000);
     else if (!hasMult && hasTimeMult) return Math.floor(amount) * pow * player.achPow * timeMult() * player.chall2Pow / (player.tickspeed / 1000);
     else if (hasMult && !hasTimeMult) return Math.floor(amount) * pow * player.achPow * dimMults() * player.chall2Pow / (player.tickspeed / 1000);
     else return Math.floor(amount) * pow * player.achPow * dimMults() * timeMult() * player.chall2Pow / (player.tickspeed / 1000);
-}
+}}
 
 
 var index = 0;
@@ -1570,6 +1595,7 @@ setInterval(function () {
     var diff = Math.min(thisUpdate - player.lastUpdate, 21600000);
     diff = diff / 100;
     player.chall2Pow = Math.min(player.chall2Pow + diff/1800, 1)
+    player.chall3Pow += diff //I assume diff is 10/s but im not sure
     player.seventhAmount += calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult")) * diff / 100;
     player.sixthAmount += calcPerSec(player.seventhAmount, player.seventhPow, player.infinityUpgrades.includes("27Mult")) * diff / 100;
     player.fifthAmount += calcPerSec(player.sixthAmount, player.sixthPow, player.infinityUpgrades.includes("36Mult")) * diff / 100;
@@ -1825,7 +1851,11 @@ setInterval(function () {
 }, 1000 / 30);
 
 document.getElementById("challenge2").onclick = function () {
-  startChallenge("challenge2") //TODO
+  startChallenge("challenge2")
+}
+
+document.getElementById("challenge3").onclick = function () {
+  startChallenge("challenge3")
 }
 
 document.getElementById("challenge5").onclick = function () {
