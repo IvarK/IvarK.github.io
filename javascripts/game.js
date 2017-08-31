@@ -1801,7 +1801,7 @@ setInterval(function () {
         newsText = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
 				if (!player.newsArray.includes(newsText)) {
   				player.newsArray.push(newsText);
-  				if (player.newsArray.length<=50 && !player.achievements.includes("Devoted Viewer")) giveAchievement("Devoted Viewer") 
+  				if (player.newsArray.length>=50 && !player.achievements.includes("Devoted Viewer")) giveAchievement("Devoted Viewer") 
 				}
     }
 }, 1000 / 30);
