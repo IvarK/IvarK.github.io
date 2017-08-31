@@ -281,7 +281,7 @@ function getDimensionRateOfChange(tier) {
     const name = TIER_NAMES[tier];
     const next = TIER_NAMES[tier + 1];
     
-    const toGain = calcPerSec(player[next + 'Amount'], player[next + 'Pow'], hasInfinityMult(tier + 1));
+    const toGain = getDimensionProductionPerSecond(tier);
     const have = Math.max(player[name + 'Amount'], 1);
     const change = toGain * 10 / have;
     
@@ -1312,7 +1312,9 @@ document.getElementById("bigcrunch").onclick = function () {
     if (!player.achievements.includes("That's a lot of infinites") && player.infinitied >= 10) giveAchievement("That's a lot of infinites");
 }
 
-
+function getDimensionProductionPerSecond(tier) {
+    return Math.floor(player[TIER_NAMES[tier] + 'Amount']) * getDimensionFinalMultiplier(tier) / (player.tickspeed / 1000);
+}
 
 function calcPerSec(amount, pow, hasMult) {
     var hasTimeMult = player.infinityUpgrades.includes("timeMult")
@@ -1330,17 +1332,18 @@ setInterval(function () {
     if (!player.achievements.includes("Don't you dare to sleep") && thisUpdate - player.lastUpdate >= 21600000) giveAchievement("Don't you dare to sleep")
     var diff = Math.min(thisUpdate - player.lastUpdate, 21600000);
     diff = diff / 100;
-    player.seventhAmount += calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult")) * diff / 100;
-    player.sixthAmount += calcPerSec(player.seventhAmount, player.seventhPow, player.infinityUpgrades.includes("27Mult")) * diff / 100;
-    player.fifthAmount += calcPerSec(player.sixthAmount, player.sixthPow, player.infinityUpgrades.includes("36Mult")) * diff / 100;
-    player.fourthAmount += calcPerSec(player.fifthAmount, player.fifthPow, player.infinityUpgrades.includes("45Mult")) * diff / 100;
-    player.thirdAmount += calcPerSec(player.fourthAmount, player.fourthPow, player.infinityUpgrades.includes("45Mult")) * diff / 100;
-    player.secondAmount += calcPerSec(player.thirdAmount, player.thirdPow, player.infinityUpgrades.includes("36Mult")) * diff / 100;
-    player.firstAmount += calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult")) * diff / 100;
+    
+    for (let tier = 7; tier >= 1; --tier) {
+        const name = TIER_NAMES[tier];
+        
+        player[name + 'Amount'] += getDimensionProductionPerSecond(tier + 1) * diff / 100;
+    }
+    
     if (player.money != Infinity) {
         player.money += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff / 10;
         player.totalmoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff / 10;
     }
+    
     player.totalTimePlayed += diff
     player.thisInfinityTime += diff
     if (player.money == Infinity) {
@@ -1352,42 +1355,21 @@ setInterval(function () {
     updateCoinPerSec();
     updateDimensions();
 
-    if (player.firstCost > player.money) firstButton.className = 'unavailablebtn';
-    else firstButton.className = 'storebtn';
-    if (player.secondCost > player.money) secondButton.className = 'unavailablebtn';
-    else secondButton.className = 'storebtn';
-    if (player.thirdCost > player.money) thirdButton.className = 'unavailablebtn';
-    else thirdButton.className = 'storebtn';
-    if (player.fourthCost > player.money) fourthButton.className = 'unavailablebtn';
-    else fourthButton.className = 'storebtn';
-    if (player.fifthCost > player.money) fifthButton.className = 'unavailablebtn';
-    else fifthButton.className = 'storebtn';
-    if (player.sixthCost > player.money) sixthButton.className = 'unavailablebtn';
-    else sixthButton.className = 'storebtn';
-    if (player.seventhCost > player.money) seventhButton.className = 'unavailablebtn';
-    else seventhButton.className = 'storebtn';
-    if (player.eightCost > player.money) eightButton.className = 'unavailablebtn';
-    else eightButton.className = 'storebtn';
-    if (player.tickSpeedCost > player.money) tickSpeedButton.className = 'unavailablebtn';
-    else tickSpeedButton.className = 'storebtn';
-    if (player.tickSpeedCost > player.money) document.getElementById("tickSpeedMax").className = 'unavailablebtn';
-    else document.getElementById("tickSpeedMax").className = 'storebtn';
-    if (player.firstCost * (10 - player.firstBought) > player.money) document.getElementById("firstMax").className = 'unavailablebtn';
-    else document.getElementById("firstMax").className = 'storebtn';
-    if (player.secondCost * (10 - player.secondBought) > player.money) document.getElementById("secondMax").className = 'unavailablebtn';
-    else document.getElementById("secondMax").className = 'storebtn';
-    if (player.thirdCost * (10 - player.thirdBought) > player.money) document.getElementById("thirdMax").className = 'unavailablebtn';
-    else document.getElementById("thirdMax").className = 'storebtn';
-    if (player.fourthCost * (10 - player.fourthBought) > player.money) document.getElementById("fourthMax").className = 'unavailablebtn';
-    else document.getElementById("fourthMax").className = 'storebtn';
-    if (player.fifthCost * (10 - player.fifthBought) > player.money) document.getElementById("fifthMax").className = 'unavailablebtn';
-    else document.getElementById("fifthMax").className = 'storebtn';
-    if (player.sixthCost * (10 - player.sixthBought) > player.money) document.getElementById("sixthMax").className = 'unavailablebtn';
-    else document.getElementById("sixthMax").className = 'storebtn';
-    if (player.seventhCost * (10 - player.seventhBought) > player.money) document.getElementById("seventhMax").className = 'unavailablebtn';
-    else document.getElementById("seventhMax").className = 'storebtn';
-    if (player.eightCost * (10 - player.eightBought) > player.money) document.getElementById("eightMax").className = 'unavailablebtn';
-    else document.getElementById("eightMax").className = 'storebtn';
+    for (let tier = 1; tier <= 8; ++tier) {
+        const name = TIER_NAMES[tier];
+        
+        document.getElementById(name).className = canAfford(player[name + 'Cost']) ? 'storebtn' : 'unavailablebtn';
+        document.getElementById(name + 'Max').className = canAfford(player[name + 'Cost'] * (10 - player[name + 'Bought'])) ? 'storebtn' : 'unavailablebtn';
+    }
+    
+    if (canAfford(player.tickSpeedCost)) {
+        document.getElementById("tickSpeed").className = 'storebtn';
+        document.getElementById("tickSpeedMax").className = 'storebtn';
+    } else {
+        document.getElementById("tickSpeed").className = 'unavailablebtn';
+        document.getElementById("tickSpeedMax").className = 'unavailablebtn';
+    }
+    
     if (player.infinityPoints > 0) {
         document.getElementById("infinitybtn").style.display = "block";
         document.getElementById("infi11").className = "infinistorebtn1"
@@ -1440,7 +1422,9 @@ setInterval(function () {
         document.getElementById("optionsbtn").style.display = "inline-block";
         document.getElementById("statisticsbtn").style.display = "inline-block";
         document.getElementById("achievementsbtn").style.display = "inline-block";
-        if (player.infinitied > 0) document.getElementById("infinitybtn").style.display = "inline-block";
+        if (player.infinitied > 0) {
+            document.getElementById("infinitybtn").style.display = "inline-block";
+        }
     }
 
     if (player.infinityUpgrades.includes("timeMult")) document.getElementById("infi11").className = "infinistorebtnbought"
@@ -1452,60 +1436,21 @@ setInterval(function () {
     if (player.infinityUpgrades.includes("resetBoost")) document.getElementById("infi14").className = "infinistorebtnbought"
     if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("infi24").className = "infinistorebtnbought"
 
-
     document.getElementById("progressbar").style.width = (Math.log10(player.money) * 0.3247).toFixed(2) + "%"
     document.getElementById("progressbar").innerHTML = (Math.log10(player.money) * 0.3247).toFixed(2) + "%"
 
-    if (player.infinityUpgrades.includes("resetBoost")) {
-        if (player.resets === 0) {
-            if (player.fourthAmount >= 11) {
-                document.getElementById("softReset").className = 'storebtn';
-            } else document.getElementById("softReset").className = 'unavailablebtn';
-        }
-        if (player.resets == 1) {
-            if (player.fifthAmount >= 11) {
-                document.getElementById("softReset").className = 'storebtn';
-            } else document.getElementById("softReset").className = 'unavailablebtn';
-        } else if (player.resets == 2) {
-            if (player.sixthAmount >= 11) {
-                document.getElementById("softReset").className = 'storebtn';
-            } else document.getElementById("softReset").className = 'unavailablebtn';
-        } else if (player.resets == 3) {
-            if (player.seventhAmount >= 11) {
-                document.getElementById("softReset").className = 'storebtn';
-            } else document.getElementById("softReset").className = 'unavailablebtn';
-        } else if (player.resets > 3) {
-            if (player.eightAmount >= (player.resets - 4) * 15 + 11) {
-                document.getElementById("softReset").className = 'storebtn';
-            } else document.getElementById("softReset").className = 'unavailablebtn';
-        }
-        if (player.eightAmount >= player.galaxies * 60 + 71) document.getElementById("secondSoftReset").className = 'storebtn';
-        else document.getElementById("secondSoftReset").className = 'unavailablebtn';
+    const shiftRequirement = getShiftRequirement();
+    
+    if (player[TIER_NAMES[shiftRequirement.tier] + 'Amount'] >= shiftRequirement.amount) {
+        document.getElementById("softReset").className = 'storebtn';
     } else {
-        if (player.resets === 0) {
-            if (player.fourthAmount >= 20) {
-                document.getElementById("softReset").className = 'storebtn';
-            } else document.getElementById("softReset").className = 'unavailablebtn';
-        }
-        if (player.resets == 1) {
-            if (player.fifthAmount >= 20) {
-                document.getElementById("softReset").className = 'storebtn';
-            } else document.getElementById("softReset").className = 'unavailablebtn';
-        } else if (player.resets == 2) {
-            if (player.sixthAmount >= 20) {
-                document.getElementById("softReset").className = 'storebtn';
-            } else document.getElementById("softReset").className = 'unavailablebtn';
-        } else if (player.resets == 3) {
-            if (player.seventhAmount >= 20) {
-                document.getElementById("softReset").className = 'storebtn';
-            } else document.getElementById("softReset").className = 'unavailablebtn';
-        } else if (player.resets > 3) {
-            if (player.eightAmount >= (player.resets - 4) * 15 + 20) {
-                document.getElementById("softReset").className = 'storebtn';
-            } else document.getElementById("softReset").className = 'unavailablebtn';
-        }
-        if (player.eightAmount >= ((player.galaxies * 60 + 80))) document.getElementById("secondSoftReset").className = 'storebtn';
-        else document.getElementById("secondSoftReset").className = 'unavailablebtn';
+        document.getElementById("softReset").className = 'unavailablebtn';
+    }
+    
+    if (player.eightAmount >= getGalaxyRequirement()) {
+        document.getElementById("secondSoftReset").className = 'storebtn';
+    } else {
+        document.getElementById("secondSoftReset").className = 'unavailablebtn';
     }
 
     document.getElementById("sacrifice").setAttribute('ach-tooltip', "Boosts 8th Dimension by " + formatValue(player.options.notation, calcSacrificeBoost(), 2, 2) + "x");
