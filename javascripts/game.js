@@ -292,7 +292,7 @@ function getShiftRequirement() {
     let amount = 20;
     
     if (tier == 8) {
-        amount += (resets - 4) * 15;
+        amount += (player.resets - 4) * 15;
     }
     
     if (player.infinityUpgrades.includes("resetBoost")) {
