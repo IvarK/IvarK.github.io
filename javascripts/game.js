@@ -135,8 +135,6 @@ function load_game() {
     if (player.lastUpdate === undefined) player.lastUpdate = new Date().getTime();
     if (player.achPow === undefined) player.achPow = 1;
     if (player.chall2Pow === undefined) player.chall2Pow = 1;
-    if (player.challenges === undefined) player.challenges = []
-    if (player.currentChallenge === undefined) player.currentChallenge = ""
     if (player.firstAmount !== 0) document.getElementById("secondRow").style.display = "table-row";
     if (player.challenges === undefined) player.challenges = []
     if (player.currentChallenge === undefined) player.currentChallenge = ""
@@ -161,6 +159,7 @@ function load_game() {
     updateTickSpeed();
     updateAchPow();
     updateChallenges();
+
     document.getElementById("notation").innerHTML = "Notation: " + player.options.notation
 
     var achievements = document.getElementsByClassName('achievement');
@@ -496,7 +495,7 @@ document.getElementById("tickSpeed").onclick = function () {
         document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shortenCosts(player.tickSpeedCost);
         updateTickSpeed();
         updateMoney();
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
     }
 };
 
@@ -509,7 +508,7 @@ function buyMaxTickSpeed() {
         document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shortenCosts(player.tickSpeedCost);
         updateTickSpeed();
         updateMoney();
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
         buyMaxTickSpeed();
     }
 }
@@ -572,7 +571,7 @@ document.getElementById("first").onclick = function () {
         if (!player.achievements.includes("You gotta start somewhere")) {
             giveAchievement("You gotta start somewhere")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
         if (!player.achievements.includes("There's no point in doing that") && player.firstAmount >= 1e150) giveAchievement("There's no point in doing that");
     }
 };
@@ -604,7 +603,7 @@ document.getElementById("second").onclick = function () {
         if (!player.achievements.includes("100 antimatter is a lot")) {
             giveAchievement("100 antimatter is a lot")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
     }
 };
 
@@ -631,7 +630,7 @@ document.getElementById("third").onclick = function () {
         if (!player.achievements.includes("Half life 3 confirmed")) {
             giveAchievement("Half life 3 confirmed")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
     }
 };
 
@@ -658,7 +657,7 @@ document.getElementById("fourth").onclick = function () {
         if (!player.achievements.includes("L4D: Left 4 Dimensions")) {
             giveAchievement("L4D: Left 4 Dimensions")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
     }
 };
 
@@ -685,7 +684,7 @@ document.getElementById("fifth").onclick = function () {
         if (!player.achievements.includes("5 Dimension Antimatter Punch")) {
             giveAchievement("5 Dimension Antimatter Punch")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
     }
 };
 
@@ -712,7 +711,7 @@ document.getElementById("sixth").onclick = function () {
         if (!player.achievements.includes("We couldn't afford 9")) {
             giveAchievement("We couldn't afford 9")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
     }
 };
 
@@ -739,7 +738,7 @@ document.getElementById("seventh").onclick = function () {
         if (!player.achievements.includes("Not a luck related achievement")) {
             giveAchievement("Not a luck related achievement")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
     }
 };
 
@@ -765,7 +764,7 @@ document.getElementById("eight").onclick = function () {
         if (!player.achievements.includes("90 degrees to infinity")) {
             giveAchievement("90 degrees to infinity")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
         if (!player.achievements.includes("The 9th Dimension is a lie") && player.eightAmount == 99) giveAchivement("The 9th Dimension is a lie")
     }
 };
@@ -788,7 +787,7 @@ document.getElementById("firstMax").onclick = function () {
         if (!player.achievements.includes("You gotta start somewhere")) {
             giveAchievement("You gotta start somewhere")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
     }
 };
 
@@ -814,7 +813,7 @@ document.getElementById("secondMax").onclick = function () {
         if (!player.achievements.includes("100 antimatter is a lot")) {
             giveAchievement("100 antimatter is a lot")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
     }
 };
 
@@ -836,7 +835,7 @@ document.getElementById("thirdMax").onclick = function () {
         if (!player.achievements.includes("Half life 3 confirmed")) {
             giveAchievement("Half life 3 confirmed")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
     }
 };
 
@@ -858,7 +857,7 @@ document.getElementById("fourthMax").onclick = function () {
         if (!player.achievements.includes("L4D: Left 4 Dimensions")) {
             giveAchievement("L4D: Left 4 Dimensions")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
     }
 };
 
@@ -880,7 +879,7 @@ document.getElementById("fifthMax").onclick = function () {
         if (!player.achievements.includes("5 Dimension Antimatter Punch")) {
             giveAchievement("5 Dimension Antimatter Punch")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
     }
 };
 
@@ -902,7 +901,7 @@ document.getElementById("sixthMax").onclick = function () {
         if (!player.achievements.includes("We couldn't afford 9")) {
             giveAchievement("We couldn't afford 9")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
     }
 };
 
@@ -924,7 +923,7 @@ document.getElementById("seventhMax").onclick = function () {
         if (!player.achievements.includes("Not a luck related achievement")) {
             giveAchievement("Not a luck related achievement")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
     }
 };
 
@@ -945,7 +944,7 @@ document.getElementById("eightMax").onclick = function () {
         if (!player.achievements.includes("90 degrees to infinity")) {
             giveAchievement("90 degrees to infinity")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
     }
 };
 
@@ -1750,6 +1749,11 @@ setInterval(function () {
         if (player.eightAmount >= ((player.galaxies * 60 + 80))) document.getElementById("secondSoftReset").className = 'storebtn';
         else document.getElementById("secondSoftReset").className = 'unavailablebtn';
     }
+    
+    if (player.currentChallenge = "challenge2") document.getElementById("chall2Pow").style.display = "inline-block"
+    else document.getElementById("chall2Pow").style.display = "none"
+    
+    document.getElementById("chall2Pow").innerHTML = (player.chall2Pow*100).toFixed(2) + "%"
     
 
 
