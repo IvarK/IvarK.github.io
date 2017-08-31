@@ -53,11 +53,12 @@
             <button id="bigcrunch" style="font-family: Typewriter; font-size: 240%; display: none" class="tabbtn">Big Crunch</button>
         </div>
         <div>
-            <button id="dimensionsbtn" style="font-family: Typewriter; font-size: 200%" class="tabbtn">Dimensions</button>
-            <button id="optionsbtn" style="font-family: Typewriter; font-size: 200%" class="tabbtn">Options</button>
-            <button id="statisticsbtn" style="font-family: Typewriter; font-size: 200%" class="tabbtn">Statistics</button>
-            <button id="achievementsbtn" style="font-family: Typewriter; font-size: 200%" class="tabbtn">Achievements</button>
-            <button id="infinitybtn" style="font-family: Typewriter; font-size: 200%" class="infinitybtn">Infinity</button>
+            <button id="dimensionsbtn" style="font-family: Typewriter; font-size: 180%" class="tabbtn">Dimensions</button>
+            <button id="optionsbtn" style="font-family: Typewriter; font-size: 180%" class="tabbtn">Options</button>
+            <button id="statisticsbtn" style="font-family: Typewriter; font-size: 180%" class="tabbtn">Statistics</button>
+            <button id="achievementsbtn" style="font-family: Typewriter; font-size: 180%" class="tabbtn">Achievements</button>
+            <button id="challengesbtn" style="font-family: Typewriter; font-size: 180%" class="tabbtn">Challenges</button>
+            <button id="infinitybtn" style="font-family: Typewriter; font-size: 180%" class="infinitybtn">Infinity</button>
         </div>
         <div id="emptiness" class="tab" style="font-size: 150%">
             <br> The world has collapsed on itself due to excess of antimatter.
@@ -69,8 +70,9 @@
             <input id="confirmation" type="checkbox" style="width:20px; height:20px; display: none" ach-tooltip="No confirmation when doing Dimensional Sacrifice">
             <button id="sacrifice" class="storebtn" style="font-size:80%; width: 200px; display: none" ach-tooltip="">Dimensional Sacrifice</button>
             <button id="maxall" class="storebtn" style="font-size: 80%">Max all</Button>
-            <table class="table">
-                <tr style="font-size: 135%">
+            <table class="table" >
+            <tbody id="parent">
+                <tr style="font-size: 135%" id="firstRow">
                     <td id="firstD" width="32%">
                         First Dimension x1
                     </td>
@@ -182,6 +184,7 @@
                         <button id="eightMax" style="color:black; width:195px; height:35px" class="storebtn">Cost: 10</button>
                     </td>
                 </tr>
+                </body>
             </table>
             <table style="width: 100%">
                 <tr style="font-size: 145%">
@@ -310,9 +313,53 @@
                         <div id="I don't believe in Gods" class="achievement achievementlocked" ach-tooltip="Buy a Galaxy without Sacrificing"><br>I don't believe in Gods</div>
                     </td>
                 </tr>
+                <tr id="achRow3">
+                    <td>
+                        <div id="Devoted Viewer" class="achievement achievementlocked" ach-tooltip="Encounter 50 different news messages"><br>Devoted Viewer</div>
+                    </td>
+                    <td>
+                        <div id="Cheetah" class="achievement achievementlocked" ach-tooltip="Have antimatter/sec exceed your current antimatter above 1 Tg (1e63)"><br>Cheetah</div>
+                    </td>
+                    <td>
+                        <div id="Cloning Machine Overdrive" class="achievement achievementlocked" ach-tooltip="Have one of your dimension increases/sec be at least 1000% (when you have at least 10)"><br>Cloning Machine Overdrive</div>
+                    </td>
+                    <td>
+                        <div id="Marathon" class="achievement achievementlocked" ach-tooltip="Have antimatter/sec exceed your current antimatter for 30 consecutive seconds"><br>Marathon</div>
+                    </td>
+                    <td>
+                        <div id="Lightspeed" class="achievement achievementlocked" ach-tooltip="Get more than 100 Sx (100e21) ticks per second"><br>Lightspeed</div>
+                    </td>
+                    <td>
+                        <div id="Multidimensional" class="achievement achievementlocked" ach-tooltip="Reach 1 Qd (1e12) of all dimensions except 8th"><br>Multidimensional</div>
+                    </td>
+                    <td>
+                        <div id="Filler1" class="achievement achievementlocked" ach-tooltip="Need achievement idea"><br>undefined</div>
+                    </td>
+                    <td>
+                        <div id="Filler2" class="achievement achievementlocked" ach-tooltip="Need achievement idea"><br>404 Achievement Not Found</div>
+                    </td>
+                </tr>
             </table>
         </div>
 
+        
+        <div id="challenges" class="tab">
+          <br>
+          <div class="divider"><br></div>
+          <button id="challenge1" class="challengesbtn">Reach infinity for the first time</button>
+          <div class="divider"><br></div>
+          <button id="challenge2" class="challengesbtn">Buying anything halts your production, gradually coming back in 3 minutes</button>
+          <div class="divider"><br></div>
+          <button id="challenge3" class="challengesbtn">Buying anything halts your production for 3 minutes</button>
+          <div class="divider"><br></div>
+          <button id="challenge4" class="challengesbtn">Challenge</button>
+          <div class="divider"><br></div>
+          <button id="challenge5" class="challengesbtn">Every dimension tier bought doubles the cost of every dimension.</button>
+          <div class="divider"><br></div>
+          <button id="challenge6" class="challengesbtn">Challenge</button>
+          <div class="divider"><br></div>
+        </div>
+        
         <div id="infinity" class="tab" alight="center">
             <br>
             <div id="infinityPoints" style="color: black; font-size: 140%; width: 25%; margin: 0 auto">You have made x Infinity points.</div>
