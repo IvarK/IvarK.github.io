@@ -1,4 +1,5 @@
 var Marathon=0
+var achPow=1
 var player = {
     money: 10,
     tickSpeedCost: 1000,
@@ -49,7 +50,6 @@ var player = {
     galaxies: 0,
     tickDecrease: 0.9,
     totalmoney: 0,
-    achPow: 1,
     newsArray: [],
     interval: null,
     lastUpdate: new Date().getTime(),
@@ -134,7 +134,6 @@ function load_game() {
     if (player.thisInfinityTime === undefined) player.thisInfinityTime = 9999999999;
     if (player.galaxies === undefined) player.galaxies = 0;
     if (player.lastUpdate === undefined) player.lastUpdate = new Date().getTime();
-    if (player.achPow === undefined) player.achPow = 1;
     if (player.newsArray === undefined) player.newsArray = [];
     if (player.firstAmount !== 0) document.getElementById("secondRow").style.display = "table-row";
     if (player.secondAmount !== 0) {
@@ -251,27 +250,26 @@ function updateDimensions() {
     document.getElementById("sixthAmount").innerHTML = shortenDimensions(player.sixthAmount) + ' (' + player.sixthBought + ')  (+' + (calcPerSec(player.seventhAmount, player.seventhPow, player.infinityUpgrades.includes("27Mult")) * 10 / Math.max(player.sixthAmount, 1)).toFixed(1) + '%/s)';
     document.getElementById("seventhAmount").innerHTML = shortenDimensions(player.seventhAmount) + ' (' + player.seventhBought + ')  (+' + (calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult")) * 10 / Math.max(player.seventhAmount, 1)).toFixed(1) + '%/s)';
     document.getElementById("eightAmount").innerHTML = shortenDimensions(player.eightAmount) + ' (' + player.eightBought + ')';
-    if (calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult")) * 10 / Math.max(player.firstAmount, 10) > 1000 || calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult")) * 10 / Math.max(player.seventhAmount, 10) > 1000 || calcPerSec(player.seventhAmount, player.seventhPow, player.infinityUpgrades.includes("27Mult")) * 10 / Math.max(player.sixthAmount, 1) > 1000 ||calcPerSec(player.fourthAmount, player.fourthPow, player.infinityUpgrades.includes("45Mult")) * 10 / Math.max(player.thirdAmount, 10) > 1000 || calcPerSec(player.sixthAmount, player.sixthPow, player.infinityUpgrades.includes("36Mult")) * 10 / Math.max(player.fifthAmount, 10) > 1000 || calcPerSec(player.fifthAmount, player.fifthPow, player.infinityUpgrades.includes("45Mult")) * 10 / Math.max(player.fourthAmount, 1) > 1000 || calcPerSec(player.thirdAmount, player.thirdPow, player.infinityUpgrades.includes("36Mult")) * 10 / Math.max(player.secondAmount, 10) > 1000) {
-    if (!player.achievements.includes("Cloning Machine Overdrive")) giveAchievement("Cloning Machine Overdrive"); }
-    if (player.seventhAmount > 1e12 && !player.achievements.includes("Multidimensional")) giveAchievement("Multidimensional");
+    if (calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult")) * 10 / Math.max(player.firstAmount, 10) > 1000 || calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult")) * 10 / Math.max(player.seventhAmount, 10) > 1000 || calcPerSec(player.seventhAmount, player.seventhPow, player.infinityUpgrades.includes("27Mult")) * 10 / Math.max(player.sixthAmount, 1) > 1000 ||calcPerSec(player.fourthAmount, player.fourthPow, player.infinityUpgrades.includes("45Mult")) * 10 / Math.max(player.thirdAmount, 10) > 1000 || calcPerSec(player.sixthAmount, player.sixthPow, player.infinityUpgrades.includes("36Mult")) * 10 / Math.max(player.fifthAmount, 10) > 1000 || calcPerSec(player.fifthAmount, player.fifthPow, player.infinityUpgrades.includes("45Mult")) * 10 / Math.max(player.fourthAmount, 1) > 1000 || calcPerSec(player.thirdAmount, player.thirdPow, player.infinityUpgrades.includes("36Mult")) * 10 / Math.max(player.secondAmount, 10) > 1000) giveAchievement("Cloning Machine Overdrive");
+    if (player.seventhAmount > 1e12) giveAchievement("Multidimensional");
     if (!player.infinityUpgrades.includes("timeMult")) {
-        document.getElementById("firstD").innerHTML = 'First Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("18Mult") ? player.firstPow * player.achPow : player.firstPow * player.achPow * dimMults(), 1, 0);
-        document.getElementById("secondD").innerHTML = 'Second Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("27Mult") ? player.secondPow * player.achPow : player.secondPow * player.achPow * dimMults(), 1, 0);
-        document.getElementById("thirdD").innerHTML = 'Third Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("36Mult") ? player.thirdPow * player.achPow : player.thirdPow * player.achPow * dimMults(), 1, 0);
-        document.getElementById("fourthD").innerHTML = 'Fourth Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("45Mult") ? player.fourthPow * player.achPow : player.fourthPow * player.achPow * dimMults(), 1, 0);
-        document.getElementById("fifthD").innerHTML = 'Fifth Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("45Mult") ? player.fifthPow * player.achPow : player.fifthPow * player.achPow * dimMults(), 1, 0);
-        document.getElementById("sixthD").innerHTML = 'Sixth Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("36Mult") ? player.sixthPow * player.achPow : player.sixthPow * player.achPow * dimMults(), 1, 0);
-        document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("27Mult") ? player.seventhPow * player.achPow : player.seventhPow * player.achPow * dimMults(), 1, 0);
-        document.getElementById("eightD").innerHTML = 'Eighth Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("18Mult") ? player.eightPow * player.achPow : player.eightPow * player.achPow * dimMults(), 1, 0);
+        document.getElementById("firstD").innerHTML = 'First Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("18Mult") ? player.firstPow * achPow : per.firstPow * achPow * dimMults(), 1, 0);
+        document.getElementById("secondD").innerHTML = 'Second Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("27Mult") ? player.secondPow * achPow : player.secondPow * achPow * dimMults(), 1, 0);
+        document.getElementById("thirdD").innerHTML = 'Third Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("36Mult") ? player.thirdPow * achPow : player.thirdPow * achPow * dimMults(), 1, 0);
+        document.getElementById("fourthD").innerHTML = 'Fourth Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("45Mult") ? player.fourthPow * achPow : player.fourthPow * achPow * dimMults(), 1, 0);
+        document.getElementById("fifthD").innerHTML = 'Fifth Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("45Mult") ? player.fifthPow * achPow : player.fifthPow * achPow * dimMults(), 1, 0);
+        document.getElementById("sixthD").innerHTML = 'Sixth Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("36Mult") ? player.sixthPow * achPow : player.sixthPow * achPow * dimMults(), 1, 0);
+        document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("27Mult") ? player.seventhPow * achPow : player.seventhPow * achPow * dimMults(), 1, 0);
+        document.getElementById("eightD").innerHTML = 'Eighth Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("18Mult") ? player.eightPow * achPow : player.eightPow * achPow * dimMults(), 1, 0);
     } else {
-        document.getElementById("firstD").innerHTML = 'First Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("18Mult") ? player.firstPow * player.achPow : player.firstPow * player.achPow * dimMults()) * timeMult(), 1, 0);
-        document.getElementById("secondD").innerHTML = 'Second Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("27Mult") ? player.secondPow * player.achPow : player.secondPow * player.achPow * dimMults()) * timeMult(), 1, 0);
-        document.getElementById("thirdD").innerHTML = 'Third Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("36Mult") ? player.thirdPow * player.achPow : player.thirdPow * player.achPow * dimMults()) * timeMult(), 1, 0);
-        document.getElementById("fourthD").innerHTML = 'Fourth Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("45Mult") ? player.fourthPow * player.achPow : player.fourthPow * player.achPow * dimMults()) * timeMult(), 1, 0);
-        document.getElementById("fifthD").innerHTML = 'Fifth Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("45Mult") ? player.fifthPow * player.achPow : player.fifthPow * player.achPow * dimMults()) * timeMult(), 1, 0);
-        document.getElementById("sixthD").innerHTML = 'Sixth Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("36Mult") ? player.sixthPow * player.achPow : player.sixthPow * player.achPow * dimMults()) * timeMult(), 1, 0);
-        document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("27Mult") ? player.seventhPow * player.achPow : player.seventhPow * player.achPow * dimMults()) * timeMult(), 1, 0);
-        document.getElementById("eightD").innerHTML = 'Eighth Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("18Mult") ? player.eightPow * player.achPow : player.eightPow * player.achPow * dimMults()) * timeMult(), 1, 0);
+        document.getElementById("firstD").innerHTML = 'First Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("18Mult") ? player.firstPow * achPow : player.firstPow * achPow * dimMults()) * timeMult(), 1, 0);
+        document.getElementById("secondD").innerHTML = 'Second Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("27Mult") ? player.secondPow * achPow : player.secondPow * achPow * dimMults()) * timeMult(), 1, 0);
+        document.getElementById("thirdD").innerHTML = 'Third Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("36Mult") ? player.thirdPow * achPow : player.thirdPow * achPow * dimMults()) * timeMult(), 1, 0);
+        document.getElementById("fourthD").innerHTML = 'Fourth Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("45Mult") ? player.fourthPow * achPow : player.fourthPow * achPow * dimMults()) * timeMult(), 1, 0);
+        document.getElementById("fifthD").innerHTML = 'Fifth Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("45Mult") ? player.fifthPow * achPow : player.fifthPow * achPow * dimMults()) * timeMult(), 1, 0);
+        document.getElementById("sixthD").innerHTML = 'Sixth Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("36Mult") ? player.sixthPow * achPow : player.sixthPow * achPow * dimMults()) * timeMult(), 1, 0);
+        document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("27Mult") ? player.seventhPow * achPow : player.seventhPow * achPow * dimMults()) * timeMult(), 1, 0);
+        document.getElementById("eightD").innerHTML = 'Eighth Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("18Mult") ? player.eightPow * achPow : player.eightPow * achPow * dimMults()) * timeMult(), 1, 0);
     }
     if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.9 - (player.galaxies * 0.04))) * 100) + '% faster.';
     else document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.9 - (player.galaxies * 0.02))) * 100) + '% faster.';
@@ -356,7 +354,7 @@ function updateTickSpeed() {
     else {
         document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed * (100 / Math.pow(10, exp))) + ' / ' + shorten(100 / Math.pow(10, exp));
     }
-    if (player.tickspeed < Math.pow(10,-23) && !player.achievements.includes("Lightspeed")) giveAchievement("Lightspeed");
+    if (player.tickspeed < 1e-23) giveAchievement("Lightspeed");
 
     /*	else if (player.tickspeed > 10) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*10)  + ' / 10';
     	else if (player.tickspeed > 1) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*100) + ' / 100';
@@ -440,8 +438,7 @@ function softReset() {
         totalmoney: player.totalmoney,
         interval: null,
         lastUpdate: player.lastUpdate,
-        achPow: player.achPow,
-	newsArray: player.newsArray,
+	    newsArray: player.newsArray,
         options: {
             notation: player.options.notation,
             animationsOn: player.options.animationsOn,
@@ -466,7 +463,7 @@ function softReset() {
     document.getElementById("seventhRow").style.display = "none";
     document.getElementById("eightRow").style.display = "none";
     updateTickSpeed();
-    if (!player.achievements.includes("Boosting to the max") && player.resets >= 10) giveAchievement("Boosting to the max")
+    if (player.resets >= 10) giveAchievement("Boosting to the max")
 }
 
 MoneyFormat = ['K', 'M', 'B', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QdDc', 'QtDc', 'SxDc', 'SpDc', 'ODc', 'NDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QdVg', 'QtVg', 'SxVg', 'SpVg', 'OVg', 'NVg', 'Tg', 'UTg', 'DTg', 'TTg', 'QdTg', 'QtTg', 'SxTg', 'SpTg', 'OTg', 'NTg', 'Qa', 'UQa', 'DQa', 'TQa', 'QdQa', 'QtQa', 'SxQa', 'SpQa', 'OQa', 'NQa', 'Qi', 'UQi', 'DQi', 'TQi', 'QaQi', 'QtQi', 'SxQi', 'SpQi', 'OQi', 'NQi', 'Se', 'USe', 'DSe', 'TSe', 'QaSe', 'QtSe', 'SxSe', 'SpSe', 'OSe', 'NSe', 'St', 'USt', 'DSt', 'TSt', 'QaSt', 'QtSt', 'SxSt', 'SpSt', 'OSt', 'NSt', 'Og', 'UOg', 'DOg', 'TOg', 'QdOg', 'QtOg', 'SxOg', 'SpOg', 'OOg', 'NOg', 'Nn', 'UNn', 'DNn', 'TNn', 'QdNn', 'QtNn', 'SxNn', 'SpNn', 'ONn', 'NNn', 'Ce', 'UCe'];
@@ -530,6 +527,7 @@ function timeDisplay(time) {
 
 
 function giveAchievement(name) {
+    if (!player.achievements.includes(name)) {
     $.notify(name, "success");
     player.achievements.push(name);
     document.getElementById(name).className = "achievementunlocked"
@@ -538,7 +536,7 @@ function giveAchievement(name) {
     updateAchPow();
     document.getElementById("")
 
-}
+}}
 
 function doubleAllDimensionCosts() {
     const tiers = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
@@ -568,11 +566,8 @@ document.getElementById("first").onclick = function () {
         updateMoney();
         updateDimensions();
         document.getElementById("secondRow").style.display = "table-row";
-
-        if (!player.achievements.includes("You gotta start somewhere")) {
-            giveAchievement("You gotta start somewhere")
-        }
-        if (!player.achievements.includes("There's no point in doing that") && player.firstAmount >= 1e150) giveAchievement("There's no point in doing that");
+        giveAchievement("You gotta start somewhere");
+        if (player.firstAmount >= 1e150) giveAchievement("There's no point in doing that");
     }
 };
 
@@ -600,9 +595,7 @@ document.getElementById("second").onclick = function () {
         document.getElementById("tickSpeedMax").style.visibility = "visible";
         document.getElementById("tickLabel").style.visibility = "visible";
         document.getElementById("tickSpeedAmount").style.visibility = "visible";
-        if (!player.achievements.includes("100 antimatter is a lot")) {
-            giveAchievement("100 antimatter is a lot")
-        }
+        giveAchievement("100 antimatter is a lot");
     }
 };
 
@@ -626,9 +619,7 @@ document.getElementById("third").onclick = function () {
         updateMoney();
         updateDimensions();
         document.getElementById("fourthRow").style.display = "table-row";
-        if (!player.achievements.includes("Half life 3 confirmed")) {
-            giveAchievement("Half life 3 confirmed")
-        }
+        giveAchievement("Half life 3 confirmed");
     }
 };
 
@@ -652,9 +643,7 @@ document.getElementById("fourth").onclick = function () {
         updateMoney();
         updateDimensions();
         if (player.resets > 0) document.getElementById("fifthRow").style.display = "table-row";
-        if (!player.achievements.includes("L4D: Left 4 Dimensions")) {
-            giveAchievement("L4D: Left 4 Dimensions")
-        }
+        giveAchievement("L4D: Left 4 Dimensions");
     }
 };
 
@@ -678,9 +667,7 @@ document.getElementById("fifth").onclick = function () {
         updateMoney();
         updateDimensions();
         if (player.resets > 1) document.getElementById("sixthRow").style.display = "table-row";
-        if (!player.achievements.includes("5 Dimension Antimatter Punch")) {
-            giveAchievement("5 Dimension Antimatter Punch")
-        }
+        giveAchievement("5 Dimension Antimatter Punch");
     }
 };
 
@@ -704,9 +691,7 @@ document.getElementById("sixth").onclick = function () {
         updateMoney();
         updateDimensions();
         if (player.resets > 2) document.getElementById("seventhRow").style.display = "table-row";
-        if (!player.achievements.includes("We couldn't afford 9")) {
-            giveAchievement("We couldn't afford 9")
-        }
+        giveAchievement("We couldn't afford 9");
     }
 };
 
@@ -730,9 +715,7 @@ document.getElementById("seventh").onclick = function () {
         updateMoney();
         updateDimensions();
         if (player.resets > 3) document.getElementById("eightRow").style.display = "table-row";
-        if (!player.achievements.includes("Not a luck related achievement")) {
-            giveAchievement("Not a luck related achievement")
-        }
+        giveAchievement("Not a luck related achievement");
     }
 };
 
@@ -755,10 +738,8 @@ document.getElementById("eight").onclick = function () {
         updateCosts();
         updateMoney();
         updateDimensions();
-        if (!player.achievements.includes("90 degrees to infinity")) {
-            giveAchievement("90 degrees to infinity")
-        }
-        if (!player.achievements.includes("The 9th Dimension is a lie") && player.eightAmount == 99) giveAchivement("The 9th Dimension is a lie")
+        giveAchievement("90 degrees to infinity")
+        if (player.eightAmount == 99) giveAchivement("The 9th Dimension is a lie");
     }
 };
 
@@ -777,9 +758,7 @@ document.getElementById("firstMax").onclick = function () {
         updateMoney();
         updateDimensions();
         document.getElementById("secondRow").style.display = "table-row";
-        if (!player.achievements.includes("You gotta start somewhere")) {
-            giveAchievement("You gotta start somewhere")
-        }
+        giveAchievement("You gotta start somewhere");
     }
 };
 
@@ -802,9 +781,7 @@ document.getElementById("secondMax").onclick = function () {
         document.getElementById("tickSpeedMax").style.visibility = "visible";
         document.getElementById("tickLabel").style.visibility = "visible";
         document.getElementById("tickSpeedAmount").style.visibility = "visible";
-        if (!player.achievements.includes("100 antimatter is a lot")) {
-            giveAchievement("100 antimatter is a lot")
-        }
+        giveAchievement("100 antimatter is a lot");
     }
 };
 
@@ -823,9 +800,7 @@ document.getElementById("thirdMax").onclick = function () {
         updateMoney();
         updateDimensions();
         document.getElementById("fourthRow").style.display = "table-row";
-        if (!player.achievements.includes("Half life 3 confirmed")) {
-            giveAchievement("Half life 3 confirmed")
-        }
+        giveAchievement("Half life 3 confirmed");
     }
 };
 
@@ -844,9 +819,7 @@ document.getElementById("fourthMax").onclick = function () {
         updateMoney();
         updateDimensions();
         if (player.resets > 0) document.getElementById("fifthRow").style.display = "table-row";
-        if (!player.achievements.includes("L4D: Left 4 Dimensions")) {
-            giveAchievement("L4D: Left 4 Dimensions")
-        }
+        giveAchievement("L4D: Left 4 Dimensions");
     }
 };
 
@@ -865,9 +838,7 @@ document.getElementById("fifthMax").onclick = function () {
         updateMoney();
         updateDimensions();
         if (player.resets > 1) document.getElementById("sixthRow").style.display = "table-row";
-        if (!player.achievements.includes("5 Dimension Antimatter Punch")) {
-            giveAchievement("5 Dimension Antimatter Punch")
-        }
+        giveAchievement("5 Dimension Antimatter Punch");
     }
 };
 
@@ -886,9 +857,7 @@ document.getElementById("sixthMax").onclick = function () {
         updateMoney();
         updateDimensions();
         if (player.resets > 2) document.getElementById("seventhRow").style.display = "table-row";
-        if (!player.achievements.includes("We couldn't afford 9")) {
-            giveAchievement("We couldn't afford 9")
-        }
+        giveAchievement("We couldn't afford 9");
     }
 };
 
@@ -907,9 +876,7 @@ document.getElementById("seventhMax").onclick = function () {
         updateMoney();
         updateDimensions();
         if (player.resets > 3) document.getElementById("eightRow").style.display = "table-row";
-        if (!player.achievements.includes("Not a luck related achievement")) {
-            giveAchievement("Not a luck related achievement")
-        }
+        giveAchievement("Not a luck related achievement");
     }
 };
 
@@ -927,9 +894,7 @@ document.getElementById("eightMax").onclick = function () {
         updateCosts();
         updateMoney();
         updateDimensions();
-        if (!player.achievements.includes("90 degrees to infinity")) {
-            giveAchievement("90 degrees to infinity")
-        }
+        giveAchievement("90 degrees to infinity");
     }
 };
 
@@ -1078,22 +1043,22 @@ function updateAchPow() {
     }
 
     if (player.achievements.includes("Devoted Viewer") &&
-        player.achievements.includes("The Gods are pleased") &&
-        player.achievements.includes("That's a lot of infinites") &&
-        player.achievements.includes("You didn't need it anyway") &&
-        player.achievements.includes("One for each dimension") &&
-        player.achievements.includes("Claustrophobic") &&
-        player.achievements.includes("That's fast!") &&
-        player.achievements.includes("I don't believe in Gods")) {
+        player.achievements.includes("Cheetah") &&
+        player.achievements.includes("Cloning Machine Overdrive") &&
+        player.achievements.includes("Marathon") &&
+        player.achievements.includes("Lightspeed") &&
+        player.achievements.includes("Multidimensional") &&
+        player.achievements.includes("a") &&
+        player.achievements.includes("a")) {
         amount += 1;
         document.getElementById("achRow4").className = "completedrow"
     }
 
     for (i = amount; i > 0; i--) {
-        player.achPow = Math.pow(1.5, amount)
+        achPow = Math.pow(1.5, amount)
     }
 
-    document.getElementById("achmultlabel").innerHTML = "Current achievement multiplier on each Dimension: " + player.achPow.toFixed(1) + "x"
+    document.getElementById("achmultlabel").innerHTML = "Current achievement multiplier on each Dimension: " + achPow.toFixed(1) + "x"
 
 
 }
@@ -1146,7 +1111,7 @@ document.getElementById("infi24").onclick = function () {
 
 document.getElementById("secondSoftReset").onclick = function () {
     if (player.infinityUpgrades.includes("resetBoost") ? player.eightAmount >= (player.galaxies * 60 + 80) - 9 : player.eightAmount >= (player.galaxies * 60 + 80)) {
-      if (!player.achievements.includes("I don't believe in Gods") && player.sacrificed == 0) giveAchievement("I don't believe in Gods");
+      if (player.sacrificed == 0) giveAchievement("I don't believe in Gods");
         player = {
             money: 10,
             tickSpeedCost: 1000,
@@ -1199,8 +1164,7 @@ document.getElementById("secondSoftReset").onclick = function () {
             tickDecrease: player.tickDecrease - 0.03,
             interval: null,
             lastUpdate: player.lastUpdate,
-            achPow: player.achPow,
-	    newsArray: player.newsArray,
+	        newsArray: player.newsArray,
             options: {
                 scientific: player.options.scientific,
                 notation: player.options.notation,
@@ -1225,8 +1189,8 @@ document.getElementById("secondSoftReset").onclick = function () {
         document.getElementById("seventhRow").style.display = "none";
         document.getElementById("eightRow").style.display = "none";
         updateTickSpeed();
-        if (!player.achievements.includes("Double Galaxy") && player.galaxies >= 2) giveAchievement("Double Galaxy");
-        if (!player.achievements.includes("You got past The Big Wall") && player.galaxies >= 1) giveAchievement("You got past The Big Wall");
+        if (player.galaxies >= 2) giveAchievement("Double Galaxy");
+        giveAchievement("You got past The Big Wall");
     }
 };
 
@@ -1351,7 +1315,7 @@ function sacrifice() {
     player.sixthAmount = 0;
     player.seventhAmount = 0;
 
-    if (Math.max(Math.pow((Math.log10(Math.max(player.sacrificed, 1)) / 10.0), 2), 2) >= 600 && !player.achievements.includes("The Gods are pleased")) giveAchievement("The Gods are pleased");
+    if (Math.max(Math.pow((Math.log10(Math.max(player.sacrificed, 1)) / 10.0), 2), 2) >= 600) giveAchievement("The Gods are pleased");
 
 }
 
@@ -1367,9 +1331,9 @@ document.getElementById("sacrifice").onclick = function () {
 
 
 document.getElementById("bigcrunch").onclick = function () {
-    if (!player.achievements.includes("That's fast!") && player.thisInfinityTime <= 72000) giveAchievement("That's fast!");
-    if (!player.achievements.includes("You didn't need it anyway") && player.eightAmount == 0) giveAchievement("You didn't need it anyway");
-    if (!player.achievements.includes("Claustrophobic") && player.galaxies == 1) giveAchievement("Claustrophobic");
+    if (player.thisInfinityTime <= 72000) giveAchievement("That's fast!");
+    if (player.eightAmount == 0) giveAchievement("You didn't need it anyway");
+    if (player.galaxies == 1) giveAchievement("Claustrophobic");
     if (player.currentChallenge != "") {
     player.challenges.push(player.currentChallenge);
   }
@@ -1425,8 +1389,7 @@ document.getElementById("bigcrunch").onclick = function () {
         totalmoney: 0,
         interval: null,
         lastUpdate: player.lastUpdate,
-        achPow: player.achPow,
-	newsArray: player.newsArray,
+    	newsArray: player.newsArray,
         options: {
             scientific: player.options.scientific,
             notation: player.options.notation,
@@ -1454,8 +1417,8 @@ document.getElementById("bigcrunch").onclick = function () {
     showTab("dimensions")
     kongregate.stats.submit('Infinitied', player.infinitied);
     kongregate.stats.submit('Fastest Infinity time', Math.floor(player.bestInfinityTime / 10))
-    if (!player.achievements.includes("To infinity!")) giveAchievement("To infinity!");
-    if (!player.achievements.includes("That's a lot of infinites") && player.infinitied >= 10) giveAchievement("That's a lot of infinites");
+    giveAchievement("To infinity!");
+    if (player.infinitied >= 10) giveAchievement("That's a lot of infinites");
     if (player.infinitied == 1) player.challenges.push("challenge1");
     updateChallenges();
 }
@@ -1514,7 +1477,7 @@ function startChallenge(name) {
       totalmoney: 0,
       interval: null,
       lastUpdate: player.lastUpdate,
-      achPow: player.achPow,
+   	  newsArray: player.newsArray,
       options: {
         scientific: player.options.scientific,
         animationsOn: player.options.animationsOn,
@@ -1553,10 +1516,10 @@ function startChallenge(name) {
 
 function calcPerSec(amount, pow, hasMult) {
     var hasTimeMult = player.infinityUpgrades.includes("timeMult")
-    if (!hasMult && !hasTimeMult) return Math.floor(amount) * pow * player.achPow / (player.tickspeed / 1000);
-    else if (!hasMult && hasTimeMult) return Math.floor(amount) * pow * player.achPow * timeMult() / (player.tickspeed / 1000);
-    else if (hasMult && !hasTimeMult) return Math.floor(amount) * pow * player.achPow * dimMults() / (player.tickspeed / 1000);
-    else return Math.floor(amount) * pow * player.achPow * dimMults() * timeMult() / (player.tickspeed / 1000);
+    if (!hasMult && !hasTimeMult) return Math.floor(amount) * pow * achPow / (player.tickspeed / 1000);
+    else if (!hasMult && hasTimeMult) return Math.floor(amount) * pow * achPow * timeMult() / (player.tickspeed / 1000);
+    else if (hasMult && !hasTimeMult) return Math.floor(amount) * pow * achPow * dimMults() / (player.tickspeed / 1000);
+    else return Math.floor(amount) * pow * achPow * dimMults() * timeMult() / (player.tickspeed / 1000);
 }
 
 
@@ -1564,7 +1527,7 @@ var index = 0;
 
 setInterval(function () {
     var thisUpdate = new Date().getTime();
-    if (!player.achievements.includes("Don't you dare to sleep") && thisUpdate - player.lastUpdate >= 21600000) giveAchievement("Don't you dare to sleep")
+    if (thisUpdate - player.lastUpdate >= 21600000) giveAchievement("Don't you dare to sleep")
     var diff = Math.min(thisUpdate - player.lastUpdate, 21600000);
     diff = diff / 100;
     player.seventhAmount += calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult")) * diff / 100;
@@ -1589,9 +1552,9 @@ setInterval(function () {
     updateCoinPerSec();
     updateDimensions();
     if (calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) > player.money) {
-	if(player.money > Math.pow(10,63) && !player.achievements.includes("Cheetah")) giveAchievement("Cheetah");
+	if(player.money > 1e63) giveAchievement("Cheetah");
 	Marathon++;
-	if (Marathon >= 300 && !player.achievements.includes("Marathon")) giveAchievement("Marathon");
+	if (Marathon >= 300) giveAchievement("Marathon");
     } else {
 	Marathon = 0; }
 
@@ -1757,9 +1720,9 @@ setInterval(function () {
 
     document.getElementById("sacrifice").setAttribute('ach-tooltip', "Boosts 8th Dimension by " + formatValue(player.options.notation, calcSacrificeBoost(), 2, 2) + "x");
 
-    if (!player.achievements.includes("I forgot to nerf that") && player.firstPow >= 10e30) giveAchievement("I forgot to nerf that")
-    if (!player.achievements.includes("Antimatter Apocalypse") && player.money >= 10e79) giveAchievement("Antimatter Apocalypse")
-    if (!player.achievements.includes("One for each dimension") && player.totalTimePlayed >= 10 * 60 * 60 * 24 * 8) giveAchievement("One for each dimension")
+    if (player.firstPow >= 10e30) giveAchievement("I forgot to nerf that")
+    if (player.money >= 10e79) giveAchievement("Antimatter Apocalypse")
+    if (player.totalTimePlayed >= 600 * 480 * 24) giveAchievement("One for each dimension")
 
     index++;
     player.lastUpdate = thisUpdate;
@@ -1801,7 +1764,7 @@ setInterval(function () {
         newsText = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
 				if (!player.newsArray.includes(newsText)) {
   				player.newsArray.push(newsText);
-  				if (player.newsArray.length>=50 && !player.achievements.includes("Devoted Viewer")) giveAchievement("Devoted Viewer") 
+  				if (player.newsArray.length>=50) giveAchievement("Devoted Viewer"); 
 				}
     }
 }, 1000 / 30);
