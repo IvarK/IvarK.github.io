@@ -265,8 +265,13 @@ function updateDimensions() {
         document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("27Mult") ? player.seventhPow * player.achPow : player.seventhPow * player.achPow * dimMults()) * timeMult(), 1, 0);
         document.getElementById("eightD").innerHTML = 'Eighth Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("18Mult") ? player.eightPow * player.achPow : player.eightPow * player.achPow * dimMults()) * timeMult(), 1, 0);
     }
-    if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.9 - (player.galaxies * 0.04))) * 100) + '% faster.';
-    else document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.9 - (player.galaxies * 0.02))) * 100) + '% faster.';
+
+    let ratePerGalaxy = player.infinityUpgrades.includes("galaxyBoost") ? 0.04 : 0.02;
+    let timescale     = 0.9 - (player.galaxies * ratePerGalaxy)
+    let speedup       = (1 / timescale) - 1
+
+    document.getElementById("tickLabel").innerHTML = 'Make the game ' + (speedup * 100).toFixed(2) + '% faster.';
+
     if (player.infinityUpgrades.includes("resetBoost")) {
         if (player.resets > 3) {
             document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + ((player.resets - 4) * 15 + 11) + ' Eighth Dimension';
@@ -343,16 +348,7 @@ function updateCosts() {
 }
 
 function updateTickSpeed() {
-    var exp = Math.floor(Math.log10(player.tickspeed));
-    if (exp > 1) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed);
-    else {
-        document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed * (100 / Math.pow(10, exp))) + ' / ' + shorten(100 / Math.pow(10, exp));
-    }
-
-    /*	else if (player.tickspeed > 10) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*10)  + ' / 10';
-    	else if (player.tickspeed > 1) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*100) + ' / 100';
-    else if (player.tickspeed > .1) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*1000) + ' / 1000';
-    else document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*10000) + ' / 10000';*/
+    document.getElementById("tickSpeedAmount").innerHTML = 'Ticks per Second: ' + shorten(1000 / player.tickspeed);
 }
 
 function softReset() {
