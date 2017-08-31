@@ -532,6 +532,8 @@ function buyTickSpeed() {
     player.tickSpeedCost *= 10;
 
     player.tickspeed *= getTickSpeedMultiplier();
+    
+    return true;
 }
 
 document.getElementById("tickSpeed").onclick = function () {
