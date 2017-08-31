@@ -645,10 +645,6 @@ function onBuyDimension(tier) {
         case 8: giveAchievement("90 degrees to infinity"); break;
     }
     
-    if (tier == 1 && player.firstAmount >= 1e150) {
-        giveAchievement("There's no point in doing that");
-    }
-    
     if (tier == 8 && player.eightAmount == 99) {
         giveAchievement("The 9th Dimension is a lie");
     }
@@ -715,7 +711,12 @@ function buyManyDimension(tier) {
 }
 
 document.getElementById("first").onclick = function () {
-    buyOneDimension(1);
+    if (buyOneDimension(1)) {
+        // This achievement is granted only if the buy one button is pressed.
+        if (player.firstAmount >= 1e150) {
+            giveAchievement("There's no point in doing that");
+        }
+    }
 };
 
 document.getElementById("second").onclick = function () {
