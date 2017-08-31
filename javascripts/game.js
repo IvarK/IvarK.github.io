@@ -1559,6 +1559,9 @@ function init() {
         document.getElementById("logoanimation").style.display = "none";
         document.getElementById("logodiv").style.display = "none";
     }
+    if (player.options.newsHidden) {
+        document.getElementById("game").style.display = "none";
+    }
 
 }
 
