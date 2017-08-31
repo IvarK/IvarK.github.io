@@ -50,6 +50,7 @@ var player = {
     interval: null,
     lastUpdate: new Date().getTime(),
     options: {
+        newsHidden: false,
         notation: "Standard",
         //Standard = normal prefixed numbers, Scientific = standard form, Engineering = powers of 3.
         scientific: false,
@@ -131,6 +132,7 @@ function load_game() {
     if (player.galaxies === undefined) player.galaxies = 0;
     if (player.lastUpdate === undefined) player.lastUpdate = new Date().getTime();
     if (player.achPow === undefined) player.achPow = 1;
+    if (player.options.newsHidden === undefined) player.options.newsHidden = false;
     if (player.firstAmount !== 0) document.getElementById("secondRow").style.display = "table-row";
     if (player.secondAmount !== 0) {
         document.getElementById("thirdRow").style.display = "table-row";
@@ -458,6 +460,7 @@ function softReset() {
         lastUpdate: player.lastUpdate,
         achPow: player.achPow,
         options: {
+            newsHidden: player.newsHidden,
             notation: player.options.notation,
             animationsOn: player.options.animationsOn,
             invert: player.options.invert,
@@ -1049,6 +1052,7 @@ document.getElementById("secondSoftReset").onclick = function () {
             lastUpdate: player.lastUpdate,
             achPow: player.achPow,
             options: {
+                newsHidden: player.newsHidden,
                 scientific: player.options.scientific,
                 notation: player.options.notation,
                 animationsOn: player.options.animationsOn,
@@ -1167,14 +1171,14 @@ document.getElementById("notation").onclick = function () {
     updateCosts();
 };
 
-var newsHidden = false
+
 document.getElementById("newsbtn").onclick = function() {
-  if (!newsHidden) {
+  if (!player.options.newsHidden) {
     document.getElementById("game").style.display = "none";
-    newsHidden = true
+    player.options.newsHidden = true
   } else {
     document.getElementById("game").style.display = "inline-block";
-    newsHidden = false
+    player.options.newsHidden = false
   }
 }
 
@@ -1282,6 +1286,7 @@ document.getElementById("bigcrunch").onclick = function () {
         lastUpdate: player.lastUpdate,
         achPow: player.achPow,
         options: {
+            newsHidden: player.newsHidden,
             scientific: player.options.scientific,
             notation: player.options.notation,
             animationsOn: player.options.animationsOn,
