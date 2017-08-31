@@ -1787,10 +1787,6 @@ var newsArray = ["You just made your 1,000,000,000,000,000 antimatter. This one 
 "If an alien lands on your front lawn and extends an appendage as a gesture of greeting, before you get friendly, toss it an eightball. If the appendage explodes, then the alien was probably made of antimatter. If not, then you can proceed to take it to your leader. -Neil deGrasse Tyson"]
 
 var initpos = c.width;
-var newsText = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
-if (player.newsArray.includes(newsText)) {
-  player.newsArray.push(newsText);
-  if (player.newsArray.length<=50 && !player.achievements.includes("Devoted Viewer")) giveAchievement("Devoted Viewer") }}
 ctx.textBaseline = 'top';
 
 setInterval(function () {
@@ -1802,6 +1798,10 @@ setInterval(function () {
     if (initpos < (newsText.length * 32 * -1)) {
         initpos = c.width;
         newsText = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
+				if (!player.newsArray.includes(newsText)) {
+  				player.newsArray.push(newsText);
+  				if (player.newsArray.length<=50 && !player.achievements.includes("Devoted Viewer")) giveAchievement("Devoted Viewer") 
+				}
     }
 }, 1000 / 30);
 
