@@ -1588,7 +1588,7 @@ setInterval(function () {
     updateMoney();
     updateCoinPerSec();
     updateDimensions();
-    if (calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) > player.money {
+    if (calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) > player.money) {
 	if(player.money > Math.pow(10,63) && !player.achievements.includes("Cheetah")) giveAchievement("Cheetah");
 	Marathon++;
 	if (Marathon >= 300 && !player.achievements.includes("Marathon")) giveAchievement("Marathon");
