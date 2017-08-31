@@ -51,6 +51,7 @@ var player = {
     achPow: 1,
     interval: null,
     lastUpdate: new Date().getTime(),
+    chall2Pow: 1,
     options: {
         notation: "Standard",
         //Standard = normal prefixed numbers, Scientific = standard form, Engineering = powers of 3.
@@ -133,6 +134,7 @@ function load_game() {
     if (player.galaxies === undefined) player.galaxies = 0;
     if (player.lastUpdate === undefined) player.lastUpdate = new Date().getTime();
     if (player.achPow === undefined) player.achPow = 1;
+    if (player.chall2Pow === undefined) player.chall2Pow = 1;
     if (player.firstAmount !== 0) document.getElementById("secondRow").style.display = "table-row";
     if (player.secondAmount !== 0) {
         document.getElementById("thirdRow").style.display = "table-row";
@@ -434,6 +436,7 @@ function softReset() {
         interval: null,
         lastUpdate: player.lastUpdate,
         achPow: player.achPow,
+        chall2Pow: player.chall2Pow,
         options: {
             notation: player.options.notation,
             animationsOn: player.options.animationsOn,
@@ -489,6 +492,7 @@ document.getElementById("tickSpeed").onclick = function () {
         document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shortenCosts(player.tickSpeedCost);
         updateTickSpeed();
         updateMoney();
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
     }
 };
 
@@ -501,6 +505,7 @@ function buyMaxTickSpeed() {
         document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shortenCosts(player.tickSpeedCost);
         updateTickSpeed();
         updateMoney();
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
         buyMaxTickSpeed();
     }
 }
@@ -560,10 +565,10 @@ document.getElementById("first").onclick = function () {
         updateMoney();
         updateDimensions();
         document.getElementById("secondRow").style.display = "table-row";
-
         if (!player.achievements.includes("You gotta start somewhere")) {
             giveAchievement("You gotta start somewhere")
         }
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
         if (!player.achievements.includes("There's no point in doing that") && player.firstAmount >= 1e150) giveAchievement("There's no point in doing that");
     }
 };
@@ -595,6 +600,7 @@ document.getElementById("second").onclick = function () {
         if (!player.achievements.includes("100 antimatter is a lot")) {
             giveAchievement("100 antimatter is a lot")
         }
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
     }
 };
 
@@ -621,6 +627,7 @@ document.getElementById("third").onclick = function () {
         if (!player.achievements.includes("Half life 3 confirmed")) {
             giveAchievement("Half life 3 confirmed")
         }
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
     }
 };
 
@@ -647,6 +654,7 @@ document.getElementById("fourth").onclick = function () {
         if (!player.achievements.includes("L4D: Left 4 Dimensions")) {
             giveAchievement("L4D: Left 4 Dimensions")
         }
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
     }
 };
 
@@ -673,6 +681,7 @@ document.getElementById("fifth").onclick = function () {
         if (!player.achievements.includes("5 Dimension Antimatter Punch")) {
             giveAchievement("5 Dimension Antimatter Punch")
         }
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
     }
 };
 
@@ -699,6 +708,7 @@ document.getElementById("sixth").onclick = function () {
         if (!player.achievements.includes("We couldn't afford 9")) {
             giveAchievement("We couldn't afford 9")
         }
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
     }
 };
 
@@ -725,6 +735,7 @@ document.getElementById("seventh").onclick = function () {
         if (!player.achievements.includes("Not a luck related achievement")) {
             giveAchievement("Not a luck related achievement")
         }
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
     }
 };
 
@@ -750,6 +761,7 @@ document.getElementById("eight").onclick = function () {
         if (!player.achievements.includes("90 degrees to infinity")) {
             giveAchievement("90 degrees to infinity")
         }
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
         if (!player.achievements.includes("The 9th Dimension is a lie") && player.eightAmount == 99) giveAchivement("The 9th Dimension is a lie")
     }
 };
@@ -772,6 +784,7 @@ document.getElementById("firstMax").onclick = function () {
         if (!player.achievements.includes("You gotta start somewhere")) {
             giveAchievement("You gotta start somewhere")
         }
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
     }
 };
 
@@ -797,6 +810,7 @@ document.getElementById("secondMax").onclick = function () {
         if (!player.achievements.includes("100 antimatter is a lot")) {
             giveAchievement("100 antimatter is a lot")
         }
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
     }
 };
 
@@ -818,6 +832,7 @@ document.getElementById("thirdMax").onclick = function () {
         if (!player.achievements.includes("Half life 3 confirmed")) {
             giveAchievement("Half life 3 confirmed")
         }
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
     }
 };
 
@@ -839,6 +854,7 @@ document.getElementById("fourthMax").onclick = function () {
         if (!player.achievements.includes("L4D: Left 4 Dimensions")) {
             giveAchievement("L4D: Left 4 Dimensions")
         }
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
     }
 };
 
@@ -860,6 +876,7 @@ document.getElementById("fifthMax").onclick = function () {
         if (!player.achievements.includes("5 Dimension Antimatter Punch")) {
             giveAchievement("5 Dimension Antimatter Punch")
         }
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
     }
 };
 
@@ -881,6 +898,7 @@ document.getElementById("sixthMax").onclick = function () {
         if (!player.achievements.includes("We couldn't afford 9")) {
             giveAchievement("We couldn't afford 9")
         }
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
     }
 };
 
@@ -902,6 +920,7 @@ document.getElementById("seventhMax").onclick = function () {
         if (!player.achievements.includes("Not a luck related achievement")) {
             giveAchievement("Not a luck related achievement")
         }
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
     }
 };
 
@@ -922,6 +941,7 @@ document.getElementById("eightMax").onclick = function () {
         if (!player.achievements.includes("90 degrees to infinity")) {
             giveAchievement("90 degrees to infinity")
         }
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0.0001
     }
 };
 
@@ -1181,6 +1201,7 @@ document.getElementById("secondSoftReset").onclick = function () {
             interval: null,
             lastUpdate: player.lastUpdate,
             achPow: player.achPow,
+            chall2Pow: player.chall2Pow,
             options: {
                 scientific: player.options.scientific,
                 notation: player.options.notation,
@@ -1406,6 +1427,7 @@ document.getElementById("bigcrunch").onclick = function () {
         interval: null,
         lastUpdate: player.lastUpdate,
         achPow: player.achPow,
+        chall2Pow: 1,
         options: {
             scientific: player.options.scientific,
             notation: player.options.notation,
@@ -1494,6 +1516,7 @@ function startChallenge(name) {
       interval: null,
       lastUpdate: player.lastUpdate,
       achPow: player.achPow,
+      chall2Pow: player.chall2Pow,
       options: {
         scientific: player.options.scientific,
         animationsOn: player.options.animationsOn,
@@ -1529,10 +1552,10 @@ function startChallenge(name) {
 
 function calcPerSec(amount, pow, hasMult) {
     var hasTimeMult = player.infinityUpgrades.includes("timeMult")
-    if (!hasMult && !hasTimeMult) return Math.floor(amount) * pow * player.achPow / (player.tickspeed / 1000);
-    else if (!hasMult && hasTimeMult) return Math.floor(amount) * pow * player.achPow * timeMult() / (player.tickspeed / 1000);
-    else if (hasMult && !hasTimeMult) return Math.floor(amount) * pow * player.achPow * dimMults() / (player.tickspeed / 1000);
-    else return Math.floor(amount) * pow * player.achPow * dimMults() * timeMult() / (player.tickspeed / 1000);
+    if (!hasMult && !hasTimeMult) return Math.floor(amount) * pow * player.achPow * player.chall2Pow / (player.tickspeed / 1000);
+    else if (!hasMult && hasTimeMult) return Math.floor(amount) * pow * player.achPow * timeMult() * player.chall2Pow / (player.tickspeed / 1000);
+    else if (hasMult && !hasTimeMult) return Math.floor(amount) * pow * player.achPow * dimMults() * player.chall2Pow / (player.tickspeed / 1000);
+    else return Math.floor(amount) * pow * player.achPow * dimMults() * timeMult() * player.chall2Pow / (player.tickspeed / 1000);
 }
 
 
@@ -1543,6 +1566,7 @@ setInterval(function () {
     if (!player.achievements.includes("Don't you dare to sleep") && thisUpdate - player.lastUpdate >= 21600000) giveAchievement("Don't you dare to sleep")
     var diff = Math.min(thisUpdate - player.lastUpdate, 21600000);
     diff = diff / 100;
+    player.chall2Pow = Math.min(player.chall2Pow + diff/1800, 1)
     player.seventhAmount += calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult")) * diff / 100;
     player.sixthAmount += calcPerSec(player.seventhAmount, player.seventhPow, player.infinityUpgrades.includes("27Mult")) * diff / 100;
     player.fifthAmount += calcPerSec(player.sixthAmount, player.sixthPow, player.infinityUpgrades.includes("36Mult")) * diff / 100;
@@ -1740,21 +1764,33 @@ var newsArray = ["You just made your 1,000,000,000,000,000 antimatter. This one 
 "The cookie is a lie.", "Antimatter cookies have been confirmed to not exist, whoever claims that, stop.", "Antimatter ghosts do not exist. Just like matter ghosts. They don't have any matter, for that matter.",
 "Nuclear power plants have been abandoned in favor of antimatter power.", "What do you mean, more than two dimensions??? We're on a screen, clearly there are only 2 dimensions.",
 "Antimatter prices have drastically dropped due to newfound abundance.", "In the news today, humans make a antimatter animal sacrifice to the antimatter god.", "You made one antimatter! Whatever that means.",
-"Scientists confirm that the colour of antimatter is Blurple", "How does it matter if its antimatter?", "None of this matters", "IN THE END, IT DOESN'T ANTIMATTER \n-hevipelle",
-"New news company has become rivals with us. They are made entirely of antimatter.", "How much is Infinity? \n-literally everyone at least once", "How does NASA organise a party? They planet.",
+"Scientists confirm that the colour of antimatter is Blurple", "How does it matter if its antimatter?", "None of this matters", "IN THE END, IT DOESN'T ANTIMATTER -hevipelle",
+"New news company has become rivals with us. They are made entirely of antimatter.", "How much is Infinity? -literally everyone at least once", "How does NASA organise a party? They planet.",
 "The square root of 9 is 3, therefore the 9th dimension can't exist.", "Electrons are now seeing the happy things in life. We're calling these happy electrons 'Positrons.' Wait, that's taken?",
 "This completely useless sentence will get you nowhere and you know it. What a horrible obnoxious man would come up with it, he will probably go to hell, and why would the developer even implement it? Even if you kept reading it you wouldn't be able to finish it (the first time).",
-"GHOST SAYS HELLO \n-Boo-chan", "Can someone tell hevi to calm down? \n-Mee6", "Due to Antimatter messing with physics, a creature that was once a moose is now a human", "!hi", "Eh, the Fourth Dimension is alright...",
-"Alright \n-Alright", "The English greeting is not present in Antimatter speak.", "To buy max or not to buy max, that is the question", "You do know that you won't reach Infinity in -1 seconds, right?", "This antimatter triggers me",
-"No, mom, I can't pause this game.", "Scientific notation has entered the battlefield.", "Make the Universe Great Again! \n-Tronald Dump", "#dank-maymays",
+"GHOST SAYS HELLO -Boo-chan", "Can someone tell hevi to calm down? -Mee6", "Due to Antimatter messing with physics, a creature that was once a moose is now a human", "!hi", "Eh, the Fourth Dimension is alright...",
+"Alright -Alright", "The English greeting is not present in Antimatter speak.", "To buy max or not to buy max, that is the question", "You do know that you won't reach Infinity in -1 seconds, right?", "This antimatter triggers me",
+"No, mom, I can't pause this game.", "Scientific notation has entered the battlefield.", "Make the Universe Great Again! -Tronald Dump", "#dank-maymays",
 "A new religion has been created, and it's spreading like wildfire. The believers of this religion worship the Heavenly Pelle, the goddess of antimatter. They also believe that 10^308 is infinite.",
 "Someone has just touched a blob, and blown up. Was the blob antimatter, or was the guy made of Explodium?", "Antimatter people seem to be even more afraid of 13 then we are. They destroyed entire galaxies just to remove 13 from their percents.",
-"If you are not playing on Kongregate or ivark.github.io, the site is bootleg.", "Rate 5 on Kongregate so more people can experience this 5 star Rating", "BOO!", "You ate for too long. \n-hevipelle", "I hate myself. \n-Boo-chan",
-"Gee golly \n-Xandawesome", "Need more quotes! \n-hevipelle", "This world situation is a SOS situation to the world!! MAYDAY, MAYDAY!!", "As for sure as the sun rises in the west, of all the singers and poets on earth, I am the bestest. - hevipelle", 
-"Above us, there is nothing above, But the stars, above.", "Antimatter has been confirmed to smell like kittens", "To understand dimensional sacrifice, you do actually need a PhD in theoretical physics. Sorry!",
-"You have found the rarest antimatter pepe, it's ultra rare!", "Can we get 1e169 likes on this video??? Smash that like button!!", "you got assimilated by the 9th dimension? just call your doctor for mental ilness!", 
-"If black lives matter, do white lives antimatter?", "Just another antimatter in the wall", "Thanks a lot -dankesehr", "You are living, you occupy space, you have a mass, you matter. Unless you antimatter.", 
-"If an alien lands on your front lawn and extends an appendage as a gesture of greeting, before you get friendly, toss it an eightball. If the appendage explodes, then the alien was probably made of antimatter. If not, then you can proceed to take it to your leader. -Neil deGrasse Tyson"]
+"If you are not playing on Kongregate or ivark.github.io, the site is bootleg.", "Rate 5 on Kongregate so more people can experience this 5 star Rating", "BOO!", "You ate for too long. -hevipelle", "I hate myself. -Boo-chan",
+"Gee golly -Xandawesome", "Need more quotes! -hevipelle", "Above us, there is nothing above, But the stars, above.", "If black lives matter, do white lives antimatter?", "Somebody wasn't nice, he got an antimatter-storm.",
+"You are living, you occupy space, you have a mass, you matter... unless you antimatter.", "I clicked too fast... my PC is now dematerialised.",
+"If an alien lands on your front lawn and extends an appendage as a gesture of greeting, before you get friendly, toss it an eightball. If the appendage explodes, then the alien was probably made of antimatter. If not, then you can proceed to take it to your leader. -Neil deGrasse Tyson",
+"There always must be equal matter than there is antimatter, I guess your mom balances that a bit", "Nothing is created, nothing is destroyed.", "We dug a big hole to store this antimatter... Adele's rolling in it.",
+"If everything is antimatter, how can you see yourself?", "The stock markets have crashed due to antimatter beings somehow knowing what they will be tomorrow.", "My dog ate too much antimatter, now he is doing 'meow!'", "If you put infinity into your calculator it will result in 42!",
+"To understand dimensional sacrifice, you do actually need a PhD in theoretical physics. Sorry!", "You have found the rarest antimatter pepe, it's ultra rare!", "Can we get 1e169 likes on this video??? Smash that like button!!",
+"You got assimilated by the 9th dimension? Just call your doctor for mental illness!", "The smell of antimatter has been revealed. It smells like kittens", "Just another antimatter in the wall", "GET SNIPED, WEAKLING", "Thanks a lot -dankesehr",
+"This world situation is a SOS situation to the world!! MAYDAY, MAYDAY!!", "As for sure as the sun rises in the west, of all the singers and poets on earth, I am the bestest. - hevipelle", "I'm good at using github -hevipelle",
+"A new chat server has been created for Antimatter people to spy on Matter people, and the world has fallen into chaos and discord", "A new study has come out linking the consumption of potatoes with increased risk of Antimatter implosion.  Scientists suggest eating more.",
+"A new group for the standardisation of numbers have come forward with a novel new format involving emoji's.", "I thought that I fixed that bug but apparently some update broke it again -hevipelle",
+]
+
+
+var conditionalNewsArray = ["Our universe is falling apart. We are all evacuating. This is the last news cast", "THIS NEWS STATION HAS SHUT DOWN DUE TO COLLAPSING UNIVERSE", 
+"Researchers have confirmed that there is another dimension to this world. However, only antimatter beings can interact with it", 
+"Studies show a massive problem with the time-space continuum. In other words, a large amount of antimatter has dissapeared from the cosmos", 
+"Should we call antimatter Matter now? There seems to be more of it."]
 
 var initpos = c.width;
 var newsText = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
@@ -1766,9 +1802,17 @@ setInterval(function () {
     ctx.font = "24px Typewriter";
     ctx.fillText(newsText, initpos, 30);
     initpos -= 6;
+    
+    if (player.fourthAmount != 0 && !newsArray.includes(conditionalNewsArray[2])) newsArray.push(conditionalNewsArray[2])
+    if (player.resets != 0 && !newsArray.includes(conditionalNewsArray[3])) newsArray.push(conditionalNewsArray[3])
+    if (player.achievements.includes("Antimatter Apocalypse") && !newsArray.includes(conditionalNewsArray[4])) newsArray.push(conditionalNewsArray[4])
+      
+    var next = newsArray[Math.round(Math.random() * (newsArray.length - 1))]
+    if (player.money >= 1e306) next = conditionalNewsArray[0]
+    if (player.money == Infinity) next = conditionalNewsArray[1]
     if (initpos < (newsText.length * 32 * -1)) {
         initpos = c.width;
-        newsText = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
+        newsText = next;
     }
 }, 1000 / 30);
 
@@ -1777,7 +1821,7 @@ document.getElementById("challenge2").onclick = function () {
 }
 
 document.getElementById("challenge5").onclick = function () {
-  startChallenge("doubling cost");
+  startChallenge("challenge5");
 }
 
 function init() {
