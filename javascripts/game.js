@@ -160,7 +160,7 @@ function load_game() {
     updateCosts();
     updateTickSpeed();
     updateAchPow();
-
+    updateChallenges();
     document.getElementById("notation").innerHTML = "Notation: " + player.options.notation
 
     var achievements = document.getElementsByClassName('achievement');
