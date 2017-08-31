@@ -52,6 +52,7 @@ var player = {
     interval: null,
     lastUpdate: new Date().getTime(),
     chall2Pow: 1,
+    chall3Pow: 0.01,
     options: {
         notation: "Standard",
         //Standard = normal prefixed numbers, Scientific = standard form, Engineering = powers of 3.
@@ -135,6 +136,7 @@ function load_game() {
     if (player.lastUpdate === undefined) player.lastUpdate = new Date().getTime();
     if (player.achPow === undefined) player.achPow = 1;
     if (player.chall2Pow === undefined) player.chall2Pow = 1;
+    if (player.chall3Pow === undefined) player.chall3Pow = 0.01;
     if (player.firstAmount !== 0) document.getElementById("secondRow").style.display = "table-row";
     if (player.challenges === undefined) player.challenges = []
     if (player.currentChallenge === undefined) player.currentChallenge = ""
@@ -440,6 +442,7 @@ function softReset() {
         lastUpdate: player.lastUpdate,
         achPow: player.achPow,
         chall2Pow: player.chall2Pow,
+        chall3Pow: 0.01,
         options: {
             notation: player.options.notation,
             animationsOn: player.options.animationsOn,
@@ -1205,6 +1208,7 @@ document.getElementById("secondSoftReset").onclick = function () {
             lastUpdate: player.lastUpdate,
             achPow: player.achPow,
             chall2Pow: player.chall2Pow,
+            chall3Pow: 0.01,
             options: {
                 scientific: player.options.scientific,
                 notation: player.options.notation,
@@ -1431,6 +1435,7 @@ document.getElementById("bigcrunch").onclick = function () {
         lastUpdate: player.lastUpdate,
         achPow: player.achPow,
         chall2Pow: 1,
+        chall3Pow: 0.01,
         options: {
             scientific: player.options.scientific,
             notation: player.options.notation,
@@ -1520,6 +1525,7 @@ function startChallenge(name) {
       lastUpdate: player.lastUpdate,
       achPow: player.achPow,
       chall2Pow: player.chall2Pow,
+      chall3Pow: 0.01,
       options: {
         scientific: player.options.scientific,
         animationsOn: player.options.animationsOn,
@@ -1555,11 +1561,12 @@ function startChallenge(name) {
 
 function calcPerSec(amount, pow, hasMult) {
     var hasTimeMult = player.infinityUpgrades.includes("timeMult")
+    if (player.chall3Pow > 1800 || !player.currentChallenge = "challenge3") {
     if (!hasMult && !hasTimeMult) return Math.floor(amount) * pow * player.achPow * player.chall2Pow / (player.tickspeed / 1000);
     else if (!hasMult && hasTimeMult) return Math.floor(amount) * pow * player.achPow * timeMult() * player.chall2Pow / (player.tickspeed / 1000);
     else if (hasMult && !hasTimeMult) return Math.floor(amount) * pow * player.achPow * dimMults() * player.chall2Pow / (player.tickspeed / 1000);
     else return Math.floor(amount) * pow * player.achPow * dimMults() * timeMult() * player.chall2Pow / (player.tickspeed / 1000);
-}
+}}
 
 
 var index = 0;
@@ -1570,6 +1577,7 @@ setInterval(function () {
     var diff = Math.min(thisUpdate - player.lastUpdate, 21600000);
     diff = diff / 100;
     player.chall2Pow = Math.min(player.chall2Pow + diff/1800, 1)
+    player.chall3Pow += diff/18000
     player.seventhAmount += calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult")) * diff / 100;
     player.sixthAmount += calcPerSec(player.seventhAmount, player.seventhPow, player.infinityUpgrades.includes("27Mult")) * diff / 100;
     player.fifthAmount += calcPerSec(player.sixthAmount, player.sixthPow, player.infinityUpgrades.includes("36Mult")) * diff / 100;
@@ -1578,6 +1586,10 @@ setInterval(function () {
     player.secondAmount += calcPerSec(player.thirdAmount, player.thirdPow, player.infinityUpgrades.includes("36Mult")) * diff / 100;
     player.firstAmount += calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult")) * diff / 100;
     if (player.money != Infinity) {
+    if (player.currentChallenge = "challenge3") {
+        player.money += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * player.chall3Pow * diff / 10;
+        player.totalmoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * player.chall3Pow * diff / 10;
+    } else {
         player.money += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff / 10;
         player.totalmoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff / 10;
     }
@@ -1825,7 +1837,11 @@ setInterval(function () {
 }, 1000 / 30);
 
 document.getElementById("challenge2").onclick = function () {
-  startChallenge("challenge2") //TODO
+  startChallenge("challenge2")
+}
+
+document.getElementById("challenge3").onclick = function () {
+  startChallenge("challenge3")
 }
 
 document.getElementById("challenge5").onclick = function () {
