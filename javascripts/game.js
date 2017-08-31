@@ -265,13 +265,13 @@ function updateDimensions() {
         document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("27Mult") ? player.seventhPow * player.achPow : player.seventhPow * player.achPow * dimMults()) * timeMult(), 1, 0);
         document.getElementById("eightD").innerHTML = 'Eighth Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("18Mult") ? player.eightPow * player.achPow : player.eightPow * player.achPow * dimMults()) * timeMult(), 1, 0);
     }
-	
-	let ratePerGalaxy = player.infinityUpgrades.includes("galaxyBoost") ? 0.04 : 0.02;
-	let timescale     = 0.9 - (player.galaxies * ratePerGalaxy)
-	let speedup       = (1 / timescale) - 1
-	
+
+    let ratePerGalaxy = player.infinityUpgrades.includes("galaxyBoost") ? 0.04 : 0.02;
+    let timescale     = 0.9 - (player.galaxies * ratePerGalaxy)
+    let speedup       = (1 / timescale) - 1
+
     document.getElementById("tickLabel").innerHTML = 'Make the game ' + (speedup * 100).toFixed(2) + '% faster.';
-	
+
     if (player.infinityUpgrades.includes("resetBoost")) {
         if (player.resets > 3) {
             document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + ((player.resets - 4) * 15 + 11) + ' Eighth Dimension';
@@ -348,7 +348,7 @@ function updateCosts() {
 }
 
 function updateTickSpeed() {
-	document.getElementById("tickSpeedAmount").innerHTML = 'Ticks per Second: ' + shorten(1000 / player.tickspeed);
+    document.getElementById("tickSpeedAmount").innerHTML = 'Ticks per Second: ' + shorten(1000 / player.tickspeed);
 }
 
 function softReset() {
