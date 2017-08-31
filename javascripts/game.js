@@ -484,7 +484,10 @@ function softReset() {
     document.getElementById("seventhRow").style.display = "none";
     document.getElementById("eightRow").style.display = "none";
     updateTickSpeed();
-    if (!player.achievements.includes("Boosting to the max") && player.resets >= 10) giveAchievement("Boosting to the max")
+    
+    if (player.resets >= 10) {
+        giveAchievement("Boosting to the max");
+    }
 }
 
 MoneyFormat = ['K', 'M', 'B', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QdDc', 'QtDc', 'SxDc', 'SpDc', 'ODc', 'NDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QdVg', 'QtVg', 'SxVg', 'SpVg', 'OVg', 'NVg', 'Tg', 'UTg', 'DTg', 'TTg', 'QdTg', 'QtTg', 'SxTg', 'SpTg', 'OTg', 'NTg', 'Qa', 'UQa', 'DQa', 'TQa', 'QdQa', 'QtQa', 'SxQa', 'SpQa', 'OQa', 'NQa', 'Qi', 'UQi', 'DQi', 'TQi', 'QaQi', 'QtQi', 'SxQi', 'SpQi', 'OQi', 'NQi', 'Se', 'USe', 'DSe', 'TSe', 'QaSe', 'QtSe', 'SxSe', 'SpSe', 'OSe', 'NSe', 'St', 'USt', 'DSt', 'TSt', 'QaSt', 'QtSt', 'SxSt', 'SpSt', 'OSt', 'NSt', 'Og', 'UOg', 'DOg', 'TOg', 'QdOg', 'QtOg', 'SxOg', 'SpOg', 'OOg', 'NOg', 'Nn', 'UNn', 'DNn', 'TNn', 'QdNn', 'QtNn', 'SxNn', 'SpNn', 'ONn', 'NNn', 'Ce', 'UCe'];
@@ -574,14 +577,16 @@ function timeDisplay(time) {
 
 
 function giveAchievement(name) {
+    if (player.achievements.includes(name)) {
+        return
+    }
+    
     $.notify(name, "success");
     player.achievements.push(name);
     document.getElementById(name).className = "achievementunlocked"
     kongregate.stats.submit('Achievements', player.achievements.length);
 
     updateAchPow();
-    document.getElementById("")
-
 }
 
 const TIER_NAMES = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
@@ -628,6 +633,31 @@ function getDimensionCostMultiplier(tier) {
     return multiplier[tier - 1];
 }
 
+function onBuyDimension(tier) {
+    switch (tier) {
+        case 1: giveAchievement("You gotta start somewhere"); break;
+        case 2: giveAchievement("100 antimatter is a lot"); break;
+        case 3: giveAchievement("Half life 3 confirmed"); break;
+        case 4: giveAchievement("L4D: Left 4 Dimensions"); break;
+        case 5: giveAchievement("5 Dimension Antimatter Punch"); break;
+        case 6: giveAchievement("We couldn't afford 9"); break;
+        case 7: giveAchievement("Not a luck related achievement"); break;
+        case 8: giveAchievement("90 degrees to infinity"); break;
+    }
+    
+    if (tier == 1 && player.firstAmount >= 1e150) {
+        giveAchievement("There's no point in doing that");
+    }
+    
+    if (tier == 8 && player.eightAmount == 99) {
+        giveAchievement("The 9th Dimension is a lie");
+    }
+    
+    updateCosts();
+    updateMoney();
+    updateDimensions();
+}
+
 function buyOneDimension(tier) {
     const name = TIER_NAMES[tier];
     
@@ -653,9 +683,7 @@ function buyOneDimension(tier) {
         player[name + 'Cost'] *= getDimensionCostMultiplier(tier);
     }
     
-    updateCosts();
-    updateMoney();
-    updateDimensions();
+    onBuyDimension(tier);
     
     return true;
 }
@@ -681,143 +709,73 @@ function buyManyDimension(tier) {
     player[name + 'Pow']  *= getDimensionPowerMultiplier(tier);
     player[name + 'Cost'] *= getDimensionCostMultiplier(tier);    
     
-    updateCosts();
-    updateMoney();
-    updateDimensions();
+    onBuyDimension(tier);
     
     return true;
 }
 
 document.getElementById("first").onclick = function () {
-    if (buyOneDimension(1)) {        
-        if (!player.achievements.includes("You gotta start somewhere")) {
-            giveAchievement("You gotta start somewhere");
-        }
-        
-        if (!player.achievements.includes("There's no point in doing that") && player.firstAmount >= 1e150) {
-            giveAchievement("There's no point in doing that");
-        }
-    }
+    buyOneDimension(1);
 };
 
 document.getElementById("second").onclick = function () {
-    if (buyOneDimension(2)) {
-        if (!player.achievements.includes("100 antimatter is a lot")) {
-            giveAchievement("100 antimatter is a lot");
-        }
-    }
+    buyOneDimension(2);
 };
 
 document.getElementById("third").onclick = function () {
-    if (buyOneDimension(3)) {
-        if (!player.achievements.includes("Half life 3 confirmed")) {
-            giveAchievement("Half life 3 confirmed");
-        }
-    }
+    buyOneDimension(3);
 };
 
 document.getElementById("fourth").onclick = function () {
-    if (buyOneDimension(4)) {
-        if (!player.achievements.includes("L4D: Left 4 Dimensions")) {
-            giveAchievement("L4D: Left 4 Dimensions");
-        }
-    }
+    buyOneDimension(4);
 };
 
 document.getElementById("fifth").onclick = function () {
-    if (buyOneDimension(5)) {
-        if (!player.achievements.includes("5 Dimension Antimatter Punch")) {
-            giveAchievement("5 Dimension Antimatter Punch");
-        }
-    }
+    buyOneDimension(5);
 };
 
 document.getElementById("sixth").onclick = function () {
-    if (buyOneDimension(6)) {
-        if (!player.achievements.includes("We couldn't afford 9")) {
-            giveAchievement("We couldn't afford 9")
-        }
-    }
+    buyOneDimension(6);
 };
 
 document.getElementById("seventh").onclick = function () {
-    if (buyOneDimension(7)) {
-        if (!player.achievements.includes("Not a luck related achievement")) {
-            giveAchievement("Not a luck related achievement")
-        }
-    }
+    buyOneDimension(7);
 };
 
 document.getElementById("eight").onclick = function () {
-    if (buyOneDimension(8)) {
-        if (!player.achievements.includes("The 9th Dimension is a lie") && player.eightAmount == 99) {
-            giveAchievement("The 9th Dimension is a lie");
-        }
-    }
+    buyOneDimension(8);
 };
 
 document.getElementById("firstMax").onclick = function () {
-    if (buyManyDimension(1)) {
-        if (!player.achievements.includes("You gotta start somewhere")) {
-            giveAchievement("You gotta start somewhere");
-        }
-    }
+    buyManyDimension(1);
 };
 
 document.getElementById("secondMax").onclick = function () {
-    if (buyManyDimension(2)) {
-        if (!player.achievements.includes("100 antimatter is a lot")) {
-            giveAchievement("100 antimatter is a lot");
-        }
-    }
+    buyManyDimension(2);
 };
 
 document.getElementById("thirdMax").onclick = function () {
-    if (buyManyDimension(3)) {
-        if (!player.achievements.includes("Half life 3 confirmed")) {
-            giveAchievement("Half life 3 confirmed");
-        }
-    }
+    buyManyDimension(3);
 };
 
 document.getElementById("fourthMax").onclick = function () {
-    if (buyManyDimension(4)) {
-        if (!player.achievements.includes("L4D: Left 4 Dimensions")) {
-            giveAchievement("L4D: Left 4 Dimensions");
-        }
-    }
+    buyManyDimension(4);
 };
 
 document.getElementById("fifthMax").onclick = function () {
-    if (buyManyDimension(5)) {
-        if (!player.achievements.includes("5 Dimension Antimatter Punch")) {
-            giveAchievement("5 Dimension Antimatter Punch");
-        }
-    }
+    buyManyDimension(5);
 };
 
 document.getElementById("sixthMax").onclick = function () {
-    if (buyManyDimension(6)) {
-        if (!player.achievements.includes("We couldn't afford 9")) {
-            giveAchievement("We couldn't afford 9");
-        }
-    }
+    buyManyDimension(6);
 };
 
 document.getElementById("seventhMax").onclick = function () {
-    if (buyManyDimension(7)) {
-        if (!player.achievements.includes("Not a luck related achievement")) {
-            giveAchievement("Not a luck related achievement");
-        }
-    }
+    buyManyDimension(7);
 };
 
 document.getElementById("eightMax").onclick = function () {
-    if (buyManyDimension(8)) {
-        if (!player.achievements.includes("90 degrees to infinity")) {
-            giveAchievement("90 degrees to infinity")
-        }
-    }
+    buyManyDimension(8);
 };
 
 document.getElementById("softReset").onclick = function () {
@@ -999,7 +957,7 @@ document.getElementById("infi24").onclick = function () {
 
 document.getElementById("secondSoftReset").onclick = function () {
     if (player.infinityUpgrades.includes("resetBoost") ? player.eightAmount >= (player.galaxies * 60 + 80) - 9 : player.eightAmount >= (player.galaxies * 60 + 80)) {
-        if (!player.achievements.includes("I don't believe in Gods") && player.sacrificed == 0) giveAchievement("I don't believe in Gods");
+        if (player.sacrificed == 0) giveAchievement("I don't believe in Gods");
         player = {
             money: 10,
             tickSpeedCost: 1000,
@@ -1076,8 +1034,8 @@ document.getElementById("secondSoftReset").onclick = function () {
         document.getElementById("seventhRow").style.display = "none";
         document.getElementById("eightRow").style.display = "none";
         updateTickSpeed();
-        if (!player.achievements.includes("Double Galaxy") && player.galaxies >= 2) giveAchievement("Double Galaxy");
-        if (!player.achievements.includes("You got past The Big Wall") && player.galaxies >= 1) giveAchievement("You got past The Big Wall");
+        if (player.galaxies >= 2) giveAchievement("Double Galaxy");
+        if (player.galaxies >= 1) giveAchievement("You got past The Big Wall");
     }
 };
 
@@ -1202,7 +1160,7 @@ function sacrifice() {
     player.sixthAmount = 0;
     player.seventhAmount = 0;
 
-    if (Math.max(Math.pow((Math.log10(Math.max(player.sacrificed, 1)) / 10.0), 2), 2) >= 600 && !player.achievements.includes("The Gods are pleased")) giveAchievement("The Gods are pleased");
+    if (Math.max(Math.pow((Math.log10(Math.max(player.sacrificed, 1)) / 10.0), 2), 2) >= 600) giveAchievement("The Gods are pleased");
 
 }
 
@@ -1230,9 +1188,9 @@ document.getElementById("bigcrunch").onclick = function () {
         return false;
     }
     
-    if (!player.achievements.includes("That's fast!") && player.thisInfinityTime <= 72000) giveAchievement("That's fast!");
-    if (!player.achievements.includes("You didn't need it anyway") && player.eightAmount == 0) giveAchievement("You didn't need it anyway");
-    if (!player.achievements.includes("Claustrophobic") && player.galaxies == 1) giveAchievement("Claustrophobic");
+    if (player.thisInfinityTime <= 72000) giveAchievement("That's fast!");
+    if (player.eightAmount == 0) giveAchievement("You didn't need it anyway");
+    if (player.galaxies == 1) giveAchievement("Claustrophobic");
     
     player = {
         money: 10,
@@ -1313,8 +1271,9 @@ document.getElementById("bigcrunch").onclick = function () {
     showTab("dimensions")
     kongregate.stats.submit('Infinitied', player.infinitied);
     kongregate.stats.submit('Fastest Infinity time', Math.floor(player.bestInfinityTime / 10))
-    if (!player.achievements.includes("To infinity!")) giveAchievement("To infinity!");
-    if (!player.achievements.includes("That's a lot of infinites") && player.infinitied >= 10) giveAchievement("That's a lot of infinites");
+    
+    giveAchievement("To infinity!");
+    if (player.infinitied >= 10) giveAchievement("That's a lot of infinites");
 }
 
 function getDimensionProductionPerSecond(tier) {
@@ -1334,7 +1293,7 @@ var index = 0;
 
 setInterval(function () {
     var thisUpdate = new Date().getTime();
-    if (!player.achievements.includes("Don't you dare to sleep") && thisUpdate - player.lastUpdate >= 21600000) giveAchievement("Don't you dare to sleep")
+    if (thisUpdate - player.lastUpdate >= 21600000) giveAchievement("Don't you dare to sleep")
     var diff = Math.min(thisUpdate - player.lastUpdate, 21600000);
     diff = diff / 100;
     
@@ -1460,9 +1419,9 @@ setInterval(function () {
 
     document.getElementById("sacrifice").setAttribute('ach-tooltip', "Boosts 8th Dimension by " + formatValue(player.options.notation, calcSacrificeBoost(), 2, 2) + "x");
 
-    if (!player.achievements.includes("I forgot to nerf that") && player.firstPow >= 10e30) giveAchievement("I forgot to nerf that")
-    if (!player.achievements.includes("Antimatter Apocalypse") && player.money >= 10e79) giveAchievement("Antimatter Apocalypse")
-    if (!player.achievements.includes("One for each dimension") && player.totalTimePlayed >= 10 * 60 * 60 * 24 * 8) giveAchievement("One for each dimension")
+    if (player.firstPow >= 10e30) giveAchievement("I forgot to nerf that")
+    if (player.money >= 10e79) giveAchievement("Antimatter Apocalypse")
+    if (player.totalTimePlayed >= 10 * 60 * 60 * 24 * 8) giveAchievement("One for each dimension")
 
     index++;
     player.lastUpdate = thisUpdate;
