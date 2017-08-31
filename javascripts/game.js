@@ -135,7 +135,11 @@ function load_game() {
     if (player.lastUpdate === undefined) player.lastUpdate = new Date().getTime();
     if (player.achPow === undefined) player.achPow = 1;
     if (player.chall2Pow === undefined) player.chall2Pow = 1;
+    if (player.challenges === undefined) player.challenges = []
+    if (player.currentChallenge === undefined) player.currentChallenge = ""
     if (player.firstAmount !== 0) document.getElementById("secondRow").style.display = "table-row";
+    if (player.challenges === undefined) player.challenges = []
+    if (player.currentChallenge === undefined) player.currentChallenge = ""
     if (player.secondAmount !== 0) {
         document.getElementById("thirdRow").style.display = "table-row";
         document.getElementById("tickSpeed").style.visibility = "visible";
