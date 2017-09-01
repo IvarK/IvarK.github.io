@@ -39,11 +39,11 @@ const Dimension = (function() {
     // >> dimension[1].setAmount(current => current * 7);
     // 35
     for (let prop of [ "Amount", "Bought", "Cost", "Pow" ]) {
-        self.prototype[prop] = function(value) {
-            if (typeof value === "undefined") {
-                return player[this.name + prop];
-            }
-            
+        self.prototype['get' + prop] = function() {
+            return player[this.name + prop];
+        }
+        
+        self.prototype['set' + prop] = function(value) {            
             if (typeof value === "function") {
                 const ftor = value;
                 const curr = this['get' + prop]();
@@ -189,6 +189,16 @@ function Game() {
     for (let i = 1; i <= 8; ++i) {
         this.dimensions[i] = new Dimension(i);
     }
+    
+    this.tickspeed = {
+        dom: {
+            buyOne:    document.getElementById("tickSpeed"),
+            buyMax:    document.getElementById("tickSpeedMax"),
+            label:     document.getElementById("tickLabel"),
+            amount:    document.getElementById("tickSpeedAmount"),
+            container: document.getElementById("tickSpeedRow")
+        }
+    }
 }
 
 const game = new Game();
@@ -260,7 +270,6 @@ var c = document.getElementById("game");
 var ctx = c.getContext("2d");
 
 var defaultStart = player;
-var tickSpeedButton = document.getElementById("tickSpeed");
 
 function set_cookie(cookie_name, value) {
     expiry = new Date();
@@ -324,10 +333,7 @@ function load_game() {
     if (player.firstAmount !== 0) document.getElementById("secondRow").style.display = "table-row";
     if (player.secondAmount !== 0) {
         document.getElementById("thirdRow").style.display = "table-row";
-        document.getElementById("tickSpeed").style.visibility = "visible";
-        document.getElementById("tickSpeedMax").style.visibility = "visible";
-        document.getElementById("tickLabel").style.visibility = "visible";
-        document.getElementById("tickSpeedAmount").style.visibility = "visible";
+        game.tickspeed.dom.container.style.display = "";
     }
 
     if (player.thirdAmount !== 0) document.getElementById("fourthRow").style.display = "table-row";
@@ -463,12 +469,9 @@ function updateDimensions() {
     }
     
     if (canBuyTickSpeed()) {
-        document.getElementById("tickLabel").innerHTML = 'Reduce the tick interval by ' + Math.round((1 - getTickSpeedMultiplier()) * 100) + '%.';
+        game.tickspeed.dom.label.innerHTML = 'Reduce the tick interval by ' + Math.round((1 - getTickSpeedMultiplier()) * 100) + '%.';
         
-        document.getElementById("tickSpeed").style.visibility = "visible";
-        document.getElementById("tickSpeedMax").style.visibility = "visible";
-        document.getElementById("tickLabel").style.visibility = "visible";
-        document.getElementById("tickSpeedAmount").style.visibility = "visible";
+        game.tickspeed.dom.container.style.display = "";
     }
     
     const shiftRequirement = getShiftRequirement();
@@ -511,16 +514,16 @@ function updateCosts() {
         
         dimension.dom.buyOne.innerHTML = "Cost: " + shortenCosts(dimension.getCost());
         dimension.dom.buyMany.innerHTML = "Cost: " + shortenCosts(dimension.getCost() * (10 - dimension.getBought()));
-    }
+    }ga
     
-    document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shortenCosts(player.tickSpeedCost);
+    game.tickspeed.dom.buyOne.innerHTML = 'Cost: ' + shortenCosts(player.tickSpeedCost);
 }
 
 function updateTickSpeed() {
     var exp = Math.floor(Math.log10(player.tickspeed));
-    if (exp > 1) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed);
+    if (exp > 1) game.tickspeed.dom.amount.innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed);
     else {
-        document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed * (100 / Math.pow(10, exp))) + ' / ' + shorten(100 / Math.pow(10, exp));
+        game.tickspeed.dom.amount.innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed * (100 / Math.pow(10, exp))) + ' / ' + shorten(100 / Math.pow(10, exp));
     }
 
     /*	else if (player.tickspeed > 10) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*10)  + ' / 10';
@@ -594,10 +597,7 @@ function softReset() {
     clearInterval(player.interval);
     //updateInterval();
     updateDimensions();
-    document.getElementById("tickSpeed").style.visibility = "hidden";
-    document.getElementById("tickSpeedMax").style.visibility = "hidden";
-    document.getElementById("tickLabel").style.visibility = "hidden";
-    document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+    game.tickspeed.dom.container.style.display = "none";
     
     for (let i = 2; i <= 8; ++i) {
         game.dimensions[i].dom.row.style.display = "none";
@@ -662,7 +662,7 @@ function buyTickSpeed() {
     return true;
 }
 
-document.getElementById("tickSpeed").onclick = function () {
+game.tickspeed.dom.buyOne.onclick = function () {
     buyTickSpeed();
     
     updateTickSpeed();
@@ -983,10 +983,7 @@ document.getElementById("secondSoftReset").onclick = function () {
         clearInterval(player.interval);
         //updateInterval();
         updateDimensions();
-        document.getElementById("tickSpeed").style.visibility = "hidden";
-        document.getElementById("tickSpeedMax").style.visibility = "hidden";
-        document.getElementById("tickLabel").style.visibility = "hidden";
-        document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+        game.tickspeed.dom.container.style.display = "none";
         
         for (let i = 2; i <= 8; ++i) {
             game.dimensions[i].dom.row.style.display = "none";
@@ -1043,10 +1040,7 @@ document.getElementById("reset").onclick = function () {
 
         document.getElementById("secondRow").style.display = "none";
         document.getElementById("thirdRow").style.display = "none";
-        document.getElementById("tickSpeed").style.visibility = "hidden";
-        document.getElementById("tickSpeedMax").style.visibility = "hidden";
-        document.getElementById("tickLabel").style.visibility = "hidden";
-        document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+        game.tickspeed.dom.container.style.display = "none";
         document.getElementById("fourthRow").style.display = "none";
         document.getElementById("fifthRow").style.display = "none";
         document.getElementById("sixthRow").style.display = "none";
@@ -1218,10 +1212,7 @@ document.getElementById("bigcrunch").onclick = function () {
     updateDimensions();
     document.getElementById("secondRow").style.display = "none";
     document.getElementById("thirdRow").style.display = "none";
-    document.getElementById("tickSpeed").style.visibility = "hidden";
-    document.getElementById("tickSpeedMax").style.visibility = "hidden";
-    document.getElementById("tickLabel").style.visibility = "hidden";
-    document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+    game.tickspeed.dom.container.style.display = "none";
     document.getElementById("fourthRow").style.display = "none";
     document.getElementById("fifthRow").style.display = "none";
     document.getElementById("sixthRow").style.display = "none";
@@ -1281,11 +1272,11 @@ setInterval(function () {
     }
     
     if (canAfford(player.tickSpeedCost)) {
-        document.getElementById("tickSpeed").className = 'storebtn';
-        document.getElementById("tickSpeedMax").className = 'storebtn';
+        game.tickspeed.dom.buyOne.className = 'storebtn';
+        game.tickspeed.dom.buyMax.className = 'storebtn';
     } else {
-        document.getElementById("tickSpeed").className = 'unavailablebtn';
-        document.getElementById("tickSpeedMax").className = 'unavailablebtn';
+        game.tickspeed.dom.buyOne.className = 'unavailablebtn';
+        game.tickspeed.dom.buyMax.className = 'unavailablebtn';
     }
     
     if (player.infinityPoints > 0) {
@@ -1331,10 +1322,8 @@ setInterval(function () {
         document.getElementById("statisticsbtn").style.display = "none";
         document.getElementById("achievementsbtn").style.display = "none";
         document.getElementById("infinitybtn").style.display = "none";
-        document.getElementById("tickSpeed").style.visibility = "hidden";
-        document.getElementById("tickSpeedMax").style.visibility = "hidden";
-        document.getElementById("tickLabel").style.visibility = "hidden";
-        document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+        
+        game.tickspeed.dom.container.style.display = "none";
     } else {
         document.getElementById("dimensionsbtn").style.display = "inline-block";
         document.getElementById("optionsbtn").style.display = "inline-block";
