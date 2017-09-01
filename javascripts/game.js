@@ -284,9 +284,9 @@ function updateDimensions() {
     
     if (player.currentChallenge == "challenge4" && player.resets > 1) {
         if (player.resets = 2) {if (player.infinityUpgrades.includes("resetBoost")) {
-            document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 11 Sixth Dimension';
+            document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + player.resets * 20 - 29 + ' Sixth Dimension';
         } else {
-            document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 20 Sixth Dimension'; }
+            document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + player.resets * 20 - 20 + ' Sixth Dimension'20 Sixth Dimension'; }
             if (player.fifthAmount !== 0) document.getElementById("sixthRow").style.visibility = "visible"; }
         document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires ' + ((player.resets - 1) * 20) + ' Sixth Dimension';
     } else if (player.infinityUpgrades.includes("resetBoost")) {
@@ -320,7 +320,7 @@ function updateDimensions() {
     }
     if (player.resets > 3 || (player.resets > 1 && player.currentChallenge == "challenge4")) document.getElementById("softReset").innerHTML = "Reset the game for a Boost";
     else document.getElementById("softReset").innerHTML = "Reset the game for a new Dimension";
-    if (player.currentChallenge == "challenge4") document.getElementById("secondResetLabel").innerHTML = player.infinityUpgrades.includes("resetBoost") ? 'Antimatter Galaxies: requires ' + (player.galaxies * 90 + 130 - 9) + ' Sixth Dimensions' : 'Antimatter Galaxies: requires ' + (player.galaxies * 90 + 130) + ' Sixth Dimensions'
+    if (player.currentChallenge == "challenge4") document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + (player.galaxies * 90 + 130 - player.infinityUpgrades.includes("resetBoost")*9) + ' Eighth Dimensions'
     else document.getElementById("secondResetLabel").innerHTML = player.infinityUpgrades.includes("resetBoost") ? 'Antimatter Galaxies: requires ' + ((player.galaxies * 60 + 80) - 9) + ' Eighth Dimensions' : 'Antimatter Galaxies: requires ' + (player.galaxies * 60 + 80) + ' Eighth Dimensions';
     document.getElementById("totalmoney").innerHTML = 'You have made a total of ' + shortenMoney(player.totalmoney) + ' antimatter.';
     document.getElementById("totalresets").innerHTML = 'You have done ' + player.resets + ' soft resets.';
@@ -1740,8 +1740,8 @@ setInterval(function () {
             if (player.fifthAmount >= 11) {
                 document.getElementById("softReset").className = 'storebtn';
             } else document.getElementById("softReset").className = 'unavailablebtn';
-        } else if (player.resets == 2) {
-            if (player.sixthAmount >= 11) {
+        } else if (player.resets == 2 || player.currentChallenge == "challenge4") {
+            if (player.sixthAmount >= player.resets * 20 - 29) {
                 document.getElementById("softReset").className = 'storebtn';
             } else document.getElementById("softReset").className = 'unavailablebtn';
         } else if (player.resets == 3) {
@@ -1753,7 +1753,7 @@ setInterval(function () {
                 document.getElementById("softReset").className = 'storebtn';
             } else document.getElementById("softReset").className = 'unavailablebtn';
         }
-        if (player.eightAmount >= player.galaxies * 60 + 71) document.getElementById("secondSoftReset").className = 'storebtn';
+        if (player.currentChallenge == "challenge4" ? player.sixthAmount >= player.galaxies * 90 + 121: player.eightAmount >= player.galaxies * 60 + 71) document.getElementById("secondSoftReset").className = 'storebtn';
         else document.getElementById("secondSoftReset").className = 'unavailablebtn';
     } else {
         if (player.resets === 0) {
@@ -1765,8 +1765,8 @@ setInterval(function () {
             if (player.fifthAmount >= 20) {
                 document.getElementById("softReset").className = 'storebtn';
             } else document.getElementById("softReset").className = 'unavailablebtn';
-        } else if (player.resets == 2) {
-            if (player.sixthAmount >= 20) {
+        } else if (player.resets == 2 || player.currentChallenge == "challenge4") {
+            if (player.sixthAmount >= player.resets * 20 - 20) {
                 document.getElementById("softReset").className = 'storebtn';
             } else document.getElementById("softReset").className = 'unavailablebtn';
         } else if (player.resets == 3) {
@@ -1778,7 +1778,7 @@ setInterval(function () {
                 document.getElementById("softReset").className = 'storebtn';
             } else document.getElementById("softReset").className = 'unavailablebtn';
         }
-        if (player.eightAmount >= ((player.galaxies * 60 + 80))) document.getElementById("secondSoftReset").className = 'storebtn';
+        if (player.currentChallenge == "challenge4" ? player.sixthAmount >= player.galaxies * 90 + 130: player.eightAmount >= player.galaxies * 60 + 80) document.getElementById("secondSoftReset").className = 'storebtn';
         else document.getElementById("secondSoftReset").className = 'unavailablebtn';
     }
     
