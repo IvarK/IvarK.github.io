@@ -2,7 +2,7 @@
   "name": "ivark.github.io",
   "version": "1.0.0",
   "scripts": {
-    "build": "babel src -d javascripts"
+    "build": "babel javascripts --out-file lib/package.js"
   },
   "devDependencies": {
     "babel-cli": "^6.0.0",
