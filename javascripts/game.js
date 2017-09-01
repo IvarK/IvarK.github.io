@@ -282,7 +282,7 @@ function updateDimensions() {
     if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.9 - (player.galaxies * 0.04))) * 100) + '% faster.';
     else document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.9 - (player.galaxies * 0.02))) * 100) + '% faster.';
     
-    if (player.currentChallenge = "challenge4" && player.resets > 1) {
+    if (player.currentChallenge == "challenge4" && player.resets > 1) {
         if (player.resets = 2) {if (player.infinityUpgrades.includes("resetBoost")) {
             document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 11 Sixth Dimension';
         } else {
