@@ -183,6 +183,66 @@ const Dimension = (function() {
     return self;
 })();
 
+const TickSpeed = (function() {
+    let self = function() {
+        this.dom = {
+            buyOne:    document.getElementById("tickSpeed"),
+            buyMax:    document.getElementById("tickSpeedMax"),
+            label:     document.getElementById("tickLabel"),
+            amount:    document.getElementById("tickSpeedAmount"),
+            container: document.getElementById("tickSpeedRow")
+        }
+    
+        this.dom.buyOne.onclick = this.buy.bind(this);
+        this.dom.buyMax.onclick = this.buyMax.bind(this);
+    }
+    
+    self.prototype.canBuy = function() {
+        return game.dimensions[3].canBuy();
+    }
+    
+    self.prototype.getMultiplier = function() {
+        let baseMultiplier = 0.9;
+        
+        let perGalaxy = 0.02;
+        
+        if (player.infinityUpgrades.includes("galaxyBoost")) {
+            perGalaxy += 0.02;
+        }
+        
+        return baseMultiplier - (player.galaxies * perGalaxy);
+    }
+    
+    self.prototype.buy = function() {
+        if (!this.canBuy()) {
+            return false;
+        }
+        
+        if (!canAfford(player.tickSpeedCost)) {
+            return false;
+        }
+        
+        player.money -= player.tickSpeedCost;
+        player.tickSpeedCost *= 10;
+
+        player.tickspeed *= this.getMultiplier();
+        
+        updateTickSpeed();
+        updateMoney();
+        updateCosts();
+        
+        return true;
+    }
+    
+    self.prototype.buyMax = function() {
+        while (this.buy()) {
+            continue;
+        }
+    }
+    
+    return self;
+})();
+
 function Game() {
     this.dimensions = [];
     
@@ -190,19 +250,10 @@ function Game() {
         this.dimensions[i] = new Dimension(i);
     }
     
-    this.tickspeed = {
-        dom: {
-            buyOne:    document.getElementById("tickSpeed"),
-            buyMax:    document.getElementById("tickSpeedMax"),
-            label:     document.getElementById("tickLabel"),
-            amount:    document.getElementById("tickSpeedAmount"),
-            container: document.getElementById("tickSpeedRow")
-        }
-    }
+    this.tickspeed = new TickSpeed();
 }
 
 const game = new Game();
-
 
 var player = {
     money: 10,
@@ -468,9 +519,8 @@ function updateDimensions() {
         dimension.dom.amount.innerHTML = dimension.getDescription();
     }
     
-    if (canBuyTickSpeed()) {
-        game.tickspeed.dom.label.innerHTML = 'Reduce the tick interval by ' + Math.round((1 - getTickSpeedMultiplier()) * 100) + '%.';
-        
+    if (game.tickspeed.canBuy()) {
+        game.tickspeed.dom.label.innerHTML = 'Reduce the tick interval by ' + Math.round((1 - game.tickspeed.getMultiplier()) * 100) + '%.';
         game.tickspeed.dom.container.style.display = "";
     }
     
@@ -629,57 +679,6 @@ shortenMoney = function (money) {
     return formatValue(player.options.notation, money, 2, 1);
 };
 
-function canBuyTickSpeed() {
-    return game.dimensions[3].canBuy();
-}
-
-function getTickSpeedMultiplier() {   
-    let baseMultiplier = 0.9;
-    
-    let perGalaxy = 0.02;
-    
-    if (player.infinityUpgrades.includes("galaxyBoost")) {
-        perGalaxy += 0.02;
-    }
-    
-    return baseMultiplier - (player.galaxies * perGalaxy);
-}
-
-function buyTickSpeed() {
-    if (!canBuyTickSpeed()) {
-        return false;
-    }
-    
-    if (!canAfford(player.tickSpeedCost)) {
-        return false;
-    }
-    
-    player.money -= player.tickSpeedCost;
-    player.tickSpeedCost *= 10;
-
-    player.tickspeed *= getTickSpeedMultiplier();
-    
-    return true;
-}
-
-game.tickspeed.dom.buyOne.onclick = function () {
-    buyTickSpeed();
-    
-    updateTickSpeed();
-    updateMoney();
-    updateCosts();
-};
-
-function buyMaxTickSpeed() {
-    while (buyTickSpeed()) {
-        continue;
-    }
-    
-    updateTickSpeed();
-    updateMoney();
-    updateCosts();
-}
-
 function timeDisplay(time) {
     time = Math.floor(time / 10)
     if (time >= 31536000) {
@@ -770,7 +769,7 @@ document.getElementById("softReset").onclick = function () {
 };
 
 document.getElementById("maxall").onclick = function () {    
-    buyMaxTickSpeed();
+    game.tickspeed.buyMax()
     
     for (let tier = 8; tier >= 1; tier--) {
         while (game.dimensions[tier].buyMany()) {
@@ -1038,14 +1037,12 @@ document.getElementById("reset").onclick = function () {
         clearInterval(player.interval);
         //updateInterval();
 
-        document.getElementById("secondRow").style.display = "none";
-        document.getElementById("thirdRow").style.display = "none";
         game.tickspeed.dom.container.style.display = "none";
-        document.getElementById("fourthRow").style.display = "none";
-        document.getElementById("fifthRow").style.display = "none";
-        document.getElementById("sixthRow").style.display = "none";
-        document.getElementById("seventhRow").style.display = "none";
-        document.getElementById("eightRow").style.display = "none";
+        
+        for (let i = 2; i <= 8; ++i) {
+            game.dimensions[i].dom.row.style.display = "none";
+        }
+        
         updateTickSpeed();
         updateDimensions();
     }
@@ -1210,14 +1207,13 @@ document.getElementById("bigcrunch").onclick = function () {
     clearInterval(player.interval);
     //updateInterval();
     updateDimensions();
-    document.getElementById("secondRow").style.display = "none";
-    document.getElementById("thirdRow").style.display = "none";
+    
     game.tickspeed.dom.container.style.display = "none";
-    document.getElementById("fourthRow").style.display = "none";
-    document.getElementById("fifthRow").style.display = "none";
-    document.getElementById("sixthRow").style.display = "none";
-    document.getElementById("seventhRow").style.display = "none";
-    document.getElementById("eightRow").style.display = "none";
+    
+    for (let i = 2; i <= 8; ++i) {
+        game.dimensions[i].dom.row.style.display = "none";
+    }
+    
     updateTickSpeed();
     showTab("dimensions")
     kongregate.stats.submit('Infinitied', player.infinitied);
