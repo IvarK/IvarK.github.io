@@ -22,12 +22,28 @@ const Dimension = (function() {
         this.dom.buyMany.onclick = this.buyMany.bind(this);
     }
     
+    // Integration with underlying player data
+    // Generates getter\setter function for specified properties, such as
+    //
+    // dimension[1].getAmount => player.firstAmount
+    // dimension[1].getBought => player.firstBought
+    // etc.
+    //
+    // Setter supports receiving a transformation function instead of a value.
+    // If no argument is given then no change is made.
+    //
+    // >> dimension[1].setAmount(5);
+    // 5
+    // >> dimension[1].getAmount();
+    // 5
+    // >> dimension[1].setAmount(current => current * 7);
+    // 35
     for (let prop of [ "Amount", "Bought", "Cost", "Pow" ]) {
-        self.prototype['get' + prop] = function() {
-            return player[this.name + prop];
-        }
-        
-        self.prototype['set' + prop] = function(value) {
+        self.prototype[prop] = function(value) {
+            if (typeof value === "undefined") {
+                return player[this.name + prop];
+            }
+            
             if (typeof value === "function") {
                 const ftor = value;
                 const curr = this['get' + prop]();
@@ -244,14 +260,6 @@ var c = document.getElementById("game");
 var ctx = c.getContext("2d");
 
 var defaultStart = player;
-var firstButton = document.getElementById("first");
-var secondButton = document.getElementById("second");
-var thirdButton = document.getElementById("third");
-var fourthButton = document.getElementById("fourth");
-var fifthButton = document.getElementById("fifth");
-var sixthButton = document.getElementById("sixth");
-var seventhButton = document.getElementById("seventh");
-var eightButton = document.getElementById("eight");
 var tickSpeedButton = document.getElementById("tickSpeed");
 
 function set_cookie(cookie_name, value) {
@@ -407,22 +415,11 @@ function formatValue(notation, value, places, placesUnder1000) {
 function updateMoney() {
     var element = document.getElementById("coinAmount");
     element.innerHTML = formatValue(player.options.notation, player.money, 2, 1);
-
-
 }
 
 function updateCoinPerSec() {
     var element = document.getElementById("coinsPerSec");
     element.innerHTML = 'You are getting ' + shortenDimensions(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult"))) + ' antimatter per second.';
-}
-
-function hasInfinityMult(tier) {
-    switch (tier) {
-        case 1: case 8: return player.infinityUpgrades.includes("18Mult");
-        case 2: case 7: return player.infinityUpgrades.includes("27Mult");
-        case 3: case 6: return player.infinityUpgrades.includes("36Mult");
-        case 4: case 5: return player.infinityUpgrades.includes("45Mult");
-    }
 }
 
 function getShiftRequirement() {
