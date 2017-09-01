@@ -1050,6 +1050,18 @@ document.getElementById("exportbtn").onclick = function () {
     output.onblur = function() {
         parent.style.display = "none";
     }
+    
+    output.focus();
+    output.select();
+    
+    try {
+        if (document.execCommand('copy')) {
+            $.notify("exported to clipboard", "info");
+            output.blur();
+        }
+    } catch(ex) {
+        // well, we tried.
+    }
 };
 
 
