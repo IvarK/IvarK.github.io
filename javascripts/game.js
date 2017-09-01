@@ -1404,7 +1404,7 @@ setInterval(function () {
         document.getElementById("infi24").className = "infinistorebtnlocked"
     }
 
-    if (player.resets > 4) {
+    if (player.eighthAmount >= 1) {
         document.getElementById("confirmation").style.display = "inline-block";
         document.getElementById("sacrifice").style.display = "inline-block";
     } else {
