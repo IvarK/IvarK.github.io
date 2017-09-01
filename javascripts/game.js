@@ -1210,16 +1210,10 @@ function sacrifice() {
 
 
 document.getElementById("sacrifice").onclick = function () {
-    if (player.eightAmount == 0) {
-        return false;
-    }
     
     if (!document.getElementById("confirmation").checked) {
-        if (!confirm("Dimensional Sacrifice will reduce the amount of dimensions from 1 to 7 to 0, but the cost and the multiplier stays the same, you will also get a boost to Eighth Dimension. THIS MIGHT AFFECT YOUR PROGRESS NEGATIVELY.")) {
-            return false;
-        }
+        if (!confirm("Dimensional Sacrifice will remove your first to seventh dimensions (with the cost and the multiplier staying the same) for a boost to Eighth Dimension. It will take time to recover from this, so think before you act!")) return false;
     }
-    
     return sacrifice();
 }
 
@@ -1493,9 +1487,7 @@ var newsArray = ["You just made your 1,000,000,000,000,000 antimatter. This one 
 "This world situation is a SOS situation to the world!! MAYDAY, MAYDAY!!", "As for sure as the sun rises in the west, of all the singers and poets on earth, I am the bestest. - hevipelle", "I'm good at using github -hevipelle",
 "A new chat server has been created for Antimatter people to spy on Matter people, and the world has fallen into chaos and discord", "A new study has come out linking the consumption of potatoes with increased risk of Antimatter implosion.  Scientists suggest eating more.",
 "A new group for the standardisation of numbers have come forward with a novel new format involving emoji's.", "I thought that I fixed that bug but apparently some update broke it again -hevipelle",
-"Maybe I'm gay then -Bootato", "Breaking news! Hevipelle has just announced that the buy max button is in fact going to be removed!", "I dedicate this game to my girlfriend"
-"Antimatter guns don't kill antimatter people, antimatter people kill antimatter people but does that mean that antimatter toaster doesn't toast antimatter toasts, antimatter toast toasts antimatter toasts?", 
-"But to an antimatter person, wouldn't they be matter and us antimatter?",]
+"Maybe I'm gay then -Bootato"]
 
 
 var conditionalNewsArray = ["Our universe is falling apart. We are all evacuating. This is the last news cast", "THIS NEWS STATION HAS SHUT DOWN DUE TO COLLAPSING UNIVERSE", 
