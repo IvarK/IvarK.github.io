@@ -321,7 +321,7 @@ var ctx = c.getContext("2d");
 var defaultStart = player;
 
 function set_cookie(cookie_name, value) {
-    expiry = new Date();
+    let expiry = new Date();
     expiry.setTime(new Date().getTime() + (365 * 24 * 60 * 60 * 1000));
     var c_value = escape(btoa(JSON.stringify(value, (k, v) => (v === Infinity) ? "Infinity" : v))) +
         "; expires=" + expiry.toUTCString();
@@ -562,7 +562,7 @@ function updateCosts() {
         
         dimension.dom.buyOne.innerHTML = "Cost: " + shortenCosts(dimension.getCost());
         dimension.dom.buyMany.innerHTML = "Cost: " + shortenCosts(dimension.getCost() * (10 - dimension.getBought()));
-    }ga
+    }
     
     game.tickspeed.dom.buyOne.innerHTML = 'Cost: ' + shortenCosts(player.tickSpeedCost);
 }
@@ -750,22 +750,22 @@ function bigCrunch() {
     return true;
 }
 
-MoneyFormat = ['K', 'M', 'B', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QdDc', 'QtDc', 'SxDc', 'SpDc', 'ODc', 'NDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QdVg', 'QtVg', 'SxVg', 'SpVg', 'OVg', 'NVg', 'Tg', 'UTg', 'DTg', 'TTg', 'QdTg', 'QtTg', 'SxTg', 'SpTg', 'OTg', 'NTg', 'Qa', 'UQa', 'DQa', 'TQa', 'QdQa', 'QtQa', 'SxQa', 'SpQa', 'OQa', 'NQa', 'Qi', 'UQi', 'DQi', 'TQi', 'QaQi', 'QtQi', 'SxQi', 'SpQi', 'OQi', 'NQi', 'Se', 'USe', 'DSe', 'TSe', 'QaSe', 'QtSe', 'SxSe', 'SpSe', 'OSe', 'NSe', 'St', 'USt', 'DSt', 'TSt', 'QaSt', 'QtSt', 'SxSt', 'SpSt', 'OSt', 'NSt', 'Og', 'UOg', 'DOg', 'TOg', 'QdOg', 'QtOg', 'SxOg', 'SpOg', 'OOg', 'NOg', 'Nn', 'UNn', 'DNn', 'TNn', 'QdNn', 'QtNn', 'SxNn', 'SpNn', 'ONn', 'NNn', 'Ce', 'UCe'];
+const MoneyFormat = ['K', 'M', 'B', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QdDc', 'QtDc', 'SxDc', 'SpDc', 'ODc', 'NDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QdVg', 'QtVg', 'SxVg', 'SpVg', 'OVg', 'NVg', 'Tg', 'UTg', 'DTg', 'TTg', 'QdTg', 'QtTg', 'SxTg', 'SpTg', 'OTg', 'NTg', 'Qa', 'UQa', 'DQa', 'TQa', 'QdQa', 'QtQa', 'SxQa', 'SpQa', 'OQa', 'NQa', 'Qi', 'UQi', 'DQi', 'TQi', 'QaQi', 'QtQi', 'SxQi', 'SpQi', 'OQi', 'NQi', 'Se', 'USe', 'DSe', 'TSe', 'QaSe', 'QtSe', 'SxSe', 'SpSe', 'OSe', 'NSe', 'St', 'USt', 'DSt', 'TSt', 'QaSt', 'QtSt', 'SxSt', 'SpSt', 'OSt', 'NSt', 'Og', 'UOg', 'DOg', 'TOg', 'QdOg', 'QtOg', 'SxOg', 'SpOg', 'OOg', 'NOg', 'Nn', 'UNn', 'DNn', 'TNn', 'QdNn', 'QtNn', 'SxNn', 'SpNn', 'ONn', 'NNn', 'Ce', 'UCe'];
 MoneyFormat.reverse();
 
-shorten = function (money) {
+function shorten(money) {
     return formatValue(player.options.notation, money, 2, 2);
 };
 
-shortenCosts = function (money) {
+function shortenCosts(money) {
     return formatValue(player.options.notation, money, 0, 0);
 };
 
-shortenDimensions = function (money) {
+function shortenDimensions(money) {
     return formatValue(player.options.notation, money, 2, 0);
 };
 
-shortenMoney = function (money) {
+function shortenMoney(money) {
     return formatValue(player.options.notation, money, 2, 1);
 };
 
@@ -923,10 +923,7 @@ function updateAchPow() {
         document.getElementById("achRow3").className = "completedrow"
     }
 
-
-    for (i = amount; i > 0; i--) {
-        player.achPow = Math.pow(1.5, amount)
-    }
+    player.achPow = Math.pow(1.5, amount)
 
     document.getElementById("achmultlabel").innerHTML = "Current achievement multiplier on each Dimension: " + player.achPow.toFixed(1) + "x"
 
