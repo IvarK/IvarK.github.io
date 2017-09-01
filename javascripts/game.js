@@ -382,7 +382,7 @@ function load_game() {
     if (player.firstAmount !== 0) document.getElementById("secondRow").style.display = "table-row";
     if (player.secondAmount !== 0) {
         document.getElementById("thirdRow").style.display = "table-row";
-        game.tickspeed.dom.container.style.display = "";
+        game.tickspeed.dom.container.style.visibility = "";
     }
 
     if (player.thirdAmount !== 0) document.getElementById("fourthRow").style.display = "table-row";
@@ -519,7 +519,7 @@ function updateDimensions() {
     
     if (game.tickspeed.canBuy()) {
         game.tickspeed.dom.label.innerHTML = 'Reduce the tick interval by ' + Math.round((1 - game.tickspeed.getMultiplier()) * 100) + '%.';
-        game.tickspeed.dom.container.style.display = "";
+        game.tickspeed.dom.container.style.visibility = "";
     }
     
     const shiftRequirement = getShiftRequirement();
@@ -656,7 +656,7 @@ function softReset(props) {
         eightPow:   Math.max(Math.pow(2, player.resets - 6), 1),
     });
     
-    game.tickspeed.dom.container.style.display = "none";
+    game.tickspeed.dom.container.style.visibility = "hidden";
     
     for (let i = 2; i <= 8; ++i) {
         game.dimensions[i].dom.row.style.display = "none";
@@ -1023,7 +1023,7 @@ document.getElementById("reset").onclick = function () {
         load_game();
         updateCosts();
 
-        game.tickspeed.dom.container.style.display = "none";
+        game.tickspeed.dom.container.style.visibility = "hidden";
         
         for (let i = 2; i <= 8; ++i) {
             game.dimensions[i].dom.row.style.display = "none";
@@ -1220,7 +1220,7 @@ setInterval(function () {
         document.getElementById("achievementsbtn").style.display = "none";
         document.getElementById("infinitybtn").style.display = "none";
         
-        game.tickspeed.dom.container.style.display = "none";
+        game.tickspeed.dom.container.style.visibility = "hidden";
     } else {
         document.getElementById("dimensionsbtn").style.display = "inline-block";
         document.getElementById("optionsbtn").style.display = "inline-block";
