@@ -1078,7 +1078,7 @@ function verify_save(obj) {
 
 document.getElementById("importbtn").onclick = function () {
     var save_data = prompt("Input your save.");
-    save_data = JSON.parse(atob(save_data), (k, v) => (v === Infinity) ? "Infinity" : v));
+    save_data = JSON.parse(atob(save_data), (k, v) => (v === Infinity) ? "Infinity" : v);
     if (!save_data || !verify_save(save_data)) {
         alert('could not load the save..');
         load_custom_game();
