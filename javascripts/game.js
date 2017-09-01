@@ -1041,7 +1041,27 @@ document.getElementById("secondSoftReset").onclick = function () {
 };
 
 document.getElementById("exportbtn").onclick = function () {
-    prompt("Save this somewhere.", btoa(JSON.stringify(player)));
+    let output = document.getElementById('exportOutput');
+    let parent = output.parentElement;
+    
+    parent.style.display = "";
+    output.value = btoa(JSON.stringify(player));
+    
+    output.onblur = function() {
+        parent.style.display = "none";
+    }
+    
+    output.focus();
+    output.select();
+    
+    try {
+        if (document.execCommand('copy')) {
+            $.notify("exported to clipboard", "info");
+            output.blur();
+        }
+    } catch(ex) {
+        // well, we tried.
+    }
 };
 
 
