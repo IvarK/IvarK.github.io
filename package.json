@@ -1,0 +1,10 @@
+{
+  "name": "ivark.github.io",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "babel src -d javascripts"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.0.0"
+  }
+}
