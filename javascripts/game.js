@@ -281,8 +281,11 @@ function updateDimensions() {
     }
     if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.9 - (player.galaxies * 0.04))) * 100) + '% faster.';
     else document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.9 - (player.galaxies * 0.02))) * 100) + '% faster.';
-            if (player.fifthAmount !== 0) document.getElementById("sixthRow").style.visibility = "visible"; }
-        document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires ' + ((player.resets - 1) * 20) + ' Sixth Dimension';
+            
+    if (player.currentChallenge == "challenge4" && player.resets > 0)
+	if (player.fifthAmount !== 0) document.getElementById("sixthRow").style.visibility = "visible"; }
+        document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires ' + ((player.resets - 1) * 20 - player.infinityUpgrades.includes("resetBoost")*9) + ' Sixth Dimension';
+
     } else if (player.infinityUpgrades.includes("resetBoost")) {
         if (player.resets > 3) {
             document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + ((player.resets - 4) * 15 + 11) + ' Eighth Dimension';
