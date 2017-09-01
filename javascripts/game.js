@@ -313,7 +313,7 @@ function updateDimensions() {
         } else document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 20 Fourth Dimension';
     }
     if (player.currentChallenge == "challenge4" && player.resets > 1) {
-          if (player.resets = 2) {
+          if (player.resets == 2) {
             if (player.infinityUpgrades.includes("resetBoost")) {
                 document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + player.resets * 20 - 29 + ' Sixth Dimension';
             } else {
