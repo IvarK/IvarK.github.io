@@ -741,12 +741,6 @@ function bigCrunch() {
         giveAchievement("That's a lot of infinites");
     }
     
-    game.tickspeed.dom.container.style.display = "none";
-    
-    for (let i = 2; i <= 8; ++i) {
-        game.dimensions[i].dom.row.style.display = "none";
-    }
-    
     showTab("dimensions")
     
     kongregate.stats.submit('Infinitied', player.infinitied);
