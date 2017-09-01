@@ -286,7 +286,7 @@ function updateDimensions() {
         if (player.resets = 2) {if (player.infinityUpgrades.includes("resetBoost")) {
             document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + player.resets * 20 - 29 + ' Sixth Dimension';
         } else {
-            document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + player.resets * 20 - 20 + ' Sixth Dimension'20 Sixth Dimension'; }
+            document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + player.resets * 20 - 20 + ' Sixth Dimension'; }
             if (player.fifthAmount !== 0) document.getElementById("sixthRow").style.visibility = "visible"; }
         document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires ' + ((player.resets - 1) * 20) + ' Sixth Dimension';
     } else if (player.infinityUpgrades.includes("resetBoost")) {
