@@ -95,7 +95,7 @@ function get_cookie(cookie_name) {
         c_end = c_value.length;
     }
     c_value = atob(unescape(c_value.substring(c_start, c_end)));
-    return JSON.parse(c_value, (k, v) => (v === Infinity) ? "Infinity" : v));
+    return JSON.parse(c_value, (k, v) => (v === Infinity) ? "Infinity" : v);
 }
 
 kongregateAPI.loadAPI(function () {
