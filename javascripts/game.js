@@ -966,7 +966,7 @@ document.getElementById("eightMax").onclick = function () {
 };
 
 document.getElementById("softReset").onclick = function () {
-  if (player.currentChallenge = "challenge4" && player.resets >= 2) {
+  if (player.currentChallenge == "challenge4" && player.resets >= 2) {
     if (player.sixthAmount >= (player.resets - 1) * 20 - player.infinityUpgrades.includes("resetBoost")*9) softReset();
     document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + player.resets * 20 + ' Sixth Dimension'
   } else {
