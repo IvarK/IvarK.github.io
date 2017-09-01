@@ -732,9 +732,10 @@ function bigCrunch() {
     }
     
     softReset({
-        totalmoney:     0,
-        infinityPoints: player.infinityPoints + 1,
-        infinitied:     player.infinitied + 1,
+        totalmoney:       0,
+        infinityPoints:   player.infinityPoints + 1,
+        infinitied:       player.infinitied + 1,
+        thisInfinityTime: 0,
     });
     
     if (player.infinitied >= 10) {
