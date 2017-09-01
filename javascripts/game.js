@@ -301,10 +301,8 @@ var player = {
     thisInfinityTime: 0,
     resets: 0,
     galaxies: 0,
-    tickDecrease: 0.9,
     totalmoney: 0,
     achPow: 1,
-    interval: null,
     lastUpdate: new Date().getTime(),
     options: {
         newsHidden: false,
@@ -582,82 +580,179 @@ function updateTickSpeed() {
     else document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*10000) + ' / 10000';*/
 }
 
-function softReset() {
+function softReset(props) {
     player = {
+        // Transient Properties
         money: 10,
+        
         tickSpeedCost: 1000,
-        tickspeed: 1000,
-        firstCost: 10,
-        secondCost: 100,
-        thirdCost: 10000,
-        fourthCost: 1000000,
-        fifthCost: 1e9,
-        sixthCost: 1e13,
+        tickspeed:     1000,
+        
+        firstCost:   1e01,
+        secondCost:  1e02,
+        thirdCost:   1e04,
+        fourthCost:  1e06,
+        fifthCost:   1e09,
+        sixthCost:   1e13,
         seventhCost: 1e18,
-        eightCost: 1e24,
-        firstAmount: 0,
-        secondAmount: 0,
-        thirdAmount: 0,
-        fourthAmount: 0,
-        firstBought: 0,
-        secondBought: 0,
-        thirdBought: 0,
-        fourthBought: 0,
-        fifthAmount: 0,
-        sixthAmount: 0,
+        eightCost:   1e24,
+        
+        firstAmount:   0,
+        secondAmount:  0,
+        thirdAmount:   0,
+        fourthAmount:  0,
+        fifthAmount:   0,
+        sixthAmount:   0,
         seventhAmount: 0,
-        eightAmount: 0,
-        fifthBought: 0,
-        sixthBought: 0,
+        eightAmount:   0,
+        
+        firstBought:   0,
+        secondBought:  0,
+        thirdBought:   0,
+        fourthBought:  0,
+        fifthBought:   0,
+        sixthBought:   0,
         seventhBought: 0,
-        eightBought: 0,
+        eightBought:   0,
+        
         sacrificed: 0,
-        achievements: player.achievements,
+        
+        resets:       0,
+        galaxies:     0,
+        
+        // Persistent Properties
+        achievements:     player.achievements,
         infinityUpgrades: player.infinityUpgrades,
-        infinityPoints: player.infinityPoints,
-        infinitied: player.infinitied,
-        totalTimePlayed: player.totalTimePlayed,
+        infinityPoints:   player.infinityPoints,
+        infinitied:       player.infinitied,
+        totalTimePlayed:  player.totalTimePlayed,
         bestInfinityTime: player.bestInfinityTime,
         thisInfinityTime: player.thisInfinityTime,
-        firstPow: Math.pow(2, player.resets + 1),
-        secondPow: Math.pow(2, player.resets),
-        thirdPow: Math.max(Math.pow(2, player.resets - 1), 1),
-        fourthPow: Math.max(Math.pow(2, player.resets - 2), 1),
-        fifthPow: Math.max(Math.pow(2, player.resets - 3), 1),
-        sixthPow: Math.max(Math.pow(2, player.resets - 4), 1),
-        seventhPow: Math.max(Math.pow(2, player.resets - 5), 1),
-        eightPow: Math.max(Math.pow(2, player.resets - 6), 1),
-        resets: player.resets,
-        galaxies: player.galaxies,
-        tickDecrease: player.tickDecrease,
-        totalmoney: player.totalmoney,
-        interval: null,
-        lastUpdate: player.lastUpdate,
-        achPow: player.achPow,
+        totalmoney:       player.totalMoney,
         options: {
-            newsHidden: player.newsHidden,
-            notation: player.options.notation,
+            newsHidden:   player.newsHidden,
+            notation:     player.options.notation,
             animationsOn: player.options.animationsOn,
-            invert: player.options.invert,
-            logoVisible: player.options.logoVisible
-        }
+            invert:       player.options.invert,
+            logoVisible:  player.options.logoVisible
+        },
+        achPow:       player.achPow,
+        lastUpdate:   player.lastUpdate,
     };
-    player.resets++;
-    updateCosts();
-    clearInterval(player.interval);
-    //updateInterval();
-    updateDimensions();
+    
+    if (props) {
+        Object.assign(player, props);
+    }
+    
+    Object.assign(player, {
+        // Computed Properties
+        firstPow:            Math.pow(2, player.resets + 1),
+        secondPow:           Math.pow(2, player.resets    ),
+        thirdPow:   Math.max(Math.pow(2, player.resets - 1), 1),
+        fourthPow:  Math.max(Math.pow(2, player.resets - 2), 1),
+        fifthPow:   Math.max(Math.pow(2, player.resets - 3), 1),
+        sixthPow:   Math.max(Math.pow(2, player.resets - 4), 1),
+        seventhPow: Math.max(Math.pow(2, player.resets - 5), 1),
+        eightPow:   Math.max(Math.pow(2, player.resets - 6), 1),
+    });
+    
     game.tickspeed.dom.container.style.display = "none";
     
     for (let i = 2; i <= 8; ++i) {
         game.dimensions[i].dom.row.style.display = "none";
     }
     
+    updateCosts();
+    updateDimensions();
     updateTickSpeed();
+}
+
+function dimensionShift() {
+    const shiftRequirement = getShiftRequirement();
+    
+    if (game.dimensions[shiftRequirement.tier].getAmount() < shiftRequirement.amount) {
+        return false;
+    }
+    
+    softReset({
+        resets:   player.resets + 1,
+        galaxies: player.galaxies
+    });
     
     if (player.resets >= 10) {
         giveAchievement("Boosting to the max");
     }
+    
+    return true;
+}
+
+function acquireGalaxy() {
+    if (player.eightAmount < getGalaxyRequirement()) {
+        return false;
+    }
+    
+    giveAchievement("You got past The Big Wall");
+    
+    if (player.sacrificed == 0) {
+        giveAchievement("I don't believe in Gods");
+    }
+    
+    softReset({
+        galaxies: player.galaxies + 1,
+    });
+    
+    if (player.galaxies >= 2) {
+        giveAchievement("Double Galaxy");
+    }
+    
+    return true;
+}
+
+function bigCrunch() {
+    if (player.money < Infinity) {
+        return false;
+    }
+    
+    giveAchievement("To infinity!");
+    
+    if (player.thisInfinityTime <= 72000) {
+        giveAchievement("That's fast!");
+    }
+    
+    if (player.eightAmount == 0) {
+        giveAchievement("You didn't need it anyway");
+    }
+    
+    if (player.galaxies == 1) {
+        giveAchievement("Claustrophobic");
+    }
+    
+    if (player.thisInfinityTime < player.bestInfinityTime) {
+        player.bestInfinityTime = player.thisInfinityTime;
+    }
+    
+    softReset({
+        totalmoney:     0,
+        infinityPoints: player.infinityPoints + 1,
+        infinitied:     player.infinitied + 1,
+    });
+    
+    if (player.infinitied >= 10) {
+        giveAchievement("That's a lot of infinites");
+    }
+    
+    game.tickspeed.dom.container.style.display = "none";
+    
+    for (let i = 2; i <= 8; ++i) {
+        game.dimensions[i].dom.row.style.display = "none";
+    }
+    
+    showTab("dimensions")
+    
+    kongregate.stats.submit('Infinitied', player.infinitied);
+    kongregate.stats.submit('Fastest Infinity time', Math.floor(player.bestInfinityTime / 10))
+    
+    return true;
 }
 
 MoneyFormat = ['K', 'M', 'B', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QdDc', 'QtDc', 'SxDc', 'SpDc', 'ODc', 'NDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QdVg', 'QtVg', 'SxVg', 'SpVg', 'OVg', 'NVg', 'Tg', 'UTg', 'DTg', 'TTg', 'QdTg', 'QtTg', 'SxTg', 'SpTg', 'OTg', 'NTg', 'Qa', 'UQa', 'DQa', 'TQa', 'QdQa', 'QtQa', 'SxQa', 'SpQa', 'OQa', 'NQa', 'Qi', 'UQi', 'DQi', 'TQi', 'QaQi', 'QtQi', 'SxQi', 'SpQi', 'OQi', 'NQi', 'Se', 'USe', 'DSe', 'TSe', 'QaSe', 'QtSe', 'SxSe', 'SpSe', 'OSe', 'NSe', 'St', 'USt', 'DSt', 'TSt', 'QaSt', 'QtSt', 'SxSt', 'SpSt', 'OSt', 'NSt', 'Og', 'UOg', 'DOg', 'TOg', 'QdOg', 'QtOg', 'SxOg', 'SpOg', 'OOg', 'NOg', 'Nn', 'UNn', 'DNn', 'TNn', 'QdNn', 'QtNn', 'SxNn', 'SpNn', 'ONn', 'NNn', 'Ce', 'UCe'];
@@ -739,33 +834,7 @@ function onBoughtDimension(tier, count) {
 }
 
 document.getElementById("softReset").onclick = function () {
-    if (player.resets === 0) {
-        if (player.infinityUpgrades.includes("resetBoost") ? player.fourthAmount >= 11 : player.fourthAmount >= 20) {
-            softReset();
-            document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 20 Fifth Dimension';
-        }
-    } else if (player.resets == 1) {
-        if (player.infinityUpgrades.includes("resetBoost") ? player.fifthAmount >= 11 : player.fifthAmount >= 20) {
-            softReset();
-            document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 20 Sixth Dimension';
-        }
-    } else if (player.resets == 2) {
-        if (player.infinityUpgrades.includes("resetBoost") ? player.sixthAmount >= 11 : player.sixthAmount >= 20) {
-            softReset();
-            document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 20 Seventh Dimension';
-        }
-    } else if (player.resets == 3) {
-        if (player.infinityUpgrades.includes("resetBoost") ? player.seventhAmount >= 11 : player.seventhAmount >= 20) {
-            softReset();
-            document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 20 Eighth Dimension';
-        }
-    } else if (player.resets > 3) {
-        if (player.infinityUpgrades.includes("resetBoost") ? player.eightAmount >= (player.resets - 4) * 15 + 11 : player.eightAmount >= (player.resets - 4) * 15 + 20) {
-            softReset();
-            document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + (player.resets - 3) * 20 + ' Eighth Dimension';
-        }
-        
-    }
+    dimensionShift();
 };
 
 document.getElementById("maxall").onclick = function () {    
@@ -916,83 +985,7 @@ document.getElementById("infi24").onclick = function () {
 
 
 document.getElementById("secondSoftReset").onclick = function () {
-    if (player.infinityUpgrades.includes("resetBoost") ? player.eightAmount >= (player.galaxies * 60 + 80) - 9 : player.eightAmount >= (player.galaxies * 60 + 80)) {
-        if (player.sacrificed == 0) giveAchievement("I don't believe in Gods");
-        player = {
-            money: 10,
-            tickSpeedCost: 1000,
-            tickspeed: 1000,
-            firstCost: 10,
-            secondCost: 100,
-            thirdCost: 10000,
-            fourthCost: 1000000,
-            fifthCost: 1e9,
-            sixthCost: 1e13,
-            seventhCost: 1e18,
-            eightCost: 1e24,
-            firstAmount: 0,
-            secondAmount: 0,
-            thirdAmount: 0,
-            fourthAmount: 0,
-            firstBought: 0,
-            secondBought: 0,
-            thirdBought: 0,
-            fourthBought: 0,
-            fifthAmount: 0,
-            sixthAmount: 0,
-            seventhAmount: 0,
-            eightAmount: 0,
-            fifthBought: 0,
-            sixthBought: 0,
-            seventhBought: 0,
-            eightBought: 0,
-            firstPow: 1,
-            secondPow: 1,
-            thirdPow: 1,
-            fourthPow: 1,
-            fifthPow: 1,
-            sixthPow: 1,
-            seventhPow: 1,
-            eightPow: 1,
-            sacrificed: 0,
-            achievements: player.achievements,
-            infinityUpgrades: player.infinityUpgrades,
-            infinityPoints: player.infinityPoints,
-            infinitied: player.infinitied,
-            totalTimePlayed: player.totalTimePlayed,
-            bestInfinityTime: player.bestInfinityTime,
-            thisInfinityTime: player.thisInfinityTime,
-            resets: 0,
-            galaxies: player.galaxies + 1,
-            totalmoney: player.totalmoney,
-            tickDecrease: player.tickDecrease - 0.03,
-            interval: null,
-            lastUpdate: player.lastUpdate,
-            achPow: player.achPow,
-            options: {
-                newsHidden: player.newsHidden,
-                scientific: player.options.scientific,
-                notation: player.options.notation,
-                animationsOn: player.options.animationsOn,
-                invert: player.options.invert,
-                logoVisible: player.options.logoVisible
-            }
-        };
-        updateCosts();
-        clearInterval(player.interval);
-        //updateInterval();
-        updateDimensions();
-        game.tickspeed.dom.container.style.display = "none";
-        
-        for (let i = 2; i <= 8; ++i) {
-            game.dimensions[i].dom.row.style.display = "none";
-        }
-        
-        updateTickSpeed();
-        
-        if (player.galaxies >= 2) giveAchievement("Double Galaxy");
-        if (player.galaxies >= 1) giveAchievement("You got past The Big Wall");
-    }
+    acquireGalaxy();
 };
 
 document.getElementById("exportbtn").onclick = function () {
@@ -1034,8 +1027,6 @@ document.getElementById("reset").onclick = function () {
         save_game();
         load_game();
         updateCosts();
-        clearInterval(player.interval);
-        //updateInterval();
 
         game.tickspeed.dom.container.style.display = "none";
         
@@ -1135,92 +1126,7 @@ document.getElementById("sacrifice").onclick = function () {
 
 
 document.getElementById("bigcrunch").onclick = function () {
-    if (player.money < Infinity) {
-        return false;
-    }
-    
-    if (player.thisInfinityTime <= 72000) giveAchievement("That's fast!");
-    if (player.eightAmount == 0) giveAchievement("You didn't need it anyway");
-    if (player.galaxies == 1) giveAchievement("Claustrophobic");
-    
-    player = {
-        money: 10,
-        tickSpeedCost: 1000,
-        tickspeed: 1000,
-        firstCost: 10,
-        secondCost: 100,
-        thirdCost: 10000,
-        fourthCost: 1000000,
-        fifthCost: 1e9,
-        sixthCost: 1e13,
-        seventhCost: 1e18,
-        eightCost: 1e24,
-        firstAmount: 0,
-        secondAmount: 0,
-        thirdAmount: 0,
-        fourthAmount: 0,
-        firstBought: 0,
-        secondBought: 0,
-        thirdBought: 0,
-        fourthBought: 0,
-        fifthAmount: 0,
-        sixthAmount: 0,
-        seventhAmount: 0,
-        eightAmount: 0,
-        fifthBought: 0,
-        sixthBought: 0,
-        seventhBought: 0,
-        eightBought: 0,
-        firstPow: 1,
-        secondPow: 1,
-        thirdPow: 1,
-        fourthPow: 1,
-        fifthPow: 1,
-        sixthPow: 1,
-        seventhPow: 1,
-        eightPow: 1,
-        sacrificed: 0,
-        achievements: player.achievements,
-        infinityUpgrades: player.infinityUpgrades,
-        infinityPoints: player.infinityPoints + 1,
-        infinitied: player.infinitied + 1,
-        totalTimePlayed: player.totalTimePlayed,
-        bestInfinityTime: Math.min(player.bestInfinityTime, player.thisInfinityTime),
-        thisInfinityTime: 0,
-        resets: 0,
-        galaxies: 0,
-        tickDecrease: 0.9,
-        totalmoney: 0,
-        interval: null,
-        lastUpdate: player.lastUpdate,
-        achPow: player.achPow,
-        options: {
-            newsHidden: player.newsHidden,
-            scientific: player.options.scientific,
-            notation: player.options.notation,
-            animationsOn: player.options.animationsOn,
-            invert: player.options.invert,
-            logoVisible: player.options.logoVisible
-        }
-    };
-    updateCosts();
-    clearInterval(player.interval);
-    //updateInterval();
-    updateDimensions();
-    
-    game.tickspeed.dom.container.style.display = "none";
-    
-    for (let i = 2; i <= 8; ++i) {
-        game.dimensions[i].dom.row.style.display = "none";
-    }
-    
-    updateTickSpeed();
-    showTab("dimensions")
-    kongregate.stats.submit('Infinitied', player.infinitied);
-    kongregate.stats.submit('Fastest Infinity time', Math.floor(player.bestInfinityTime / 10))
-    
-    giveAchievement("To infinity!");
-    if (player.infinitied >= 10) giveAchievement("That's a lot of infinites");
+    bigCrunch();
 }
 
 function calcPerSec(amount, pow, hasMult) {
