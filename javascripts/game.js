@@ -1,3 +1,183 @@
+const Dimension = (function() {
+    const NAMES = [ "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
+    const DISPLAY_NAMES = [ "First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth" ];
+    const COST_MULTIPLIER = [ 1e3, 1e4, 1e5, 1e6, 1e8, 1e10, 1e12, 1e15 ];
+    
+    let self = function(tier) {
+        this.tier = tier;
+        
+        this.name = NAMES[tier - 1];
+        this.displayName = DISPLAY_NAMES[tier - 1];
+        this.baseCostMultiplier = COST_MULTIPLIER[tier - 1];
+        
+        this.dom = {
+            buyOne:      document.getElementById(this.name),
+            buyMany:     document.getElementById(this.name + 'Max'),
+            row:         document.getElementById(this.name + 'Row'),
+            description: document.getElementById(this.name + 'D'),
+            amount:      document.getElementById(this.name + 'Amount'),
+        };
+        
+        this.dom.buyOne.onclick  = this.buyOne.bind(this);
+        this.dom.buyMany.onclick = this.buyMany.bind(this);
+    }
+    
+    for (let prop of [ "Amount", "Bought", "Cost", "Pow" ]) {
+        self.prototype['get' + prop] = function() {
+            return player[this.name + prop];
+        }
+        
+        self.prototype['set' + prop] = function(value) {
+            if (typeof value === "function") {
+                const ftor = value;
+                const curr = this['get' + prop]();
+                
+                value = ftor(curr);
+            }
+            
+            return player[this.name + prop] = value;
+        }
+    }
+    
+    self.prototype.canBuy = function() {
+        if (this.tier > player.resets + 4) {
+            return false;
+        }
+        
+        if (this.tier > 1 && game.dimensions[this.tier - 1].getAmount() == 0) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    self.prototype.buyOne = function() {
+        if (!this.canBuy()) {
+            return false;
+        }
+        
+        const cost = this.getCost();
+        
+        if (!canAfford(cost)) {
+            return false;
+        }
+        
+        player.money -= cost;
+        
+        this.setAmount(amount => amount + 1);
+        
+        if (this.setBought(bought => bought + 1) === 10) {
+            this.setBought(0);
+            
+            this.setPow(pow => pow * this.getPowerMultiplier());
+            this.setCost(cost => cost * this.getCostMultiplier());
+        }
+        
+        onBoughtDimension(this.tier, 1);
+        
+        return true;
+    }
+    
+    self.prototype.buyMany = function() {
+        if (!this.canBuy()) {
+            return false;
+        }
+        
+        const toBuy = 10 - this.getBought();
+        const cost = this.getCost() * toBuy;
+        
+        if (!canAfford(cost)) {
+            return false;
+        }
+        
+        player.money -= cost;
+        
+        this.setAmount(amount => amount + toBuy);
+        this.setBought(0);
+        
+        this.setPow(pow => pow * this.getPowerMultiplier());
+        this.setCost(cost => cost * this.getCostMultiplier());
+        
+        onBoughtDimension(this.tier, toBuy);
+        
+        return true;
+    }
+    
+    self.prototype.getPowerMultiplier = function() {
+        let dimMult = 2;
+        
+        if (player.infinityUpgrades.includes('dimMult')) {
+            dimMult += 0.2;
+        }
+        
+        return dimMult;
+    }
+
+    self.prototype.getCostMultiplier = function() {
+        return this.baseCostMultiplier;
+    }
+    
+    self.prototype.hasInfinityMult = function() {
+        switch (this.tier) {
+            case 1: case 8: return player.infinityUpgrades.includes("18Mult");
+            case 2: case 7: return player.infinityUpgrades.includes("27Mult");
+            case 3: case 6: return player.infinityUpgrades.includes("36Mult");
+            case 4: case 5: return player.infinityUpgrades.includes("45Mult");
+        }
+    }
+    
+    self.prototype.getProductionMultiplier = function() {
+        let multiplier = this.getPow();
+        
+        multiplier *= player.achPow;
+        
+        if (this.hasInfinityMult()) {
+            multiplier *= dimMults();
+        }
+        
+        if (player.infinityUpgrades.includes("timeMult")) {
+            multiplier *= timeMult();
+        }
+        
+        return multiplier;
+    }
+    
+    self.prototype.getProductionPerSecond = function() {
+        return Math.floor(this.getAmount()) * this.getProductionMultiplier() / (player.tickspeed / 1000);
+    }
+    
+    self.prototype.getRateOfChange = function() {
+        if (this.tier == 8) {
+            return 0;
+        }
+        
+        return game.dimensions[this.tier + 1].getProductionPerSecond() * 10 / Math.max(this.getAmount(), 1);
+    }
+    
+    self.prototype.getDescription = function() {        
+        let description = shortenDimensions(this.getAmount()) + ' (' + this.getBought() + ')';
+        
+        if (this.tier < 8) {
+            description += '  (+' + this.getRateOfChange().toFixed(1) + '%/s)';
+        }
+        
+        return description;
+    }
+    
+    return self;
+})();
+
+function Game() {
+    this.dimensions = [];
+    
+    for (let i = 1; i <= 8; ++i) {
+        this.dimensions[i] = new Dimension(i);
+    }
+}
+
+const game = new Game();
+
+
 var player = {
     money: 10,
     tickSpeedCost: 1000,
@@ -245,50 +425,6 @@ function hasInfinityMult(tier) {
     }
 }
 
-function getDimensionFinalMultiplier(tier) {
-    const name = TIER_NAMES[tier];
-
-    let multiplier = player[name + 'Pow'];
-    
-    multiplier *= player.achPow;
-    
-    if (hasInfinityMult(tier)) {
-        multiplier *= dimMults();
-    }
-    
-    if (player.infinityUpgrades.includes("timeMult")) {
-        multiplier *= timeMult();
-    }
-    
-    return multiplier;
-}
-
-function getDimensionDescription(tier) {
-    const name = TIER_NAMES[tier];
-    
-    let description = shortenDimensions(player[name + 'Amount']) + ' (' + player[name + 'Bought'] + ')';
-    
-    if (tier < 8) {
-        description += '  (+' + getDimensionRateOfChange(tier).toFixed(1) + '%/s)';
-    }
-    
-    return description;
-}
-
-function getDimensionRateOfChange(tier) {
-    if (tier == 8) {
-        return 0;
-    }
-    
-    const name = TIER_NAMES[tier];
-    
-    const toGain  = getDimensionProductionPerSecond(tier + 1);
-    const current = Math.max(player[name + 'Amount'], 1);
-    const change  = toGain * 10 / current;
-    
-    return change;
-}
-
 function getShiftRequirement() {
     let tier   = Math.min(player.resets + 4, 8);
     let amount = 20;
@@ -316,17 +452,17 @@ function getGalaxyRequirement() {
 
 function updateDimensions() {
     for (let tier = 1; tier <= 8; ++tier) {
-        const name = TIER_NAMES[tier];
+        const dimension = game.dimensions[tier];
         
-        if (!canBuyDimension(tier)) {
+        if (!dimension.canBuy()) {
             break;
         }
         
-        document.getElementById(name + "Row").style.display = "table-row";
-        document.getElementById(name + "Row").style.visibility = "visible";
+        dimension.dom.row.style.display = "table-row";
+        dimension.dom.row.style.visibility = "visible";
         
-        document.getElementById(name + "D").innerHTML = DISPLAY_NAMES[tier] + " Dimension x" + formatValue(player.options.notation, getDimensionFinalMultiplier(tier), 1, 0);
-        document.getElementById(name + "Amount").innerHTML = getDimensionDescription(tier);
+        dimension.dom.description.innerHTML = dimension.displayName + " Dimension x" + formatValue(player.options.notation, dimension.getProductionMultiplier(), 1, 0);
+        dimension.dom.amount.innerHTML = dimension.getDescription();
     }
     
     if (canBuyTickSpeed()) {
@@ -339,7 +475,7 @@ function updateDimensions() {
     }
     
     const shiftRequirement = getShiftRequirement();
-    document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + shiftRequirement.amount + " " + DISPLAY_NAMES[shiftRequirement.tier] + " Dimensions";
+    document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + shiftRequirement.amount + " " + game.dimensions[shiftRequirement.tier].displayName + " Dimensions";
     
     if (player.resets > 3) {
         document.getElementById("softReset").innerHTML = "Reset the game for a Boost";
@@ -373,23 +509,12 @@ function updateDimensions() {
 }
 
 function updateCosts() {
-    document.getElementById("first").innerHTML = 'Cost: ' + shortenCosts(player.firstCost);
-    document.getElementById("second").innerHTML = 'Cost: ' + shortenCosts(player.secondCost);
-    document.getElementById("third").innerHTML = 'Cost: ' + shortenCosts(player.thirdCost);
-    document.getElementById("fourth").innerHTML = 'Cost: ' + shortenCosts(player.fourthCost);
-    document.getElementById("fifth").innerHTML = 'Cost: ' + shortenCosts(player.fifthCost);
-    document.getElementById("sixth").innerHTML = 'Cost: ' + shortenCosts(player.sixthCost);
-    document.getElementById("seventh").innerHTML = 'Cost: ' + shortenCosts(player.seventhCost);
-    document.getElementById("eight").innerHTML = 'Cost: ' + shortenCosts(player.eightCost);
-    
-    document.getElementById("firstMax").innerHTML = 'Until 10, Cost: ' + shortenCosts(player.firstCost * (10 - player.firstBought));
-    document.getElementById("secondMax").innerHTML = 'Until 10, Cost: ' + shortenCosts(player.secondCost * (10 - player.secondBought));
-    document.getElementById("thirdMax").innerHTML = 'Until 10, Cost: ' + shortenCosts(player.thirdCost * (10 - player.thirdBought));
-    document.getElementById("fourthMax").innerHTML = 'Until 10, Cost: ' + shortenCosts(player.fourthCost * (10 - player.fourthBought));
-    document.getElementById("fifthMax").innerHTML = 'Until 10, Cost: ' + shortenCosts(player.fifthCost * (10 - player.fifthBought));
-    document.getElementById("sixthMax").innerHTML = 'Until 10, Cost: ' + shortenCosts(player.sixthCost * (10 - player.sixthBought));
-    document.getElementById("seventhMax").innerHTML = 'Until 10, Cost: ' + shortenCosts(player.seventhCost * (10 - player.seventhBought));
-    document.getElementById("eightMax").innerHTML = 'Until 10, Cost: ' + shortenCosts(player.eightCost * (10 - player.eightBought));
+    for (let tier = 1; tier <= 8; ++tier) {
+        const dimension = game.dimensions[tier];
+        
+        dimension.dom.buyOne.innerHTML = "Cost: " + shortenCosts(dimension.getCost());
+        dimension.dom.buyMany.innerHTML = "Cost: " + shortenCosts(dimension.getCost() * (10 - dimension.getBought()));
+    }
     
     document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shortenCosts(player.tickSpeedCost);
 }
@@ -472,17 +597,15 @@ function softReset() {
     clearInterval(player.interval);
     //updateInterval();
     updateDimensions();
-    document.getElementById("secondRow").style.display = "none";
-    document.getElementById("thirdRow").style.display = "none";
     document.getElementById("tickSpeed").style.visibility = "hidden";
     document.getElementById("tickSpeedMax").style.visibility = "hidden";
     document.getElementById("tickLabel").style.visibility = "hidden";
     document.getElementById("tickSpeedAmount").style.visibility = "hidden";
-    document.getElementById("fourthRow").style.display = "none";
-    document.getElementById("fifthRow").style.display = "none";
-    document.getElementById("sixthRow").style.display = "none";
-    document.getElementById("seventhRow").style.display = "none";
-    document.getElementById("eightRow").style.display = "none";
+    
+    for (let i = 2; i <= 8; ++i) {
+        game.dimensions[i].dom.row.style.display = "none";
+    }
+    
     updateTickSpeed();
     
     if (player.resets >= 10) {
@@ -510,7 +633,7 @@ shortenMoney = function (money) {
 };
 
 function canBuyTickSpeed() {
-    return canBuyDimension(3);
+    return game.dimensions[3].canBuy();
 }
 
 function getTickSpeedMultiplier() {   
@@ -589,51 +712,12 @@ function giveAchievement(name) {
     updateAchPow();
 }
 
-const TIER_NAMES = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
-const DISPLAY_NAMES = [ null, "First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth" ];
 
 function canAfford(cost) {
     return cost < Infinity && cost <= player.money;
 }
 
-function canBuyDimension(tier) {
-    if (tier > player.resets + 4) {
-        return false;
-    }
-    
-    if (tier > 1 && player[TIER_NAMES[tier - 1] + 'Amount'] == 0) {
-        return false;
-    }
-    
-    return true;
-}
-
-function getDimensionPowerMultiplier(tier) {
-    let dimMult = 2;
-    
-    if (player.infinityUpgrades.includes('dimMult')) {
-        dimMult += 0.2;
-    }
-    
-    return dimMult;
-}
-
-function getDimensionCostMultiplier(tier) {
-    const multiplier = [
-        1e3,
-        1e4,
-        1e5,
-        1e6,
-        1e8,
-        1e10,
-        1e12,
-        1e15
-    ];
-    
-    return multiplier[tier - 1];
-}
-
-function onBuyDimension(tier) {
+function onBoughtDimension(tier, count) {
     switch (tier) {
         case 1: giveAchievement("You gotta start somewhere"); break;
         case 2: giveAchievement("100 antimatter is a lot"); break;
@@ -645,6 +729,10 @@ function onBuyDimension(tier) {
         case 8: giveAchievement("90 degrees to infinity"); break;
     }
     
+    if (tier == 1 && count == 1 && game.dimensions[1].getAmount() >= 1e150) {
+        giveAchievement("There's no point in doing that");
+    }
+    
     if (tier == 8 && player.eightAmount == 99) {
         giveAchievement("The 9th Dimension is a lie");
     }
@@ -653,131 +741,6 @@ function onBuyDimension(tier) {
     updateMoney();
     updateDimensions();
 }
-
-function buyOneDimension(tier) {
-    const name = TIER_NAMES[tier];
-    
-    if (!canBuyDimension(tier)) {
-        return false;
-    }
-    
-    const cost = player[name + 'Cost'];
-    
-    if (!canAfford(cost)) {
-        return false;
-    }
-    
-    player.money -= cost;
-    
-    player[name + 'Amount']++;
-    player[name + 'Bought']++;
-    
-    if (player[name + 'Bought'] === 10) {
-        player[name + 'Bought'] = 0;
-        
-        player[name + 'Pow']  *= getDimensionPowerMultiplier(tier);
-        player[name + 'Cost'] *= getDimensionCostMultiplier(tier);
-    }
-    
-    onBuyDimension(tier);
-    
-    return true;
-}
-
-function buyManyDimension(tier) {
-    const name = TIER_NAMES[tier];
-    
-    if (!canBuyDimension(tier)) {
-        return false;
-    }
-    
-    const cost = player[name + 'Cost'] * (10 - player[name + 'Bought']);
-    
-    if (!canAfford(cost)) {
-        return false;
-    }
-    
-    player.money -= cost;
-    
-    player[name + 'Amount'] += 10 - player[name + 'Bought'];
-    player[name + 'Bought']  = 0;
-    
-    player[name + 'Pow']  *= getDimensionPowerMultiplier(tier);
-    player[name + 'Cost'] *= getDimensionCostMultiplier(tier);    
-    
-    onBuyDimension(tier);
-    
-    return true;
-}
-
-document.getElementById("first").onclick = function () {
-    if (buyOneDimension(1)) {
-        // This achievement is granted only if the buy one button is pressed.
-        if (player.firstAmount >= 1e150) {
-            giveAchievement("There's no point in doing that");
-        }
-    }
-};
-
-document.getElementById("second").onclick = function () {
-    buyOneDimension(2);
-};
-
-document.getElementById("third").onclick = function () {
-    buyOneDimension(3);
-};
-
-document.getElementById("fourth").onclick = function () {
-    buyOneDimension(4);
-};
-
-document.getElementById("fifth").onclick = function () {
-    buyOneDimension(5);
-};
-
-document.getElementById("sixth").onclick = function () {
-    buyOneDimension(6);
-};
-
-document.getElementById("seventh").onclick = function () {
-    buyOneDimension(7);
-};
-
-document.getElementById("eight").onclick = function () {
-    buyOneDimension(8);
-};
-
-document.getElementById("firstMax").onclick = function () {
-    buyManyDimension(1);
-};
-
-document.getElementById("secondMax").onclick = function () {
-    buyManyDimension(2);
-};
-
-document.getElementById("thirdMax").onclick = function () {
-    buyManyDimension(3);
-};
-
-document.getElementById("fourthMax").onclick = function () {
-    buyManyDimension(4);
-};
-
-document.getElementById("fifthMax").onclick = function () {
-    buyManyDimension(5);
-};
-
-document.getElementById("sixthMax").onclick = function () {
-    buyManyDimension(6);
-};
-
-document.getElementById("seventhMax").onclick = function () {
-    buyManyDimension(7);
-};
-
-document.getElementById("eightMax").onclick = function () {
-    buyManyDimension(8);
-};
 
 document.getElementById("softReset").onclick = function () {
     if (player.resets === 0) {
@@ -813,7 +776,7 @@ document.getElementById("maxall").onclick = function () {
     buyMaxTickSpeed();
     
     for (let tier = 8; tier >= 1; tier--) {
-        while (buyManyDimension(tier)) {
+        while (game.dimensions[tier].buyMany()) {
             continue;
         }
     }
@@ -1023,18 +986,17 @@ document.getElementById("secondSoftReset").onclick = function () {
         clearInterval(player.interval);
         //updateInterval();
         updateDimensions();
-        document.getElementById("secondRow").style.display = "none";
-        document.getElementById("thirdRow").style.display = "none";
         document.getElementById("tickSpeed").style.visibility = "hidden";
         document.getElementById("tickSpeedMax").style.visibility = "hidden";
         document.getElementById("tickLabel").style.visibility = "hidden";
         document.getElementById("tickSpeedAmount").style.visibility = "hidden";
-        document.getElementById("fourthRow").style.display = "none";
-        document.getElementById("fifthRow").style.display = "none";
-        document.getElementById("sixthRow").style.display = "none";
-        document.getElementById("seventhRow").style.display = "none";
-        document.getElementById("eightRow").style.display = "none";
+        
+        for (let i = 2; i <= 8; ++i) {
+            game.dimensions[i].dom.row.style.display = "none";
+        }
+        
         updateTickSpeed();
+        
         if (player.galaxies >= 2) giveAchievement("Double Galaxy");
         if (player.galaxies >= 1) giveAchievement("You got past The Big Wall");
     }
@@ -1277,10 +1239,6 @@ document.getElementById("bigcrunch").onclick = function () {
     if (player.infinitied >= 10) giveAchievement("That's a lot of infinites");
 }
 
-function getDimensionProductionPerSecond(tier) {
-    return Math.floor(player[TIER_NAMES[tier] + 'Amount']) * getDimensionFinalMultiplier(tier) / (player.tickspeed / 1000);
-}
-
 function calcPerSec(amount, pow, hasMult) {
     var hasTimeMult = player.infinityUpgrades.includes("timeMult")
     if (!hasMult && !hasTimeMult) return Math.floor(amount) * pow * player.achPow / (player.tickspeed / 1000);
@@ -1299,9 +1257,7 @@ setInterval(function () {
     diff = diff / 100;
     
     for (let tier = 7; tier >= 1; --tier) {
-        const name = TIER_NAMES[tier];
-        
-        player[name + 'Amount'] += getDimensionProductionPerSecond(tier + 1) * diff / 100;
+        game.dimensions[tier].setAmount(amount => amount + game.dimensions[tier + 1].getProductionPerSecond() * diff / 100);
     }
     
     if (player.money != Infinity) {
@@ -1321,10 +1277,10 @@ setInterval(function () {
     updateDimensions();
 
     for (let tier = 1; tier <= 8; ++tier) {
-        const name = TIER_NAMES[tier];
+        const dimension = game.dimensions[tier];
         
-        document.getElementById(name).className = canAfford(player[name + 'Cost']) ? 'storebtn' : 'unavailablebtn';
-        document.getElementById(name + 'Max').className = canAfford(player[name + 'Cost'] * (10 - player[name + 'Bought'])) ? 'storebtn' : 'unavailablebtn';
+        dimension.dom.buyOne.className = canAfford(dimension.getCost()) ? 'storebtn' : 'unavailablebtn';
+        dimension.dom.buyMany.className = canAfford(dimension.getCost() * (10 - dimension.getBought())) ? 'storebtn' : 'unavailablebtn';
     }
     
     if (canAfford(player.tickSpeedCost)) {
@@ -1406,7 +1362,7 @@ setInterval(function () {
 
     const shiftRequirement = getShiftRequirement();
     
-    if (player[TIER_NAMES[shiftRequirement.tier] + 'Amount'] >= shiftRequirement.amount) {
+    if (game.dimensions[shiftRequirement.tier].getAmount() >= shiftRequirement.amount) {
         document.getElementById("softReset").className = 'storebtn';
     } else {
         document.getElementById("softReset").className = 'unavailablebtn';
