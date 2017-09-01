@@ -1046,6 +1046,10 @@ document.getElementById("exportbtn").onclick = function () {
     
     parent.style.display = "";
     output.value = btoa(JSON.stringify(player));
+    
+    output.onblur = function() {
+        parent.style.display = "none";
+    }
 };
 
 
