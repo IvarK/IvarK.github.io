@@ -154,7 +154,7 @@ function load_game() {
     if (player.fifthAmount !== 0)
         if (player.resets > 1) document.getElementById("sixthRow").style.display = "table-row";
     if (player.sixthAmount !== 0)
-        if (player.resets > 2) document.getElementById("seventhRow").style.display = "table-row";
+        if (player.resets > 2 && player.currentChallenge !== "challenge4") document.getElementById("seventhRow").style.display = "table-row";
     if (player.seventhAmount !== 0)
         if (player.resets > 3) document.getElementById("eightRow").style.display = "table-row";
     updateCosts();
@@ -280,7 +280,15 @@ function updateDimensions() {
     }
     if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.9 - (player.galaxies * 0.04))) * 100) + '% faster.';
     else document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.9 - (player.galaxies * 0.02))) * 100) + '% faster.';
-    if (player.infinityUpgrades.includes("resetBoost")) {
+    
+    if (player.currentChallenge = "challenge4" && player.resets > 1) {
+        if (player.resets = 2) {if (player.infinityUpgrades.includes("resetBoost")) {
+            document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 11 Sixth Dimension';
+        } else {
+            document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 20 Sixth Dimension'; }
+            if (player.fifthAmount !== 0) document.getElementById("sixthRow").style.visibility = "visible"; }
+        document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires ' + ((player.resets - 1) * 20) + ' Sixth Dimension';
+    } else if (player.infinityUpgrades.includes("resetBoost")) {
         if (player.resets > 3) {
             document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + ((player.resets - 4) * 15 + 11) + ' Eighth Dimension';
             if (player.seventhAmount !== 0) document.getElementById("eightRow").style.visibility = "visible";
@@ -309,9 +317,10 @@ function updateDimensions() {
             if (player.fourthAmount !== 0) document.getElementById("fifthRow").style.visibility = "visible";
         } else document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 20 Fourth Dimension';
     }
-    if (player.resets > 3) document.getElementById("softReset").innerHTML = "Reset the game for a Boost";
+    if (player.resets > 3 || (player.resets > 1 && player.currentChallenge == "challenge4")) document.getElementById("softReset").innerHTML = "Reset the game for a Boost";
     else document.getElementById("softReset").innerHTML = "Reset the game for a new Dimension";
-    document.getElementById("secondResetLabel").innerHTML = player.infinityUpgrades.includes("resetBoost") ? 'Antimatter Galaxies: requires ' + ((player.galaxies * 60 + 80) - 9) + ' Eighth Dimensions' : 'Antimatter Galaxies: requires ' + (player.galaxies * 60 + 80) + ' Eighth Dimensions';
+    if (player.currentChallenge == "challenge4") document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + (player.galaxies * 90 + 130 - player.infinityUpgrades.includes("resetBoost")*9) + ' Eighth Dimensions'
+    else document.getElementById("secondResetLabel").innerHTML = player.infinityUpgrades.includes("resetBoost") ? 'Antimatter Galaxies: requires ' + ((player.galaxies * 60 + 80) - 9) + ' Eighth Dimensions' : 'Antimatter Galaxies: requires ' + (player.galaxies * 60 + 80) + ' Eighth Dimensions';
     document.getElementById("totalmoney").innerHTML = 'You have made a total of ' + shortenMoney(player.totalmoney) + ' antimatter.';
     document.getElementById("totalresets").innerHTML = 'You have done ' + player.resets + ' soft resets.';
     document.getElementById("galaxies").innerHTML = 'You have ' + Math.round(player.galaxies) + ' Antimatter Galaxies.';
@@ -714,7 +723,7 @@ document.getElementById("sixth").onclick = function () {
         updateCosts();
         updateMoney();
         updateDimensions();
-        if (player.resets > 2) document.getElementById("seventhRow").style.display = "table-row";
+        if (player.resets > 2 && player.currentChallenge !== "challenge4") document.getElementById("seventhRow").style.display = "table-row";
         if (!player.achievements.includes("We couldn't afford 9")) {
             giveAchievement("We couldn't afford 9")
         }
@@ -904,7 +913,7 @@ document.getElementById("sixthMax").onclick = function () {
         updateCosts();
         updateMoney();
         updateDimensions();
-        if (player.resets > 2) document.getElementById("seventhRow").style.display = "table-row";
+        if (player.resets > 2 && player.currentChallenge !== "challenge4") document.getElementById("seventhRow").style.display = "table-row";
         if (!player.achievements.includes("We couldn't afford 9")) {
             giveAchievement("We couldn't afford 9")
         }
@@ -956,6 +965,10 @@ document.getElementById("eightMax").onclick = function () {
 };
 
 document.getElementById("softReset").onclick = function () {
+  if (player.currentChallenge = "challenge4" && player.resets >= 2) {
+    if (player.sixthAmount >= (player.resets - 1) * 20 - player.infinityUpgrades.includes("resetBoost")*9) softReset();
+    document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + player.resets * 20 + ' Sixth Dimension'
+  } else {
     if (player.resets === 0) {
         if (player.infinityUpgrades.includes("resetBoost") ? player.fourthAmount >= 11 : player.fourthAmount >= 20) {
             softReset();
@@ -964,7 +977,8 @@ document.getElementById("softReset").onclick = function () {
     } else if (player.resets == 1) {
         if (player.infinityUpgrades.includes("resetBoost") ? player.fifthAmount >= 11 : player.fifthAmount >= 20) {
             softReset();
-            document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 20 Sixth Dimension';
+            if (player.currentChallenge == "challenge4") document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires 20 Sixth Dimension';
+            else document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 20 Sixth Dimension';
         }
     } else if (player.resets == 2) {
         if (player.infinityUpgrades.includes("resetBoost") ? player.sixthAmount >= 11 : player.sixthAmount >= 20) {
@@ -981,7 +995,7 @@ document.getElementById("softReset").onclick = function () {
             softReset();
             document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + (player.resets - 3) * 20 + ' Eighth Dimension';
         }
-    }
+  } }
 };
 
 function maxAll() {
@@ -1156,7 +1170,8 @@ document.getElementById("infi24").onclick = function () {
 
 
 document.getElementById("secondSoftReset").onclick = function () {
-    if (player.infinityUpgrades.includes("resetBoost") ? player.eightAmount >= (player.galaxies * 60 + 80) - 9 : player.eightAmount >= (player.galaxies * 60 + 80)) {
+    if (player.currentChallenge == "challenge4" ?
+    player.sixthAmount >= (player.galaxies * 90 + 130 - player.infinityUpgrades.includes("resetBoost") * 9) : player.eightAmount >= (player.galaxies * 60 + 80 - player.infinityUpgrades.includes("resetBoost") * 9)) {
       if (!player.achievements.includes("I don't believe in Gods") && player.sacrificed == 0) giveAchievement("I don't believe in Gods");
         player = {
             money: 10,
@@ -1843,13 +1858,16 @@ setInterval(function () {
 }, 1000 / 30);
 
 document.getElementById("challenge2").onclick = function () {
-  startChallenge("challenge2") //TODO
+  startChallenge("challenge2")
 }
 
 document.getElementById("challenge3").onclick = function () {
-  startChallenge("challenge3") //TODO
+  startChallenge("challenge3")
 }
 
+document.getElementById("challenge4").onclick = function () {
+  startChallenge("challenge4")
+}
 
 document.getElementById("challenge5").onclick = function () {
   startChallenge("challenge5");
