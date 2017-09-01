@@ -323,7 +323,7 @@ var defaultStart = player;
 function set_cookie(cookie_name, value) {
     expiry = new Date();
     expiry.setTime(new Date().getTime() + (365 * 24 * 60 * 60 * 1000));
-    var c_value = escape(btoa(JSON.stringify(value))) +
+    var c_value = escape(btoa(JSON.stringify(value, (k, v) => (v === Infinity) ? "Infinity" : v))) +
         "; expires=" + expiry.toUTCString();
     document.cookie = cookie_name + "=" + c_value;
 }
@@ -341,7 +341,7 @@ function get_cookie(cookie_name) {
         c_end = c_value.length;
     }
     c_value = atob(unescape(c_value.substring(c_start, c_end)));
-    return JSON.parse(c_value);
+    return JSON.parse(c_value, (k, v) => (v === "Infinity") ? Infinity : v);
 }
 
 kongregateAPI.loadAPI(function () {
@@ -772,13 +772,13 @@ shortenMoney = function (money) {
 function timeDisplay(time) {
     time = Math.floor(time / 10)
     if (time >= 31536000) {
-        return Math.floor(time / 31536000) + " years, " + Math.round((time % 31536000) / 86400) + " days, " + Math.round((time % 86400) / 3600) + " hours, " + Math.round((time % 3600) / 60) + " minutes and " + Math.round(time % 60) + " seconds"
+        return Math.floor(time / 31536000) + " years, " + Math.floor((time % 31536000) / 86400) + " days, " + Math.floor((time % 86400) / 3600) + " hours, " + Math.floor((time % 3600) / 60) + " minutes and " + Math.floor(time % 60) + " seconds"
     } else if (time >= 86400) {
-        return Math.floor(time / 86400) + " days, " + Math.round((time % 86400) / 3600) + " hours, " + Math.round((time % 3600) / 60) + " minutes and " + Math.round(time % 60) + " seconds"
+        return Math.floor(time / 86400) + " days, " + Math.floor((time % 86400) / 3600) + " hours, " + Math.floor((time % 3600) / 60) + " minutes and " + Math.floor(time % 60) + " seconds"
     } else if (time >= 3600) {
-        return Math.floor(time / 3600) + " hours, " + Math.round((time % 3600) / 60) + " minutes and " + Math.round(time % 60) + " seconds"
+        return Math.floor(time / 3600) + " hours, " + Math.floor((time % 3600) / 60) + " minutes and " + Math.floor(time % 60) + " seconds"
     } else if (time >= 60) {
-        return Math.floor(time / 60) + " minutes and " + Math.round(time % 60) + " seconds"
+        return Math.floor(time / 60) + " minutes and " + Math.floor(time % 60) + " seconds"
     } else return Math.floor(time % 60) + " seconds"
 }
 
@@ -984,7 +984,27 @@ document.getElementById("secondSoftReset").onclick = function () {
 };
 
 document.getElementById("exportbtn").onclick = function () {
-    prompt("Save this somewhere.", btoa(JSON.stringify(player)));
+    let output = document.getElementById('exportOutput');
+    let parent = output.parentElement;
+    
+    parent.style.display = "";
+    output.value = btoa(JSON.stringify(player, (k, v) => (v === Infinity) ? "Infinity" : v));
+    
+    output.onblur = function() {
+        parent.style.display = "none";
+    }
+    
+    output.focus();
+    output.select();
+    
+    try {
+        if (document.execCommand('copy')) {
+            $.notify("exported to clipboard", "info");
+            output.blur();
+        }
+    } catch(ex) {
+        // well, we tried.
+    }
 };
 
 
@@ -1001,7 +1021,7 @@ function verify_save(obj) {
 
 document.getElementById("importbtn").onclick = function () {
     var save_data = prompt("Input your save.");
-    save_data = JSON.parse(atob(save_data));
+    save_data = JSON.parse(atob(save_data), (k, v) => (v === "Infinity") ? Infinity : v);
     if (!save_data || !verify_save(save_data)) {
         alert('could not load the save..');
         load_custom_game();
