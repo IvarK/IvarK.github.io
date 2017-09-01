@@ -1041,7 +1041,11 @@ document.getElementById("secondSoftReset").onclick = function () {
 };
 
 document.getElementById("exportbtn").onclick = function () {
-    prompt("Save this somewhere.", btoa(JSON.stringify(player)));
+    let output = document.getElementById('exportOutput');
+    let parent = output.parentElement;
+    
+    parent.style.display = "";
+    output.value = btoa(JSON.stringify(player));
 };
 
 
