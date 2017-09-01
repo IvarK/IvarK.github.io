@@ -77,7 +77,7 @@ var tickSpeedButton = document.getElementById("tickSpeed");
 function set_cookie(cookie_name, value) {
     expiry = new Date();
     expiry.setTime(new Date().getTime() + (365 * 24 * 60 * 60 * 1000));
-    var c_value = escape(btoa(JSON.stringify(value))) +
+    var c_value = escape(btoa(JSON.stringify(value, (k, v) => (v === Infinity) ? "Infinity" : v))) +
         "; expires=" + expiry.toUTCString();
     document.cookie = cookie_name + "=" + c_value;
 }
@@ -95,7 +95,7 @@ function get_cookie(cookie_name) {
         c_end = c_value.length;
     }
     c_value = atob(unescape(c_value.substring(c_start, c_end)));
-    return JSON.parse(c_value);
+    return JSON.parse(c_value, (k, v) => (v === "Infinity") ? Infinity : v);
 }
 
 kongregateAPI.loadAPI(function () {
@@ -1045,7 +1045,7 @@ document.getElementById("exportbtn").onclick = function () {
     let parent = output.parentElement;
     
     parent.style.display = "";
-    output.value = btoa(JSON.stringify(player));
+    output.value = btoa(JSON.stringify(player, (k, v) => (v === Infinity) ? "Infinity" : v));
     
     output.onblur = function() {
         parent.style.display = "none";
@@ -1078,7 +1078,7 @@ function verify_save(obj) {
 
 document.getElementById("importbtn").onclick = function () {
     var save_data = prompt("Input your save.");
-    save_data = JSON.parse(atob(save_data));
+    save_data = JSON.parse(atob(save_data), (k, v) => (v === "Infinity") ? Infinity : v);
     if (!save_data || !verify_save(save_data)) {
         alert('could not load the save..');
         load_custom_game();
