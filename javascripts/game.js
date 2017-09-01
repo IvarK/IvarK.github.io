@@ -1495,7 +1495,7 @@ var newsArray = ["You just made your 1,000,000,000,000,000 antimatter. This one 
 "A new group for the standardisation of numbers have come forward with a novel new format involving emoji's.", "I thought that I fixed that bug but apparently some update broke it again -hevipelle",
 "Maybe I'm gay then -Bootato", "Breaking news! Hevipelle has just announced that the buy max button is in fact going to be removed!", "I dedicate this game to my girlfriend"
 "Antimatter guns don't kill antimatter people, antimatter people kill antimatter people but does that mean that antimatter toaster doesn't toast antimatter toasts, antimatter toast toasts antimatter toasts?", 
-"But to an antimatter person, wouldn't they be matter and us antimatter?",]
+"But to an antimatter person, wouldn't they be matter and us antimatter?"]
 
 
 var conditionalNewsArray = ["Our universe is falling apart. We are all evacuating. This is the last news cast", "THIS NEWS STATION HAS SHUT DOWN DUE TO COLLAPSING UNIVERSE", 
