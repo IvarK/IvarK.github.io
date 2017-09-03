@@ -1588,6 +1588,7 @@ function startChallenge(name) {
       chall2Pow: 1,
       chall3Pow: 0.01,
       options: {
+	notation: player.options.notation,
         scientific: player.options.scientific,
         animationsOn: player.options.animationsOn,
         invert: player.options.invert,
