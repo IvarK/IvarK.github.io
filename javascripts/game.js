@@ -484,6 +484,14 @@ function softReset() {
             logoVisible: player.options.logoVisible
         }
     };
+    if (player.currentChallenge = "challenge10") {
+        player.thirdCost = 100
+        player.fourthCost = 500
+        player.fifthCost = 2500
+        player.sixthCost = 2e4
+        player.seventhCost = 2e5
+        player.eighthCost = 4e6
+    }
     player.resets++;
     updateCosts();
     clearInterval(player.interval);
@@ -1283,6 +1291,14 @@ document.getElementById("secondSoftReset").onclick = function () {
                 logoVisible: player.options.logoVisible
             }
         };
+	    if (player.currentChallenge = "challenge10") {
+          player.thirdCost = 100
+          player.fourthCost = 500
+          player.fifthCost = 2500
+          player.sixthCost = 2e4
+          player.seventhCost = 2e5
+          player.eighthCost = 4e6
+        }
         updateCosts();
         clearInterval(player.interval);
         //updateInterval();
