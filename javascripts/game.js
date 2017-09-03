@@ -1603,6 +1603,18 @@ setInterval(function () {
     diff = diff / 100;
     player.chall3Pow *= 1.00038
     player.chall2Pow = Math.min(player.chall2Pow + diff/1800, 1)
+    if (player.currentChallenge == "challenge7") {
+      player.sixthAmount += calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult")) * diff / 100;
+      player.fifthAmount += calcPerSec(player.seventhAmount, player.seventhPow, player.infinityUpgrades.includes("27Mult")) * diff / 100;
+      player.fourthAmount += calcPerSec(player.sixthAmount, player.sixthPow, player.infinityUpgrades.includes("36Mult")) * diff / 100;
+      player.thirdAmount += calcPerSec(player.fifthAmount, player.fifthPow, player.infinityUpgrades.includes("45Mult")) * diff / 100;
+      player.secondAmount += calcPerSec(player.fourthAmount, player.fourthPow, player.infinityUpgrades.includes("45Mult")) * diff / 100;
+      player.firstAmount += calcPerSec(player.thirdAmount, player.thirdPow, player.infinityUpgrades.includes("36Mult")) * diff / 100;
+      player.firstAmount += 
+      if (player.money != Infinity) {
+        player.money += (calcPerSec(player.firstAmount, Math.pow(4/3, player.firstPow), player.infinityUpgrades.includes("18Mult")) + calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult"))) * diff / 10;
+        player.totalmoney += (calcPerSec(player.firstAmount, Math.pow(4/3, player.firstPow), player.infinityUpgrades.includes("18Mult")) + calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult"))) * diff / 10;
+      } } else {
     player.seventhAmount += calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult")) * diff / 100;
     player.sixthAmount += calcPerSec(player.seventhAmount, player.seventhPow, player.infinityUpgrades.includes("27Mult")) * diff / 100;
     player.fifthAmount += calcPerSec(player.sixthAmount, player.sixthPow, player.infinityUpgrades.includes("36Mult")) * diff / 100;
@@ -1617,7 +1629,7 @@ setInterval(function () {
       } else {
         player.money += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff / 10;
         player.totalmoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff * player.chall3Pow / 10;
-      }
+      } }
     }
     player.totalTimePlayed += diff
     player.thisInfinityTime += diff
@@ -1878,6 +1890,10 @@ document.getElementById("challenge4").onclick = function () {
 
 document.getElementById("challenge5").onclick = function () {
   startChallenge("challenge5");
+}
+
+document.getElementById("challenge7").onclick = function () {
+  startChallenge("challenge7");
 }
 
 function init() {
