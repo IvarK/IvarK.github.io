@@ -197,6 +197,9 @@ var FormatList = ['', 'K', 'M', 'B', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'D
 var letterList1 = ['', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 var letterList2 = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
+var emojiList1 = ['', '😠', '🎂', '🎄', '💀', '🍆', '👪', '🌈', '💯', '🍦', '🎃', '💋', '😂', '🌙', '⛔', '🐙', '💩', '❓', '☢️', '🙈', '👍', '☂️', '✌️', '⚠️', '❌', '😋', '⚡'];
+var emojiList2 = ['😠', '🎂', '🎄', '💀', '🍆', '👪', '🌈', '💯', '🍦', '🎃', '💋', '😂', '🌙', '⛔', '🐙', '💩', '❓', '☢️', '🙈', '👍', '☂️', '✌️', '⚠️', '❌', '😋', '⚡'];
+
 
 function formatValue(notation, value, places, placesUnder1000) {
     if ((value != Infinity) && (value >= 1000)) {
@@ -213,11 +216,15 @@ function formatValue(notation, value, places, placesUnder1000) {
             power -= 3;
             return ((Math.round(matissa * Math.pow(10, power % 3) * Math.pow(10, places)) / Math.pow(10, places)).toFixed(places) +
                 letterList1[Math.floor(((power - (power % 3)) / 3) / letterList2.length)] + letterList2[((power - (power % 3)) / 3) % letterList2.length]);
-        } else {
-            return ((Math.round(matissa * 100) / 100).toFixed(places) + "e" + power);
-        }
+        } else if (notation === "Emojis") {
+            power -= 3;
+            return ((Math.round(matissa * Math.pow(10, power % 3) * Math.pow(10, places)) / Math.pow(10, places)).toFixed(places) +
+                emojiList1[Math.floor(((power - (power % 3)) / 3) / emojiList2.length)] + emojiList2[((power - (power % 3)) / 3) % emojiList2.length]);
+            
+            
+            } else return ((Math.round(matissa * 100) / 100).toFixed(places) + "e" + power);
     } else if (value < 1000) {
-        return ((Math.round(value * Math.pow(10, places)) / Math.pow(10, places))).toFixed(placesUnder1000);
+        return ((Math.round(value * Math.pow(10, places)) / Math.pow(10, places))).toFixed(placesUnder1000);    
     } else {
         return "Infinite";
     }
@@ -1132,7 +1139,7 @@ function setAchieveTooltip() {
 
 document.getElementById("notation").onclick = function () {
     player.options.scientific = !player.options.scientific;
-    if (player.options.notation === "Standard") {
+    if (player.options.notation === "Emojis") {
         player.options.notation = "Scientific";
         document.getElementById("notation").innerHTML = ("Notation: Scientific")
     } else if (player.options.notation === "Scientific") {
@@ -1144,6 +1151,9 @@ document.getElementById("notation").onclick = function () {
     } else if (player.options.notation === "Letters") {
         player.options.notation = "Standard";
         document.getElementById("notation").innerHTML = ("Notation: Standard")
+    } else if (player.options.notation === "Standard") {
+        player.options.notation = "Emojis";
+        document.getElementById("notation").innerHTML = ("Notation: Cancer")
     }
     setAchieveTooltip();
     updateDimensions();
