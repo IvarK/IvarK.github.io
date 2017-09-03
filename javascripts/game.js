@@ -490,7 +490,7 @@ function softReset() {
         player.fifthCost = 2500
         player.sixthCost = 2e4
         player.seventhCost = 2e5
-        player.eighthCost = 4e6
+        player.eightCost = 4e6
     }
     player.resets++;
     updateCosts();
@@ -1295,10 +1295,6 @@ document.getElementById("secondSoftReset").onclick = function () {
 	    if (player.currentChallenge = "challenge10") {
           player.thirdCost = 100
           player.fourthCost = 500
-          player.fifthCost = 2500
-          player.sixthCost = 2e4
-          player.seventhCost = 2e5
-          player.eighthCost = 4e6
         }
         updateCosts();
         clearInterval(player.interval);
@@ -1613,12 +1609,7 @@ function startChallenge(name) {
     };
 	if (name = "challenge10") {
         player.thirdCost = 100
-        player.fourthCost = 500
-        player.fifthCost = 2500
-        player.sixthCost = 2e4
-        player.seventhCost = 2e5
-        player.eighthCost = 4e6
-    }
+        player.fourthCost = 500}
     updateCosts();
     clearInterval(player.interval);
     //updateInterval();
