@@ -596,7 +596,7 @@ function doubleAllDimensionCosts() {
 function clearDimensions(amount) {
 	const tiers = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
     
-    for (let i = 1; i <= amount; ++i) {
+    for (i = 1; i <= amount; i++) {
         player[tiers[i] + "Amount"] = 0
 }   }
 
