@@ -280,8 +280,12 @@ function updateDimensions() {
         document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("27Mult") ? player.seventhPow * player.achPow : player.seventhPow * player.achPow * dimMults()) * timeMult(), 1, 0);
         document.getElementById("eightD").innerHTML = 'Eighth Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("18Mult") ? player.eightPow * player.achPow : player.eightPow * player.achPow * dimMults()) * timeMult(), 1, 0);
     }
-    if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.9 - (player.galaxies * 0.04))) * 100) + '% faster.';
-    else document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.9 - (player.galaxies * 0.02))) * 100) + '% faster.';
+    if (player.currentChallenge == "challenge6") {
+        if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.93 - (player.galaxies * 0.04))) * 100) + '% faster.';
+        else document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.93 - (player.galaxies * 0.02))) * 100) + '% faster.';
+    } else {
+        if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.9 - (player.galaxies * 0.04))) * 100) + '% faster.';
+        else document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.9 - (player.galaxies * 0.02))) * 100) + '% faster.'; }
             
     if (player.currentChallenge == "challenge4" && player.resets > 0) {
 	if (player.fifthAmount !== 0) document.getElementById("sixthRow").style.visibility = "visible";
@@ -512,8 +516,12 @@ shortenMoney = function (money) {
 document.getElementById("tickSpeed").onclick = function () {
     if (player.money >= player.tickSpeedCost) {
         player.money -= player.tickSpeedCost;
-        if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.04));
-        else player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.02));
+	    if (player.currentChallenge == "challenge6") {
+            if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed *= (0.93 - (player.galaxies * 0.04));
+            else player.tickspeed *= (0.93 - (player.galaxies * 0.02));
+        } else { 
+            if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.04));
+            else player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.02)); }
         player.tickSpeedCost = player.tickSpeedCost * 10;
         document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shortenCosts(player.tickSpeedCost);
         updateTickSpeed();
@@ -525,8 +533,12 @@ document.getElementById("tickSpeed").onclick = function () {
 function buyMaxTickSpeed() {
     if (player.money >= player.tickSpeedCost) {
         player.money -= player.tickSpeedCost;
-        if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.04));
-        else player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.02));
+        if (player.currentChallenge == "challenge6") {
+            if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed *= (0.93 - (player.galaxies * 0.04));
+            else player.tickspeed *= (0.93 - (player.galaxies * 0.02));
+        } else { 
+            if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.04));
+            else player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.02)); }
         player.tickSpeedCost = player.tickSpeedCost * 10;
         document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shortenCosts(player.tickSpeedCost);
         updateTickSpeed();
@@ -1878,6 +1890,10 @@ document.getElementById("challenge4").onclick = function () {
 
 document.getElementById("challenge5").onclick = function () {
   startChallenge("challenge5");
+}
+
+document.getElementById("challenge6").onclick = function () {
+  startChallenge("challenge6");
 }
 
 function init() {
