@@ -662,28 +662,12 @@ document.getElementById("second").onclick = function () {
 };
 
 document.getElementById("third").onclick = function () {
+	if (player.thirdBought == 9) document.getElementById("thirdMax").click();
     if (player.currentChallenge == "challenge10" ? player.firstAmount >= player.thirdCost : player.money >= player.thirdCost) {
-      player.thirdAmount++;
-      if (player.currentChallenge == "challenge10") {
-        player.firstAmount -= player.thirdCost;
-        if (player.thirdBought == 9) {
-            player.thirdBought = 0;
-            player.thirdPow *= 2;
-            if (player.infinityUpgrades.includes('dimMult')) player.thirdPow *= 1.1;
-            player.thirdCost = player.thirdCost * 10000;
-        } else player.thirdBought++; }
-      } else {
-        player.money -= player.thirdCost;
-        if (player.thirdBought == 9) {
-            player.thirdBought = 0;
-            if (player.currentChallenge == "challenge9") player.thirdPow *= Math.pow(10/0.15,Math.random())*0.15;
-            else player.thirdPow *= 2;
-            if (player.infinityUpgrades.includes('dimMult')) player.thirdPow *= 1.1;
-            player.thirdCost = player.thirdCost * 100000;
-            if (player.currentChallenge === "challenge5") {
-                doubleAllDimensionCosts()
-            }
-        } else player.thirdBought++; }
+        player.thirdAmount++;
+        if (player.currentChallenge == "challenge10") player.firstAmount -= player.thirdCost;
+        else player.money -= player.thirdCost;
+        player.thirdBought++;
         updateCoinPerSec();
         var element = document.getElementById("third");
         element.innerHTML = 'Cost: ' + shortenCosts(player.thirdCost);
@@ -703,6 +687,7 @@ document.getElementById("fourth").onclick = function () {
     if (player.fourthBought == 9) document.getElementById("fourthMax").click();
     else if (player.currentChallenge == "challenge10" ? player.secondAmount >= player.fourthCost : player.money >= player.fourthCost) {
         player.fourthBought++;
+        player.fourthAmount++;
         if (player.currentChallenge == "challenge10") player.secondAmount -= player.fourthCost;
         else player.money -= player.fourthCost;
         updateCoinPerSec();
@@ -724,6 +709,7 @@ document.getElementById("fifth").onclick = function () {
     if (player.fifthBought == 9) document.getElementById("fifthMax").click();
     else if (player.currentChallenge == "challenge10" ? player.thirdAmount >= player.fifthCost : player.money >= player.fifthCost) {
         player.fifthAmount++;
+        player.fifthBought++;
         if (player.currentChallenge == "challenge10") player.thirdAmount -= player.fifthCost;
         else player.money -= player.fifthCost;
         updateCoinPerSec();
@@ -745,6 +731,7 @@ document.getElementById("sixth").onclick = function () {
     if (player.sixthBought == 9) document.getElementById("sixthMax").click();
     else if (player.currentChallenge == "challenge10" ? player.fourthAmount >= player.sixthCost : player.money >= player.sixthCost) {
         player.sixthAmount++;
+        player.sixthBought++;
         if (player.currentChallenge == "challenge10") player.fourthAmount -= player.sixthCost;
         else player.money -= player.sixthCost;
         updateCoinPerSec();
@@ -768,6 +755,7 @@ document.getElementById("seventh").onclick = function () {
         if (player.currentChallenge == "challenge10") player.fifthAmount -= player.seventhCost;
         else player.money -= player.seventhCost;
         player.seventhBought++;
+        player.seventhAmount++;
         updateCoinPerSec();
         var element = document.getElementById("seventh");
         element.innerHTML = 'Cost: ' + shortenCosts(player.seventhCost);
@@ -787,6 +775,7 @@ document.getElementById("eight").onclick = function () {
     if (player.eightBought == 9) document.getElementById("eightMax").click();
     else if (player.currentChallenge == "challenge10" ? player.sixthAmount >= player.eightCost : player.money >= player.eightCost) {
         player.eightAmount++;
+        player.eightBought++;
         if (player.currentChallenge == "challenge10") player.sixthAmount -= player.eightCost;
         else player.money -= player.eightCost;
         updateCoinPerSec();
