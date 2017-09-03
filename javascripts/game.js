@@ -1434,10 +1434,14 @@ function calcSacrificeBoost() {
 
 
 function sacrifice() {
+  if (player.currentChallenge = "challenge4") {
+    player.sixthPow *= calcSacrificeBoost()
+    clearDimensions(5);
+  } else {
     player.eightPow *= calcSacrificeBoost()
+    clearDimensions(7); }
+    
     player.sacrificed += player.firstAmount;
-    clearDimensions(7);
-
     if (Math.max(Math.pow((Math.log10(Math.max(player.sacrificed, 1)) / 10.0), 2), 2) >= 600 && !player.achievements.includes("The Gods are pleased")) giveAchievement("The Gods are pleased");
 
 }
@@ -1446,8 +1450,8 @@ function sacrifice() {
 
 
 document.getElementById("sacrifice").onclick = function () {
-    if (document.getElementById("confirmation").checked && player.eightAmount != 0) sacrifice();
-    else if (confirm("Dimensional Sacrifice will reduce the amount of dimensions from 1 to 7 to 0, but the cost and the multiplier stays the same, you will also get a boost to Eighth Dimension. THIS MIGHT AFFECT YOUR PROGRESS NEGATIVELY.") && player.eightAmount != 0) sacrifice();
+    if (document.getElementById("confirmation").checked && (player.eightAmount != 0 || (player.sixthAmount != 0 && player.currentChallenge == "challenge4")) sacrifice();
+    else if (confirm("Dimensional Sacrifice will reduce the amount of dimensions from 1 to 7 to 0, but the cost and the multiplier stays the same, you will also get a boost to Eighth Dimension. THIS MIGHT AFFECT YOUR PROGRESS NEGATIVELY.") && (player.eightAmount != 0 || (player.sixthAmount != 0 && player.currentChallenge == "challenge4"))) sacrifice();
 
 }
 
