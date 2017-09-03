@@ -398,7 +398,7 @@ function updateTickSpeed() {
 function updateChallenges() {
   
   for (challenge in document.getElementsByClassName('onchallengebtn')) {
-    document.getElementById(player.challenges[challenge]).className = "challengesbtn";
+    challenge.className = "challengesbtn";
   }
   
   for (challenge in player.challenges) {
@@ -607,8 +607,8 @@ document.getElementById("first").onclick = function () {
         if (player.firstBought == 9) {
             player.firstBought = 0;
             if (player.currentChallenge == "challenge9") player.firstPow *= Math.pow(10/0.15,Math.random())*0.15;
-            else if (player.infinityUpgrades.includes('dimMult')) player.firstPow *= 2.2;
             else player.firstPow *= 2;
+	        if (player.infinityUpgrades.includes('dimMult')) player.firstPow *= 1.1;
             player.firstCost = player.firstCost * 1000;
             if (player.currentChallenge === "challenge5") {
                 doubleAllDimensionCosts()
@@ -636,8 +636,8 @@ document.getElementById("second").onclick = function () {
         if (player.secondBought == 9) {
             player.secondBought = 0;
             if (player.currentChallenge == "challenge9") player.secondPow *= Math.pow(10/0.15,Math.random())*0.15;
-            else if (player.infinityUpgrades.includes('dimMult')) player.secondPow *= 2.2;
             else player.secondPow *= 2;
+            if (player.infinityUpgrades.includes('dimMult')) player.secondPow *= 1.1;
             player.secondCost = player.secondCost * 10000;
             if (player.currentChallenge === "challenge5") {
                 doubleAllDimensionCosts()
@@ -669,8 +669,8 @@ document.getElementById("third").onclick = function () {
         if (player.thirdBought == 9) {
             player.thirdBought = 0;
             if (player.currentChallenge == "challenge9") player.thirdPow *= Math.pow(10/0.15,Math.random())*0.15;
-            else if (player.infinityUpgrades.includes('dimMult')) player.thirdPow *= 2.2;
             else player.thirdPow *= 2;
+            if (player.infinityUpgrades.includes('dimMult')) player.thirdPow *= 1.1;
             player.thirdCost = player.thirdCost * 100000;
             if (player.currentChallenge === "challenge5") {
                 doubleAllDimensionCosts()
@@ -698,8 +698,8 @@ document.getElementById("fourth").onclick = function () {
         if (player.fourthBought == 9) {
             player.fourthBought = 0;
             if (player.currentChallenge == "challenge9") player.fourthPow *= Math.pow(10/0.15,Math.random())*0.15;
-            else if (player.infinityUpgrades.includes('dimMult')) player.fourthPow *= 2.2;
             else player.fourthPow *= 2;
+            if (player.infinityUpgrades.includes('dimMult')) player.fourthPow *= 1.1;
             player.fourthCost = player.fourthCost * 1000000;
             if (player.currentChallenge === "challenge5") {
                 doubleAllDimensionCosts()
@@ -727,8 +727,8 @@ document.getElementById("fifth").onclick = function () {
         if (player.fifthBought == 9) {
             player.fifthBought = 0;
             if (player.currentChallenge == "challenge9") player.fifthPow *= Math.pow(10/0.15,Math.random())*0.15;
-            else if (player.infinityUpgrades.includes('dimMult')) player.fifthPow *= 2.2;
             else player.fifthPow *= 2;
+            if (player.infinityUpgrades.includes('dimMult')) player.fifthPow *= 1.1;
             player.fifthCost = player.fifthCost * 1e8;
             if (player.currentChallenge === "challenge5") {
                 doubleAllDimensionCosts()
@@ -756,8 +756,8 @@ document.getElementById("sixth").onclick = function () {
         if (player.sixthBought == 9) {
             player.sixthBought = 0;
             if (player.currentChallenge == "challenge9") player.sixthPow *= Math.pow(10/0.15,Math.random())*0.15;
-            else if (player.infinityUpgrades.includes('dimMult')) player.sixthPow *= 2.2;
             else player.sixthPow *= 2;
+            if (player.infinityUpgrades.includes('dimMult')) player.sixthPow *= 1.1;
             player.sixthCost = player.sixthCost * 1e10;
             if (player.currentChallenge === "challenge5") {
                 doubleAllDimensionCosts()
@@ -785,8 +785,8 @@ document.getElementById("seventh").onclick = function () {
         if (player.seventhBought == 9) {
             player.seventhBought = 0;
             if (player.currentChallenge == "challenge9") player.seventhPow *= Math.pow(10/0.15,Math.random())*0.15;
-            else if (player.infinityUpgrades.includes('dimMult')) player.seventhPow *= 2.2;
             else player.seventhPow *= 2;
+            if (player.infinityUpgrades.includes('dimMult')) player.seventhPow *= 1.1;
             player.seventhCost = player.seventhCost * 1e12;
             if (player.currentChallenge === "challenge5") {
                 doubleAllDimensionCosts()
@@ -814,8 +814,8 @@ document.getElementById("eight").onclick = function () {
         if (player.eightBought == 9) {
             player.eightBought = 0;
             if (player.currentChallenge == "challenge9") player.eightPow *= Math.pow(10/0.15,Math.random())*0.15;
-            else if (player.infinityUpgrades.includes('dimMult')) player.eightPow *= 2.2;
             else player.eightPow *= 2;
+            if (player.infinityUpgrades.includes('dimMult')) player.eighthPow *= 1.1;
             player.eightCost = player.eightCost * 1e15;
             if (player.currentChallenge === "challenge5") {
                 doubleAllDimensionCosts()
@@ -842,8 +842,8 @@ document.getElementById("firstMax").onclick = function () {
         player.money -= player.firstCost * (10 - player.firstBought);
         player.firstBought = 0;
         if (player.currentChallenge == "challenge9") player.firstPow *= Math.pow(10/0.15,Math.random())*0.15;
-        else if (player.infinityUpgrades.includes('dimMult')) player.firstPow *= 2.2;
         else player.firstPow *= 2;
+        if (player.infinityUpgrades.includes('dimMult')) player.firstPow *= 1.1;
         player.firstCost *= 1e3;
         if (player.currentChallenge === "challenge5") {
             doubleAllDimensionCosts()
@@ -865,8 +865,8 @@ document.getElementById("secondMax").onclick = function () {
         player.money -= player.secondCost * (10 - player.secondBought);
         player.secondBought = 0;
         if (player.currentChallenge == "challenge9") player.secondPow *= Math.pow(10/0.15,Math.random())*0.15;
-        else if (player.infinityUpgrades.includes('dimMult')) player.secondPow *= 2.2;
         else player.secondPow *= 2;
+        if (player.infinityUpgrades.includes('dimMult')) player.secondPow *= 1.1;
         player.secondCost *= 1e4;
         if (player.currentChallenge === "challenge5") {
             doubleAllDimensionCosts()
@@ -893,8 +893,8 @@ document.getElementById("thirdMax").onclick = function () {
         player.money -= player.thirdCost * (10 - player.thirdBought);
         player.thirdBought = 0;
         if (player.currentChallenge == "challenge9") player.thirdPow *= Math.pow(10/0.15,Math.random())*0.15;
-        else if (player.infinityUpgrades.includes('dimMult')) player.thirdPow *= 2.2;
         else player.thirdPow *= 2;
+        if (player.infinityUpgrades.includes('dimMult')) player.thirdPow *= 1.1;
         player.thirdCost *= 1e5;
         if (player.currentChallenge === "challenge5") {
             doubleAllDimensionCosts()
@@ -917,8 +917,8 @@ document.getElementById("fourthMax").onclick = function () {
         player.money -= player.fourthCost * (10 - player.fourthBought);
         player.fourthBought = 0;
         if (player.currentChallenge == "challenge9") player.fourthPow *= Math.pow(10/0.15,Math.random())*0.15;
-        else if (player.infinityUpgrades.includes('dimMult')) player.fourthPow *= 2.2;
         else player.fourthPow *= 2;
+        if (player.infinityUpgrades.includes('dimMult')) player.fourthPow *= 1.1;
         player.fourthCost *= 1e6;
         if (player.currentChallenge === "challenge5") {
             doubleAllDimensionCosts()
@@ -941,8 +941,8 @@ document.getElementById("fifthMax").onclick = function () {
         player.money -= player.fifthCost * (10 - player.fifthBought);
         player.fifthBought = 0;
         if (player.currentChallenge == "challenge9") player.fifthPow *= Math.pow(10/0.15,Math.random())*0.15;
-        else if (player.infinityUpgrades.includes('dimMult')) player.fifthPow *= 2.2;
         else player.fifthPow *= 2;
+        if (player.infinityUpgrades.includes('dimMult')) player.fifthPow *= 1.1;
         player.fifthCost *= 1e8;
         if (player.currentChallenge === "challenge5") {
             doubleAllDimensionCosts()
@@ -965,8 +965,8 @@ document.getElementById("sixthMax").onclick = function () {
         player.money -= player.sixthCost * (10 - player.sixthBought);
         player.sixthBought = 0;
         if (player.currentChallenge == "challenge9") player.sixthPow *= Math.pow(10/0.15,Math.random())*0.15;
-        else if (player.infinityUpgrades.includes('dimMult')) player.sixthPow *= 2.2;
         else player.sixthPow *= 2;
+        if (player.infinityUpgrades.includes('dimMult')) player.sixthPow *= 1.1;
         player.sixthCost *= 1e10;
         if (player.currentChallenge === "challenge5") {
             doubleAllDimensionCosts()
@@ -989,8 +989,8 @@ document.getElementById("seventhMax").onclick = function () {
         player.money -= player.seventhCost * (10 - player.seventhBought);
         player.seventhBought = 0;
         if (player.currentChallenge == "challenge9") player.seventhPow *= Math.pow(10/0.15,Math.random())*0.15;
-        else if (player.infinityUpgrades.includes('dimMult')) player.seventhPow *= 2.2;
         else player.seventhPow *= 2;
+        if (player.infinityUpgrades.includes('dimMult')) player.seventhPow *= 1.1;
         player.seventhCost *= 1e12;
         if (player.currentChallenge === "challenge5") {
             doubleAllDimensionCosts()
@@ -1013,8 +1013,8 @@ document.getElementById("eightMax").onclick = function () {
         player.money -= player.eightCost * (10 - player.eightBought);
         player.eightBought = 0;
         if (player.currentChallenge == "challenge9") player.eightPow *= Math.pow(10/0.15,Math.random())*0.15;
-        else if (player.infinityUpgrades.includes('dimMult')) player.eightPow *= 2.2;
         else player.eightPow *= 2;
+        if (player.infinityUpgrades.includes('dimMult')) player.firstPow *= 1.1;
         player.eightCost *= 1e15;
         if (player.currentChallenge === "challenge5") {
             doubleAllDimensionCosts()
