@@ -1450,7 +1450,7 @@ function sacrifice() {
 
 
 document.getElementById("sacrifice").onclick = function () {
-    if (document.getElementById("confirmation").checked && (player.eightAmount != 0 || (player.sixthAmount != 0 && player.currentChallenge == "challenge4")) sacrifice();
+    if (document.getElementById("confirmation").checked && (player.eightAmount != 0 || (player.sixthAmount != 0 && player.currentChallenge == "challenge4"))) sacrifice();
     else if (confirm("Dimensional Sacrifice will reduce the amount of dimensions from 1 to 7 to 0, but the cost and the multiplier stays the same, you will also get a boost to Eighth Dimension. THIS MIGHT AFFECT YOUR PROGRESS NEGATIVELY.") && (player.eightAmount != 0 || (player.sixthAmount != 0 && player.currentChallenge == "challenge4"))) sacrifice();
 
 }
