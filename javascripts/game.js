@@ -221,8 +221,7 @@ function formatValue(notation, value, places, placesUnder1000) {
             return ((Math.round(matissa * Math.pow(10, power % 3) * Math.pow(10, places)) / Math.pow(10, places)).toFixed(places) +
                 emojiList1[Math.floor(((power - (power % 3)) / 3) / emojiList2.length)] + emojiList2[((power - (power % 3)) / 3) % emojiList2.length]);
             
-            } else if (value < 1000) {
-        return ((Math.round(value * Math.pow(10, places)) / Math.pow(10, places))).toFixed(placesUnder1000);
+            
             } else return ((Math.round(matissa * 100) / 100).toFixed(places) + "e" + power);
     } else if (value < 1000) {
         return ((Math.round(value * Math.pow(10, places)) / Math.pow(10, places))).toFixed(placesUnder1000);    
