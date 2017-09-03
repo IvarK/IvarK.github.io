@@ -291,10 +291,14 @@ function updateDimensions() {
         document.getElementById("seventhD").innerHTML = 'Seventh Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("27Mult") ? player.seventhPow * player.achPow : player.seventhPow * player.achPow * dimMults()) * timeMult(), 1, 0);
         document.getElementById("eightD").innerHTML = 'Eighth Dimension  ' + 'x' + formatValue(player.options.notation, (!player.infinityUpgrades.includes("18Mult") ? player.eightPow * player.achPow : player.eightPow * player.achPow * dimMults()) * timeMult(), 1, 0);
     }
-    if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.9 - (player.galaxies * 0.04))) * 100) + '% faster.';
-    else document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.9 - (player.galaxies * 0.02))) * 100) + '% faster.';
+    if (player.currentChallenge == "challenge6") {
+        if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.93 - (player.galaxies * 0.04))) * 100) + '% faster.';
+        else document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.93 - (player.galaxies * 0.02))) * 100) + '% faster.';
+    } else {
+        if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.9 - (player.galaxies * 0.04))) * 100) + '% faster.';
+        else document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.9 - (player.galaxies * 0.02))) * 100) + '% faster.'; }
             
-    if (player.currentChallenge == "challenge4" && player.resets > 0) {
+    if (player.currentChallenge == "challenge4" && player.resets > 1) {
 	if (player.fifthAmount !== 0) document.getElementById("sixthRow").style.visibility = "visible";
         document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + ((player.resets - 1) * 20 - player.infinityUpgrades.includes("resetBoost")*9) + ' Sixth Dimension';
     } else if (player.infinityUpgrades.includes("resetBoost")) {
@@ -327,17 +331,12 @@ function updateDimensions() {
         } else document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 20 Fourth Dimension';
     }
     if (player.currentChallenge == "challenge4" && player.resets > 1) {
-          if (player.resets == 2) {
-            if (player.infinityUpgrades.includes("resetBoost")) {
-                document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + player.resets * 20 - 29 + ' Sixth Dimension';
-            } else {
-                document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + player.resets * 20 - 20 + ' Sixth Dimension'; 
-            }
-          }
-        }
+        if (player.infinityUpgrades.includes("resetBoost")) document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + player.resets * 20 - 29 + ' Sixth Dimension';
+        else document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + player.resets * 20 - 20 + ' Sixth Dimension'; 
+    }
     if (player.resets > 3 || (player.resets > 1 && player.currentChallenge == "challenge4")) document.getElementById("softReset").innerHTML = "Reset the game for a Boost";
     else document.getElementById("softReset").innerHTML = "Reset the game for a new Dimension";
-    if (player.currentChallenge == "challenge4") document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + (player.galaxies * 90 + 130 - player.infinityUpgrades.includes("resetBoost")*9) + ' Eighth Dimensions'
+    if (player.currentChallenge == "challenge4") document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + (player.galaxies * 90 + 130 - player.infinityUpgrades.includes("resetBoost")*9) + ' Sixth Dimensions'
     else document.getElementById("secondResetLabel").innerHTML = player.infinityUpgrades.includes("resetBoost") ? 'Antimatter Galaxies: requires ' + ((player.galaxies * 60 + 80) - 9) + ' Eighth Dimensions' : 'Antimatter Galaxies: requires ' + (player.galaxies * 60 + 80) + ' Eighth Dimensions';
     document.getElementById("totalmoney").innerHTML = 'You have made a total of ' + shortenMoney(player.totalmoney) + ' antimatter.';
     document.getElementById("totalresets").innerHTML = 'You have done ' + player.resets + ' soft resets.';
@@ -397,6 +396,10 @@ function updateTickSpeed() {
 
 
 function updateChallenges() {
+  
+  for (challenge in document.getElementsByClassName('onchallengebtn')) {
+    document.getElementById(player.challenges[challenge]).className = "challengesbtn";
+  }
   
   for (challenge in player.challenges) {
     document.getElementById(player.challenges[challenge]).className = "completedchallengesbtn";
@@ -523,8 +526,12 @@ shortenMoney = function (money) {
 document.getElementById("tickSpeed").onclick = function () {
     if (player.money >= player.tickSpeedCost) {
         player.money -= player.tickSpeedCost;
-        if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.04));
-        else player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.02));
+	    if (player.currentChallenge == "challenge6") {
+            if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed *= (0.93 - (player.galaxies * 0.04));
+            else player.tickspeed *= (0.93 - (player.galaxies * 0.02));
+        } else { 
+            if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.04));
+            else player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.02)); }
         player.tickSpeedCost = player.tickSpeedCost * 10;
         document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shortenCosts(player.tickSpeedCost);
         updateTickSpeed();
@@ -536,8 +543,12 @@ document.getElementById("tickSpeed").onclick = function () {
 function buyMaxTickSpeed() {
     if (player.money >= player.tickSpeedCost) {
         player.money -= player.tickSpeedCost;
-        if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.04));
-        else player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.02));
+        if (player.currentChallenge == "challenge6") {
+            if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed *= (0.93 - (player.galaxies * 0.04));
+            else player.tickspeed *= (0.93 - (player.galaxies * 0.02));
+        } else { 
+            if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.04));
+            else player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.02)); }
         player.tickSpeedCost = player.tickSpeedCost * 10;
         document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shortenCosts(player.tickSpeedCost);
         updateTickSpeed();
@@ -591,7 +602,7 @@ document.getElementById("first").onclick = function () {
             if (player.infinityUpgrades.includes('dimMult')) player.firstPow *= 2.2;
             else player.firstPow *= 2;
             player.firstCost = player.firstCost * 1000;
-            if (player.currentChallenge === "doubling cost") {
+            if (player.currentChallenge === "challenge5") {
                 doubleAllDimensionCosts()
             }
         } else player.firstBought++;
@@ -619,7 +630,7 @@ document.getElementById("second").onclick = function () {
             if (player.infinityUpgrades.includes('dimMult')) player.secondPow *= 2.2;
             else player.secondPow *= 2;
             player.secondCost = player.secondCost * 10000;
-            if (player.currentChallenge === "doubling cost") {
+            if (player.currentChallenge === "challenge5") {
                 doubleAllDimensionCosts()
             }
         } else player.secondBought++;
@@ -650,7 +661,7 @@ document.getElementById("third").onclick = function () {
             if (player.infinityUpgrades.includes('dimMult')) player.thirdPow *= 2.2;
             else player.thirdPow *= 2;
             player.thirdCost = player.thirdCost * 100000;
-            if (player.currentChallenge === "doubling cost") {
+            if (player.currentChallenge === "challenge5") {
                 doubleAllDimensionCosts()
             }
         } else player.thirdBought++;
@@ -677,7 +688,7 @@ document.getElementById("fourth").onclick = function () {
             if (player.infinityUpgrades.includes('dimMult')) player.fourthPow *= 2.2;
             else player.fourthPow *= 2;
             player.fourthCost = player.fourthCost * 1000000;
-            if (player.currentChallenge === "doubling cost") {
+            if (player.currentChallenge === "challenge5") {
                 doubleAllDimensionCosts()
             }
         } else player.fourthBought++;
@@ -704,7 +715,7 @@ document.getElementById("fifth").onclick = function () {
             if (player.infinityUpgrades.includes('dimMult')) player.fifthPow *= 2.2;
             else player.fifthPow *= 2;
             player.fifthCost = player.fifthCost * 1e8;
-            if (player.currentChallenge === "doubling cost") {
+            if (player.currentChallenge === "challenge5") {
                 doubleAllDimensionCosts()
             }
         } else player.fifthBought++;
@@ -731,7 +742,7 @@ document.getElementById("sixth").onclick = function () {
             if (player.infinityUpgrades.includes('dimMult')) player.sixthPow *= 2.2;
             else player.sixthPow *= 2;
             player.sixthCost = player.sixthCost * 1e10;
-            if (player.currentChallenge === "doubling cost") {
+            if (player.currentChallenge === "challenge5") {
                 doubleAllDimensionCosts()
             }
         } else player.sixthBought++;
@@ -758,7 +769,7 @@ document.getElementById("seventh").onclick = function () {
             if (player.infinityUpgrades.includes('dimMult')) player.seventhPow *= 2.2;
             else player.seventhPow *= 2;
             player.seventhCost = player.seventhCost * 1e12;
-            if (player.currentChallenge === "doubling cost") {
+            if (player.currentChallenge === "challenge5") {
                 doubleAllDimensionCosts()
             }
         } else player.seventhBought++;
@@ -785,7 +796,7 @@ document.getElementById("eight").onclick = function () {
             if (player.infinityUpgrades.includes('dimMult')) player.eightPow *= 2.2;
             else player.eightPow *= 2;
             player.eightCost = player.eightCost * 1e15;
-            if (player.currentChallenge === "doubling cost") {
+            if (player.currentChallenge === "challenge5") {
                 doubleAllDimensionCosts()
             }
         } else player.eightBought++;
@@ -811,7 +822,7 @@ document.getElementById("firstMax").onclick = function () {
         if (player.infinityUpgrades.includes('dimMult')) player.firstPow *= 2.2;
         else player.firstPow *= 2;
         player.firstCost *= 1e3;
-        if (player.currentChallenge === "doubling cost") {
+        if (player.currentChallenge === "challenge5") {
             doubleAllDimensionCosts()
         }
         updateCosts();
@@ -833,7 +844,7 @@ document.getElementById("secondMax").onclick = function () {
         if (player.infinityUpgrades.includes('dimMult')) player.secondPow *= 2.2;
         else player.secondPow *= 2;
         player.secondCost *= 1e4;
-        if (player.currentChallenge === "doubling cost") {
+        if (player.currentChallenge === "challenge5") {
             doubleAllDimensionCosts()
         }
         updateCosts();
@@ -859,7 +870,7 @@ document.getElementById("thirdMax").onclick = function () {
         if (player.infinityUpgrades.includes('dimMult')) player.thirdPow *= 2.2;
         else player.thirdPow *= 2;
         player.thirdCost *= 1e5;
-        if (player.currentChallenge === "doubling cost") {
+        if (player.currentChallenge === "challenge5") {
             doubleAllDimensionCosts()
         }
         updateCosts();
@@ -881,7 +892,7 @@ document.getElementById("fourthMax").onclick = function () {
         if (player.infinityUpgrades.includes('dimMult')) player.fourthPow *= 2.2;
         else player.fourthPow *= 2;
         player.fourthCost *= 1e6;
-        if (player.currentChallenge === "doubling cost") {
+        if (player.currentChallenge === "challenge5") {
             doubleAllDimensionCosts()
         }
         updateCosts();
@@ -903,7 +914,7 @@ document.getElementById("fifthMax").onclick = function () {
         if (player.infinityUpgrades.includes('dimMult')) player.fifthPow *= 2.2;
         else player.fifthPow *= 2;
         player.fifthCost *= 1e8;
-        if (player.currentChallenge === "doubling cost") {
+        if (player.currentChallenge === "challenge5") {
             doubleAllDimensionCosts()
         }
         updateCosts();
@@ -925,7 +936,7 @@ document.getElementById("sixthMax").onclick = function () {
         if (player.infinityUpgrades.includes('dimMult')) player.sixthPow *= 2.2;
         else player.sixthPow *= 2;
         player.sixthCost *= 1e10;
-        if (player.currentChallenge === "doubling cost") {
+        if (player.currentChallenge === "challenge5") {
             doubleAllDimensionCosts()
         }
         updateCosts();
@@ -947,7 +958,7 @@ document.getElementById("seventhMax").onclick = function () {
         if (player.infinityUpgrades.includes('dimMult')) player.seventhPow *= 2.2;
         else player.seventhPow *= 2;
         player.seventhCost *= 1e12;
-        if (player.currentChallenge === "doubling cost") {
+        if (player.currentChallenge === "challenge5") {
             doubleAllDimensionCosts()
         }
         updateCosts();
@@ -969,7 +980,7 @@ document.getElementById("eightMax").onclick = function () {
         if (player.infinityUpgrades.includes('dimMult')) player.eightPow *= 2.2;
         else player.eightPow *= 2;
         player.eightCost *= 1e15;
-        if (player.currentChallenge === "doubling cost") {
+        if (player.currentChallenge === "challenge5") {
             doubleAllDimensionCosts()
         }
         updateCosts();
@@ -1018,10 +1029,10 @@ document.getElementById("softReset").onclick = function () {
 
 function maxAll() {
     buyMaxTickSpeed();
-    if (player.money >= player.eightCost * (10 - player.eightBought) && player.resets > 3) {
+    if (player.money >= player.eightCost * (10 - player.eightBought) && player.resets > 3 && player.currentChallenge != "challenge4") {
         document.getElementById("eightMax").click();
         maxAll();
-    } else if (player.money >= player.seventhCost * (10 - player.seventhBought) && player.resets > 2) {
+    } else if (player.money >= player.seventhCost * (10 - player.seventhBought) && player.resets > 2  && player.currentChallenge != "challenge4") {
         document.getElementById("seventhMax").click();
         maxAll();
     } else if (player.money >= player.sixthCost * (10 - player.sixthBought) && player.resets > 1) {
@@ -1902,9 +1913,15 @@ document.getElementById("challenge5").onclick = function () {
   startChallenge("challenge5");
 }
 
+document.getElementById("challenge6").onclick = function () {
+  startChallenge("challenge6");
+}
+
 document.getElementById("challenge7").onclick = function () {
   startChallenge("challenge7");
 }
+
+
 
 function init() {
     console.log('init');
