@@ -1526,7 +1526,7 @@ document.getElementById("bigcrunch").onclick = function () {
     kongregate.stats.submit('Fastest Infinity time', Math.floor(player.bestInfinityTime / 10))
     if (!player.achievements.includes("To infinity!")) giveAchievement("To infinity!");
     if (!player.achievements.includes("That's a lot of infinites") && player.infinitied >= 10) giveAchievement("That's a lot of infinites");
-    if (player.infinitied == 1) player.challenges.push("challenge1");
+    if (player.infinitied == 1 && !player.challenges.includes("challenge1")) player.challenges.push("challenge1");
     updateChallenges();
 }
 
