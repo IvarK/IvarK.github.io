@@ -593,6 +593,13 @@ function doubleAllDimensionCosts() {
     }
 }
 
+function clearDimensions(amount) {
+	const tiers = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
+    
+    for (i = 1; i <= amount; i++) {
+        player[tiers[i] + "Amount"] = 0
+}   }
+
 document.getElementById("first").onclick = function () {
     if (player.money >= player.firstCost) {
         player.firstAmount++;
@@ -616,7 +623,7 @@ document.getElementById("first").onclick = function () {
         if (!player.achievements.includes("You gotta start somewhere")) {
             giveAchievement("You gotta start somewhere")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
         if (!player.achievements.includes("There's no point in doing that") && player.firstAmount >= 1e150) giveAchievement("There's no point in doing that");
     }
 };
@@ -648,7 +655,8 @@ document.getElementById("second").onclick = function () {
         if (!player.achievements.includes("100 antimatter is a lot")) {
             giveAchievement("100 antimatter is a lot")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
+	if (player.currentChallenge == "challenge8") clearDimensions(1);
     }
 };
 
@@ -675,7 +683,8 @@ document.getElementById("third").onclick = function () {
         if (!player.achievements.includes("Half life 3 confirmed")) {
             giveAchievement("Half life 3 confirmed")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
+        if (player.currentChallenge == "challenge8") clearDimensions(2);
     }
 };
 
@@ -702,7 +711,8 @@ document.getElementById("fourth").onclick = function () {
         if (!player.achievements.includes("L4D: Left 4 Dimensions")) {
             giveAchievement("L4D: Left 4 Dimensions")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
+        if (player.currentChallenge == "challenge8") clearDimensions(3);
     }
 };
 
@@ -729,7 +739,8 @@ document.getElementById("fifth").onclick = function () {
         if (!player.achievements.includes("5 Dimension Antimatter Punch")) {
             giveAchievement("5 Dimension Antimatter Punch")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
+        if (player.currentChallenge == "challenge8") clearDimensions(4);
     }
 };
 
@@ -756,7 +767,8 @@ document.getElementById("sixth").onclick = function () {
         if (!player.achievements.includes("We couldn't afford 9")) {
             giveAchievement("We couldn't afford 9")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
+        if (player.currentChallenge == "challenge8") clearDimensions(5);
     }
 };
 
@@ -783,7 +795,8 @@ document.getElementById("seventh").onclick = function () {
         if (!player.achievements.includes("Not a luck related achievement")) {
             giveAchievement("Not a luck related achievement")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
+        if (player.currentChallenge == "challenge8") clearDimensions(6);
     }
 };
 
@@ -809,7 +822,8 @@ document.getElementById("eight").onclick = function () {
         if (!player.achievements.includes("90 degrees to infinity")) {
             giveAchievement("90 degrees to infinity")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
+        if (player.currentChallenge == "challenge8") clearDimensions(7);
         if (!player.achievements.includes("The 9th Dimension is a lie") && player.eightAmount == 99) giveAchivement("The 9th Dimension is a lie")
     }
 };
@@ -858,7 +872,8 @@ document.getElementById("secondMax").onclick = function () {
         if (!player.achievements.includes("100 antimatter is a lot")) {
             giveAchievement("100 antimatter is a lot")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
+        if (player.currentChallenge == "challenge8") clearDimensions(1);
     }
 };
 
@@ -880,7 +895,8 @@ document.getElementById("thirdMax").onclick = function () {
         if (!player.achievements.includes("Half life 3 confirmed")) {
             giveAchievement("Half life 3 confirmed")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
+        if (player.currentChallenge == "challenge8") clearDimensions(2);
     }
 };
 
@@ -902,7 +918,8 @@ document.getElementById("fourthMax").onclick = function () {
         if (!player.achievements.includes("L4D: Left 4 Dimensions")) {
             giveAchievement("L4D: Left 4 Dimensions")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
+        if (player.currentChallenge == "challenge8") clearDimensions(3);
     }
 };
 
@@ -924,7 +941,8 @@ document.getElementById("fifthMax").onclick = function () {
         if (!player.achievements.includes("5 Dimension Antimatter Punch")) {
             giveAchievement("5 Dimension Antimatter Punch")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
+        if (player.currentChallenge == "challenge8") clearDimensions(4);
     }
 };
 
@@ -946,7 +964,8 @@ document.getElementById("sixthMax").onclick = function () {
         if (!player.achievements.includes("We couldn't afford 9")) {
             giveAchievement("We couldn't afford 9")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
+        if (player.currentChallenge == "challenge8") clearDimensions(5);
     }
 };
 
@@ -968,7 +987,8 @@ document.getElementById("seventhMax").onclick = function () {
         if (!player.achievements.includes("Not a luck related achievement")) {
             giveAchievement("Not a luck related achievement")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
+        if (player.currentChallenge == "challenge8") clearDimensions(6);
     }
 };
 
@@ -989,7 +1009,8 @@ document.getElementById("eightMax").onclick = function () {
         if (!player.achievements.includes("90 degrees to infinity")) {
             giveAchievement("90 degrees to infinity")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
+        if (player.currentChallenge == "challenge8") clearDimensions(7);
     }
 };
 
@@ -1399,13 +1420,7 @@ function calcSacrificeBoost() {
 function sacrifice() {
     player.eightPow *= calcSacrificeBoost()
     player.sacrificed += player.firstAmount;
-    player.firstAmount = 0;
-    player.secondAmount = 0;
-    player.thirdAmount = 0;
-    player.fourthAmount = 0;
-    player.fifthAmount = 0;
-    player.sixthAmount = 0;
-    player.seventhAmount = 0;
+    clearDimensions(7);
 
     if (Math.max(Math.pow((Math.log10(Math.max(player.sacrificed, 1)) / 10.0), 2), 2) >= 600 && !player.achievements.includes("The Gods are pleased")) giveAchievement("The Gods are pleased");
 
@@ -1919,6 +1934,10 @@ document.getElementById("challenge6").onclick = function () {
 
 document.getElementById("challenge7").onclick = function () {
   startChallenge("challenge7");
+}
+
+document.getElementById("challenge8").onclick = function () {
+  startChallenge("challenge8");
 }
 
 
