@@ -1701,29 +1701,7 @@ setInterval(function () {
         else seventhButton.className = 'storebtn';
         if (player.eightCost > player.sixthAmount) eightButton.className = 'unavailablebtn';
         else eightButton.className = 'storebtn';
-    } else {
-    if (player.thirdCost > player.money) thirdButton.className = 'unavailablebtn';
-    else thirdButton.className = 'storebtn';
-    if (player.fourthCost > player.money) fourthButton.className = 'unavailablebtn';
-    else fourthButton.className = 'storebtn';
-    if (player.fifthCost > player.money) fifthButton.className = 'unavailablebtn';
-    else fifthButton.className = 'storebtn';
-    if (player.sixthCost > player.money) sixthButton.className = 'unavailablebtn';
-    else sixthButton.className = 'storebtn';
-    if (player.seventhCost > player.money) seventhButton.className = 'unavailablebtn';
-    else seventhButton.className = 'storebtn';
-    if (player.eightCost > player.money) eightButton.className = 'unavailablebtn';
-    else eightButton.className = 'storebtn'; }
-    if (player.tickSpeedCost > player.money) tickSpeedButton.className = 'unavailablebtn';
-    else tickSpeedButton.className = 'storebtn';
-    if (player.tickSpeedCost > player.money) document.getElementById("tickSpeedMax").className = 'unavailablebtn';
-    else document.getElementById("tickSpeedMax").className = 'storebtn';
-    if (player.firstCost * (10 - player.firstBought) > player.money) document.getElementById("firstMax").className = 'unavailablebtn';
-    else document.getElementById("firstMax").className = 'storebtn';
-    if (player.secondCost * (10 - player.secondBought) > player.money) document.getElementById("secondMax").className = 'unavailablebtn';
-    else document.getElementById("secondMax").className = 'storebtn';
-    if (player.currentChallenge = "challenge10") {
-        if (player.thirdCost * (10 - player.thirdBought) > player.firstAmount) document.getElementById("thirdMax").className = 'unavailablebtn';
+	if (player.thirdCost * (10 - player.thirdBought) > player.firstAmount) document.getElementById("thirdMax").className = 'unavailablebtn';
         else document.getElementById("thirdMax").className = 'storebtn';
         if (player.fourthCost * (10 - player.fourthBought) > player.secondAmount) document.getElementById("fourthMax").className = 'unavailablebtn';
         else document.getElementById("fourthMax").className = 'storebtn';
@@ -1736,6 +1714,18 @@ setInterval(function () {
         if (player.eightCost * (10 - player.eightBought) > player.sixthAmount) document.getElementById("eightMax").className = 'unavailablebtn';
         else document.getElementById("eightMax").className = 'storebtn';
     } else {
+    if (player.thirdCost > player.money) thirdButton.className = 'unavailablebtn';
+    else thirdButton.className = 'storebtn';
+    if (player.fourthCost > player.money) fourthButton.className = 'unavailablebtn';
+    else fourthButton.className = 'storebtn';
+    if (player.fifthCost > player.money) fifthButton.className = 'unavailablebtn';
+    else fifthButton.className = 'storebtn';
+    if (player.sixthCost > player.money) sixthButton.className = 'unavailablebtn';
+    else sixthButton.className = 'storebtn';
+    if (player.seventhCost > player.money) seventhButton.className = 'unavailablebtn';
+    else seventhButton.className = 'storebtn';
+    if (player.eightCost > player.money) eightButton.className = 'unavailablebtn';
+    else eightButton.className = 'storebtn';
     if (player.thirdCost * (10 - player.thirdBought) > player.money) document.getElementById("thirdMax").className = 'unavailablebtn';
     else document.getElementById("thirdMax").className = 'storebtn';
     if (player.fourthCost * (10 - player.fourthBought) > player.money) document.getElementById("fourthMax").className = 'unavailablebtn';
@@ -1748,6 +1738,14 @@ setInterval(function () {
     else document.getElementById("seventhMax").className = 'storebtn';
     if (player.eightCost * (10 - player.eightBought) > player.money) document.getElementById("eightMax").className = 'unavailablebtn';
     else document.getElementById("eightMax").className = 'storebtn'; }
+    if (player.tickSpeedCost > player.money) tickSpeedButton.className = 'unavailablebtn';
+    else tickSpeedButton.className = 'storebtn';
+    if (player.tickSpeedCost > player.money) document.getElementById("tickSpeedMax").className = 'unavailablebtn';
+    else document.getElementById("tickSpeedMax").className = 'storebtn';
+    if (player.firstCost * (10 - player.firstBought) > player.money) document.getElementById("firstMax").className = 'unavailablebtn';
+    else document.getElementById("firstMax").className = 'storebtn';
+    if (player.secondCost * (10 - player.secondBought) > player.money) document.getElementById("secondMax").className = 'unavailablebtn';
+    else document.getElementById("secondMax").className = 'storebtn';
     if (player.infinityPoints > 0) {
     document.getElementById("infinitybtn").style.display = "inline-block";
     document.getElementById("challengesbtn").style.display = "inline-block";
