@@ -386,6 +386,10 @@ function updateTickSpeed() {
 
 function updateChallenges() {
   
+  for (challenge in document.getElementsByClassName('onchallengebtn')) {
+    document.getElementById(player.challenges[challenge]).className = "challengesbtn";
+  }
+  
   for (challenge in player.challenges) {
     document.getElementById(player.challenges[challenge]).className = "completedchallengesbtn";
   }
