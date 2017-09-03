@@ -1001,10 +1001,10 @@ document.getElementById("softReset").onclick = function () {
 
 function maxAll() {
     buyMaxTickSpeed();
-    if (player.money >= player.eightCost * (10 - player.eightBought) && player.resets > 3) {
+    if (player.money >= player.eightCost * (10 - player.eightBought) && player.resets > 3 && player.currentChallenge != "challenge4") {
         document.getElementById("eightMax").click();
         maxAll();
-    } else if (player.money >= player.seventhCost * (10 - player.seventhBought) && player.resets > 2) {
+    } else if (player.money >= player.seventhCost * (10 - player.seventhBought) && player.resets > 2  && player.currentChallenge != "challenge4") {
         document.getElementById("seventhMax").click();
         maxAll();
     } else if (player.money >= player.sixthCost * (10 - player.sixthBought) && player.resets > 1) {
