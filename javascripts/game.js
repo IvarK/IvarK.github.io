@@ -1962,7 +1962,7 @@ document.getElementById("challenge9").onclick = function () {
 }
 
 document.getElementById("challenge10").onclick = function () {
-  startChallenge("challenge9");
+  startChallenge("challenge10");
 }
 
 
