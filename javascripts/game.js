@@ -296,12 +296,10 @@ function updateDimensions() {
         else document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.93 - (player.galaxies * 0.02))) * 100) + '% faster.';
     } else {
         if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.9 - (player.galaxies * 0.04))) * 100) + '% faster.';
-        else document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.9 - (player.galaxies * 0.02))) * 100) + '% faster.'; }
-            
-    if (player.currentChallenge == "challenge4" && player.resets > 1) {
-	if (player.fifthAmount !== 0) document.getElementById("sixthRow").style.visibility = "visible";
-        document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + ((player.resets - 1) * 20 - player.infinityUpgrades.includes("resetBoost")*9) + ' Sixth Dimension';
-    } else if (player.infinityUpgrades.includes("resetBoost")) {
+        else document.getElementById("tickLabel").innerHTML = 'Make the game ' + Math.round((1 - (0.9 - (player.galaxies * 0.02))) * 100) + '% faster.'; 
+    }
+    
+    if (player.infinityUpgrades.includes("resetBoost")) {
         if (player.resets > 3) {
             document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + ((player.resets - 4) * 15 + 11) + ' Eighth Dimension';
             if (player.seventhAmount !== 0) document.getElementById("eightRow").style.visibility = "visible";
@@ -330,9 +328,9 @@ function updateDimensions() {
             if (player.fourthAmount !== 0) document.getElementById("fifthRow").style.visibility = "visible";
         } else document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires 20 Fourth Dimension';
     }
-    if (player.currentChallenge == "challenge4" && player.resets > 1) {
-        if (player.infinityUpgrades.includes("resetBoost")) document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + player.resets * 20 - 29 + ' Sixth Dimension';
-        else document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + player.resets * 20 - 20 + ' Sixth Dimension'; 
+    if (player.currentChallenge == "challenge4" && player.resets >= 2) {
+        if (player.infinityUpgrades.includes("resetBoost")) document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + (player.resets * 20 - 29) + ' Sixth Dimension';
+        else document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + (player.resets * 20 - 20) + ' Sixth Dimension'; 
     }
     if (player.resets > 3 || (player.resets > 1 && player.currentChallenge == "challenge4")) document.getElementById("softReset").innerHTML = "Reset the game for a Boost";
     else document.getElementById("softReset").innerHTML = "Reset the game for a new Dimension";
@@ -398,7 +396,7 @@ function updateTickSpeed() {
 function updateChallenges() {
   
   for (challenge in document.getElementsByClassName('onchallengebtn')) {
-    document.getElementById(player.challenges[challenge]).className = "challengesbtn";
+    challenge.className = "challengesbtn";
   }
   
   for (challenge in player.challenges) {
@@ -1619,87 +1617,88 @@ function calcPerSec(amount, pow, hasMult) {
 var index = 0;
 
 setInterval(function () {
-    var thisUpdate = new Date().getTime();
-    if (!player.achievements.includes("Don't you dare to sleep") && thisUpdate - player.lastUpdate >= 21600000) giveAchievement("Don't you dare to sleep")
-    var diff = Math.min(thisUpdate - player.lastUpdate, 21600000);
-    diff = diff / 100;
-    player.chall3Pow *= 1.00038
-    player.chall2Pow = Math.min(player.chall2Pow + diff/1800, 1)
-    if (player.currentChallenge == "challenge7") {
-      player.sixthAmount += calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult")) * diff / 100;
-      player.fifthAmount += calcPerSec(player.seventhAmount, player.seventhPow, player.infinityUpgrades.includes("27Mult")) * diff / 100;
-      player.fourthAmount += calcPerSec(player.sixthAmount, player.sixthPow, player.infinityUpgrades.includes("36Mult")) * diff / 100;
-      player.thirdAmount += calcPerSec(player.fifthAmount, player.fifthPow, player.infinityUpgrades.includes("45Mult")) * diff / 100;
-      player.secondAmount += calcPerSec(player.fourthAmount, player.fourthPow, player.infinityUpgrades.includes("45Mult")) * diff / 100;
-      player.firstAmount += calcPerSec(player.thirdAmount, player.thirdPow, player.infinityUpgrades.includes("36Mult")) * diff / 100;
-      if (player.money != Infinity) {
-        player.money += (calcPerSec(player.firstAmount, Math.pow(player.firstPow, 0.8), player.infinityUpgrades.includes("18Mult")) + calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult"))) * diff / 10;
-        player.totalmoney += (calcPerSec(player.firstAmount, Math.pow(player.firstPow, 0.8), player.infinityUpgrades.includes("18Mult")) + calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult"))) * diff / 10;
-      } } else {
-    player.seventhAmount += calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult")) * diff / 100;
-    player.sixthAmount += calcPerSec(player.seventhAmount, player.seventhPow, player.infinityUpgrades.includes("27Mult")) * diff / 100;
-    player.fifthAmount += calcPerSec(player.sixthAmount, player.sixthPow, player.infinityUpgrades.includes("36Mult")) * diff / 100;
-    player.fourthAmount += calcPerSec(player.fifthAmount, player.fifthPow, player.infinityUpgrades.includes("45Mult")) * diff / 100;
-    player.thirdAmount += calcPerSec(player.fourthAmount, player.fourthPow, player.infinityUpgrades.includes("45Mult")) * diff / 100;
-    player.secondAmount += calcPerSec(player.thirdAmount, player.thirdPow, player.infinityUpgrades.includes("36Mult")) * diff / 100;
-    player.firstAmount += calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult")) * diff / 100;
+  var thisUpdate = new Date().getTime();
+  if (!player.achievements.includes("Don't you dare to sleep") && thisUpdate - player.lastUpdate >= 21600000) giveAchievement("Don't you dare to sleep")
+  var diff = Math.min(thisUpdate - player.lastUpdate, 21600000);
+  diff = diff / 100;
+  player.chall3Pow *= 1.00038
+  player.chall2Pow = Math.min(player.chall2Pow + diff/1800, 1)
+  if (player.currentChallenge == "challenge7") {
+    player.sixthAmount += calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult")) * diff / 100;
+    player.fifthAmount += calcPerSec(player.seventhAmount, player.seventhPow, player.infinityUpgrades.includes("27Mult")) * diff / 100;
+    player.fourthAmount += calcPerSec(player.sixthAmount, player.sixthPow, player.infinityUpgrades.includes("36Mult")) * diff / 100;
+    player.thirdAmount += calcPerSec(player.fifthAmount, player.fifthPow, player.infinityUpgrades.includes("45Mult")) * diff / 100;
+    player.secondAmount += calcPerSec(player.fourthAmount, player.fourthPow, player.infinityUpgrades.includes("45Mult")) * diff / 100;
+    player.firstAmount += calcPerSec(player.thirdAmount, player.thirdPow, player.infinityUpgrades.includes("36Mult")) * diff / 100;
     if (player.money != Infinity) {
-      if (player.currentChallenge == "challenge3") {
-        player.money += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff * player.chall3Pow / 10;
-        player.totalmoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff * player.chall3Pow / 10;
-      } else {
-        player.money += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff / 10;
-        player.totalmoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff * player.chall3Pow / 10;
-      } }
-    }
-    player.totalTimePlayed += diff
-    player.thisInfinityTime += diff
-    if (player.money == Infinity) {
-        document.getElementById("bigcrunch").style.display = 'inline-block';
-        showTab('emptiness');
-    } else document.getElementById("bigcrunch").style.display = 'none';
+      player.money += (calcPerSec(player.firstAmount, Math.pow(player.firstPow, 0.8), player.infinityUpgrades.includes("18Mult")) + calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult"))) * diff / 10;
+      player.totalmoney += (calcPerSec(player.firstAmount, Math.pow(player.firstPow, 0.8), player.infinityUpgrades.includes("18Mult")) + calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult"))) * diff / 10;
+    } } else {
+  player.seventhAmount += calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult")) * diff / 100;
+  player.sixthAmount += calcPerSec(player.seventhAmount, player.seventhPow, player.infinityUpgrades.includes("27Mult")) * diff / 100;
+  player.fifthAmount += calcPerSec(player.sixthAmount, player.sixthPow, player.infinityUpgrades.includes("36Mult")) * diff / 100;
+  player.fourthAmount += calcPerSec(player.fifthAmount, player.fifthPow, player.infinityUpgrades.includes("45Mult")) * diff / 100;
+  player.thirdAmount += calcPerSec(player.fourthAmount, player.fourthPow, player.infinityUpgrades.includes("45Mult")) * diff / 100;
+  player.secondAmount += calcPerSec(player.thirdAmount, player.thirdPow, player.infinityUpgrades.includes("36Mult")) * diff / 100;
+  player.firstAmount += calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult")) * diff / 100;
+  if (player.money != Infinity) {
+    if (player.currentChallenge == "challenge3") {
+      player.money += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff * player.chall3Pow / 10;
+      player.totalmoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff * player.chall3Pow / 10;
+    } else {
+      player.money += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff / 10;
+      player.totalmoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff * player.chall3Pow / 10;
+    } }
+  }
+  player.totalTimePlayed += diff
+  player.thisInfinityTime += diff
+  if (player.money == Infinity) {
+      document.getElementById("bigcrunch").style.display = 'inline-block';
+      showTab('emptiness');
+  } else document.getElementById("bigcrunch").style.display = 'none';
 
-    updateMoney();
-    updateCoinPerSec();
-    updateDimensions();
+  updateMoney();
+  updateCoinPerSec();
+  updateDimensions();
 
-    if (player.firstCost > player.money) firstButton.className = 'unavailablebtn';
-    else firstButton.className = 'storebtn';
-    if (player.secondCost > player.money) secondButton.className = 'unavailablebtn';
-    else secondButton.className = 'storebtn';
-    if (player.thirdCost > player.money) thirdButton.className = 'unavailablebtn';
-    else thirdButton.className = 'storebtn';
-    if (player.fourthCost > player.money) fourthButton.className = 'unavailablebtn';
-    else fourthButton.className = 'storebtn';
-    if (player.fifthCost > player.money) fifthButton.className = 'unavailablebtn';
-    else fifthButton.className = 'storebtn';
-    if (player.sixthCost > player.money) sixthButton.className = 'unavailablebtn';
-    else sixthButton.className = 'storebtn';
-    if (player.seventhCost > player.money) seventhButton.className = 'unavailablebtn';
-    else seventhButton.className = 'storebtn';
-    if (player.eightCost > player.money) eightButton.className = 'unavailablebtn';
-    else eightButton.className = 'storebtn';
-    if (player.tickSpeedCost > player.money) tickSpeedButton.className = 'unavailablebtn';
-    else tickSpeedButton.className = 'storebtn';
-    if (player.tickSpeedCost > player.money) document.getElementById("tickSpeedMax").className = 'unavailablebtn';
-    else document.getElementById("tickSpeedMax").className = 'storebtn';
-    if (player.firstCost * (10 - player.firstBought) > player.money) document.getElementById("firstMax").className = 'unavailablebtn';
-    else document.getElementById("firstMax").className = 'storebtn';
-    if (player.secondCost * (10 - player.secondBought) > player.money) document.getElementById("secondMax").className = 'unavailablebtn';
-    else document.getElementById("secondMax").className = 'storebtn';
-    if (player.thirdCost * (10 - player.thirdBought) > player.money) document.getElementById("thirdMax").className = 'unavailablebtn';
-    else document.getElementById("thirdMax").className = 'storebtn';
-    if (player.fourthCost * (10 - player.fourthBought) > player.money) document.getElementById("fourthMax").className = 'unavailablebtn';
-    else document.getElementById("fourthMax").className = 'storebtn';
-    if (player.fifthCost * (10 - player.fifthBought) > player.money) document.getElementById("fifthMax").className = 'unavailablebtn';
-    else document.getElementById("fifthMax").className = 'storebtn';
-    if (player.sixthCost * (10 - player.sixthBought) > player.money) document.getElementById("sixthMax").className = 'unavailablebtn';
-    else document.getElementById("sixthMax").className = 'storebtn';
-    if (player.seventhCost * (10 - player.seventhBought) > player.money) document.getElementById("seventhMax").className = 'unavailablebtn';
-    else document.getElementById("seventhMax").className = 'storebtn';
-    if (player.eightCost * (10 - player.eightBought) > player.money) document.getElementById("eightMax").className = 'unavailablebtn';
-    else document.getElementById("eightMax").className = 'storebtn';
-    if (player.infinityPoints > 0) {
+  if (player.firstCost > player.money) firstButton.className = 'unavailablebtn';
+  else firstButton.className = 'storebtn';
+  if (player.secondCost > player.money) secondButton.className = 'unavailablebtn';
+  else secondButton.className = 'storebtn';
+  if (player.thirdCost > player.money) thirdButton.className = 'unavailablebtn';
+  else thirdButton.className = 'storebtn';
+  if (player.fourthCost > player.money) fourthButton.className = 'unavailablebtn';
+  else fourthButton.className = 'storebtn';
+  if (player.fifthCost > player.money) fifthButton.className = 'unavailablebtn';
+  else fifthButton.className = 'storebtn';
+  if (player.sixthCost > player.money) sixthButton.className = 'unavailablebtn';
+  else sixthButton.className = 'storebtn';
+  if (player.seventhCost > player.money) seventhButton.className = 'unavailablebtn';
+  else seventhButton.className = 'storebtn';
+  if (player.eightCost > player.money) eightButton.className = 'unavailablebtn';
+  else eightButton.className = 'storebtn';
+  if (player.tickSpeedCost > player.money) tickSpeedButton.className = 'unavailablebtn';
+  else tickSpeedButton.className = 'storebtn';
+  if (player.tickSpeedCost > player.money) document.getElementById("tickSpeedMax").className = 'unavailablebtn';
+  else document.getElementById("tickSpeedMax").className = 'storebtn';
+  if (player.firstCost * (10 - player.firstBought) > player.money) document.getElementById("firstMax").className = 'unavailablebtn';
+  else document.getElementById("firstMax").className = 'storebtn';
+  if (player.secondCost * (10 - player.secondBought) > player.money) document.getElementById("secondMax").className = 'unavailablebtn';
+  else document.getElementById("secondMax").className = 'storebtn';
+  if (player.thirdCost * (10 - player.thirdBought) > player.money) document.getElementById("thirdMax").className = 'unavailablebtn';
+  else document.getElementById("thirdMax").className = 'storebtn';
+  if (player.fourthCost * (10 - player.fourthBought) > player.money) document.getElementById("fourthMax").className = 'unavailablebtn';
+  else document.getElementById("fourthMax").className = 'storebtn';
+  if (player.fifthCost * (10 - player.fifthBought) > player.money) document.getElementById("fifthMax").className = 'unavailablebtn';
+  else document.getElementById("fifthMax").className = 'storebtn';
+  if (player.sixthCost * (10 - player.sixthBought) > player.money) document.getElementById("sixthMax").className = 'unavailablebtn';
+  else document.getElementById("sixthMax").className = 'storebtn';
+  if (player.seventhCost * (10 - player.seventhBought) > player.money) document.getElementById("seventhMax").className = 'unavailablebtn';
+  else document.getElementById("seventhMax").className = 'storebtn';
+  if (player.eightCost * (10 - player.eightBought) > player.money) document.getElementById("eightMax").className = 'unavailablebtn';
+  else document.getElementById("eightMax").className = 'storebtn';
+  
+  if (player.infinityPoints > 0) {
     document.getElementById("infinitybtn").style.display = "inline-block";
     document.getElementById("challengesbtn").style.display = "inline-block";
     document.getElementById("infi11").className = "infinistorebtn1"
@@ -1716,7 +1715,6 @@ setInterval(function () {
     else document.getElementById("infi14").className = "infinistorebtnlocked"
     if (player.infinityUpgrades.includes("45Mult")) document.getElementById("infi24").className = "infinistorebtn2"
     else document.getElementById("infi24").className = "infinistorebtnlocked"
-    
   }
   else {
     document.getElementById("infinitybtn").style.display = "none";
@@ -1779,16 +1777,21 @@ setInterval(function () {
             if (player.fifthAmount >= 11) {
                 document.getElementById("softReset").className = 'storebtn';
             } else document.getElementById("softReset").className = 'unavailablebtn';
-        } else if (player.resets == 2 || player.currentChallenge == "challenge4") {
+        }
+        if (player.resets == 2) {
             if (player.sixthAmount >= player.resets * 20 - 29) {
                 document.getElementById("softReset").className = 'storebtn';
             } else document.getElementById("softReset").className = 'unavailablebtn';
-        } else if (player.resets == 3) {
+        } else if (player.resets == 3 && !player.currentChallenge == "challenge4") {
             if (player.seventhAmount >= 11) {
                 document.getElementById("softReset").className = 'storebtn';
             } else document.getElementById("softReset").className = 'unavailablebtn';
-        } else if (player.resets > 3) {
+        } else if (player.resets > 3 && !player.currentChallenge == "challenge4") {
             if (player.eightAmount >= (player.resets - 4) * 15 + 11) {
+                document.getElementById("softReset").className = 'storebtn';
+            } else document.getElementById("softReset").className = 'unavailablebtn';
+        } else if (player.currentChallenge == "challenge4" && player.resets >= 3) {
+          if (player.sixthAmount >= player.resets * 20 - 29) {
                 document.getElementById("softReset").className = 'storebtn';
             } else document.getElementById("softReset").className = 'unavailablebtn';
         }
@@ -1804,16 +1807,20 @@ setInterval(function () {
             if (player.fifthAmount >= 20) {
                 document.getElementById("softReset").className = 'storebtn';
             } else document.getElementById("softReset").className = 'unavailablebtn';
-        } else if (player.resets == 2 || player.currentChallenge == "challenge4") {
+        } else if (player.resets == 2) {
             if (player.sixthAmount >= player.resets * 20 - 20) {
                 document.getElementById("softReset").className = 'storebtn';
             } else document.getElementById("softReset").className = 'unavailablebtn';
-        } else if (player.resets == 3) {
+        } else if (player.resets == 3 && !player.currentChallenge == "challenge4") {
             if (player.seventhAmount >= 20) {
                 document.getElementById("softReset").className = 'storebtn';
             } else document.getElementById("softReset").className = 'unavailablebtn';
-        } else if (player.resets > 3) {
+        } else if (player.resets > 3 && !player.currentChallenge == "challenge4") {
             if (player.eightAmount >= (player.resets - 4) * 15 + 20) {
+                document.getElementById("softReset").className = 'storebtn';
+            } else document.getElementById("softReset").className = 'unavailablebtn';
+        } else if (player.currentChallenge == "challenge4" && player.resets >= 3) {
+          if (player.sixthAmount >= player.resets * 20 - 20) {
                 document.getElementById("softReset").className = 'storebtn';
             } else document.getElementById("softReset").className = 'unavailablebtn';
         }
