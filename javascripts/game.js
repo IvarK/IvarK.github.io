@@ -1747,7 +1747,7 @@ setInterval(function () {
     if (player.seventhCost * (10 - player.seventhBought) > player.money) document.getElementById("seventhMax").className = 'unavailablebtn';
     else document.getElementById("seventhMax").className = 'storebtn';
     if (player.eightCost * (10 - player.eightBought) > player.money) document.getElementById("eightMax").className = 'unavailablebtn';
-    else document.getElementById("eightMax").className = 'storebtn';
+    else document.getElementById("eightMax").className = 'storebtn'; }
     if (player.infinityPoints > 0) {
     document.getElementById("infinitybtn").style.display = "inline-block";
     document.getElementById("challengesbtn").style.display = "inline-block";
