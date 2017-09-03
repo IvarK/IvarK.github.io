@@ -639,6 +639,7 @@ document.getElementById("first").onclick = function () {
 
 document.getElementById("second").onclick = function () {
     if (player.money >= player.secondCost) {
+	  player.secondAmount++
           player.money -= player.secondCost;
           if (player.secondBought == 9) {
             player.secondBought = 0;
