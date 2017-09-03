@@ -1421,8 +1421,8 @@ setInterval(function () {
     if (player.infinityUpgrades.includes("resetBoost")) document.getElementById("infi14").className = "infinistorebtnbought"
     if (player.infinityUpgrades.includes("galaxyBoost")) document.getElementById("infi24").className = "infinistorebtnbought"
 
-    document.getElementById("progressbar").style.width = (Math.log10(player.money) * 0.3247).toFixed(2) + "%"
-    document.getElementById("progressbar").innerHTML = (Math.log10(player.money) * 0.3247).toFixed(2) + "%"
+    document.getElementById("progressbar").style.width = (Math.log10(player.money+1) / Math.log10(Number.MAX_VALUE) * 100).toFixed(2) + "%"
+    document.getElementById("progressbar").innerHTML = (Math.log10(player.money+1) / Math.log10(Number.MAX_VALUE) * 100).toFixed(2) + "%"
 
     const shiftRequirement = getShiftRequirement();
     
