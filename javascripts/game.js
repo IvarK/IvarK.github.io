@@ -123,7 +123,8 @@ function load_game() {
     }
     if (player.options.notation === undefined) player.options.notation = "Standard"
     if (player.options.invert === undefined) player.options.invert = false;
-    if (player.options.logoVisible === undefined) player.options.logoVisible = true;
+    if (player.options.logoVisible === undefined) player.options.logoVisible = true
+	  if (player.options.notation === undefined) player.options.notation = "Standard";
     if (player.achievements === undefined) player.achievements = [];
     if (player.sacrificed === undefined) player.sacrificed = 0;
     if (player.infinityUpgrades === undefined) player.infinityUpgrades = [];
