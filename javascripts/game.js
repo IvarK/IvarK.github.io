@@ -1112,7 +1112,7 @@ function maxAll() {
             document.getElementById("firstMax").click();
             maxAll();
     }
-
+    }
 }
 
 document.getElementById("maxall").onclick = function () {
