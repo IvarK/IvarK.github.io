@@ -484,7 +484,7 @@ function softReset() {
             logoVisible: player.options.logoVisible
         }
     };
-    if (player.currentChallenge = "challenge10") {
+    if (player.currentChallenge == "challenge10") {
         player.thirdCost = 100
         player.fourthCost = 500
         player.fifthCost = 2500
@@ -1292,7 +1292,7 @@ document.getElementById("secondSoftReset").onclick = function () {
                 logoVisible: player.options.logoVisible
             }
         };
-	    if (player.currentChallenge = "challenge10") {
+	    if (player.currentChallenge == "challenge10") {
           player.thirdCost = 100
           player.fourthCost = 500
         }
@@ -1607,7 +1607,7 @@ function startChallenge(name) {
         logoVisible: player.options.logoVisible
       }
     };
-	if (name = "challenge10") {
+	if (name == "challenge10") {
         player.thirdCost = 100
         player.fourthCost = 500}
     updateCosts();
@@ -1696,7 +1696,7 @@ setInterval(function () {
     else firstButton.className = 'storebtn';
     if (player.secondCost > player.money) secondButton.className = 'unavailablebtn';
     else secondButton.className = 'storebtn';
-    if (player.currentChallenge = "challenge10") {
+    if (player.currentChallenge == "challenge10") {
         if (player.thirdCost > player.firstAmount) thirdButton.className = 'unavailablebtn';
         else thirdButton.className = 'storebtn';
         if (player.fourthCost > player.secondAmount) fourthButton.className = 'unavailablebtn';
