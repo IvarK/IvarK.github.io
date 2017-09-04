@@ -2506,6 +2506,7 @@ function init() {
     showTab('infinity')
     load_game();
     updateTickSpeed();
+	updateAutobuyers();
     if (!player.options.animationsOn) document.getElementById("logoanimation").src = "animation.png";
     if (player.options.invert) {
         document.getElementById("body").classList.add("invert");
