@@ -46,7 +46,7 @@
   border: 3px solid #127A20;
   cursor: pointer;
   border-radius: 10px;
-  font-size: 100%;
+  font-size: 80%;
   transition-duration: 0.2s;
   padding: 20px;
 }
@@ -123,7 +123,7 @@
     color: white;
     background: #1F1F1F;
     font-weight: bold;
-    font-size: 80%;
+    font-size: 70%;
     border: 1px solid #ED85DF;
     width: 160px;
     height: 65px;
@@ -142,7 +142,7 @@
     color: white;
     background: #1F1F1F;
     font-weight: bold;
-    font-size: 80%;
+    font-size: 70%;
     border: 1px solid #ED85DF;
     width: 160px;
     height: 65px;
@@ -161,7 +161,7 @@
     color: black;
     background: #F7F7F7;
     font-weight: bold;
-    font-size: 80%;
+    font-size: 70%;
     border: 1px solid #ED85DF;
     width: 160px;
     height: 65px;
@@ -180,7 +180,7 @@
     color: black;
     background: #5AC467;
     font-weight: bold;
-    font-size: 80%;
+    font-size: 70%;
     border: 1px solid #ED85DF;
     width: 160px;
     height: 65px;
@@ -268,6 +268,43 @@
     color: black;
     font-size: 70%;
 }
+
+
+.autoBuyerDiv {
+    border: solid 2px black;
+    width:230px;
+    height:125px;
+    text-align:center;
+    font-size:100%;
+    padding:10px;
+    display: none;
+    border-radius: 4px;
+  }
+  
+  .autobuyerbtn {
+      color: white;
+      background: #1F1F1F;
+      font-weight: bold;
+      font-size: 70%;
+      border: 1px solid #ED85DF;
+      width: 180px;
+      height: 35px;
+      transition-duration: 0.2s;
+      cursor: pointer;
+      border-radius: 4px;
+      font-family: Typewriter;
+      
+  }
+
+  .autobuyerbtn:hover {
+    color: #000000;
+    background: #B67F33;
+    font-weight: bold;
+    border: 2px solid #B67F33;
+    border-radius: 4px;
+}
+
+
 
 #progress {
     width: 100%;

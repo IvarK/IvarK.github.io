@@ -10,6 +10,7 @@
     <script src="javascripts/jquery-3.2.1.min.js"></script>
     <script src='https://cdn1.kongregate.com/javascripts/kongregate_api.js'></script>
     <script src="javascripts/notify.js"></script>
+    <script src="javascripts/autobuyer.js"></script>
     <link rel="stylesheet" type="text/css" href="stylesheets/styles.css">
     <script>
         (function(i, s, o, g, r, a, m) {
@@ -384,6 +385,277 @@
                     <td>
                         <button id="infi24" class="infinistorebtn2">Antimatter Galaxies are twice as effective</button>
                     </td>
+                </tr>
+            </table>
+
+            <table class="table" style="margin: 0 auto">
+                <tr>
+                    <td>
+                        <div class="autoBuyerDiv" id="autoBuyer1">
+                            <div>1st Dimension Autobuyer</div>
+                            <button class="autobuyerbtn" id="buyerBtn1">46% smaller interval<br>Cost: 2 points</button>
+                            <button class="autobuyerbtn" style="display: none" id="toggleBtn1">Buys singles</button>
+                            <div style="font-size: 80%"id="interval1">Current interval: 5 seconds<br></div>
+                            <span>Priority:</span>
+                            <select onchange="updatePriorities()" id="priority1">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            </select>
+                            <br>
+                            <span style="font-size: 80%">Is active</span>
+                            <input type="checkbox" onchange="updateAutobuyers()" checked="true" id="1ison"></input>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="autoBuyerDiv" id="autoBuyer2">
+                            <div>2nd Dimension Autobuyer</div>
+                            <button class="autobuyerbtn" id="buyerBtn2">46% smaller interval<br>Cost: 2 points</button>
+                            <button class="autobuyerbtn" style="display: none" id="toggleBtn2">Buys singles</button>
+                            <div style="font-size: 80%"id="interval2">Current interval: 5 seconds<br></div>
+                                <span>Priority:</span>
+                            <select onchange="updatePriorities()" id="priority2">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            </select>
+                            <br>
+                            <span style="font-size: 80%">Is active</span>
+                            <input type="checkbox" onchange="updateAutobuyers()" checked="true" id="2ison"></input>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="autoBuyerDiv" id="autoBuyer3">
+                            <div>3rd Dimension Autobuyer</div>
+                            <button class="autobuyerbtn" id="buyerBtn3">46% smaller interval<br>Cost: 2 points</button>
+                            <button class="autobuyerbtn" style="display: none" id="toggleBtn3">Buys singles</button>
+                            <div style="font-size: 80%"id="interval3">Current interval: 5 seconds<br></div>
+                            <span>Priority:</span>
+                            <select onchange="updatePriorities()" id="priority3">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            </select>
+                            <br>
+                            <span style="font-size: 80%">Is active</span>
+                            <input type="checkbox" onchange="updateAutobuyers()" checked="true" id="3ison"></input>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                        <td>
+                            <div class="autoBuyerDiv" id="autoBuyer4">
+                                <div>4th Dimension Autobuyer</div>
+                                <button class="autobuyerbtn" id="buyerBtn4">46% smaller interval<br>Cost: 2 points</button>
+                                <button class="autobuyerbtn" style="display: none" id="toggleBtn4">Buys singles</button>
+                                <div style="font-size: 80%"id="interval4">Current interval: 5 seconds<br></div>
+                                <span>Priority:</span>
+                                <select onchange="updatePriorities()" id="priority4">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                </select>
+                                <br>
+                                <span style="font-size: 80%">Is active</span>
+                                <input type="checkbox" onchange="updateAutobuyers()" checked="true" id="4ison"></input>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="autoBuyerDiv" id="autoBuyer5">
+                                <div>5th Dimension Autobuyer</div>
+                                <button class="autobuyerbtn" id="buyerBtn5">46% smaller interval<br>Cost: 2 points</button>
+                                <button class="autobuyerbtn" style="display: none" id="toggleBtn5">Buys singles</button>
+                                <div style="font-size: 80%"id="interval5">Current interval: 5 seconds<br></div>
+                                <span>Priority:</span>
+                                <select onchange="updatePriorities()" id="priority5">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                </select>
+                                <br>
+                                <span style="font-size: 80%">Is active</span>
+                                <input type="checkbox" onchange="updateAutobuyers()" checked="true" id="5ison"></input>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="autoBuyerDiv" id="autoBuyer6">
+                                <div>6th Dimension Autobuyer</div>
+                                <button class="autobuyerbtn" id="buyerBtn6">46% smaller interval<br>Cost: 2 points</button>
+                                <button class="autobuyerbtn" style="display: none" id="toggleBtn6">Buys singles</button>
+                                <div style="font-size: 80%"id="interval6">Current interval: 5 seconds<br></div>
+                                <span>Priority:</span>
+                                <select onchange="updatePriorities()" id="priority6">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                </select>
+                                <br>
+                                <span style="font-size: 80%">Is active</span>
+                                <input type="checkbox" onchange="updateAutobuyers()" checked="true" id="6ison"></input>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                            <td>
+                                <div class="autoBuyerDiv" id="autoBuyer7">
+                                    <div>7th Dimension Autobuyer</div>
+                                    <button class="autobuyerbtn" id="buyerBtn7">46% smaller interval<br>Cost: 2 points</button>
+                                    <button class="autobuyerbtn" style="display: none" id="toggleBtn7">Buys singles</button>
+                                    <div style="font-size: 80%"id="interval7">Current interval: 5 seconds<br></div>
+                                    <span>Priority:</span>
+                                    <select onchange="updatePriorities()" id="priority7">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    </select>
+                                    <br>
+                                    <span style="font-size: 80%">Is active</span>
+                                    <input type="checkbox" onchange="updateAutobuyers()" checked="true" id="7ison"></input>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="autoBuyerDiv" id="autoBuyer8">
+                                    <div>8th Dimension Autobuyer</div>
+                                    <button class="autobuyerbtn" id="buyerBtn8">46% smaller interval<br>Cost: 2 points</button>
+                                    <button class="autobuyerbtn" style="display: none" id="toggleBtn8">Buys singles</button>
+                                    <div style="font-size: 80%"id="interval8">Current interval: 5 seconds<br></div>
+                                    <span>Priority:</span>
+                                    <select onchange="updatePriorities()" id="priority8">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    </select>
+                                    <br>
+                                    <span style="font-size: 80%">Is active</span>
+                                    <input type="checkbox" onchange="updateAutobuyers()" checked="true" id="8ison"></input>
+                                </div>
+                            </td>
+                            <td>
+                                    <div class="autoBuyerDiv" id="autoBuyerTickSpeed">
+                                        <div>Tickspeed Autobuyer</div>
+                                        <button class="autobuyerbtn" id="buyerBtnTickSpeed">46% smaller interval<br>Cost: 2 points</button>
+                                        <button class="autobuyerbtn" style="display: none" id="toggleBtnTickSpeed">Buys singles</button>
+                                        <div style="font-size: 80%"id="intervalTickSpeed">Current interval: 5 seconds<br></div>
+                                        <span>Priority:</span>
+                                        <select onchange="updatePriorities()" id="priority9">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        </select>
+                                        <br>
+                                        <span style="font-size: 80%">Is active</span>
+                                        <input type="checkbox" onchange="updateAutobuyers()" checked="true" id="9ison"></input>
+                                    </div>
+                                </td>
+                            
+                        </tr>
+                        <tr>
+                             <td>
+                                <div class="autoBuyerDiv" id="autoBuyerDimBoost">
+                                    <div>Automatic DimBoosts</div>
+                                    <button class="autobuyerbtn" id="buyerBtnDimBoost">46% smaller interval<br>Cost: 2 points</button>
+                                    <div style="font-size: 80%"id="intervalDimBoost">Current interval: 30 seconds</div>
+                                    <span>Max 8ths used on reset:</span>
+                                    <select onchange="updatePriorities()" id="priority10">
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="100">100</option>
+                                    <option value="120">120</option>
+                                    <option value="140">140</option>
+                                    <option value="160">160</option>
+                                    <option value="180">180</option>
+                                    </select>
+                                    <br>
+                                    <span style="font-size: 80%">Is active</span>
+                                    <input type="checkbox" onchange="updateAutobuyers()" checked="true" id="10ison"></input>
+                                </div>
+                            </td>
+                    <td>
+                        <div class="autoBuyerDiv" id="autoBuyerGalaxies">
+                            <div>Automatic Galaxies</div>
+                            <button class="autobuyerbtn" id="buyerBtnGalaxies">46% smaller interval<br>Cost: 2 points</button>
+                            <div style="font-size: 80%"id="intervalGalaxies">Current interval: 30 seconds</div>
+                            <span>Max Galaxies:</span>
+                            <select onchange="updatePriorities()" id="priority11">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            </select>
+                            <br>
+                            <span style="font-size: 80%">Is active</span>
+                            <input type="checkbox" onchange="updateAutobuyers()" checked="true" id="11ison"></input>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="autoBuyerDiv" id="autoBuyerInf">
+                            <div>Automatic Big Crunch</div>
+                            <button class="autobuyerbtn" id="buyerBtnInf">46% smaller interval<br>Cost: 2 points</button>
+                            <div style="font-size: 80%"id="intervalInf">Current interval: 60 seconds</div>
+                            <br>
+                            <span style="font-size: 80%">Is active</span>
+                            <input type="checkbox" onchange="updateAutobuyers()" checked="true" id="12ison"></input>
+                        </div>
+                    </td>
+                   
                 </tr>
             </table>
         </div>
