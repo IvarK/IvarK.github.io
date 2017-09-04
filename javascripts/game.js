@@ -1060,30 +1060,57 @@ document.getElementById("softReset").onclick = function () {
 
 function maxAll() {
     buyMaxTickSpeed();
-    if (player.money >= player.eightCost * (10 - player.eightBought) && player.resets > 3 && player.currentChallenge != "challenge4") {
-        document.getElementById("eightMax").click();
-        maxAll();
-    } else if (player.money >= player.seventhCost * (10 - player.seventhBought) && player.resets > 2  && player.currentChallenge != "challenge4") {
-        document.getElementById("seventhMax").click();
-        maxAll();
-    } else if (player.money >= player.sixthCost * (10 - player.sixthBought) && player.resets > 1) {
-        document.getElementById("sixthMax").click();
-        maxAll();
-    } else if (player.money >= player.fifthCost * (10 - player.fifthBought) && player.resets > 0) {
-        document.getElementById("fifthMax").click();
-        maxAll();
-    } else if (player.money >= player.fourthCost * (10 - player.fourthBought)) {
-        document.getElementById("fourthMax").click();
-        maxAll();
-    } else if (player.money >= player.thirdCost * (10 - player.thirdBought)) {
-        document.getElementById("thirdMax").click();
-        maxAll();
-    } else if (player.money >= player.secondCost * (10 - player.secondBought)) {
-        document.getElementById("secondMax").click();
-        maxAll();
-    } else if (player.money >= player.firstCost * (10 - player.firstBought)) {
-        document.getElementById("firstMax").click();
-        maxAll();
+    if (!player.currentChallenge == "challenge10") {
+        if (player.money >= player.eightCost * (10 - player.eightBought) && player.resets > 3 && player.currentChallenge != "challenge4") {
+            document.getElementById("eightMax").click();
+            maxAll();
+        } else if (player.money >= player.seventhCost * (10 - player.seventhBought) && player.resets > 2  && player.currentChallenge != "challenge4") {
+            document.getElementById("seventhMax").click();
+            maxAll();
+        } else if (player.money >= player.sixthCost * (10 - player.sixthBought) && player.resets > 1) {
+            document.getElementById("sixthMax").click();
+            maxAll();
+        } else if (player.money >= player.fifthCost * (10 - player.fifthBought) && player.resets > 0) {
+            document.getElementById("fifthMax").click();
+            maxAll();
+        } else if (player.money >= player.fourthCost * (10 - player.fourthBought)) {
+            document.getElementById("fourthMax").click();
+            maxAll();
+        } else if (player.money >= player.thirdCost * (10 - player.thirdBought)) {
+            document.getElementById("thirdMax").click();
+            maxAll();
+        } else if (player.money >= player.secondCost * (10 - player.secondBought)) {
+            document.getElementById("secondMax").click();
+            maxAll();
+        } else if (player.money >= player.firstCost * (10 - player.firstBought)) {
+            document.getElementById("firstMax").click();
+            maxAll();
+        }
+    } else {
+        if (player.sixthAmount >= player.eightCost * (10 - player.eightBought) && player.resets > 3 && player.currentChallenge != "challenge4") {
+            document.getElementById("eightMax").click();
+            maxAll();
+        } else if (player.fifthAmount >= player.seventhCost * (10 - player.seventhBought) && player.resets > 2  && player.currentChallenge != "challenge4") {
+            document.getElementById("seventhMax").click();
+            maxAll();
+        } else if (player.fourthAmount >= player.sixthCost * (10 - player.sixthBought) && player.resets > 1) {
+            document.getElementById("sixthMax").click();
+            maxAll();
+        } else if (player.thirdAmount >= player.fifthCost * (10 - player.fifthBought) && player.resets > 0) {
+            document.getElementById("fifthMax").click();
+            maxAll();
+        } else if (player.secondAmount >= player.fourthCost * (10 - player.fourthBought)) {
+            document.getElementById("fourthMax").click();
+            maxAll();
+        } else if (player.firstAmount >= player.thirdCost * (10 - player.thirdBought)) {
+            document.getElementById("thirdMax").click();
+            maxAll();
+        } else if (player.money >= player.secondCost * (10 - player.secondBought)) {
+            document.getElementById("secondMax").click();
+            maxAll();
+        } else if (player.money >= player.firstCost * (10 - player.firstBought)) {
+            document.getElementById("firstMax").click();
+            maxAll();
     }
 
 }
