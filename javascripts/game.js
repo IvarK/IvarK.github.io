@@ -282,8 +282,6 @@ function updateDimensions() {
     document.getElementById("seventhAmount").innerHTML = shortenDimensions(player.seventhAmount) + ' (' + player.seventhBought + ')  (+' + (calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult")) * 10 / Math.max(player.seventhAmount, 1)).toFixed(1) + '%/s)';
     }
     document.getElementById("eightAmount").innerHTML = shortenDimensions(player.eightAmount) + ' (' + player.eightBought + ')';
-    if (calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult")) * 10 / Math.max(player.firstAmount, 10) > 1000 || calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult")) * 10 / Math.max(player.seventhAmount, 10) > 1000 || calcPerSec(player.seventhAmount, player.seventhPow, player.infinityUpgrades.includes("27Mult")) * 10 / Math.max(player.sixthAmount, 1) > 1000 ||calcPerSec(player.fourthAmount, player.fourthPow, player.infinityUpgrades.includes("45Mult")) * 10 / Math.max(player.thirdAmount, 10) > 1000 || calcPerSec(player.sixthAmount, player.sixthPow, player.infinityUpgrades.includes("36Mult")) * 10 / Math.max(player.fifthAmount, 10) > 1000 || calcPerSec(player.fifthAmount, player.fifthPow, player.infinityUpgrades.includes("45Mult")) * 10 / Math.max(player.fourthAmount, 1) > 1000 || calcPerSec(player.thirdAmount, player.thirdPow, player.infinityUpgrades.includes("36Mult")) * 10 / Math.max(player.secondAmount, 10) > 1000) {
-    if (!player.achievements.includes("Cloning Machine Overdrive")) giveAchievement("Cloning Machine Overdrive"); }
     if (player.seventhAmount > 1e12 && !player.achievements.includes("Multidimensional")) giveAchievement("Multidimensional");
     
     if (!player.infinityUpgrades.includes("timeMult")) {
@@ -401,7 +399,7 @@ function updateTickSpeed() {
     else {
         document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed * (100 / Math.pow(10, exp))) + ' / ' + shorten(100 / Math.pow(10, exp));
     }
-    if (player.tickspeed < Math.pow(10,-23) && !player.achievements.includes("Lightspeed")) giveAchievement("Lightspeed");
+    if (player.tickspeed < Math.pow(10,-23) && !player.achievements.includes("Faster than a potato")) giveAchievement("Faster than a potato");
 
     /*	else if (player.tickspeed > 10) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*10)  + ' / 10';
     	else if (player.tickspeed > 1) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*100) + ' / 100';
@@ -1232,14 +1230,14 @@ function updateAchPow() {
         document.getElementById("achRow3").className = "completedrow"
     }
 
-    if (player.achievements.includes("Devoted Viewer") &&
-        player.achievements.includes("The Gods are pleased") &&
-        player.achievements.includes("That's a lot of infinites") &&
-        player.achievements.includes("You didn't need it anyway") &&
-        player.achievements.includes("One for each dimension") &&
-        player.achievements.includes("Claustrophobic") &&
-        player.achievements.includes("That's fast!") &&
-        player.achievements.includes("I don't believe in Gods")) {
+    if (player.achievements.includes("Fake News") &&
+        player.achievements.includes("Supersanic") &&
+        player.achievements.includes("Zero Deaths") &&
+        player.achievements.includes("Over in 30 seconds") &&
+        player.achievements.includes("Faster than a potato") &&
+        player.achievements.includes("Multidimensional") &&
+        player.achievements.includes("Daredevil") &&
+        player.achievements.includes("AntiChallenged")) {
         amount += 1;
         document.getElementById("achRow4").className = "completedrow"
     }
@@ -1965,6 +1963,7 @@ document.getElementById("bigcrunch").onclick = function () {
       if (!player.achievements.includes("That's fast!") && player.thisInfinityTime <= 72000) giveAchievement("That's fast!");
       if (!player.achievements.includes("You didn't need it anyway") && player.eightAmount == 0) giveAchievement("You didn't need it anyway");
       if (!player.achievements.includes("Claustrophobic") && player.galaxies == 1) giveAchievement("Claustrophobic");
+      if (!player.achievements.includes("Zero Deaths") && player.galaxies == 0 && player.resets == 0) giveAchievement("Zero Deaths")
       if (player.currentChallenge != "" && !player.challenges.includes(player.currentChallenge)) {
       player.challenges.push(player.currentChallenge);
     }
@@ -2060,7 +2059,8 @@ document.getElementById("bigcrunch").onclick = function () {
       
       updateAutobuyers();
       if (player.challenges.includes("challenge1")) player.money = 100
-
+    if (player.challenges.length >= 2 && !player.achievements.includes("Daredevil")) giveAchievement("Daredevil");
+    if (player.challenges.length == 12 && !player.achievements.includes("AntiChallenged")) giveAchievement("AntiChallenged");
 
   }
   updateChallenges();
@@ -2236,9 +2236,9 @@ setInterval(function () {
     updateCoinPerSec();
     updateDimensions();
     if (calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) > player.money) {
-	if(player.money > Math.pow(10,63) && !player.achievements.includes("Cheetah")) giveAchievement("Cheetah");
+	if(player.money > Math.pow(10,63) && !player.achievements.includes("Supersanic")) giveAchievement("Supersanic");
 	Marathon++;
-	if (Marathon >= 300 && !player.achievements.includes("Marathon")) giveAchievement("Marathon");
+	if (Marathon >= 300 && !player.achievements.includes("Over in 30 seconds")) giveAchievement("Over in 30 seconds");
     } else {
 	Marathon = 0; }
 
@@ -2591,7 +2591,7 @@ setInterval(function () {
         newsText = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
 				if (!player.newsArray.includes(newsText) && !newsHidden) {
   				player.newsArray.push(newsText);
-  				if (player.newsArray.length>=50 && !player.achievements.includes("Devoted Viewer")) giveAchievement("Devoted Viewer") 
+  				if (player.newsArray.length>=50 && !player.achievements.includes("Fake News")) giveAchievement("Fake News") 
 				}
 
     }
