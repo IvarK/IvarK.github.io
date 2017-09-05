@@ -181,6 +181,7 @@ function load_game() {
         }
     }
     setAchieveTooltip();
+	console.log(player)
 }
 
 function save_game() {
