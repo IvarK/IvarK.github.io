@@ -2101,7 +2101,7 @@ setInterval(function () {
         softReset();
         player.resets--;
         const tiers = [null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight"];
-        for (i=1, i<=8, i++) {
+        for (i=1; i<=8; i++) {
             player[tiers[i]] + "Pow" /= 2;
             if (player[tiers[i]] + "Pow" <= 1) player[tiers[i]] = 1;
         }
