@@ -54,6 +54,7 @@ var player = {
     autobuyers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     chall2Pow: 1,
     chall3Pow: 0.01,
+    matter: 0,
     chall11Pow: 1,
     options: {
         notation: "Standard",
@@ -145,6 +146,7 @@ function load_game() {
     if (player.challenges === undefined) player.challenges = []
     if (player.currentChallenge === undefined) player.currentChallenge = ""
 	  if (player.infinitied > 0) player.challenges.push("challenge1")
+    if (player.matter === undefined) player.matter = 0
     if (player.secondAmount !== 0) {
         document.getElementById("thirdRow").style.display = "table-row";
         document.getElementById("tickSpeed").style.visibility = "visible";
@@ -239,9 +241,10 @@ function formatValue(notation, value, places, placesUnder1000) {
 function updateMoney() {
     var element = document.getElementById("coinAmount");
     element.innerHTML = formatValue(player.options.notation, player.money, 2, 1);
-
-
-}
+    if (player.currentChallenge == "challenge12") {
+	var element2 = document.getElementById("matter");
+	element2.innerHTML = "There is " + formatValue(player.options.notation, player.matter, 2, 1) + " matter.";
+}}
 
 function updateCoinPerSec() {
     var element = document.getElementById("coinsPerSec");
@@ -481,6 +484,7 @@ function softReset() {
         autobuyers: player.autobuyers,
         chall2Pow: player.chall2Pow,
         chall3Pow: 0.01,
+        matter: 0,
         chall11Pow: 1,
         options: {
             notation: player.options.notation,
@@ -651,6 +655,7 @@ document.getElementById("first").onclick = function () {
             giveAchievement("You gotta start somewhere")
         }
         if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
+        if (player.currentChallenge == "challenge12" && player.matter == 0) player.matter = 1;
         if (!player.achievements.includes("There's no point in doing that") && player.firstAmount >= 1e150) giveAchievement("There's no point in doing that");
     }
 };
@@ -839,7 +844,8 @@ document.getElementById("firstMax").onclick = function () {
         if (!player.achievements.includes("You gotta start somewhere")) {
             giveAchievement("You gotta start somewhere")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
+        if (player.currentChallenge == "challenge12" && player.matter == 0) player.matter = 1; // this instakills you if you press it immediately on a new run
     }
 };
 
@@ -1542,6 +1548,7 @@ document.getElementById("secondSoftReset").onclick = function () {
             autobuyers: player.autobuyers,
             chall2Pow: player.chall2Pow,
             chall3Pow: 0.01,
+            matter: 0,
             chall11Pow: 1,
             options: {
                 scientific: player.options.scientific,
@@ -1979,6 +1986,7 @@ document.getElementById("bigcrunch").onclick = function () {
           autobuyers: player.autobuyers,
           chall2Pow: 1,
           chall3Pow: 0.01,
+          matter: 0,
           chall11Pow: 1,
           options: {
               scientific: player.options.scientific,
@@ -2003,6 +2011,7 @@ document.getElementById("bigcrunch").onclick = function () {
       document.getElementById("sixthRow").style.display = "none";
       document.getElementById("seventhRow").style.display = "none";
       document.getElementById("eightRow").style.display = "none";
+      document.getElementById("matter").style.visibility = "hidden";
       updateTickSpeed();
       showTab("dimensions")
       kongregate.stats.submit('Infinitied', player.infinitied);
@@ -2076,6 +2085,7 @@ function startChallenge(name) {
       autobuyers: player.autobuyers,
       chall2Pow: 1,
       chall3Pow: 0.01,
+      matter: 0,
       chall11Pow: 1,
       options: {
 	notation: player.options.notation,
@@ -2103,6 +2113,8 @@ function startChallenge(name) {
     document.getElementById("sixthRow").style.display= "none";
     document.getElementById("seventhRow").style.display= "none";
     document.getElementById("eightRow").style.display= "none";
+    if (name == "challenge12") document.getElementById("matter").style.visibility = "visible";
+    else document.getElementById("matter").style.visibility = "hidden";
     updateTickSpeed();
     showTab('dimensions');
     updateChallenges();
@@ -2130,7 +2142,18 @@ setInterval(function () {
     var thisUpdate = new Date().getTime();
     if (!player.achievements.includes("Don't you dare to sleep") && thisUpdate - player.lastUpdate >= 21600000) giveAchievement("Don't you dare to sleep")
     var diff = Math.min(thisUpdate - player.lastUpdate, 21600000);
+    if (player.currentChallenge == "challenge12") diff - Math.min (diff, 10000) //prevent offline cheating
     diff = diff / 100;
+    player.matter *= (1.0002 + player.resets/2000 + player.galaxies/1000)
+    if (player.matter > player.money && player.currentChallenge == "challenge12") {
+        softReset();
+        player.resets--;
+        const tiers = [null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight"];
+        for (i=1; i<=8; i++) {
+            player[tiers[i] + "Pow"] /= 2;
+            if (player[tiers[i] + "Pow"] <= 1) player[tiers[i]] = 1;
+        }
+    }
     player.chall3Pow *= 1.00038
     player.chall2Pow = Math.min(player.chall2Pow + diff/1800, 1)
     if (player.currentChallenge == "challenge7") {
@@ -2560,6 +2583,12 @@ document.getElementById("challenge10").onclick = function () {
 document.getElementById("challenge11").onclick = function () {
     startChallenge("challenge11");
   }
+
+document.getElementById("challenge12").onclick = function () {
+  startChallenge("challenge12");
+}
+
+
 
 
 function init() {
