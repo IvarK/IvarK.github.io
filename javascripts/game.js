@@ -2170,7 +2170,7 @@ setInterval(function () {
             if (player[tiers[i] + "Pow"] <= 1) player[tiers[i]] = 1;
         }
     }
-    player.chall3Pow *= 1.00038
+    player.chall3Pow *= Math.pow(1.00038, diff)
     player.chall2Pow = Math.min(player.chall2Pow + diff/1800, 1)
     if (player.currentChallenge == "challenge7") {
       player.sixthAmount += calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult")) * diff / 100;
