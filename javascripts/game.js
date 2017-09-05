@@ -68,7 +68,7 @@ var player = {
 var c = document.getElementById("game");
 var ctx = c.getContext("2d");
 
-var defaultStart = player;
+var defaultStart = $.extend(true, {}, player);
 var firstButton = document.getElementById("first");
 var secondButton = document.getElementById("second");
 var thirdButton = document.getElementById("third");
@@ -126,7 +126,7 @@ function load_game() {
     if (player.options.notation === undefined) player.options.notation = "Standard"
     if (player.options.invert === undefined) player.options.invert = false;
     if (player.options.logoVisible === undefined) player.options.logoVisible = true
-	  if (player.options.notation === undefined) player.options.notation = "Standard";
+	if (player.options.notation === undefined) player.options.notation = "Standard";
     if (player.achievements === undefined) player.achievements = [];
     if (player.sacrificed === undefined) player.sacrificed = 0;
     if (player.infinityUpgrades === undefined) player.infinityUpgrades = [];
@@ -140,7 +140,6 @@ function load_game() {
     if (player.achPow === undefined) player.achPow = 1;
     if (player.chall2Pow === undefined) player.chall2Pow = 1;
     if (player.chall3Pow === undefined) player.chall3Pow = 0.01;
-    player.autobuyers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     if (player.firstAmount !== 0) document.getElementById("secondRow").style.display = "table-row";
     if (player.challenges === undefined) player.challenges = []
     if (player.currentChallenge === undefined) player.currentChallenge = ""
@@ -557,10 +556,12 @@ document.getElementById("tickSpeed").onclick = function () {
         } else { 
             if (player.infinityUpgrades.includes("galaxyBoost")) player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.04));
             else player.tickspeed = player.tickspeed * (0.9 - (player.galaxies * 0.02)); }
-        player.tickSpeedCost = player.tickSpeedCost * 10;
+        //player.tickSpeedCost = player.tickSpeedCost * 10;
+        multiplySameCosts(player.tickSpeedCost)
         document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shortenCosts(player.tickSpeedCost);
         updateTickSpeed();
         updateMoney();
+        updateCosts();
         if (player.currentChallenge == "challenge2") player.chall2Pow = 0
     }
 };
@@ -618,6 +619,18 @@ function doubleAllDimensionCosts() {
     }
 }
 
+function multiplySameCosts(cost) {
+    const tiers = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
+    const tierCosts = [ null, 1e3, 1e4, 1e5, 1e6, 1e8, 1e10, 1e12, 1e15 ];
+    
+    for (let i = 1; i <= 8; ++i) {
+        if (Math.log10(player[tiers[i] + "Cost"]) == Math.log10(cost)) player[tiers[i] + "Cost"] *= tierCosts[i]
+        
+    }
+    if (Math.log10(player.tickSpeedCost) == Math.log10(cost)) player.tickSpeedCost *= 10
+}
+
+
 function clearDimensions(amount) {
 	const tiers = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
     
@@ -635,7 +648,8 @@ document.getElementById("first").onclick = function () {
             if (player.currentChallenge == "challenge9") player.firstPow *= Math.pow(10/0.15,Math.random())*0.15;
             else player.firstPow *= 2;
 	        if (player.infinityUpgrades.includes('dimMult')) player.firstPow *= 1.1;
-            player.firstCost = player.firstCost * 1000;
+            if (player.currentChallenge != "challenge5") player.firstCost = player.firstCost * 1000;
+            else multiplySameCosts(player.firstCost)
             if (player.currentChallenge === "challenge5") {
                 doubleAllDimensionCosts()
             }
