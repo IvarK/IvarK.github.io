@@ -2191,7 +2191,7 @@ setInterval(function () {
         player.totalmoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff * player.chall3Pow / 10;
       } else {
         player.money += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff / 10;
-        player.totalmoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff * player.chall3Pow / 10;
+        player.totalmoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff / 10;
       } }
     }
     player.totalTimePlayed += diff
@@ -2414,7 +2414,7 @@ setInterval(function () {
     else document.getElementById("chall3Pow").style.display = "none"
     
     document.getElementById("chall2Pow").innerHTML = (player.chall2Pow*100).toFixed(2) + "%"
-    document.getElementById("chall3Pow").innerHTML = (player.chall3Pow*100).toFixed(2) + "%"
+    document.getElementById("chall3Pow").innerHTML = shorten(player.chall3Pow*100) + "%"
 
 
     document.getElementById("sacrifice").setAttribute('ach-tooltip', "Boosts 8th Dimension by " + formatValue(player.options.notation, calcSacrificeBoost(), 2, 2) + "x");
