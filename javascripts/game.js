@@ -1115,8 +1115,8 @@ function maxAll() {
         } else if (player.money >= player.firstCost * (10 - player.firstBought)) {
             document.getElementById("firstMax").click();
             maxAll();
+        }
     }
-
 }
 
 document.getElementById("maxall").onclick = function () {
