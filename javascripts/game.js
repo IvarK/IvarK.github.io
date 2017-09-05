@@ -1,3 +1,4 @@
+var Marathon=0
 var player = {
     money: 10,
     tickSpeedCost: 1000,
@@ -49,6 +50,7 @@ var player = {
     tickDecrease: 0.9,
     totalmoney: 0,
     achPow: 1,
+    newsArray: [],
     interval: null,
     lastUpdate: new Date().getTime(),
     autobuyers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
@@ -139,6 +141,7 @@ function load_game() {
     if (player.galaxies === undefined) player.galaxies = 0;
     if (player.lastUpdate === undefined) player.lastUpdate = new Date().getTime();
     if (player.achPow === undefined) player.achPow = 1;
+    if (player.newsArray === undefined) player.newsArray = [];
     if (player.chall2Pow === undefined) player.chall2Pow = 1;
     if (player.chall3Pow === undefined) player.chall3Pow = 0.01;
     if (player.firstAmount !== 0) document.getElementById("secondRow").style.display = "table-row";
@@ -277,7 +280,11 @@ function updateDimensions() {
     document.getElementById("fifthAmount").innerHTML = shortenDimensions(player.fifthAmount) + ' (' + player.fifthBought + ')  (+' + (calcPerSec(player.sixthAmount, player.sixthPow, player.infinityUpgrades.includes("36Mult")) * 10 / Math.max(player.fifthAmount, 1)).toFixed(1) + '%/s)';
     document.getElementById("sixthAmount").innerHTML = shortenDimensions(player.sixthAmount) + ' (' + player.sixthBought + ')  (+' + (calcPerSec(player.seventhAmount, player.seventhPow, player.infinityUpgrades.includes("27Mult")) * 10 / Math.max(player.sixthAmount, 1)).toFixed(1) + '%/s)';
     document.getElementById("seventhAmount").innerHTML = shortenDimensions(player.seventhAmount) + ' (' + player.seventhBought + ')  (+' + (calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult")) * 10 / Math.max(player.seventhAmount, 1)).toFixed(1) + '%/s)';
-    } document.getElementById("eightAmount").innerHTML = shortenDimensions(player.eightAmount) + ' (' + player.eightBought + ')';
+    document.getElementById("eightAmount").innerHTML = shortenDimensions(player.eightAmount) + ' (' + player.eightBought + ')';
+    if (calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult")) * 10 / Math.max(player.firstAmount, 10) > 1000 || calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult")) * 10 / Math.max(player.seventhAmount, 10) > 1000 || calcPerSec(player.seventhAmount, player.seventhPow, player.infinityUpgrades.includes("27Mult")) * 10 / Math.max(player.sixthAmount, 1) > 1000 ||calcPerSec(player.fourthAmount, player.fourthPow, player.infinityUpgrades.includes("45Mult")) * 10 / Math.max(player.thirdAmount, 10) > 1000 || calcPerSec(player.sixthAmount, player.sixthPow, player.infinityUpgrades.includes("36Mult")) * 10 / Math.max(player.fifthAmount, 10) > 1000 || calcPerSec(player.fifthAmount, player.fifthPow, player.infinityUpgrades.includes("45Mult")) * 10 / Math.max(player.fourthAmount, 1) > 1000 || calcPerSec(player.thirdAmount, player.thirdPow, player.infinityUpgrades.includes("36Mult")) * 10 / Math.max(player.secondAmount, 10) > 1000) {
+    if (!player.achievements.includes("Cloning Machine Overdrive")) giveAchievement("Cloning Machine Overdrive"); }
+    if (player.seventhAmount > 1e12 && !player.achievements.includes("Multidimensional")) giveAchievement("Multidimensional");
+
     if (!player.infinityUpgrades.includes("timeMult")) {
         document.getElementById("firstD").innerHTML = 'First Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("18Mult") ? player.firstPow * player.achPow : player.firstPow * player.achPow * dimMults(), 1, 0);
         document.getElementById("secondD").innerHTML = 'Second Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("27Mult") ? player.secondPow * player.achPow : player.secondPow * player.achPow * dimMults(), 1, 0);
@@ -393,6 +400,7 @@ function updateTickSpeed() {
     else {
         document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed * (100 / Math.pow(10, exp))) + ' / ' + shorten(100 / Math.pow(10, exp));
     }
+    if (player.tickspeed < Math.pow(10,-23) && !player.achievements.includes("Lightspeed")) giveAchievement("Lightspeed");
 
     /*	else if (player.tickspeed > 10) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*10)  + ' / 10';
     	else if (player.tickspeed > 1) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*100) + ' / 100';
@@ -485,6 +493,7 @@ function softReset() {
         interval: null,
         lastUpdate: player.lastUpdate,
         achPow: player.achPow,
+	      newsArray: player.newsArray,
         autobuyers: player.autobuyers,
         chall2Pow: player.chall2Pow,
         chall3Pow: 0.01,
@@ -1222,6 +1231,17 @@ function updateAchPow() {
         document.getElementById("achRow3").className = "completedrow"
     }
 
+    if (player.achievements.includes("Devoted Viewer") &&
+        player.achievements.includes("The Gods are pleased") &&
+        player.achievements.includes("That's a lot of infinites") &&
+        player.achievements.includes("You didn't need it anyway") &&
+        player.achievements.includes("One for each dimension") &&
+        player.achievements.includes("Claustrophobic") &&
+        player.achievements.includes("That's fast!") &&
+        player.achievements.includes("I don't believe in Gods")) {
+        amount += 1;
+        document.getElementById("achRow4").className = "completedrow"
+    }
 
     for (i = amount; i > 0; i--) {
         player.achPow = Math.pow(1.5, amount)
@@ -1547,6 +1567,7 @@ document.getElementById("secondSoftReset").onclick = function () {
             interval: null,
             lastUpdate: player.lastUpdate,
             achPow: player.achPow,
+	          newsArray: player.newsArray,
             autobuyers: player.autobuyers,
             chall2Pow: player.chall2Pow,
             chall3Pow: 0.01,
@@ -2103,6 +2124,7 @@ function startChallenge(name) {
       chall2Pow: 1,
       chall3Pow: 0.01,
       matter: 0,
+      newsArray: player.newsArray,
       chall11Pow: 1,
       options: {
 	notation: player.options.notation,
@@ -2138,6 +2160,9 @@ function startChallenge(name) {
     if (player.challenges.includes("challenge1")) player.money = 100
   }
 }
+
+
+
 
 
 
@@ -2209,6 +2234,12 @@ setInterval(function () {
     updateMoney();
     updateCoinPerSec();
     updateDimensions();
+    if (calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) > player.money) {
+	if(player.money > Math.pow(10,63) && !player.achievements.includes("Cheetah")) giveAchievement("Cheetah");
+	Marathon++;
+	if (Marathon >= 300 && !player.achievements.includes("Marathon")) giveAchievement("Marathon");
+    } else {
+	Marathon = 0; }
 
     if (player.firstCost > player.money) firstButton.className = 'unavailablebtn';
     else firstButton.className = 'storebtn';
@@ -2537,8 +2568,8 @@ var conditionalNewsArray = ["Our universe is falling apart. We are all evacuatin
 "Should we call antimatter Matter now? There seems to be more of it."]
 
 var initpos = c.width;
-var newsText = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
 ctx.textBaseline = 'top';
+var newsText = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
 
 setInterval(function () {
     //document.getElementById("news").innerHTML = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
@@ -2556,7 +2587,12 @@ setInterval(function () {
     if (player.money == Infinity) next = conditionalNewsArray[1]
     if (initpos < (newsText.length * 32 * -1)) {
         initpos = c.width;
-        newsText = next;
+        newsText = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
+				if (!player.newsArray.includes(newsText) && !player.options.newsHidden) {
+  				player.newsArray.push(newsText);
+  				if (player.newsArray.length>=50 && !player.achievements.includes("Devoted Viewer")) giveAchievement("Devoted Viewer") 
+				}
+
     }
 }, 1000 / 30);
 
