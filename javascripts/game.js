@@ -690,6 +690,8 @@ document.getElementById("second").onclick = function () {
         }
         if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
 	if (player.currentChallenge == "challenge8") clearDimensions(1);
+	if (player.currentChallenge == "challenge12" && player.matter == 0) player.matter = 1;
+
     }
 };
 
@@ -2144,7 +2146,7 @@ setInterval(function () {
     var diff = Math.min(thisUpdate - player.lastUpdate, 21600000);
     if (player.currentChallenge == "challenge12") diff - Math.min (diff, 10000) //prevent offline cheating
     diff = diff / 100;
-    player.matter *= (1.0002 + player.resets/2000 + player.galaxies/1000)
+    player.matter *= (1.02 + player.resets/200 + player.galaxies/100)
     if (player.matter > player.money && player.currentChallenge == "challenge12") {
         softReset();
         player.resets--;
