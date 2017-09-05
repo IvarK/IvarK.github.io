@@ -2144,9 +2144,8 @@ setInterval(function () {
     var thisUpdate = new Date().getTime();
     if (!player.achievements.includes("Don't you dare to sleep") && thisUpdate - player.lastUpdate >= 21600000) giveAchievement("Don't you dare to sleep")
     var diff = Math.min(thisUpdate - player.lastUpdate, 21600000);
-    if (player.currentChallenge == "challenge12") diff - Math.min (diff, 10000) //prevent offline cheating
     diff = diff / 100;
-    player.matter *= (1.02 + player.resets/200 + player.galaxies/100)
+    player.matter *= Math.pow((1.02 + player.resets/200 + player.galaxies/100), diff)
     if (player.matter > player.money && player.currentChallenge == "challenge12") {
         softReset();
         player.resets--;
