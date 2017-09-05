@@ -240,7 +240,7 @@ function formatValue(notation, value, places, placesUnder1000) {
 function updateMoney() {
     var element = document.getElementById("coinAmount");
     element.innerHTML = formatValue(player.options.notation, player.money, 2, 1);
-    if (player.currentChallenge == "challenge12") document.getElementById("matter") = "There is " + formatValue(player.options.notation, player.matter, 2, 1) + " matter.";
+    if (player.currentChallenge == "challenge12") document.getElementById("matter").innerHTML = "There is " + formatValue(player.options.notation, player.matter, 2, 1) + " matter.";
 }
 
 function updateCoinPerSec() {
