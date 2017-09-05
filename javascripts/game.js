@@ -1,4 +1,4 @@
-var Marathon=0
+var Marathon = 0;
 var player = {
     money: 10,
     tickSpeedCost: 1000,
@@ -284,7 +284,7 @@ function updateDimensions() {
     if (calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult")) * 10 / Math.max(player.firstAmount, 10) > 1000 || calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult")) * 10 / Math.max(player.seventhAmount, 10) > 1000 || calcPerSec(player.seventhAmount, player.seventhPow, player.infinityUpgrades.includes("27Mult")) * 10 / Math.max(player.sixthAmount, 1) > 1000 ||calcPerSec(player.fourthAmount, player.fourthPow, player.infinityUpgrades.includes("45Mult")) * 10 / Math.max(player.thirdAmount, 10) > 1000 || calcPerSec(player.sixthAmount, player.sixthPow, player.infinityUpgrades.includes("36Mult")) * 10 / Math.max(player.fifthAmount, 10) > 1000 || calcPerSec(player.fifthAmount, player.fifthPow, player.infinityUpgrades.includes("45Mult")) * 10 / Math.max(player.fourthAmount, 1) > 1000 || calcPerSec(player.thirdAmount, player.thirdPow, player.infinityUpgrades.includes("36Mult")) * 10 / Math.max(player.secondAmount, 10) > 1000) {
     if (!player.achievements.includes("Cloning Machine Overdrive")) giveAchievement("Cloning Machine Overdrive"); }
     if (player.seventhAmount > 1e12 && !player.achievements.includes("Multidimensional")) giveAchievement("Multidimensional");
-
+    }
     if (!player.infinityUpgrades.includes("timeMult")) {
         document.getElementById("firstD").innerHTML = 'First Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("18Mult") ? player.firstPow * player.achPow : player.firstPow * player.achPow * dimMults(), 1, 0);
         document.getElementById("secondD").innerHTML = 'Second Dimension  ' + 'x' + formatValue(player.options.notation, !player.infinityUpgrades.includes("27Mult") ? player.secondPow * player.achPow : player.secondPow * player.achPow * dimMults(), 1, 0);
@@ -2588,7 +2588,7 @@ setInterval(function () {
     if (initpos < (newsText.length * 32 * -1)) {
         initpos = c.width;
         newsText = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
-				if (!player.newsArray.includes(newsText) && !player.options.newsHidden) {
+				if (!player.newsArray.includes(newsText) && !newsHidden) {
   				player.newsArray.push(newsText);
   				if (player.newsArray.length>=50 && !player.achievements.includes("Devoted Viewer")) giveAchievement("Devoted Viewer") 
 				}
