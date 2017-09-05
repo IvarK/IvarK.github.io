@@ -182,11 +182,6 @@ function load_game() {
         }
     }
     setAchieveTooltip();
-<<<<<<< HEAD
-    console.log(player)
-=======
-	console.log(player)
->>>>>>> f17fb54b38c3892b9364c0ee418f69d5354d2421
 }
 
 function save_game() {
@@ -1903,9 +1898,13 @@ function updateAutobuyers() {
     document.getElementById("buyerBtnInf").innerHTML = "39% smaller interval <br>Cost: " + player.autobuyers[11].cost + " points"
 
 
-
-
-
+    for (var i=0; i<8; i++) {
+        if (player.autobuyers[i]%1 !== 0) document.getElementById("autoBuyer"+(i+1)).style.display = "inline-block"
+    }
+    if (player.autobuyers[8]%1 !== 0) document.getElementById("autoBuyerTickSpeed").style.display = "inline-block"
+    if (player.autobuyers[9]%1 !== 0) document.getElementById("autoBuyerDimBoost").style.display = "inline-block"
+    if (player.autobuyers[10]%1 !== 0) document.getElementById("autoBuyerGalaxies").style.display = "inline-block"
+    if (player.autobuyers[11]%1 !== 0) document.getElementById("autoBuyerInf").style.display = "inline-block"
 }
 
 function loadAutoBuyers() {
