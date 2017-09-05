@@ -1796,7 +1796,7 @@ function updateAutobuyers() {
         player.autobuyers[9] = autoBuyerDimBoost
         document.getElementById("autoBuyerDimBoost").style.display = "inline-block"
     }
-    if (player.challenges.includes("challenge12") && player.autobuyers[10] == 11) {
+    if (player.challenges.includes("challenge11") && player.autobuyers[10] == 11) {
         player.autobuyers[10] = autoBuyerGalaxy
         document.getElementById("autoBuyerGalaxies").style.display = "inline-block"
     }
@@ -2472,7 +2472,7 @@ function cheat() {
     player.challenges.push("challenge8")
     player.challenges.push("challenge9")
     player.challenges.push("challenge10")
-    player.challenges.push("challenge12")
+    player.challenges.push("challenge11")
     player.challenges.push("challenge12")
     updateChallenges()
     updateAutobuyers()
