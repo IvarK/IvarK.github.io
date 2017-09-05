@@ -54,6 +54,7 @@ var player = {
     autobuyers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     chall2Pow: 1,
     chall3Pow: 0.01,
+    matter: 0,
     options: {
         notation: "Standard",
         //Standard = normal prefixed numbers, Scientific = standard form, Engineering = powers of 3.
@@ -144,6 +145,7 @@ function load_game() {
     if (player.challenges === undefined) player.challenges = []
     if (player.currentChallenge === undefined) player.currentChallenge = ""
 	  if (player.infinitied > 0) player.challenges.push("challenge1")
+    if (player.matter === undefined) player.matter = 0
     if (player.secondAmount !== 0) {
         document.getElementById("thirdRow").style.display = "table-row";
         document.getElementById("tickSpeed").style.visibility = "visible";
@@ -480,6 +482,7 @@ function softReset() {
         autobuyers: player.autobuyers,
         chall2Pow: player.chall2Pow,
         chall3Pow: 0.01,
+        matter: 0,
         options: {
             notation: player.options.notation,
             animationsOn: player.options.animationsOn,
@@ -637,6 +640,7 @@ document.getElementById("first").onclick = function () {
             giveAchievement("You gotta start somewhere")
         }
         if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
+        if (player.currentChallenge == "challenge11" && player.matter == 0) player.matter = 1;
         if (!player.achievements.includes("There's no point in doing that") && player.firstAmount >= 1e150) giveAchievement("There's no point in doing that");
     }
 };
@@ -825,7 +829,8 @@ document.getElementById("firstMax").onclick = function () {
         if (!player.achievements.includes("You gotta start somewhere")) {
             giveAchievement("You gotta start somewhere")
         }
-        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
+        if (player.currentChallenge == "challenge11" && player.matter == 0) player.matter = 1; // this instakills you if you press it immediately on a new run
     }
 };
 
@@ -1112,7 +1117,7 @@ function maxAll() {
             document.getElementById("firstMax").click();
             maxAll();
     }
-    }
+
 }
 
 document.getElementById("maxall").onclick = function () {
@@ -1527,6 +1532,7 @@ document.getElementById("secondSoftReset").onclick = function () {
             autobuyers: player.autobuyers,
             chall2Pow: player.chall2Pow,
             chall3Pow: 0.01,
+            matter: 0,
             options: {
                 scientific: player.options.scientific,
                 notation: player.options.notation,
@@ -1936,6 +1942,7 @@ document.getElementById("bigcrunch").onclick = function () {
           autobuyers: player.autobuyers,
           chall2Pow: 1,
           chall3Pow: 0.01,
+          matter: 0,
           options: {
               scientific: player.options.scientific,
               notation: player.options.notation,
@@ -2032,6 +2039,7 @@ function startChallenge(name) {
       autobuyers: player.autobuyers,
       chall2Pow: 1,
       chall3Pow: 0.01,
+      matter: 0,
       options: {
 	notation: player.options.notation,
         scientific: player.options.scientific,
@@ -2086,6 +2094,16 @@ setInterval(function () {
     if (!player.achievements.includes("Don't you dare to sleep") && thisUpdate - player.lastUpdate >= 21600000) giveAchievement("Don't you dare to sleep")
     var diff = Math.min(thisUpdate - player.lastUpdate, 21600000);
     diff = diff / 100;
+    player.matter *= (0.1002 + player.resets/20000 + player.galaxies/10000) * diff //makes it so that you cant really offline cheat
+    if (player.matter > player.money) {
+        softReset();
+        player.resets--;
+        const tiers = [null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight"];
+        for (i=1, i<=8, i++) {
+            player[tiers[i]] + "Pow" /= 2;
+            if (player[tiers[i]] + "Pow" <= 1) player[tiers[i]] = 1;
+        }
+    }
     player.chall3Pow *= 1.00038
     player.chall2Pow = Math.min(player.chall2Pow + diff/1800, 1)
     if (player.currentChallenge == "challenge7") {
@@ -2512,6 +2530,9 @@ document.getElementById("challenge10").onclick = function () {
   startChallenge("challenge10");
 }
 
+document.getElementById("challenge11").onclick = function () {
+  startChallenge("challenge11");
+}
 
 function init() {
     console.log('init');
