@@ -495,6 +495,17 @@ function softReset() {
         player.seventhCost = 2e5
         player.eightCost = 4e6
     }
+
+    if (player.currentChallenge == "challenge11") {
+        player.firstPow = 1
+        player.secondPow = 1
+        player.thirdPow = 1
+        player.fourthPow = 1
+        player.fifthPow = 1
+        player.sixthPow = 1
+        player.seventhPow = 1
+        player.eightPow = 1
+    }
     player.resets++;
     updateCosts();
     clearInterval(player.interval);
@@ -610,7 +621,8 @@ function clearDimensions(amount) {
     
     for (i = 1; i <= amount; i++) {
         player[tiers[i] + "Amount"] = 0
-}   }
+    }   
+}
 
 document.getElementById("first").onclick = function () {
     if (player.money >= player.firstCost) {
@@ -1060,7 +1072,7 @@ document.getElementById("softReset").onclick = function () {
 
 function maxAll() {
     buyMaxTickSpeed();
-    if (!player.currentChallenge == "challenge10") {
+    if (player.currentChallenge != "challenge10") {
         if (player.money >= player.eightCost * (10 - player.eightBought) && player.resets > 3 && player.currentChallenge != "challenge4") {
             document.getElementById("eightMax").click();
             maxAll();
@@ -1111,7 +1123,7 @@ function maxAll() {
         } else if (player.money >= player.firstCost * (10 - player.firstBought)) {
             document.getElementById("firstMax").click();
             maxAll();
-    }
+        }
     }
 }
 
@@ -1468,8 +1480,9 @@ document.getElementById("toggleBtnTickSpeed").onclick = function () {
 
 
 document.getElementById("secondSoftReset").onclick = function () {
+    var bool = player.currentChallenge == "challenge11"
     if (player.currentChallenge == "challenge4" ?
-    player.sixthAmount >= (player.galaxies * 90 + 130 - player.infinityUpgrades.includes("resetBoost") * 9) : player.eightAmount >= (player.galaxies * 60 + 80 - player.infinityUpgrades.includes("resetBoost") * 9)) {
+    player.sixthAmount >= (player.galaxies * 90 + 130 - player.infinityUpgrades.includes("resetBoost") * 9) &&bool : player.eightAmount >= (player.galaxies * 60 + 80 - player.infinityUpgrades.includes("resetBoost") * 9) &&bool) {
       if (!player.achievements.includes("I don't believe in Gods") && player.sacrificed == 0) giveAchievement("I don't believe in Gods");
         player = {
             money: 10,
@@ -1663,20 +1676,45 @@ document.getElementById("newsbtn").onclick = function() {
 }
 
 
-
+function resetDimensions() {
+    const tiers = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
+    
+    for (i = 1; i <= 8; i++) {
+        player[tiers[i] + "Amount"] = 0
+        player[tiers[i] + "Pow"] = 1
+    }
+    player.firstCost = 10
+    player.secondCost = 100
+    player.thirdCost = 10000
+    player.fourthCost = 1e6
+    player.fifthCost = 1e9
+    player.sixthCost = 1e13
+    player.seventhCost = 1e18
+    player.eightCost = 1e24
+}
 
 function calcSacrificeBoost() {
-    if (player.firstAmount != 0) return Math.max(Math.pow((Math.log10(player.firstAmount) / 10.0), 2) / Math.max(Math.pow((Math.log10(Math.max(player.sacrificed, 1)) / 10.0), 2), 1), 1);
-    else return 1;
+    if (player.currentChallenge != "challenge11") {
+        if (player.firstAmount != 0) return Math.max(Math.pow((Math.log10(player.firstAmount) / 10.0), 2) / Math.max(Math.pow((Math.log10(Math.max(player.sacrificed, 1)) / 10.0), 2), 1), 1);
+        else return 1;
+    } else {
+        if (player.firstAmount != 0) return Math.pow(player.firstAmount, 0.05)
+        else return 1
+    }
 }
 
 
 function sacrifice() {
     player.eightPow *= calcSacrificeBoost()
     player.sacrificed += player.firstAmount;
-    clearDimensions(7);
-
-    if (Math.max(Math.pow((Math.log10(Math.max(player.sacrificed, 1)) / 10.0), 2), 2) >= 600 && !player.achievements.includes("The Gods are pleased")) giveAchievement("The Gods are pleased");
+    if (player.currentChallenge != "challenge11") {
+        clearDimensions(7);
+        if (Math.max(Math.pow((Math.log10(Math.max(player.sacrificed, 1)) / 10.0), 2), 2) >= 600 && !player.achievements.includes("The Gods are pleased")) giveAchievement("The Gods are pleased");
+    } else {
+        resetDimensions();
+        player.money = 100
+        player.eightPow *= calcSacrificeBoost()
+    }
 
 }
 
@@ -2511,6 +2549,10 @@ document.getElementById("challenge9").onclick = function () {
 document.getElementById("challenge10").onclick = function () {
   startChallenge("challenge10");
 }
+
+document.getElementById("challenge11").onclick = function () {
+    startChallenge("challenge11");
+  }
 
 
 function init() {
