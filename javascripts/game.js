@@ -182,11 +182,6 @@ function load_game() {
         }
     }
     setAchieveTooltip();
-<<<<<<< HEAD
-    console.log(player)
-=======
-	console.log(player)
->>>>>>> f17fb54b38c3892b9364c0ee418f69d5354d2421
 }
 
 function save_game() {
