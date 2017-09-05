@@ -243,7 +243,7 @@ function updateMoney() {
     if (player.currentChallenge == "challenge12") {
 	var element2 = document.getElementById("matter");
 	element2.innerHTML = "There is " + formatValue(player.options.notation, player.matter, 2, 1) + " matter.";
-}
+}}
 
 function updateCoinPerSec() {
     var element = document.getElementById("coinsPerSec");
