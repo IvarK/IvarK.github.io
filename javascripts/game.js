@@ -2097,13 +2097,13 @@ setInterval(function () {
     var diff = Math.min(thisUpdate - player.lastUpdate, 21600000);
     diff = diff / 100;
     player.matter *= (0.1002 + player.resets/20000 + player.galaxies/10000) * diff //makes it so that you cant really offline cheat
-    if (player.matter > player.money) {
+    if (player.matter > player.money && player.currentChallenge == "challenge11") {
         softReset();
         player.resets--;
         const tiers = [null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight"];
         for (i=1; i<=8; i++) {
-            player[tiers[i]] + "Pow" /= 2;
-            if (player[tiers[i]] + "Pow" <= 1) player[tiers[i]] = 1;
+            player[tiers[i] + "Pow"] /= 2;
+            if (player[tiers[i] + "Pow"] <= 1) player[tiers[i]] = 1;
         }
     }
     player.chall3Pow *= 1.00038
