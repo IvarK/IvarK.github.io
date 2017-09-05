@@ -240,8 +240,7 @@ function formatValue(notation, value, places, placesUnder1000) {
 function updateMoney() {
     var element = document.getElementById("coinAmount");
     element.innerHTML = formatValue(player.options.notation, player.money, 2, 1);
-
-
+    if (player.currentChallenge == "challenge11") document.getElementById("matter") = "There is " + formatValue(player.options.notation, player.matter, 2, 1) + " matter.";
 }
 
 function updateCoinPerSec() {
@@ -1966,6 +1965,7 @@ document.getElementById("bigcrunch").onclick = function () {
       document.getElementById("sixthRow").style.display = "none";
       document.getElementById("seventhRow").style.display = "none";
       document.getElementById("eightRow").style.display = "none";
+      document.getElementById("matter").style.visibility = "hidden";
       updateTickSpeed();
       showTab("dimensions")
       kongregate.stats.submit('Infinitied', player.infinitied);
@@ -2066,6 +2066,8 @@ function startChallenge(name) {
     document.getElementById("sixthRow").style.display= "none";
     document.getElementById("seventhRow").style.display= "none";
     document.getElementById("eightRow").style.display= "none";
+    if (name == "challenge11") document.getElementById("matter").style.visibility = "visible";
+    else document.getElementById("matter").style.visibility = "hidden";
     updateTickSpeed();
     showTab('dimensions');
     updateChallenges();
