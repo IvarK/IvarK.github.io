@@ -402,21 +402,25 @@ function updateTickSpeed() {
 
 
 function updateChallenges() {
-  var buttons = document.getElementsByClassName('onchallengebtn')
-  for (var i=0; i < buttons.length; i++) {
-    buttons[i].className = "challengesbtn";
-  }
+    try {
+        var buttons = document.getElementsByClassName('onchallengebtn')
+        for (var i=0; i < buttons.length; i++) {
+            buttons[i].className = "challengesbtn";
+            buttons[i].innerHTML = "Start"
+        }
+        
+        for (var i=0; i < player.challenges.length; i++) {
+            document.getElementById(player.challenges[i]).className = "completedchallengesbtn";
+            document.getElementById(player.challenges[i]).innerHTML = "Completed"
+        }
+        
+        if (player.currentChallenge != "") {
+            document.getElementById(player.currentChallenge).className = "onchallengebtn"
+            document.getElementById(player.currentChallenge).innerHTML = "Running"
+        }
+    } catch (err) {updateChallenges()}
   
-  for (challenge in player.challenges) {
-    document.getElementById(player.challenges[challenge]).className = "completedchallengesbtn";
-  }
-  
-  
-  if (player.currentChallenge != "") {
-    document.getElementById(player.currentChallenge).className = "onchallengebtn"
-  }
-  
-  
+
   
   
 }
@@ -2031,12 +2035,13 @@ document.getElementById("bigcrunch").onclick = function () {
       if (!player.achievements.includes("To infinity!")) giveAchievement("To infinity!");
       if (!player.achievements.includes("That's a lot of infinites") && player.infinitied >= 10) giveAchievement("That's a lot of infinites");
       if (player.infinitied >= 1 && !player.challenges.includes("challenge1")) player.challenges.push("challenge1");
-      updateChallenges();
+      
       updateAutobuyers();
       if (player.challenges.includes("challenge1")) player.money = 100
 
 
   }
+  updateChallenges();
 }
 
 function startChallenge(name) {
@@ -2625,7 +2630,7 @@ function init() {
         showTab('infinity');
     };
     //show one tab during init or they'll all start hidden
-    showTab('infinity')
+    showTab('challenges')
     load_game();
     updateTickSpeed();
 	updateAutobuyers();
