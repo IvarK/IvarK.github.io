@@ -5,7 +5,7 @@ class Autobuyer {
     this.interval = 5000;
     this.priority = 15;
     this.ticks = 0;
-    this.isOn = true;
+    this.isOn = false;
   }
 
 }
