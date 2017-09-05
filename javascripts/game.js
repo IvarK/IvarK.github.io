@@ -2630,7 +2630,7 @@ function init() {
         showTab('infinity');
     };
     //show one tab during init or they'll all start hidden
-    showTab('challenges')
+    showTab('dimensions')
     load_game();
     updateTickSpeed();
 	updateAutobuyers();
