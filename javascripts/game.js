@@ -144,7 +144,7 @@ function load_game() {
     if (player.firstAmount !== 0) document.getElementById("secondRow").style.display = "table-row";
     if (player.challenges === undefined) player.challenges = []
     if (player.currentChallenge === undefined) player.currentChallenge = ""
-	  if (player.infinitied > 0) player.challenges.push("challenge1")
+	if (player.infinitied > 0) player.challenges.push("challenge1")
     if (player.matter === undefined) player.matter = 0
     if (player.secondAmount !== 0) {
         document.getElementById("thirdRow").style.display = "table-row";
@@ -167,6 +167,7 @@ function load_game() {
     updateTickSpeed();
     updateAchPow();
     updateChallenges();
+    loadAutoBuyers();
     updateAutobuyers();
     document.getElementById("notation").innerHTML = "Notation: " + player.options.notation
 
@@ -181,6 +182,7 @@ function load_game() {
         }
     }
     setAchieveTooltip();
+    console.log(player)
 }
 
 function save_game() {
@@ -1900,6 +1902,16 @@ function updateAutobuyers() {
 
 
 
+}
+
+function loadAutoBuyers() {
+    const tiers = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight", "tickSpeed", "softReset", "secondSoftReset", "bigcrunch"];
+    for (var i=0; i<12; i++) {
+        if (player.autobuyers[i]%1 !== 0 ) {
+            player.autobuyers[i].target = document.getElementById(tiers[i])
+        }
+    }
+    
 }
 
 function autoBuyerArray() {
