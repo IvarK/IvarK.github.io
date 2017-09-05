@@ -306,7 +306,7 @@ function updateDimensions() {
             
     if (player.currentChallenge == "challenge4" && player.resets > 1) {
 	if (player.fifthAmount !== 0) document.getElementById("sixthRow").style.visibility = "visible";
-        document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + ((player.resets - 1) * 20 - player.infinityUpgrades.includes("resetBoost")*9) + ' Sixth Dimension';
+        document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + (((player.resets - 1) * 20 - player.infinityUpgrades.includes("resetBoost")*9)) + ' Sixth Dimension';
     } else if (player.infinityUpgrades.includes("resetBoost")) {
         if (player.resets > 3) {
             document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + ((player.resets - 4) * 15 + 11) + ' Eighth Dimension';
@@ -338,7 +338,7 @@ function updateDimensions() {
     }
     if (player.currentChallenge == "challenge4" && player.resets > 1) {
         if (player.infinityUpgrades.includes("resetBoost")) document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + player.resets * 20 - 29 + ' Sixth Dimension';
-        else document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + player.resets * 20 - 20 + ' Sixth Dimension'; 
+        else document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + (player.resets * 20 - 20) + ' Sixth Dimension'; 
     }
     if (player.resets > 3 || (player.resets > 1 && player.currentChallenge == "challenge4")) document.getElementById("softReset").innerHTML = "Reset the game for a Boost";
     else document.getElementById("softReset").innerHTML = "Reset the game for a new Dimension";
@@ -2367,7 +2367,7 @@ setInterval(function () {
                 document.getElementById("softReset").className = 'storebtn';
             } else document.getElementById("softReset").className = 'unavailablebtn';
         }
-        if (player.resets == 1) {
+        else if (player.resets == 1) {
             if (player.fifthAmount >= 11) {
                 document.getElementById("softReset").className = 'storebtn';
             } else document.getElementById("softReset").className = 'unavailablebtn';
@@ -2392,7 +2392,7 @@ setInterval(function () {
                 document.getElementById("softReset").className = 'storebtn';
             } else document.getElementById("softReset").className = 'unavailablebtn';
         }
-        if (player.resets == 1) {
+         else if (player.resets == 1) {
             if (player.fifthAmount >= 20) {
                 document.getElementById("softReset").className = 'storebtn';
             } else document.getElementById("softReset").className = 'unavailablebtn';
