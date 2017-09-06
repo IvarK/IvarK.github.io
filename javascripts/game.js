@@ -355,7 +355,7 @@ function getShiftRequirement() {
 
 function getGalaxyRequirement() {
     let amount = 80 + (player.galaxies * 60);
-    if (player.currentChallenge == "challenge4") amount = 130 + (player.galaxies * 90)
+    if (player.currentChallenge == "challenge4") amount = 99 + (player.galaxies * 90)
     if (player.infinityUpgrades.includes("resetBoost")) {
         amount -= 9;
     }
@@ -396,7 +396,8 @@ function updateDimensions() {
         document.getElementById("softReset").innerHTML = "Reset the game for a new Dimension";
     }
 
-    document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + getGalaxyRequirement() + ' Eighth Dimensions';
+    if (player.currentChallenge != "challenge4") document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + getGalaxyRequirement() + ' Eighth Dimensions';
+    else document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + getGalaxyRequirement() + ' Sixth Dimensions';
     document.getElementById("totalmoney").innerHTML = 'You have made a total of ' + shortenMoney(player.totalmoney) + ' antimatter.';
     document.getElementById("totalresets").innerHTML = 'You have done ' + player.resets + ' soft resets.';
     document.getElementById("galaxies").innerHTML = 'You have ' + Math.round(player.galaxies) + ' Antimatter Galaxies.';
@@ -975,8 +976,8 @@ document.getElementById("eightMax").onclick = function () {
 
 document.getElementById("softReset").onclick = function () {
   if (player.currentChallenge == "challenge4" && player.resets >= 2) {
-    if (player.sixthAmount >= (player.resets - 1) * 20 - player.infinityUpgrades.includes("resetBoost")*9) softReset();
-    document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + player.resets * 20 + ' Sixth Dimension'
+    if (player.sixthAmount >= ((player.resets - 1) * 20) - player.infinityUpgrades.includes("resetBoost")*9) softReset();
+    document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + ((player.resets - 1) * 20 - player.infinityUpgrades.includes("resetBoost")*9) + ' Sixth Dimensions'
   } else {
     if (player.resets === 0) {
         if (player.infinityUpgrades.includes("resetBoost") ? player.fourthAmount >= 11 : player.fourthAmount >= 20) {
@@ -1379,7 +1380,7 @@ document.getElementById("toggleBtnTickSpeed").onclick = function () {
 document.getElementById("secondSoftReset").onclick = function () {
     var bool = player.currentChallenge != "challenge11"
     if (player.currentChallenge == "challenge4" ?
-    player.sixthAmount >= (player.galaxies * 90 + 130 - player.infinityUpgrades.includes("resetBoost") * 9) &&bool : player.eightAmount >= (player.galaxies * 60 + 80 - player.infinityUpgrades.includes("resetBoost") * 9) &&bool) {
+    player.sixthAmount >= (player.galaxies * 90 + 99 - player.infinityUpgrades.includes("resetBoost") * 9) &&bool : player.eightAmount >= (player.galaxies * 60 + 80 - player.infinityUpgrades.includes("resetBoost") * 9) &&bool) {
       if (player.sacrificed == 0) giveAchievement("I don't believe in Gods");
         player = {
             money: 10,
@@ -2026,7 +2027,7 @@ function exitChallenge() {
 
 function startChallenge(name) {
   if(name == "" ? true : confirm("You will start over with just your infinity upgrades and achievements. You need to reach infinity with special conditions.")) {
-    document.getElementById(player.currentChallenge).innerHTML = "Start"
+    if (player.currentChallenge != "") document.getElementById(player.currentChallenge).innerHTML = "Start"
     player = {
       money: 10,
       tickSpeedCost: 1000,
