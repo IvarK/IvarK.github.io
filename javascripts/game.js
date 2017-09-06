@@ -1560,13 +1560,17 @@ document.getElementById("reset").onclick = function () {
 function setAchieveTooltip() {
     var apocAchieve = document.getElementById("Antimatter Apocalypse");
     var noPointAchieve = document.getElementById("There's no point in doing that");
-
+    var sanic = document.getElementById("Supersanic")
     var forgotAchieve = document.getElementById("I forgot to nerf that")
+    var potato = document.getElementById("Faster than a potato")
+    var dimensional = document.getElementById("Multidimensional")
 
     apocAchieve.setAttribute('ach-tooltip', "Get over " + formatValue(player.options.notation, 1e80, 0, 0) + " antimatter");
     noPointAchieve.setAttribute('ach-tooltip', "Buy a single First Dimension when you have over " + formatValue(player.options.notation, 1e150, 0, 0) + " of them");
     forgotAchieve.setAttribute('ach-tooltip', "Get any Dimension multiplier over " + formatValue(player.options.notation, 1e31, 0, 0));
-
+    sanic.setAttribute('ach-tooltip', "Have antimatter/sec exceed your current antimatter above " + formatValue(player.options.notation, 1e63, 0, 0));
+    potato.setAttribute('ach-tooltip', "Get more than " + formatValue(player.options.notation, 1e23, 0, 0) + " ticks per second");
+    dimensional.setAttribute('ach-tooltip', "Reach " + formatValue(player.options.notation, 1e12, 0, 0) + " of all dimensions except 8th");
 }
 
 document.getElementById("notation").onclick = function () {
@@ -1878,12 +1882,23 @@ function updateCheckBoxes() {
     for (var i = 0; i < 12; i++) {
         if (player.autobuyers[i]%1 !== 0) {
             if (player.autobuyers[i].isOn) document.getElementById((i+1) + "ison").checked = "true";
+            else document.getElementById((i+1) + "ison").checked = ""
         }
     }
 
 
 }
 
+
+function toggleAutoBuyers() {
+    var bool = player.autobuyers[0].isOn
+    for (var i = 0; i<autoBuyerArray().length; i++) {
+        if (bool) autoBuyerArray()[i].isOn = false
+        else autoBuyerArray()[i].isOn = true
+    }
+    updateCheckBoxes()
+    updateAutobuyers()
+}
 
 
 
