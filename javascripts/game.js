@@ -1791,41 +1791,41 @@ function updateAutobuyers() {
         player.autobuyers[2] = autoBuyerDim3
         document.getElementById("autoBuyer3").style.display = "inline-block"
     }
-    if (player.challenges.includes("challenge4") && player.autobuyers[3] == 4) {
-        player.autobuyers[3] = autoBuyerDim4
-        document.getElementById("autoBuyer4").style.display = "inline-block"
-    }
-    if (player.challenges.includes("challenge5") && player.autobuyers[4] == 5) {
-        player.autobuyers[4] = autoBuyerDim5
-        document.getElementById("autoBuyer5").style.display = "inline-block"
-    }
-    if (player.challenges.includes("challenge6") && player.autobuyers[5] == 6) {
-        player.autobuyers[5] = autoBuyerDim6
-        document.getElementById("autoBuyer6").style.display = "inline-block"
-    }
-    if (player.challenges.includes("challenge7") && player.autobuyers[6] == 7) {
-        player.autobuyers[6] = autoBuyerDim7
-        document.getElementById("autoBuyer7").style.display = "inline-block"
-    }
-    if (player.challenges.includes("challenge8") && player.autobuyers[7] == 8) {
-        player.autobuyers[7] = autoBuyerDim8
-        document.getElementById("autoBuyer8").style.display = "inline-block"
-    }
-    if (player.challenges.includes("challenge9") && player.autobuyers[8] == 9) {
-        player.autobuyers[8] = autoBuyerTickspeed
-        document.getElementById("autoBuyerTickSpeed").style.display = "inline-block"
-    }
-    if (player.challenges.includes("challenge10") && player.autobuyers[9] == 10) {
+    if (player.challenges.includes("challenge4") && player.autobuyers[9] == 10) {
         player.autobuyers[9] = autoBuyerDimBoost
         document.getElementById("autoBuyerDimBoost").style.display = "inline-block"
     }
-    if (player.challenges.includes("challenge11") && player.autobuyers[10] == 11) {
-        player.autobuyers[10] = autoBuyerGalaxy
-        document.getElementById("autoBuyerGalaxies").style.display = "inline-block"
+    if (player.challenges.includes("challenge5") && player.autobuyers[8] == 9) {
+        player.autobuyers[8] = autoBuyerTickspeed
+        document.getElementById("autoBuyerTickSpeed").style.display = "inline-block"
     }
-    if (player.challenges.includes("challenge12") && player.autobuyers[11] == 12) {
+    if (player.challenges.includes("challenge6") && player.autobuyers[4] == 5) {
+        player.autobuyers[4] = autoBuyerDim5
+        document.getElementById("autoBuyer5").style.display = "inline-block"
+    }
+    if (player.challenges.includes("challenge7") && player.autobuyers[11] == 12) {
         player.autobuyers[11] = autoBuyerInf
         document.getElementById("autoBuyerInf").style.display = "inline-block"
+    }
+    if (player.challenges.includes("challenge8") && player.autobuyers[3] == 4) {
+        player.autobuyers[3] = autoBuyerDim4
+        document.getElementById("autoBuyer4").style.display = "inline-block"
+    }
+    if (player.challenges.includes("challenge9") && player.autobuyers[6] == 7) {
+        player.autobuyers[6] = autoBuyerDim7
+        document.getElementById("autoBuyer7").style.display = "inline-block"
+    }
+    if (player.challenges.includes("challenge10") && player.autobuyers[5] == 6) {
+        player.autobuyers[5] = autoBuyerDim6
+        document.getElementById("autoBuyer6").style.display = "inline-block"
+    }
+    if (player.challenges.includes("challenge11") && player.autobuyers[7] == 8) {
+        player.autobuyers[7] = autoBuyerDim8
+        document.getElementById("autoBuyer8").style.display = "inline-block"
+    }
+    if (player.challenges.includes("challenge12") && player.autobuyers[10] == 11) {
+        player.autobuyers[10] = autoBuyerGalaxy
+        document.getElementById("autoBuyerGalaxies").style.display = "inline-block"
     }
     
     document.getElementById("interval1").innerHTML = "Current interval: " + (player.autobuyers[0].interval/1000).toFixed(1) + " seconds";
