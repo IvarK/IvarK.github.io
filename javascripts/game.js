@@ -852,7 +852,8 @@ function buyOneDimension(tier) {
 function buyManyDimension(tier) {
     const name = TIER_NAMES[tier];
     const cost = player[name + 'Cost'] * (10 - player[name + 'Bought']);
-
+    
+    if (player.currentChallenge == "challenge12" && player.matter = 0) player.matter = 1;
     if (player.currentChallenge != "challenge10") {
         if (!canBuyDimension(tier)) {
             return false;
