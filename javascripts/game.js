@@ -282,7 +282,7 @@ function getDimensionFinalMultiplier(tier) {
     const name = TIER_NAMES[tier];
 
     let multiplier = player[name + 'Pow'];
-    if (player.currentChallenge = "challenge7") {
+    if (player.currentChallenge == "challenge7") {
         if (tier == 4) multiplier = Math.pow(multiplier, 1.4)
         if (tier == 2) multiplier = Math.pow(multiplier, 1.7)
     }
@@ -349,7 +349,7 @@ function getShiftRequirement() {
 
 function getGalaxyRequirement() {
     let amount = 80 + (player.galaxies * 60);
-    if (player.currentChallenge = "challenge4") amount = 130 + (player.galaxies * 90)
+    if (player.currentChallenge == "challenge4") amount = 130 + (player.galaxies * 90)
     if (player.infinityUpgrades.includes("resetBoost")) {
         amount -= 9;
     }
@@ -384,7 +384,7 @@ function updateDimensions() {
     const shiftRequirement = getShiftRequirement();
     document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + shiftRequirement.amount + " " + DISPLAY_NAMES[shiftRequirement.tier] + " Dimensions";
     
-    if (player.currentChallenge = "challenge4" ? player.resets > 2 : player.resets > 3) {
+    if (player.currentChallenge == "challenge4" ? player.resets > 2 : player.resets > 3) {
         document.getElementById("softReset").innerHTML = "Reset the game for a Boost";
     } else {
         document.getElementById("softReset").innerHTML = "Reset the game for a new Dimension";
@@ -725,7 +725,7 @@ function canBuyDimension(tier) {
         return false;
     }
 
-    if (player.currentChallenge = "challenge4") {
+    if (player.currentChallenge == "challenge4") {
         if (tier == 7 || tier == 8) return false
     }
     
