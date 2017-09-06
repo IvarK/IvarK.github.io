@@ -1895,9 +1895,11 @@ function updateCheckBoxes() {
 
 function toggleAutoBuyers() {
     var bool = player.autobuyers[0].isOn
-    for (var i = 0; i<autoBuyerArray().length; i++) {
-        if (bool) autoBuyerArray()[i].isOn = false
-        else autoBuyerArray()[i].isOn = true
+    for (var i = 0; i<12; i++) {
+        if (player.autobuyers[i]%1 !== 0) {
+            if (bool) player.autobuyers[i].isOn = false
+            else player.autobuyers[i].isOn = true
+        }
     }
     updateCheckBoxes()
     updateAutobuyers()
