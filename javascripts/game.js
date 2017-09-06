@@ -84,13 +84,13 @@ var eightButton = document.getElementById("eight");
 var tickSpeedButton = document.getElementById("tickSpeed");
 
 function set_cookie(cookie_name, value) {
-    localStorage[cookie_name] = btoa(JSON.stringify(value))
+    localStorage[cookie_name] = (JSON.stringify(value, function(k, v) { return (v === Infinity) ? "Infinity" : v; }))
 }
 
 function get_cookie(cookie_name) {
     var c_value = document.cookie;
     if (localStorage[cookie_name] !== null) {
-        return JSON.parse(atob(localStorage[cookie_name]))
+        return JSON.parse((localStorage[cookie_name], function(k, v) { return (v === Infinity) ? "Infinity" : v; }))
     } else {
         var c_start = c_value.indexOf(" " + cookie_name + "=");
         if (c_start == -1) {
