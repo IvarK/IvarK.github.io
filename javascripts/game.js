@@ -2303,7 +2303,7 @@ setInterval(function () {
         }
         for (var i=0; i<priorityOrder().length; i++) {
             if (priorityOrder()[i].ticks*100 >= priorityOrder()[i].interval) {
-                if (priorityOrder()[i].isOn) {
+                if (priorityOrder()[i].isOn || canBuyDimension(i+1)) {
                     priorityOrder()[i].target.click()
                     priorityOrder()[i].ticks = 0;
                 }
