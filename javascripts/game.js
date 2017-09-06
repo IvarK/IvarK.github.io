@@ -1566,7 +1566,7 @@ document.getElementById("secondSoftReset").onclick = function () {
             interval: null,
             lastUpdate: player.lastUpdate,
             achPow: player.achPow,
-	          newsArray: player.newsArray,
+	        newsArray: player.newsArray,
             autobuyers: player.autobuyers,
             chall2Pow: player.chall2Pow,
             chall3Pow: 0.01,
@@ -2023,6 +2023,7 @@ document.getElementById("bigcrunch").onclick = function () {
           autobuyers: player.autobuyers,
           chall2Pow: 1,
           chall3Pow: 0.01,
+          newsArray: player.newsArray,
           matter: 0,
           chall11Pow: 1,
           options: {
