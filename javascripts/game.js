@@ -2481,7 +2481,8 @@ var conditionalNewsArray = ["Our universe is falling apart. We are all evacuatin
 
 var initpos = c.width;
 ctx.textBaseline = 'top';
-var newsText = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
+var newsTextValue = Math.round(Math.random() * (newsArray.length - 1))
+var newsText = newsArray[newsTextValue];
 
 setInterval(function () {
     //document.getElementById("news").innerHTML = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
@@ -2499,11 +2500,13 @@ setInterval(function () {
     if (player.money == Infinity) next = conditionalNewsArray[1]
     if (initpos < (newsText.length * 32 * -1)) {
         initpos = c.width;
-        newsText = newsArray[Math.round(Math.random() * (newsArray.length - 1))];
-				if (!player.newsArray.includes(newsText) && !player.options.newsHidden) {
-  				player.newsArray.push(newsText);
-  				if (player.newsArray.length>=50 && !player.achievements.includes("Fake News")) giveAchievement("Fake News") 
-				}
+        newsTextValue = Math.round(Math.random() * (newsArray.length - 1))
+        newsText = newsArray[newsTextValue];
+        if (!player.options.newsHidden) {
+  			if (conditionalNewsArray.includes(newsText) && !player.newsArray.includes(newsText)) player.newsArray.push(newsText);
+            else if (!conditionalNewsArray.includes(newsText) && !player.newsArray.includes(newsTextValue)) player.newsArray.push(newsTextValue);
+  			if (player.newsArray.length>=50 && !player.achievements.includes("Fake News")) giveAchievement("Fake News") 
+        }
 
 
     }
