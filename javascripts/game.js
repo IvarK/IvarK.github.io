@@ -254,7 +254,7 @@ function updateCoinPerSec() {
     if (player.currentChallenge == "challenge3") {
       element.innerHTML = 'You are getting ' + shortenDimensions(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult"))*player.chall3Pow) + ' antimatter per second.';
     } else if (player.currentChallenge == "challenge7") {
-      element.innerHTML = 'You are getting ' + shortenDimensions(calcPerSec(player.firstAmount, Math.pow(player.firstPow, 0.8), player.infinityUpgrades.includes("18Mult")) + calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult"))) + ' antimatter per second.';
+      element.innerHTML = 'You are getting ' + shortenDimensions(calcPerSec(player.firstAmount, Math.pow(player.firstPow, 0.9), player.infinityUpgrades.includes("18Mult")) + calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult"))) + ' antimatter per second.';
     } else {
       element.innerHTML = 'You are getting ' + shortenDimensions(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult"))) + ' antimatter per second.';
     }
@@ -2207,8 +2207,8 @@ setInterval(function () {
       player.secondAmount += calcPerSec(player.fourthAmount, player.fourthPow, player.infinityUpgrades.includes("45Mult")) * diff / 100;
       player.firstAmount += calcPerSec(player.thirdAmount, player.thirdPow, player.infinityUpgrades.includes("36Mult")) * diff / 100;
       if (player.money != Infinity) {
-        player.money += (calcPerSec(player.firstAmount, Math.pow(player.firstPow, 0.8), player.infinityUpgrades.includes("18Mult")) + calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult"))) * diff / 10;
-        player.totalmoney += (calcPerSec(player.firstAmount, Math.pow(player.firstPow, 0.8), player.infinityUpgrades.includes("18Mult")) + calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult"))) * diff / 10;
+        player.money += (calcPerSec(player.firstAmount, Math.pow(player.firstPow, 0.9), player.infinityUpgrades.includes("18Mult"))/10 + calcPerSec(player.secondAmount, Math.pow(player.secondPow,1.3), player.infinityUpgrades.includes("27Mult"))) * diff;
+        player.totalmoney += (calcPerSec(player.firstAmount, Math.pow(player.firstPow, 0.9), player.infinityUpgrades.includes("18Mult"))/10 + calcPerSec(player.secondAmount, Math.pow(player.secondPow,1.3), player.infinityUpgrades.includes("27Mult"))) * diff;
       } } else {
     player.seventhAmount += calcPerSec(player.eightAmount, player.eightPow, player.infinityUpgrades.includes("18Mult")) * diff / 100;
     player.sixthAmount += calcPerSec(player.seventhAmount, player.seventhPow, player.infinityUpgrades.includes("27Mult")) * diff / 100;
