@@ -885,7 +885,7 @@ function buyManyDimension(tier) {
     
     player[name + 'Pow']  *= getDimensionPowerMultiplier(tier);
     if (player.currentChallenge != "challenge5" ) player[name + 'Cost'] *= getDimensionCostMultiplier(tier);
-    else multiplySameCosts(cost);  
+    else multiplySameCosts(player[name + 'Cost']);  
     
     if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
     if (player.currentChallenge == "challenge8") clearDimensions(tier-1)
