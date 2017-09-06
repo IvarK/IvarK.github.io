@@ -149,7 +149,7 @@ function load_game() {
     if (player.firstAmount !== 0) document.getElementById("secondRow").style.display = "table-row";
     if (player.challenges === undefined) player.challenges = []
     if (player.currentChallenge === undefined) player.currentChallenge = ""
-	if (player.infinitied > 0) player.challenges.push("challenge1")
+	if (player.infinitied > 0 && !player.challenges.includes("challenge1")) player.challenges.push("challenge1")
     if (player.matter === undefined) player.matter = 0
     if (player.autobuyers === undefined) player.autobuyers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     if (player.secondAmount !== 0) {
@@ -1994,8 +1994,14 @@ document.getElementById("bigcrunch").onclick = function () {
   updateChallenges();
 }
 
+function exitChallenge() {
+    document.getElementById(player.currentChallenge).innerHTML = "Start"
+    startChallenge("");
+    updateChallenges();
+}
+
 function startChallenge(name) {
-  if(confirm("You will start over with just your infinity upgrades and achievements. You need to reach infinity with special conditions.")) {
+  if(name == "" ? true : confirm("You will start over with just your infinity upgrades and achievements. You need to reach infinity with special conditions.")) {
     player = {
       money: 10,
       tickSpeedCost: 1000,
@@ -2367,7 +2373,7 @@ setInterval(function () {
 
 
 
-function cheat() {
+/*function cheat() {
     player.infinitied = 1500
     player.totalTimePlayed = 600*60*24*5
     player.infinityPoints = 99999
@@ -2402,7 +2408,7 @@ function chall7cheat() {
         document.getElementById("softReset").click()
     }, 100)
 
-}
+}*/
 
 
 
