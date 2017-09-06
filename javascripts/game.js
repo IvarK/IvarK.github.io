@@ -907,14 +907,17 @@ document.getElementById("first").onclick = function () {
 
 document.getElementById("second").onclick = function () {
     buyOneDimension(2);
+    if (player.currentChallenge == "challenge12" && player.matter == 0) player.matter = 1;
 };
 
 document.getElementById("third").onclick = function () {
     buyOneDimension(3);
+    if (player.currentChallenge == "challenge12" && player.matter == 0) player.matter = 1;
 };
 
 document.getElementById("fourth").onclick = function () {
     buyOneDimension(4);
+    if (player.currentChallenge == "challenge12" && player.matter == 0) player.matter = 1;
 };
 
 document.getElementById("fifth").onclick = function () {
@@ -935,10 +938,12 @@ document.getElementById("eight").onclick = function () {
 
 document.getElementById("firstMax").onclick = function () {
     buyManyDimension(1);
+    if (player.currentChallenge == "challenge12" && player.matter == 0) player.matter = 1;
 };
 
 document.getElementById("secondMax").onclick = function () {
     buyManyDimension(2);
+    if (player.currentChallenge == "challenge12" && player.matter == 0) player.matter = 1;
 };
 
 document.getElementById("thirdMax").onclick = function () {
