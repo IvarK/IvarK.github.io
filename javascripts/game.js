@@ -150,6 +150,7 @@ function load_game() {
     if (player.currentChallenge === undefined) player.currentChallenge = ""
 	if (player.infinitied > 0) player.challenges.push("challenge1")
     if (player.matter === undefined) player.matter = 0
+    if (player.autobuyers === undefined) player.autobuyers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     if (player.secondAmount !== 0) {
         document.getElementById("thirdRow").style.display = "table-row";
         document.getElementById("tickSpeed").style.visibility = "visible";
