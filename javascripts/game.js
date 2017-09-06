@@ -792,21 +792,24 @@ function onBuyDimension(tier) {
 
 function buyOneDimension(tier) {
     const name = TIER_NAMES[tier];
-    
+    const cost = player[name + 'Cost'];
+
     if (player.currentChallenge != "challenge10") {
         if (!canBuyDimension(tier)) {
             return false;
         }
     } else {
         if (tier >= 3) {
-            if (player[TIER_NAMES[tier-2] + 'Amount'] < player[name + 'cost']) return false
+            if (player[TIER_NAMES[tier-2] + 'Amount'] < cost) return false
         }
         else if (!canBuyDimension(tier)) {
+            return false;
+        } else if (tier < 3 && !canAfford(cost)){
             return false;
         }
     }
     
-    const cost = player[name + 'Cost'];
+    
     
     if (player.currentChallenge != "challenge10") {
         if (!canAfford(cost)) {
@@ -814,7 +817,8 @@ function buyOneDimension(tier) {
         }
     }
     
-    if (player.currentChallenge != "challenge10") {
+    
+    if (player.currentChallenge != "challenge10" || tier < 3) {
         player.money -= cost;
     } else {
         player[TIER_NAMES[tier-2] + 'Amount'] -= cost
@@ -841,21 +845,24 @@ function buyOneDimension(tier) {
 
 function buyManyDimension(tier) {
     const name = TIER_NAMES[tier];
-    
+    const cost = player[name + 'Cost'] * (10 - player[name + 'Bought']);
+
     if (player.currentChallenge != "challenge10") {
         if (!canBuyDimension(tier)) {
             return false;
         }
     } else {
         if (tier >= 3) {
-            if (player[TIER_NAMES[tier-2] + 'Amount'] < player[name + 'cost']) return false
+            if (player[TIER_NAMES[tier-2] + 'Amount'] < cost) return false
         }
         else if (!canBuyDimension(tier)) {
+            return false;
+        } else if (tier < 3 && !canAfford(cost)){
             return false;
         }
     }
     
-    const cost = player[name + 'Cost'] * (10 - player[name + 'Bought']);
+    
     
     if (player.currentChallenge != "challenge10") {
         if (!canAfford(cost)) {
@@ -863,7 +870,7 @@ function buyManyDimension(tier) {
         }
     }
     
-    if (player.currentChallenge != "challenge10") {
+    if (player.currentChallenge != "challenge10" || tier < 3) {
         player.money -= cost;
     } else {
         player[TIER_NAMES[tier-2] + 'Amount'] -= cost
@@ -2152,9 +2159,18 @@ setInterval(function () {
 
     for (let tier = 1; tier <= 8; ++tier) {
         const name = TIER_NAMES[tier];
-        
-        document.getElementById(name).className = canAfford(player[name + 'Cost']) ? 'storebtn' : 'unavailablebtn';
-        document.getElementById(name + 'Max').className = canAfford(player[name + 'Cost'] * (10 - player[name + 'Bought'])) ? 'storebtn' : 'unavailablebtn';
+        if (player.currentChallenge != "challenge10") {
+            document.getElementById(name).className = canAfford(player[name + 'Cost']) ? 'storebtn' : 'unavailablebtn';
+            document.getElementById(name + 'Max').className = canAfford(player[name + 'Cost'] * (10 - player[name + 'Bought'])) ? 'storebtn' : 'unavailablebtn';
+        } else {
+            if (tier >= 3) {
+                document.getElementById(name).className = player[TIER_NAMES[tier-2] + 'Amount'] >= player[name + 'Cost'] ? 'storebtn' : 'unavailablebtn';
+                document.getElementById(name + 'Max').className = player[TIER_NAMES[tier-2] + 'Amount'] >= player[name + 'Cost'] * (10 - player[name + 'Bought']) ? 'storebtn' : 'unavailablebtn';
+            } else {
+                document.getElementById(name).className = canAfford(player[name + 'Cost']) ? 'storebtn' : 'unavailablebtn';
+                document.getElementById(name + 'Max').className = canAfford(player[name + 'Cost'] * (10 - player[name + 'Bought'])) ? 'storebtn' : 'unavailablebtn';
+            }
+        }
     }
     
     if (canAfford(player.tickSpeedCost)) {
@@ -2312,7 +2328,7 @@ setInterval(function () {
         }
         for (var i=0; i<priorityOrder().length; i++) {
             if (priorityOrder()[i].ticks*100 >= priorityOrder()[i].interval) {
-                if (priorityOrder()[i].isOn || canBuyDimension(i+1)) {
+                if (priorityOrder()[i].isOn && canBuyDimension(i+1)) {
                     priorityOrder()[i].target.click()
                     priorityOrder()[i].ticks = 0;
                 }
