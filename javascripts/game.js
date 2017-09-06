@@ -176,6 +176,8 @@ function load_game() {
     loadAutoBuyers();
     updateCheckBoxes();
     updateAutobuyers();
+    if (player.currentChallenge == "challenge12" || player.currentChallenge == "challenge9" || player.currentChallenge == "challenge5") document.getElementById("quickReset").style.visibility = "visible";
+    else document.getElementById("quickReset").style.visibility = "hidden";
  
     document.getElementById("notation").innerHTML = "Notation: " + player.options.notation
 
@@ -1982,6 +1984,7 @@ document.getElementById("bigcrunch").onclick = function () {
       document.getElementById("seventhRow").style.display = "none";
       document.getElementById("eightRow").style.display = "none";
       document.getElementById("matter").style.visibility = "hidden";
+      document.getElementById("quickReset").style.visibility = "hidden";
       updateTickSpeed();
       showTab("dimensions")
       kongregate.stats.submit('Infinitied', player.infinitied);
@@ -2100,6 +2103,8 @@ function startChallenge(name) {
     document.getElementById("eightRow").style.display= "none";
     if (name == "challenge12") document.getElementById("matter").style.visibility = "visible";
     else document.getElementById("matter").style.visibility = "hidden";
+    if (name == "challenge12" || name == "challenge9" || name == "challenge5") document.getElementById("quickReset").style.visibility = "visible";
+    else document.getElementById("quickReset").style.visibility = "hidden";
     updateTickSpeed();
     showTab('dimensions');
     updateChallenges();
@@ -2138,7 +2143,8 @@ function calcPerSec(amount, pow, hasMult) {
 }
 
 document.getElementById("quickReset").onclick = function () {
-    player.resets--;
+    if (player.resets == 0) player.resets--;
+    else player.resets -= 2;
     softReset();
 }
 
@@ -2152,7 +2158,8 @@ setInterval(function () {
 
     player.matter *= Math.pow((1.02 + player.resets/200 + player.galaxies/100), diff)
     if (player.matter > player.money && player.currentChallenge == "challenge12") {
-        player.resets--;
+        if (player.resets == 0) player.resets--;
+        else player.resets -= 2;
         softReset();
     }
     player.chall3Pow *= Math.pow(1.00038, diff)
