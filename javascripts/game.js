@@ -817,7 +817,7 @@ function buyOneDimension(tier) {
     if (player.currentChallenge != "challenge10") {
         player.money -= cost;
     } else {
-        player[TIER_NAMES[tier-2] + 'Amount'] -= player[name + 'cost']
+        player[TIER_NAMES[tier-2] + 'Amount'] -= cost
     }
     
     player[name + 'Amount']++;
@@ -1431,8 +1431,12 @@ document.getElementById("secondSoftReset").onclick = function () {
             }
         };
 	    if (player.currentChallenge == "challenge10") {
-          player.thirdCost = 100
-          player.fourthCost = 500
+            player.thirdCost = 100
+            player.fourthCost = 500
+            player.fifthCost = 2500
+            player.sixthCost = 2e4
+            player.seventhCost = 2e5
+            player.eightCost = 4e6
         }
         updateCosts();
         clearInterval(player.interval);
@@ -2020,9 +2024,14 @@ function startChallenge(name) {
         logoVisible: player.options.logoVisible
       }
     };
-	if (name == "challenge10") {
+	if (player.currentChallenge == "challenge10") {
         player.thirdCost = 100
-        player.fourthCost = 500}
+        player.fourthCost = 500
+        player.fifthCost = 2500
+        player.sixthCost = 2e4
+        player.seventhCost = 2e5
+        player.eightCost = 4e6
+    }
     updateCosts();
     clearInterval(player.interval);
     //updateInterval();
