@@ -2026,6 +2026,7 @@ function exitChallenge() {
 
 function startChallenge(name) {
   if(name == "" ? true : confirm("You will start over with just your infinity upgrades and achievements. You need to reach infinity with special conditions.")) {
+    document.getElementById(player.currentChallenge).innerHTML = "Start"
     player = {
       money: 10,
       tickSpeedCost: 1000,
@@ -2125,13 +2126,14 @@ function startChallenge(name) {
     showTab('dimensions');
     updateChallenges();
     if (player.challenges.includes("challenge1")) player.money = 100
-  }
     showTab("dimensions")
     kongregate.stats.submit('Infinitied', player.infinitied);
     kongregate.stats.submit('Fastest Infinity time', Math.floor(player.bestInfinityTime / 10))
     
     giveAchievement("To infinity!");
     if (player.infinitied >= 10) giveAchievement("That's a lot of infinites");
+  }
+  
 }
 
 function getDimensionProductionPerSecond(tier) {
