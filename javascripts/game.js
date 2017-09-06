@@ -1012,7 +1012,6 @@ document.getElementById("maxall").onclick = function () {
             continue;
         }
     }
-    if (player.currentChallenge == "challenge12" && player.matter == 0) player.matter = 1;
 };
 
 document.getElementById("animation").onclick = function () {
@@ -2138,6 +2137,10 @@ function calcPerSec(amount, pow, hasMult) {
     else return Math.floor(amount) * pow * player.achPow * dimMults() * timeMult() * player.chall2Pow / (player.tickspeed / 1000);
 }
 
+document.getElementById("quickReset").onclick = function () {
+    player.resets--;
+    softReset();
+}
 
 var index = 0;
 
@@ -2149,13 +2152,8 @@ setInterval(function () {
 
     player.matter *= Math.pow((1.02 + player.resets/200 + player.galaxies/100), diff)
     if (player.matter > player.money && player.currentChallenge == "challenge12") {
-        softReset();
         player.resets--;
-        const tiers = [null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight"];
-        for (i=1; i<=8; i++) {
-            player[tiers[i] + "Pow"] /= 2;
-            if (player[tiers[i] + "Pow"] <= 1) player[tiers[i]] = 1;
-        }
+        softReset();
     }
     player.chall3Pow *= Math.pow(1.00038, diff)
     player.chall2Pow = Math.min(player.chall2Pow + diff/1800, 1)
