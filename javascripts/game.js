@@ -89,7 +89,7 @@ function set_cookie(cookie_name, value) {
 
 function get_cookie(cookie_name) {
     var c_value = document.cookie;
-    if (localStorage[cookie_name] !== null) {
+    if (localStorage.getItem("dimensionSave") !== null) {
         return JSON.parse(atob(localStorage.getItem(cookie_name), function(k, v) { return (v === Infinity) ? "Infinity" : v; }))
     } else {
         var c_start = c_value.indexOf(" " + cookie_name + "=");
