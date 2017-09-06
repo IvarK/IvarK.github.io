@@ -176,6 +176,8 @@ function load_game() {
     loadAutoBuyers();
     updateCheckBoxes();
     updateAutobuyers();
+    if (player.currentChallenge == "challenge12" || player.currentChallenge == "challenge9" || player.currentChallenge == "challenge5") document.getElementById("quickReset").style.visibility = "visible";
+    else document.getElementById("quickReset").style.visibility = "hidden";
  
     document.getElementById("notation").innerHTML = "Notation: " + player.options.notation
 
@@ -850,7 +852,8 @@ function buyOneDimension(tier) {
 function buyManyDimension(tier) {
     const name = TIER_NAMES[tier];
     const cost = player[name + 'Cost'] * (10 - player[name + 'Bought']);
-
+    
+    if (player.currentChallenge == "challenge12" && player.matter = 0) player.matter = 1;
     if (player.currentChallenge != "challenge10") {
         if (!canBuyDimension(tier)) {
             return false;
@@ -1012,7 +1015,6 @@ document.getElementById("maxall").onclick = function () {
             continue;
         }
     }
-    if (player.currentChallenge == "challenge12" && player.matter == 0) player.matter = 1;
 };
 
 document.getElementById("animation").onclick = function () {
@@ -1998,6 +2000,7 @@ document.getElementById("bigcrunch").onclick = function () {
       document.getElementById("seventhRow").style.display = "none";
       document.getElementById("eightRow").style.display = "none";
       document.getElementById("matter").style.visibility = "hidden";
+      document.getElementById("quickReset").style.visibility = "hidden";
       updateTickSpeed();
       showTab("dimensions")
       kongregate.stats.submit('Infinitied', player.infinitied);
@@ -2116,6 +2119,8 @@ function startChallenge(name) {
     document.getElementById("eightRow").style.display= "none";
     if (name == "challenge12") document.getElementById("matter").style.visibility = "visible";
     else document.getElementById("matter").style.visibility = "hidden";
+    if (name == "challenge12" || name == "challenge9" || name == "challenge5") document.getElementById("quickReset").style.visibility = "visible";
+    else document.getElementById("quickReset").style.visibility = "hidden";
     updateTickSpeed();
     showTab('dimensions');
     updateChallenges();
@@ -2153,6 +2158,11 @@ function calcPerSec(amount, pow, hasMult) {
     else return Math.floor(amount) * pow * player.achPow * dimMults() * timeMult() * player.chall2Pow / (player.tickspeed / 1000);
 }
 
+document.getElementById("quickReset").onclick = function () {
+    if (player.resets == 0) player.resets--;
+    else player.resets -= 2;
+    softReset();
+}
 
 var index = 0;
 
@@ -2164,13 +2174,9 @@ setInterval(function () {
 
     player.matter *= Math.pow((1.02 + player.resets/200 + player.galaxies/100), diff)
     if (player.matter > player.money && player.currentChallenge == "challenge12") {
+        if (player.resets == 0) player.resets--;
+        else player.resets -= 2;
         softReset();
-        player.resets--;
-        const tiers = [null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight"];
-        for (i=1; i<=8; i++) {
-            player[tiers[i] + "Pow"] /= 2;
-            if (player[tiers[i] + "Pow"] <= 1) player[tiers[i]] = 1;
-        }
     }
     player.chall3Pow *= Math.pow(1.00038, diff)
     player.chall2Pow = Math.min(player.chall2Pow + diff/1800, 1)
