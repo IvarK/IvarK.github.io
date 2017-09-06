@@ -254,7 +254,8 @@ function updateCoinPerSec() {
     if (player.currentChallenge == "challenge3") {
       element.innerHTML = 'You are getting ' + shortenDimensions(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult"))*player.chall3Pow) + ' antimatter per second.';
     } else if (player.currentChallenge == "challenge7") {
-      element.innerHTML = 'You are getting ' + shortenDimensions(calcPerSec(player.firstAmount, Math.pow(player.firstPow, 0.9), player.infinityUpgrades.includes("18Mult")) + calcPerSec(player.secondAmount, player.secondPow, player.infinityUpgrades.includes("27Mult"))) + ' antimatter per second.';
+      element.innerHTML = 'You are getting ' + shortenDimensions(calcPerSec(player.firstAmount, Math.pow(player.firstPow, 0.9), player.infinityUpgrades.includes("18Mult")) + 
+			  calcPerSec(player.secondAmount, Math.pow(player.secondPow,1.3)*10, player.infinityUpgrades.includes("27Mult"))) + ' antimatter per second.';
     } else {
       element.innerHTML = 'You are getting ' + shortenDimensions(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult"))) + ' antimatter per second.';
     }
