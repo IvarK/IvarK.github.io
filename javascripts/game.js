@@ -368,7 +368,7 @@ function updateDimensions() {
         document.getElementById(name + "Row").style.display = "table-row";
         document.getElementById(name + "Row").style.visibility = "visible";
         
-        document.getElementById(name + "D").innerHTML = DISPLAY_NAMES[tier] + " Dimension x" + formatValue(player.options.notation, getDimensionFinalMultiplier(tier), 1, 0);
+        document.getElementById(name + "D").innerHTML = DISPLAY_NAMES[tier] + " Dimension x" + formatValue(player.options.notation, getDimensionFinalMultiplier(tier), 1, 1);
         document.getElementById(name + "Amount").innerHTML = getDimensionDescription(tier);
     }
     
@@ -1515,6 +1515,7 @@ document.getElementById("importbtn").onclick = function () {
     player = save_data;
     save_game();
     load_game();
+    updateChallenges()
 };
 
 
@@ -2200,6 +2201,7 @@ setInterval(function () {
 
     } else {
         document.getElementById("infinitybtn").style.display = "none";
+        document.getElementById("challengesbtn").style.display = "none";
         document.getElementById("infi11").className = "infinistorebtnlocked"
         document.getElementById("infi21").className = "infinistorebtnlocked"
         document.getElementById("infi12").className = "infinistorebtnlocked"
