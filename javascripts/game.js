@@ -355,7 +355,7 @@ function getShiftRequirement() {
 
 function getGalaxyRequirement() {
     let amount = 80 + (player.galaxies * 60);
-    if (player.currentChallenge == "challenge4") amount = 130 + (player.galaxies * 90)
+    if (player.currentChallenge == "challenge4") amount = 99 + (player.galaxies * 90)
     if (player.infinityUpgrades.includes("resetBoost")) {
         amount -= 9;
     }
@@ -1379,7 +1379,7 @@ document.getElementById("toggleBtnTickSpeed").onclick = function () {
 document.getElementById("secondSoftReset").onclick = function () {
     var bool = player.currentChallenge != "challenge11"
     if (player.currentChallenge == "challenge4" ?
-    player.sixthAmount >= (player.galaxies * 90 + 130 - player.infinityUpgrades.includes("resetBoost") * 9) &&bool : player.eightAmount >= (player.galaxies * 60 + 80 - player.infinityUpgrades.includes("resetBoost") * 9) &&bool) {
+    player.sixthAmount >= (player.galaxies * 90 + 99 - player.infinityUpgrades.includes("resetBoost") * 9) &&bool : player.eightAmount >= (player.galaxies * 60 + 80 - player.infinityUpgrades.includes("resetBoost") * 9) &&bool) {
       if (player.sacrificed == 0) giveAchievement("I don't believe in Gods");
         player = {
             money: 10,
