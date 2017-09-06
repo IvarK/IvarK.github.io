@@ -1012,6 +1012,7 @@ document.getElementById("maxall").onclick = function () {
             continue;
         }
     }
+    if (player.currentChallenge == "challenge12" && player.matter == 0) player.matter = 1;
 };
 
 document.getElementById("animation").onclick = function () {
