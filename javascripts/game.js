@@ -772,8 +772,10 @@ function getDimensionCostMultiplier(tier) {
         1e12,
         1e15
     ];
+	const multiplier2 = [1e3,1e4,1e4,2e4,4e4,8e4,2e5,5e5]
     
-    return multiplier[tier - 1];
+    if (player.currentChallenge == "challenge10") return multiplier2[tier - 1];
+    else return multiplier[tier - 1];
 }
 
 function onBuyDimension(tier) {
@@ -1644,7 +1646,8 @@ function sacrifice() {
     player.eightPow *= calcSacrificeBoost()
     player.sacrificed += player.firstAmount;
     if (player.currentChallenge != "challenge11") {
-        clearDimensions(7);
+        if (player.currentChallenge == "challenge7") clearDimensions(6);
+        else clearDimensions(7);
         if (Math.max(Math.pow((Math.log10(Math.max(player.sacrificed, 1)) / 10.0), 2), 2) >= 600) giveAchievement("The Gods are pleased");
     } else {
         player.chall11Pow *= calcSacrificeBoost()
