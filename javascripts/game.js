@@ -363,12 +363,12 @@ function getGalaxyRequirement() {
 
 function getETA(cost) {
     var a = 100;
-    while (ETACalc(a) > cost) {
+    while (ETACalc(a) < cost) {
         a *= 10;
         if (a > 1e20) return Infinity;
     }
     var b = a / 10;
-    var q = ETACalc(a);
+    var q = ETACalc((a+b)/2);
     while (cost+100 < q || q < cost-100) {
         if (q < cost) a = (a+b)/2;
         else b = (a+b)/2;
