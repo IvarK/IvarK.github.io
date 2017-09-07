@@ -450,7 +450,7 @@ function updateTickSpeed() {
     else {
         document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed * (100 / Math.pow(10, exp))) + ' / ' + shorten(100 / Math.pow(10, exp));
     }
-    if (player.tickspeed < Math.pow(10,-23) && !player.achievements.includes("Faster than a potato")) giveAchievement("Faster than a potato");
+    if (player.tickspeed < 1e-28 && !player.achievements.includes("Faster than a potato")) giveAchievement("Faster than a potato");
 
     /*	else if (player.tickspeed > 10) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*10)  + ' / 10';
     	else if (player.tickspeed > 1) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Math.round(player.tickspeed*100) + ' / 100';
@@ -1572,7 +1572,7 @@ function setAchieveTooltip() {
     noPointAchieve.setAttribute('ach-tooltip', "Buy a single First Dimension when you have over " + formatValue(player.options.notation, 1e150, 0, 0) + " of them");
     forgotAchieve.setAttribute('ach-tooltip', "Get any Dimension multiplier over " + formatValue(player.options.notation, 1e31, 0, 0));
     sanic.setAttribute('ach-tooltip', "Have antimatter/sec exceed your current antimatter above " + formatValue(player.options.notation, 1e63, 0, 0));
-    potato.setAttribute('ach-tooltip', "Get more than " + formatValue(player.options.notation, 1e23, 0, 0) + " ticks per second");
+    potato.setAttribute('ach-tooltip', "Get more than " + formatValue(player.options.notation, 1e28, 0, 0) + " ticks per second");
     dimensional.setAttribute('ach-tooltip', "Reach " + formatValue(player.options.notation, 1e12, 0, 0) + " of all dimensions except 8th");
 }
 
