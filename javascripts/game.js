@@ -361,6 +361,16 @@ function getGalaxyRequirement() {
     return amount;
 }
 
+function getETA(cost) {
+    var value = calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult"));
+    var div = 1;
+    for (let tier = 1; tier <= 8; ++tier) {
+        div *= (tier+1);
+        value += Math.pow(getDimensionRateOfChange(tier), tier) / div;
+    }
+    return cost / value * 10;
+}
+
 function updateDimensions() {
     
     for (let tier = 1; tier <= 8; ++tier) {
@@ -2208,8 +2218,12 @@ function getDimensionProductionPerSecond(tier) {
     return ret;
 }
 
-
-
+function updateETAs() {
+    for (let tier = 1; tier <= 8; ++tier) {
+        const name = TIER_NAMES[tier] + "Cost";
+        document.getElementById("ETADim" + tier).innerHTML = timeDisplay(getETA(name))
+    }
+}
 
 
 
