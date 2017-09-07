@@ -1618,6 +1618,8 @@ document.getElementById("reset").onclick = function () {
         document.getElementById("eightRow").style.display = "none";
         updateTickSpeed();
         updateDimensions();
+        updateChallenges();
+        updateAutobuyers();
     }
 };
 
