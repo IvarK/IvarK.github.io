@@ -860,11 +860,7 @@ function buyOneDimension(tier) {
     
     if (player[name + 'Bought'] === 10) {
         player[name + 'Bought'] = 0;
-        document.getElementById(name + "D").addEventListener('animationEnd', function(){
-            document.getElementById(name + "D").style.removeProperty("animation");
-            document.getElementById(name + "D").style.removeProperty("-webkit-animation");
-        }, false);
-        fancytext(name+"D")
+        glowText(name+"D")
         player[name + 'Pow']  *= getDimensionPowerMultiplier(tier);
         if (player.currentChallenge != "challenge5" ) player[name + 'Cost'] *= getDimensionCostMultiplier(tier);
         else multiplySameCosts(cost);
@@ -914,11 +910,7 @@ function buyManyDimension(tier) {
     
     player[name + 'Amount'] += 10 - player[name + 'Bought'];
     player[name + 'Bought']  = 0;
-    document.getElementById(name + "D").addEventListener('animationEnd', function(){
-        document.getElementById(name + "D").style.removeProperty("animation");
-        document.getElementById(name + "D").style.removeProperty("-webkit-animation");
-    }, false);
-    fancytext(name+"D")
+    glowText(name+"D")
     player[name + 'Pow']  *= getDimensionPowerMultiplier(tier);
     if (player.currentChallenge != "challenge5" ) player[name + 'Cost'] *= getDimensionCostMultiplier(tier);
     else multiplySameCosts(player[name + 'Cost']);  
@@ -943,8 +935,8 @@ document.getElementById("first").onclick = function () {
 
 
 
-function fancytext(id) {
-	var text = document.getElementById(id);
+function glowText(id) {
+  var text = document.getElementById(id);
   text.style.setProperty("-webkit-animation", "glow 1s");
   text.style.setProperty("animation", "glow 1s");
 }
@@ -2688,6 +2680,13 @@ function init() {
         document.getElementById("game").style.display = "none";
     }
 
+    TIER_NAMES.forEach(function(name) {
+	var el = document.getElementById(name + "D");
+	el.addEventListener('animationEnd', function(){
+	el.style.removeProperty("animation");
+        el.style.removeProperty("-webkit-animation");
+    	}, false);
+    });
 }
 
 
