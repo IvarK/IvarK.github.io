@@ -415,11 +415,11 @@ function updateDimensions() {
         document.getElementById("infinitied").innerHTML = "You have infinitied " + player.infinitied + " times."
     }
     
-    document.getElementById("infi11").innerHTML = "Production increase over time <br>currently: " + timeMult().toFixed(2)
-    document.getElementById("infi12").innerHTML = "First and Eighth Dimension power <br>" + dimMults().toFixed(2)
-    document.getElementById("infi13").innerHTML = "Third and Sixth Dimension power <br>" + dimMults().toFixed(2)
-    document.getElementById("infi22").innerHTML = "Second and seventh Dimension power <br>" + dimMults().toFixed(2)
-    document.getElementById("infi23").innerHTML = "Fourth and Fifth Dimension power <br>" + dimMults().toFixed(2)
+    document.getElementById("infi11").innerHTML = "Production increase over time <br>currently: " + timeMult().toFixed(2) + "<br>Cost: 1 IP"
+    document.getElementById("infi12").innerHTML = "First and Eighth Dimension power <br>" + dimMults().toFixed(2) + "<br>Cost: 1 IP"
+    document.getElementById("infi13").innerHTML = "Third and Sixth Dimension power <br>" + dimMults().toFixed(2) + "<br>Cost: 1 IP" 
+    document.getElementById("infi22").innerHTML = "Second and seventh Dimension power <br>" + dimMults().toFixed(2) + "<br>Cost: 1 IP"
+    document.getElementById("infi23").innerHTML = "Fourth and Fifth Dimension power <br>" + dimMults().toFixed(2) + "<br>Cost: 1 IP"
 }
 
 function updateCosts() {
