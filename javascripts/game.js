@@ -412,13 +412,14 @@ function updateDimensions() {
         document.getElementById("infinityPoints").innerHTML = "You have  " + player.infinityPoints + " Infinity points."
         document.getElementById("infinitied").innerHTML = "You have infinitied " + player.infinitied + " times."
     }
-    document.getElementById("infi11").innerHTML = "Production increase over time <br>currently: " + (Math.pow(0.5 * player.totalTimePlayed / 600, 0.15)).toFixed(2) + "x<br>Cost: 1 IP"
+    document.getElementById("infi11").innerHTML = "Production increase over time <br>Currently: " + (Math.pow(0.5 * player.totalTimePlayed / 600, 0.15)).toFixed(2) + "x<br>Cost: 1 IP"
     document.getElementById("infi12").innerHTML = "First and Eighth Dimension power <br>" + dimMults().toFixed(2) + "x<br>Cost: 1 IP"
     document.getElementById("infi13").innerHTML = "Third and Sixth Dimension power <br>" + dimMults().toFixed(2) + "x<br>Cost: 1 IP"
     document.getElementById("infi22").innerHTML = "Second and seventh Dimension power <br>" + dimMults().toFixed(2) + "x<br>Cost: 1 IP"
     document.getElementById("infi23").innerHTML = "Fourth and Fifth Dimension power <br>" + dimMults().toFixed(2) + "x<br>Cost: 1 IP"
-    document.getElementById("infi32").innerHTML = "Bonus for unspent Infinity Points <br>(Currently " + 1+Math.pow(player.infinityPoints/2,1.5) + "x)<br>Cost: 5 IP"
-    document.getElementById("infi34").innerHTML = "Infinity Point generation (based on fastest infinity) <br>(Currently 1 every" + timeDisplay(player.bestInfinityTime*20) + ")<br>Cost: 5 IP"
+    document.getElementById("infi31").innerHTML = "Production increase over time in current infinity<br>Currently: " + Math.max(Math.pow(player.thisInfinityTime / 2400, 0.25), 1).toFixed(2) + "x<br>Cost: 3 IP"
+    document.getElementById("infi32").innerHTML = "Bonus for unspent Infinity Points on 1st Dimension<br>(Currently " + (1+Math.pow(player.infinityPoints/2,1.5)).toFixed(2) + "x)<br>Cost: 5 IP"
+    document.getElementById("infi34").innerHTML = "Infinity Point generation (based on fastest infinity) <br>(Currently 1 every " + timeDisplay(player.bestInfinityTime*20) + ")<br>Cost: 10 IP"
 }
 
 function updateCosts() {
@@ -782,7 +783,7 @@ function getDimensionCostMultiplier(tier) {
         1e12,
         1e15
     ];
-	const multiplier2 = [1e3,1e4,1e4,2e4,4e4,8e4,2e5,5e5]
+	const multiplier2 = [1e3,5e3,1e4,1e4,2e4,2e4,4e4,4e4]
     
     if (player.currentChallenge == "challenge10") return multiplier2[tier - 1];
     else return multiplier[tier - 1];
@@ -1191,7 +1192,7 @@ document.getElementById("infi33").onclick = function() {
 }
 
 document.getElementById("infi34").onclick = function() {
-    if (player.infinityUpgrades.includes("softMult")) buyInfinityUpgrade("passiveGen",10);
+    if (player.infinityUpgrades.includes("resetMult")) buyInfinityUpgrade("passiveGen",10);
 }
 
 document.getElementById("buyerBtn1").onclick = function () {
@@ -2013,6 +2014,7 @@ document.getElementById("bigcrunch").onclick = function () {
           chall11Pow: 1,
           partInfinityPoint: player.partInfinityPoint,
           options: {
+              newsHidden: player.newsHidden,
               scientific: player.options.scientific,
               notation: player.options.notation,
               animationsOn: player.options.animationsOn,
@@ -2301,14 +2303,15 @@ setInterval(function () {
         else document.getElementById("infi23").className = "infinistorebtnlocked"
         if (player.infinityUpgrades.includes("36Mult")) document.getElementById("infi14").className = "infinistorebtn1"
         else document.getElementById("infi14").className = "infinistorebtnlocked"
-        if (player.infinityUpgrades.includes("45Mult")) document.getElementById("infi24").className = "infinistorebtn2"
+        if (player.infinityUpgrades.includes("45Mult") && player.infinityPoints >= 2) document.getElementById("infi24").className = "infinistorebtn2"
         else document.getElementById("infi24").className = "infinistorebtnlocked"
-        document.getElementById("infi31").className = "infinistorebtn3"
-        if (player.infinityUpgrades.includes("timeMult3")) document.getElementById("infi32").className = "infinistorebtn3"
+        if (player.infinityPoints >= 3) document.getElementById("infi31").className = "infinistorebtn3"
+        else document.getElementById("infi31").className = "infinistorebtnlocked"
+        if (player.infinityUpgrades.includes("timeMult2") && player.infinityPoints >= 5) document.getElementById("infi32").className = "infinistorebtn3"
         else document.getElementById("infi32").className = "infinistorebtnlocked"
-        if (player.infinityUpgrades.includes("unspentBonus")) document.getElementById("infi33").className = "infinistorebtn3"
+        if (player.infinityUpgrades.includes("unspentBonus") && player.infinityPoints >= 7) document.getElementById("infi33").className = "infinistorebtn3"
         else document.getElementById("infi33").className = "infinistorebtnlocked"
-        if (player.infinityUpgrades.includes("resetMult")) document.getElementById("infi34").className = "infinistorebtn3"
+        if (player.infinityUpgrades.includes("resetMult") && player.infinityPoints >= 10) document.getElementById("infi34").className = "infinistorebtn3"
         else document.getElementById("infi34").className = "infinistorebtnlocked"
     } else {
         document.getElementById("infinitybtn").style.display = "none";

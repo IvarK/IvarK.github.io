@@ -146,10 +146,10 @@
     color: white;
     background: #1F1F1F;
     font-weight: bold;
-    font-size:  60%;
+    font-size:  65%;
     border: 1px solid #ED85DF;
-    width: 160px;
-    height: 65px;
+    width: 190px;
+    height: 85px;
     transition-duration: 0.2s;
     cursor: pointer;
     border-radius: 4px;
@@ -165,10 +165,10 @@
     color: white;
     background: #1F1F1F;
     font-weight: bold;
-    font-size:  60%;
+    font-size:  65%;
     border: 1px solid #ED85DF;
-    width: 160px;
-    height: 65px;
+    width: 190px;
+    height: 85px;
     transition-duration: 0.2s;
     cursor: pointer;
     border-radius: 4px;
@@ -180,14 +180,33 @@
     background: #ff3300;
 }
 
+.infinistorebtn3 {
+    color: white;
+    background: #1F1F1F;
+    font-weight: bold;
+    font-size:  65%;
+    border: 1px solid #ED85DF;
+    width: 190px;
+    height: 85px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: Typewriter;
+}
+
+.infinistorebtn3:hover {
+    color: #000;
+    background: #C6D50D;
+}
+
 .infinistorebtnlocked {
     color: black;
     background: #F7F7F7;
     font-weight: bold;
-    font-size:  60%;
+    font-size:  65%;
     border: 1px solid #ED85DF;
-    width: 160px;
-    height: 65px;
+    width: 190px;
+    height: 85px;
     transition-duration: 0.2s;
     cursor: pointer;
     border-radius: 4px;
@@ -203,10 +222,10 @@
     color: black;
     background: #5AC467;
     font-weight: bold;
-    font-size:  60%;
+    font-size:  65%;
     border: 1px solid #ED85DF;
-    width: 160px;
-    height: 65px;
+    width: 190px;
+    height: 85px;
     transition-duration: 0.2s;
     border-radius: 4px;
     font-family: Typewriter;
