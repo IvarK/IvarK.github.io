@@ -566,14 +566,14 @@ function softReset() {
         player.eightCost = 4e6
     }
     if (player.infinityUpgrades.includes("resetMult")) {
-        player.firstPow = Math.pow(2.5, player.resets + 1),
-        player.secondPow = Math.pow(2.5, player.resets),
-        player.thirdPow = Math.max(Math.pow(2.5, player.resets - 1), 1),
-        player.fourthPow = Math.max(Math.pow(2.5, player.resets - 2), 1),
-        player.fifthPow = Math.max(Math.pow(2.5, player.resets - 3), 1),
-        player.sixthPow = Math.max(Math.pow(2.5, player.resets - 4), 1),
-        player.seventhPow = Math.max(Math.pow(2.5, player.resets - 5), 1),
-        player.eightPow = Math.max(Math.pow(2.5, player.resets - 6), 1),
+        player.firstPow = Math.pow(2.5, player.resets + 1)
+        player.secondPow = Math.pow(2.5, player.resets)
+        player.thirdPow = Math.max(Math.pow(2.5, player.resets - 1), 1)
+        player.fourthPow = Math.max(Math.pow(2.5, player.resets - 2), 1)
+        player.fifthPow = Math.max(Math.pow(2.5, player.resets - 3), 1)
+        player.sixthPow = Math.max(Math.pow(2.5, player.resets - 4), 1)
+        player.seventhPow = Math.max(Math.pow(2.5, player.resets - 5), 1)
+        player.eightPow = Math.max(Math.pow(2.5, player.resets - 6), 1)
     }
     if (player.currentChallenge == "challenge11") {
         player.firstPow = 1
