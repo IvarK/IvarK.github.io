@@ -412,12 +412,13 @@ function updateDimensions() {
         document.getElementById("infinityPoints").innerHTML = "You have  " + player.infinityPoints + " Infinity points."
         document.getElementById("infinitied").innerHTML = "You have infinitied " + player.infinitied + " times."
     }
-    //THIS AREA HAS TO BE UPDATED TO ACCOMODATE FOR DISPLAYING COSTS
-    document.getElementById("infi11").innerHTML = "Production increase over time <br>currently: " + (Math.pow(0.5 * player.totalTimePlayed / 600, 0.15)).toFixed(2)
-    document.getElementById("infi12").innerHTML = "First and Eighth Dimension power <br>" + dimMults().toFixed(2)
-    document.getElementById("infi13").innerHTML = "Third and Sixth Dimension power <br>" + dimMults().toFixed(2)
-    document.getElementById("infi22").innerHTML = "Second and seventh Dimension power <br>" + dimMults().toFixed(2)
-    document.getElementById("infi23").innerHTML = "Fourth and Fifth Dimension power <br>" + dimMults().toFixed(2)
+    document.getElementById("infi11").innerHTML = "Production increase over time <br>currently: " + (Math.pow(0.5 * player.totalTimePlayed / 600, 0.15)).toFixed(2) + "x<br>Cost: 1 IP"
+    document.getElementById("infi12").innerHTML = "First and Eighth Dimension power <br>" + dimMults().toFixed(2) + "x<br>Cost: 1 IP"
+    document.getElementById("infi13").innerHTML = "Third and Sixth Dimension power <br>" + dimMults().toFixed(2) + "x<br>Cost: 1 IP"
+    document.getElementById("infi22").innerHTML = "Second and seventh Dimension power <br>" + dimMults().toFixed(2) + "x<br>Cost: 1 IP"
+    document.getElementById("infi23").innerHTML = "Fourth and Fifth Dimension power <br>" + dimMults().toFixed(2) + "x<br>Cost: 1 IP"
+    document.getElementById("infi32").innerHTML = "Bonus for unspent Infinity Points <br>(Currently " + 1+Math.pow(player.infinityPoints/2,1.5) + "x)<br>Cost: 5 IP"
+    document.getElementById("infi34").innerHTML = "Infinity Point generation (based on fastest infinity) <br>(Currently 1 every" + timeDisplay(player.bestInfinityTime*20) + ")<br>Cost: 5 IP"
 }
 
 function updateCosts() {
