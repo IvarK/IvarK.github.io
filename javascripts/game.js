@@ -362,9 +362,16 @@ function getGalaxyRequirement() {
 }
 
 function updateDimensions() {
+    
     for (let tier = 1; tier <= 8; ++tier) {
         const name = TIER_NAMES[tier];
-        
+        document.getElementById(name + "D").innerHTML = DISPLAY_NAMES[tier] + " Dimension x" + formatValue(player.options.notation, getDimensionFinalMultiplier(tier), 1, 1);
+        document.getElementById(name + "Amount").innerHTML = getDimensionDescription(tier);  
+    }
+
+
+    for (let tier = 1; tier <= 8; ++tier) {
+        const name = TIER_NAMES[tier];
         if (!canBuyDimension(tier)) {
             break;
         }
@@ -372,8 +379,7 @@ function updateDimensions() {
         document.getElementById(name + "Row").style.display = "table-row";
         document.getElementById(name + "Row").style.visibility = "visible";
         
-        document.getElementById(name + "D").innerHTML = DISPLAY_NAMES[tier] + " Dimension x" + formatValue(player.options.notation, getDimensionFinalMultiplier(tier), 1, 1);
-        document.getElementById(name + "Amount").innerHTML = getDimensionDescription(tier);
+        
     }
     
     if (canBuyTickSpeed()) {
@@ -1682,6 +1688,7 @@ function resetDimensions() {
     player.seventhCost = 1e18
     player.eightCost = 1e24
     player.eightPow = player.chall11Pow
+    updateDimensions();
 }
 
 function calcSacrificeBoost() {
@@ -1708,7 +1715,8 @@ function sacrifice() {
         player.money = 100
         
     }
-
+    updateDimensions();
+    updateCosts();
 
 }
 
@@ -1725,7 +1733,7 @@ document.getElementById("sacrifice").onclick = function () {
             return false;
         }
     }
-    updateDimensions();
+    
     return sacrifice();
 }
 
