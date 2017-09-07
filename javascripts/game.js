@@ -1587,8 +1587,9 @@ function setAchieveTooltip() {
         deaths.setAttribute('ach-tooltip', "Get to Infinity without Dimension shifts, boosts or galaxies");
         unneeded.setAttribute('ach-tooltip', "Reach Infinite antimatter without having any 8th Dimensions (last run only)");
         claustrophobic.setAttribute('ach-tooltip', "Go Infinite with just 1 Antimatter Galaxy");
-        fast.setAttribute('ach-tooltip', "Go infinite in under 2 hours")
-        potato.setAttribute('ach-tooltip', "Get more than " + formatValue(player.options.notation, 1e28, 0, 0) + " ticks per second");;
+        fast.setAttribute('ach-tooltip', "Go infinite in under 2 hours");
+        potato.setAttribute('ach-tooltip', "Get more than " + formatValue(player.options.notation, 1e28, 0, 0) + " ticks per second");
+    }
 }
 
 document.getElementById("notation").onclick = function () {
@@ -2020,6 +2021,7 @@ document.getElementById("bigcrunch").onclick = function () {
       document.getElementById("matter").style.visibility = "hidden";
       document.getElementById("quickReset").style.visibility = "hidden";
       updateTickSpeed();
+      setAchieveTooltip();
       showTab("dimensions")
       kongregate.stats.submit('Infinitied', player.infinitied);
       kongregate.stats.submit('Fastest Infinity time', Math.floor(player.bestInfinityTime / 10))
