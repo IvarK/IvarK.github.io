@@ -363,6 +363,11 @@
     border-radius: 5px;
 }
 
+@keyframes glow {
+    20% { text-shadow: 0 0 10px green; }
+    100% { text-shadow: 0 0 10px white; }
+}
+
 [ach-tooltip] {
     position: relative;
     z-index: 2;
