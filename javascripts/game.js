@@ -860,7 +860,6 @@ function buyOneDimension(tier) {
     
     if (player[name + 'Bought'] === 10) {
         player[name + 'Bought'] = 0;
-        glowText(name+"D")
         player[name + 'Pow']  *= getDimensionPowerMultiplier(tier);
         if (player.currentChallenge != "challenge5" ) player[name + 'Cost'] *= getDimensionCostMultiplier(tier);
         else multiplySameCosts(cost);
@@ -910,7 +909,6 @@ function buyManyDimension(tier) {
     
     player[name + 'Amount'] += 10 - player[name + 'Bought'];
     player[name + 'Bought']  = 0;
-    glowText(name+"D")
     player[name + 'Pow']  *= getDimensionPowerMultiplier(tier);
     if (player.currentChallenge != "challenge5" ) player[name + 'Cost'] *= getDimensionCostMultiplier(tier);
     else multiplySameCosts(player[name + 'Cost']);  
