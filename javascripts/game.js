@@ -1567,13 +1567,28 @@ function setAchieveTooltip() {
     var forgotAchieve = document.getElementById("I forgot to nerf that")
     var potato = document.getElementById("Faster than a potato")
     var dimensional = document.getElementById("Multidimensional")
+    var deaths = document.getElementById("Zero Deaths")
+    var unneeded = document.getElementById("You didn't need it anyway")
+    var claustrophobic = document.getElementById("Claustrophobic")
+    var fast = document.getElementById("That's fast!")
 
     apocAchieve.setAttribute('ach-tooltip', "Get over " + formatValue(player.options.notation, 1e80, 0, 0) + " antimatter");
     noPointAchieve.setAttribute('ach-tooltip', "Buy a single First Dimension when you have over " + formatValue(player.options.notation, 1e150, 0, 0) + " of them");
     forgotAchieve.setAttribute('ach-tooltip', "Get any Dimension multiplier over " + formatValue(player.options.notation, 1e31, 0, 0));
     sanic.setAttribute('ach-tooltip', "Have antimatter/sec exceed your current antimatter above " + formatValue(player.options.notation, 1e63, 0, 0));
-    potato.setAttribute('ach-tooltip', "Get more than " + formatValue(player.options.notation, 1e28, 0, 0) + " ticks per second");
     dimensional.setAttribute('ach-tooltip', "Reach " + formatValue(player.options.notation, 1e12, 0, 0) + " of all dimensions except 8th");
+    if (player.infinitied == 0) {
+        deaths.setAttribute('ach-tooltip', "Reach infinity antimatter to learn how to unlock this achievement!");
+        unneeded.setAttribute('ach-tooltip', "Reach infinity antimatter to learn how to unlock this achievement!");
+        claustrophobic.setAttribute('ach-tooltip', "Reach infinity antimatter to learn how to unlock this achievement!");
+        fast.setAttribute('ach-tooltip', "Reach infinity antimatter to learn how to unlock this achievement!");
+        potato.setAttribute('ach-tooltip', "Reach infinity antimatter to learn how to unlock this achievement!");
+    } else {
+        deaths.setAttribute('ach-tooltip', "Get to Infinity without Dimension shifts, boosts or galaxies");
+        unneeded.setAttribute('ach-tooltip', "Reach Infinite antimatter without having any 8th Dimensions (last run only)");
+        claustrophobic.setAttribute('ach-tooltip', "Go Infinite with just 1 Antimatter Galaxy");
+        fast.setAttribute('ach-tooltip', "Go infinite in under 2 hours")
+        potato.setAttribute('ach-tooltip', "Get more than " + formatValue(player.options.notation, 1e28, 0, 0) + " ticks per second");;
 }
 
 document.getElementById("notation").onclick = function () {
