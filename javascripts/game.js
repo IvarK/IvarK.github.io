@@ -425,7 +425,7 @@ function updateDimensions() {
     document.getElementById("infi23").innerHTML = "Fourth and Fifth Dimension power <br>" + dimMults().toFixed(2) + "x<br>Cost: 1 IP"
     document.getElementById("infi31").innerHTML = "Production increase over time in current infinity<br>Currently: " + Math.max(Math.pow(player.thisInfinityTime / 2400, 0.25), 1).toFixed(2) + "x<br>Cost: 3 IP"
     document.getElementById("infi32").innerHTML = "Bonus for unspent Infinity Points on 1st Dimension<br>(Currently " + (1+Math.pow(player.infinityPoints/2,1.5)).toFixed(2) + "x)<br>Cost: 5 IP"
-    document.getElementById("infi34").innerHTML = "Infinity Point generation (based on fastest infinity) <br>(Currently 1 every " + timeDisplay(player.bestInfinityTime*20) + ")<br>Cost: 10 IP"
+    document.getElementById("infi34").innerHTML = "Infinity Point generation (based on fastest infinity) <br>(Currently 1 every " + timeDisplay(player.bestInfinityTime*10) + ")<br>Cost: 10 IP"
 }
 
 function updateCosts() {
@@ -2243,8 +2243,8 @@ setInterval(function () {
     player.chall2Pow = Math.min(player.chall2Pow + diff/1800, 1)
 
     if (player.infinityUpgrades.includes("passiveGen")) player.partInfinityPoint += diff / player.bestInfinityTime;
-    if (player.partInfinityPoint >= 20) {
-        player.partInfinityPoint -= 20;
+    if (player.partInfinityPoint >= 10) {
+        player.partInfinityPoint -= 10;
         player.infinityPoints += 1;
     }
     if (player.currentChallenge != "challenge7") {
