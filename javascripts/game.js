@@ -2217,7 +2217,7 @@ setInterval(function () {
     player.chall3Pow *= Math.pow(1.00038, diff)
     player.chall2Pow = Math.min(player.chall2Pow + diff/1800, 1)
 
-    if (player.infinityUpgrades.includes("passiveGen") player.partInfinityPoint += diff / player.bestInfinityTime;
+    if (player.infinityUpgrades.includes("passiveGen")) player.partInfinityPoint += diff / player.bestInfinityTime;
     if (player.partInfinityPoint >= 20) {
         player.partInfinityPoint -= 20;
         player.infinityPoints += 1;
