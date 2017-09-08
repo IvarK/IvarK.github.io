@@ -2458,6 +2458,12 @@ setInterval(function () {
     } else {
         document.getElementById("secondSoftReset").className = 'unavailablebtn';
     }
+
+    if (player.sixthAmount >= getGalaxyRequirement()) {
+        document.getElementById("secondSoftReset").className = 'storebtn';
+    } else {
+        document.getElementById("secondSoftReset").className = 'unavailablebtn';
+    }
     
     if (player.currentChallenge == "challenge2") document.getElementById("chall2Pow").style.display = "inline-block"
     else document.getElementById("chall2Pow").style.display = "none"
