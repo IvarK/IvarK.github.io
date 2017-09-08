@@ -69,7 +69,7 @@ var player = {
         logoVisible: true
     }
 };
-
+var ETAvalueDimBoost = 0;
 var c = document.getElementById("game");
 var ctx = c.getContext("2d");
 
@@ -361,31 +361,112 @@ function getGalaxyRequirement() {
     return amount;
 }
 
-function getETA(cost) {
-    var a = 100;
-    while (ETACalc(a) < cost) {
-        a *= 10;
-        if (a > 1e20) return Infinity;
+function getGalaxyAMRequirement() {
+    let amount = 1e130 * (player.galaxies * 1e90);
+    if (player.currentChallenge == "challenge4") amount = 99 + (player.galaxies * 90)
+    if (player.infinityUpgrades.includes("resetBoost")) {
+        amount /= 10;
     }
-    var b = a / 10;
-    var q = ETACalc((a+b)/2);
-    while (cost+100 < q || q < cost-100) {
-        if (q < cost) a = (a+b)/2;
-        else b = (a+b)/2;
-        q = ETACalc((a+b)/2);
-    }
-    return (a+b)/2;
+    
+    return amount;
 }
 
-function ETACalc(t) {
-    var value = player.money + calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult"));
-    var div = 1;
-    for (let tier = 1; tier <= 8; ++tier) {
-        div *= (tier+1);
-        value += getDimensionRateOfChange(tier) / div * Math.pow(t,tier);
+function getDimBoostAMRequirement() {
+    if (player.currentChallenge != "challenge4" && player.currentChallenge != "challenge10") {
+        if (player.infinityUpgrades.includes("resetBoost")) {
+            const resetCosts = [1e12, 1e17, 1e23, 1e30, 1e39, 6e54, 1e84, 6e99, 1e129, 6e144, 1e174, 6e189, 1e219, 6e234, 1e264, 6e279, Infinity]
+            return resetCosts[player.resets]
+        } else {
+            const resetCosts = [10e12, 10e17, 10e23, 10e30, 1e40, 5e69, 1e85, 5e114, 1e130, 5e159, 1e175, 5e204, 1e220, 5e249, 1e265, 5e294, Infinity]
+            return resetCosts[player.resets]
+        }
+        
     }
-    return value
 }
+
+
+  
+/*function ETAtime(upper, lower, tier, amount) {
+    
+    if (estimate(upper, tier)-amount < 0) return Infinity
+    if (estimate(lower, tier)-amount > 0) return 0
+    var a = upper;
+    var b = lower;
+    var precision = 100;
+    var looping = true;
+    var i = 0;
+    while (looping) {
+        console.log("Upper limit: " + a + " Lower limit: " + b);
+        i++;
+        var midPoint = (a + b) / 2;
+        var antimatterAtMid = estimate(midPoint, tier);
+        var difference = antimatterAtMid - amount;
+        if (Math.abs(difference) < precision || i >= 40) looping = false;
+        else {
+            if (difference > 0) a = midPoint;
+            else b = midPoint;
+        }
+    }
+    return midPoint;
+}
+
+  
+  function fact(x) {
+     if(x==0) {
+        return 1;
+     }
+     return x * fact(x-1);
+  }
+  
+  function estimate(x, tier) {
+    if (tier == 0) return 0
+    var base = player.money + (getDimensionProductionPerSecond(1) * x)
+    if (tier == 1) {
+      return base
+    }
+    else {
+      for (var i=2; i<=tier; i++) {
+        base += ((getDimensionProductionPerSecond(i) * Math.pow(x, i))/fact(i))
+        
+      }
+      return base
+    }
+  }*/
+
+  function ETAtime(amount) {
+    var time = 1;
+    var loops = 0
+    while (estimate(time) < amount){
+      time *= 1.001 + Math.log(amount / estimate(time)) / Math.log(amount);
+      loops++;
+    }
+    console.log("Loops made: "+loops)
+    return time;
+}
+
+  
+  function factorial(x) {
+     if(x==0) {
+        return 1;
+     }
+     return x * factorial(x-1);
+  }
+  
+  function estimate(time) {
+    var output = 0;
+    output += (getDimensionProductionPerSecond(1) / factorial(1) * Math.pow(time, 1));
+    output += (getDimensionProductionPerSecond(2) / factorial(2) * Math.pow(time, 2));
+    output += (getDimensionProductionPerSecond(3) / factorial(3) * Math.pow(time, 3));
+    output += (getDimensionProductionPerSecond(4) / factorial(4) * Math.pow(time, 4));
+    output += (getDimensionProductionPerSecond(5) / factorial(5) * Math.pow(time, 5));
+    output += (getDimensionProductionPerSecond(6) / factorial(6) * Math.pow(time, 6));
+    output += (getDimensionProductionPerSecond(7) / factorial(7) * Math.pow(time, 7));
+    output += (getDimensionProductionPerSecond(8) / factorial(8) * Math.pow(time, 8));
+    return output
+    }
+
+
+  
 
 function updateDimensions() {
     
@@ -693,7 +774,7 @@ function buyTickSpeed() {
     else multiplySameCosts(player.tickSpeedCost)
     if (player.currentChallenge == "challenge2") player.chall2Pow = 0
     player.tickspeed *= getTickSpeedMultiplier();
-    
+    updateETAs();
     return true;
 }
 
@@ -717,6 +798,7 @@ function buyMaxTickSpeed() {
 }
 
 function timeDisplay(time) {
+    if (time == Infinity) return "Infinite years"
     time = Math.floor(time / 10)
     if (time >= 31536000) {
         return Math.floor(time / 31536000) + " years, " + Math.floor((time % 31536000) / 86400) + " days, " + Math.floor((time % 86400) / 3600) + " hours, " + Math.floor((time % 3600) / 60) + " minutes and " + Math.floor(time % 60) + " seconds"
@@ -845,6 +927,7 @@ function onBuyDimension(tier) {
     updateCosts();
     updateMoney();
     updateDimensions();
+    updateETAs();
 }
 
 function buyOneDimension(tier) {
@@ -2234,16 +2317,29 @@ function getDimensionProductionPerSecond(tier) {
     return ret;
 }
 
+function highestDim() {
+    if (player.eightAmount > 0) return 8
+    else if (player.seventhAmount > 0) return 7
+    else if (player.sixthAmount > 0) return 6
+    else if (player.fifthAmount > 0) return 5
+    else if (player.fourthAmount > 0) return 4
+    else if (player.thirdAmount > 0) return 3
+    else if (player.secondAmount > 0) return 2
+    else if (player.firstAmount > 0) return 1
+    else return 0
+}
+
+
 function updateETAs() {
-    for (let tier = 1; tier <= 8; ++tier) {
-        const name = TIER_NAMES[tier] + "Cost";
-        document.getElementById("ETADim" + tier).innerHTML = timeDisplay(getETA(name))
-    }
-    const resetCosts = [1e12,1e17,1e23,1e30]
-    if (player.resets<4) document.getElementById("ETAreset1").innerHTML = timeDisplay(getETA(resetCosts[player.resets]))
+    
+    /*if (player.resets<4) document.getElementById("ETAreset1").innerHTML = timeDisplay(getETA(resetCosts[player.resets]))
     else document.getElementById("ETAreset1").innerHTML = timeDisplay(getETA(Math.pow(10,Math.ceiling(player.resets*1.5)*15-31)))
     document.getElementById("ETAreset2").innerHTML = timeDisplay(getETA(Math.pow(10,player.galaxies*90+129)))
-    document.getElementById("ETAreset3").innerHTML = timeDisplay(getETA(Number.MAX_VALUE))
+    document.getElementById("ETAreset3").innerHTML = timeDisplay(getETA(Number.MAX_VALUE))*/
+    ETAvalueDimBoost = ETAtime(getDimBoostAMRequirement())*10
+    document.getElementById("dimBoostETA").innerHTML = "("+timeDisplay(ETAvalueDimBoost)+")";
+    
+    
 }
 
 
@@ -2305,7 +2401,8 @@ setInterval(function () {
         player.totalmoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff / 10;
       }
     }
-    
+    ETAvalueDimBoost = Math.max(ETAvalueDimBoost-diff, 0)
+    document.getElementById("dimBoostETA").innerHTML = "("+timeDisplay(ETAvalueDimBoost)+")";
     player.totalTimePlayed += diff
     player.thisInfinityTime += diff
     if (player.money == Infinity) {
@@ -2508,7 +2605,6 @@ setInterval(function () {
 
 
 
-
     index++;
     player.lastUpdate = thisUpdate;
 }, 100);
@@ -2700,7 +2796,8 @@ function init() {
     showTab('dimensions')
     load_game();
     updateTickSpeed();
-	updateAutobuyers();
+    updateAutobuyers();
+    updateETAs()
     if (!player.options.animationsOn) document.getElementById("logoanimation").src = "animation.png";
     if (player.options.invert) {
         document.getElementById("body").classList.add("invert");
@@ -2713,13 +2810,13 @@ function init() {
         document.getElementById("game").style.display = "none";
     }
 
-    TIER_NAMES.forEach(function(name) {
+    /*TIER_NAMES.forEach(function(name) {
 	var el = document.getElementById(name + "D");
 	el.addEventListener('animationEnd', function(){
 	el.style.removeProperty("animation");
         el.style.removeProperty("-webkit-animation");
     	}, false);
-    });
+    });*/
 }
 
 
@@ -2729,6 +2826,7 @@ setInterval(function () {
 updateCosts();
 //updateInterval();
 updateDimensions();
+
 document.getElementById("hiddenheader").style.display = "none";
 init();
 
