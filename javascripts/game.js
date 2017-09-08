@@ -2232,7 +2232,7 @@ setInterval(function () {
     if (thisUpdate - player.lastUpdate >= 21600000) giveAchievement("Don't you dare to sleep")
     var diff = Math.min(thisUpdate - player.lastUpdate, 21600000);
     diff = diff / 100;
-
+    if (diff < 0) diff = 1;
     player.matter *= Math.pow((1.02 + player.resets/200 + player.galaxies/100), diff)
     if (player.matter > player.money && player.currentChallenge == "challenge12") {
         if (player.resets == 0) player.resets--;
