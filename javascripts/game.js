@@ -361,6 +361,32 @@ function getGalaxyRequirement() {
     return amount;
 }
 
+function getETA(cost) {
+    var a = 100;
+    while (ETACalc(a) < cost) {
+        a *= 10;
+        if (a > 1e20) return Infinity;
+    }
+    var b = a / 10;
+    var q = ETACalc((a+b)/2);
+    while (cost+100 < q || q < cost-100) {
+        if (q < cost) a = (a+b)/2;
+        else b = (a+b)/2;
+        q = ETACalc((a+b)/2);
+    }
+    return (a+b)/2;
+}
+
+function ETACalc(t) {
+    var value = player.money + calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult"));
+    var div = 1;
+    for (let tier = 1; tier <= 8; ++tier) {
+        div *= (tier+1);
+        value += getDimensionRateOfChange(tier) / div * Math.pow(t,tier);
+    }
+    return value
+}
+
 function updateDimensions() {
     
     for (let tier = 1; tier <= 8; ++tier) {
@@ -2208,8 +2234,17 @@ function getDimensionProductionPerSecond(tier) {
     return ret;
 }
 
-
-
+function updateETAs() {
+    for (let tier = 1; tier <= 8; ++tier) {
+        const name = TIER_NAMES[tier] + "Cost";
+        document.getElementById("ETADim" + tier).innerHTML = timeDisplay(getETA(name))
+    }
+    const resetCosts = [1e12,1e17,1e23,1e30]
+    if (player.resets<4) document.getElementById("ETAreset1").innerHTML = timeDisplay(getETA(resetCosts[player.resets]))
+    else document.getElementById("ETAreset1").innerHTML = timeDisplay(getETA(Math.pow(10,Math.ceiling(player.resets*1.5)*15-31)))
+    document.getElementById("ETAreset2").innerHTML = timeDisplay(getETA(Math.pow(10,player.galaxies*90+129)))
+    document.getElementById("ETAreset3").innerHTML = timeDisplay(getETA(Number.MAX_VALUE))
+}
 
 
 
