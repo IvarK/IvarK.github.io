@@ -2459,7 +2459,7 @@ setInterval(function () {
         document.getElementById("secondSoftReset").className = 'unavailablebtn';
     }
 
-    if (player.sixthAmount >= getGalaxyRequirement()) {
+    if (player.currentChallenge == "challenge4" && player.sixthAmount >= getGalaxyRequirement()) {
         document.getElementById("secondSoftReset").className = 'storebtn';
     } else {
         document.getElementById("secondSoftReset").className = 'unavailablebtn';
