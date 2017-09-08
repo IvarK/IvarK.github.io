@@ -2306,6 +2306,10 @@ setInterval(function () {
         player.money += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff / 10;
         player.totalmoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff / 10;
       }
+      if (player.currentChallenge == "challenge7") {
+          player.money += getDimensionProductionPerSecond(2)
+          player.totalmoney += getDimensionProductionPerSecond(2)
+      }
     }
     
     player.totalTimePlayed += diff
