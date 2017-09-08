@@ -299,10 +299,22 @@ function getDimensionFinalMultiplier(tier) {
     multiplier *= player.achPow;
     
     if (hasInfinityMult(tier)) multiplier *= dimMults();
-    if (tier == 1 && player.infinityUpgrades.includes("unspentBonus")) multiplier *= 1+Math.pow(player.infinityPoints/2,1.5);
+    if (tier == 1) {
+        if (player.infinityUpgrades.includes("unspentBonus")) multiplier *= 1+Math.pow(player.infinityPoints/2,1.5);
+        if (player.achievements.includes("There's no point in doing that...")) multiplier *= 1.1;
+        if (player.achievements.includes("I forgot to nerf that")) multiplier *= 1.05;
+    }
     multiplier *= timeMult();
+    if (tier == 8 && player.achievements.includes("The 9th Dimension is a lie")) multiplier *= 1.1;
+    else if (player.achievements.includes("You didn't need it anyway")) multiplier *= 1.02;
+    if (tier <= 4 && player.achievements.includes("Zero Deaths")) multiplier *= 1.25;
+    if (player.achievements.includes("Antichallenged")) multiplier *= 1.1;
     
     return multiplier;
+}
+
+function getMoneyPerSecond() {
+    return getDimensionFinalMultiplier(1)*Math.floor(player.firstAmount)/player.tickspeed;
 }
 
 function getDimensionDescription(tier) {
@@ -620,6 +632,8 @@ function softReset() {
         player.seventhPow = 1
         player.eightPow = 1
     }
+    if (player.achievements.includes("Claustrophobic")) player.tickspeed *= 0.98;
+    if (player.achievements.includes("Faster than a potato")) player.tickspeed *= 0.98;
     
     player.resets++;
     updateCosts();
@@ -640,6 +654,7 @@ function softReset() {
     updateTickSpeed();
 
     if (player.challenges.includes("challenge1")) player.money = 100
+    if (player.achievements.includes("That's fast!")) player.money = 1000;
     
     if (player.resets >= 10) {
         giveAchievement("Boosting to the max");
@@ -1186,6 +1201,7 @@ function timeMult() {
     var mult = 1
     if (player.infinityUpgrades.includes("timeMult")) mult *= Math.pow(player.totalTimePlayed / 1200, 0.15);
     if (player.infinityUpgrades.includes("timeMult2")) mult *= Math.max(Math.pow(player.thisInfinityTime / 2400, 0.25), 1);
+    if (player.achievements.includes("One for each dimension")) mult *= Math.pow(player.totalTimePlayed / (600*60*48), 0.05);
     return mult;
 }
 
@@ -1537,6 +1553,8 @@ document.getElementById("secondSoftReset").onclick = function () {
             player.seventhCost = 2e5
             player.eightCost = 4e6
         }
+        if (player.achievements.includes("Claustrophobic")) player.tickspeed *= 0.98;
+        if (player.achievements.includes("Faster than a potato")) player.tickspeed *= 0.98;
         updateCosts();
         clearInterval(player.interval);
         //updateInterval();
@@ -1556,6 +1574,7 @@ document.getElementById("secondSoftReset").onclick = function () {
         if (player.galaxies >= 2) giveAchievement("Double Galaxy");
         if (player.galaxies >= 1) giveAchievement("You got past The Big Wall");
         if (player.challenges.includes("challenge1")) player.money = 100
+        if (player.achievements.includes("That's fast!")) player.money = 1000;
 
     }
 };
@@ -1712,13 +1731,11 @@ function resetDimensions() {
 }
 
 function calcSacrificeBoost() {
+    if (player.firstAmount == 0) return 1;
     if (player.currentChallenge != "challenge11") {
-        if (player.firstAmount != 0) return Math.max(Math.pow((Math.log10(player.firstAmount) / 10.0), 2) / Math.max(Math.pow((Math.log10(Math.max(player.sacrificed, 1)) / 10.0), 2), 1), 1);
-        else return 1;
-    } else {
-        if (player.firstAmount != 0) return Math.pow(player.firstAmount, 0.05) / Math.max(Math.pow(player.sacrificed, 0.04), 1)
-        else return 1
-    }
+        if (player.achievements.includes("The Gods are pleased")) return Math.max(Math.pow((Math.log10(player.firstAmount) / 10.0), 2.05) / Math.max(Math.pow((Math.log10(Math.max(player.sacrificed, 1)) / 10.0), 2.05), 1), 1);
+        else return Math.max(Math.pow((Math.log10(player.firstAmount) / 10.0), 2) / Math.max(Math.pow((Math.log10(Math.max(player.sacrificed, 1)) / 10.0), 2), 1), 1);
+    } else return Math.pow(player.firstAmount, 0.05) / Math.max(Math.pow(player.sacrificed, 0.04), 1);
 }
 
 
@@ -2073,6 +2090,8 @@ document.getElementById("bigcrunch").onclick = function () {
               logoVisible: player.options.logoVisible
           }
       };
+      if (player.achievements.includes("Claustrophobic")) player.tickspeed *= 0.98;
+      if (player.achievements.includes("Faster than a potato")) player.tickspeed *= 0.98;
       updateCosts();
       clearInterval(player.interval);
       //updateInterval();
@@ -2100,8 +2119,9 @@ document.getElementById("bigcrunch").onclick = function () {
       
       updateAutobuyers();
       if (player.challenges.includes("challenge1")) player.money = 100
-    if (player.challenges.length >= 2 && !player.achievements.includes("Daredevil")) giveAchievement("Daredevil");
-    if (player.challenges.length == 12 && !player.achievements.includes("AntiChallenged")) giveAchievement("AntiChallenged");
+      if (player.achievements.includes("That's fast!")) player.money = 1000;
+      if (player.challenges.length >= 2 && !player.achievements.includes("Daredevil")) giveAchievement("Daredevil");
+      if (player.challenges.length == 12 && !player.achievements.includes("AntiChallenged")) giveAchievement("AntiChallenged");
 
   }
   updateChallenges();
@@ -2193,6 +2213,8 @@ function startChallenge(name) {
         player.seventhCost = 2e5
         player.eightCost = 4e6
     }
+    if (player.achievements.includes("Claustrophobic")) player.tickspeed *= 0.98;
+    if (player.achievements.includes("Faster than a potato")) player.tickspeed *= 0.98;
     updateCosts();
     clearInterval(player.interval);
     //updateInterval();
