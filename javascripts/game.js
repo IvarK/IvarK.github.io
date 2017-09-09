@@ -830,6 +830,8 @@ function onBuyDimension(tier) {
     if (tier == 8 && player.eightAmount == 99) {
         giveAchievement("The 9th Dimension is a lie");
     }
+    if (clickBuffer != 0) clickBuffer -= 1;
+    else noclick = 0;
     
     updateCosts();
     updateMoney();
@@ -936,6 +938,8 @@ function buyManyDimension(tier) {
     return true;
 }
 
+var clickBuffer = 0;
+var noclick = 0;
 document.getElementById("first").onclick = function () {
     if (buyOneDimension(1)) {
         // This achievement is granted only if the buy one button is pressed.
@@ -1825,53 +1829,66 @@ function updateAutobuyers() {
     document.getElementById("intervalGalaxies").innerHTML = "Current interval: " + (player.autobuyers[10].interval/1000).toFixed(1) + " seconds";
     document.getElementById("intervalInf").innerHTML = "Current interval: " + (player.autobuyers[11].interval/1000).toFixed(1) + " seconds";
 
-
+    var maxedAutobuy = 0;
     if (player.autobuyers[0].interval <= 100) {
         document.getElementById("buyerBtn1").style.display = "none"
         document.getElementById("toggleBtn1").style.display = "inline-block"
+        maxedAutobuy++;
     }
     if (player.autobuyers[1].interval <= 100) {
         document.getElementById("buyerBtn2").style.display = "none"
         document.getElementById("toggleBtn2").style.display = "inline-block"
+        maxedAutobuy++;
     }
     if (player.autobuyers[2].interval <= 100) {
         document.getElementById("buyerBtn3").style.display = "none"
         document.getElementById("toggleBtn3").style.display = "inline-block"
+        maxedAutobuy++;
     }
     if (player.autobuyers[3].interval <= 100) {
         document.getElementById("buyerBtn4").style.display = "none"
         document.getElementById("toggleBtn4").style.display = "inline-block"
+        maxedAutobuy++;
     }
     if (player.autobuyers[4].interval <= 100) {
         document.getElementById("buyerBtn5").style.display = "none"
         document.getElementById("toggleBtn5").style.display = "inline-block"
+        maxedAutobuy++;
     }
     if (player.autobuyers[5].interval <= 100) {
         document.getElementById("buyerBtn6").style.display = "none"
         document.getElementById("toggleBtn6").style.display = "inline-block"
+        maxedAutobuy++;
     }
     if (player.autobuyers[6].interval <= 100) {
         document.getElementById("buyerBtn7").style.display = "none"
         document.getElementById("toggleBtn7").style.display = "inline-block"
+        maxedAutobuy++;
     }
     if (player.autobuyers[7].interval <= 100) {
         document.getElementById("buyerBtn8").style.display = "none"
         document.getElementById("toggleBtn8").style.display = "inline-block"
+        maxedAutobuy++;
     }
     if (player.autobuyers[8].interval <= 100) {
         document.getElementById("buyerBtnTickSpeed").style.display = "none"
         document.getElementById("toggleBtnTickSpeed").style.display = "inline-block"
+        maxedAutobuy++;
     }
     if (player.autobuyers[9].interval <= 100) {
         document.getElementById("buyerBtnDimBoost").style.display = "none"
+        maxedAutobuy++;
     }
     if (player.autobuyers[10].interval <= 100) {
         document.getElementById("buyerBtnGalaxies").style.display = "none"
+        maxedAutobuy++;
     }
     if (player.autobuyers[11].interval <= 100) {
         document.getElementById("buyerBtnInf").style.display = "none"
+        maxedAutobuy++;
     }
-
+    if (maxedAutobuy >= 9) giveAchievement("ach52");
+    if (maxedAutobuy >= 12) giveAchievement("ach53");
 
 
     document.getElementById("buyerBtn1").innerHTML = "39% smaller interval <br>Cost: " + player.autobuyers[0].cost + " points"
@@ -1987,6 +2004,8 @@ function toggleAutoBuyers() {
 document.getElementById("bigcrunch").onclick = function () {
   if (player.money == Infinity) {
       if (!player.achievements.includes("That's fast!") && player.thisInfinityTime <= 72000) giveAchievement("That's fast!");
+      if (player.thisInfinityTime <= 7200) giveAchievement("ach54")
+      if (player.thisInfinityTime <= 750) giveAchievement("ach55")
       if (!player.achievements.includes("You didn't need it anyway") && player.eightAmount == 0) giveAchievement("You didn't need it anyway");
       if (!player.achievements.includes("Claustrophobic") && player.galaxies == 1) giveAchievement("Claustrophobic");
       if (!player.achievements.includes("Zero Deaths") && player.galaxies == 0 && player.resets == 0) giveAchievement("Zero Deaths")
@@ -2088,6 +2107,9 @@ document.getElementById("bigcrunch").onclick = function () {
       if (!player.achievements.includes("To infinity!")) giveAchievement("To infinity!");
       if (!player.achievements.includes("That's a lot of infinites") && player.infinitied >= 10) giveAchievement("That's a lot of infinites");
       if (player.infinitied >= 1 && !player.challenges.includes("challenge1")) player.challenges.push("challenge1");
+      if (noclick == 1) giveAchievement("ach51")
+      clickBuffer = 0;
+      noclick = 1;
       
       updateAutobuyers();
       if (player.challenges.includes("challenge1")) player.money = 100
@@ -2485,8 +2507,9 @@ setInterval(function () {
         for (var i=0; i<priorityOrder().length; i++) {
             if (priorityOrder()[i].ticks*100 >= priorityOrder()[i].interval) {
                 if (priorityOrder()[i].isOn && canBuyDimension(i+1)) {
+                    clickBuffer++;
                     priorityOrder()[i].target.click()
-                    priorityOrder()[i].ticks = 0;
+                    priorityOrder()[i].ticks -= priorityOrder()[i].interval/100; //made more sense than having it set to 0
                 }
             } else priorityOrder()[i].ticks += 1;
         }
