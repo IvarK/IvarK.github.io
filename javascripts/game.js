@@ -1777,6 +1777,16 @@ function updateAutobuyers() {
     var autoBuyerTickspeed = new Autobuyer (document.getElementById("tickSpeed"))
     var autoBuyerInf = new Autobuyer (document.getElementById("bigcrunch"))
     autoBuyerInf.interval = 60000
+
+    autoBuyerDim1.tier = 1
+    autoBuyerDim2.tier = 2
+    autoBuyerDim3.tier = 3
+    autoBuyerDim4.tier = 4
+    autoBuyerDim5.tier = 5
+    autoBuyerDim6.tier = 6
+    autoBuyerDim7.tier = 7
+    autoBuyerDim8.tier = 8
+    autoBuyerTickSpeed.tier = 9
     if (player.challenges.includes("challenge1") && player.autobuyers[0] == 1) {
         player.autobuyers[0] = autoBuyerDim1
         document.getElementById("autoBuyer1").style.display = "inline-block"
@@ -2492,7 +2502,7 @@ setInterval(function () {
             } else player.autobuyers[10].ticks += 1;
         }
         if (player.autobuyers[9]%1 !== 0) {
-            if (player.autobuyers[9].ticks*100 >= player.autobuyers[9].interval && !player.infinityUpgrades.includes("resetboost") ? parseInt(document.getElementById("priority10").value) >= ((player.resets - 4) * 15 + 20) : parseInt(document.getElementById("priority10").value) >= ((player.resets - 4) * 15 + 11)) {
+            if (player.autobuyers[9].ticks*100 >= player.autobuyers[9].interval && (!player.infinityUpgrades.includes("resetboost") ? parseInt(document.getElementById("priority10").value) >= ((player.resets - 4) * 15 + 20) : parseInt(document.getElementById("priority10").value) >= ((player.resets - 4) * 15 + 11))) {
                 if (player.autobuyers[9].isOn) {
                     player.autobuyers[9].target.click()
                     player.autobuyers[9].ticks = 0;
@@ -2501,7 +2511,7 @@ setInterval(function () {
         }
         for (var i=0; i<priorityOrder().length; i++) {
             if (priorityOrder()[i].ticks*100 >= priorityOrder()[i].interval) {
-                if (priorityOrder()[i].isOn && canBuyDimension(i+1)) {
+                if (priorityOrder()[i].isOn && canBuyDimension(priorityOrder()[i].tier)) {
                     priorityOrder()[i].target.click()
                     priorityOrder()[i].ticks = 0;
                 }
