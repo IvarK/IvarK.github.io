@@ -589,7 +589,7 @@ function softReset() {
         interval: null,
         lastUpdate: player.lastUpdate,
         achPow: player.achPow,
-	      newsArray: player.newsArray,
+	newsArray: player.newsArray,
         autobuyers: player.autobuyers,
         chall2Pow: player.chall2Pow,
         chall3Pow: 0.01,
@@ -632,6 +632,8 @@ function softReset() {
         player.seventhPow = 1
         player.eightPow = 1
     }
+    if (clickBuffer != 0) clickBuffer -= 1;
+    else noclick = 0;
     if (player.achievements.includes("Claustrophobic")) player.tickspeed *= 0.98;
     if (player.achievements.includes("Faster than a potato")) player.tickspeed *= 0.98;
     
@@ -1533,7 +1535,7 @@ document.getElementById("secondSoftReset").onclick = function () {
             interval: null,
             lastUpdate: player.lastUpdate,
             achPow: player.achPow,
-	        newsArray: player.newsArray,
+	    newsArray: player.newsArray,
             autobuyers: player.autobuyers,
             chall2Pow: player.chall2Pow,
             chall3Pow: 0.01,
@@ -1549,7 +1551,7 @@ document.getElementById("secondSoftReset").onclick = function () {
                 logoVisible: player.options.logoVisible
             }
         };
-	    if (player.currentChallenge == "challenge10") {
+	if (player.currentChallenge == "challenge10") {
             player.thirdCost = 100
             player.fourthCost = 500
             player.fifthCost = 2500
@@ -1557,6 +1559,8 @@ document.getElementById("secondSoftReset").onclick = function () {
             player.seventhCost = 2e5
             player.eightCost = 4e6
         }
+	if (clickBuffer != 0) clickBuffer -= 1;
+        else noclick = 0;
         if (player.achievements.includes("Claustrophobic")) player.tickspeed *= 0.98;
         if (player.achievements.includes("Faster than a potato")) player.tickspeed *= 0.98;
         updateCosts();
@@ -2032,11 +2036,14 @@ function toggleAutoBuyers() {
 document.getElementById("bigcrunch").onclick = function () {
   if (player.money == Infinity) {
       if (!player.achievements.includes("That's fast!") && player.thisInfinityTime <= 72000) giveAchievement("That's fast!");
-      if (player.thisInfinityTime <= 7200) giveAchievement("ach54")
-      if (player.thisInfinityTime <= 750) giveAchievement("ach55")
+      if (player.thisInfinityTime <= 6000) giveAchievement("ach54")
+      if (player.thisInfinityTime <= 600) giveAchievement("ach55")
       if (!player.achievements.includes("You didn't need it anyway") && player.eightAmount == 0) giveAchievement("You didn't need it anyway");
       if (!player.achievements.includes("Claustrophobic") && player.galaxies == 1) giveAchievement("Claustrophobic");
       if (!player.achievements.includes("Zero Deaths") && player.galaxies == 0 && player.resets == 0) giveAchievement("Zero Deaths")
+      if (player.currentChallenge == "challenge3" && player.thisInfinityTime <= 3000) giveAchievement("ach56")
+      if (player.currentChallenge == "challenge11" && player.thisInfinityTime <= 3000) giveAchievement("ach57")
+      if (player.currentChallenge == "challenge5" && player.thisInfinityTime <= 3000) giveAchievement("ach58")
       if (player.currentChallenge != "" && !player.challenges.includes(player.currentChallenge)) {
       player.challenges.push(player.currentChallenge);
     }
@@ -2135,7 +2142,7 @@ document.getElementById("bigcrunch").onclick = function () {
       if (!player.achievements.includes("To infinity!")) giveAchievement("To infinity!");
       if (!player.achievements.includes("That's a lot of infinites") && player.infinitied >= 10) giveAchievement("That's a lot of infinites");
       if (player.infinitied >= 1 && !player.challenges.includes("challenge1")) player.challenges.push("challenge1");
-      if (noclick == 1) giveAchievement("ach51")
+      if (noclick == 1 && clickBuffer != 0) giveAchievement("ach51")
       clickBuffer = 0;
       noclick = 1;
       
