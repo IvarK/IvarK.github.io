@@ -2486,9 +2486,8 @@ setInterval(function () {
     const scale2 = [" protons."," nucleuses."," Hydrogen atoms."," viruses."," red blood cells."," grains of sand."," grains of rice."," teaspoons."," wine bottles.",
                     " fridge-freezers."," Olympic-sized swimming pools."," Great Pyramids of Giza."," Great Walls of China."," large asteroids.",
                    " dwarf planets."," Earths."," Jupiters."," Suns."," red giants."," hypergiant stars."," nebulas."," Oort clouds."," Local Bubbles."," galaxies."," Local Groups."," Sculptor Voids."," observable universes."," Dimensions."];
-    //sudden gap after e32 bc i couldnt find anything to fill the gap
     var id = 0;
-    if (player.money * 4.22419e-105 > 2.82e-45 * 0.1) {
+    if (player.money * 4.22419e-105 > 2.82e-45) {
         if (player.money * 4.22419e-105 > 1e113) id = scale1.length - 1;
         else {
             while (scale1[id] < player.money * 4.22419e-105) id++;
@@ -2496,8 +2495,8 @@ setInterval(function () {
         }
         if (id >= 7 && id < 11) document.getElementById("infoScale").innerHTML = "If every antimatter were a planck volume, you would have enough to fill " + formatValue(player.options.notation, player.money * 4.22419e-105 / scale1[id], 2, 1) + scale2[id];
         else document.getElementById("infoScale").innerHTML = "If every antimatter were a planck volume, you would have enough to make " + formatValue(player.options.notation, player.money * 4.22419e-105 / scale1[id], 2, 1) + scale2[id];
-    } else document.getElementById("infoScale").innerHTML = "";
-
+    } else document.getElementById("infoScale").innerHTML = "If every antimatter were " + 4.22419e-105 / 2.82e-45 / player.money + " planck volumes, you would be have enough to make a proton."
+	
     const shiftRequirement = getShiftRequirement();
     
     if (player[TIER_NAMES[shiftRequirement.tier] + 'Amount'] >= shiftRequirement.amount) {
