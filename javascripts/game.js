@@ -2489,7 +2489,7 @@ setInterval(function () {
     //sudden gap after e32 bc i couldnt find anything to fill the gap
     var id = 0;
     if (player.money * 4.22419e-105 > 2.82e-45 * 0.1) {
-        if (player.money * 4.22419e-105 > 2e113) id = scale1.length - 1;
+        if (player.money * 4.22419e-105 > 1e113) id = scale1.length - 1;
         else {
             while (scale1[id] < player.money * 4.22419e-105) id++;
             if (id > 0) id--;
