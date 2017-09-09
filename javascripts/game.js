@@ -164,6 +164,12 @@ function load_game() {
         document.getElementById("tickSpeedAmount").style.visibility = "visible";
     }
 
+    for (var i=0; i<12; i++) {
+        if (player.autobuyers[i]%1 !== 0 && player.autobuyers[i].tier === undefined) {
+            player.autobuyers[i].tier = i+1
+        }
+    }
+
     if (player.thirdAmount !== 0) document.getElementById("fourthRow").style.display = "table-row";
     if (player.fourthAmount !== 0)
         if (player.resets > 0) document.getElementById("fifthRow").style.display = "table-row";
