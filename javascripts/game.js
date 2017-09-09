@@ -795,7 +795,7 @@ function canBuyDimension(tier) {
 function getDimensionPowerMultiplier(tier) {
     let dimMult = 2;
 
-    if (player.currentChallenge == "challenge9") dimMult = Math.pow(10/0.15,Math.random())*0.15
+    if (player.currentChallenge == "challenge9") dimMult = Math.pow(10/0.30,Math.random())*0.30
     
     if (player.infinityUpgrades.includes('dimMult')) {
         dimMult *= 1.1;
