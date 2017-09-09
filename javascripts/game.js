@@ -2283,38 +2283,77 @@ setInterval(function () {
     player.chall3Pow *= Math.pow(1.00038, diff)
     player.chall2Pow = Math.min(player.chall2Pow + diff/1800, 1)
 
-    if (player.infinityUpgrades.includes("passiveGen")) player.partInfinityPoint += diff / player.bestInfinityTime;
-    if (player.partInfinityPoint >= 10) {
-        player.partInfinityPoint -= 10;
-        player.infinityPoints += 1;
-    }
-    if (player.currentChallenge != "challenge7") {
-        for (let tier = 7; tier >= 1; --tier) {
-            const name = TIER_NAMES[tier];
+
+    if (diff > 100) {
+        for (var i=0; i< diff; i++) {
+            if (player.infinityUpgrades.includes("passiveGen")) player.partInfinityPoint += 1 / player.bestInfinityTime;
+            if (player.partInfinityPoint >= 10) {
+                player.partInfinityPoint -= 10;
+                player.infinityPoints += 1;
+            }
+            if (player.currentChallenge != "challenge7") {
+                for (let tier = 7; tier >= 1; --tier) {
+                    const name = TIER_NAMES[tier];
+                    
+                    player[name + 'Amount'] += getDimensionProductionPerSecond(tier + 1) / 100;
+                }
+            } else {
+                for (let tier = 6; tier >= 1; --tier) {
+                    const name = TIER_NAMES[tier];
+                    
+                    player[name + 'Amount'] += getDimensionProductionPerSecond(tier + 2) / 100;
+                }
+            }
             
-            player[name + 'Amount'] += getDimensionProductionPerSecond(tier + 1) * diff / 100;
+            if (player.money != Infinity) {
+              if (player.currentChallenge == "challenge3") {
+                player.money += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * player.chall3Pow / 10;
+                player.totalmoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * player.chall3Pow / 10;
+              } else {
+                player.money += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) / 10;
+                player.totalmoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) / 10;
+              }
+              if (player.currentChallenge == "challenge7") {
+                  player.money += getDimensionProductionPerSecond(2)
+                  player.totalmoney += getDimensionProductionPerSecond(2)
+              }
+            }
         }
     } else {
-        for (let tier = 6; tier >= 1; --tier) {
-            const name = TIER_NAMES[tier];
-            
-            player[name + 'Amount'] += getDimensionProductionPerSecond(tier + 2) * diff / 100;
+        if (player.infinityUpgrades.includes("passiveGen")) player.partInfinityPoint += diff / player.bestInfinityTime;
+        if (player.partInfinityPoint >= 10) {
+            player.partInfinityPoint -= 10;
+            player.infinityPoints += 1;
+        }
+        if (player.currentChallenge != "challenge7") {
+            for (let tier = 7; tier >= 1; --tier) {
+                const name = TIER_NAMES[tier];
+                
+                player[name + 'Amount'] += getDimensionProductionPerSecond(tier + 1) * diff / 100;
+            }
+        } else {
+            for (let tier = 6; tier >= 1; --tier) {
+                const name = TIER_NAMES[tier];
+                
+                player[name + 'Amount'] += getDimensionProductionPerSecond(tier + 2) * diff / 100;
+            }
+        }
+        
+        if (player.money != Infinity) {
+          if (player.currentChallenge == "challenge3") {
+            player.money += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff * player.chall3Pow / 10;
+            player.totalmoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff * player.chall3Pow / 10;
+          } else {
+            player.money += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff / 10;
+            player.totalmoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff / 10;
+          }
+          if (player.currentChallenge == "challenge7") {
+              player.money += getDimensionProductionPerSecond(2)
+              player.totalmoney += getDimensionProductionPerSecond(2)
+          }
         }
     }
-    
-    if (player.money != Infinity) {
-      if (player.currentChallenge == "challenge3") {
-        player.money += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff * player.chall3Pow / 10;
-        player.totalmoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff * player.chall3Pow / 10;
-      } else {
-        player.money += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff / 10;
-        player.totalmoney += calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) * diff / 10;
-      }
-      if (player.currentChallenge == "challenge7") {
-          player.money += getDimensionProductionPerSecond(2)
-          player.totalmoney += getDimensionProductionPerSecond(2)
-      }
-    }
+   
     
     player.totalTimePlayed += diff
     player.thisInfinityTime += diff
