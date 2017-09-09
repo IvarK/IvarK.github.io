@@ -2482,10 +2482,10 @@ setInterval(function () {
     document.getElementById("progressbar").innerHTML = (Math.log10(player.money+1) / Math.log10(Number.MAX_VALUE) * 100).toFixed(2) + "%"
 
 
-    const scale1 = [2.82e-45,7.23e-30,5e-21,9e-17,6.2e-11,5e-8,3.555e-6,7.5e-4,1,2.5e3,2.6006e6,3.3e8,5e12,4.5e17,1.08e21,1.53e24,1.41e27,5e32,1.7e48,3.3e55,3.3e61,5e68,1e73,3.4e80,1e113];
+    const scale1 = [2.82e-45,7.23e-30,5e-21,9e-17,6.2e-11,5e-8,3.555e-6,7.5e-4,1,2.5e3,2.6006e6,3.3e8,5e12,4.5e17,1.08e21,1.53e24,1.41e27,5e32,8e36,1.7e45,1.7e48,3.3e55,3.3e61,5e68,1e73,3.4e80,1e113];
     const scale2 = [" protons."," Hydrogen atoms."," viruses."," red blood cells."," grains of sand."," grains of rice."," teaspoons."," wine bottles.",
                     " fridge-freezers."," Olympic-sized swimming pools."," Great Pyramids of Giza."," Great Walls of China."," large asteroids.",
-                   " dwarf planets."," Earths."," Jupiters."," Suns."," red giants."," Oort clouds."," Local Bubbles."," galaxies."," Local Groups."," Sculptor Voids."," observable universes."," Dimensions."];
+                   " dwarf planets."," Earths."," Jupiters."," Suns."," red giants.","hypergiant stars.","nebulas."," Oort clouds."," Local Bubbles."," galaxies."," Local Groups."," Sculptor Voids."," observable universes."," Dimensions."];
     //sudden gap after e32 bc i couldnt find anything to fill the gap
     var id = 0;
     if (player.money * 4.22419e-105 > 2.82e-45 * 2) {
