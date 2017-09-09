@@ -728,7 +728,7 @@ function buyMaxTickSpeed() {
 }
 
 function timeDisplay(time) {
-    time = Math.floor(time / 10)
+    time =(time / 10)
     if (time >= 31536000) {
         return Math.floor(time / 31536000) + " years, " + Math.floor((time % 31536000) / 86400) + " days, " + Math.floor((time % 86400) / 3600) + " hours, " + Math.floor((time % 3600) / 60) + " minutes and " + Math.floor(time % 60) + " seconds"
     } else if (time >= 86400) {
@@ -737,7 +737,8 @@ function timeDisplay(time) {
         return Math.floor(time / 3600) + " hours, " + Math.floor((time % 3600) / 60) + " minutes and " + Math.floor(time % 60) + " seconds"
     } else if (time >= 60) {
         return Math.floor(time / 60) + " minutes and " + Math.floor(time % 60) + " seconds"
-    } else return Math.floor(time % 60) + " seconds"
+    } else if (time >= 10) return Math.floor(time % 60) + " seconds" 
+    else return time.toFixed(1) + " seconds"
 }
 
 
