@@ -433,35 +433,24 @@ function getDimBoostAMRequirement() {
     }
   }*/
 
-  function ETAtime(amount) {
-    var time = 1;
-    var loops = 0
+function ETAtime(amount) {
+    time = 1;
     while (estimate(time) < amount){
-      time *= 1.001 + Math.log(amount / estimate(time)) / Math.log(amount);
-      loops++;
+      time *= 1.0001 + Math.log(amount / estimate(time)) / Math.log(amount)
     }
-    console.log("Loops made: "+loops)
-    return time;
+    return time
 }
 
-  
-  function factorial(x) {
-     if(x==0) {
-        return 1;
-     }
-     return x * factorial(x-1);
-  }
-  
   function estimate(time) {
-    var output = 0;
-    output += (getDimensionProductionPerSecond(1) / factorial(1) * Math.pow(time, 1));
-    output += (getDimensionProductionPerSecond(2) / factorial(2) * Math.pow(time, 2));
-    output += (getDimensionProductionPerSecond(3) / factorial(3) * Math.pow(time, 3));
-    output += (getDimensionProductionPerSecond(4) / factorial(4) * Math.pow(time, 4));
-    output += (getDimensionProductionPerSecond(5) / factorial(5) * Math.pow(time, 5));
-    output += (getDimensionProductionPerSecond(6) / factorial(6) * Math.pow(time, 6));
-    output += (getDimensionProductionPerSecond(7) / factorial(7) * Math.pow(time, 7));
-    output += (getDimensionProductionPerSecond(8) / factorial(8) * Math.pow(time, 8));
+    output = player.money;
+    output += (1 / 1 * player.firstAmount * Math.pow(time, 1) * getDimensionFinalMultiplier(1));
+    output += (1 / 2 * player.secondAmount * Math.pow(time, 2) * getDimensionFinalMultiplier(2) * getDimensionFinalMultiplier(1));
+    output += (1 / 3 * player.thirdAmount * Math.pow(time, 3) * getDimensionFinalMultiplier(3) * getDimensionFinalMultiplier(2) * getDimensionFinalMultiplier(1));
+    output += (1 / 4 * player.fourthAmount * Math.pow(time, 4) * getDimensionFinalMultiplier(4) * getDimensionFinalMultiplier(3) * getDimensionFinalMultiplier(2) * getDimensionFinalMultiplier(1));
+    output += (1 / 5 * player.fifthAmount * Math.pow(time, 5) * getDimensionFinalMultiplier(5)  * getDimensionFinalMultiplier(4) * getDimensionFinalMultiplier(3) * getDimensionFinalMultiplier(2) * getDimensionFinalMultiplier(1));
+    output += (1 / 6 * player.sixthAmount * Math.pow(time, 6) * getDimensionFinalMultiplier(6) * getDimensionFinalMultiplier(5)  * getDimensionFinalMultiplier(4) * getDimensionFinalMultiplier(3) * getDimensionFinalMultiplier(2) * getDimensionFinalMultiplier(1));
+    output += (1 / 7 * player.seventhAmount * Math.pow(time, 7) * getDimensionFinalMultiplier(7)  * getDimensionFinalMultiplier(6) * getDimensionFinalMultiplier(5)  * getDimensionFinalMultiplier(4) * getDimensionFinalMultiplier(3) * getDimensionFinalMultiplier(2) * getDimensionFinalMultiplier(1));
+    output += (1 / 8 * player.eightAmount * Math.pow(time, 8) * getDimensionFinalMultiplier(8) * getDimensionFinalMultiplier(7)  * getDimensionFinalMultiplier(6) * getDimensionFinalMultiplier(5)  * getDimensionFinalMultiplier(4) * getDimensionFinalMultiplier(3) * getDimensionFinalMultiplier(2) * getDimensionFinalMultiplier(1));
     return output
     }
 
