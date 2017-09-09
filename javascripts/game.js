@@ -2491,7 +2491,7 @@ setInterval(function () {
     if (player.money * 4.22419e-105 > 2.82e-45 * 2) {
         if (player.money * 4.22419e-105 > 2e113) id = scale1.length - 1;
         else {
-            while (scale1[id] < player.money * 4.22419e-105 * 5) id++;
+            while (scale1[id] * 5 < player.money * 4.22419e-105) id++;
             if (id > 0) id--;
         }
         if (id >= 7 && id < 11) document.getElementById("infoScale").innerHTML = "If every antimatter were a planck volume, you would have enough to fill " + formatValue(player.options.notation, player.money * 4.22419e-105 / scale1[id], 2, 1) + scale2[id];
