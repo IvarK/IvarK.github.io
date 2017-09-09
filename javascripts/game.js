@@ -169,7 +169,7 @@ function load_game() {
             player.autobuyers[i].tier = i+1
         }
     }
-
+    if (player.autobuyers[8].tier == 10) player.autobuyers[8].tier = 9
     if (player.thirdAmount !== 0) document.getElementById("fourthRow").style.display = "table-row";
     if (player.fourthAmount !== 0)
         if (player.resets > 0) document.getElementById("fifthRow").style.display = "table-row";
