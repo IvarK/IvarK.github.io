@@ -2496,7 +2496,7 @@ setInterval(function () {
         }
         if (id >= 7 && id < 11) document.getElementById("infoScale").innerHTML = "If every antimatter were a planck volume, you would have enough to fill " + formatValue(player.options.notation, player.money * 4.22419e-105 / scale1[id], 2, 1); + scale2[id]
         else document.getElementById("infoScale").innerHTML = "If every antimatter were a planck volume, you would have enough to make " + formatValue(player.options.notation, player.money * 4.22419e-105 / scale1[id], 2, 1); + scale2[id]
-    }
+    } else document.getElementById("infoScale").innerHTML = ""
 
     const shiftRequirement = getShiftRequirement();
     
