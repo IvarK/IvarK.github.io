@@ -443,16 +443,16 @@ function updateDimensions() {
     } else {
         document.getElementById("bestInfinity").innerHTML = "Your fastest infinity is in " + timeDisplay(player.bestInfinityTime) + "."
         document.getElementById("thisInfinity").innerHTML = "You have spent " + timeDisplay(player.thisInfinityTime) + " in this infinity."
-        document.getElementById("infinityPoints").innerHTML = "You have  " + player.infinityPoints + " Infinity points."
+        document.getElementById("infinityPoints").innerHTML = "You have  " + formatValue(player.options.notation, player.infinityPoints, 2, 0) + " Infinity points."
         document.getElementById("infinitied").innerHTML = "You have infinitied " + player.infinitied + " times."
     }
     document.getElementById("infi11").innerHTML = "Production increase over time <br>Currently: " + (Math.pow(0.5 * player.totalTimePlayed / 600, 0.15)).toFixed(2) + "x<br>Cost: 1 IP"
-    document.getElementById("infi12").innerHTML = "First and Eighth Dimension power <br>" + dimMults().toFixed(2) + "x<br>Cost: 1 IP"
-    document.getElementById("infi13").innerHTML = "Third and Sixth Dimension power <br>" + dimMults().toFixed(2) + "x<br>Cost: 1 IP"
-    document.getElementById("infi22").innerHTML = "Second and seventh Dimension power <br>" + dimMults().toFixed(2) + "x<br>Cost: 1 IP"
-    document.getElementById("infi23").innerHTML = "Fourth and Fifth Dimension power <br>" + dimMults().toFixed(2) + "x<br>Cost: 1 IP"
+    document.getElementById("infi12").innerHTML = "First and Eighth Dimension power <br>" + formatValue(player.options.notation, dimMults(), 1, 1) + "x<br>Cost: 1 IP"
+    document.getElementById("infi13").innerHTML = "Third and Sixth Dimension power <br>" + formatValue(player.options.notation, dimMults(), 1, 1) + "x<br>Cost: 1 IP"
+    document.getElementById("infi22").innerHTML = "Second and seventh Dimension power <br>" + formatValue(player.options.notation, dimMults(), 1, 1) + "x<br>Cost: 1 IP"
+    document.getElementById("infi23").innerHTML = "Fourth and Fifth Dimension power <br>" + formatValue(player.options.notation, dimMults(), 1, 1) + "x<br>Cost: 1 IP"
     document.getElementById("infi31").innerHTML = "Production increase over time in current infinity<br>Currently: " + Math.max(Math.pow(player.thisInfinityTime / 2400, 0.25), 1).toFixed(2) + "x<br>Cost: 3 IP"
-    document.getElementById("infi32").innerHTML = "Bonus for unspent Infinity Points on 1st Dimension<br>(Currently " + (1+Math.pow(player.infinityPoints/2,1.5)).toFixed(2) + "x)<br>Cost: 5 IP"
+    document.getElementById("infi32").innerHTML = "Bonus for unspent Infinity Points on 1st Dimension<br>(Currently " + formatValue(player.options.notation, 1+Math.pow(player.infinityPoints/2,1.5), 2, 2) + "x)<br>Cost: 5 IP"
     document.getElementById("infi34").innerHTML = "Infinity Point generation (based on fastest infinity) <br>(Currently 1 every " + timeDisplay(player.bestInfinityTime*10) + ")<br>Cost: 10 IP"
 }
 
@@ -1839,39 +1839,30 @@ function updateAutobuyers() {
 
     if (player.autobuyers[0].interval <= 100) {
         document.getElementById("buyerBtn1").style.display = "none"
-        document.getElementById("toggleBtn1").style.display = "inline-block"
     }
     if (player.autobuyers[1].interval <= 100) {
         document.getElementById("buyerBtn2").style.display = "none"
-        document.getElementById("toggleBtn2").style.display = "inline-block"
     }
     if (player.autobuyers[2].interval <= 100) {
         document.getElementById("buyerBtn3").style.display = "none"
-        document.getElementById("toggleBtn3").style.display = "inline-block"
     }
     if (player.autobuyers[3].interval <= 100) {
         document.getElementById("buyerBtn4").style.display = "none"
-        document.getElementById("toggleBtn4").style.display = "inline-block"
     }
     if (player.autobuyers[4].interval <= 100) {
         document.getElementById("buyerBtn5").style.display = "none"
-        document.getElementById("toggleBtn5").style.display = "inline-block"
     }
     if (player.autobuyers[5].interval <= 100) {
         document.getElementById("buyerBtn6").style.display = "none"
-        document.getElementById("toggleBtn6").style.display = "inline-block"
     }
     if (player.autobuyers[6].interval <= 100) {
         document.getElementById("buyerBtn7").style.display = "none"
-        document.getElementById("toggleBtn7").style.display = "inline-block"
     }
     if (player.autobuyers[7].interval <= 100) {
         document.getElementById("buyerBtn8").style.display = "none"
-        document.getElementById("toggleBtn8").style.display = "inline-block"
     }
     if (player.autobuyers[8].interval <= 100) {
         document.getElementById("buyerBtnTickSpeed").style.display = "none"
-        document.getElementById("toggleBtnTickSpeed").style.display = "inline-block"
     }
     if (player.autobuyers[9].interval <= 100) {
         document.getElementById("buyerBtnDimBoost").style.display = "none"
