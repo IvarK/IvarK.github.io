@@ -1275,6 +1275,7 @@ document.getElementById("infi34").onclick = function() {
 
 buyAutobuyer = function(id) {
     if (player.autobuyers[id].cost > player.infinityPoints) return false;
+    player.infinityPoints -= player.autobuyers[id].cost;
     if (player.autobuyers[id].interval <= 100) {
         player.autobuyers[id].bulk *= 2;
         player.autobuyers[id].cost = Math.ceil(2.4*player.autobuyers[id].cost);
@@ -1282,7 +1283,6 @@ buyAutobuyer = function(id) {
         player.autobuyers[id].interval = Math.max(player.autobuyers[id].interval*0.6, 100);
         if (player.autobuyers[id].interval > 120) player.autobuyers[id].cost *= 2; //if your last purchase wont be very strong, dont double the cost
     }
-    player.infinityPoints -= player.autobuyers[id].cost;
     updateAutobuyers();
 }
 
