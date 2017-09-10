@@ -1278,7 +1278,7 @@ buyAutobuyer = function(id) {
     if (player.autobuyers[id].interval == 100) {
         player.autobuyers[id].bulk *= 2;
         player.autobuyers[id].cost = Math.ceiling(2.4*player.autobuyers[id].cost);
-    else {
+    } else {
         player.autobuyers[id].interval = Math.max(player.autobuyers[id].interval*0.6, 100);
         if (player.autobuyers[id].interval > 120) player.autobuyers[id].cost *= 2; //if your last purchase wont be very strong, dont double the cost
     }
@@ -1707,15 +1707,15 @@ document.getElementById("sacrifice").onclick = function () {
 
 
 function updateAutobuyers() {
-    var autoBuyerDim1 = new Autobuyer (document.getElementById("first"))
-    var autoBuyerDim2 = new Autobuyer (document.getElementById("second"))
-    var autoBuyerDim3 = new Autobuyer (document.getElementById("third"))
-    var autoBuyerDim4 = new Autobuyer (document.getElementById("fourth"))
-    var autoBuyerDim5 = new Autobuyer (document.getElementById("fifth"))
-    var autoBuyerDim6 = new Autobuyer (document.getElementById("sixth"))
-    var autoBuyerDim7 = new Autobuyer (document.getElementById("seventh"))
-    var autoBuyerDim8 = new Autobuyer (document.getElementById("eight"))
-    var autoBuyerDimBoost = new Autobuyer (document.getElementById("softReset"))
+    var autoBuyerDim1 = new Autobuyer (1)
+    var autoBuyerDim2 = new Autobuyer (2)
+    var autoBuyerDim3 = new Autobuyer (3)
+    var autoBuyerDim4 = new Autobuyer (4)
+    var autoBuyerDim5 = new Autobuyer (5)
+    var autoBuyerDim6 = new Autobuyer (6)
+    var autoBuyerDim7 = new Autobuyer (7)
+    var autoBuyerDim8 = new Autobuyer (8)
+    var autoBuyerDimBoost = new Autobuyer (9)
     var autoBuyerGalaxy = new Autobuyer (document.getElementById("secondSoftReset"))
     var autoBuyerTickspeed = new Autobuyer (document.getElementById("tickSpeed"))
     var autoBuyerInf = new Autobuyer (document.getElementById("bigcrunch"))
