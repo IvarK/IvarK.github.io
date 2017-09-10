@@ -1,0 +1,12 @@
+{
+  "name": "ivark.github.io",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "babel javascripts --out-file lib/package.js"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.0.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.0"
+  }
+}

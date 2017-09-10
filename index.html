@@ -7,9 +7,10 @@
     <title>Antimatter Dimensions</title>
     <meta name="Antimatter Dimensions" content="A game about huge numbers and watching them go up." />
     <h1 id="hiddenheader" style="display: inline">Antimatter Dimensions</h1>
-    <script src="javascripts/jquery-3.2.1.min.js"></script>
+    <script src="lib/jquery-3.2.1.min.js"></script>
+    <script src="lib/polyfill.min.js"></script>
     <script src='https://cdn1.kongregate.com/javascripts/kongregate_api.js'></script>
-    <script src="javascripts/notify.js"></script>
+    <script src="lib/notify.js"></script>
     <link rel="stylesheet" type="text/css" href="stylesheets/styles.css">
     <script>
         (function(i, s, o, g, r, a, m) {
@@ -44,12 +45,14 @@
         </div>
         
         <div id="coinsPerSec">You are getting 0 antimatter per second.</div>
+
         <tr id="tickSpeedRow" style="visibility: hidden">
             <div id="tickLabel" style="visibility: hidden">Make the game 10% faster.</div>
             <button id="tickSpeed" style="color:black; visibility: hidden; height: 30px; font-size: 70%" class="storebtn">Cost: 1000</button>
             <button id="tickSpeedMax" onclick="buyMaxTickSpeed()" style="color:black; visibility: hidden; height: 30px; font-size: 80%" class="storebtn">Buy Max</button>
             <div id="tickSpeedAmount" style="visibility: hidden">Tickspeed: 1000</div>
         </tr>
+
         <p></p>
         <div>
             <button id="bigcrunch" style="font-family: Typewriter; font-size: 240%; display: none" class="tabbtn">Big Crunch</button>
@@ -888,6 +891,8 @@
         </div>
     </div>
 </body>
+
+<script src="lib/package.js"></script>
 <script src="javascripts/autobuyer.js"></script>
 <script src="javascripts/game.js"></script>
 
