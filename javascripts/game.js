@@ -1921,8 +1921,8 @@ function updateAutobuyers() {
         document.getElementById("buyerBtnInf").style.display = "none"
         maxedAutobuy++;
     }
-    if (maxedAutobuy >= 9) giveAchievement("ach52");
-    if (maxedAutobuy >= 12) giveAchievement("ach53");
+    if (maxedAutobuy >= 9) giveAchievement("Age of Automation");
+    if (maxedAutobuy >= 12) giveAchievement("Definitely not worth it");
 
 
     document.getElementById("buyerBtn1").innerHTML = "39% smaller interval <br>Cost: " + player.autobuyers[0].cost + " points"
@@ -2038,14 +2038,14 @@ function toggleAutoBuyers() {
 document.getElementById("bigcrunch").onclick = function () {
   if (player.money == Infinity) {
       if (!player.achievements.includes("That's fast!") && player.thisInfinityTime <= 72000) giveAchievement("That's fast!");
-      if (player.thisInfinityTime <= 6000) giveAchievement("ach54")
-      if (player.thisInfinityTime <= 600) giveAchievement("ach55")
+      if (player.thisInfinityTime <= 6000) giveAchievement("That's faster!")
+      if (player.thisInfinityTime <= 600) giveAchievement("Forever isn't that long")
       if (!player.achievements.includes("You didn't need it anyway") && player.eightAmount == 0) giveAchievement("You didn't need it anyway");
       if (!player.achievements.includes("Claustrophobic") && player.galaxies == 1) giveAchievement("Claustrophobic");
       if (!player.achievements.includes("Zero Deaths") && player.galaxies == 0 && player.resets == 0) giveAchievement("Zero Deaths")
-      if (player.currentChallenge == "challenge3" && player.thisInfinityTime <= 3000) giveAchievement("ach56")
-      if (player.currentChallenge == "challenge11" && player.thisInfinityTime <= 3000) giveAchievement("ach57")
-      if (player.currentChallenge == "challenge5" && player.thisInfinityTime <= 3000) giveAchievement("ach58")
+      if (player.currentChallenge == "challenge3" && player.thisInfinityTime <= 3000) giveAchievement("Many Deaths")
+      if (player.currentChallenge == "challenge11" && player.thisInfinityTime <= 3000) giveAchievement("Gift from the Gods")
+      if (player.currentChallenge == "challenge5" && player.thisInfinityTime <= 3000) giveAchievement("Manual Worker")
       if (player.currentChallenge != "" && !player.challenges.includes(player.currentChallenge)) {
       player.challenges.push(player.currentChallenge);
     }
@@ -2144,7 +2144,7 @@ document.getElementById("bigcrunch").onclick = function () {
       if (!player.achievements.includes("To infinity!")) giveAchievement("To infinity!");
       if (!player.achievements.includes("That's a lot of infinites") && player.infinitied >= 10) giveAchievement("That's a lot of infinites");
       if (player.infinitied >= 1 && !player.challenges.includes("challenge1")) player.challenges.push("challenge1");
-      if (noclick == 1 && clickBuffer != 0) giveAchievement("ach51")
+      if (noclick == 1 && clickBuffer != 0) giveAchievement("Paid Holiday")
       clickBuffer = 0;
       noclick = 1;
       
