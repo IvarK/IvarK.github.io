@@ -135,6 +135,7 @@ function load_game() {
     if (player.options.invert === undefined) player.options.invert = false;
     if (player.options.logoVisible === undefined) player.options.logoVisible = true
 	if (player.options.notation === undefined) player.options.notation = "Standard";
+	if (player.options.newsHidden === undefined) player.options.newsHidden = false;
     if (player.achievements === undefined) player.achievements = [];
     if (player.sacrificed === undefined) player.sacrificed = 0;
     if (player.infinityUpgrades === undefined) player.infinityUpgrades = [];
@@ -594,7 +595,7 @@ function softReset() {
         chall11Pow: 1,
         partInfinityPoint: player.partInfinityPoint,
         options: {
-            newsHidden: player.newsHidden,
+            newsHidden: player.options.newsHidden,
             notation: player.options.notation,
             animationsOn: player.options.animationsOn,
             invert: player.options.invert,
@@ -1531,7 +1532,7 @@ document.getElementById("secondSoftReset").onclick = function () {
             chall11Pow: 1,
             partInfinityPoint: player.partInfinityPoint,
             options: {
-                newsHidden: player.newsHidden,
+                newsHidden: player.options.newsHidden,
                 scientific: player.options.scientific,
                 notation: player.options.notation,
                 animationsOn: player.options.animationsOn,
@@ -2076,7 +2077,7 @@ document.getElementById("bigcrunch").onclick = function () {
           chall11Pow: 1,
           partInfinityPoint: player.partInfinityPoint,
           options: {
-              newsHidden: player.newsHidden,
+              newsHidden: player.options.newsHidden,
               scientific: player.options.scientific,
               notation: player.options.notation,
               animationsOn: player.options.animationsOn,
@@ -2188,7 +2189,7 @@ function startChallenge(name) {
       chall11Pow: 1,
       partInfinityPoint: player.partInfinityPoint,
       options: {
-        newsHidden: player.newsHidden,
+        newsHidden: player.options.newsHidden,
 	    notation: player.options.notation,
         scientific: player.options.scientific,
         animationsOn: player.options.animationsOn,
