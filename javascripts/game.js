@@ -1738,6 +1738,10 @@ function breakInfinity() {
     }
 }
 
+function gainedInfinityPoints() {
+    return Decimal.pow(10, Decimal.floor(Decimal.log10(player.money).dividedBy(308))-1)
+}
+
 
 function setAchieveTooltip() {
     var apocAchieve = document.getElementById("Antimatter Apocalypse");
