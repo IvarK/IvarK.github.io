@@ -1798,8 +1798,8 @@ function updateAutobuyers() {
     var maxedAutobuy = 0;
     for (let tier = 1; tier <= 8; ++tier) {
         document.getElementById("toggleBtn" + tier).style.display = "inline-block";
-        if (player.autobuyers[tier-1].interval <= 100) document.getElementById("buyerBtn" + tier).innerHTML = "x2 bulk purchase<br>Cost: " + player.autobuyers[tier].cost + " points"
-        else document.getElementById("buyerBtn" + tier).innerHTML = "40% smaller interval <br>Cost: " + player.autobuyers[tier].cost + " points"
+        if (player.autobuyers[tier-1].interval <= 100) document.getElementById("buyerBtn" + tier).innerHTML = "x2 bulk purchase<br>Cost: " + player.autobuyers[tier-1].cost + " points"
+        else document.getElementById("buyerBtn" + tier).innerHTML = "40% smaller interval <br>Cost: " + player.autobuyers[tier-1].cost + " points"
     }
 
     if (player.autobuyers[8].interval <= 100) {
