@@ -54,6 +54,7 @@ var player = {
     interval: null,
     lastUpdate: new Date().getTime(),
     autobuyers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    costMultipliers: [new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15)],
     chall2Pow: 1,
     chall3Pow: new Decimal(0.01),
     matter: 0,
@@ -238,6 +239,7 @@ function transformSaveToDecimal() {
     player.sacrificed = new Decimal(player.sacrificed)
     player.totalmoney = new Decimal(player.totalmoney)
     player.chall3Pow = new Decimal(player.chall3Pow)
+    player.costMultipliers = [new Decimal(player.costMultipliers[0]), new Decimal(player.costMultipliers[1]), new Decimal(player.costMultipliers[2]), new Decimal(player.costMultipliers[3]), new Decimal(player.costMultipliers[4]), new Decimal(player.costMultipliers[5]), new Decimal(player.costMultipliers[6]), new Decimal(player.costMultipliers[7])]
 }
 
 
@@ -256,9 +258,7 @@ function showTab(tabName) {
     }
 }
 
-var FormatList = ['', 'K', 'M', 'B', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QdDc', 'QtDc', 'SxDc', 'SpDc', 'ODc', 'NDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QdVg', 'QtVg', 'SxVg', 'SpVg', 'OVg', 'NVg', 'Tg', 'UTg', 'DTg', 'TTg', 'QdTg', 'QtTg', 'SxTg', 'SpTg', 'OTg', 'NTg', 'Qa', 'UQa', 'DQa', 'TQa', 'QdQa', 'QtQa', 'SxQa', 'SpQa', 'OQa', 'NQa', 'Qi', 'UQi', 'DQi', 'TQi', 'QaQi', 'QtQi', 'SxQi', 'SpQi', 'OQi', 'NQi', 'Se', 'USe', 'DSe', 'TSe', 'QaSe', 'QtSe', 'SxSe', 'SpSe', 'OSe', 'NSe', 'St', 'USt', 'DSt', 'TSt', 'QaSt', 'QtSt', 'SxSt', 'SpSt', 'OSt', 'NSt', 'Og', 'UOg', 'DOg', 'TOg', 'QdOg', 'QtOg', 'SxOg', 'SpOg', 'OOg', 'NOg', 'Nn', 'UNn', 'DNn', 'TNn', 'QdNn', 'QtNn', 'SxNn', 'SpNn', 'ONn', 'NNn', 'Ce', 'UCe'];
-
-var FormatList = ['', 'K', 'M', 'B', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QdDc', 'QtDc', 'SxDc', 'SpDc', 'ODc', 'NDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QdVg', 'QtVg', 'SxVg', 'SpVg', 'OVg', 'NVg', 'Tg', 'UTg', 'DTg', 'TTg', 'QdTg', 'QtTg', 'SxTg', 'SpTg', 'OTg', 'NTg', 'Qa', 'UQa', 'DQa', 'TQa', 'QdQa', 'QtQa', 'SxQa', 'SpQa', 'OQa', 'NQa', 'Qi', 'UQi', 'DQi', 'TQi', 'QaQi', 'QtQi', 'SxQi', 'SpQi', 'OQi', 'NQi', 'Se', 'USe', 'DSe', 'TSe', 'QaSe', 'QtSe', 'SxSe', 'SpSe', 'OSe', 'NSe', 'St', 'USt', 'DSt', 'TSt', 'QaSt', 'QtSt', 'SxSt', 'SpSt', 'OSt', 'NSt', 'Og', 'UOg', 'DOg', 'TOg', 'QdOg', 'QtOg', 'SxOg', 'SpOg', 'OOg', 'NOg', 'Nn', 'UNn', 'DNn', 'TNn', 'QdNn', 'QtNn', 'SxNn', 'SpNn', 'ONn', 'NNn', 'Ce', 'UCe'];
+var FormatList = ['', 'K', 'M', 'B', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QdDc', 'QtDc', 'SxDc', 'SpDc', 'ODc', 'NDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QdVg', 'QtVg', 'SxVg', 'SpVg', 'OVg', 'NVg', 'Tg', 'UTg', 'DTg', 'TTg', 'QdTg', 'QtTg', 'SxTg', 'SpTg', 'OTg', 'NTg', 'Qa', 'UQa', 'DQa', 'TQa', 'QdQa', 'QtQa', 'SxQa', 'SpQa', 'OQa', 'NQa', 'Qi', 'UQi', 'DQi', 'TQi', 'QaQi', 'QtQi', 'SxQi', 'SpQi', 'OQi', 'NQi', 'Se', 'USe', 'DSe', 'TSe', 'QaSe', 'QtSe', 'SxSe', 'SpSe', 'OSe', 'NSe', 'St', 'USt', 'DSt', 'TSt', 'QaSt', 'QtSt', 'SxSt', 'SpSt', 'OSt', 'NSt', 'Og', 'UOg', 'DOg', 'TOg', 'QdOg', 'QtOg', 'SxOg', 'SpOg', 'OOg', 'NOg', 'Nn', 'UNn', 'DNn', 'TNn', 'QdNn', 'QtNn', 'SxNn', 'SpNn', 'ONn', 'NNn', 'Ce',];
 
 var letterList1 = ['', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 var letterList2 = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
@@ -276,6 +276,37 @@ function isDecimal(value) {
 }
 
 
+
+function getAbbreviation(e) {
+    const prefixes = ['', 'U', 'D', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'O', 'N']
+    const prefixes2 = ['', 'Dc', 'Vg', 'Tg', 'Qa', 'Qi', 'Se', 'St', 'Og', 'Nn']
+    const prefixes3 = ['', 'Ce', 'Dn', 'Tc', 'Qe', 'Qu', 'Sc', 'Si', 'Oe', 'Ne']
+    const prefixes4 = ['', 'D', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'O', 'N']
+    var index = Decimal.floor(e/3)-1
+    var index2 = Decimal.floor(index/10)
+    var index3 = Decimal.floor(index2/10)
+    var index4 = Decimal.floor(index3/10)
+    var prefix = prefixes[index%10]
+    var prefix2 = prefixes2[index2%10]
+    var prefix3 = prefixes3[index3%10]
+    if (e <= 3002) {
+        return prefix + prefix2 + prefix3
+    } else {
+        var secondIndex = Decimal.floor(index/1000)-1
+        var secondIndex2 = Decimal.floor(secondIndex/10)
+        var secondIndex3 = Decimal.floor(secondIndex2/10)
+        var secondIndex4 = Decimal.floor(secondIndex3/10)
+        var secondPrefix = prefixes4[secondIndex%10]
+        var secondPrefix2 = prefixes2[secondIndex2%10]
+        var secondPrefix3 = prefixes3[secondIndex3%10]
+        var x = "MI"
+        if ((index)%1000 !== 0) x += "-" 
+        return secondPrefix + secondPrefix2 + secondPrefix3 + x + prefix + prefix2 + prefix3
+    }
+}
+
+
+
 function formatValue(notation, value, places, placesUnder1000) {
 
     if ((value <= Number.MAX_VALUE || player.break) && (value >= 1000)) {
@@ -285,8 +316,9 @@ function formatValue(notation, value, places, placesUnder1000) {
             power = value.e
             matissa = parseFloat(value.toExponential(4).split("e")[0])
         }
-        if ((notation === "Standard") && (((power - (power % 3)) / 3) <= FormatList.length - 1)) {
-            return ((Decimal.round(matissa * Decimal.pow(10, power % 3) * Decimal.pow(10, places)) / Decimal.pow(10, places)).toFixed(places) + " " + FormatList[(power - (power % 3)) / 3]);
+        if ((notation === "Standard")) {
+            if (power <= 303) return ((Decimal.round(matissa * Decimal.pow(10, power % 3) * Decimal.pow(10, places)) / Decimal.pow(10, places)).toFixed(places) + " " + FormatList[(power - (power % 3)) / 3]);
+            else return (Decimal.round(matissa * Decimal.pow(10, power % 3) * Decimal.pow(10, places)) / Decimal.pow(10, places)).toFixed(places) + " " + getAbbreviation(power)
         } else if (notation === "Scientific") {
             return ((Decimal.round(matissa * Decimal.pow(10, places)) / Decimal.pow(10, places)).toFixed(places) + "e" + power);
         } else if (notation === "Engineering") {
@@ -630,6 +662,7 @@ function softReset() {
         achPow: player.achPow,
 	      newsArray: player.newsArray,
         autobuyers: player.autobuyers,
+        costMultipliers: [new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15)],
         chall2Pow: player.chall2Pow,
         chall3Pow: new Decimal(0.01),
         matter: 0,
@@ -724,13 +757,14 @@ function canBuyTickSpeed() {
 function getTickSpeedMultiplier() {
     let baseMultiplier = 0.9;
     if (player.currentChallenge == "challenge6") baseMultiplier = 0.93
-    let perGalaxy = 0.02;
+    let perGalaxy = 0.97777;
+    total = Decimal.pow(0.97777, player.galaxies)
     
     if (player.infinityUpgrades.includes("galaxyBoost")) {
-        perGalaxy += 0.02;
+        total = Decimal.pow(total, player.galaxies)
     }
     
-    return baseMultiplier - (player.galaxies * perGalaxy);
+    return baseMultiplier*total;
 }
 
 function buyTickSpeed() {
@@ -745,6 +779,7 @@ function buyTickSpeed() {
     player.money = player.money.minus(player.tickSpeedCost);
     if (player.currentChallenge != "challenge5") player.tickSpeedCost = player.tickSpeedCost.times(10);
     else multiplySameCosts(player.tickSpeedCost)
+    if (player.money.gte(Number.MAX_VALUE)) player.tickSpeedCost = player.tickSpeedCost.times(10);
     if (player.currentChallenge == "challenge2") player.chall2Pow = 0
     player.tickspeed = player.tickspeed.times(getTickSpeedMultiplier());
     
@@ -864,20 +899,11 @@ function clearDimensions(amount) {
 
 
 function getDimensionCostMultiplier(tier) {
-    const multiplier = [
-        1e3,
-        1e4,
-        1e5,
-        1e6,
-        1e8,
-        1e10,
-        1e12,
-        1e15
-    ];
-	const multiplier2 = [1e3,5e3,1e4,1e4,2e4,2e4,4e4,4e4]
+
+	const multiplier2 = player.costMultipliers
     
     if (player.currentChallenge == "challenge10") return multiplier2[tier - 1];
-    else return multiplier[tier - 1];
+    else return player.costMultipliers[tier - 1];
 }
 
 function onBuyDimension(tier) {
@@ -896,6 +922,7 @@ function onBuyDimension(tier) {
         giveAchievement("The 9th Dimension is a lie");
     }
     
+
     updateCosts();
     updateMoney();
     updateDimensions();
@@ -942,7 +969,9 @@ function buyOneDimension(tier) {
         player[name + 'Bought'] = 0;
         player[name + 'Pow']  = player[name + 'Pow'].times(getDimensionPowerMultiplier(tier));
         if (player.currentChallenge != "challenge5" ) player[name + 'Cost'] = player[name + 'Cost'].times(getDimensionCostMultiplier(tier));
+        
         else multiplySameCosts(cost);
+        if (cost.gte(Number.MAX_VALUE)) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(10)
     }
 
     if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
@@ -992,7 +1021,7 @@ function buyManyDimension(tier) {
     player[name + 'Pow']  = player[name + 'Pow'].times(getDimensionPowerMultiplier(tier));
     if (player.currentChallenge != "challenge5" ) player[name + 'Cost'] = player[name + 'Cost'].times(getDimensionCostMultiplier(tier));
     else multiplySameCosts(player[name + 'Cost']);  
-    
+    if (cost.gte(Number.MAX_VALUE)) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(10)
     if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
     if (player.currentChallenge == "challenge8") clearDimensions(tier-1)
 
@@ -1567,6 +1596,7 @@ document.getElementById("secondSoftReset").onclick = function () {
             achPow: player.achPow,
 	        newsArray: player.newsArray,
             autobuyers: player.autobuyers,
+            costMultipliers: [new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15)],
             chall2Pow: player.chall2Pow,
             chall3Pow: new Decimal(0.01),
             matter: 0,
@@ -2102,6 +2132,7 @@ document.getElementById("bigcrunch").onclick = function () {
           lastUpdate: player.lastUpdate,
           achPow: player.achPow,
           autobuyers: player.autobuyers,
+          costMultipliers: [new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15)],
           chall2Pow: 1,
           chall3Pow: new Decimal(0.01),
           newsArray: player.newsArray,
@@ -2215,6 +2246,7 @@ function startChallenge(name) {
       lastUpdate: player.lastUpdate,
       achPow: player.achPow,
       autobuyers: player.autobuyers,
+      costMultipliers: [new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15)],
       chall2Pow: 1,
       chall3Pow: new Decimal(0.01),
       matter: 0,
@@ -2484,8 +2516,8 @@ setInterval(function () {
     if (player.infinityUpgrades.includes("resetMult")) document.getElementById("infi33").className = "infinistorebtnbought"
     if (player.infinityUpgrades.includes("passiveGen")) document.getElementById("infi34").className = "infinistorebtnbought"
 
-    document.getElementById("progressbar").style.width = (Decimal.log10(player.money.plus(1)) / Decimal.log10(Number.MAX_VALUE) * 100).toFixed(2) + "%"
-    document.getElementById("progressbar").innerHTML = (Decimal.log10(player.money.plus(1)) / Decimal.log10(Number.MAX_VALUE) * 100).toFixed(2) + "%"
+    document.getElementById("progressbar").style.width = Decimal.min((Decimal.log10(player.money.plus(1)) / Decimal.log10(Number.MAX_VALUE) * 100), 100).toFixed(2) + "%"
+    document.getElementById("progressbar").innerHTML = Decimal.min((Decimal.log10(player.money.plus(1)) / Decimal.log10(Number.MAX_VALUE) * 100), 100).toFixed(2) + "%"
 
 
 
