@@ -281,7 +281,7 @@ function formatValue(notation, value, places, placesUnder1000) {
         var power = Decimal.floor(Decimal.log10(value));
         if (isDecimal(value)) {
             power = value.e
-            matissa = parseFloat(value.toExponential(2).split("e")[0])
+            matissa = parseFloat(value.toExponential(4).split("e")[0])
         }
         if ((notation === "Standard") && (((power - (power % 3)) / 3) <= FormatList.length - 1)) {
             return ((Decimal.round(matissa * Decimal.pow(10, power % 3) * Decimal.pow(10, places)) / Decimal.pow(10, places)).toFixed(places) + " " + FormatList[(power - (power % 3)) / 3]);
