@@ -455,8 +455,10 @@ function updateDimensions() {
     } else {
         document.getElementById("bestInfinity").innerHTML = "Your fastest infinity is in " + timeDisplay(player.bestInfinityTime) + "."
         document.getElementById("thisInfinity").innerHTML = "You have spent " + timeDisplay(player.thisInfinityTime) + " in this infinity."
-        document.getElementById("infinityPoints").innerHTML = "You have  " + player.infinityPoints + " Infinity points."
-        document.getElementById("infinitied").innerHTML = "You have infinitied " + player.infinitied + " times."
+	    if (player.infinityPoints == 1) document.getElementById("infinityPoints").innerHTML = "You have 1 Infinity point."
+        else document.getElementById("infinityPoints").innerHTML = "You have  " + player.infinityPoints + " Infinity points."
+        if (player.infinitied == 1) document.getElementById("infinitied").innerHTML = "You have infinitied 1 time."
+        else document.getElementById("infinitied").innerHTML = "You have infinitied " + player.infinitied + " times."
     }
     document.getElementById("infi11").innerHTML = "Production increase over time <br>Currently: " + (Math.pow(0.5 * player.totalTimePlayed / 600, 0.15)).toFixed(2) + "x<br>Cost: 1 IP"
     document.getElementById("infi12").innerHTML = "First and Eighth Dimension power <br>" + dimMults().toFixed(2) + "x<br>Cost: 1 IP"
