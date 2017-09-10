@@ -159,7 +159,7 @@ function load_game() {
     if (player.matter === undefined) player.matter = 0
     if (player.autobuyers === undefined) player.autobuyers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     if (player.partInfinityPoint === undefined) player.partInfinityPoint = 0
-    if (player.break === undefined) player.break = true
+    if (player.break === undefined) player.break = false
     if (player.secondAmount !== 0) {
         document.getElementById("thirdRow").style.display = "table-row";
         document.getElementById("tickSpeed").style.visibility = "visible";
@@ -1726,6 +1726,18 @@ document.getElementById("reset").onclick = function () {
         updateAutobuyers();
     }
 };
+
+
+function breakInfinity() {
+    if (player.break) {
+        player.break = false
+        document.getElementById("break").innerHTML = "BREAK INFINITY"
+    } else {
+        player.break = true
+        document.getElementById("break").innerHTML = "FIX INFINITY"
+    }
+}
+
 
 function setAchieveTooltip() {
     var apocAchieve = document.getElementById("Antimatter Apocalypse");
