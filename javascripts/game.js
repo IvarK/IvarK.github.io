@@ -1796,9 +1796,9 @@ function updateAutobuyers() {
     document.getElementById("intervalInf").innerHTML = "Current interval: " + (player.autobuyers[11].interval/1000).toFixed(1) + " seconds";
 
     var maxedAutobuy = 0;
-    for (let tier = 0; tier <= 7; ++tier) {
+    for (let tier = 1; tier <= 8; ++tier) {
         document.getElementById("toggleBtn" + tier).style.display = "inline-block";
-        if (player.autobuyers[8].interval <= 100) document.getElementById("buyerBtn" + tier).innerHTML = "x2 bulk purchase<br>Cost: " + player.autobuyers[tier].cost + " points"
+        if (player.autobuyers[tier-1].interval <= 100) document.getElementById("buyerBtn" + tier).innerHTML = "x2 bulk purchase<br>Cost: " + player.autobuyers[tier].cost + " points"
         else document.getElementById("buyerBtn" + tier).innerHTML = "40% smaller interval <br>Cost: " + player.autobuyers[tier].cost + " points"
     }
 
