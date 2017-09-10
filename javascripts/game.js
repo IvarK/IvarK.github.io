@@ -55,6 +55,7 @@ var player = {
     lastUpdate: new Date().getTime(),
     autobuyers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     costMultipliers: [new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15)],
+    tickspeedMultiplier: new Decimal(10),
     chall2Pow: 1,
     chall3Pow: new Decimal(0.01),
     matter: 0,
@@ -240,6 +241,7 @@ function transformSaveToDecimal() {
     player.totalmoney = new Decimal(player.totalmoney)
     player.chall3Pow = new Decimal(player.chall3Pow)
     player.costMultipliers = [new Decimal(player.costMultipliers[0]), new Decimal(player.costMultipliers[1]), new Decimal(player.costMultipliers[2]), new Decimal(player.costMultipliers[3]), new Decimal(player.costMultipliers[4]), new Decimal(player.costMultipliers[5]), new Decimal(player.costMultipliers[6]), new Decimal(player.costMultipliers[7])]
+    player.tickspeedMultiplier = new Decimal(player.tickspeedMultiplier)
 }
 
 
@@ -565,7 +567,7 @@ function updateTickSpeed() {
     var exp = Decimal.floor(Decimal.log10(player.tickspeed));
     if (exp > 1) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Decimal.round(player.tickspeed);
     else {
-        document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Decimal.round(player.tickspeed.times(100 / Decimal.pow(10, exp))) + ' / ' + shorten(new Decimal(100).dividedBy(Decimal.pow(10, exp)));
+        document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Decimal.round(player.tickspeed.times(new Decimal(100).dividedBy(Decimal.pow(10, exp)))) + ' / ' + shorten(new Decimal(100).dividedBy(Decimal.pow(10, exp)));
     }
     if (player.tickspeed.lt(1e-28) && !player.achievements.includes("Faster than a potato")) giveAchievement("Faster than a potato");
 
@@ -663,6 +665,7 @@ function softReset() {
 	      newsArray: player.newsArray,
         autobuyers: player.autobuyers,
         costMultipliers: [new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15)],
+        tickspeedMultiplier: new Decimal(10),
         chall2Pow: player.chall2Pow,
         chall3Pow: new Decimal(0.01),
         matter: 0,
@@ -757,14 +760,13 @@ function canBuyTickSpeed() {
 function getTickSpeedMultiplier() {
     let baseMultiplier = 0.9;
     if (player.currentChallenge == "challenge6") baseMultiplier = 0.93
-    let perGalaxy = 0.97777;
-    total = Decimal.pow(0.97777, player.galaxies)
+    let perGalaxy = 0.02;
     
     if (player.infinityUpgrades.includes("galaxyBoost")) {
-        total = Decimal.pow(total, player.galaxies)
+        perGalaxy = 0.04
     }
     
-    return baseMultiplier*total;
+    return baseMultiplier-(player.galaxies*perGalaxy);
 }
 
 function buyTickSpeed() {
@@ -777,9 +779,9 @@ function buyTickSpeed() {
     }
     
     player.money = player.money.minus(player.tickSpeedCost);
-    if (player.currentChallenge != "challenge5") player.tickSpeedCost = player.tickSpeedCost.times(10);
+    if (player.currentChallenge != "challenge5") player.tickSpeedCost = player.tickSpeedCost.times(player.tickspeedMultiplier);
     else multiplySameCosts(player.tickSpeedCost)
-    if (player.money.gte(Number.MAX_VALUE)) player.tickSpeedCost = player.tickSpeedCost.times(10);
+    if (player.money.gte(Number.MAX_VALUE)) player.tickspeedMultiplier = player.tickspeedMultiplier.times(10);
     if (player.currentChallenge == "challenge2") player.chall2Pow = 0
     player.tickspeed = player.tickspeed.times(getTickSpeedMultiplier());
     
@@ -1597,6 +1599,7 @@ document.getElementById("secondSoftReset").onclick = function () {
 	        newsArray: player.newsArray,
             autobuyers: player.autobuyers,
             costMultipliers: [new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15)],
+            tickspeedMultiplier: new Decimal(10),
             chall2Pow: player.chall2Pow,
             chall3Pow: new Decimal(0.01),
             matter: 0,
@@ -2133,6 +2136,7 @@ document.getElementById("bigcrunch").onclick = function () {
           achPow: player.achPow,
           autobuyers: player.autobuyers,
           costMultipliers: [new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15)],
+          tickspeedMultiplier: new Decimal(10),
           chall2Pow: 1,
           chall3Pow: new Decimal(0.01),
           newsArray: player.newsArray,
@@ -2247,6 +2251,7 @@ function startChallenge(name) {
       achPow: player.achPow,
       autobuyers: player.autobuyers,
       costMultipliers: [new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15)],
+      tickspeedMultiplier: new Decimal(10),
       chall2Pow: 1,
       chall3Pow: new Decimal(0.01),
       matter: 0,
@@ -2801,13 +2806,6 @@ function init() {
         document.getElementById("game").style.display = "none";
     }
 
-    TIER_NAMES.forEach(function(name) {
-	var el = document.getElementById(name + "D");
-	el.addEventListener('animationEnd', function(){
-	el.style.removeProperty("animation");
-        el.style.removeProperty("-webkit-animation");
-    	}, false);
-    });
 }
 
 
