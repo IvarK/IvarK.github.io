@@ -158,7 +158,7 @@ function load_game() {
     if (player.matter === undefined) player.matter = 0
     if (player.autobuyers === undefined) player.autobuyers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     if (player.partInfinityPoint === undefined) player.partInfinityPoint = 0
-	if (player.version === undefined) player.version = 0,
+	if (player.version === undefined) player.version = 0
     if (player.secondAmount !== 0) {
         document.getElementById("thirdRow").style.display = "table-row";
         document.getElementById("tickSpeed").style.visibility = "visible";
