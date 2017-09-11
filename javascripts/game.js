@@ -2774,13 +2774,6 @@ function init() {
         document.getElementById("game").style.display = "none";
     }
 
-    TIER_NAMES.forEach(function(name) {
-	var el = document.getElementById(name + "D");
-	el.addEventListener('animationEnd', function(){
-	el.style.removeProperty("animation");
-        el.style.removeProperty("-webkit-animation");
-    	}, false);
-    });
 }
 
 
