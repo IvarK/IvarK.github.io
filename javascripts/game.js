@@ -62,6 +62,7 @@ var player = {
     chall11Pow: 1,
     partInfinityPoint: 0,
     break: true,
+    resetSkips: 0,
     options: {
         newsHidden: false,
         notation: "Standard",
@@ -1708,6 +1709,7 @@ document.getElementById("importbtn").onclick = function () {
     save_game();
     load_game();
     updateChallenges()
+    transformSaveToDecimal()
 };
 
 
