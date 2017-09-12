@@ -1810,7 +1810,7 @@ function breakInfinity() {
 }
 
 function gainedInfinityPoints() {
-    return Decimal.pow(10, Decimal.floor(Decimal.log10(player.money).dividedBy(308))-1)
+    return Decimal.floor(Decimal.pow(10, Decimal.log10(player.money).dividedBy(308)-1)).toNumber()
 }
 
 
@@ -2173,7 +2173,7 @@ document.getElementById("bigcrunch").onclick = function () {
       if (!player.achievements.includes("Zero Deaths") && player.galaxies == 0 && player.resets == 0) giveAchievement("Zero Deaths")
       if (player.currentChallenge == "challenge3" && player.thisInfinityTime <= 3000) giveAchievement("Many Deaths")
       if (player.currentChallenge == "challenge11" && player.thisInfinityTime <= 3000) giveAchievement("Gift from the Gods")
-      if (player.currentChallenge == "challenge5" && player.thisInfinityTime <= 3000) giveAchievement("Manual Worker")
+      if (player.currentChallenge == "challenge5" && player.thisInfinityTime <= 3000) giveAchievement("Is this hell?")
       if (player.currentChallenge != "" && !player.challenges.includes(player.currentChallenge)) {
       player.challenges.push(player.currentChallenge);
     }
@@ -2581,7 +2581,7 @@ setInterval(function () {
     updateCoinPerSec();
     updateDimensions();
     if (calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) > player.money) {
-	if(player.money > Decimal.pow(10,63) && !player.achievements.includes("Supersanic")) giveAchievement("Supersanic");
+	if(player.money.gt(Decimal.pow(10,63)) && !player.achievements.includes("Supersanic")) giveAchievement("Supersanic");
 	Marathon++;
 	if (Marathon >= 300 && !player.achievements.includes("Over in 30 seconds")) giveAchievement("Over in 30 seconds");
     } else {
