@@ -62,7 +62,6 @@ var player = {
     chall11Pow: 1,
     partInfinityPoint: 0,
     break: true,
-    resetSkips: 0,
     options: {
         newsHidden: false,
         notation: "Standard",
@@ -164,7 +163,6 @@ function load_game() {
     if (player.tickspeedMultiplier === undefined) player.tickspeedMultiplier = new Decimal(10)
     if (player.partInfinityPoint === undefined) player.partInfinityPoint = 0
     if (player.break === undefined) player.break = false
-    if (player.resetSkips === undefined) player.resetSkips = 0;
     if (player.secondAmount !== 0) {
         document.getElementById("thirdRow").style.display = "table-row";
         document.getElementById("tickSpeed").style.visibility = "visible";
@@ -281,14 +279,8 @@ function loadAutoBuyerSettings() {
         else document.getElementById("toggleBtn" + (i+1)).innerHTML = "Buys singles"
         
     }
-    var sel1 = document.getElementById("priority10")
-    var opts1 = sel1.options
-    for (var opt, j = 0; opt = opts1[j]; j++) {
-        if (opt.value == "" + player.autobuyers[9].priority) {
-          sel1.selectedIndex = j;
-          break;
-        }
-      }
+    document.getElementById("priority10").value = player.autobuyers[9].priority
+    document.getElementById("priority11").value = player.autobuyers[10].priority
 
 }
 
@@ -723,7 +715,7 @@ function softReset() {
         sixthPow: Decimal.max(Decimal.pow(2, player.resets - 4), 1),
         seventhPow: Decimal.max(Decimal.pow(2, player.resets - 5), 1),
         eightPow: Decimal.max(Decimal.pow(2, player.resets - 6), 1),
-        resets: player.resets + player.resetSkips,
+        resets: player.resets,
         galaxies: player.galaxies,
         tickDecrease: player.tickDecrease,
         totalmoney: player.totalmoney,
@@ -740,7 +732,6 @@ function softReset() {
         chall11Pow: 1,
         partInfinityPoint: player.partInfinityPoint,
         break: player.break,
-        resetSkips: player.resetSkips,
         options: {
             newsHidden: player.options.newsHidden,
             notation: player.options.notation,
@@ -756,6 +747,15 @@ function softReset() {
         player.sixthCost = new Decimal(2e4)
         player.seventhCost = new Decimal(2e5)
         player.eightCost = new Decimal(4e6)
+    }
+    if (player.resets == 0) {
+        if (player.infinityUpgrades.includes("skipReset1")) player.resets++;
+        if (player.infinityUpgrades.includes("skipReset2")) player.resets++;
+        if (player.infinityUpgrades.includes("skipReset3")) player.resets++;
+        if (player.infinityUpgrades.includes("skipResetGalaxy")) {
+            player.resets++;
+            if (player.galaxies == 0) player.galaxies = 1
+        }
     }
 
     player.firstPow = Decimal.pow(2, player.resets + 1)
@@ -1298,7 +1298,6 @@ function buyInfinityUpgrade(name, cost) {
         player.infinityPoints -= cost;
         return true
     } else return false
-    if (name.includes("skipReset")) player.resetSkips++;
 }
 
 function updateAchPow() {
@@ -1424,7 +1423,7 @@ document.getElementById("infi34").onclick = function() {
 }
 
 document.getElementById("infi41").onclick = function() {
-    buyInfinityUpgrade("skipReset1", 20)
+    buyInfinityUpgrade("skipReset1",20);
 }
 
 document.getElementById("infi42").onclick = function() {
@@ -1435,7 +1434,7 @@ document.getElementById("infi43").onclick = function() {
     if (player.infinityUpgrades.includes("skipReset2")) buyInfinityUpgrade("skipReset3", 80)
 }
 
-document.getElementById("infi41").onclick = function() {
+document.getElementById("infi44").onclick = function() {
     if (player.infinityUpgrades.includes("skipReset3")) buyInfinityUpgrade("skipResetGalaxy", 500)
 }
 
@@ -1637,7 +1636,6 @@ document.getElementById("secondSoftReset").onclick = function () {
             chall11Pow: 1,
             partInfinityPoint: player.partInfinityPoint,
             break: player.break,
-            resetSkips: player.resetSkips,
             options: {
                 newsHidden: player.options.newsHidden,
                 scientific: player.options.scientific,
@@ -1656,6 +1654,40 @@ document.getElementById("secondSoftReset").onclick = function () {
             player.seventhCost = new Decimal(2e5)
             player.eightCost = new Decimal(4e6)
         }
+
+        if (player.resets == 0) {
+            if (player.infinityUpgrades.includes("skipReset1")) player.resets++;
+            if (player.infinityUpgrades.includes("skipReset2")) player.resets++;
+            if (player.infinityUpgrades.includes("skipReset3")) player.resets++;
+            if (player.infinityUpgrades.includes("skipResetGalaxy")) {
+                player.resets++;
+                if (player.galaxies == 0) player.galaxies = 1
+            }
+        }
+    
+        player.firstPow = Decimal.pow(2, player.resets + 1)
+        player.secondPow = Decimal.pow(2, player.resets)
+        player.thirdPow = Decimal.max(Decimal.pow(2, player.resets - 1), 1)
+        player.fourthPow = Decimal.max(Decimal.pow(2, player.resets - 2), 1)
+        player.fifthPow = Decimal.max(Decimal.pow(2, player.resets - 3), 1)
+        player.sixthPow = Decimal.max(Decimal.pow(2, player.resets - 4), 1)
+        player.seventhPow = Decimal.max(Decimal.pow(2, player.resets - 5), 1)
+        player.eightPow = Decimal.max(Decimal.pow(2, player.resets - 6), 1)
+    
+    
+        if (player.infinityUpgrades.includes("resetMult")) {
+            player.firstPow = Decimal.pow(2.5, player.resets + 1)
+            player.secondPow = Decimal.pow(2.5, player.resets)
+            player.thirdPow = Decimal.max(Decimal.pow(2.5, player.resets - 1), 1)
+            player.fourthPow = Decimal.max(Decimal.pow(2.5, player.resets - 2), 1)
+            player.fifthPow = Decimal.max(Decimal.pow(2.5, player.resets - 3), 1)
+            player.sixthPow = Decimal.max(Decimal.pow(2.5, player.resets - 4), 1)
+            player.seventhPow = Decimal.max(Decimal.pow(2.5, player.resets - 5), 1)
+            player.eightPow = Decimal.max(Decimal.pow(2.5, player.resets - 6), 1)
+        }
+
+
+
 	if (clickBuffer != 0) clickBuffer -= 1;
         else noclick = 0;
         if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
@@ -2189,7 +2221,7 @@ document.getElementById("bigcrunch").onclick = function () {
           infinityPoints: player.infinityPoints + 1,
           infinitied: player.infinitied + 1,
           totalTimePlayed: player.totalTimePlayed,
-          bestInfinityTime: Decimal.min(player.bestInfinityTime, player.thisInfinityTime),
+          bestInfinityTime: Math.min(player.bestInfinityTime, player.thisInfinityTime),
           thisInfinityTime: 0,
           resets: 0,
           galaxies: 0,
@@ -2208,7 +2240,6 @@ document.getElementById("bigcrunch").onclick = function () {
           chall11Pow: 1,
           partInfinityPoint: player.partInfinityPoint,
           break: player.break,
-          resetSkips: player.resetSkips,
           options: {
               newsHidden: player.options.newsHidden,
               scientific: player.options.scientific,
@@ -2218,6 +2249,38 @@ document.getElementById("bigcrunch").onclick = function () {
               logoVisible: player.options.logoVisible
           }
       };
+
+      if (player.resets == 0) {
+        if (player.infinityUpgrades.includes("skipReset1")) player.resets++;
+        if (player.infinityUpgrades.includes("skipReset2")) player.resets++;
+        if (player.infinityUpgrades.includes("skipReset3")) player.resets++;
+        if (player.infinityUpgrades.includes("skipResetGalaxy")) {
+            player.resets++;
+            if (player.galaxies == 0) player.galaxies = 1
+        }
+    }
+  
+      player.firstPow = Decimal.pow(2, player.resets + 1)
+      player.secondPow = Decimal.pow(2, player.resets)
+      player.thirdPow = Decimal.max(Decimal.pow(2, player.resets - 1), 1)
+      player.fourthPow = Decimal.max(Decimal.pow(2, player.resets - 2), 1)
+      player.fifthPow = Decimal.max(Decimal.pow(2, player.resets - 3), 1)
+      player.sixthPow = Decimal.max(Decimal.pow(2, player.resets - 4), 1)
+      player.seventhPow = Decimal.max(Decimal.pow(2, player.resets - 5), 1)
+      player.eightPow = Decimal.max(Decimal.pow(2, player.resets - 6), 1)
+  
+  
+      if (player.infinityUpgrades.includes("resetMult")) {
+          player.firstPow = Decimal.pow(2.5, player.resets + 1)
+          player.secondPow = Decimal.pow(2.5, player.resets)
+          player.thirdPow = Decimal.max(Decimal.pow(2.5, player.resets - 1), 1)
+          player.fourthPow = Decimal.max(Decimal.pow(2.5, player.resets - 2), 1)
+          player.fifthPow = Decimal.max(Decimal.pow(2.5, player.resets - 3), 1)
+          player.sixthPow = Decimal.max(Decimal.pow(2.5, player.resets - 4), 1)
+          player.seventhPow = Decimal.max(Decimal.pow(2.5, player.resets - 5), 1)
+          player.eightPow = Decimal.max(Decimal.pow(2.5, player.resets - 6), 1)
+      }
+
       if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
       if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.98);
       updateCosts();
@@ -2238,9 +2301,9 @@ document.getElementById("bigcrunch").onclick = function () {
       document.getElementById("matter").style.visibility = "hidden";
       document.getElementById("quickReset").style.display = "none";
       updateTickSpeed();
-      showTab("dimensions")
+      if (player.bestInfinityTime > 600) showTab("dimensions")
       kongregate.stats.submit('Infinitied', player.infinitied);
-      kongregate.stats.submit('Fastest Infinity time', Decimal.floor(player.bestInfinityTime / 10))
+      kongregate.stats.submit('Fastest Infinity time', Math.floor(player.bestInfinityTime / 10))
       if (!player.achievements.includes("To infinity!")) giveAchievement("To infinity!");
       if (!player.achievements.includes("That's a lot of infinites") && player.infinitied >= 10) giveAchievement("That's a lot of infinites");
       if (player.infinitied >= 1 && !player.challenges.includes("challenge1")) player.challenges.push("challenge1");
@@ -2330,7 +2393,6 @@ function startChallenge(name) {
       chall11Pow: 1,
       partInfinityPoint: player.partInfinityPoint,
       break: player.break,
-      resetSkips: player.resetSkips,
       options: {
         newsHidden: player.options.newsHidden,
 	    notation: player.options.notation,
@@ -2375,7 +2437,7 @@ function startChallenge(name) {
     if (player.challenges.includes("challenge1")) player.money = new Decimal(100)
     showTab("dimensions")
     kongregate.stats.submit('Infinitied', player.infinitied);
-    kongregate.stats.submit('Fastest Infinity time', Decimal.floor(player.bestInfinityTime / 10))
+    kongregate.stats.submit('Fastest Infinity time', Math.floor(player.bestInfinityTime / 10))
     
     giveAchievement("To infinity!");
     if (player.infinitied >= 10) giveAchievement("That's a lot of infinites");
@@ -2511,7 +2573,8 @@ setInterval(function () {
     player.thisInfinityTime += diff
     if (player.money.gte(Number.MAX_VALUE) && (!player.break || player.currentChallenge != "")) {
         document.getElementById("bigcrunch").style.display = 'inline-block';
-        showTab('emptiness');
+    if ((player.break || player.currentChallenge == "") || player.bestInfinityTime <= 600) {}
+    else showTab('emptiness');
     } else document.getElementById("bigcrunch").style.display = 'none';
 
     updateMoney();
@@ -2572,6 +2635,14 @@ setInterval(function () {
         else document.getElementById("infi33").className = "infinistorebtnlocked"
         if (player.infinityUpgrades.includes("resetMult") && player.infinityPoints >= 10) document.getElementById("infi34").className = "infinistorebtn3"
         else document.getElementById("infi34").className = "infinistorebtnlocked"
+        if (player.infinityPoints >= 20) document.getElementById("infi41").className = "infinistorebtn4"
+        else document.getElementById("infi41").className = "infinistorebtnlocked"
+        if (player.infinityUpgrades.includes("skipReset1") && player.infinityPoints >= 40) document.getElementById("infi42").className = "infinistorebtn4"
+        else document.getElementById("infi42").className = "infinistorebtnlocked"
+        if (player.infinityUpgrades.includes("skipReset2") && player.infinityPoints >= 80) document.getElementById("infi43").className = "infinistorebtn4"
+        else document.getElementById("infi43").className = "infinistorebtnlocked"
+        if (player.infinityUpgrades.includes("skipReset3") && player.infinityPoints >= 500) document.getElementById("infi44").className = "infinistorebtn4"
+        else document.getElementById("infi44").className = "infinistorebtnlocked"
     } else {
         document.getElementById("infinitybtn").style.display = "none";
         document.getElementById("challengesbtn").style.display = "none";
@@ -2636,6 +2707,10 @@ setInterval(function () {
     if (player.infinityUpgrades.includes("unspentBonus")) document.getElementById("infi32").className = "infinistorebtnbought"
     if (player.infinityUpgrades.includes("resetMult")) document.getElementById("infi33").className = "infinistorebtnbought"
     if (player.infinityUpgrades.includes("passiveGen")) document.getElementById("infi34").className = "infinistorebtnbought"
+    if (player.infinityUpgrades.includes("skipReset1")) document.getElementById("infi41").className = "infinistorebtnbought"
+    if (player.infinityUpgrades.includes("skipReset2")) document.getElementById("infi42").className = "infinistorebtnbought"
+    if (player.infinityUpgrades.includes("skipReset3")) document.getElementById("infi43").className = "infinistorebtnbought"
+    if (player.infinityUpgrades.includes("skipResetGalaxy")) document.getElementById("infi44").className = "infinistorebtnbought"
 
     document.getElementById("progressbar").style.width = Decimal.min((Decimal.log10(player.money.plus(1)) / Decimal.log10(Number.MAX_VALUE) * 100), 100).toFixed(2) + "%"
     document.getElementById("progressbar").innerHTML = Decimal.min((Decimal.log10(player.money.plus(1)) / Decimal.log10(Number.MAX_VALUE) * 100), 100).toFixed(2) + "%"
