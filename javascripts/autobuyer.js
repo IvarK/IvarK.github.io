@@ -6,6 +6,7 @@ class Autobuyer {
     this.priority = 15;
     this.ticks = 0;
     this.isOn = false;
+    this.bulk = 1;
     this.tier = 10
   }
 
