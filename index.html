@@ -247,6 +247,7 @@
             <div id="bestInfinity">Your fastest infinity is in x.</div>
             <div id="thisInfinity">You have spent x in this Infinity.</div>
             <div id="totalTime">You have played for </div>
+            <div id="infoScale">If every antimatter were a planck volume, you would have enough to </div>
         </div>
 
         <div id="achievements" class="tab">
@@ -355,6 +356,32 @@
                     </td>
                     <td>
                         <div id="AntiChallenged" class="achievement achievementlocked" style="background-image: url(images/32.png)" ach-tooltip="Complete all the challenges"><br></div>
+                    </td>
+                </tr>
+                <tr id="achRow5">
+                    <td>
+                        <div id="Paid Holiday" class="achievement achievementlocked" style="background-image: url(images/cage.png)" ach-tooltip="Complete an infinity in a single session without manually clicking any buy buttons or resets."><br></div>
+                    </td>
+                    <td>
+                        <div id="Age of Automation" class="achievement achievementlocked" style="background-image: url(images/cage.png)" ach-tooltip="Max any 9 autobuyers."><br></div>
+                    </td>
+                    <td>
+                        <div id="Definitely not worth it" class="achievement achievementlocked" style="background-image: url(images/cage.png)" ach-tooltip="Max all the autobuyers."><br></div>
+                    </td>
+                    <td>
+                        <div id="That's faster!" class="achievement achievementlocked" style="background-image: url(images/cage.png)" ach-tooltip="Infinity in 10 minutes or less."><br></div>
+                    </td>
+                    <td>
+                        <div id="Forever isn't that long" class="achievement achievementlocked" style="background-image: url(images/cage.png)" ach-tooltip="Infinity in 1 minute or less."><br></div>
+                    </td>
+                    <td>
+                        <div id="Many Deaths" class="achievement achievementlocked" style="background-image: url(images/cage.png)" ach-tooltip="Complete the Third Dimension Autobuyer challenge in 5 minutes or less."><br></div>
+                    </td>
+                    <td>
+                        <div id="Gift from the Gods" class="achievement achievementlocked" style="background-image: url(images/cage.png)" ach-tooltip="Complete the Eighth Dimension Autobuyer challenge in 5 minutes or less."><br></div>
+                    </td>
+                    <td>
+                        <div id="Is this hell?" class="achievement achievementlocked" style="background-image: url(images/cage.png)" ach-tooltip="Complete the Tickspeed Autobuyer challenge in 5 minutes or less."><br></div>
                     </td>
                 </tr>
             </table>
@@ -549,7 +576,13 @@
     </table>
           </div>
         
-        <div id="infinity" class="tab" alight="center">
+        <div id="infinity" class="tab" align="center">
+            <br>
+            <tr>
+                <td><button class="secondarytabbtn" onclick="showInfTab('preinf')">Upgrades</button><td>
+                <td><button class="secondarytabbtn" onclick="showInfTab('autobuyers')">Autobuyers</button><td>
+            </tr>
+            <div id="preinf" class="inftab">
             <br>
             <div id="infinityPoints" style="color: black; font-size: 140%; width: 25%; margin: 0 auto">You have made x Infinity points.</div>
             <br>
@@ -616,8 +649,10 @@
                     </td>
                 </tr>
             </table>
+        </div>
             
-
+        <div id="autobuyers" class="inftab">
+            <br>
             <table class="table" style="margin: 0 auto">
                 <button class="storebtn" id="toggleautobuyers" style="font-size: 100%; width: 150px; height: 50px;" onclick="toggleAutoBuyers()">Enable/disable autobuyers</button>
                 <tr>
@@ -842,6 +877,7 @@
                                     <div style="font-size: 80%"id="intervalDimBoost">Current interval: 30 seconds</div>
                                     <span style="font-size: 80%">Max 8ths used on reset:</span>
                                     <select onchange="updatePriorities()" id="priority10">
+                                    <option value="20">10</option>
                                     <option value="20">20</option>
                                     <option value="30">30</option>
                                     <option value="40">40</option>
@@ -854,6 +890,7 @@
                                     <option value="140">140</option>
                                     <option value="160">160</option>
                                     <option value="180">180</option>
+                                    <option value="inf">∞</option>
                                     </select>
                                     <br>
                                     <span style="font-size: 80%">Is active</span>
@@ -889,6 +926,7 @@
                    
                 </tr>
             </table>
+        </div>
         </div>
         <tr>
             <td>
