@@ -6,7 +6,8 @@ class Autobuyer {
     this.priority = 15;
     this.ticks = 0;
     this.isOn = false;
-    this.tier = 10
+    this.tier = 1;
+    this.buyOne = true;
   }
 
 }

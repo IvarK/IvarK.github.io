@@ -176,6 +176,9 @@ function load_game() {
         if (player.autobuyers[i]%1 !== 0 && player.autobuyers[i].tier === undefined) {
             player.autobuyers[i].tier = i+1
         }
+        if (player.autobuyers[i]%1 !== 0 && player.autobuyers[i].buyOne === undefined) {
+            player.autobuyers[i].buyOne = true
+        }
     }
     if (player.autobuyers[8].tier == 10) player.autobuyers[8].tier = 9
     if (player.thirdAmount !== 0) document.getElementById("fourthRow").style.display = "table-row";
@@ -2045,15 +2048,6 @@ function updateAutobuyers() {
 
 }
 
-function loadAutoBuyers() {
-    const tiers = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight", "tickSpeed", "softReset", "secondSoftReset", "bigcrunch"];
-    for (var i=0; i<12; i++) {
-        if (player.autobuyers[i]%1 !== 0 ) {
-            player.autobuyers[i].target = document.getElementById(tiers[i])
-        }
-    }
-    
-}
 
 function autoBuyerArray() {
     var tempArray = []
