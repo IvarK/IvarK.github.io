@@ -158,8 +158,10 @@ function load_game() {
     if (player.challenges === undefined) player.challenges = []
     if (player.currentChallenge === undefined) player.currentChallenge = ""
 	if (player.infinitied > 0 && !player.challenges.includes("challenge1")) player.challenges.push("challenge1")
-    if (player.matter === undefined) player.matter = 0
+    if (player.matter === undefined) player.matter = new Decimal(0)
     if (player.autobuyers === undefined) player.autobuyers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    if (player.costMultipliers === undefined) player.costMultipliers = [new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15)]
+    if (player.tickspeedMultiplier === undefined) player.tickspeedMultiplier = new Decimal(10)
     if (player.partInfinityPoint === undefined) player.partInfinityPoint = 0
     if (player.break === undefined) player.break = false
     if (player.secondAmount !== 0) {
@@ -185,7 +187,7 @@ function load_game() {
         if (player.resets > 2 && player.currentChallenge !== "challenge4") document.getElementById("seventhRow").style.display = "table-row";
     if (player.seventhAmount !== 0)
         if (player.resets > 3) document.getElementById("eightRow").style.display = "table-row";
-    transformSaveToDecimal()
+    transformSaveToDecimal();
     updateCosts();
     updateTickSpeed();
     updateAchPow();
@@ -1069,12 +1071,12 @@ function glowText(id) {
 
 document.getElementById("second").onclick = function () {
     buyOneDimension(2);
-    if (player.currentChallenge == "challenge12" && player.matter == 0) player.matter = new Decimal(1);
+    if (player.currentChallenge == "challenge12" && player.matter.equals(0)) player.matter = new Decimal(1);
 };
 
 document.getElementById("third").onclick = function () {
     buyOneDimension(3);
-    if (player.currentChallenge == "challenge12" && player.matter == 0)player.matter = new Decimal(1);
+    if (player.currentChallenge == "challenge12" && player.matter.equals(0))player.matter = new Decimal(1);
 };
 
 document.getElementById("fourth").onclick = function () {
@@ -2395,6 +2397,7 @@ setInterval(function () {
     var diff = Decimal.min(thisUpdate - player.lastUpdate, 21600000);
     diff = diff / 100;
     if (diff < 0) diff = 1;
+
     player.matter = player.matter.times(Decimal.pow((1.02 + player.resets/200 + player.galaxies/100), diff))
     if (player.matter.gt(player.money) && player.currentChallenge == "challenge12") {
         if (player.resets == 0) player.resets--;
@@ -2405,7 +2408,7 @@ setInterval(function () {
     player.chall2Pow = Math.min(player.chall2Pow + diff/1800, 1)
 
 
-    if (diff > 100) {
+   /* if (diff > 100) {
         for (var i=0; i< diff; i++) {
             if (player.infinityUpgrades.includes("passiveGen")) player.partInfinityPoint += 1 / player.bestInfinityTime;
             if (player.partInfinityPoint >= 10) {
@@ -2416,31 +2419,31 @@ setInterval(function () {
                 for (let tier = 7; tier >= 1; --tier) {
                     const name = TIER_NAMES[tier];
                     
-                    player[name + 'Amount'] = player[name + 'Amount'].plus(getDimensionProductionPerSecond(tier + 1).times(diff / 100));
-        }
+                    player[name + 'Amount'] = player[name + 'Amount'].plus(getDimensionProductionPerSecond(tier + 1).times(1 / 100));
+                }
     } else {
         for (let tier = 6; tier >= 1; --tier) {
             const name = TIER_NAMES[tier];
             
-            player[name + 'Amount'] = player[name + 'Amount'].plus(getDimensionProductionPerSecond(tier + 2).times(diff / 100));
+            player[name + 'Amount'] = player[name + 'Amount'].plus(getDimensionProductionPerSecond(tier + 2).times(1 / 100));
         }
     }
             
             if (player.money.lte(Number.MAX_VALUE) || player.break) {
       if (player.currentChallenge == "challenge3") {
-        player.money = player.money.plus(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).times(diff/10).times(player.chall3Pow));
-        player.totalmoney = player.totalmoney.plus(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).times(diff/10).times(player.chall3Pow));
+        player.money = player.money.plus(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).times(1/10).times(player.chall3Pow));
+        player.totalmoney = player.totalmoney.plus(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).times(1/10).times(player.chall3Pow));
       } else {
-        player.money = player.money.plus(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).times(diff/10));
-        player.totalmoney = player.totalmoney.plus(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).times(diff/10));
+        player.money = player.money.plus(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).times(1/10));
+        player.totalmoney = player.totalmoney.plus(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).times(1/10));
       }
       if (player.currentChallenge == "challenge7") {
-          player.money = player.money.plus(getDimensionProductionPerSecond(2))
-          player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(2))
+          player.money = player.money.plus(getDimensionProductionPerSecond(2).times(1/10))
+          player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(2).times(1/10))
       }
-    }
+            }
         }
-    } else {
+    } else {*/
         if (player.infinityUpgrades.includes("passiveGen")) player.partInfinityPoint += diff / player.bestInfinityTime;
         if (player.partInfinityPoint >= 10) {
             player.partInfinityPoint -= 10;
@@ -2469,9 +2472,9 @@ setInterval(function () {
         player.totalmoney = player.totalmoney.plus(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).times(diff/10));
       }
       if (player.currentChallenge == "challenge7") {
-          player.money = player.money.plus(getDimensionProductionPerSecond(2))
-          player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(2))
-      }
+          player.money = player.money.plus(getDimensionProductionPerSecond(2).times(diff/10))
+          player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(2).times(diff/10))
+      
     }
     }
     player.totalTimePlayed += diff
