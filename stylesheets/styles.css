@@ -142,6 +142,25 @@
     background: #5AC467;
 }
 
+.infinimultbtn {
+    color: #B02424;
+    background: #1F1F1F;
+    font-weight: bold;
+    font-size:  65%;
+    border: 1px solid #17B3B5;
+    width: 190px;
+    height: 85px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: Typewriter;
+}
+
+.infinimultbtn:hover {
+    color: #000;
+    background: #E0D8E0;
+}
+
 .infinistorebtn1 {
     color: white;
     background: #1F1F1F;
