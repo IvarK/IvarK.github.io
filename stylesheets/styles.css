@@ -388,6 +388,29 @@
 }
 
 
+.crunchbtn {
+    background: #E0E0E0;
+    font-weight: bold;
+    border: 2px solid #4980CC;
+    border-radius: 4px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    position: relative;
+    top: 50%;
+    left: 40%;
+}
+
+.crunchbtn:hover {
+    color: #FFFFFF;
+    background: #4980CC;
+    font-weight: bold;
+    border: 2px solid #4980CC;
+    border-radius: 4px;
+
+}
+
+
+
 
 #progress {
     width: 100%;
