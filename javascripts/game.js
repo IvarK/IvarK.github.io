@@ -355,11 +355,12 @@ function getAbbreviation(e) {
 function formatValue(notation, value, places, placesUnder1000) {
 
     if ((value <= Number.MAX_VALUE || player.break) && (value >= 1000)) {
-        var matissa = value / Decimal.pow(10, Decimal.floor(Decimal.log10(value)));
-        var power = Decimal.floor(Decimal.log10(value));
         if (isDecimal(value)) {
-            power = value.e
-            matissa = parseFloat(value.toExponential(4).split("e")[0])
+           var power = value.e
+           var matissa = parseFloat(value.toExponential(4).split("e")[0])
+        } else {
+            var matissa = value / Decimal.pow(10, Decimal.floor(Decimal.log10(value)));
+            var power = Decimal.floor(Decimal.log10(value));
         }
         if ((notation === "Standard")) {
             if (power <= 303) return ((Decimal.round(matissa * Decimal.pow(10, power % 3) * Decimal.pow(10, places)) / Decimal.pow(10, places)).toFixed(places) + " " + FormatList[(power - (power % 3)) / 3]);
@@ -398,12 +399,12 @@ function updateMoney() {
 function updateCoinPerSec() {
     var element = document.getElementById("coinsPerSec");
     if (player.currentChallenge == "challenge3") {
-      element.innerHTML = 'You are getting ' + shortenDimensions(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).times(player.chall3Pow)) + ' antimatter per second.';
+      element.innerHTML = 'You are getting ' + shortenDimensions(getDimensionProductionPerSecond(1)).times(player.chall3Pow) + ' antimatter per second.';
     } else if (player.currentChallenge == "challenge7") {
-      element.innerHTML = 'You are getting ' + shortenDimensions(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) + 
+      element.innerHTML = 'You are getting ' + (shortenDimensions(getDimensionProductionPerSecond(1)) + 
 			  calcPerSec(player.secondAmount.pow(1.5), player.secondPow.pow(1.7).times(10), player.infinityUpgrades.includes("27Mult"))) + ' antimatter per second.';
     } else {
-      element.innerHTML = 'You are getting ' + shortenDimensions(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult"))) + ' antimatter per second.';
+      element.innerHTML = 'You are getting ' + shortenDimensions(getDimensionProductionPerSecond(1)) + ' antimatter per second.';
     }
 }
 
@@ -1070,7 +1071,7 @@ function buyOneDimension(tier) {
         if (player.currentChallenge != "challenge5" ) player[name + 'Cost'].e += (getDimensionCostMultiplier(tier)).e;
         
         else multiplySameCosts(cost);
-        if (cost.gte(Number.MAX_VALUE)) player.costMultipliers[tier-1].e += 1
+        if (cost.gte(Number.MAX_VALUE)) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(10)
     }
 
     if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
@@ -1121,7 +1122,7 @@ function buyManyDimension(tier) {
     player[name + 'Pow']  = player[name + 'Pow'].times(getDimensionPowerMultiplier(tier));
     if (player.currentChallenge != "challenge5" ) player[name + 'Cost'] = player[name + 'Cost'].times((getDimensionCostMultiplier(tier)));
     else multiplySameCosts(player[name + 'Cost']);  
-    if (cost.gte(Number.MAX_VALUE)) player.costMultipliers[tier-1].e += 1
+    if (cost.gte(Number.MAX_VALUE)) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(10)
     if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
     if (player.currentChallenge == "challenge8") clearDimensions(tier-1)
 
@@ -1297,10 +1298,13 @@ document.getElementById("maxall").onclick = function () {
                 player.money = player.money.minus(player[name + "Cost"].times(10))
                 player[name + "Cost"] = player[name + "Cost"].times(player.costMultipliers[tier-1])
                 if (player[name + "Cost"].gte(Number.MAX_VALUE)) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(10)
+                player[name + "Amount"] = player[name + "Amount"].plus(10)
+                player[name + "Pow"] = player[name + "Pow"].times(getDimensionPowerMultiplier(tier))
                 i++;
             }
-            player[name + "Amount"] = player[name + "Amount"].plus(10*i)
-            player[name + "Pow"] = player[name + "Pow"].times(Decimal.pow(getDimensionPowerMultiplier(tier), i))
+            console.log("Tier: "+tier+" i: "+i+" ")
+            
+            
             onBuyDimension(tier);
         }
         }
@@ -2137,6 +2141,7 @@ function updateAutobuyers() {
     for (var i=1; i<=12; i++) {
         player.autobuyers[i-1].isOn = document.getElementById(i + "ison").checked;
     }
+    priorityOrder()
 }
 
 
@@ -2167,6 +2172,9 @@ function autoBuyerArray() {
 }
 
 
+var priority = []
+
+
 function priorityOrder() {
     var tempArray = []
     var i = 1;
@@ -2177,7 +2185,7 @@ function priorityOrder() {
         }
         i++;
     } 
-    return tempArray;
+    priority = tempArray;
 }
 
 
@@ -2187,6 +2195,7 @@ function updatePriorities() {
     }
     player.autobuyers[9].priority = parseInt(document.getElementById("priority10").value)
     player.autobuyers[10].priority = parseInt(document.getElementById("priority11").value)
+    priorityOrder()
 }
 
 function updateCheckBoxes() {
@@ -2542,6 +2551,11 @@ document.getElementById("quickReset").onclick = function () {
 
 var index = 0;
 
+
+
+
+
+
 setInterval(function () {
     var thisUpdate = new Date().getTime();
     if (thisUpdate - player.lastUpdate >= 21600000) giveAchievement("Don't you dare to sleep")
@@ -2616,11 +2630,11 @@ setInterval(function () {
         
         if (player.money.lte(Number.MAX_VALUE) || player.break) {
       if (player.currentChallenge == "challenge3") {
-        player.money = player.money.plus(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).times(diff/10).times(player.chall3Pow));
-        player.totalmoney = player.totalmoney.plus(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).times(diff/10).times(player.chall3Pow));
+        player.money = player.money.plus(getDimensionProductionPerSecond(1).times(diff/10).times(player.chall3Pow));
+        player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(1).times(diff/10).times(player.chall3Pow));
       } else {
-        player.money = player.money.plus(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).times(diff/10));
-        player.totalmoney = player.totalmoney.plus(calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).times(diff/10));
+        player.money = player.money.plus(getDimensionProductionPerSecond(1).times(diff/10));
+        player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(1).times(diff/10));
       }
       if (player.currentChallenge == "challenge7") {
           player.money = player.money.plus(getDimensionProductionPerSecond(2).times(diff/10))
@@ -2861,24 +2875,24 @@ setInterval(function () {
                 } 
             } else player.autobuyers[9].ticks += 1;
         }
-        for (var i=0; i<priorityOrder().length; i++) {
-            if (priorityOrder()[i].ticks*100 >= priorityOrder()[i].interval || priorityOrder()[i].interval == 100) {
-                if (priorityOrder()[i].isOn && canBuyDimension(priorityOrder()[i].tier)) {
+        for (var i=0; i<priority.length; i++) {
+            if (priority[i].ticks*100 >= priority[i].interval || priority[i].interval == 100) {
+                if (priority[i].isOn && canBuyDimension(priority[i].tier)) {
                     clickBuffer++;
-                    if (priorityOrder()[i] == player.autobuyers[8]) {
-                        if (priorityOrder()[i].target == 10) buyMaxTickSpeed()
+                    if (priority[i] == player.autobuyers[8]) {
+                        if (priority[i].target == 10) buyMaxTickSpeed()
                         else buyTickSpeed()
                     } else {
-                        if (priorityOrder()[i].target > 10) {
-                            for (var j=0; j<priorityOrder()[i].bulk; j++) {
-                                buyManyDimension(priorityOrder()[i].target-10)
+                        if (priority[i].target > 10) {
+                            for (var j=0; j<priority[i].bulk; j++) {
+                                buyManyDimension(priority[i].target-10)
                             }
                         }
-                        else buyOneDimension(priorityOrder()[i].target)
+                        else buyOneDimension(priority[i].target)
                     }
-                    priorityOrder()[i].ticks = 0;
+                    priority[i].ticks = 0;
                 }
-            } else priorityOrder()[i].ticks += 1;
+            } else priority[i].ticks += 1;
         }
     }
 
