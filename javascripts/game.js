@@ -64,7 +64,7 @@ var player = {
     break: true,
     challengeTimes: [600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31],
     infMult: 1,
-    infMultCost: 1000,
+    infMultCost: 100,
     options: {
         newsHidden: false,
         notation: "Standard",
@@ -168,7 +168,7 @@ function load_game() {
     if (player.challengeTimes === undefined) player.challengeTimes = [600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31]
     if (player.break === undefined) player.break = false
     if (player.infMult === undefined) player.infMult = 1
-    if (player.infMultCost === undefined) player.infMultCost = 1000
+    if (player.infMultCost === undefined) player.infMultCost = 100
     if (player.secondAmount !== 0) {
         document.getElementById("thirdRow").style.display = "table-row";
         document.getElementById("tickSpeed").style.visibility = "visible";
@@ -613,7 +613,7 @@ function updateDimensions() {
         document.getElementById("bestInfinity").innerHTML = "Your fastest infinity is in " + timeDisplay(player.bestInfinityTime) + "."
         document.getElementById("thisInfinity").innerHTML = "You have spent " + timeDisplay(player.thisInfinityTime) + " in this infinity."
 	    if (player.infinityPoints == 1) document.getElementById("infinityPoints").innerHTML = "You have 1 Infinity point."
-        else document.getElementById("infinityPoints").innerHTML = "You have  " + player.infinityPoints + " Infinity points."
+        else document.getElementById("infinityPoints").innerHTML = "You have  " + shortenDimensions(player.infinityPoints) + " Infinity points."
         if (player.infinitied == 1) document.getElementById("infinitied").innerHTML = "You have infinitied 1 time."
         else document.getElementById("infinitied").innerHTML = "You have infinitied " + player.infinitied + " times."
 
@@ -3098,17 +3098,6 @@ setInterval(function () {
 
     
 
-
-
-
-
-    index++;
-    player.lastUpdate = thisUpdate;
-}, 100);
-
-
-
-setInterval(function() {
     if (player.money.gte(Number.MAX_VALUE)) {
         if (player.autobuyers[11]%1 !== 0) {
             if (player.autobuyers[11].ticks*100 >= player.autobuyers[11].interval) {
@@ -3126,7 +3115,7 @@ setInterval(function() {
     }
     
         if (player.autobuyers[10]%1 !== 0) {
-            if (player.autobuyers[10].ticks*100 >= player.autobuyers[10].interval && player.autobuyers[10].priority >= player.galaxies) {
+            if (player.autobuyers[10].ticks*100 >= player.autobuyers[10].interval && player.autobuyers[10].priority > player.galaxies) {
                 if (player.autobuyers[10].isOn) {
                     document.getElementById("secondSoftReset").click()
                     player.autobuyers[10].ticks = 0;
@@ -3141,6 +3130,16 @@ setInterval(function() {
                 } 
             } else player.autobuyers[9].ticks += 5;
         }
+
+
+
+    index++;
+    player.lastUpdate = thisUpdate;
+}, 100);
+
+
+
+setInterval(function() {
         for (var i=0; i<priority.length; i++) {
             if (priority[i].ticks*100 >= priority[i].interval || priority[i].interval == 100) {
                 if (priority[i].isOn && canBuyDimension(priority[i].tier)) {
