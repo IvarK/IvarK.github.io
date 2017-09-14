@@ -61,7 +61,7 @@ var player = {
     matter: new Decimal(0),
     chall11Pow: 1,
     partInfinityPoint: 0,
-    break: true,
+    break: false,
     challengeTimes: [600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31],
     infMult: 1,
     infMultCost: 100,
