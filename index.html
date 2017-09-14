@@ -31,7 +31,7 @@
 </head>
 
 <body id="body">
-    <div class="container" style="color:#4F5957; font-family: Typewriter; text-align:center; font-size: 1.7vh">
+    <div class="container" style="color:#4F5957; font-family: Typewriter; text-align:center; font-size: 13px">
         <img id="logoanimation" src="animation.gif">
         <div id="logodiv" class="logo">
             <img id="logotxt" src="ADlogo.png" style="height:150px">
@@ -40,15 +40,15 @@
         <canvas id="game" height="30px"></canvas>
         <div id="matter"></div>
         <div>
-            <p>You have <span id="coinAmount" style="font-size:180%; color: black">0</span> antimatter.</p>
+            <p>You have <span id="coinAmount" style="font-size:35px; color: black">0</span> antimatter.</p>
         </div>
         <div style="position: relative"><button id="postInfinityButton" class="postinfcrunch">Big Crunch for x Infinity Points</button></div>
         <div id="coinsPerSec">You are getting 0 antimatter per second.</div>
         
         <tr id="tickSpeedRow" style="visibility: hidden">
             <div id="tickLabel" style="visibility: hidden">Make the game 10% faster.</div>
-            <button id="tickSpeed" style="color:black; visibility: hidden; height: 30px; font-size: 70%" class="storebtn">Cost: 1000</button>
-            <button id="tickSpeedMax" onclick="buyMaxTickSpeed()" style="color:black; visibility: hidden; height: 30px; font-size: 80%" class="storebtn">Buy Max</button>
+            <button id="tickSpeed" style="color:black; visibility: hidden; height: 30px; font-size: 12px" class="storebtn">Cost: 1000</button>
+            <button id="tickSpeedMax" onclick="buyMaxTickSpeed()" style="color:black; visibility: hidden; height: 30px; font-size: 12px" class="storebtn">Buy Max</button>
             <div id="tickSpeedAmount" style="visibility: hidden">Tickspeed: 1000</div>
         </tr>
         <p></p>
@@ -56,12 +56,12 @@
             <button id="bigcrunch" style="font-family: Typewriter; font-size: 240%;" class="tabbtn">Big Crunch</button>
         </div>
         <div>
-            <button id="dimensionsbtn" style="font-family: Typewriter; font-size: 180%" class="tabbtn">Dimensions</button>
-            <button id="optionsbtn" style="font-family: Typewriter; font-size: 180%" class="tabbtn">Options</button>
-            <button id="statisticsbtn" style="font-family: Typewriter; font-size: 180%" class="tabbtn">Statistics</button>
-            <button id="achievementsbtn" style="font-family: Typewriter; font-size: 180%" class="tabbtn">Achievements</button>
-            <button id="challengesbtn" style="font-family: Typewriter; font-size: 180%" class="tabbtn">Challenges</button>
-            <button id="infinitybtn" style="font-family: Typewriter; font-size: 180%" class="infinitybtn">Infinity</button>
+            <button id="dimensionsbtn" style="font-family: Typewriter; font-size: 25px" class="tabbtn">Dimensions</button>
+            <button id="optionsbtn" style="font-family: Typewriter; font-size: 25px" class="tabbtn">Options</button>
+            <button id="statisticsbtn" style="font-family: Typewriter; font-size: 25px" class="tabbtn">Statistics</button>
+            <button id="achievementsbtn" style="font-family: Typewriter; font-size: 25px" class="tabbtn">Achievements</button>
+            <button id="challengesbtn" style="font-family: Typewriter; font-size: 25px" class="tabbtn">Challenges</button>
+            <button id="infinitybtn" style="font-family: Typewriter; font-size: 25px" class="infinitybtn">Infinity</button>
         </div>
         <div id="emptiness" class="tab" style="font-size: 150%">
             <br> The world has collapsed on itself due to excess of antimatter.
@@ -71,13 +71,13 @@
         <div id="dimensions" class="tab">
             <p></p>
             <input id="confirmation" type="checkbox" style="width:20px; height:20px; display: none" ach-tooltip="No confirmation when doing Dimensional Sacrifice">
-            <button id="sacrifice" class="storebtn" style="font-size:80%; width: 200px; display: none" ach-tooltip="">Dimensional Sacrifice</button>
-            <button id="maxall" class="storebtn" style="font-size: 80%">Max all</Button>
+            <button id="sacrifice" class="storebtn" style="font-size:12px; width: 260px; display: none" ach-tooltip="">Dimensional Sacrifice</button>
+            <button id="maxall" class="storebtn" style="font-size: 12px">Max all</Button>
             <span id="chall2Pow"></span>
             <span id="chall3Pow"></span>
             <table class="table" >
             <tbody id="parent">
-                <tr style="font-size: 135%" id="firstRow">
+                <tr style="font-size: 20px" id="firstRow">
                     <td id="firstD" width="32%">
                         First Dimension x1
                     </td>
@@ -91,7 +91,7 @@
                         <button id="firstMax" style="color:black; width:195px; height:35px" class="storebtn" align="right">Cost: 10</button>
                     </td>
                 </tr>
-                <tr id="secondRow" style="display: none; font-size: 135%">
+                <tr id="secondRow" style="display: none; font-size: 20px">
                     <td id="secondD">
                         Second Dimension
                     </td>
@@ -104,7 +104,7 @@
                         <button id="secondMax" style="color:black; width:195px; height:35px" class="storebtn">Cost: 10</button>
                     </td>
                 </tr>
-                <tr id="thirdRow" style="display: none; font-size: 135%">
+                <tr id="thirdRow" style="display: none; font-size: 20px">
                     <td id="thirdD">
                         Third Dimension
                     </td>
@@ -118,7 +118,7 @@
                         <button id="thirdMax" style="color:black; width:195px; height:35px" class="storebtn">Cost: 10</button>
                     </td>
                 </tr>
-                <tr id="fourthRow" style="display: none; font-size: 135%">
+                <tr id="fourthRow" style="display: none; font-size: 20px">
                     <td id="fourthD">
                         Fourth Dimension
                     </td>
@@ -132,7 +132,7 @@
                         <button id="fourthMax" style="color:black; width:195px; height:35px" class="storebtn">Cost: 10</button>
                     </td>
                 </tr>
-                <tr id="fifthRow" style="display: none; font-size: 135%">
+                <tr id="fifthRow" style="display: none; font-size: 20px">
                     <td id="fifthD">
                         Fifth Dimension
                     </td>
@@ -146,7 +146,7 @@
                         <button id="fifthMax" style="color:black; width:195px; height:35px" class="storebtn">Cost: 10</button>
                     </td>
                 </tr>
-                <tr id="sixthRow" style="display: none; font-size: 135%">
+                <tr id="sixthRow" style="display: none; font-size: 20px">
                     <td id="sixthD">
                         Sixth Dimension
                     </td>
@@ -160,7 +160,7 @@
                         <button id="sixthMax" style="color:black; width:195px; height:35px" class="storebtn">Cost: 10</button>
                     </td>
                 </tr>
-                <tr id="seventhRow" style="display: none; font-size: 135%">
+                <tr id="seventhRow" style="display: none; font-size: 20px">
                     <td id="seventhD">
                         Seventh Dimension
                     </td>
@@ -174,7 +174,7 @@
                         <button id="seventhMax" style="color:black; width:195px; height:35px" class="storebtn">Cost: 10</button>
                     </td>
                 </tr>
-                <tr id="eightRow" style="display: none; font-size: 135%">
+                <tr id="eightRow" style="display: none; font-size: 20px">
                     <td id="eightD">
                         Eight Dimension
                     </td>
@@ -192,24 +192,24 @@
                 </body>
             </table>
             <table style="width: 100%">
-                <tr style="font-size: 145%">
+                <tr style="font-size: 20px">
                     <td id="resetLabel">
                         Dimension Shift: requires 20 Fourth Dimension
                     </td>
                     <td>
-                        <button id="softReset" style="color:black; width: 200px; height: 45px; font-size: 50%" class="storebtn">Reset the game for a new Dimension</button>
+                        <button id="softReset" style="color:black; width: 200px; height: 45px; font-size: 10px" class="storebtn">Reset the game for a new Dimension</button>
                     </td>
                 </tr>
-                <tr style="font-size: 145%">
+                <tr style="font-size: 20px">
                     <td id="secondResetLabel">
                         Antimatter Galaxies: requires 80 Eight Dimension
                     </td>
                     <td>
-                        <button id="secondSoftReset" style="color:black; width: 200px; height: 50px; font-size: 45%" class="storebtn">Lose all your previous progress, but get a tickspeed boost</button>
+                        <button id="secondSoftReset" style="color:black; width: 200px; height: 50px; font-size: 10px" class="storebtn">Lose all your previous progress, but get a tickspeed boost</button>
                     </td>
                 </tr>
             </table>
-            <button id="quickReset" style="color:black; width: 200px; height: 50px; font-size: 80%; display: none" class="storebtn">Lose a reset, returning to the start of the reset</button>
+            <button id="quickReset" style="color:black; width: 200px; height: 50px; font-size: 12px; display: none" class="storebtn">Lose a reset, returning to the start of the reset</button>
             <div id="progress" ach-tooltip="Percentage until Infinity">
                 <div id="progressbar"></div>
             </div>
@@ -218,24 +218,24 @@
             <br>
             <table>
                 <tr>
-                    <td><div><button id="animation" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:130%">Enable/Disable animations</button></div></td>
-                    <td><div><button id="exportbtn" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:130%">Export</button></div></td>
+                    <td><div><button id="animation" class="storebtn" style="color:black; width: 200px; height: 55px; font-size: 20px">Enable/Disable animations</button></div></td>
+                    <td><div><button id="exportbtn" class="storebtn" style="color:black; width: 200px; height: 55px; font-size: 20px">Export</button></div></td>
                 </tr>
                 <tr>
-                    <td><div><button id="logo" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:130%">Hide the logo</button></div></td>
-                    <td><div><button id="importbtn" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:130%">Import</button></div></td>
+                    <td><div><button id="logo" class="storebtn" style="color:black; width: 200px; height: 55px; font-size: 20px">Hide the logo</button></div></td>
+                    <td><div><button id="importbtn" class="storebtn" style="color:black; width: 200px; height: 55px; font-size: 20px">Import</button></div></td>
                 </tr>
                 <tr>
                     <td><div><button id="notation" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:120%">Notation: Standard</button></div></td>
-                    <td><div><button id="save" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:130%">Save</button></div></td>
+                    <td><div><button id="save" class="storebtn" style="color:black; width: 200px; height: 55px; font-size: 20px">Save</button></div></td>
                 </tr>
                 <tr>
-                    <td><div><button id="invert" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:130%">Invert colors</button></div></td>
+                    <td><div><button id="invert" class="storebtn" style="color:black; width: 200px; height: 55px; font-size: 20px">Invert colors</button></div></td>
                     <td><div style="display: none;"><textarea id="exportOutput" style="color:black; width: 200px; height: 55px;"></textarea></div></td>
                 </tr>
                 <tr>
                     <td><div><button id="newsbtn" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:120%">Hide the news</button></div></td>
-                    <td><div><button id="reset" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:130%">RESET THE GAME</button></div></td>
+                    <td><div><button id="reset" class="storebtn" style="color:black; width: 200px; height: 55px; font-size: 20px">RESET THE GAME</button></div></td>
                 </tr>
             </table>
         </div>
