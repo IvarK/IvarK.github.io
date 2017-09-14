@@ -605,7 +605,7 @@
             <tr>
                 <td><button class="secondarytabbtn" onclick="showInfTab('preinf')">Upgrades</button><td>
                 <td><button class="secondarytabbtn" onclick="showInfTab('autobuyers')">Autobuyers</button><td>
-                <td><button id="postinf" class="secondarytabbtn" onclick="showInfTab('postinf')" style="display:none">Break Infinity</button><td>
+                <td><button id="postinfbtn" class="secondarytabbtn" onclick="showInfTab('postinf')">Break Infinity</button><td>
             </tr>
             <div id="preinf" class="inftab">
             <br>
@@ -934,9 +934,10 @@
         </div>
         <div id="postinf" class="inftab" align="center">
             <br>
+            <div id="abletobreak">You need to get Automated Big Crunch interval to 0.1 to be able to break infinity</div>
                 <button  id="break" class="infinistorebtn2" onclick="breakInfinity()">BREAK INFINITY</button>
                 <br>
-                <table class="table" style="margin: 0 auto">
+                <table id="postinftable" class="table" style="margin: 0 auto">
                     <tr>
                         <td>
                             <button id="postinfi11" class="infinistorebtn1">Production based on total antimatter produced <br>Currently:<br>Cost: 10 K IP</button>

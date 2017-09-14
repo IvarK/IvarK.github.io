@@ -2036,6 +2036,7 @@ document.getElementById("reset").onclick = function () {
 
 
 function breakInfinity() {
+    if (player.autobuyers[11]%1 === 0 || player.autobuyers[11].interval>100) return false
     if (player.break) {
         player.break = false
         document.getElementById("break").innerHTML = "BREAK INFINITY"
@@ -2975,6 +2976,10 @@ setInterval(function () {
         else document.getElementById("postinfi42").className = "infinistorebtnlocked"
     }
 
+    if (player.autobuyers[11]%1 === 0 || player.autobuyers[11].interval>100) document.getElementById("break").className = "infinistorebtnlocked"
+    else document.getElementById("break").className = "infinistorebtn2"
+
+
     if (player.resets > 4) {
         document.getElementById("confirmation").style.display = "inline-block";
         document.getElementById("sacrifice").style.display = "inline-block";
@@ -2984,8 +2989,10 @@ setInterval(function () {
     }
 
     if (player.autobuyers[11]%1 !== 0 && player.autobuyers[11].interval == 100) {
-        document.getElementById("postinf").style.display = "inline-block"
-    } else document.getElementById("postinf").style.display = "none"
+        document.getElementById("postinftable").style.display = "inline-block"
+    } else document.getElementById("postinftable").style.display = "none"
+
+    if (player.autobuyers[11].interval == 100) document.getElementById("abletobreak").style.display = "none"
 
 
     if (player.money.gte(Number.MAX_VALUE) && (!player.break || player.currentChallenge != "") && player.bestInfinityTime > 600) {
