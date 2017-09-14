@@ -325,6 +325,28 @@
 }
 
 
+.postinfcrunch {
+    background: #E0E0E0;
+    font-weight: bold;
+    border: 2px solid #4980CC;
+    border-radius: 4px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    position: absolute;
+    left: 80%;
+    width: 200px;
+    height: 60px;
+}
+
+.postinfcrunch:hover {
+    color: #FFFFFF;
+    background: #4980CC;
+    font-weight: bold;
+    border: 2px solid #4980CC;
+    border-radius: 4px;
+}
+
+
 
 .infinitybtn {
     color: #FFFFFF;
