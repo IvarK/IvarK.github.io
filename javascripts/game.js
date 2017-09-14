@@ -63,6 +63,7 @@ var player = {
     partInfinityPoint: 0,
     break: false,
     challengeTimes: [600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31],
+    lastTenRuns: [[600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1]],
     infMult: 1,
     infMultCost: 100,
     options: {
@@ -166,7 +167,7 @@ function load_game() {
     if (player.tickspeedMultiplier === undefined) player.tickspeedMultiplier = new Decimal(10)
     if (player.partInfinityPoint === undefined) player.partInfinityPoint = 0
     if (player.challengeTimes === undefined) player.challengeTimes = [600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31]
-    if (player.break === undefined) player.break = false
+    if (player.lastTenRuns === undefined) player.lastTenRuns = [[600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1]]
     if (player.infMult === undefined) player.infMult = 1
     if (player.infMultCost === undefined) player.infMultCost = 100
     if (player.secondAmount !== 0) {
@@ -208,6 +209,7 @@ function load_game() {
     updateCheckBoxes();
     updateAutobuyers();
     loadAutoBuyerSettings();
+    updateLastTenRuns()
     if (player.currentChallenge == "challenge12" || player.currentChallenge == "challenge9" || player.currentChallenge == "challenge5") document.getElementById("quickReset").style.display = "inline-block";
     else document.getElementById("quickReset").style.display = "none";
  
@@ -769,6 +771,7 @@ function softReset() {
         partInfinityPoint: player.partInfinityPoint,
         break: player.break,
         challengeTimes: player.challengeTimes,
+        lastTenRuns: player.lastTenRuns,
         infMult: player.infMult,
         infMultCost: player.infMultCost,
         options: {
@@ -1873,6 +1876,7 @@ document.getElementById("secondSoftReset").onclick = function () {
             partInfinityPoint: player.partInfinityPoint,
             break: player.break,
             challengeTimes: player.challengeTimes,
+            lastTenRuns: player.lastTenRuns,
             infMult: player.infMult,
             infMultCost: player.infMultCost,
             options: {
@@ -2423,10 +2427,21 @@ function updateChallengeTimes() {
     updateWorstChallengeTime();
 }
 
+function updateLastTenRuns() {
+    for (var i=0; i<10; i++) {
+        document.getElementById("run"+(i+1)).innerHTML = "The infinity "+(i+1)+" infinity ago took " + timeDisplayShort(player.lastTenRuns[i][0]) + " and gave " + player.lastTenRuns[i][1] +" IP. "+ shorten(player.lastTenRuns[i][1]/(player.lastTenRuns[i][0]/600))+ " IP/min"
+    }
+}
+
 
 document.getElementById("postInfinityButton").onclick = function() {document.getElementById("bigcrunch").click()}
 
-
+function addTime(time, ip) {
+    for (var i=player.lastTenRuns.length-1; i>0; i--) {
+        player.lastTenRuns[i] = player.lastTenRuns[i-1]
+    }
+    player.lastTenRuns[0] = [time, ip]
+}
 
 
 document.getElementById("bigcrunch").onclick = function () {
@@ -2445,11 +2460,14 @@ document.getElementById("bigcrunch").onclick = function () {
       if (player.currentChallenge != "" && player.challengeTimes[challNumber-2] > player.thisInfinityTime) player.challengeTimes[challNumber-2] = player.thisInfinityTime
       if (player.currentChallenge != "" && !player.challenges.includes(player.currentChallenge)) {
       player.challenges.push(player.currentChallenge);
-      
         }
-        if (!player.break) player.infinityPoints += player.infMult;
+        if (!player.break) {
+            player.infinityPoints += player.infMult;
+            addTime(player.thisInfinityTime, player.infMult)
+        }
         else {
           player.infinityPoints += gainedInfinityPoints()
+          addTime(player.thisInfinityTime, gainedInfinityPoints())
         }
         if ((player.bestInfinityTime > 600 && !player.break) || player.currentChallenge != "") showTab("dimensions")
       player = {
@@ -2516,6 +2534,7 @@ document.getElementById("bigcrunch").onclick = function () {
         partInfinityPoint: player.partInfinityPoint,
         break: player.break,
         challengeTimes: player.challengeTimes,
+        lastTenRuns: player.lastTenRuns,
         infMult: player.infMult,
         infMultCost: player.infMultCost,
         options: {
@@ -2598,6 +2617,7 @@ document.getElementById("bigcrunch").onclick = function () {
   }
   updateChallenges();
   updateChallengeTimes()
+  updateLastTenRuns()
   
 }
 
@@ -2674,6 +2694,7 @@ function startChallenge(name) {
       partInfinityPoint: player.partInfinityPoint,
       break: player.break,
       challengeTimes: player.challengeTimes,
+      lastTenRuns: player.lastTenRuns,
       infMult: player.infMult,
       infMultCost: player.infMultCost,
       options: {
