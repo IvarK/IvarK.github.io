@@ -2275,10 +2275,10 @@ function updateAutobuyers() {
     for (let tier = 1; tier <= 8; ++tier) {
         document.getElementById("toggleBtn" + tier).style.display = "inline-block";
         if (player.autobuyers[tier-1].interval <= 100) {
-            document.getElementById("buyerBtn" + tier).innerHTML = "x2 bulk purchase<br>Cost: " + player.autobuyers[tier-1].cost + " points"
+            document.getElementById("buyerBtn" + tier).innerHTML = "x2 bulk purchase<br>Cost: " + player.autobuyers[tier-1].cost + " IP"
             maxedAutobuy++;
         }
-        else document.getElementById("buyerBtn" + tier).innerHTML = "40% smaller interval <br>Cost: " + player.autobuyers[tier-1].cost + " points"
+        else document.getElementById("buyerBtn" + tier).innerHTML = "40% smaller interval <br>Cost: " + player.autobuyers[tier-1].cost + " IP"
 
     }
 
@@ -2302,10 +2302,10 @@ function updateAutobuyers() {
     if (maxedAutobuy >= 9) giveAchievement("Age of Automation");
     if (maxedAutobuy >= 12) giveAchievement("Definitely not worth it");
 
-    document.getElementById("buyerBtnTickSpeed").innerHTML = "40% smaller interval <br>Cost: " + player.autobuyers[8].cost + " points"
-    document.getElementById("buyerBtnDimBoost").innerHTML = "40% smaller interval <br>Cost: " + player.autobuyers[9].cost + " points"
-    document.getElementById("buyerBtnGalaxies").innerHTML = "40% smaller interval <br>Cost: " + player.autobuyers[10].cost + " points"
-    document.getElementById("buyerBtnInf").innerHTML = "40% smaller interval <br>Cost: " + player.autobuyers[11].cost + " points"
+    document.getElementById("buyerBtnTickSpeed").innerHTML = "40% smaller interval <br>Cost: " + player.autobuyers[8].cost + " IP"
+    document.getElementById("buyerBtnDimBoost").innerHTML = "40% smaller interval <br>Cost: " + player.autobuyers[9].cost + " IP"
+    document.getElementById("buyerBtnGalaxies").innerHTML = "40% smaller interval <br>Cost: " + player.autobuyers[10].cost + " IP"
+    document.getElementById("buyerBtnInf").innerHTML = "40% smaller interval <br>Cost: " + player.autobuyers[11].cost + " IP"
 
 
     for (var i=0; i<8; i++) {
