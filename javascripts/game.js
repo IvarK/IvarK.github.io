@@ -436,8 +436,8 @@ function getDimensionFinalMultiplier(tier) {
     }
     multiplier = multiplier.times(player.achPow);
     
-    if (player.infinityUpgrades.includes("totalMult")) multiplier = multiplier.times(Decimal.pow(Decimal.log10(player.totalmoney+10), 0.25))
-    if (player.infinityUpgrades.includes("currentMult")) multiplier = multiplier.times(Decimal.pow(Decimal.log10(player.money+10), 0.25))
+    if (player.infinityUpgrades.includes("totalMult")) multiplier = multiplier.times(Decimal.pow(Decimal.log10(player.totalmoney.plus(10)), 0.25))
+    if (player.infinityUpgrades.includes("currentMult")) multiplier = multiplier.times(Decimal.pow(Decimal.log10(player.money.plus(10)), 0.25))
     if (player.infinityUpgrades.includes("infinitiedMult")) multiplier = multiplier.times(Decimal.log10(player.infinitied).times(3))
     if (player.infinityUpgrades.includes("achievementMult")) multiplier = multiplier.times(Math.max(Decimal.pow((player.achievements.length-30), 3).dividedBy(40),1))
     if (player.infinityUpgrades.includes("challengeMult")) multiplier = multiplier.times(Decimal.max(10*180000/worstChallengeTime, 1))
