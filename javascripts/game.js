@@ -1391,7 +1391,7 @@ document.getElementById("maxall").onclick = function () {
             }
 
             var i = 0
-            while (player.money.gt(player[name + "Cost"].times(10))) {
+            while (player.money.gte(player[name + "Cost"].times(10))) {
                 player.money = player.money.minus(player[name + "Cost"].times(10))
                 if (player.currentChallenge != "challenge5") player[name + "Cost"] = player[name + "Cost"].times(player.costMultipliers[tier-1])
                 else multiplySameCosts(player[name + 'Cost'])
