@@ -438,7 +438,8 @@ function getDimensionFinalMultiplier(tier) {
     
     if (player.infinityUpgrades.includes("totalMult")) multiplier = multiplier.times(Decimal.pow(Decimal.log10(player.totalmoney), 0.25))
     if (player.infinityUpgrades.includes("currentMult")) multiplier = multiplier.times(Decimal.pow(Decimal.log10(player.money), 0.25))
-    if (player.infinityUpgrades.includes("achievementMult")) multiplier = multiplier.times(Decimal.log10(player.infinitied).times(3))
+    if (player.infinityUpgrades.includes("infinitiedMult")) multiplier = multiplier.times(Decimal.log10(player.infinitied).times(3))
+    if (player.infinityUpgrades.includes("achievementMult")) multiplier = multiplier.times(Math.max(Decimal.pow((player.achievements.length-30), 3).dividedBy(40),1))
     if (player.infinityUpgrades.includes("challengeMult")) multiplier = multiplier.times(Decimal.max(10*180000/worstChallengeTime, 1))
 
     if (hasInfinityMult(tier)) multiplier = multiplier.times(dimMults());
@@ -1123,7 +1124,7 @@ function buyOneDimension(tier) {
     if (player[name + 'Bought'] === 10) {
         player[name + 'Bought'] = 0;
         player[name + 'Pow']  = player[name + 'Pow'].times(getDimensionPowerMultiplier(tier));
-        if (player.currentChallenge != "challenge5" ) player[name + 'Cost'].e += (getDimensionCostMultiplier(tier)).e;
+        if (player.currentChallenge != "challenge5" ) player[name + 'Cost'] = player[name + 'Cost'].times((getDimensionCostMultiplier(tier)));
         
         else multiplySameCosts(cost);
         if (cost.gte(Number.MAX_VALUE) && !player.infinityUpgrades.includes("dimCostMult")) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(10)
