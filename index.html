@@ -600,14 +600,14 @@
         
         <div id="infinity" class="tab" align="center">
             <br>
+            <div id="infinityPoints" style="color: black; font-size: 140%; width: 25%; margin: 0 auto">You have made x Infinity points.</div>
+            <br>
             <tr>
                 <td><button class="secondarytabbtn" onclick="showInfTab('preinf')">Upgrades</button><td>
                 <td><button class="secondarytabbtn" onclick="showInfTab('autobuyers')">Autobuyers</button><td>
                 <td><button id="postinf" class="secondarytabbtn" onclick="showInfTab('postinf')" style="display:none">Break Infinity</button><td>
             </tr>
             <div id="preinf" class="inftab">
-            <br>
-            <div id="infinityPoints" style="color: black; font-size: 140%; width: 25%; margin: 0 auto">You have made x Infinity points.</div>
             <br>
             <table class="table" style="margin: 0 auto">
                 <tr>
@@ -618,10 +618,10 @@
                         <button id="infi21" class="infinistorebtn2">Multiplier for 10 Dimensions <br>2x -> 2.2x<br>Cost: 1 IP</button>
                     </td>
                     <td>
-                        <button id="infi31" class="infinistorebtn2">Production increase over time in current infinity<br>Cost: 3 IP</button>
+                        <button id="infi31" class="infinistorebtn3">Production increase over time in current infinity<br>Cost: 3 IP</button>
                     </td>
                     <td>
-                        <button id="infi41" class="infinistorebtn2">You start with 5th dimension<br>Cost: 20 IP</button>
+                        <button id="infi41" class="infinistorebtn4">You start with 5th dimension<br>Cost: 20 IP</button>
                     </td>
                 </tr>
                 <tr>
@@ -632,10 +632,10 @@
                         <button id="infi22" class="infinistorebtn2">Second and Seventh Dimension power <br>xx</button>
                     </td>
                     <td>
-                        <button id="infi32" class="infinistorebtn2">Bonus per unspent Infinity Point <br>xx</button>
+                        <button id="infi32" class="infinistorebtn3">Bonus per unspent Infinity Point <br>xx</button>
                     </td>
                     <td>
-                        <button id="infi42" class="infinistorebtn2">You start with 6th dimension<br>Cost: 40 IP</button>
+                        <button id="infi42" class="infinistorebtn4">You start with 6th dimension<br>Cost: 40 IP</button>
                     </td>
                 </tr>
                 <tr>
@@ -646,10 +646,10 @@
                         <button id="infi23" class="infinistorebtn2">Fourth and Fifth Dimension power <br>xx</button>
                     </td>
                     <td>
-                        <button id="infi33" class="infinistorebtn2">Dimension Boost power <br>2x -> 2.5x<br>Cost: 7 IP</button>
+                        <button id="infi33" class="infinistorebtn3">Dimension Boost power <br>2x -> 2.5x<br>Cost: 7 IP</button>
                     </td>
                     <td>
-                        <button id="infi43" class="infinistorebtn2">You start with 7th dimension<br>Cost: 80 IP</button>
+                        <button id="infi43" class="infinistorebtn4">You start with 7th dimension<br>Cost: 80 IP</button>
                     </td>
                 </tr>
                 <tr>
@@ -660,10 +660,10 @@
                         <button id="infi24" class="infinistorebtn2">Antimatter Galaxies are twice as effective<br>Cost: 2 IP</button>
                     </td>
                     <td>
-                        <button id="infi34" class="infinistorebtn2">Infinity Point generation (based on fastest infinity) <br>xx</button>
+                        <button id="infi34" class="infinistorebtn3">Infinity Point generation (based on fastest infinity) <br>xx</button>
                     </td>
                     <td>
-                        <button id="infi44" class="infinistorebtn2">You start with 8th dimension and a Galaxy<br>Cost: 500 IP</button>
+                        <button id="infi44" class="infinistorebtn4">You start with 8th dimension and a Galaxy<br>Cost: 500 IP</button>
                     </td>
                 </tr>
                 <tr>
@@ -935,6 +935,38 @@
         <div id="postinf" class="inftab" align="center">
             <br>
                 <button  id="break" class="infinistorebtn2" onclick="breakInfinity()">BREAK INFINITY</button>
+                <br>
+                <table class="table" style="margin: 0 auto">
+                    <tr>
+                        <td>
+                            <button id="postinfi11" class="infinistorebtn1">Production based on total antimatter produced <br>Currently:<br>Cost: 10 K IP</button>
+                        </td>
+                        <td>
+                            <button id="postinfi21" class="infinistorebtn1">Production based on current antimatter<br>Currently: <br>Cost: 50 K IP</button>
+                        </td>
+                        <td>
+                            <button id="postinfi31" class="infinistorebtn1">Reduces cost multiplier increase on tickspeed<br>Cost: 300 K IP</button>
+                        </td>
+                        <td>
+                            <button id="postinfi41" class="infinistorebtn1">Power up all dimensions based on achievements completed<br>Cost: 1 M IP</button>
+                        </td>
+                    </tr>
+                    <tr>
+                            <td>
+                                <button id="postinfi12" class="infinistorebtn1">Increase the production of all dimensions by amount infinitied <br>Currently:<br>Cost: 100 K IP</button>
+                            </td>
+                            <td>
+                                <button id="postinfi22" class="infinistorebtn1">Double the power of Galaxies<br>Currently: <br>Cost: 500 K IP</button>
+                            </td>
+                            <td>
+                                <button id="postinfi32" class="infinistorebtn1">Increase the production of all dimensions based on slowest challenge run<br>Cost: 3 M IP</button>
+                            </td>
+                            <td>
+                                <button id="postinfi42" class="infinistorebtn1">Removes cost multiplier increase on Dimensions<br>Cost: 10 M IP</button>
+                            </td>
+                    </tr>
+
+                </table>
         </div>
         </div>
         <tr>

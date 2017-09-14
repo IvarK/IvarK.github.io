@@ -336,6 +336,7 @@
     left: 80%;
     width: 200px;
     height: 60px;
+    font-family: Typewriter;
 }
 
 .postinfcrunch:hover {
@@ -439,6 +440,7 @@
     position: relative;
     top: 50%;
     left: 40%;
+    
 }
 
 .crunchbtn:hover {
