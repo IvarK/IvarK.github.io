@@ -1487,6 +1487,18 @@ function updateAchPow() {
         document.getElementById("achRow4").className = "completedrow"
     }
 
+    if (player.achievements.includes("Limit Break") &&
+        player.achievements.includes("Age of Automation") &&
+        player.achievements.includes("Definitely not worth it") &&
+        player.achievements.includes("That's faster!") &&
+        player.achievements.includes("Forever isn't that long") &&
+        player.achievements.includes("Many Deaths") &&
+        player.achievements.includes("Gift from the Gods") &&
+        player.achievements.includes("Is this hell?")) {
+        amount += 1;
+        document.getElementById("achRow5").className = "completedrow"
+    }
+
     for (i = amount; i > 0; i--) {
         player.achPow = Decimal.pow(1.5, amount)
     }
@@ -1961,10 +1973,10 @@ function setAchieveTooltip() {
     var dimensional = document.getElementById("Multidimensional")
 
     apocAchieve.setAttribute('ach-tooltip', "Get over " + formatValue(player.options.notation, 1e80, 0, 0) + " antimatter");
-    noPointAchieve.setAttribute('ach-tooltip', "Buy a single First Dimension when you have over " + formatValue(player.options.notation, 1e150, 0, 0) + " of them");
-    forgotAchieve.setAttribute('ach-tooltip', "Get any Dimension multiplier over " + formatValue(player.options.notation, 1e31, 0, 0));
+    noPointAchieve.setAttribute('ach-tooltip', "Buy a single First Dimension when you have over " + formatValue(player.options.notation, 1e150, 0, 0) + " of them. Reward: First Dimensions are 10% stronger");
+    forgotAchieve.setAttribute('ach-tooltip', "Get any Dimension multiplier over " + formatValue(player.options.notation, 1e31, 0, 0)) + ". Reward: First Dimensions are 5% stronger";
     sanic.setAttribute('ach-tooltip', "Have antimatter/sec exceed your current antimatter above " + formatValue(player.options.notation, 1e63, 0, 0));
-    potato.setAttribute('ach-tooltip', "Get more than " + formatValue(player.options.notation, 1e28, 0, 0) + " ticks per second");
+    potato.setAttribute('ach-tooltip', "Get more than " + formatValue(player.options.notation, 1e28, 0, 0) + " ticks per second. Reward: Reduces starting tick interval by 2%");
     dimensional.setAttribute('ach-tooltip', "Reach " + formatValue(player.options.notation, 1e12, 0, 0) + " of all dimensions except 8th");
 }
 
