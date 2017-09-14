@@ -1187,44 +1187,65 @@ function buyManyDimension(tier) {
     return true;
 }
 
-function buyManyDimensionLite(tier) {
-    const name = TIER_NAMES[tier];
-    const cost = player[name + 'Cost'].times(10 - player[name + 'Bought']);
-    
+function buyManyDimensionAutobuyer(tier, bulk) {
 
+        const name = TIER_NAMES[tier];
+        const cost = player[name + 'Cost'].times(10 - player[name + 'Bought'])
         if (tier >= 3 && player.currentChallenge == "challenge10") {
             if (!canBuyDimension(tier)) return false
             if (player[TIER_NAMES[tier-2] + 'Amount'].lt(cost)) return false
+                if (canBuyDimension(tier)) {
+                    if (cost.lt(player[TIER_NAMES[tier-2]+"Amount"]) && player[name + 'Bought'] != 0) {
+                        player[TIER_NAMES[tier-2]+"Amount"] = player[TIER_NAMES[tier-2]+"Amount"].minus(cost)
+                        player[name + "Amount"] = player[name + "Amount"].plus(10 - player[name + 'Bought'])
+                        player[name + 'Pow']  = player[name + 'Pow'].times(getDimensionPowerMultiplier(tier))
+                        player[name + "Cost"] = player[name + "Cost"].times(player.costMultipliers[tier-1])
+                        player[name + 'Bought'] = 0
+                    }
+                    var i = 0
+                    var x = bulk
+                    while (player[TIER_NAMES[tier-2]+"Amount"].gt(player[name + "Cost"].times(10)) && x > 0) {
+                        player[TIER_NAMES[tier-2]+"Amount"] = player[TIER_NAMES[tier-2]+"Amount"].minus(player[name + "Cost"].times(10))
+                        player[name + "Cost"] = player[name + "Cost"].times(player.costMultipliers[tier-1])
+                        if (player[name + "Cost"].gte(Number.MAX_VALUE) && !player.infinityUpgrades.includes("dimCostMult")) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(10)
+                        i++;
+                        x--;
+                    }
+                    player[name + "Amount"] = player[name + "Amount"].plus(10*i)
+                    player[name + "Pow"] = player[name + "Pow"].times(Decimal.pow(getDimensionPowerMultiplier(tier), i))
+                    onBuyDimension(tier);
+                }
+        } else {
+        if (!canBuyDimension(tier)) return false
+            if (cost.lt(player.money) && player[name + 'Bought'] != 0) {
+                player.money = player.money.minus(cost)
+                player[name + "Amount"] = player[name + "Amount"].plus(10 - player[name + 'Bought'])
+                player[name + 'Pow']  = player[name + 'Pow'].times(getDimensionPowerMultiplier(tier))
+                player[name + "Cost"] = player[name + "Cost"].times(player.costMultipliers[tier-1])
+                player[name + 'Bought'] = 0
+            }
+            if (player.money.lt(player[name + "Cost"].times(10))) return false
+            var i = 0
+            var x = bulk
+            while (player.money.gte(player[name + "Cost"].times(10)) && x > 0) {
+                i++;
+                if (player.currentChallenge != "challenge5") player[name + "Cost"] = player[name + "Cost"].times(player.costMultipliers[tier-1])
+                else multiplySameCosts(player[name + 'Cost'])
+                if (player[name + "Cost"].gte(Number.MAX_VALUE) && !player.infinityUpgrades.includes("dimCostMult")) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(10)
+                x--;
+            }
+            player.money = player.money.minus(player[name + "Cost"].times(10).dividedBy(player.costMultipliers[tier-1]))
+            player[name + "Amount"] = player[name + "Amount"].plus(10*i)
+            player[name + "Pow"] = player[name + "Pow"].times(Decimal.pow(getDimensionPowerMultiplier(tier), i))
+            onBuyDimension(tier);
+            if (player.currentChallenge == "challenge8") clearDimensions(tier-1)
+        
         }
-        else if (!canBuyDimension(tier)) {
-            return false;
-        } else if (tier < 3 && !canAfford(cost) && player.currentChallenge == "challenge10"){
-            return false;
-        }
-    
-    
-    
-    
-    if (player.currentChallenge != "challenge10") {
-        if (!canAfford(cost)) {
-            return false;
-        }
-    }
-    
-    if (player.currentChallenge != "challenge10" || tier < 3) {
-        player.money = player.money.minus(cost);
-    } else {
-        player[TIER_NAMES[tier-2] + 'Amount'] = player[TIER_NAMES[tier-2] + 'Amount'].minus(cost)
-    }
-    if (player[name + 'Bought'] == 0)  player[name + 'Amount'] = player[name + 'Amount'].plus(10)
-    else player[name + 'Amount'] = player[name + 'Amount'].plus(10 - player[name + 'Bought']);
-    player[name + 'Bought']  = 0;
-    player[name + 'Pow']  = player[name + 'Pow'].times(getDimensionPowerMultiplier(tier));
-    if (player.currentChallenge != "challenge5" ) player[name + 'Cost'] = player[name + 'Cost'].times((getDimensionCostMultiplier(tier)));
-    else multiplySameCosts(player[name + 'Cost']);  
-    if (cost.gte(Number.MAX_VALUE) && !player.infinityUpgrades.includes("dimCostMult")) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(10)
-    
-    return true;
+        if (player.currentChallenge == "challenge12" && player.matter.equals(0)) player.matter = new Decimal(1);
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
+        
+    updateCosts()
+    updateDimensions()
 }
 
 
@@ -3075,6 +3096,19 @@ setInterval(function () {
     if (player.totalTimePlayed >= 10 * 60 * 60 * 24 * 8) giveAchievement("One for each dimension")
     if (player.seventhAmount > 1e12) giveAchievement("Multidimensional");
 
+    
+
+
+
+
+
+    index++;
+    player.lastUpdate = thisUpdate;
+}, 100);
+
+
+
+setInterval(function() {
     if (player.money.gte(Number.MAX_VALUE)) {
         if (player.autobuyers[11]%1 !== 0) {
             if (player.autobuyers[11].ticks*100 >= player.autobuyers[11].interval) {
@@ -3087,7 +3121,7 @@ setInterval(function () {
                     
                     player.autobuyers[11].ticks = 0;
                 } 
-            } else player.autobuyers[11].ticks += 1;
+            } else player.autobuyers[11].ticks += 5;
         }
     }
     
@@ -3097,7 +3131,7 @@ setInterval(function () {
                     document.getElementById("secondSoftReset").click()
                     player.autobuyers[10].ticks = 0;
                 } 
-            } else player.autobuyers[10].ticks += 1;
+            } else player.autobuyers[10].ticks += 5;
         }
         if (player.autobuyers[9]%1 !== 0) {
             if (player.autobuyers[9].ticks*100 >= player.autobuyers[9].interval && (!player.infinityUpgrades.includes("resetBoost") ? player.autobuyers[9].priority >= ((player.resets - 4) * 15 + 20) : player.autobuyers[9].priority >= ((player.resets - 4) * 15 + 11))) {
@@ -3105,7 +3139,7 @@ setInterval(function () {
                     document.getElementById("softReset").click()
                     player.autobuyers[9].ticks = 0;
                 } 
-            } else player.autobuyers[9].ticks += 1;
+            } else player.autobuyers[9].ticks += 5;
         }
         for (var i=0; i<priority.length; i++) {
             if (priority[i].ticks*100 >= priority[i].interval || priority[i].interval == 100) {
@@ -3115,27 +3149,23 @@ setInterval(function () {
                         else buyTickSpeed()
                     } else {
                         if (priority[i].target > 10) {
-                            for (var j=0; j<priority[i].bulk; j++) {
-                                buyManyDimension(priority[i].target-10)
-                            }
+                            
+                                buyManyDimensionAutobuyer(priority[i].target-10, priority[i].bulk*5)
+                            
                         }
-                        else buyOneDimension(priority[i].target)
+                        else {
+                            buyOneDimension(priority[i].target)
+                            buyOneDimension(priority[i].target)
+                            buyOneDimension(priority[i].target)
+                            buyOneDimension(priority[i].target)
+                            buyOneDimension(priority[i].target)
+                        }
                     }
                     priority[i].ticks = 0;
                 }
-            } else priority[i].ticks += 1;
+            } else priority[i].ticks += 5;
         }
-    
-
-
-
-
-
-    index++;
-    player.lastUpdate = thisUpdate;
-}, 100);
-
-
+}, 500)
 
 /*function cheat() {
     player.infinitied = 1500
