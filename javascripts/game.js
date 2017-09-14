@@ -628,7 +628,7 @@ function updateDimensions() {
     document.getElementById("infi32").innerHTML = "Bonus for unspent Infinity Points on 1st Dimension<br>(Currently " + formatValue(player.options.notation, Decimal.pow(player.infinityPoints/2,1.5).plus(1), 2, 2) + "x)<br>Cost: 5 IP"
     document.getElementById("infi34").innerHTML = "Infinity Point generation (based on fastest infinity) <br>(Currently 1 every " + timeDisplay(player.bestInfinityTime*10) + ")<br>Cost: 10 IP"
     document.getElementById("postinfi11").innerHTML = "Power up all dimensions based on total antimatter produced<br>Currently: "+ Decimal.pow(Decimal.log10(player.totalmoney), 0.25).toFixed(2)+"x<br>Cost: "+shortenCosts(1e4)+" IP"
-    document.getElementById("postinfi21").innerHTML = "Power up all dimensions based on current antimatter produced<br>Currently: "+ Decimal.pow(Decimal.log10(player.money), 0.25).toFixed(2)+"x<br>Cost: "+shortenCosts(5e4)+" IP"
+    document.getElementById("postinfi21").innerHTML = "Power up all dimensions based on current antimatter<br>Currently: "+ Decimal.pow(Decimal.log10(player.money), 0.25).toFixed(2)+"x<br>Cost: "+shortenCosts(5e4)+" IP"
     document.getElementById("postinfi31").innerHTML = "Halves the cost multiplier increase on tickspeed<br>Cost: "+shortenCosts(3e5)+" IP"
     document.getElementById("postinfi41").innerHTML = "Power up all dimensions based on achievements completed <br>Currently: "+Math.max(Decimal.pow((player.achievements.length-30), 3).dividedBy(40),1).toFixed(2)+"x<br>Cost: "+shortenCosts(1e6)+" IP"
     document.getElementById("postinfi12").innerHTML = "Power up all dimensions based on amount infinitied <br>Currently: "+Decimal.log10(player.infinitied).times(3).toFixed(2)+"x<br>Cost: "+shortenCosts(1e5)+" IP"
@@ -2438,7 +2438,7 @@ document.getElementById("bigcrunch").onclick = function () {
       if (!player.achievements.includes("Zero Deaths") && player.galaxies == 0 && player.resets == 0) giveAchievement("Zero Deaths")
       if (player.currentChallenge == "challenge2" && player.thisInfinityTime <= 3000) giveAchievement("Many Deaths")
       if (player.currentChallenge == "challenge11" && player.thisInfinityTime <= 3000) giveAchievement("Gift from the Gods")
-      if (player.currentChallenge == "challenge5" && player.thisInfinityTime <= 3000) giveAchievement("Is this hell?")
+      if (player.currentChallenge == "challenge5" && player.thisInfinityTime <= 2400) giveAchievement("Is this hell?")
       if (player.currentChallenge != "") player.challengeTimes[parseInt(player.currentChallenge[player.currentChallenge.length-1])-2] = player.thisInfinityTime
       if (player.currentChallenge != "" && !player.challenges.includes(player.currentChallenge)) {
       player.challenges.push(player.currentChallenge);
