@@ -2857,8 +2857,8 @@ setInterval(function () {
     player.thisInfinityTime += diff
     if (player.money.gte(Number.MAX_VALUE) && (!player.break || player.currentChallenge != "")) {
         document.getElementById("bigcrunch").style.display = 'inline-block';
-    if ((player.break || player.currentChallenge == "") || player.bestInfinityTime <= 600) {}
-    else showTab('emptiness');
+        if ((player.break || player.currentChallenge == "") || player.bestInfinityTime <= 600) {}
+        else showTab('emptiness');
     } else document.getElementById("bigcrunch").style.display = 'none';
 
     if (player.break && player.money.gte(Number.MAX_VALUE)) {
@@ -2988,7 +2988,7 @@ setInterval(function () {
     } else document.getElementById("postinf").style.display = "none"
 
 
-    if (player.money.gte(Number.MAX_VALUE) && (!player.break || player.currentChallenge != "")) {
+    if (player.money.gte(Number.MAX_VALUE) && (!player.break || player.currentChallenge != "") && player.bestInfinityTime > 600) {
         document.getElementById("dimensionsbtn").style.display = "none";
         document.getElementById("optionsbtn").style.display = "none";
         document.getElementById("statisticsbtn").style.display = "none";
