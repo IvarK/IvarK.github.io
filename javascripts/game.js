@@ -2048,7 +2048,7 @@ function breakInfinity() {
 }
 
 function gainedInfinityPoints() {
-    return Decimal.floor(Decimal.pow(10, Decimal.log10(player.money).dividedBy(308)-1)).toNumber()*player.infMult
+    return Decimal.floor(Decimal.pow(10, Decimal.log10(player.money).dividedBy(308)-0.5)).toNumber()*player.infMult
 }
 
 
