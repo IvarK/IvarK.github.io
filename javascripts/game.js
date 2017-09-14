@@ -363,7 +363,7 @@ function getAbbreviation(e) {
 
 function formatValue(notation, value, places, placesUnder1000) {
 
-    if ((value <= Number.MAX_VALUE || player.break) && (value >= 1000)) {
+    if ((value <= Number.MAX_VALUE || (player.break && player.currentChallenge == "")) && (value >= 1000)) {
         if (isDecimal(value)) {
            var power = value.e
            var matissa = parseFloat(value.toExponential(4).split("e")[0])
@@ -992,7 +992,7 @@ const TIER_NAMES = [ null, "first", "second", "third", "fourth", "fifth", "sixth
 const DISPLAY_NAMES = [ null, "First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth" ];
 
 function canAfford(cost) {
-    return cost.lt(Infinity) && cost.lte(player.money);
+    return ((cost.lt(new Decimal("1.79e308")) && !player.break) || player.break) && cost.lte(player.money);
 }
 
 
@@ -2430,6 +2430,8 @@ document.getElementById("postInfinityButton").onclick = function() {document.get
 
 
 document.getElementById("bigcrunch").onclick = function () {
+    var challNumber = parseInt(player.currentChallenge[player.currentChallenge.length-1])
+    if (player.currentChallenge.length == 11) challNumber = parseInt("1"+player.currentChallenge[player.currentChallenge.length-1])
   if (player.money.gte(Number.MAX_VALUE)) {
       if (!player.achievements.includes("That's fast!") && player.thisInfinityTime <= 72000) giveAchievement("That's fast!");
       if (player.thisInfinityTime <= 6000) giveAchievement("That's faster!")
@@ -2440,7 +2442,7 @@ document.getElementById("bigcrunch").onclick = function () {
       if (player.currentChallenge == "challenge2" && player.thisInfinityTime <= 3000) giveAchievement("Many Deaths")
       if (player.currentChallenge == "challenge11" && player.thisInfinityTime <= 3000) giveAchievement("Gift from the Gods")
       if (player.currentChallenge == "challenge5" && player.thisInfinityTime <= 2400) giveAchievement("Is this hell?")
-      if (player.currentChallenge != "") player.challengeTimes[parseInt(player.currentChallenge[player.currentChallenge.length-1])-2] = player.thisInfinityTime
+      if (player.currentChallenge != "" && player.challengeTimes[challNumber-2] > player.thisInfinityTime) player.challengeTimes[challNumber-2] = player.thisInfinityTime
       if (player.currentChallenge != "" && !player.challenges.includes(player.currentChallenge)) {
       player.challenges.push(player.currentChallenge);
       
@@ -2449,6 +2451,7 @@ document.getElementById("bigcrunch").onclick = function () {
         else {
           player.infinityPoints += gainedInfinityPoints()
         }
+        if ((player.bestInfinityTime > 600 && !player.break) || player.currentChallenge != "") showTab("dimensions")
       player = {
         money: new Decimal(10),
         tickSpeedCost: new Decimal(1000),
@@ -2578,7 +2581,7 @@ document.getElementById("bigcrunch").onclick = function () {
       document.getElementById("matter").style.visibility = "hidden";
       document.getElementById("quickReset").style.display = "none";
       updateTickSpeed();
-      if (player.bestInfinityTime > 600) showTab("dimensions")
+      
       kongregate.stats.submit('Infinitied', player.infinitied);
       kongregate.stats.submit('Fastest Infinity time', Math.floor(player.bestInfinityTime / 10))
       if (!player.achievements.includes("To infinity!")) giveAchievement("To infinity!");
@@ -2840,7 +2843,7 @@ setInterval(function () {
         }
     }
         
-        if (player.money.lte(Number.MAX_VALUE) || player.break) {
+        if (player.money.lte(Number.MAX_VALUE) || (player.break && player.currentChallenge == "")) {
       if (player.currentChallenge == "challenge3") {
         player.money = player.money.plus(getDimensionProductionPerSecond(1).times(diff/10).times(player.chall3Pow));
         player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(1).times(diff/10).times(player.chall3Pow));
@@ -2858,11 +2861,11 @@ setInterval(function () {
     player.thisInfinityTime += diff
     if (player.money.gte(Number.MAX_VALUE) && (!player.break || player.currentChallenge != "")) {
         document.getElementById("bigcrunch").style.display = 'inline-block';
-        if ((player.break || player.currentChallenge == "") || player.bestInfinityTime <= 600) {}
+        if (player.currentChallenge == "" && (player.bestInfinityTime <= 600 || player.break)) {}
         else showTab('emptiness');
     } else document.getElementById("bigcrunch").style.display = 'none';
 
-    if (player.break && player.money.gte(Number.MAX_VALUE)) {
+    if (player.break && player.money.gte(Number.MAX_VALUE) && player.currentChallenge == "") {
         document.getElementById("postInfinityButton").style.display = "inline-block"
     } else {
         document.getElementById("postInfinityButton").style.display = "none"
@@ -2995,7 +2998,7 @@ setInterval(function () {
     if (player.autobuyers[11].interval == 100) document.getElementById("abletobreak").style.display = "none"
 
 
-    if (player.money.gte(Number.MAX_VALUE) && (!player.break || player.currentChallenge != "") && player.bestInfinityTime > 600) {
+    if (player.money.gte(Number.MAX_VALUE) && (player.currentChallenge != "" || (player.bestInfinityTime > 600 && !player.break))) {
         document.getElementById("dimensionsbtn").style.display = "none";
         document.getElementById("optionsbtn").style.display = "none";
         document.getElementById("statisticsbtn").style.display = "none";
@@ -3105,29 +3108,29 @@ setInterval(function () {
 
     
 
-    if (player.money.gte(Number.MAX_VALUE)) {
-        if (player.autobuyers[11]%1 !== 0) {
-            if (player.autobuyers[11].ticks*100 >= player.autobuyers[11].interval) {
-                if (player.autobuyers[11].isOn && player.money.gte(Number.MAX_VALUE)) {
-                    if (!player.break) {
-                        document.getElementById("bigcrunch").click()
-                    } else if (player.autobuyers[11].priority <= gainedInfinityPoints()) {
-                        document.getElementById("bigcrunch").click()
-                    }
-                    
-                    player.autobuyers[11].ticks = 0;
-                } 
-            } else player.autobuyers[11].ticks += 5;
-        }
+    if (player.autobuyers[11]%1 !== 0) {
+        if (player.autobuyers[11].ticks*100 >= player.autobuyers[11].interval && player.money.gte(Number.MAX_VALUE)) {
+            if (player.autobuyers[11].isOn) {
+                if (!player.break) {
+                    document.getElementById("bigcrunch").click()
+                } else if (player.autobuyers[11].priority <= gainedInfinityPoints()) {
+                    document.getElementById("bigcrunch").click()
+                }
+                
+                player.autobuyers[11].ticks = 0;
+            } 
+        } else player.autobuyers[11].ticks += 1;
+        
     }
     
+    
         if (player.autobuyers[10]%1 !== 0) {
-            if (player.autobuyers[10].ticks*100 >= player.autobuyers[10].interval && player.autobuyers[10].priority > player.galaxies) {
+            if (player.autobuyers[10].ticks*100 >= player.autobuyers[10].interval && player.autobuyers[10].priority > player.galaxies && player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() : player.eightAmount >= getGalaxyRequirement()) {
                 if (player.autobuyers[10].isOn) {
                     document.getElementById("secondSoftReset").click()
                     player.autobuyers[10].ticks = 0;
                 } 
-            } else player.autobuyers[10].ticks += 5;
+            } else player.autobuyers[10].ticks += 1;
         }
         if (player.autobuyers[9]%1 !== 0) {
             if (player.autobuyers[9].ticks*100 >= player.autobuyers[9].interval && (!player.infinityUpgrades.includes("resetBoost") ? player.autobuyers[9].priority >= ((player.resets - 4) * 15 + 20) : player.autobuyers[9].priority >= ((player.resets - 4) * 15 + 11))) {
@@ -3135,7 +3138,7 @@ setInterval(function () {
                     document.getElementById("softReset").click()
                     player.autobuyers[9].ticks = 0;
                 } 
-            } else player.autobuyers[9].ticks += 5;
+            } else player.autobuyers[9].ticks += 1;
         }
 
 
