@@ -3053,11 +3053,22 @@ setInterval(function () {
         if (player.infinityPoints >= 1e7) document.getElementById("postinfi42").className = "infinistorebtn1"
         else document.getElementById("postinfi42").className = "infinistorebtnlocked"
     } else {
+        document.getElementById("infi11").className = "infinistorebtnlocked"
         document.getElementById("infi12").className = "infinistorebtnlocked"
-        document.getElementById("infi22").className = "infinistorebtnlocked"
         document.getElementById("infi13").className = "infinistorebtnlocked"
-        document.getElementById("infi23").className = "infinistorebtnlocked"
         document.getElementById("infi14").className = "infinistorebtnlocked"
+        document.getElementById("infi21").className = "infinistorebtnlocked"
+        document.getElementById("infi22").className = "infinistorebtnlocked"
+        document.getElementById("infi23").className = "infinistorebtnlocked"
+        document.getElementById("infi24").className = "infinistorebtnlocked"
+        document.getElementById("infi31").className = "infinistorebtnlocked"
+        document.getElementById("infi32").className = "infinistorebtnlocked"
+        document.getElementById("infi33").className = "infinistorebtnlocked"
+        document.getElementById("infi34").className = "infinistorebtnlocked"
+        document.getElementById("infi41").className = "infinistorebtnlocked"
+        document.getElementById("infi42").className = "infinistorebtnlocked"
+        document.getElementById("infi43").className = "infinistorebtnlocked"
+        document.getElementById("infi44").className = "infinistorebtnlocked"
         
     }
 
