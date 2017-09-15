@@ -1262,10 +1262,10 @@ function buyManyDimensionAutobuyer(tier, bulk) {
             var x = bulk
             while (player.money.gte(player[name + "Cost"].times(10)) && x > 0) {
                 player.money = player.money.minus(player[name + "Cost"].times(10))
-                player[name + "Amount"] = player[name + "Amount"].plus(10)
-                player[name + "Pow"] = player[name + "Pow"].times(getDimensionPowerMultiplier(tier))
                 if (player.currentChallenge != "challenge5") player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
                 else multiplySameCosts(player[name + 'Cost'])
+                player[name + "Amount"] = player[name + "Amount"].plus(10)
+                player[name + "Pow"] = player[name + "Pow"].times(getDimensionPowerMultiplier(tier))
                     if (cost.gte(Number.MAX_VALUE)){
                         if (player.infinityUpgrades.includes("dimCostMult")) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(5)
                         else player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(10)
@@ -2415,7 +2415,10 @@ function updatePriorities() {
     }
     player.autobuyers[9].priority = parseInt(document.getElementById("priority10").value)
     player.autobuyers[10].priority = parseInt(document.getElementById("priority11").value)
-    player.autobuyers[11].priority = parseInt(document.getElementById("priority12").value)
+    var infvalue = document.getElementById("priority12").value
+    if (infvalue.includes("e")) infvalue = parseInt(infvalue.split("e")[0]) * Math.pow(10, parseInt(infvalue.split("e")[1]))
+    else infvalue = parseInt(infvalue)
+    player.autobuyers[11].priority = infvalue
     priorityOrder()
 }
 
