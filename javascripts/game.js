@@ -2480,9 +2480,16 @@ function updateLastTenRuns() {
     tempTime /= 10
     tempIP /= 10
     for (var i=0; i<10; i++) {
-        document.getElementById("run"+(i+1)).innerHTML = "The infinity "+(i+1)+" infinities ago took " + timeDisplayShort(player.lastTenRuns[i][0]) + " and gave " + shortenDimensions(player.lastTenRuns[i][1]) +" IP. "+ shorten(player.lastTenRuns[i][1]/(player.lastTenRuns[i][0]/600))+ " IP/min"
+        var ippm = player.lastTenRuns[i][1]/(player.lastTenRuns[i][0]/600)
+        var tempstring = shorten(ippm) + " IP/min"
+        if (ippm<1) tempstring = shorten(ippm*60) + " IP/hour"
+        document.getElementById("run"+(i+1)).innerHTML = "The infinity "+(i+1)+" infinities ago took " + timeDisplayShort(player.lastTenRuns[i][0]) + " and gave " + shortenDimensions(player.lastTenRuns[i][1]) +" IP. "+ tempstring
     }
-    document.getElementById("averagerun").innerHTML = "Last 10 infinities average time: "+ timeDisplayShort(tempTime)+" Average IP gain: "+shortenDimensions(tempIP)+" IP. "+shorten(tempIP/(tempTime/600))+" IP/min"
+    
+    var ippm = tempIP/(tempTime/600)
+    var tempstring = shorten(ippm) + " IP/min"
+    if (ippm<1) tempstring = shorten(ippm*60) + " IP/hour"
+    document.getElementById("averagerun").innerHTML = "Last 10 infinities average time: "+ timeDisplayShort(tempTime)+" Average IP gain: "+shortenDimensions(tempIP)+" IP. "+tempstring
 }
 
 
