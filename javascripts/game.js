@@ -2319,10 +2319,10 @@ function updateAutobuyers() {
     for (let tier = 1; tier <= 8; ++tier) {
         document.getElementById("toggleBtn" + tier).style.display = "inline-block";
         if (player.autobuyers[tier-1].interval <= 100) {
-            document.getElementById("buyerBtn" + tier).innerHTML = "x2 bulk purchase<br>Cost: " + player.autobuyers[tier-1].cost + " IP"
+            document.getElementById("buyerBtn" + tier).innerHTML = "x2 bulk purchase<br>Cost: " + shortenDimensions(player.autobuyers[tier-1].cost) + " IP"
             maxedAutobuy++;
         }
-        else document.getElementById("buyerBtn" + tier).innerHTML = "40% smaller interval <br>Cost: " + player.autobuyers[tier-1].cost + " IP"
+        else document.getElementById("buyerBtn" + tier).innerHTML = "40% smaller interval <br>Cost: " + shortenDimensions(player.autobuyers[tier-1].cost) + " IP"
 
     }
 
