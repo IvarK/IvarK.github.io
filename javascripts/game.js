@@ -1218,7 +1218,7 @@ function buyManyDimensionAutobuyer(tier, bulk) {
                         player[TIER_NAMES[tier-2]+"Amount"] = player[TIER_NAMES[tier-2]+"Amount"].minus(cost)
                         player[name + "Amount"] = player[name + "Amount"].plus(10 - player[name + 'Bought'])
                         player[name + 'Pow']  = player[name + 'Pow'].times(getDimensionPowerMultiplier(tier))
-                        player[name + "Cost"] = player[name + "Cost"].times(player.costMultipliers[tier-1])
+                        player[name + "Cost"] = player[name + "Cost"].times((getDimensionCostMultiplier(tier)))
                         player[name + 'Bought'] = 0
                     }
                     var i = 0
