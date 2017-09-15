@@ -3069,6 +3069,7 @@ setInterval(function () {
         document.getElementById("infi42").className = "infinistorebtnlocked"
         document.getElementById("infi43").className = "infinistorebtnlocked"
         document.getElementById("infi44").className = "infinistorebtnlocked"
+        document.getElementById("infiMult").className = "infinistorebtnlocked"
         
     }
 
