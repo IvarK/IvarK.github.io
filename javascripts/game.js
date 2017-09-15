@@ -1465,8 +1465,8 @@ document.getElementById("maxall").onclick = function () {
             
             
             onBuyDimension(tier);
-            if (player.currentChallenge == "challenge12" && player.matter.equals(0)) player.matter = new Decimal(1);
-            if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
+            if (player.currentChallenge == "challenge12" && player.matter.equals(0) && canAfford(tier)) player.matter = new Decimal(1);
+            if (canAfford(tier) && player.currentChallenge == "challenge2") player.chall2Pow = 0;
         }
         }
         }
