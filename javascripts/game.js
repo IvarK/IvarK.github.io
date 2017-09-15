@@ -3203,8 +3203,8 @@ setInterval(function () {
     
     
         if (player.autobuyers[10]%1 !== 0) {
-            if (player.autobuyers[10].ticks*100 >= player.autobuyers[10].interval && player.autobuyers[10].priority > player.galaxies && (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() : player.eightAmount >= getGalaxyRequirement())) {
-                if (player.autobuyers[10].isOn) {
+            if (player.autobuyers[10].ticks*100 >= player.autobuyers[10].interval && (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() : player.eightAmount >= getGalaxyRequirement())) {
+                if (player.autobuyers[10].isOn && player.autobuyers[10].priority > player.galaxies) {
                     document.getElementById("secondSoftReset").click()
                     player.autobuyers[10].ticks = 0;
                 } 
