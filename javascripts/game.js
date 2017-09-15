@@ -958,9 +958,10 @@ function buyMaxTickSpeed() {
             else player.tickspeedMultiplier = player.tickspeedMultiplier.times(2);
         }
         player.tickspeed = player.tickspeed.times(getTickSpeedMultiplier());
+        if (player.currentChallenge == "challenge2") player.chall2Pow = 0
     }
 
-    if (player.currentChallenge == "challenge2") player.chall2Pow = 0
+    
     updateTickSpeed();
     updateMoney();
     updateCosts();
