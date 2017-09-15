@@ -443,7 +443,7 @@ function getDimensionFinalMultiplier(tier) {
     if (player.infinityUpgrades.includes("currentMult")) multiplier = multiplier.times(Decimal.pow(Decimal.log10(player.money.plus(10)), 0.25))
     if (player.infinityUpgrades.includes("infinitiedMult")) multiplier = multiplier.times(Decimal.log10(player.infinitied).times(3))
     if (player.infinityUpgrades.includes("achievementMult")) multiplier = multiplier.times(Math.max(Decimal.pow((player.achievements.length-30), 3).dividedBy(40),1))
-    if (player.infinityUpgrades.includes("challengeMult")) multiplier = multiplier.times(Decimal.max(10*180000/worstChallengeTime, 1))
+    if (player.infinityUpgrades.includes("challengeMult")) multiplier = multiplier.times(Decimal.max(10*3000/worstChallengeTime, 1))
 
     if (hasInfinityMult(tier)) multiplier = multiplier.times(dimMults());
     if (tier == 1) {
@@ -636,7 +636,7 @@ function updateDimensions() {
     document.getElementById("postinfi41").innerHTML = "Power up all dimensions based on achievements completed <br>Currently: "+Math.max(Decimal.pow((player.achievements.length-30), 3).dividedBy(40),1).toFixed(2)+"x<br>Cost: "+shortenCosts(1e6)+" IP"
     document.getElementById("postinfi12").innerHTML = "Power up all dimensions based on amount infinitied <br>Currently: "+Decimal.log10(player.infinitied).times(3).toFixed(2)+"x<br>Cost: "+shortenCosts(1e5)+" IP"
     document.getElementById("postinfi22").innerHTML = "Doubles the power of Galaxies <br>Cost: "+shortenCosts(5e5)+" IP"
-    document.getElementById("postinfi32").innerHTML = "Power up all dimensions based on slowest challenge run<br>Currently:"+Decimal.max(10*180000/worstChallengeTime, 1).toFixed(2)+"x<br>Cost: "+shortenCosts(3e6)+" IP"
+    document.getElementById("postinfi32").innerHTML = "Power up all dimensions based on slowest challenge run<br>Currently:"+Decimal.max(10*3000/worstChallengeTime, 1).toFixed(2)+"x<br>Cost: "+shortenCosts(3e6)+" IP"
     document.getElementById("postinfi42").innerHTML = "Removes cost multiplier increase on dimensions <br>Cost: "+shortenCosts(1e7)+" IP"
 }
 
