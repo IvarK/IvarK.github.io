@@ -1451,6 +1451,8 @@ document.getElementById("maxall").onclick = function () {
             }
 
             while (player.money.gte(player[name + "Cost"].times(10))) {
+                if (player.currentChallenge == "challenge12" && player.matter.equals(0)) player.matter = new Decimal(1);
+                if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
                 player.money = player.money.minus(player[name + "Cost"].times(10))
                 if (player.currentChallenge != "challenge5") player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
                 else multiplySameCosts(player[name + 'Cost'])
@@ -1465,8 +1467,7 @@ document.getElementById("maxall").onclick = function () {
             
             
             onBuyDimension(tier);
-            if (player.currentChallenge == "challenge12" && player.matter.equals(0) && canAfford(tier)) player.matter = new Decimal(1);
-            if (canAfford(tier) && player.currentChallenge == "challenge2") player.chall2Pow = 0;
+            
         }
         }
         }
