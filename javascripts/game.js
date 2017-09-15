@@ -441,8 +441,8 @@ function getDimensionFinalMultiplier(tier) {
     
     if (player.infinityUpgrades.includes("totalMult")) multiplier = multiplier.times(Math.pow(player.totalmoney.e+1, 0.5))
     if (player.infinityUpgrades.includes("currentMult")) multiplier = multiplier.times(Math.pow(player.money.e+1, 0.5))
-    if (player.infinityUpgrades.includes("infinitiedMult")) multiplier = multiplier.times(Math.log10(player.infinitied).times(10))
-    if (player.infinityUpgrades.includes("achievementMult")) multiplier = multiplier.times(Math.max(Math.pow((player.achievements.length-30), 3).dividedBy(40),1))
+    if (player.infinityUpgrades.includes("infinitiedMult")) multiplier = multiplier.times(Math.log10(player.infinitied)*10)
+    if (player.infinityUpgrades.includes("achievementMult")) multiplier = multiplier.times(Math.max(Math.pow((player.achievements.length-30), 3)/40,1))
     if (player.infinityUpgrades.includes("challengeMult")) multiplier = multiplier.times(Decimal.max(10*3000/worstChallengeTime, 1))
 
     if (hasInfinityMult(tier)) multiplier = multiplier.times(dimMults());
@@ -635,7 +635,7 @@ function updateDimensions() {
     document.getElementById("postinfi11").innerHTML = "Power up all dimensions based on total antimatter produced<br>Currently: "+ Math.pow(player.totalmoney.e+1, 0.5).toFixed(2)+"x<br>Cost: "+shortenCosts(1e4)+" IP"
     document.getElementById("postinfi21").innerHTML = "Power up all dimensions based on current antimatter<br>Currently: "+ Math.pow(player.money.e+1, 0.5).toFixed(2)+"x<br>Cost: "+shortenCosts(5e4)+" IP"
     document.getElementById("postinfi31").innerHTML = "Halves the cost multiplier increase on tickspeed<br>Cost: "+shortenCosts(3e5)+" IP"
-    document.getElementById("postinfi41").innerHTML = "Power up all dimensions based on achievements completed <br>Currently: "+Math.max(Decimal.pow((player.achievements.length-30), 3).dividedBy(40),1).toFixed(2)+"x<br>Cost: "+shortenCosts(1e6)+" IP"
+    document.getElementById("postinfi41").innerHTML = "Power up all dimensions based on achievements completed <br>Currently: "+Math.max(Math.pow((player.achievements.length-30), 3)/40,1).toFixed(2)+"x<br>Cost: "+shortenCosts(1e6)+" IP"
     document.getElementById("postinfi12").innerHTML = "Power up all dimensions based on amount infinitied <br>Currently: "+(Math.log10(player.infinitied)*10).toFixed(2)+"x<br>Cost: "+shortenCosts(1e5)+" IP"
     document.getElementById("postinfi22").innerHTML = "Doubles the power of Galaxies <br>Cost: "+shortenCosts(5e5)+" IP"
     document.getElementById("postinfi32").innerHTML = "Power up all dimensions based on slowest challenge run<br>Currently:"+Decimal.max(10*3000/worstChallengeTime, 1).toFixed(2)+"x<br>Cost: "+shortenCosts(3e6)+" IP"
