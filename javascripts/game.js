@@ -610,7 +610,6 @@ function updateDimensions() {
     if (player.bestInfinityTime == 9999999999) {
         document.getElementById("bestInfinity").innerHTML = ""
         document.getElementById("infinitied").innerHTML = ""
-        document.getElementById("infinityPoints").innerHTML = ""
         document.getElementById("thisInfinity").innerHTML = ""
     } else {
         document.getElementById("bestInfinity").innerHTML = "Your fastest infinity is in " + timeDisplay(player.bestInfinityTime) + "."
@@ -2923,7 +2922,7 @@ setInterval(function () {
         player.money = player.money.plus(getDimensionProductionPerSecond(1).times(diff/10).times(player.chall3Pow));
         player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(1).times(diff/10).times(player.chall3Pow));
       } else {
-        player.money = player.money.plus(getDimensionProductionPerSecond(1).times(diff/10));
+        player.money = player.money.plus(getDimensionProductionPerSecond(1));
         player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(1).times(diff/10));
       }
       if (player.currentChallenge == "challenge7") {
@@ -2962,9 +2961,10 @@ setInterval(function () {
     updateMoney();
     updateCoinPerSec();
     updateDimensions();
-    if (calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")) > player.money) {
+    if (calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).gt(player.money)) {
 	if(player.money.gt(Decimal.pow(10,63)) && !player.achievements.includes("Supersanic")) giveAchievement("Supersanic");
-	Marathon++;
+    Marathon++;
+    
 	if (Marathon >= 300 && !player.achievements.includes("Over in 30 seconds")) giveAchievement("Over in 30 seconds");
     } else {
 	Marathon = 0; }
