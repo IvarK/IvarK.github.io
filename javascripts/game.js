@@ -3229,7 +3229,7 @@ setInterval(function () {
 
 setInterval(function() {
         for (var i=0; i<priority.length; i++) {
-            if (priority[i].ticks*100 >= priority[i].interval || priority[i].interval == 100) {
+            if (priority[i].ticks*100 >= priority[i].interval) {
                 if (priority[i].isOn && canBuyDimension(priority[i].tier)) {
                     if (priority[i] == player.autobuyers[8]) {
                         if (priority[i].target == 10) buyMaxTickSpeed()
@@ -3244,7 +3244,7 @@ setInterval(function() {
                             buyOneDimension(priority[i].target)
                         }
                     }
-                    priority[i].ticks = 0;
+                    priority[i].ticks = 0.33;
                 }
             } else priority[i].ticks += 0.33;
         }
