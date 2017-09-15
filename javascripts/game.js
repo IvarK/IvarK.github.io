@@ -1476,7 +1476,6 @@ document.getElementById("maxall").onclick = function () {
         if (player.currentChallenge == "challenge2") player.chall2Pow = 0;
         
     updateCosts()
-    updateDimensions()
 };
 
 document.getElementById("animation").onclick = function () {
@@ -2961,6 +2960,7 @@ setInterval(function () {
 
     updateMoney();
     updateCoinPerSec();
+    updateDimensions();
     if (calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).gt(player.money)) {
 	if(player.money.gt(Math.pow(10,63)) && !player.achievements.includes("Supersanic")) giveAchievement("Supersanic");
     Marathon++;
@@ -3249,7 +3249,6 @@ setInterval(function() {
             } else priority[i].ticks += 0.33;
         }
         updateCosts()
-        updateDimensions()
 }, 33)
 
 /*function cheat() {
