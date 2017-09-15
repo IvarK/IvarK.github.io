@@ -1107,7 +1107,6 @@ function onBuyDimension(tier) {
 
     updateCosts();
     updateMoney();
-    updateDimensions();
 }
 
 function buyOneDimension(tier) {
