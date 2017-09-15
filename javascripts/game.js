@@ -989,10 +989,9 @@ function preformat(int) {
 }
 
 function timeDisplayShort(time) {
-    
-        time = Decimal.floor(time / 10)
-
-            return preformat(Decimal.floor(time / 86400)) + ":" + preformat(Decimal.floor((time % 86400) / 3600)) + ":" + preformat(Decimal.floor((time % 3600) / 60)) + ":" + preformat(Decimal.floor(time % 60))
+    if (time <= 600) return (time/10).toFixed(2) + " seconds"
+    time = Decimal.floor(time / 10)
+    return preformat(Decimal.floor((time % 86400) / 3600)) + ":" + preformat(Decimal.floor((time % 3600) / 60)) + ":" + preformat(Decimal.floor(time % 60))
 
     }
 
