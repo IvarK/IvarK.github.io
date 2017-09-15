@@ -318,9 +318,11 @@ var FormatList = ['', 'K', 'M', 'B', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'D
 
 var letterList1 = ['', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 var letterList2 = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+var letterList3 = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
 var emojiList1 = ['', '😠', '🎂', '🎄', '💀', '🍆', '👪', '🌈', '💯', '🍦', '🎃', '💋', '😂', '🌙', '⛔', '🐙', '💩', '❓', '☢️', '🙈', '👍', '☂️', '✌️', '⚠️', '❌', '😋', '⚡'];
 var emojiList2 = ['😠', '🎂', '🎄', '💀', '🍆', '👪', '🌈', '💯', '🍦', '🎃', '💋', '😂', '🌙', '⛔', '🐙', '💩', '❓', '☢️', '🙈', '👍', '☂️', '✌️', '⚠️', '❌', '😋', '⚡'];
+var emojiList3 = ['😠', '🎂', '🎄', '💀', '🍆', '👪', '🌈', '💯', '🍦', '🎃', '💋', '😂', '🌙', '⛔', '🐙', '💩', '❓', '☢️', '🙈', '👍', '☂️', '✌️', '⚠️', '❌', '😋', '⚡'];
 
 
 
@@ -374,23 +376,23 @@ function formatValue(notation, value, places, placesUnder1000) {
             var power = Decimal.floor(Decimal.log10(value));
         }
         if ((notation === "Standard")) {
-            if (power <= 303) return ((Decimal.round(matissa * Decimal.pow(10, power % 3) * Decimal.pow(10, places)) / Decimal.pow(10, places)).toFixed(places) + " " + FormatList[(power - (power % 3)) / 3]);
-            else return (Decimal.round(matissa * Decimal.pow(10, power % 3) * Decimal.pow(10, places)) / Decimal.pow(10, places)).toFixed(places) + " " + getAbbreviation(power)
+            if (power <= 303) return (matissa * Decimal.pow(10, power % 3)).toFixed(places) + " " + FormatList[(power - (power % 3)) / 3];
+            else return (matissa * Decimal.pow(10, power % 3)).toFixed(places) + " " + getAbbreviation(power)
         } else if (notation === "Scientific") {
-            return ((Decimal.round(matissa * Decimal.pow(10, places)) / Decimal.pow(10, places)).toFixed(places) + "e" + power);
+            return ((matissa).toFixed(places) + "e" + power);
         } else if (notation === "Engineering") {
-            return ((Decimal.round(matissa * Decimal.pow(10, power % 3) * Decimal.pow(10, places)) / Decimal.pow(10, places)).toFixed(places) + "ᴇ" + (power - (power % 3)));
+            return ((matissa * Decimal.pow(10, power % 3)).toFixed(places) + "ᴇ" + (power - (power % 3)));
         } else if (notation === "Letters") {
             power -= 3;
-            return ((Decimal.round(matissa * Decimal.pow(10, power % 3) * Decimal.pow(10, places)) / Decimal.pow(10, places)).toFixed(places) +
-                letterList1[Decimal.floor(((power - (power % 3)) / 3) / letterList2.length)] + letterList2[((power - (power % 3)) / 3) % letterList2.length]);
+            return ((matissa * Decimal.pow(10, power % 3)).toFixed(places) +
+                letterList1[Decimal.floor(((power - (power % 3)) / 3) / (letterList2.length*letterList3.length))] +letterList2[Decimal.floor(((power - (power % 3)) / 3) / letterList3.length) % letterList3.length] + letterList3[((power - (power % 3)) / 3) % letterList3.length]);
         } else if (notation === "Emojis") {
             power -= 3;
             return ((Decimal.round(matissa * Decimal.pow(10, power % 3) * Decimal.pow(10, places)) / Decimal.pow(10, places)).toFixed(places) +
-                emojiList1[Decimal.floor(((power - (power % 3)) / 3) / emojiList2.length)] + emojiList2[((power - (power % 3)) / 3) % emojiList2.length]);
+            emojiList1[Decimal.floor(((power - (power % 3)) / 3) / (emojiList2.length*emojiList3.length))] +emojiList2[Decimal.floor(((power - (power % 3)) / 3) / emojiList3.length) % emojiList3.length] + emojiList3[((power - (power % 3)) / 3) % emojiList3.length]);
             
             
-            } else return ((Decimal.round(matissa * 100) / 100).toFixed(places) + "e" + power);
+            } else return ((matissa).toFixed(places) + "e" + power);
     } else if (value < 1000) {
         return ((Decimal.round(value * Decimal.pow(10, places)) / Decimal.pow(10, places))).toFixed(placesUnder1000);    
     } else {
@@ -885,18 +887,33 @@ function canBuyTickSpeed() {
 }
 
 function getTickSpeedMultiplier() {
-    let baseMultiplier = 0.9;
-    if (player.currentChallenge == "challenge6") baseMultiplier = 0.93
-    let perGalaxy = 0.02;
-    
-    if (player.infinityUpgrades.includes("galaxyBoost")) {
-        perGalaxy *= 2
+    if (player.galaxies < 3) {
+        let baseMultiplier = 0.9;
+        if (player.currentChallenge == "challenge6") baseMultiplier = 0.93
+        let perGalaxy = 0.02;
+        
+        if (player.infinityUpgrades.includes("galaxyBoost")) {
+            perGalaxy *= 2
+        }
+        if (player.infinityUpgrades.includes("postGalaxy")) {
+            perGalaxy *= 2
+        }
+        
+        return baseMultiplier-(player.galaxies*perGalaxy);
+    } else {
+        let baseMultiplier = 0.8
+        if (player.currentChallenge == "challenge6") baseMultiplier = 0.83
+        let perGalaxy = 0.965
+        let galaxies = player.galaxies-2
+        if (player.infinityUpgrades.includes("galaxyBoost")) {
+            galaxies *= 2
+        }
+        if (player.infinityUpgrades.includes("postGalaxy")) {
+            galaxies *= 2
+        }
+
+        return baseMultiplier * (Math.pow(perGalaxy, (galaxies-2)))
     }
-    if (player.infinityUpgrades.includes("postGalaxy")) {
-        perGalaxy *= 2
-    }
-    
-    return baseMultiplier-(player.galaxies*perGalaxy);
 }
 
 function buyTickSpeed() {
@@ -2427,9 +2444,18 @@ function updateChallengeTimes() {
 }
 
 function updateLastTenRuns() {
-    for (var i=0; i<10; i++) {
-        document.getElementById("run"+(i+1)).innerHTML = "The infinity "+(i+1)+" infinity ago took " + timeDisplayShort(player.lastTenRuns[i][0]) + " and gave " + player.lastTenRuns[i][1] +" IP. "+ shorten(player.lastTenRuns[i][1]/(player.lastTenRuns[i][0]/600))+ " IP/min"
+    var tempTime = 0
+    var tempIP = 0
+    for (var i=0; i<10;i++) {
+        tempTime += player.lastTenRuns[i][0]
+        tempIP += player.lastTenRuns[i][1]
     }
+    tempTime /= 10
+    tempIP /= 10
+    for (var i=0; i<10; i++) {
+        document.getElementById("run"+(i+1)).innerHTML = "The infinity "+(i+1)+" infinities ago took " + timeDisplayShort(player.lastTenRuns[i][0]) + " and gave " + shortenDimensions(player.lastTenRuns[i][1]) +" IP. "+ shorten(player.lastTenRuns[i][1]/(player.lastTenRuns[i][0]/600))+ " IP/min"
+    }
+    document.getElementById("averagerun").innerHTML = "Last 10 infinities average time: "+ timeDisplayShort(tempTime)+" Average IP gain: "+shortenDimensions(tempIP)+" IP. "+shorten(tempIP/(tempTime/600))+" IP/min"
 }
 
 
