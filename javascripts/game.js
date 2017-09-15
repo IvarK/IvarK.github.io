@@ -1434,9 +1434,10 @@ document.getElementById("maxall").onclick = function () {
                                 if (player.infinityUpgrades.includes("dimCostMult")) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(5)
                                 else player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(10)
                             }
+                            onBuyDimension(tier)
                         }
                         
-                        onBuyDimension(tier);
+                        
                     }
                 }
         } else {
