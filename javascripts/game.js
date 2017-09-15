@@ -991,7 +991,7 @@ function preformat(int) {
 function timeDisplayShort(time) {
     if (time <= 600) return (time/10).toFixed(2) + " seconds"
     time = Decimal.floor(time / 10)
-    return preformat(Decimal.floor((time % 86400) / 3600)) + ":" + preformat(Decimal.floor((time % 3600) / 60)) + ":" + preformat(Decimal.floor(time % 60))
+    return preformat(Decimal.floor((time) / 3600)) + ":" + preformat(Decimal.floor((time % 3600) / 60)) + ":" + preformat(Decimal.floor(time % 60))
 
     }
 
@@ -3052,6 +3052,13 @@ setInterval(function () {
 
         if (player.infinityPoints >= 1e7) document.getElementById("postinfi42").className = "infinistorebtn1"
         else document.getElementById("postinfi42").className = "infinistorebtnlocked"
+    } else {
+        document.getElementById("infi12").className = "infinistorebtnlocked"
+        document.getElementById("infi22").className = "infinistorebtnlocked"
+        document.getElementById("infi13").className = "infinistorebtnlocked"
+        document.getElementById("infi23").className = "infinistorebtnlocked"
+        document.getElementById("infi14").className = "infinistorebtnlocked"
+        
     }
 
     if (player.autobuyers[11]%1 === 0 || player.autobuyers[11].interval>100) document.getElementById("break").className = "infinistorebtnlocked"
