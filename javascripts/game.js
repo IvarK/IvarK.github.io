@@ -1152,7 +1152,7 @@ function buyOneDimension(tier) {
         if (player.currentChallenge != "challenge5" ) player[name + 'Cost'] = player[name + 'Cost'].times((getDimensionCostMultiplier(tier)));
         
         else multiplySameCosts(cost);
-        if (cost.gte(Number.MAX_VALUE)){
+        if (player[name + 'Cost'].gte(Number.MAX_VALUE)){
             if (player.infinityUpgrades.includes("dimCostMult")) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(5)
             else player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(10)
         }
@@ -1206,7 +1206,7 @@ function buyManyDimension(tier) {
     player[name + 'Pow']  = player[name + 'Pow'].times(getDimensionPowerMultiplier(tier));
     if (player.currentChallenge != "challenge5" ) player[name + 'Cost'] = player[name + 'Cost'].times((getDimensionCostMultiplier(tier)));
     else multiplySameCosts(player[name + 'Cost']);  
-    if (cost.gte(Number.MAX_VALUE)){
+    if (player[name + 'Cost'].gte(Number.MAX_VALUE)){
         if (player.infinityUpgrades.includes("dimCostMult")) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(5)
         else player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(10)
     }
@@ -1239,7 +1239,7 @@ function buyManyDimensionAutobuyer(tier, bulk) {
                         player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
                         player[name + "Amount"] = player[name + "Amount"].plus(10)
                         player[name + "Pow"] = player[name + "Pow"].times(getDimensionPowerMultiplier(tier))
-                        if (cost.gte(Number.MAX_VALUE)){
+                        if (player[name + 'Cost'].gte(Number.MAX_VALUE)){
                             if (player.infinityUpgrades.includes("dimCostMult")) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(5)
                             else player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(10)
                         }
@@ -1266,7 +1266,7 @@ function buyManyDimensionAutobuyer(tier, bulk) {
                 else multiplySameCosts(player[name + 'Cost'])
                 player[name + "Amount"] = player[name + "Amount"].plus(10)
                 player[name + "Pow"] = player[name + "Pow"].times(getDimensionPowerMultiplier(tier))
-                    if (cost.gte(Number.MAX_VALUE)){
+                    if (player[name + 'Cost'].gte(Number.MAX_VALUE)){
                         if (player.infinityUpgrades.includes("dimCostMult")) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(5)
                         else player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(10)
                     }
@@ -1430,10 +1430,11 @@ document.getElementById("maxall").onclick = function () {
                             player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
                             player[name + "Amount"] = player[name + "Amount"].plus(10)
                             player[name + "Pow"] = player[name + "Pow"].times(getDimensionPowerMultiplier(tier))
-                            if (cost.gte(Number.MAX_VALUE)){
+                            if (player[name + 'Cost'].gte(Number.MAX_VALUE)){
                                 if (player.infinityUpgrades.includes("dimCostMult")) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(5)
                                 else player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(10)
                             }
+                            
                             onBuyDimension(tier)
                         }
                         
@@ -1456,12 +1457,11 @@ document.getElementById("maxall").onclick = function () {
                 else multiplySameCosts(player[name + 'Cost'])
                 player[name + "Amount"] = player[name + "Amount"].plus(10)
                 player[name + "Pow"] = player[name + "Pow"].times(getDimensionPowerMultiplier(tier))
-                    if (cost.gte(Number.MAX_VALUE)){
+                    if (player[name + 'Cost'].gte(Number.MAX_VALUE)){
                         if (player.infinityUpgrades.includes("dimCostMult")) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(5)
                         else player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(10)
                     }
                 if (player.currentChallenge == "challenge8") clearDimensions(tier-1)
-                
             }
             
             
