@@ -1218,7 +1218,7 @@ function buyManyDimensionAutobuyer(tier, bulk) {
                         player[TIER_NAMES[tier-2]+"Amount"] = player[TIER_NAMES[tier-2]+"Amount"].minus(cost)
                         player[name + "Amount"] = player[name + "Amount"].plus(10 - player[name + 'Bought'])
                         player[name + 'Pow']  = player[name + 'Pow'].times(getDimensionPowerMultiplier(tier))
-                        player[name + "Cost"] = player[name + "Cost"].times((getDimensionCostMultiplier(tier)))
+                        player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
                         player[name + 'Bought'] = 0
                     }
                     var i = 0
@@ -1396,29 +1396,29 @@ document.getElementById("maxall").onclick = function () {
         const name = TIER_NAMES[tier];
         const cost = player[name + 'Cost'].times(10 - player[name + 'Bought'])
         if (tier >= 3 && player.currentChallenge == "challenge10") {
-            if (!canBuyDimension(tier)) return false
-            if (player[TIER_NAMES[tier-2] + 'Amount'].lt(cost)) return false
-               
-                if (canBuyDimension(tier)) {
-                    
-                    if (cost.lt(player[TIER_NAMES[tier-2]+"Amount"]) && player[name + 'Bought'] != 0) {
-                        player[TIER_NAMES[tier-2]+"Amount"] = player[TIER_NAMES[tier-2]+"Amount"].minus(cost)
-                        player[name + "Amount"] = player[name + "Amount"].plus(10 - player[name + 'Bought'])
-                        player[name + 'Pow']  = player[name + 'Pow'].times(getDimensionPowerMultiplier(tier))
-                        player[name + "Cost"] = player[name + "Cost"].times(player.costMultipliers[tier-1])
-                        player[name + 'Bought'] = 0
+            if (canBuyDimension(tier) && player[TIER_NAMES[tier-2] + 'Amount'].gte(cost)) {
+                
+                    if (canBuyDimension(tier)) {
+                        
+                        if (cost.lt(player[TIER_NAMES[tier-2]+"Amount"]) && player[name + 'Bought'] != 0) {
+                            player[TIER_NAMES[tier-2]+"Amount"] = player[TIER_NAMES[tier-2]+"Amount"].minus(cost)
+                            player[name + "Amount"] = player[name + "Amount"].plus(10 - player[name + 'Bought'])
+                            player[name + 'Pow']  = player[name + 'Pow'].times(getDimensionPowerMultiplier(tier))
+                            player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
+                            player[name + 'Bought'] = 0
+                        }
+            
+                        var i = 0
+                        while (player[TIER_NAMES[tier-2]+"Amount"].gt(player[name + "Cost"].times(10))) {
+                            player[TIER_NAMES[tier-2]+"Amount"] = player[TIER_NAMES[tier-2]+"Amount"].minus(player[name + "Cost"].times(10))
+                            player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
+                            if (player[name + "Cost"].gte(Number.MAX_VALUE) && !player.infinityUpgrades.includes("dimCostMult")) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(10)
+                            i++;
+                        }
+                        player[name + "Amount"] = player[name + "Amount"].plus(10*i)
+                        player[name + "Pow"] = player[name + "Pow"].times(Decimal.pow(getDimensionPowerMultiplier(tier), i))
+                        onBuyDimension(tier);
                     }
-        
-                    var i = 0
-                    while (player[TIER_NAMES[tier-2]+"Amount"].gt(player[name + "Cost"].times(10))) {
-                        player[TIER_NAMES[tier-2]+"Amount"] = player[TIER_NAMES[tier-2]+"Amount"].minus(player[name + "Cost"].times(10))
-                        player[name + "Cost"] = player[name + "Cost"].times(player.costMultipliers[tier-1])
-                        if (player[name + "Cost"].gte(Number.MAX_VALUE) && !player.infinityUpgrades.includes("dimCostMult")) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(10)
-                        i++;
-                    }
-                    player[name + "Amount"] = player[name + "Amount"].plus(10*i)
-                    player[name + "Pow"] = player[name + "Pow"].times(Decimal.pow(getDimensionPowerMultiplier(tier), i))
-                    onBuyDimension(tier);
                 }
         } else {
         if (canBuyDimension(tier)) {
