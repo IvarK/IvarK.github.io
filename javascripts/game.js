@@ -2243,9 +2243,9 @@ function updateAutobuyers() {
     autoBuyerDim7.interval = 12000
     autoBuyerDim8.interval = 15000
     autoBuyerDimBoost.interval = 16000
-    autoBuyerGalaxy.interval = 577000
+    autoBuyerGalaxy.interval = 300000
     autoBuyerTickspeed.interval = 10000
-    autoBuyerInf.interval = 577000
+    autoBuyerInf.interval = 300000
     
     autoBuyerDim1.tier = 1
     autoBuyerDim2.tier = 2
