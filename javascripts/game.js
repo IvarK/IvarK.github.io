@@ -3225,7 +3225,25 @@ setInterval(function () {
     if (player.seventhAmount > 1e12) giveAchievement("Multidimensional");
 
     
+    index++;
+    player.lastUpdate = thisUpdate;
+}, 33);
 
+
+function dimBoolean() {
+    const name = TIER_NAMES[getShiftRequirement().tier]
+    if (!player.autobuyers[9].isOn) return false
+    if (player.autobuyers[9].ticks*100 < player.autobuyers[9].interval) return false
+    if (player[name + "Amount"] < getShiftRequirement().amount) return false
+    if (player.autobuyers[9].priority < getShiftRequirement().amount && getShiftRequirement().tier == 8) return false
+
+
+    return true
+} 
+
+
+
+setInterval(function() {
     if (player.autobuyers[11]%1 !== 0) {
         if (player.autobuyers[11].ticks*100 >= player.autobuyers[11].interval && player.money.gte(Number.MAX_VALUE)) {
             if (player.autobuyers[11].isOn) {
@@ -3261,27 +3279,6 @@ setInterval(function () {
             } else player.autobuyers[9].ticks += 1;
         }
 
-
-
-    index++;
-    player.lastUpdate = thisUpdate;
-}, 33);
-
-
-function dimBoolean() {
-    const name = TIER_NAMES[getShiftRequirement().tier]
-    if (!player.autobuyers[9].isOn) return false
-    if (player.autobuyers[9].ticks*100 < player.autobuyers[9].interval) return false
-    if (player[name + "Amount"] < getShiftRequirement().amount) return false
-    if (player.autobuyers[9].priority < getShiftRequirement().amount && getShiftRequirement().tier == 8) return false
-
-
-    return true
-} 
-
-
-
-setInterval(function() {
         for (var i=0; i<priority.length; i++) {
             if (priority[i].ticks*100 >= priority[i].interval || priority[i].interval == 100) {
                 if ((priority[i].isOn && canBuyDimension(priority[i].tier)) ) {
