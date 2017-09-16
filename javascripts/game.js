@@ -1469,10 +1469,11 @@ document.getElementById("maxall").onclick = function () {
                         else player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(10)
                     }
                 if (player.currentChallenge == "challenge8") clearDimensions(tier-1)
+                    onBuyDimension(tier);
             }
             
             
-            onBuyDimension(tier);
+            
             
         }
         }
