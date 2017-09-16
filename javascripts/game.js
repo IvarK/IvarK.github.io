@@ -200,7 +200,7 @@ function load_game() {
     if (player.sixthAmount !== 0)
         if (player.resets > 2 && player.currentChallenge !== "challenge4") document.getElementById("seventhRow").style.display = "table-row";
     if (player.seventhAmount !== 0)
-        if (player.resets > 3) document.getElementById("eightRow").style.display = "table-row";
+        if (player.resets > 3 && player.currentChallenge !== "challenge4") document.getElementById("eightRow").style.display = "table-row";
     transformSaveToDecimal();
     updateCosts();
     updateTickSpeed();
