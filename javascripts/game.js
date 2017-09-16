@@ -2193,6 +2193,11 @@ function sacrifice() {
     }
     updateDimensions();
     updateCosts();
+    for (let tier = 1; tier <= 8; ++tier) {
+        const name = TIER_NAMES[tier];
+        document.getElementById(name + "D").innerHTML = DISPLAY_NAMES[tier] + " Dimension x" + formatValue(player.options.notation, getDimensionFinalMultiplier(tier), 1, 1);
+        document.getElementById(name + "Amount").innerHTML = getDimensionDescription(tier);  
+    }
 
 }
 
