@@ -66,6 +66,7 @@ var player = {
     lastTenRuns: [[600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1]],
     infMult: 1,
     infMultCost: 100,
+    version: 1,
     options: {
         newsHidden: false,
         notation: "Standard",
@@ -229,13 +230,14 @@ function load_game() {
             achievement.className = 'achievement achievementlocked';
         }
     }
-   /* if (player.lastUpdate < 1505065298783) { // value will need to be adjusted when update goes live
+    if (player.version === undefined) { // value will need to be adjusted when update goes live
         for (var i = 0; i < player.autobuyers.length; i++) {
             player.infinityPoints += player.autobuyers[i].cost - 1
         }
         player.autobuyers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
         updateAutobuyers();
-    }*/
+        player.version = 1
+    }
     setAchieveTooltip();
 }
 
@@ -777,6 +779,7 @@ function softReset() {
         lastTenRuns: player.lastTenRuns,
         infMult: player.infMult,
         infMultCost: player.infMultCost,
+        version: player.version,
         options: {
             newsHidden: player.options.newsHidden,
             notation: player.options.notation,
@@ -1919,6 +1922,7 @@ document.getElementById("secondSoftReset").onclick = function () {
             lastTenRuns: player.lastTenRuns,
             infMult: player.infMult,
             infMultCost: player.infMultCost,
+            version: player.version,
             options: {
                 newsHidden: player.options.newsHidden,
                 scientific: player.options.scientific,
@@ -2601,6 +2605,7 @@ document.getElementById("bigcrunch").onclick = function () {
         lastTenRuns: player.lastTenRuns,
         infMult: player.infMult,
         infMultCost: player.infMultCost,
+        version: player.version,
         options: {
             newsHidden: player.options.newsHidden,
             scientific: player.options.scientific,
@@ -2763,6 +2768,7 @@ function startChallenge(name) {
       lastTenRuns: player.lastTenRuns,
       infMult: player.infMult,
       infMultCost: player.infMultCost,
+      version: player.version,
       options: {
         newsHidden: player.options.newsHidden,
 	    notation: player.options.notation,
