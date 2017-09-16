@@ -472,7 +472,7 @@ function getDimensionDescription(tier) {
     let description = shortenDimensions(player[name + 'Amount']) + ' (' + player[name + 'Bought'] + ')';
     
     if (tier < 8) {
-        description += '  (+' + formatValue(player.options.notation, getDimensionRateOfChange(tier).toFixed(1), 2, 2) + '%/s)';
+        description += '  (+' + formatValue(player.options.notation, getDimensionRateOfChange(tier), 2, 2) + '%/s)';
     }
     
     return description;
