@@ -554,8 +554,9 @@ function ETACalc(t) {
 var worstChallengeTime = 1
 
 function updateWorstChallengeTime() {
+    worstChallengeTime = 1
     for (var i=0; i<10; i++) {
-        if (player.challengeTimes[i] > worstChallengeTime && player.challengeTimes[i] != 600*60*24*31) worstChallengeTime = player.challengeTimes[i]
+        if (player.challengeTimes[i] > worstChallengeTime) worstChallengeTime = player.challengeTimes[i]
     }
 }
 
