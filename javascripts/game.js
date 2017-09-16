@@ -2890,7 +2890,7 @@ setInterval(function () {
             if (player.infinityUpgrades.includes("passiveGen")) player.partInfinityPoint += 1 / player.bestInfinityTime;
             if (player.partInfinityPoint >= 10) {
                 player.partInfinityPoint -= 10;
-                player.infinityPoints += 1;
+                player.infinityPoints += player.infMult;
             }
             if (player.currentChallenge != "challenge7") {
                 for (let tier = 7; tier >= 1; --tier) {
@@ -3246,6 +3246,7 @@ function dimBoolean() {
 
 
 setInterval(function() {
+
     if (player.autobuyers[11]%1 !== 0) {
         if (player.autobuyers[11].ticks*100 >= player.autobuyers[11].interval && player.money.gte(Number.MAX_VALUE)) {
             if (player.autobuyers[11].isOn) {
@@ -3255,7 +3256,7 @@ setInterval(function() {
                     document.getElementById("bigcrunch").click()
                 }
                 
-                player.autobuyers[11].ticks = 0;
+                player.autobuyers[11].ticks = 1;
             } 
         } else player.autobuyers[11].ticks += 1;
         
@@ -3266,7 +3267,7 @@ setInterval(function() {
             if (player.autobuyers[10].ticks*100 >= player.autobuyers[10].interval && (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() : player.eightAmount >= getGalaxyRequirement())) {
                 if (player.autobuyers[10].isOn && player.autobuyers[10].priority > player.galaxies) {
                     document.getElementById("secondSoftReset").click()
-                    player.autobuyers[10].ticks = 0;
+                    player.autobuyers[10].ticks = 1;
                 } 
             } else player.autobuyers[10].ticks += 1;
         }
@@ -3276,7 +3277,7 @@ setInterval(function() {
             if (dimBoolean()) {
                 if (player.autobuyers[9].isOn) {
                     document.getElementById("softReset").click()
-                    player.autobuyers[9].ticks = 0;
+                    player.autobuyers[9].ticks = 1;
                 } 
             } else player.autobuyers[9].ticks += 1;
         }
