@@ -895,6 +895,7 @@ function canBuyTickSpeed() {
 function getTickSpeedMultiplier() {
     if (player.galaxies < 3) {
         let baseMultiplier = 0.9;
+        if (player.galaxies == 0) baseMultiplier = 0.89
         if (player.currentChallenge == "challenge6") baseMultiplier = 0.93
         let perGalaxy = 0.02;
         
@@ -2884,7 +2885,7 @@ setInterval(function () {
     player.chall2Pow = Math.min(player.chall2Pow + diff/1800, 1)
 
 
-   /* if (diff > 100) {
+    if (diff > 100) {
         for (var i=0; i< diff; i++) {
             if (player.infinityUpgrades.includes("passiveGen")) player.partInfinityPoint += 1 / player.bestInfinityTime;
             if (player.partInfinityPoint >= 10) {
@@ -2919,7 +2920,7 @@ setInterval(function () {
       }
             }
         }
-    } else {*/
+    } else {
         if (player.infinityUpgrades.includes("passiveGen")) player.partInfinityPoint += diff / player.bestInfinityTime;
         if (player.partInfinityPoint >= 10) {
             player.partInfinityPoint -= 10;
@@ -2950,7 +2951,7 @@ setInterval(function () {
       if (player.currentChallenge == "challenge7") {
           player.money = player.money.plus(getDimensionProductionPerSecond(2).times(diff/10))
           player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(2).times(diff/10))
-      
+      }
     }
     }
     player.totalTimePlayed += diff
