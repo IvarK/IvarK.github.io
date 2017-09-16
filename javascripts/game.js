@@ -208,7 +208,7 @@ function load_game() {
     updateAchPow();
     updateChallenges();
     updateCheckBoxes();
-    updateAutobuyers();
+    
     loadAutoBuyerSettings();
     updateLastTenRuns()
     if (player.currentChallenge == "challenge12" || player.currentChallenge == "challenge9" || player.currentChallenge == "challenge5") document.getElementById("quickReset").style.display = "inline-block";
@@ -235,9 +235,9 @@ function load_game() {
             player.infinityPoints += player.autobuyers[i].cost - 1
         }
         player.autobuyers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-        updateAutobuyers();
         player.version = 1
     }
+    updateAutobuyers();
     setAchieveTooltip();
 }
 
