@@ -2328,7 +2328,7 @@ function updateAutobuyers() {
     for (let tier = 1; tier <= 8; ++tier) {
         document.getElementById("toggleBtn" + tier).style.display = "inline-block";
         if (player.autobuyers[tier-1].interval <= 100) {
-            document.getElementById("buyerBtn" + tier).innerHTML = "x2 bulk purchase<br>Cost: " + shortenDimensions(player.autobuyers[tier-1].cost) + " IP"
+            document.getElementById("buyerBtn" + tier).innerHTML = shortenDimensions(player.autobuyers[tier-1].bulk*2)+"x bulk purchase<br>Cost: " + shortenDimensions(player.autobuyers[tier-1].cost) + " IP"
             maxedAutobuy++;
         }
         else document.getElementById("buyerBtn" + tier).innerHTML = "40% smaller interval <br>Cost: " + shortenDimensions(player.autobuyers[tier-1].cost) + " IP"
@@ -3224,7 +3224,7 @@ setInterval(function () {
     if (player.totalTimePlayed >= 10 * 60 * 60 * 24 * 8) giveAchievement("One for each dimension")
     if (player.seventhAmount > 1e12) giveAchievement("Multidimensional");
 
-    
+
     index++;
     player.lastUpdate = thisUpdate;
 }, 33);
