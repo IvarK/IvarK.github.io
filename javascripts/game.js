@@ -3138,7 +3138,11 @@ setInterval(function () {
 
     if (player.autobuyers[11]%1 !== 0 && player.autobuyers[11].interval == 100) {
         document.getElementById("postinftable").style.display = "inline-block"
-    } else document.getElementById("postinftable").style.display = "none"
+        document.getElementById("postinftable2").style.display = "inline-block"
+    } else {
+        document.getElementById("postinftable").style.display = "none"
+        document.getElementById("postinftable2").style.display = "none"
+    }
 
     if (player.autobuyers[11].interval == 100) document.getElementById("abletobreak").style.display = "none"
 
