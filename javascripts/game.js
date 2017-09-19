@@ -2727,7 +2727,7 @@ function exitChallenge() {
 }
 
 function startChallenge(name) {
-  if(name == "" ? true : confirm("You will start over with just your infinity upgrades and achievements. You need to reach infinity with special conditions.")) {
+  if(name == "" ? true : confirm("You will start over with just your infinity upgrades and achievements. You need to reach infinity with special conditions. NOTE: The rightmost infinity upgrade column doesn't work on challenges.")) {
     if (player.currentChallenge != "") document.getElementById(player.currentChallenge).innerHTML = "Start"
     player = {
         money: new Decimal(10),
