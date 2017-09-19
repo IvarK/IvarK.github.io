@@ -187,6 +187,7 @@ function load_game() {
         document.getElementById("tickSpeedAmount").style.visibility = "visible";
     }
 
+    if (player.matter === null) player.matter = new Decimal(0)
     for (var i=0; i<12; i++) {
         if (player.autobuyers[i]%1 !== 0 && player.autobuyers[i].tier === undefined) {
             player.autobuyers[i].tier = i+1
