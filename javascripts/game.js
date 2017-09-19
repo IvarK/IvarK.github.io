@@ -69,7 +69,7 @@ var player = {
     tickSpeedMultDecrease: 10,
     tickSpeedMultDecreaseCost: 3e6,
     dimensionMultDecrease: 10,
-    dimensionMultDecreaseCost: 1e10,
+    dimensionMultDecreaseCost: 1e8,
     version: 1,
     options: {
         newsHidden: false,
@@ -178,7 +178,7 @@ function load_game() {
     if (player.tickSpeedMultDecrease === undefined) player.tickSpeedMultDecrease = 10
     if (player.tickSpeedMultDecreaseCost === undefined) player.tickSpeedMultDecreaseCost = 3e6
     if (player.dimensionMultDecrease === undefined) player.dimensionMultDecrease = 10
-    if (player.dimensionMultDecreaseCost === undefined) player.dimensionMultDecreaseCost = 1e10
+    if (player.dimensionMultDecreaseCost === undefined) player.dimensionMultDecreaseCost = 1e8
     if (player.secondAmount !== 0) {
         document.getElementById("thirdRow").style.display = "table-row";
         document.getElementById("tickSpeed").style.visibility = "visible";
