@@ -2200,10 +2200,10 @@ function resetDimensions() {
 function calcSacrificeBoost() {
     if (player.firstAmount == 0) return 1;
     if (player.currentChallenge != "challenge11") {
-        if (player.achievements.includes("The Gods are pleased")) return Decimal.max(Decimal.pow((Decimal.log10(player.firstAmount).dividedBy(10.0)), 2.05).dividedBy(Decimal.max(Decimal.pow((Decimal.log10(Decimal.max(player.sacrificed, 1)).dividedBy(10.0)), 2.05), 1), 1));
-        else return Decimal.max(Decimal.pow((Decimal.log10(player.firstAmount).dividedBy(10.0)), 2).dividedBy(Decimal.max(Decimal.pow((Decimal.log10(Decimal.max(player.sacrificed, 1)).dividedBy(10.0)), 2), 1), 1));
+        if (player.achievements.includes("The Gods are pleased")) return Decimal.max(Decimal.pow((Decimal.log10(player.firstAmount).dividedBy(10.0)), 2.05).dividedBy(Decimal.max(Decimal.pow((Decimal.log10(Decimal.max(player.sacrificed, 1)).dividedBy(10.0)), 2.05), 1), 1), 1);
+        else return Decimal.max(Decimal.pow((Decimal.log10(player.firstAmount).dividedBy(10.0)), 2).dividedBy(Decimal.max(Decimal.pow((Decimal.log10(Decimal.max(player.sacrificed, 1)).dividedBy(10.0)), 2), 1), 1), 1);
     } else {
-        if (player.firstAmount != 0) return Decimal.pow(player.firstAmount, 0.05).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.04), 1))
+        if (player.firstAmount != 0) return Decimal.max(Decimal.pow(player.firstAmount, 0.05).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.04), 1)), 1)
         else return 1
     }
 }
