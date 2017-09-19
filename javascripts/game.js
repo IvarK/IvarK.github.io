@@ -70,6 +70,7 @@ var player = {
     tickSpeedMultDecreaseCost: 3e6,
     dimensionMultDecrease: 10,
     dimensionMultDecreaseCost: 1e8,
+    overXGalaxies: 10,
     version: 1,
     options: {
         newsHidden: false,
@@ -179,6 +180,7 @@ function load_game() {
     if (player.tickSpeedMultDecreaseCost === undefined) player.tickSpeedMultDecreaseCost = 3e6
     if (player.dimensionMultDecrease === undefined) player.dimensionMultDecrease = 10
     if (player.dimensionMultDecreaseCost === undefined) player.dimensionMultDecreaseCost = 1e8
+    if (player.overXGalaxies === undefined) player.overXGalaxies = 10;
     if (player.secondAmount !== 0) {
         document.getElementById("thirdRow").style.display = "table-row";
         document.getElementById("tickSpeed").style.visibility = "visible";
@@ -305,6 +307,7 @@ function loadAutoBuyerSettings() {
     document.getElementById("priority10").value = player.autobuyers[9].priority
     document.getElementById("priority11").value = player.autobuyers[10].priority
     document.getElementById("priority12").value = player.autobuyers[11].priority
+    document.getElementById("overGalaxies").value = player.overXGalaxies
 
 }
 
@@ -812,6 +815,7 @@ function softReset() {
         dimensionMultDecrease: player.dimensionMultDecrease,
         dimensionMultDecreaseCost: player.dimensionMultDecreaseCost,
         version: player.version,
+        overXGalaxies: player.overXGalaxies,
         options: {
             newsHidden: player.options.newsHidden,
             notation: player.options.notation,
@@ -1950,6 +1954,7 @@ document.getElementById("secondSoftReset").onclick = function () {
             dimensionMultDecrease: player.dimensionMultDecrease,
             dimensionMultDecreaseCost: player.dimensionMultDecreaseCost,
             version: player.version,
+            overXGalaxies: player.overXGalaxies,
             options: {
                 newsHidden: player.options.newsHidden,
                 scientific: player.options.scientific,
@@ -2457,6 +2462,8 @@ function updatePriorities() {
     if (infvalue.includes("e")) infvalue = parseInt(infvalue.split("e")[0]) * Math.pow(10, parseInt(infvalue.split("e")[1]))
     else infvalue = parseInt(infvalue)
     player.autobuyers[11].priority = infvalue
+
+    player.overXGalaxies = parseInt(document.getElementById("overGalaxies").value)
     priorityOrder()
 }
 
@@ -2642,6 +2649,7 @@ document.getElementById("bigcrunch").onclick = function () {
         dimensionMultDecrease: player.dimensionMultDecrease,
         dimensionMultDecreaseCost: player.dimensionMultDecreaseCost,
         version: player.version,
+        overXGalaxies: player.overXGalaxies,
         options: {
             newsHidden: player.options.newsHidden,
             scientific: player.options.scientific,
@@ -2810,6 +2818,7 @@ function startChallenge(name) {
       dimensionMultDecrease: player.dimensionMultDecrease,
       dimensionMultDecreaseCost: player.dimensionMultDecreaseCost,
       version: player.version,
+      overXGalaxies: player.overXGalaxies,
       options: {
         newsHidden: player.options.newsHidden,
 	    notation: player.options.notation,
@@ -3278,6 +3287,7 @@ function dimBoolean() {
     if (!player.autobuyers[9].isOn) return false
     if (player.autobuyers[9].ticks*100 < player.autobuyers[9].interval) return false
     if (player[name + "Amount"] < getShiftRequirement().amount) return false
+    if (player.overXGalaxies <= player.galaxies) return true
     if (player.autobuyers[9].priority < getShiftRequirement().amount && getShiftRequirement().tier == 8) return false
 
 
