@@ -381,7 +381,9 @@ function formatValue(notation, value, places, placesUnder1000) {
     if ((value <= Number.MAX_VALUE || (player.break && player.currentChallenge == "")) && (value >= 1000)) {
         if (isDecimal(value)) {
            var power = value.e
-           var matissa = parseFloat(value.toExponential(4).split("e")[0])
+           var temp = value.toExponential(4).split("e")
+           var matissa = parseFloat(temp[0])
+           if (parseInt(temp[1]) != power) power++;
         } else {
             var matissa = value / Math.pow(10, Math.floor(Math.log10(value)));
             var power = Decimal.floor(Math.log10(value));
