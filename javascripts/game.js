@@ -608,7 +608,7 @@ function updateDimensions() {
     }
     
     if (canBuyTickSpeed()) {
-        document.getElementById("tickLabel").innerHTML = 'Reduce the tick interval by ' + Decimal.round((1 - getTickSpeedMultiplier()) * 100) + '%.';
+        document.getElementById("tickLabel").innerHTML = 'Reduce the tick interval by ' + ((1 - getTickSpeedMultiplier()) * 100).toFixed(1) + '%.';
         
         document.getElementById("tickSpeed").style.visibility = "visible";
         document.getElementById("tickSpeedMax").style.visibility = "visible";
