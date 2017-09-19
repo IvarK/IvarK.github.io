@@ -2551,6 +2551,10 @@ document.getElementById("bigcrunch").onclick = function () {
       if (player.currentChallenge == "challenge11" && player.thisInfinityTime <= 1800) giveAchievement("Gift from the Gods")
       if (player.currentChallenge == "challenge5" && player.thisInfinityTime <= 1800) giveAchievement("Is this hell?")
       if (player.currentChallenge != "" && player.challengeTimes[challNumber-2] > player.thisInfinityTime) player.challengeTimes[challNumber-2] = player.thisInfinityTime
+        try {
+            if (player.currentChallenge = "challenge5")kongregate.stats.submit('Challenge 9 time record (ms)', Math.floor(player.thisInfinityTime*100));
+            
+        } catch (err) {console.log("Couldn't load Kongregate API")}
       if (player.currentChallenge != "" && !player.challenges.includes(player.currentChallenge)) {
       player.challenges.push(player.currentChallenge);
         }
@@ -2702,6 +2706,7 @@ document.getElementById("bigcrunch").onclick = function () {
       try {
         kongregate.stats.submit('Infinitied', player.infinitied);
         kongregate.stats.submit('Fastest Infinity time', Math.floor(player.bestInfinityTime / 10))
+        
     } catch (err) {console.log("Couldn't load Kongregate API")}
       if (!player.achievements.includes("To infinity!")) giveAchievement("To infinity!");
       if (!player.achievements.includes("That's a lot of infinites") && player.infinitied >= 10) giveAchievement("That's a lot of infinites");
