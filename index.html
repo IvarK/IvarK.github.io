@@ -31,7 +31,7 @@
 </head>
 
 <body id="body">
-    <div class="container" style="color:#4F5957; font-family: Typewriter; text-align:center; font-size: 1.7vh">
+    <div class="container" style="color:#4F5957; font-family: Typewriter; text-align:center; font-size: 13px">
         <img id="logoanimation" src="animation.gif">
         <div id="logodiv" class="logo">
             <img id="logotxt" src="ADlogo.png" style="height:150px">
@@ -40,27 +40,28 @@
         <canvas id="game" height="30px"></canvas>
         <div id="matter"></div>
         <div>
-            <p>You have <span id="coinAmount" style="font-size:180%; color: black">0</span> antimatter.</p>
+            <p>You have <span id="coinAmount" style="font-size:35px; color: black">0</span> antimatter.</p>
         </div>
-        
+        <div style="position: relative"><button id="postInfinityButton" class="postinfcrunch">Big Crunch for x Infinity Points</button></div>
         <div id="coinsPerSec">You are getting 0 antimatter per second.</div>
+        
         <tr id="tickSpeedRow" style="visibility: hidden">
             <div id="tickLabel" style="visibility: hidden">Make the game 10% faster.</div>
-            <button id="tickSpeed" style="color:black; visibility: hidden; height: 30px; font-size: 70%" class="storebtn">Cost: 1000</button>
-            <button id="tickSpeedMax" onclick="buyMaxTickSpeed()" style="color:black; visibility: hidden; height: 30px; font-size: 80%" class="storebtn">Buy Max</button>
+            <button id="tickSpeed" style="color:black; visibility: hidden; height: 30px;width: 150px; font-size: 12px" class="storebtn">Cost: 1000</button>
+            <button id="tickSpeedMax" onclick="buyMaxTickSpeed()" style="color:black; visibility: hidden; height: 30px; font-size: 12px" class="storebtn">Buy Max</button>
             <div id="tickSpeedAmount" style="visibility: hidden">Tickspeed: 1000</div>
         </tr>
         <p></p>
-        <div>
-            <button id="bigcrunch" style="font-family: Typewriter; font-size: 240%; display: none" class="tabbtn">Big Crunch</button>
+        <div style="position:absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; width: 360px; top: 95px">
+            <button id="bigcrunch" style="font-family: Typewriter; font-size: 50px; width: 360px; height: 100px;" class="tabbtn">Big Crunch</button>
         </div>
         <div>
-            <button id="dimensionsbtn" style="font-family: Typewriter; font-size: 180%" class="tabbtn">Dimensions</button>
-            <button id="optionsbtn" style="font-family: Typewriter; font-size: 180%" class="tabbtn">Options</button>
-            <button id="statisticsbtn" style="font-family: Typewriter; font-size: 180%" class="tabbtn">Statistics</button>
-            <button id="achievementsbtn" style="font-family: Typewriter; font-size: 180%" class="tabbtn">Achievements</button>
-            <button id="challengesbtn" style="font-family: Typewriter; font-size: 180%" class="tabbtn">Challenges</button>
-            <button id="infinitybtn" style="font-family: Typewriter; font-size: 180%" class="infinitybtn">Infinity</button>
+            <button id="dimensionsbtn" style="font-family: Typewriter; font-size: 25px" class="tabbtn">Dimensions</button>
+            <button id="optionsbtn" style="font-family: Typewriter; font-size: 25px" class="tabbtn">Options</button>
+            <button id="statisticsbtn" style="font-family: Typewriter; font-size: 25px" class="tabbtn">Statistics</button>
+            <button id="achievementsbtn" style="font-family: Typewriter; font-size: 25px" class="tabbtn">Achievements</button>
+            <button id="challengesbtn" style="font-family: Typewriter; font-size: 25px" class="tabbtn">Challenges</button>
+            <button id="infinitybtn" style="font-family: Typewriter; font-size: 25px" class="infinitybtn">Infinity</button>
         </div>
         <div id="emptiness" class="tab" style="font-size: 150%">
             <br> The world has collapsed on itself due to excess of antimatter.
@@ -70,13 +71,13 @@
         <div id="dimensions" class="tab">
             <p></p>
             <input id="confirmation" type="checkbox" style="width:20px; height:20px; display: none" ach-tooltip="No confirmation when doing Dimensional Sacrifice">
-            <button id="sacrifice" class="storebtn" style="font-size:80%; width: 200px; display: none" ach-tooltip="">Dimensional Sacrifice</button>
-            <button id="maxall" class="storebtn" style="font-size: 80%">Max all</Button>
+            <button id="sacrifice" class="storebtn" style="font-size:12px; width: 260px; display: none" ach-tooltip="">Dimensional Sacrifice</button>
+            <button id="maxall" class="storebtn" style="font-size: 12px">Max all</Button>
             <span id="chall2Pow"></span>
             <span id="chall3Pow"></span>
             <table class="table" >
             <tbody id="parent">
-                <tr style="font-size: 135%" id="firstRow">
+                <tr style="font-size: 18px" id="firstRow">
                     <td id="firstD" width="32%">
                         First Dimension x1
                     </td>
@@ -90,7 +91,7 @@
                         <button id="firstMax" style="color:black; width:195px; height:35px" class="storebtn" align="right">Cost: 10</button>
                     </td>
                 </tr>
-                <tr id="secondRow" style="display: none; font-size: 135%">
+                <tr id="secondRow" style="display: none; font-size: 18px">
                     <td id="secondD">
                         Second Dimension
                     </td>
@@ -103,7 +104,7 @@
                         <button id="secondMax" style="color:black; width:195px; height:35px" class="storebtn">Cost: 10</button>
                     </td>
                 </tr>
-                <tr id="thirdRow" style="display: none; font-size: 135%">
+                <tr id="thirdRow" style="display: none; font-size: 18px">
                     <td id="thirdD">
                         Third Dimension
                     </td>
@@ -117,7 +118,7 @@
                         <button id="thirdMax" style="color:black; width:195px; height:35px" class="storebtn">Cost: 10</button>
                     </td>
                 </tr>
-                <tr id="fourthRow" style="display: none; font-size: 135%">
+                <tr id="fourthRow" style="display: none; font-size: 18px">
                     <td id="fourthD">
                         Fourth Dimension
                     </td>
@@ -131,7 +132,7 @@
                         <button id="fourthMax" style="color:black; width:195px; height:35px" class="storebtn">Cost: 10</button>
                     </td>
                 </tr>
-                <tr id="fifthRow" style="display: none; font-size: 135%">
+                <tr id="fifthRow" style="display: none; font-size: 18px">
                     <td id="fifthD">
                         Fifth Dimension
                     </td>
@@ -145,7 +146,7 @@
                         <button id="fifthMax" style="color:black; width:195px; height:35px" class="storebtn">Cost: 10</button>
                     </td>
                 </tr>
-                <tr id="sixthRow" style="display: none; font-size: 135%">
+                <tr id="sixthRow" style="display: none; font-size: 18px">
                     <td id="sixthD">
                         Sixth Dimension
                     </td>
@@ -159,7 +160,7 @@
                         <button id="sixthMax" style="color:black; width:195px; height:35px" class="storebtn">Cost: 10</button>
                     </td>
                 </tr>
-                <tr id="seventhRow" style="display: none; font-size: 135%">
+                <tr id="seventhRow" style="display: none; font-size: 18px">
                     <td id="seventhD">
                         Seventh Dimension
                     </td>
@@ -173,7 +174,7 @@
                         <button id="seventhMax" style="color:black; width:195px; height:35px" class="storebtn">Cost: 10</button>
                     </td>
                 </tr>
-                <tr id="eightRow" style="display: none; font-size: 135%">
+                <tr id="eightRow" style="display: none; font-size: 18px">
                     <td id="eightD">
                         Eight Dimension
                     </td>
@@ -191,24 +192,24 @@
                 </body>
             </table>
             <table style="width: 100%">
-                <tr style="font-size: 145%">
+                <tr style="font-size: 18px">
                     <td id="resetLabel">
                         Dimension Shift: requires 20 Fourth Dimension
                     </td>
                     <td>
-                        <button id="softReset" style="color:black; width: 200px; height: 45px; font-size: 50%" class="storebtn">Reset the game for a new Dimension</button>
+                        <button id="softReset" style="color:black; width: 200px; height: 45px; font-size: 10px" class="storebtn">Reset the game for a new Dimension</button>
                     </td>
                 </tr>
-                <tr style="font-size: 145%">
+                <tr style="font-size: 18px">
                     <td id="secondResetLabel">
                         Antimatter Galaxies: requires 80 Eight Dimension
                     </td>
                     <td>
-                        <button id="secondSoftReset" style="color:black; width: 200px; height: 50px; font-size: 45%" class="storebtn">Lose all your previous progress, but get a tickspeed boost</button>
+                        <button id="secondSoftReset" style="color:black; width: 200px; height: 50px; font-size: 10px" class="storebtn">Lose all your previous progress, but get a tickspeed boost</button>
                     </td>
                 </tr>
             </table>
-            <button id="quickReset" style="color:black; width: 200px; height: 50px; font-size: 80%; display: none" class="storebtn">Lose a reset, returning to the start of the reset</button>
+            <button id="quickReset" style="color:black; width: 200px; height: 50px; font-size: 12px; display: none" class="storebtn">Lose a reset, returning to the start of the reset</button>
             <div id="progress" ach-tooltip="Percentage until Infinity">
                 <div id="progressbar"></div>
             </div>
@@ -217,28 +218,35 @@
             <br>
             <table>
                 <tr>
-                    <td><div><button id="animation" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:130%">Enable/Disable animations</button></div></td>
-                    <td><div><button id="exportbtn" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:130%">Export</button></div></td>
+                    <td><div><button id="animation" class="storebtn" style="color:black; width: 200px; height: 55px; font-size: 20px">Enable/Disable animations</button></div></td>
+                    <td><div><button id="exportbtn" class="storebtn" style="color:black; width: 200px; height: 55px; font-size: 20px">Export</button></div></td>
                 </tr>
                 <tr>
-                    <td><div><button id="logo" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:130%">Hide the logo</button></div></td>
-                    <td><div><button id="importbtn" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:130%">Import</button></div></td>
+                    <td><div><button id="logo" class="storebtn" style="color:black; width: 200px; height: 55px; font-size: 20px">Hide the logo</button></div></td>
+                    <td><div><button id="importbtn" class="storebtn" style="color:black; width: 200px; height: 55px; font-size: 20px">Import</button></div></td>
                 </tr>
                 <tr>
                     <td><div><button id="notation" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:120%">Notation: Standard</button></div></td>
-                    <td><div><button id="save" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:130%">Save</button></div></td>
+                    <td><div><button id="save" class="storebtn" style="color:black; width: 200px; height: 55px; font-size: 20px">Save</button></div></td>
                 </tr>
                 <tr>
-                    <td><div><button id="invert" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:130%">Invert colors</button></div></td>
+                    <td><div><button id="invert" class="storebtn" style="color:black; width: 200px; height: 55px; font-size: 20px">Invert colors</button></div></td>
                     <td><div style="display: none;"><textarea id="exportOutput" style="color:black; width: 200px; height: 55px;"></textarea></div></td>
                 </tr>
                 <tr>
                     <td><div><button id="newsbtn" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:120%">Hide the news</button></div></td>
-                    <td><div><button id="reset" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:130%">RESET THE GAME</button></div></td>
+                    <td><div><button id="reset" class="storebtn" style="color:black; width: 200px; height: 55px; font-size: 20px">RESET THE GAME</button></div></td>
                 </tr>
             </table>
         </div>
-        <div id="statistics" class="tab" align="left" style="color: black; font-size: 140%; font-family: Typewriter; width: 60%; margin: 0 auto">
+        <div id="statistics" class="tab" align="center" style="color: black; font-size: 15px; font-family: Typewriter; width: 60%; margin: 0 auto">
+            <br>
+            <tr>
+                <td><button class="secondarytabbtn" onclick="showStatsTab('stats')">Statistics</button><td>
+                <td><button class="secondarytabbtn" onclick="showStatsTab('challengetimes')">Challenge records</button><td>
+                <td><button class="secondarytabbtn" onclick="showStatsTab('lasttenruns')">Past infinities</button><td>
+            </tr>
+            <div id="stats" class="statstab">
             <br>
             <div id="totalmoney">You have made x antimatter.</div>
             <div id="totalresets">You have made x soft resets.</div>
@@ -247,6 +255,38 @@
             <div id="bestInfinity">Your fastest infinity is in x.</div>
             <div id="thisInfinity">You have spent x in this Infinity.</div>
             <div id="totalTime">You have played for </div>
+            <div id="infoScale">If every antimatter were a planck volume, you would have enough to </div>
+            </div>
+            <div id="challengetimes" class="statstab" >
+                <br>
+                <div id="challengetime2"></div>
+                <div id="challengetime3"></div>
+                <div id="challengetime4"></div>
+                <div id="challengetime5"></div>
+                <div id="challengetime6"></div>
+                <div id="challengetime7"></div>
+                <div id="challengetime8"></div>
+                <div id="challengetime9"></div>
+                <div id="challengetime10"></div>
+                <div id="challengetime11"></div>
+                <div id="challengetime12"></div>
+                <br>
+            </div>
+            <div id="lasttenruns" class="statstab">
+                <div id="run1"></div>
+                <div id="run2"></div>
+                <div id="run3"></div>
+                <div id="run4"></div>
+                <div id="run5"></div>
+                <div id="run6"></div>
+                <div id="run7"></div>
+                <div id="run8"></div>
+                <div id="run9"></div>
+                <div id="run10"></div>
+                <br>
+                <div id="averagerun"></div>
+                <br>
+            </div>
         </div>
 
         <div id="achievements" class="tab">
@@ -287,7 +327,7 @@
                         <div id="Don't you dare to sleep" class="achievement achievementlocked" style="background-image: url(images/10.png)" ach-tooltip="Be offline for over 6 hours in a row"><br></div>
                     </td>
                     <td>
-                        <div id="The 9th Dimension is a lie" class="achievement achievementlocked" style="background-image: url(images/11.png)" ach-tooltip="Have exactly 99 Eighth Dimensions"><br></div>
+                        <div id="The 9th Dimension is a lie" class="achievement achievementlocked" style="background-image: url(images/11.png)" ach-tooltip="Have exactly 99 Eighth Dimensions. Reward: Eighth Dimensions are 10% stronger."><br></div>
                     </td>
                     <td>
                         <div id="Antimatter Apocalypse" class="achievement achievementlocked" style="background-image: url(images/12.png)" ach-tooltip="Get over 10 QtVg (10e79) antimatter"><br></div>
@@ -302,30 +342,30 @@
                         <div id="Double Galaxy" class="achievement achievementlocked" style="background-image: url(images/15.png)" ach-tooltip="Buy 2 Antimatter Galaxies"><br></div>
                     </td>
                     <td>
-                        <div id="There's no point in doing that" class="achievement achievementlocked" style="background-image: url(images/16.png)" ach-tooltip="Buy a single First Dimension when you have over 1e150 of them"><br></div>
+                        <div id="There's no point in doing that" class="achievement achievementlocked" style="background-image: url(images/16.png)" ach-tooltip="Buy a single First Dimension when you have over 1e150 of them. Reward: First Dimensions are 10% stronger"><br></div>
                     </td>
                 </tr>
                 <tr id="achRow3">
                     <td>
-                        <div id="I forgot to nerf that" class="achievement achievementlocked" style="background-image: url(images/17.png)" ach-tooltip="Get any Dimension multiplier over 10 No (10e30)"><br></div>
+                        <div id="I forgot to nerf that" class="achievement achievementlocked" style="background-image: url(images/17.png)" ach-tooltip="Get any Dimension multiplier over 10 No (10e30). Reward: First Dimensions are 5% stronger"><br></div>
                     </td>
                     <td>
-                        <div id="The Gods are pleased" class="achievement achievementlocked" style="background-image: url(images/18.png)" ach-tooltip="Get over 600x from Dimension Sacrifice in total"><br></div>
+                        <div id="The Gods are pleased" class="achievement achievementlocked" style="background-image: url(images/18.png)" ach-tooltip="Get over 600x from Dimension Sacrifice in total. Reward: Sacrifice is slightly stronger"><br></div>
                     </td>
                     <td>
                         <div id="That's a lot of infinites" class="achievement achievementlocked" style="background-image: url(images/19.png)" ach-tooltip="Reach Infinity 10 times"><br></div>
                     </td>
                     <td>
-                        <div id="You didn't need it anyway" class="achievement achievementlocked" style="background-image: url(images/20.png)" ach-tooltip="Reach Infinite antimatter without having any 8th Dimensions"><br></div>
+                        <div id="You didn't need it anyway" class="achievement achievementlocked" style="background-image: url(images/20.png)" ach-tooltip="Reach Infinite antimatter without having any 8th Dimensions. Reward: Dimensions 1-7 are 2% stronger"><br></div>
                     </td>
                     <td>
                         <div id="One for each dimension" class="achievement achievementlocked" style="background-image: url(images/21.png)" ach-tooltip="Play for 8 days"><br></div>
                     </td>
                     <td>
-                        <div id="Claustrophobic" class="achievement achievementlocked" style="background-image: url(images/22.png)" ach-tooltip="Go Infinite with just 1 Antimatter Galaxy"><br></div>
+                        <div id="Claustrophobic" class="achievement achievementlocked" style="background-image: url(images/22.png)" ach-tooltip="Go Infinite with just 1 Antimatter Galaxy. Reward: Reduces starting tick interval by 2%"><br></div>
                     </td>
                     <td>
-                        <div id="That's fast!" class="achievement achievementlocked" style="background-image: url(images/23.png)" ach-tooltip="Go infinite in under 2 hours"><br></div>
+                        <div id="That's fast!" class="achievement achievementlocked" style="background-image: url(images/23.png)" ach-tooltip="Go infinite in under 2 hours. Reward: Start with 1000 antimatter."><br></div>
                     </td>
                     <td>
                         <div id="I don't believe in Gods" class="achievement achievementlocked" style="background-image: url(images/24.png)" ach-tooltip="Buy a Galaxy without Sacrificing"><br></div>
@@ -339,13 +379,13 @@
                         <div id="Supersanic" class="achievement achievementlocked" style="background-image: url(images/26.png)" ach-tooltip="Have antimatter/sec exceed your current antimatter above 1 Tg (1e63)"><br></div>
                     </td>
                     <td>
-                        <div id="Zero Deaths" class="achievement achievementlocked" style="background-image: url(images/27.png)" ach-tooltip="Get to Infinity without Dimension shifts, boosts or galaxies"><br></div>
+                        <div id="Zero Deaths" class="achievement achievementlocked" style="background-image: url(images/27.png)" ach-tooltip="Get to Infinity without Dimension shifts, boosts or galaxies. Reward: Dimensions 1-4 are 25% stronger"><br></div>
                     </td>
                     <td>
                         <div id="Over in 30 seconds" class="achievement achievementlocked" style="background-image: url(images/28.png)" ach-tooltip="Have antimatter/sec exceed your current antimatter for 30 consecutive seconds"><br></div>
                     </td>
                     <td>
-                        <div id="Faster than a potato" class="achievement achievementlocked" style="background-image: url(images/29.png)" ach-tooltip="Get more than 100 Sx (100e21) ticks per second"><br></div>
+                        <div id="Faster than a potato" class="achievement achievementlocked" style="background-image: url(images/29.png)" ach-tooltip="Get more than 100 Sx (100e21) ticks per second. Reward: Reduces starting tick interval by 2%"><br></div>
                     </td>
                     <td>
                         <div id="Multidimensional" class="achievement achievementlocked" style="background-image: url(images/30.png)" ach-tooltip="Reach 1 Qd (1e12) of all dimensions except 8th"><br></div>
@@ -354,7 +394,33 @@
                         <div id="Daredevil" class="achievement achievementlocked" style="background-image: url(images/31.png)" ach-tooltip="Complete 2 challenges"><br></div>
                     </td>
                     <td>
-                        <div id="AntiChallenged" class="achievement achievementlocked" style="background-image: url(images/32.png)" ach-tooltip="Complete all the challenges"><br></div>
+                        <div id="AntiChallenged" class="achievement achievementlocked" style="background-image: url(images/32.png)" ach-tooltip="Complete all the challenges. Reward: All dimensions are 10% stronger."><br></div>
+                    </td>
+                </tr>
+                <tr id="achRow5">
+                    <td>
+                        <div id="Limit Break" class="achievement achievementlocked" style="background-image: url(images/33.png)" ach-tooltip="Break Infinity"><br></div>
+                    </td>
+                    <td>
+                        <div id="Age of Automation" class="achievement achievementlocked" style="background-image: url(images/34.png)" ach-tooltip="Max any 9 autobuyers."><br></div>
+                    </td>
+                    <td>
+                        <div id="Definitely not worth it" class="achievement achievementlocked" style="background-image: url(images/35.png)" ach-tooltip="Max all the autobuyers."><br></div>
+                    </td>
+                    <td>
+                        <div id="That's faster!" class="achievement achievementlocked" style="background-image: url(images/36.png)" ach-tooltip="Infinity in 10 minutes or less."><br></div>
+                    </td>
+                    <td>
+                        <div id="Forever isn't that long" class="achievement achievementlocked" style="background-image: url(images/37.png)" ach-tooltip="Infinity in 1 minute or less."><br></div>
+                    </td>
+                    <td>
+                        <div id="Many Deaths" class="achievement achievementlocked" style="background-image: url(images/38.png)" ach-tooltip="Complete the Second Dimension Autobuyer challenge in 3 minutes or less."><br></div>
+                    </td>
+                    <td>
+                        <div id="Gift from the Gods" class="achievement achievementlocked" style="background-image: url(images/39.png)" ach-tooltip="Complete the Eighth Dimension Autobuyer challenge in 3 minutes or less."><br></div>
+                    </td>
+                    <td>
+                        <div id="Is this hell?" class="achievement achievementlocked" style="background-image: url(images/40.png)" ach-tooltip="Complete the Tickspeed Autobuyer challenge in 3 minutes or less."><br></div>
                     </td>
                 </tr>
             </table>
@@ -549,9 +615,16 @@
     </table>
           </div>
         
-        <div id="infinity" class="tab" alight="center">
+        <div id="infinity" class="tab" align="center">
             <br>
             <div id="infinityPoints" style="color: black; font-size: 140%; width: 25%; margin: 0 auto">You have made x Infinity points.</div>
+            <br>
+            <tr>
+                <td><button class="secondarytabbtn" onclick="showInfTab('preinf')">Upgrades</button><td>
+                <td><button class="secondarytabbtn" onclick="showInfTab('autobuyers')">Autobuyers</button><td>
+                <td><button id="postinfbtn" class="secondarytabbtn" onclick="showInfTab('postinf')" >Break Infinity</button><td>
+            </tr>
+            <div id="preinf" class="inftab">
             <br>
             <table class="table" style="margin: 0 auto">
                 <tr>
@@ -562,7 +635,10 @@
                         <button id="infi21" class="infinistorebtn2">Multiplier for 10 Dimensions <br>2x -> 2.2x<br>Cost: 1 IP</button>
                     </td>
                     <td>
-                        <button id="infi31" class="infinistorebtn2">Production increase over time in current infinity<br>Cost: 3 IP</button>
+                        <button id="infi31" class="infinistorebtn3">Production increase over time in current infinity<br>Cost: 3 IP</button>
+                    </td>
+                    <td>
+                        <button id="infi41" class="infinistorebtn4">You start with 5th dimension<br>Cost: 20 IP</button>
                     </td>
                 </tr>
                 <tr>
@@ -573,7 +649,10 @@
                         <button id="infi22" class="infinistorebtn2">Second and Seventh Dimension power <br>xx</button>
                     </td>
                     <td>
-                        <button id="infi32" class="infinistorebtn2">Bonus per unspent Infinity Point <br>xx</button>
+                        <button id="infi32" class="infinistorebtn3">Bonus per unspent Infinity Point <br>xx</button>
+                    </td>
+                    <td>
+                        <button id="infi42" class="infinistorebtn4">You start with 6th dimension<br>Cost: 40 IP</button>
                     </td>
                 </tr>
                 <tr>
@@ -584,7 +663,10 @@
                         <button id="infi23" class="infinistorebtn2">Fourth and Fifth Dimension power <br>xx</button>
                     </td>
                     <td>
-                        <button id="infi33" class="infinistorebtn2">Dimension Boost power <br>2x -> 2.5x<br>Cost: 7 IP</button>
+                        <button id="infi33" class="infinistorebtn3">Dimension Boost power <br>2x -> 2.5x<br>Cost: 7 IP</button>
+                    </td>
+                    <td>
+                        <button id="infi43" class="infinistorebtn4">You start with 7th dimension<br>Cost: 80 IP</button>
                     </td>
                 </tr>
                 <tr>
@@ -595,11 +677,21 @@
                         <button id="infi24" class="infinistorebtn2">Antimatter Galaxies are twice as effective<br>Cost: 2 IP</button>
                     </td>
                     <td>
-                        <button id="infi34" class="infinistorebtn2">Infinity Point generation (based on fastest infinity) <br>xx</button>
+                        <button id="infi34" class="infinistorebtn3">Infinity Point generation (based on fastest infinity) <br>xx</button>
+                    </td>
+                    <td>
+                        <button id="infi44" class="infinistorebtn4">You start with 8th dimension and a Galaxy<br>Cost: 500 IP</button>
                     </td>
                 </tr>
+                <tr>
+                </tr>
             </table>
-
+            <br>
+            <div><button id="infiMult" class="infinimultbtn">Multiply infinity points from all sources by 2 <br>currently: <br>Cost: 100 IP</button></div>
+        </div>
+            
+        <div id="autobuyers" class="inftab">
+            <br>
             <table class="table" style="margin: 0 auto">
                 <button class="storebtn" id="toggleautobuyers" style="font-size: 100%; width: 150px; height: 50px;" onclick="toggleAutoBuyers()">Enable/disable autobuyers</button>
                 <tr>
@@ -823,20 +915,7 @@
                                     <button class="autobuyerbtn" id="buyerBtnDimBoost">46% smaller interval<br>Cost: 2 points</button>
                                     <div style="font-size: 80%"id="intervalDimBoost">Current interval: 30 seconds</div>
                                     <span style="font-size: 80%">Max 8ths used on reset:</span>
-                                    <select onchange="updatePriorities()" id="priority10">
-                                    <option value="20">20</option>
-                                    <option value="30">30</option>
-                                    <option value="40">40</option>
-                                    <option value="50">50</option>
-                                    <option value="60">60</option>
-                                    <option value="70">70</option>
-                                    <option value="80">80</option>
-                                    <option value="100">100</option>
-                                    <option value="120">120</option>
-                                    <option value="140">140</option>
-                                    <option value="160">160</option>
-                                    <option value="180">180</option>
-                                    </select>
+                                    <input type="text" onchange="updatePriorities()" id="priority10"></input>
                                     <br>
                                     <span style="font-size: 80%">Is active</span>
                                     <input type="checkbox" onchange="updateAutobuyers()"   id="10ison"></input>
@@ -848,11 +927,7 @@
                             <button class="autobuyerbtn" id="buyerBtnGalaxies">46% smaller interval<br>Cost: 2 points</button>
                             <div style="font-size: 80%"id="intervalGalaxies">Current interval: 30 seconds</div>
                             <span>Max Galaxies:</span>
-                            <select onchange="updatePriorities()" id="priority11">
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            </select>
+                            <input type="text" onchange="updatePriorities()" id="priority11"></input>
                             <br>
                             <span style="font-size: 80%">Is active</span>
                             <input type="checkbox" onchange="updateAutobuyers()"   id="11ison"></input>
@@ -863,6 +938,8 @@
                             <div>Automatic Big Crunch</div>
                             <button class="autobuyerbtn" id="buyerBtnInf">46% smaller interval<br>Cost: 2 points</button>
                             <div style="font-size: 80%"id="intervalInf">Current interval: 60 seconds</div>
+                            <div id="iplimit"><span>Amount of IP to wait until reset:</span>
+                            <input type="text" onchange="updatePriorities()" id="priority12"></input></div>
                             <br>
                             <span style="font-size: 80%">Is active</span>
                             <input type="checkbox" onchange="updateAutobuyers()"   id="12ison"></input>
@@ -872,13 +949,58 @@
                 </tr>
             </table>
         </div>
+        <div id="postinf" class="inftab" align="center">
+            <br>
+            <div id="abletobreak">You need to get Automated Big Crunch interval to 0.1 to be able to break infinity</div>
+                <button  id="break" class="infinistorebtn2" onclick="breakInfinity()" ach-tooltip="Cost multipliers post-infinity will begin increasing faster, but so will the Infinity Point gain">BREAK INFINITY</button>
+                <br>
+                <table id="postinftable" class="table" style="margin: 0 auto">
+                    <tr>
+                        <td>
+                            <button id="postinfi11" class="infinistorebtn1">Production based on total antimatter produced <br>Currently:<br>Cost: 10 K IP</button>
+                        </td>
+                        <td>
+                            <button id="postinfi21" class="infinistorebtn1">Production based on current antimatter<br>Currently: <br>Cost: 50 K IP</button>
+                        </td>
+                        <td>
+                            <button id="postinfi41" class="infinistorebtn1">Double the power of Galaxies<br>Currently: <br>Cost: 500 K IP</button>
+                        </td>
+                    </tr>
+                    <tr>
+                            <td>
+                                <button id="postinfi12" class="infinistorebtn1">Increase the production of all dimensions by amount infinitied <br>Currently:<br>Cost: 100 K IP</button>
+                            </td>
+                            <td>
+                                <button id="postinfi22" class="infinistorebtn1">achievemult</button>
+                            </td>
+                            <td>
+                                <button id="postinfi32" class="infinistorebtn1">Increase the production of all dimensions based on slowest challenge run<br>Cost: 3 M IP</button>
+                            </td>
+                            
+                    </tr>
+
+                </table>
+                <br>
+                <table>
+                    <tr>
+                        <td>
+                            <button id="postinfi31" class="infinimultbtn">Tickspeed cost multiplier increase <br>10x -> 9x<br>Cost: 300 K IP</button>
+                        </td>
+                        <td>
+                            <button id="postinfi42" class="infinimultbtn">Dimension cost multiplier increase <br>10x -> 9x<br>Cost: 10 M IP</button>
+                        </td>
+                    </tr>
+                </table>
+        </div>
+        </div>
         <tr>
             <td>
                 <div style="text-align:center;font-size:2vh">
                     <a href="howto.html" target="_newtab">How to play  </a> |
                     <a href="about.html" target="_newtab">About me   </a> |
                     <a href="changelog.html" target="_newtab">Changelog   </a> |
-                    <a href="https://discord.gg/ST9NaXa" target="_newtab">Discord</a>
+                    <a href="https://discord.gg/ST9NaXa" target="_newtab">Discord</a> |
+                    <a href="https://www.reddit.com/r/AntimatterDimensions/" target="_newtab">Subreddit</a>
 
                 </div>
             </td>
@@ -889,6 +1011,7 @@
     </div>
 </body>
 <script src="javascripts/autobuyer.js"></script>
+<script src="javascripts/decimal.js"></script>
 <script src="javascripts/game.js"></script>
 
 </html>
