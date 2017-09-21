@@ -448,14 +448,7 @@ function hasInfinityMult(tier) {
 
 
 
-setInterval( function() {
-    totalMult = Math.pow(player.totalmoney.e+1, 0.5)
-    currentMult = Math.pow(player.money.e+1, 0.5)
-    infinitiedMult = Math.log10(player.infinitied)*10
-    achievementMult = Math.max(Math.pow((player.achievements.length-30), 3)/40,1)
-    challengeMult = Decimal.max(10*3000/worstChallengeTime, 1)
-    unspentBonus = Decimal.pow(player.infinityPoints/2,1.5).plus(1)
-}, 500)
+
 
 
 
@@ -3612,7 +3605,14 @@ var infinitiedMult = Math.log10(player.infinitied)*10
 var achievementMult = Math.max(Math.pow((player.achievements.length-30), 3)/40,1)
 var challengeMult = Decimal.max(10*3000/worstChallengeTime, 1)
 var unspentBonus = Decimal.pow(player.infinityPoints/2,1.5).plus(1)
-
+setInterval( function() {
+    totalMult = Math.pow(player.totalmoney.e+1, 0.5)
+    currentMult = Math.pow(player.money.e+1, 0.5)
+    infinitiedMult = Math.log10(player.infinitied)*10
+    achievementMult = Math.max(Math.pow((player.achievements.length-30), 3)/40,1)
+    challengeMult = Decimal.max(10*3000/worstChallengeTime, 1)
+    unspentBonus = Decimal.pow(player.infinityPoints/2,1.5).plus(1)
+}, 500)
 function resize() {
     c.width = window.innerWidth;
     c.height = 64;
