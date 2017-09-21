@@ -2718,7 +2718,7 @@ document.getElementById("bigcrunch").onclick = function () {
       
       try {
         kongregate.stats.submit('Infinitied', player.infinitied);
-        kongregate.stats.submit('Fastest Infinity time', Math.floor(player.bestInfinityTime / 10))
+        kongregate.stats.submit('Fastest Infinity time (ms)', Math.floor(player.bestInfinityTime * 100))
         
     } catch (err) {console.log("Couldn't load Kongregate API")}
       if (!player.achievements.includes("To infinity!")) giveAchievement("To infinity!");
