@@ -1516,11 +1516,11 @@ document.getElementById("invert").onclick = function () {
 }
 
 document.getElementById("challengeconfirmation").onclick = function () {
-    if (player.options.challConf) {
-        player.options.challConf = false;
+    if (!player.options.challConf) {
+        player.options.challConf = true;
         document.getElementById("challengeconfirmation").innerHTML = "Challenge confirmation off"
     } else {
-        player.options.challConf = true;
+        player.options.challConf = false;
         document.getElementById("challengeconfirmation").innerHTML = "Challenge confirmation on"
     }
 }
@@ -3581,7 +3581,7 @@ function init() {
     if (player.options.newsHidden) {
         document.getElementById("game").style.display = "none";
     }
-    if (!player.options.challConf) {
+    if (player.options.challConf) {
         document.getElementById("challengeconfirmation").innerHTML = "Challenge confirmation off"
     } else {
         document.getElementById("challengeconfirmation").innerHTML = "Challenge confirmation on"
