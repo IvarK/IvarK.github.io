@@ -79,7 +79,7 @@ var player = {
         scientific: false,
         animationsOn: true,
         invert: false,
-        logoVisible: true
+        challConf: true
     }
 };
 
@@ -146,7 +146,7 @@ function load_game() {
     }
     if (player.options.notation === undefined) player.options.notation = "Standard"
     if (player.options.invert === undefined) player.options.invert = false;
-    if (player.options.logoVisible === undefined) player.options.logoVisible = true
+    if (player.options.challConf === undefined) player.options.challConf = true
 	if (player.options.notation === undefined) player.options.notation = "Standard";
 	if (player.options.newsHidden === undefined) player.options.newsHidden = false;
     if (player.achievements === undefined) player.achievements = [];
@@ -820,7 +820,7 @@ function softReset() {
             notation: player.options.notation,
             animationsOn: player.options.animationsOn,
             invert: player.options.invert,
-            logoVisible: player.options.logoVisible
+            challConf: player.options.challConf
         }
     };
     if (player.currentChallenge == "challenge10") {
@@ -1515,15 +1515,13 @@ document.getElementById("invert").onclick = function () {
     }
 }
 
-document.getElementById("logo").onclick = function () {
-    if (player.options.logoVisible) {
-        player.options.logoVisible = false;
-        document.getElementById("logoanimation").style.display = "none";
-        document.getElementById("logodiv").style.display = "none";
+document.getElementById("challengeconfirmation").onclick = function () {
+    if (player.options.challConf) {
+        player.options.challConf = false;
+        document.getElementById("challengeconfirmation").innerHTML = "Challenge confirmation off"
     } else {
-        player.options.logoVisible = true;
-        document.getElementById("logoanimation").style.display = "block";
-        document.getElementById("logodiv").style.display = "block";
+        player.options.challConf = true;
+        document.getElementById("challengeconfirmation").innerHTML = "Challenge confirmation on"
     }
 }
 
@@ -1960,7 +1958,7 @@ document.getElementById("secondSoftReset").onclick = function () {
                 notation: player.options.notation,
                 animationsOn: player.options.animationsOn,
                 invert: player.options.invert,
-                logoVisible: player.options.logoVisible
+                challConf: player.options.challConf
             }
         };
 
@@ -2166,7 +2164,6 @@ document.getElementById("notation").onclick = function () {
         document.getElementById("notation").innerHTML = ("Notation: Cancer")
     }
     setAchieveTooltip();
-    updateDimensions();
     updateCosts();
 };
 
@@ -2198,7 +2195,6 @@ function resetDimensions() {
     player.seventhCost = new Decimal(1e18)
     player.eightCost = new Decimal(1e24)
     player.eightPow = new Decimal(player.chall11Pow)
-    updateDimensions();
 }
 
 function calcSacrificeBoost() {
@@ -2226,7 +2222,6 @@ function sacrifice() {
         player.money = new Decimal(100)
         
     }
-    updateDimensions();
     updateCosts();
     for (let tier = 1; tier <= 8; ++tier) {
         const name = TIER_NAMES[tier];
@@ -2657,7 +2652,7 @@ document.getElementById("bigcrunch").onclick = function () {
             notation: player.options.notation,
             animationsOn: player.options.animationsOn,
             invert: player.options.invert,
-            logoVisible: player.options.logoVisible
+            challConf: player.options.challConf
         }
       };
 
@@ -2745,7 +2740,7 @@ function exitChallenge() {
 }
 
 function startChallenge(name) {
-  if(name == "" ? true : confirm("You will start over with just your infinity upgrades and achievements. You need to reach infinity with special conditions. NOTE: The rightmost infinity upgrade column doesn't work on challenges.")) {
+  if(player.options.challConf || name == "" ? true : confirm("You will start over with just your infinity upgrades and achievements. You need to reach infinity with special conditions. NOTE: The rightmost infinity upgrade column doesn't work on challenges.")) {
     if (player.currentChallenge != "") document.getElementById(player.currentChallenge).innerHTML = "Start"
     player = {
         money: new Decimal(10),
@@ -2826,7 +2821,7 @@ function startChallenge(name) {
         scientific: player.options.scientific,
         animationsOn: player.options.animationsOn,
         invert: player.options.invert,
-        logoVisible: player.options.logoVisible
+        challConf: player.options.challConf
       }
     };
 	if (player.currentChallenge == "challenge10") {
@@ -3290,6 +3285,7 @@ function dimBoolean() {
     if (player.autobuyers[9].ticks*100 < player.autobuyers[9].interval) return false
     if (player[name + "Amount"] < getShiftRequirement().amount) return false
     if (player.overXGalaxies <= player.galaxies) return true
+    if (player.currentChallenge =="challenge4" && player.autobuyers[9].priority < getShiftRequirement().amount && getShiftRequirement().tier == 6) return false
     if (player.autobuyers[9].priority < getShiftRequirement().amount && getShiftRequirement().tier == 8) return false
     return true
 }
@@ -3582,14 +3578,14 @@ function init() {
     if (player.options.invert) {
         document.getElementById("body").classList.add("invert");
     }
-    if (!player.options.logoVisible) {
-        document.getElementById("logoanimation").style.display = "none";
-        document.getElementById("logodiv").style.display = "none";
-    }
     if (player.options.newsHidden) {
         document.getElementById("game").style.display = "none";
     }
-
+    if (!player.options.challConf) {
+        document.getElementById("challengeconfirmation").innerHTML = "Challenge confirmation off"
+    } else {
+        document.getElementById("challengeconfirmation").innerHTML = "Challenge confirmation on"
+    }
     
 
 }
