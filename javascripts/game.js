@@ -2915,7 +2915,8 @@ setInterval(function () {
     var diff = Decimal.min(thisUpdate - player.lastUpdate, 21600000);
     diff = diff / 100;
     if (diff < 0) diff = 1;
-
+    if (player.thisInfinityTime < -10) player.thisInfinityTime = Infinity
+    if (player.bestInfinityTime < -10) player.bestInfinityTime = Infinity
     player.matter = player.matter.times(Decimal.pow((1.02 + player.resets/200 + player.galaxies/100), diff))
     if (player.matter.gt(player.money) && player.currentChallenge == "challenge12") {
         if (player.resets == 0) player.resets--;
@@ -3284,10 +3285,8 @@ function dimBoolean() {
     if (player[name + "Amount"] < getShiftRequirement().amount) return false
     if (player.overXGalaxies <= player.galaxies) return true
     if (player.autobuyers[9].priority < getShiftRequirement().amount && getShiftRequirement().tier == 8) return false
-
-
     return true
-} 
+}
 
 
 
