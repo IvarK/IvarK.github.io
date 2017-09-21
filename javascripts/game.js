@@ -231,6 +231,10 @@ function load_game() {
 
     document.getElementById("notation").innerHTML = "Notation: " + player.options.notation
 
+
+    if (name == "challenge12") document.getElementById("matter").style.display = "inline-block";
+    else document.getElementById("matter").style.display = "none";
+    
     var achievements = document.getElementsByClassName('achievement');
     var achievement;
     for (var i = 0; i < achievements.length; i++) {
@@ -2706,7 +2710,7 @@ document.getElementById("bigcrunch").onclick = function () {
       document.getElementById("sixthRow").style.display = "none";
       document.getElementById("seventhRow").style.display = "none";
       document.getElementById("eightRow").style.display = "none";
-      document.getElementById("matter").style.visibility = "hidden";
+      document.getElementById("matter").style.display = "none";
       document.getElementById("quickReset").style.display = "none";
       updateTickSpeed();
       
@@ -2849,7 +2853,7 @@ function startChallenge(name) {
     document.getElementById("sixthRow").style.display= "none";
     document.getElementById("seventhRow").style.display= "none";
     document.getElementById("eightRow").style.display= "none";
-    if (name == "challenge12") document.getElementById("matter").style.visibility = "visible";
+    if (name == "challenge12") document.getElementById("matter").style.display = "inline-block";
     else document.getElementById("matter").style.display = "none";
     if (name == "challenge12" || name == "challenge9" || name == "challenge5") document.getElementById("quickReset").style.display = "inline-block";
     else document.getElementById("quickReset").style.display = "none";
