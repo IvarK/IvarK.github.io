@@ -234,7 +234,7 @@ function load_game() {
 
     if (name == "challenge12") document.getElementById("matter").style.display = "inline-block";
     else document.getElementById("matter").style.display = "none";
-    
+
     var achievements = document.getElementsByClassName('achievement');
     var achievement;
     for (var i = 0; i < achievements.length; i++) {
@@ -2861,6 +2861,7 @@ function startChallenge(name) {
     showTab('dimensions');
     updateChallenges();
     if (player.challenges.includes("challenge1")) player.money = new Decimal(100)
+    if (player.achievements.includes("That's fast!")) player.money = new Decimal(1000);
     showTab("dimensions")
     try {
         kongregate.stats.submit('Infinitied', player.infinitied);
