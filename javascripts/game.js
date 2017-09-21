@@ -2853,7 +2853,7 @@ function startChallenge(name) {
     document.getElementById("sixthRow").style.display= "none";
     document.getElementById("seventhRow").style.display= "none";
     document.getElementById("eightRow").style.display= "none";
-    if (name == "challenge12") document.getElementById("matter").style.display = "inline-block";
+    if (name == "challenge12") document.getElementById("matter").style.display = "block";
     else document.getElementById("matter").style.display = "none";
     if (name == "challenge12" || name == "challenge9" || name == "challenge5") document.getElementById("quickReset").style.display = "inline-block";
     else document.getElementById("quickReset").style.display = "none";
