@@ -3450,12 +3450,12 @@ setInterval(function () {
     if (player.resets != 0 && !newsArray.includes(conditionalNewsArray[3])) newsArray.push(conditionalNewsArray[3])
     if (player.achievements.includes("Antimatter Apocalypse") && !newsArray.includes(conditionalNewsArray[4])) newsArray.push(conditionalNewsArray[4])
       
-    var next = newsArray[Decimal.round(Decimal.random() * (newsArray.length - 1))]
+    var next = newsArray[Math.round(Math.random() * (newsArray.length - 1))]
     if (player.money >= 1e306) next = conditionalNewsArray[0]
     if (player.money == Infinity) next = conditionalNewsArray[1]
     if (initpos < (newsText.length * 32 * -1)) {
         initpos = c.width;
-        newsTextValue = Decimal.round(Decimal.random() * (newsArray.length - 1))
+        newsTextValue = Math.round(Math.random() * (newsArray.length - 1))
         newsText = newsArray[newsTextValue];
         if (!player.options.newsHidden) {
   			if (conditionalNewsArray.includes(newsText) && !player.newsArray.includes(newsText)) player.newsArray.push(newsText);
