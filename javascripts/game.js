@@ -77,7 +77,6 @@ var player = {
         notation: "Standard",
         //Standard = normal prefixed numbers, Scientific = standard form, Engineering = powers of 3.
         scientific: false,
-        animationsOn: true,
         invert: false,
         challConf: true
     }
@@ -251,6 +250,18 @@ function load_game() {
         }
         player.autobuyers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
         player.version = 1
+    }
+
+    if (player.options.invert) {
+        document.getElementById("body").classList.add("invert");
+    }
+    if (player.options.newsHidden) {
+        document.getElementById("game").style.display = "none";
+    }
+    if (player.options.challConf) {
+        document.getElementById("challengeconfirmation").innerHTML = "Challenge confirmation off"
+    } else {
+        document.getElementById("challengeconfirmation").innerHTML = "Challenge confirmation on"
     }
     updateAutobuyers();
     setAchieveTooltip();
@@ -822,7 +833,6 @@ function softReset() {
         options: {
             newsHidden: player.options.newsHidden,
             notation: player.options.notation,
-            animationsOn: player.options.animationsOn,
             invert: player.options.invert,
             challConf: player.options.challConf
         }
@@ -1499,15 +1509,6 @@ document.getElementById("maxall").onclick = function () {
     updateCosts()
 };
 
-document.getElementById("animation").onclick = function () {
-    if (player.options.animationsOn) {
-        player.options.animationsOn = false;
-        document.getElementById("logoanimation").src = "animation.png";
-    } else {
-        player.options.animationsOn = true;
-        document.getElementById("logoanimation").src = "animation.gif";
-    }
-}
 
 document.getElementById("invert").onclick = function () {
     if (player.options.invert) {
@@ -1960,7 +1961,6 @@ document.getElementById("secondSoftReset").onclick = function () {
                 newsHidden: player.options.newsHidden,
                 scientific: player.options.scientific,
                 notation: player.options.notation,
-                animationsOn: player.options.animationsOn,
                 invert: player.options.invert,
                 challConf: player.options.challConf
             }
@@ -2654,7 +2654,6 @@ document.getElementById("bigcrunch").onclick = function () {
             newsHidden: player.options.newsHidden,
             scientific: player.options.scientific,
             notation: player.options.notation,
-            animationsOn: player.options.animationsOn,
             invert: player.options.invert,
             challConf: player.options.challConf
         }
@@ -2823,7 +2822,6 @@ function startChallenge(name) {
         newsHidden: player.options.newsHidden,
 	    notation: player.options.notation,
         scientific: player.options.scientific,
-        animationsOn: player.options.animationsOn,
         invert: player.options.invert,
         challConf: player.options.challConf
       }
@@ -3579,18 +3577,7 @@ function init() {
     updateTickSpeed();
     updateAutobuyers();
     updateChallengeTimes()
-    if (!player.options.animationsOn) document.getElementById("logoanimation").src = "animation.png";
-    if (player.options.invert) {
-        document.getElementById("body").classList.add("invert");
-    }
-    if (player.options.newsHidden) {
-        document.getElementById("game").style.display = "none";
-    }
-    if (player.options.challConf) {
-        document.getElementById("challengeconfirmation").innerHTML = "Challenge confirmation off"
-    } else {
-        document.getElementById("challengeconfirmation").innerHTML = "Challenge confirmation on"
-    }
+    
     
 
 }
