@@ -1487,7 +1487,7 @@ function getInfinityDimensionMultiplier(tier, diff) {
     var dim = player["infinityDimension"+tier]
 
     var base = dim.amount.times(dim.power).times(diff)
-    var timeVar = 0.01/Math.pow(player.thisInfinityTime/100 +0.1, getTimePow()) +1
+    var timeVar = 0.01/Math.pow(player.thisInfinityTime/100, getTimePow()) +1
     return timeVar = Decimal.pow(timeVar,base)
 
 }
@@ -3185,7 +3185,7 @@ setInterval(function () {
     player.totalTimePlayed += diff/2
     player.thisInfinityTime += diff/2
 
-    player.infinityPower = Decimal.max(player.infinityPower.times(getInfinityDimensionMultiplier(1, diff/100)), 1)
+    player.infinityPower = Decimal.max(player.infinityPower.times(getInfinityDimensionMultiplier(1, diff/10)), 1)
 
 
     document.getElementById("dimTabButtons").style.display = "none"
