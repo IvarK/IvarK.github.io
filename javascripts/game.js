@@ -75,25 +75,25 @@ var player = {
     infDimensionsUnlocked: [false, false, false, false],
     infinityPower: 0,
     infinityDimension1 : {
-        cost: 1e7,
+        cost: 1e5,
         amount: 0,
         power: 1,
         bought: 0
     },
     infinityDimension2 : {
-        cost: 1e9,
+        cost: 1e7,
         amount: 0,
         power: 1,
         bought: 0
     },
     infinityDimension3 : {
-        cost: 1e12,
+        cost: 1e10,
         amount: 0,
         power: 1,
         bought: 0
     },
     infinityDimension4 : {
-        cost: 1e16,
+        cost: 1e14,
         amount: 0,
         power: 1,
         bought: 0
