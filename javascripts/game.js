@@ -1478,7 +1478,7 @@ function buyManyInfinityDimension(tier) {
 function getTimePow() {
     if (player.infDimensionsUnlocked[3]) return 1.4
     if (player.infDimensionsUnlocked[2]) return 1.2
-    if (player.infDimensionsUnlocked[1]) return 1.2
+    if (player.infDimensionsUnlocked[1]) return 1.25
     if (player.infDimensionsUnlocked[0]) return 0.8
 }
 
@@ -2329,7 +2329,7 @@ function breakInfinity() {
 }
 
 function gainedInfinityPoints() {
-    return Decimal.floor(Decimal.pow(10, Decimal.log10(player.money).dividedBy(308)-0.75)*player.infMult).toNumber()
+    return Decimal.floor(Decimal.pow(10, Decimal.log10(player.money).dividedBy(308).minus(0.75))*player.infMult).toNumber()
 }
 
 
@@ -3202,7 +3202,7 @@ setInterval(function () {
 
 
 
-    var x = 1000
+    var x = 100
     
 
     if (diff >= 500) {
