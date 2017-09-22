@@ -1447,7 +1447,7 @@ function buyOneInfinityDimension(tier) {
     dim.bought++;
 
     if (dim.bought == 10) {
-        dim.power *= 3
+        dim.power *= 100
         dim.cost *= infCostMults[tier-1]
         dim.bought = 0
     }
@@ -1463,7 +1463,7 @@ function buyManyInfinityDimension(tier) {
     
     player.infinityPoints -= cost
     dim.amount += (10 - dim.bought);
-    dim.power *= 3
+    dim.power *= 100
     dim.cost *= infCostMults[tier-1]
     
 
