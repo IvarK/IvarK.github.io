@@ -217,25 +217,25 @@ function load_game() {
     if (player.infinityPower === undefined) {
         player.infinityPower = 0
         player.infinityDimension1 = {
-            cost: 1e7,
+            cost: 1e5,
             amount: 0,
             power: 1,
             bought: 0
         }
         player.infinityDimension2 = {
-            cost: 1e9,
+            cost: 1e7,
             amount: 0,
             power: 1,
             bought: 0
         }
         player.infinityDimension3 = {
-            cost: 1e12,
+            cost: 1e10,
             amount: 0,
             power: 1,
             bought: 0
         }
         player.infinityDimension4 = {
-            cost: 1e16,
+            cost: 1e14,
             amount: 0,
             power: 1,
             bought: 0
