@@ -75,13 +75,13 @@ var player = {
     infDimensionsUnlocked: [false, false, false, false],
     infinityPower: new Decimal(1),
     infinityDimension1 : {
-        cost: 1e5,
+        cost: 1e6,
         amount: new Decimal(0),
         power: 1,
         bought: 0
     },
     infinityDimension2 : {
-        cost: 1e7,
+        cost: 1e8,
         amount: new Decimal(0),
         power: 1,
         bought: 0
@@ -93,7 +93,7 @@ var player = {
         bought: 0
     },
     infinityDimension4 : {
-        cost: 1e14,
+        cost: 1e20,
         amount: new Decimal(0),
         power: 1,
         bought: 0
@@ -217,13 +217,13 @@ function load_game() {
     if (player.infinityPower === undefined) {
         player.infinityPower = new Decimal(1)
         player.infinityDimension1 = {
-            cost: 1e5,
+            cost: 1e6,
             amount: new Decimal(0),
             power: 1,
             bought: 0
         }
         player.infinityDimension2 = {
-            cost: 1e7,
+            cost: 1e8,
             amount: new Decimal(0),
             power: 1,
             bought: 0
@@ -235,7 +235,7 @@ function load_game() {
             bought: 0
         }
         player.infinityDimension4 = {
-            cost: 1e14,
+            cost: 1e15,
             amount: new Decimal(0),
             power: 1,
             bought: 0
@@ -746,7 +746,7 @@ function updateDimensions() {
     if (player.tickSpeedMultDecrease == 2) document.getElementById("postinfi31").innerHTML = "Tickspeed cost multiplier increase <br>"+player.tickSpeedMultDecrease+"x"
     document.getElementById("postinfi22").innerHTML = "Power up all dimensions based on achievements completed <br>Currently: "+Math.max(Math.pow((player.achievements.length-30), 3)/40,1).toFixed(2)+"x<br>Cost: "+shortenCosts(1e6)+" IP"
     document.getElementById("postinfi12").innerHTML = "Power up all dimensions based on amount infinitied <br>Currently: "+(Math.log10(player.infinitied)*10).toFixed(2)+"x<br>Cost: "+shortenCosts(1e5)+" IP"
-    document.getElementById("postinfi41").innerHTML = "Doubles the power of Galaxies <br>Cost: "+shortenCosts(1e11)+" IP"
+    document.getElementById("postinfi41").innerHTML = "Doubles the power of Galaxies <br>Cost: "+shortenCosts(5e11)+" IP"
     document.getElementById("postinfi32").innerHTML = "Power up all dimensions based on slowest challenge run<br>Currently:"+Decimal.max(10*3000/worstChallengeTime, 1).toFixed(2)+"x<br>Cost: "+shortenCosts(1e7)+" IP"
     document.getElementById("postinfi42").innerHTML = "Dimension cost multiplier increase <br>"+player.dimensionMultDecrease+"x -> "+(player.dimensionMultDecrease-1)+"x<br>Cost: "+shortenCosts(player.dimensionMultDecreaseCost) +" IP"
     if (player.dimensionMultDecrease == 2) document.getElementById("postinfi42").innerHTML = "Dimension cost multiplier increase <br>"+player.dimensionMultDecrease+"x"
@@ -773,8 +773,9 @@ function updateCosts() {
     
     document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shortenCosts(player.tickSpeedCost);
 
+
     for (var i=1; i<=4; i++) {
-        document.getElementById("inf"+i).innerHTML = "Cost: " + shortenCosts(player["infinityDimension"+i].cost)
+        
         document.getElementById("infMax"+i).innerHTML = "Cost: " + shortenCosts(player["infinityDimension"+i].cost * (10 - player["infinityDimension"+i].bought))
     }
 }
@@ -1440,35 +1441,15 @@ function buyManyDimensionAutobuyer(tier, bulk) {
 }
 
 const infCostMults = [1e12, 1e14, 1e16, 1e18]
-const tierMults = [null,10, 5, 3, 2]
-function buyOneInfinityDimension(tier) {
-    
-    var dim = player["infinityDimension"+tier]
-
-    if (player.infinityPoints.lt(dim.cost)) return false
-    if (!player.infDimensionsUnlocked[tier-1]) return false
-    
-    player.infinityPoints = player.infinityPoints.minus(dim.cost)
-    dim.amount = dim.amount.plus(1);
-    dim.bought++;
-
-    if (dim.bought == 10) {
-        dim.power *= tierMults[tier]
-        dim.cost *= infCostMults[tier-1]
-        dim.bought = 0
-    }
-
-}
-
+const tierMults = [null, 10, 5, 3, 2]
 function buyManyInfinityDimension(tier) {
     
     var dim = player["infinityDimension"+tier]
-    var cost = dim.cost * (10 - dim.bought)
-    if (player.infinityPoints.lt(cost)) return false
+    if (player.infinityPoints.lt(dim.cost)) return false
     if (!player.infDimensionsUnlocked[tier-1]) return false
     
     player.infinityPoints = player.infinityPoints.minus(cost)
-    dim.amount = dim.amount.plus(10 - dim.bought);
+    dim.amount = dim.amount.plus(10);
     dim.power *= tierMults[tier]
     dim.cost *= infCostMults[tier-1]
     
@@ -1476,10 +1457,10 @@ function buyManyInfinityDimension(tier) {
 }
 
 function getTimePow() {
-    if (player.infDimensionsUnlocked[3]) return 1.18
-    if (player.infDimensionsUnlocked[2]) return 1.16
-    if (player.infDimensionsUnlocked[1]) return 1.05
-    if (player.infDimensionsUnlocked[0]) return 0.75
+    if (player.infinityDimension4.amount != 0) return 1.18
+    else if (player.infinityDimension3.amount != 0) return 1.16
+    else if (player.infinityDimension2.amount != 0) return 1.05
+    else return 0.75
 }
 
 
@@ -1917,7 +1898,7 @@ document.getElementById("postinfi31").onclick = function() {
 }
 
 document.getElementById("postinfi41").onclick = function() {
-    buyInfinityUpgrade("postGalaxy",1e11);
+    buyInfinityUpgrade("postGalaxy",5e11);
 }
 
 document.getElementById("postinfi12").onclick = function() {
@@ -1935,7 +1916,7 @@ document.getElementById("postinfi32").onclick = function() {
 document.getElementById("postinfi42").onclick = function() {
     if (player.infinityPoints.gte(player.dimensionMultDecreaseCost) && player.dimensionMultDecrease != 2) {
         player.infinityPoints = player.infinityPoints.minus(player.dimensionMultDecreaseCost)
-        player.dimensionMultDecreaseCost *= 20
+        player.dimensionMultDecreaseCost *= 2000
         player.dimensionMultDecrease--;
         document.getElementById("postinfi42").innerHTML = "Dimension cost multiplier increase <br>"+player.dimensionMultDecrease+"x -> "+(player.dimensionMultDecrease-1)+"x<br>Cost: "+shortenCosts(player.dimensionMultDecreaseCost) +" IP"
         if (player.dimensionMultDecrease == 2) document.getElementById("postinfi42").innerHTML = "Dimension cost multiplier increase <br>"+player.dimensionMultDecrease+"x"
@@ -3328,7 +3309,7 @@ setInterval(function () {
         if (player.infinityPoints.gte(player.tickSpeedMultDecreaseCost)) document.getElementById("postinfi31").className = "infinimultbtn"
         else document.getElementById("postinfi31").className = "infinistorebtnlocked"
 
-        if (player.infinityPoints.gte(1e11)) document.getElementById("postinfi41").className = "infinistorebtn1"
+        if (player.infinityPoints.gte(5e11)) document.getElementById("postinfi41").className = "infinistorebtn1"
         else document.getElementById("postinfi41").className = "infinistorebtnlocked"
 
         if (player.infinityPoints.gte(1e5)) document.getElementById("postinfi12").className = "infinistorebtn1"
