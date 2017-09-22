@@ -1477,9 +1477,9 @@ function buyManyInfinityDimension(tier) {
 
 function getTimePow() {
     if (player.infDimensionsUnlocked[3]) return 1.4
-    if (player.infDimensionsUnlocked[2]) return 1.3
-    if (player.infDimensionsUnlocked[1]) return 1
-    if (player.infDimensionsUnlocked[0]) return 0.5
+    if (player.infDimensionsUnlocked[2]) return 1.2
+    if (player.infDimensionsUnlocked[1]) return 1.05
+    if (player.infDimensionsUnlocked[0]) return 0.65
 }
 
 
