@@ -78,7 +78,7 @@ var player = {
         //Standard = normal prefixed numbers, Scientific = standard form, Engineering = powers of 3.
         scientific: false,
         invert: false,
-        challConf: true
+        challConf: false
     }
 };
 
@@ -145,7 +145,7 @@ function load_game() {
     }
     if (player.options.notation === undefined) player.options.notation = "Standard"
     if (player.options.invert === undefined) player.options.invert = false;
-    if (player.options.challConf === undefined) player.options.challConf = true
+    if (player.options.challConf === undefined) player.options.challConf = false
 	if (player.options.notation === undefined) player.options.notation = "Standard";
 	if (player.options.newsHidden === undefined) player.options.newsHidden = false;
     if (player.achievements === undefined) player.achievements = [];
