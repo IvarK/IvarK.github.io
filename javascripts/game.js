@@ -3205,13 +3205,13 @@ setInterval(function () {
 
     
 
-    if (diff >= 50) {
-        for (var i=0; i<=diff/50; i++) {
-            player.totalTimePlayed += 50
-            player.thisInfinityTime += 50
-            player.infinityPower = Decimal.max(player.infinityPower.times(getInfinityDimensionMultiplier(1, 5)), 1)
+    if (diff >= 500) {
+        for (var i=0; i<=diff/500; i++) {
+            player.totalTimePlayed += 500
+            player.thisInfinityTime += 500
+            player.infinityPower = Decimal.max(player.infinityPower.times(getInfinityDimensionMultiplier(1, 50)), 1)
             for (var tier=1;tier<4;tier++) {
-                if (tier != 4 && player.infDimensionsUnlocked[tier-1]) player["infinityDimension"+tier].amount = player["infinityDimension"+tier].amount.times(Decimal.max((getInfinityDimensionMultiplier(tier+1, 5)), 1))
+                if (tier != 4 && player.infDimensionsUnlocked[tier-1]) player["infinityDimension"+tier].amount = player["infinityDimension"+tier].amount.times(Decimal.max((getInfinityDimensionMultiplier(tier+1, 50)), 1))
                 if (player.infDimensionsUnlocked[tier-1]) {
                     document.getElementById("infRow"+tier).style.display = "inline-block"
                     document.getElementById("dimTabButtons").style.display = "inline-block"
