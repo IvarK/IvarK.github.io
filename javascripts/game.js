@@ -3182,8 +3182,8 @@ setInterval(function () {
       
     }
     }
-    player.totalTimePlayed += diff
-    player.thisInfinityTime += diff
+    player.totalTimePlayed += diff/2
+    player.thisInfinityTime += diff/2
 
     player.infinityPower = Decimal.max(player.infinityPower.times(getInfinityDimensionMultiplier(1, diff/100)), 1)
 
@@ -3201,7 +3201,8 @@ setInterval(function () {
         
     }
 
-    
+    player.totalTimePlayed += diff/2
+    player.thisInfinityTime += diff/2
 
 
 
