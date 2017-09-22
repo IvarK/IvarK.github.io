@@ -3186,7 +3186,7 @@ setInterval(function () {
     document.getElementById("dimTabButtons").style.display = "none"
 
 
-    for (var i=0; i<=diff/50; i++) {
+    for (var i=0; i<=diff; i++) {
 
     player.totalTimePlayed += 0.5
     player.thisInfinityTime += 0.5
