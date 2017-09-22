@@ -3211,7 +3211,7 @@ setInterval(function () {
             player.thisInfinityTime += 500/x
             player.infinityPower = Decimal.max(player.infinityPower.times(getInfinityDimensionMultiplier(1, 50/x)), 1)
             for (var tier=1;tier<4;tier++) {
-                if (tier != 4 && player.infDimensionsUnlocked[tier-1]) player["infinityDimension"+tier].amount = player["infinityDimension"+tier].amount.times(Decimal.max((getInfinityDimensionMultiplier(tier+1, 500/x)), 1))
+                if (tier != 4 && player.infDimensionsUnlocked[tier-1]) player["infinityDimension"+tier].amount = player["infinityDimension"+tier].amount.times(Decimal.max((getInfinityDimensionMultiplier(tier+1, 5/x)), 1))
                 if (player.infDimensionsUnlocked[tier-1]) {
                     document.getElementById("infRow"+tier).style.display = "inline-block"
                     document.getElementById("dimTabButtons").style.display = "inline-block"
