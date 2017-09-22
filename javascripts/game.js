@@ -1479,7 +1479,7 @@ function getTimePow() {
     if (player.infDimensionsUnlocked[3]) return 1.4
     if (player.infDimensionsUnlocked[2]) return 1.2
     if (player.infDimensionsUnlocked[1]) return 1
-    if (player.infDimensionsUnlocked[0]) return 0.7
+    if (player.infDimensionsUnlocked[0]) return 0.5
 }
 
 
