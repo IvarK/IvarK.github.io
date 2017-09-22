@@ -3186,22 +3186,38 @@ setInterval(function () {
     document.getElementById("dimTabButtons").style.display = "none"
 
 
-    for (var i=0; i<=diff; i++) {
 
+ 
     player.totalTimePlayed += 0.5
     player.thisInfinityTime += 0.5
-
     player.infinityPower = Decimal.max(player.infinityPower.times(getInfinityDimensionMultiplier(1, 0.05)), 1)
+    for (var tier=1;tier<4;tier++) {
+        if (tier != 4 && player.infDimensionsUnlocked[tier-1]) player["infinityDimension"+tier].amount = player["infinityDimension"+tier].amount.times(Decimal.max((getInfinityDimensionMultiplier(tier+1, 0.05)), 1))
+        if (player.infDimensionsUnlocked[tier-1]) {
+            document.getElementById("infRow"+tier).style.display = "inline-block"
+            document.getElementById("dimTabButtons").style.display = "inline-block"
+        }
+        else document.getElementById("infRow"+tier).style.display = "none"
+    }
 
-        for (var tier=1;tier<4;tier++) {
-            if (tier != 4 && player.infDimensionsUnlocked[tier-1]) player["infinityDimension"+tier].amount = player["infinityDimension"+tier].amount.times(Decimal.max((getInfinityDimensionMultiplier(tier+1, 0.05)), 1))
 
-            if (player.infDimensionsUnlocked[tier-1]) {
-                document.getElementById("infRow"+tier).style.display = "inline-block"
-                document.getElementById("dimTabButtons").style.display = "inline-block"
+
+
+    
+
+    if (diff >= 50) {
+        for (var i=0; i<=diff/50; i++) {
+            player.totalTimePlayed += 50
+            player.thisInfinityTime += 50
+            player.infinityPower = Decimal.max(player.infinityPower.times(getInfinityDimensionMultiplier(1, 5)), 1)
+            for (var tier=1;tier<4;tier++) {
+                if (tier != 4 && player.infDimensionsUnlocked[tier-1]) player["infinityDimension"+tier].amount = player["infinityDimension"+tier].amount.times(Decimal.max((getInfinityDimensionMultiplier(tier+1, 5)), 1))
+                if (player.infDimensionsUnlocked[tier-1]) {
+                    document.getElementById("infRow"+tier).style.display = "inline-block"
+                    document.getElementById("dimTabButtons").style.display = "inline-block"
+                }
+                else document.getElementById("infRow"+tier).style.display = "none"
             }
-            else document.getElementById("infRow"+tier).style.display = "none"
-            
         }
     }
 
