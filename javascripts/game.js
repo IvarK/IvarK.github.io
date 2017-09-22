@@ -3182,9 +3182,10 @@ setInterval(function () {
       
     }
     }
+    player.totalTimePlayed += diff
+    player.thisInfinityTime += diff
 
-
-    player.infinityPower = Decimal.max(player.infinityPower.times(getInfinityDimensionMultiplier(1, diff/10)), 1)
+    player.infinityPower = Decimal.max(player.infinityPower.times(getInfinityDimensionMultiplier(1, diff/100)), 1)
 
 
     document.getElementById("dimTabButtons").style.display = "none"
@@ -3206,8 +3207,7 @@ setInterval(function () {
 
 
 
-    player.totalTimePlayed += diff
-    player.thisInfinityTime += diff
+    
     if (player.money.gte(Number.MAX_VALUE) && (!player.break || player.currentChallenge != "")) {
         document.getElementById("bigcrunch").style.display = 'inline-block';
         if (player.currentChallenge == "" && (player.bestInfinityTime <= 600 || player.break)) {}
