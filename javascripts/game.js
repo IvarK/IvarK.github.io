@@ -1478,7 +1478,7 @@ function buyManyInfinityDimension(tier) {
 function getTimePow() {
     if (player.infDimensionsUnlocked[3]) return 1.4
     if (player.infDimensionsUnlocked[2]) return 1.2
-    if (player.infDimensionsUnlocked[1]) return 1.02
+    if (player.infDimensionsUnlocked[1]) return 1
     if (player.infDimensionsUnlocked[0]) return 0.5
 }
 
@@ -1487,7 +1487,7 @@ function getInfinityDimensionMultiplier(tier, diff) {
     var dim = player["infinityDimension"+tier]
 
     var base = dim.amount.times(dim.power).times(diff)
-    var timeVar = 0.01/Math.pow(player.thisInfinityTime/10 +0.1, getTimePow()) +1
+    var timeVar = 0.01/Math.pow(player.thisInfinityTime/100 +0.1, getTimePow()) +1
     return timeVar = Decimal.pow(timeVar,base)
 
 }
