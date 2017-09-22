@@ -3182,28 +3182,28 @@ setInterval(function () {
       
     }
     }
-    player.totalTimePlayed += diff/2
-    player.thisInfinityTime += diff/2
-
-    player.infinityPower = Decimal.max(player.infinityPower.times(getInfinityDimensionMultiplier(1, diff/10)), 1)
-
 
     document.getElementById("dimTabButtons").style.display = "none"
 
-    for (var tier=1;tier<4;tier++) {
-        if (tier != 4 && player.infDimensionsUnlocked[tier-1]) player["infinityDimension"+tier].amount = player["infinityDimension"+tier].amount.times(Decimal.max((getInfinityDimensionMultiplier(tier+1, diff/10)), 1))
 
-        if (player.infDimensionsUnlocked[tier-1]) {
-            document.getElementById("infRow"+tier).style.display = "inline-block"
-            document.getElementById("dimTabButtons").style.display = "inline-block"
+    for (var i=0; i<=diff/50; i++) {
+
+    player.totalTimePlayed += diff*50
+    player.thisInfinityTime += diff*50
+
+    player.infinityPower = Decimal.max(player.infinityPower.times(getInfinityDimensionMultiplier(1, diff/10)), 1)
+
+        for (var tier=1;tier<4;tier++) {
+            if (tier != 4 && player.infDimensionsUnlocked[tier-1]) player["infinityDimension"+tier].amount = player["infinityDimension"+tier].amount.times(Decimal.max((getInfinityDimensionMultiplier(tier+1, diff/10)), 1))
+
+            if (player.infDimensionsUnlocked[tier-1]) {
+                document.getElementById("infRow"+tier).style.display = "inline-block"
+                document.getElementById("dimTabButtons").style.display = "inline-block"
+            }
+            else document.getElementById("infRow"+tier).style.display = "none"
+            
         }
-        else document.getElementById("infRow"+tier).style.display = "none"
-        
     }
-
-    player.totalTimePlayed += diff/2
-    player.thisInfinityTime += diff/2
-
 
 
 
