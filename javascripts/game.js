@@ -1439,7 +1439,7 @@ function buyManyDimensionAutobuyer(tier, bulk) {
         
 }
 
-const infCostMults = [1e2, 1e4, 1e6, 1e8]
+const infCostMults = [1e12, 1e14, 1e16, 1e18]
 const tierMults = [null,10, 5, 3, 2]
 function buyOneInfinityDimension(tier) {
     
