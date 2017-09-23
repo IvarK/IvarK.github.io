@@ -1914,12 +1914,12 @@ document.getElementById("postinfi32").onclick = function() {
 }
 
 document.getElementById("postinfi42").onclick = function() {
-    if (player.infinityPoints.gte(player.dimensionMultDecreaseCost) && player.dimensionMultDecrease != 2) {
+    if (player.infinityPoints.gte(player.dimensionMultDecreaseCost) && player.dimensionMultDecrease != 3) {
         player.infinityPoints = player.infinityPoints.minus(player.dimensionMultDecreaseCost)
         player.dimensionMultDecreaseCost *= 2000
         player.dimensionMultDecrease--;
         document.getElementById("postinfi42").innerHTML = "Dimension cost multiplier increase <br>"+player.dimensionMultDecrease+"x -> "+(player.dimensionMultDecrease-1)+"x<br>Cost: "+shortenCosts(player.dimensionMultDecreaseCost) +" IP"
-        if (player.dimensionMultDecrease == 2) document.getElementById("postinfi42").innerHTML = "Dimension cost multiplier increase <br>"+player.dimensionMultDecrease+"x"
+        if (player.dimensionMultDecrease == 3) document.getElementById("postinfi42").innerHTML = "Dimension cost multiplier increase <br>"+player.dimensionMultDecrease+"x"
     }
 }
 
@@ -2310,7 +2310,7 @@ function breakInfinity() {
 }
 
 function gainedInfinityPoints() {
-    return Decimal.floor(Decimal.pow(10, Decimal.log10(player.money).dividedBy(308).minus(0.75))*player.infMult).toNumber()
+    return Decimal.floor(Decimal.pow(10, Decimal.log10(player.money).dividedBy(308).minus(0.75)).times(player.infMult)).toNumber()
 }
 
 
