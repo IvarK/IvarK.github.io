@@ -396,6 +396,7 @@ function loadAutoBuyerSettings() {
     document.getElementById("priority11").value = player.autobuyers[10].priority
     document.getElementById("priority12").value = player.autobuyers[11].priority
     document.getElementById("overGalaxies").value = player.overXGalaxies
+    document.getElementById("bulkDimBoost").value = player.autobuyers[9].bulk
 
 }
 
@@ -2631,7 +2632,7 @@ function updatePriorities() {
     if (infvalue.includes("e")) infvalue = parseInt(infvalue.split("e")[0]) * Math.pow(10, parseInt(infvalue.split("e")[1]))
     else infvalue = parseInt(infvalue)
     player.autobuyers[11].priority = infvalue
-
+    player.autobuyers[9].bulk = parseInt(document.getElementById("bulkDimBoost").value)
     player.overXGalaxies = parseInt(document.getElementById("overGalaxies").value)
     priorityOrder()
 }
@@ -3405,6 +3406,9 @@ setInterval(function () {
         }
     
     }
+
+    if (player.infinityUpgrades.includes("bulkBoost")) document.getElementById("bulkdimboost").style.display = "inline"
+    else document.getElementById("bulkdimboost").style.display = "none"
 
     if (player.infinityUpgrades.includes("timeMult")) document.getElementById("infi11").className = "infinistorebtnbought"
     if (player.infinityUpgrades.includes("dimMult")) document.getElementById("infi21").className = "infinistorebtnbought"
