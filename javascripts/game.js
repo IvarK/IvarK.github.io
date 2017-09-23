@@ -77,25 +77,21 @@ var player = {
     infinityDimension1 : {
         cost: 1e6,
         amount: new Decimal(0),
-        power: 1,
         bought: 0
     },
     infinityDimension2 : {
         cost: 1e8,
         amount: new Decimal(0),
-        power: 1,
         bought: 0
     },
     infinityDimension3 : {
         cost: 1e10,
         amount: new Decimal(0),
-        power: 1,
         bought: 0
     },
     infinityDimension4 : {
         cost: 1e20,
         amount: new Decimal(0),
-        power: 1,
         bought: 0
     },
     options: {
@@ -219,25 +215,21 @@ function load_game() {
         player.infinityDimension1 = {
             cost: 1e6,
             amount: new Decimal(0),
-            power: 1,
             bought: 0
         }
         player.infinityDimension2 = {
             cost: 1e8,
             amount: new Decimal(0),
-            power: 1,
             bought: 0
         }
         player.infinityDimension3 = {
             cost: 1e10,
             amount: new Decimal(0),
-            power: 1,
             bought: 0
         }
         player.infinityDimension4 = {
             cost: 1e15,
             amount: new Decimal(0),
-            power: 1,
             bought: 0
         }
         player.infDimensionsUnlocked = [false, false, false, false]
@@ -835,7 +827,7 @@ function getInfinityDimensionDescription(tier) {
 
 
 function getInfinityDimensionRateOfChange(tier) {
-    let toGain = player["infinityDimension"+(tier+1)].amount.times(player["infinityDimension"+(tier+1)].power)
+    let toGain = player["infinityDimension"+(tier+1)].amount
     const current = Decimal.max(player["infinityDimension"+tier].amount, 1);
     const change  = toGain.times(10).dividedBy(current);
     return change;
@@ -846,7 +838,7 @@ function getInfinityDimensionRateOfChange(tier) {
 
 function updateInfinityDimensions() {
     for (let tier = 1; tier <= 4; ++tier) {
-        document.getElementById("infD"+tier).innerHTML = DISPLAY_NAMES[tier] + " Infinity Dimension x" + formatValue(player.options.notation, player["infinityDimension"+tier].power, 1, 1);
+        document.getElementById("infD"+tier).innerHTML = DISPLAY_NAMES[tier] + " Infinity Dimension";
         document.getElementById("infAmount"+tier).innerHTML = getInfinityDimensionDescription(tier);  
     }
 
@@ -1441,7 +1433,6 @@ function buyManyDimensionAutobuyer(tier, bulk) {
 }
 
 const infCostMults = [1e12, 1e14, 1e16, 1e18]
-const tierMults = [null, 5, 3, 2, 1]
 function buyManyInfinityDimension(tier) {
     
     var dim = player["infinityDimension"+tier]
@@ -1450,7 +1441,6 @@ function buyManyInfinityDimension(tier) {
     
     player.infinityPoints = player.infinityPoints.minus(dim.cost)
     dim.amount = dim.amount.plus(10);
-    dim.power *= tierMults[tier]
     dim.cost *= infCostMults[tier-1]
     
 
@@ -1467,7 +1457,7 @@ function getTimePow() {
 function getInfinityDimensionMultiplier(tier, diff) {
     var dim = player["infinityDimension"+tier]
 
-    var base = dim.amount.times(dim.power).times(diff)
+    var base = dim.amount.times(diff)
     var timeVar = 0.01/Math.pow((player.thisInfinityTime/100)+1, getTimePow()) +1
     return timeVar = Decimal.pow(timeVar,base)
 
@@ -3107,7 +3097,7 @@ document.getElementById("quickReset").onclick = function () {
 function updateInfPower() {
     document.getElementById("infPowAmount").innerHTML = shortenMoney(player.infinityPower)
     document.getElementById("infDimMultAmount").innerHTML = shortenMoney(Decimal.sqrt(player.infinityPower))
-    document.getElementById("infPowPerSec").innerHTML = "You are getting " +shortenDimensions(player.infinityDimension1.amount * player.infinityDimension1.power)+" Infinity Power per second."
+    document.getElementById("infPowPerSec").innerHTML = "You are getting " +shortenDimensions(player.infinityDimension1.amount)+" Infinity Power per second."
 }
 
 
