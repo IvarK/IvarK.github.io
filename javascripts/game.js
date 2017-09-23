@@ -1460,7 +1460,7 @@ function buyManyDimensionAutobuyer(tier, bulk) {
 }
 
 const infCostMults = [null, 1e2, 1e4, 1e6, 1e8]
-const infPowerMults = [null, 10, 8, 4, 2]
+const infPowerMults = [null, 20, 15, 10, 5]
 function buyManyInfinityDimension(tier) {
     
     var dim = player["infinityDimension"+tier]
@@ -3106,7 +3106,7 @@ function updateInfPower() {
 
 function getNewInfReq() {
     if (!player.infDimensionsUnlocked[0]) return new Decimal("1e1100")
-    else if (!player.infDimensionsUnlocked[1]) return new Decimal("1e2000")
+    else if (!player.infDimensionsUnlocked[1]) return new Decimal("1e1900")
     else if (!player.infDimensionsUnlocked[2]) return new Decimal("1e2500")
     else return new Decimal("1e696969")
 }
