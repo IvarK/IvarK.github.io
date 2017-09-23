@@ -3927,9 +3927,10 @@ function saveToPlayFab(){
     if (!playFabId || typeof PlayFab === 'undefined' || typeof PlayFab.ClientApi === 'undefined') return false;
     var requestData = {
         TitleId: "5695",
-            Data: {
-                save: btoa(JSON.stringify(player))
-            }
+        PlayFabId: playFabId,
+        Data: {
+            save: btoa(JSON.stringify(player))
+        }
     }
     try{
         PlayFab.ClientApi.UpdateUserData(requestData, saveToPlayFabCallback);
