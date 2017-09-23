@@ -3558,7 +3558,7 @@ setInterval(function() {
             if (player.autobuyers[9]%1 !== 0) {
                 if (dimBoolean()) {
                     if (player.autobuyers[9].isOn) {
-                        document.getElementById("softReset").click()
+                        softReset(player.autobuyers[9].bulk)
                         player.autobuyers[9].ticks = 1;
                     } 
                 } else player.autobuyers[9].ticks += 1;
@@ -3619,7 +3619,7 @@ setInterval(function() {
             if (player.autobuyers[9]%1 !== 0) {
                 if (dimBoolean()) {
                     if (player.autobuyers[9].isOn) {
-                        document.getElementById("softReset").click()
+                        softReset(player.autobuyers[9].bulk)
                         player.autobuyers[9].ticks = 1;
                     } 
                 } else player.autobuyers[9].ticks += 1;
