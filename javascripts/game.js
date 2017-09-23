@@ -1447,7 +1447,7 @@ function buyManyInfinityDimension(tier) {
 }
 
 function getTimePow() {
-    if (player.infinityDimension4.amount != 0) return 1.18
+    if (player.infinityDimension4.amount != 0) return 1.17
     else if (player.infinityDimension3.amount != 0) return 1.16
     else if (player.infinityDimension2.amount != 0) return 1.05
     else return 0.75
