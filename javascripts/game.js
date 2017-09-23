@@ -1458,7 +1458,7 @@ function getInfinityDimensionMultiplier(tier, diff) {
     var dim = player["infinityDimension"+tier]
 
     var base = dim.amount.times(diff)
-    var timeVar = 0.06/Math.pow((player.thisInfinityTime/100)+1, getTimePow()) +1
+    var timeVar = Decimal.pow((thisInfinityTime+1), timePow).dividedBy(Decimal.pow(1.1, (dimensionAmount+1)))
     return timeVar = Decimal.pow(timeVar,base)
 
 }
