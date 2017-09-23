@@ -1072,7 +1072,7 @@ function getTickSpeedMultiplier() {
             perGalaxy *= 2
         }
         if (player.infinityUpgrades.includes("postGalaxy")) {
-            perGalaxy *= 2
+            perGalaxy *= 1.5
         }
         
         return baseMultiplier-(player.galaxies*perGalaxy);
@@ -1085,7 +1085,7 @@ function getTickSpeedMultiplier() {
             galaxies *= 2
         }
         if (player.infinityUpgrades.includes("postGalaxy")) {
-            galaxies *= 2
+            galaxies *= 1.5
         }
 
         return baseMultiplier * (Math.pow(perGalaxy, (galaxies-2)))
