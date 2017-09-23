@@ -1444,8 +1444,8 @@ function buyManyDimensionAutobuyer(tier, bulk) {
         
 }
 
-const infCostMults = [null, 1e12, 1e14, 1e16, 1e18]
-const infPowerMults = [null, 10, 8, 6, 4]
+const infCostMults = [null, 1e2, 1e4, 1e6, 1e8]
+const infPowerMults = [null, 10, 5, 3, 2]
 function buyManyInfinityDimension(tier) {
     
     var dim = player["infinityDimension"+tier]
@@ -3110,6 +3110,24 @@ function updateInfPower() {
 }
 
 
+function getNewInfReq() {
+    if (!player.infDimensionsUnlocked[0]) return new Decimal("1e1000")
+    else if (!player.infDimensionsUnlocked[1]) return new Decimal("1e1750")
+    else if (!player.infDimensionsUnlocked[2]) return new Decimal("1e2500")
+    else return new Decimal("1e696969")
+}
+
+
+function newDimension() {
+    if (player.money.gte(getNewInfReq())) {
+        if (!player.infDimensionsUnlocked[0]) player.infDimensionsUnlocked[0] = true
+        else if (!player.infDimensionsUnlocked[1]) player.infDimensionsUnlocked[1] = true
+        else if (!player.infDimensionsUnlocked[2]) player.infDimensionsUnlocked[2] = true
+        else if (!player.infDimensionsUnlocked[3]) player.infDimensionsUnlocked[3] = true
+    }
+}
+
+
 
 
 
@@ -3452,6 +3470,15 @@ setInterval(function () {
     document.getElementById("chall2Pow").innerHTML = (player.chall2Pow*100).toFixed(2) + "%"
     document.getElementById("chall3Pow").innerHTML = shorten(player.chall3Pow*100) + "%"
 
+
+    if (player.infDimensionsUnlocked.includes(false) && player.money.gt(Number.MAX_VALUE) && player.break) {
+        document.getElementById("newDimensionButton").style.display = "inline-block"
+    } else document.getElementById("newDimensionButton").style.display = "none"
+
+    if (player.money.gte(getNewInfReq())) document.getElementById("newDimensionButton").className = "newdim"
+    else document.getElementById("newDimensionButton").className = "newdimlocked"
+
+    document.getElementById("newDimensionButton").innerHTML = "Get " + shortenCosts(getNewInfReq()) + " antimatter to unlock a new Dimension."
 
     document.getElementById("sacrifice").setAttribute('ach-tooltip', "Boosts 8th Dimension by " + formatValue(player.options.notation, calcSacrificeBoost(), 2, 2) + "x");
 
