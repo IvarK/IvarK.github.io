@@ -888,6 +888,7 @@ function updateInfinityDimensions() {
 
 
 function softReset(bulk) {
+    player.resets+=bulk;
     player = {
         money: new Decimal(10),
         tickSpeedCost: new Decimal(1000),
@@ -926,14 +927,14 @@ function softReset(bulk) {
         totalTimePlayed: player.totalTimePlayed,
         bestInfinityTime: player.bestInfinityTime,
         thisInfinityTime: player.thisInfinityTime,
-        firstPow: Decimal.pow(2, player.resets + 1),
-        secondPow: Decimal.pow(2, player.resets),
-        thirdPow: Decimal.max(Decimal.pow(2, player.resets - 1), 1),
-        fourthPow: Decimal.max(Decimal.pow(2, player.resets - 2), 1),
-        fifthPow: Decimal.max(Decimal.pow(2, player.resets - 3), 1),
-        sixthPow: Decimal.max(Decimal.pow(2, player.resets - 4), 1),
-        seventhPow: Decimal.max(Decimal.pow(2, player.resets - 5), 1),
-        eightPow: Decimal.max(Decimal.pow(2, player.resets - 6), 1),
+        firstPow: Decimal.pow(2, player.resets),
+        secondPow: Decimal.pow(2, player.resets-1),
+        thirdPow: Decimal.max(Decimal.pow(2, player.resets - 2), 1),
+        fourthPow: Decimal.max(Decimal.pow(2, player.resets - 3), 1),
+        fifthPow: Decimal.max(Decimal.pow(2, player.resets - 4), 1),
+        sixthPow: Decimal.max(Decimal.pow(2, player.resets - 5), 1),
+        seventhPow: Decimal.max(Decimal.pow(2, player.resets - 6), 1),
+        eightPow: Decimal.max(Decimal.pow(2, player.resets - 7), 1),
         resets: player.resets,
         galaxies: player.galaxies,
         tickDecrease: player.tickDecrease,
@@ -983,7 +984,7 @@ function softReset(bulk) {
         player.seventhCost = new Decimal(2e5)
         player.eightCost = new Decimal(4e6)
     }
-    if (player.resets == 0 && player.currentChallenge == "") {
+    if (player.resets == 1 && player.currentChallenge == "") {
         if (player.infinityUpgrades.includes("skipReset2")) player.resets++;
         if (player.infinityUpgrades.includes("skipReset3")) player.resets++;
         if (player.infinityUpgrades.includes("skipResetGalaxy")) {
@@ -1029,7 +1030,7 @@ function softReset(bulk) {
     
 
 
-    player.resets+=bulk;
+    
     updateCosts();
     clearInterval(player.interval);
     //updateInterval();
@@ -3513,7 +3514,7 @@ function dimBoolean() {
     const name = TIER_NAMES[getShiftRequirement(0).tier]
     if (!player.autobuyers[9].isOn) return false
     if (player.autobuyers[9].ticks*100 < player.autobuyers[9].interval) return false
-    if (player[name + "Amount"] < getShiftRequirement(0).amount) return false
+    if (player[name + "Amount"] < getShiftRequirement(player.autobuyers[9].bulk-1).amount) return false
     if (player.overXGalaxies <= player.galaxies) return true
     if (player.currentChallenge =="challenge4" && player.autobuyers[9].priority < getShiftRequirement(0).amount && getShiftRequirement(0).tier == 6) return false
     if (player.autobuyers[9].priority < getShiftRequirement(0).amount && getShiftRequirement(0).tier == 8) return false
