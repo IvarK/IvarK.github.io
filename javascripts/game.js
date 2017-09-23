@@ -729,8 +729,14 @@ function updateDimensions() {
     } else {
         document.getElementById("bestInfinity").innerHTML = "Your fastest infinity is in " + timeDisplay(player.bestInfinityTime) + "."
         document.getElementById("thisInfinity").innerHTML = "You have spent " + timeDisplay(player.thisInfinityTime) + " in this infinity."
-	    if (player.infinityPoints.equals(1)) document.getElementById("infinityPoints").innerHTML = "You have 1 Infinity point."
-        else document.getElementById("infinityPoints").innerHTML = "You have  " + shortenDimensions(player.infinityPoints) + " Infinity points."
+        if (player.infinityPoints.equals(1)) {
+            document.getElementById("infinityPoints1").innerHTML = "You have 1 Infinity point."
+            document.getElementById("infinityPoints2").innerHTML = "You have 1 Infinity point."
+        }
+        else {
+            document.getElementById("infinityPoints1").innerHTML = "You have  " + shortenDimensions(player.infinityPoints) + " Infinity points."
+            document.getElementById("infinityPoints2").innerHTML = "You have  " + shortenDimensions(player.infinityPoints) + " Infinity points."
+        }
         if (player.infinitied == 1) document.getElementById("infinitied").innerHTML = "You have infinitied 1 time."
         else document.getElementById("infinitied").innerHTML = "You have infinitied " + player.infinitied + " times."
 
@@ -3471,7 +3477,7 @@ setInterval(function () {
     document.getElementById("chall3Pow").innerHTML = shorten(player.chall3Pow*100) + "%"
 
 
-    if (player.infDimensionsUnlocked.includes(false) && player.money.gt(Number.MAX_VALUE) && player.break) {
+    if (player.infDimensionsUnlocked.includes(false) && player.break) {
         document.getElementById("newDimensionButton").style.display = "inline-block"
     } else document.getElementById("newDimensionButton").style.display = "none"
 
