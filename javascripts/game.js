@@ -2632,7 +2632,7 @@ function updatePriorities() {
     if (infvalue.includes("e")) infvalue = parseInt(infvalue.split("e")[0]) * Math.pow(10, parseInt(infvalue.split("e")[1]))
     else infvalue = parseInt(infvalue)
     player.autobuyers[11].priority = infvalue
-    player.autobuyers[9].bulk = parseInt(document.getElementById("bulkDimboost").value)
+    player.autobuyers[9].bulk = Math.min(parseInt(document.getElementById("bulkDimboost").value), 1)
     player.overXGalaxies = parseInt(document.getElementById("overGalaxies").value)
     priorityOrder()
 }
