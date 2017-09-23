@@ -396,7 +396,7 @@ function loadAutoBuyerSettings() {
     document.getElementById("priority11").value = player.autobuyers[10].priority
     document.getElementById("priority12").value = player.autobuyers[11].priority
     document.getElementById("overGalaxies").value = player.overXGalaxies
-    document.getElementById("bulkDimBoost").value = player.autobuyers[9].bulk
+    document.getElementById("bulkdimboost").value = player.autobuyers[9].bulk
 
 }
 
@@ -2632,7 +2632,7 @@ function updatePriorities() {
     if (infvalue.includes("e")) infvalue = parseInt(infvalue.split("e")[0]) * Math.pow(10, parseInt(infvalue.split("e")[1]))
     else infvalue = parseInt(infvalue)
     player.autobuyers[11].priority = infvalue
-    player.autobuyers[9].bulk = parseInt(document.getElementById("bulkDimBoost").value)
+    player.autobuyers[9].bulk = parseInt(document.getElementById("bulkdimboost").value)
     player.overXGalaxies = parseInt(document.getElementById("overGalaxies").value)
     priorityOrder()
 }
