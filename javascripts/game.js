@@ -548,7 +548,7 @@ function getDimensionFinalMultiplier(tier) {
     }
     multiplier = multiplier.times(player.achPow);
 
-    multiplier = multiplier.times(Decimal.max(Decimal.sqrt(player.infinityPower), 1))
+    multiplier = multiplier.times(Decimal.max(Decimal.pow(player.infinityPower, 7), 1))
     
     if (player.infinityUpgrades.includes("totalMult")) multiplier = multiplier.times(totalMult)
     if (player.infinityUpgrades.includes("currentMult")) multiplier = multiplier.times(currentMult)
@@ -850,7 +850,7 @@ function getInfinityDimensionRateOfChange(tier) {
 
 function updateInfinityDimensions() {
     for (let tier = 1; tier <= 4; ++tier) {
-        document.getElementById("infD"+tier).innerHTML = DISPLAY_NAMES[tier] + " Infinity Dimension";
+        document.getElementById("infD"+tier).innerHTML = DISPLAY_NAMES[tier] + " Infinity Dimension x" + shortenDimensions(player["infinityDimension"+tier].power);
         document.getElementById("infAmount"+tier).innerHTML = getInfinityDimensionDescription(tier);  
     }
 
@@ -1445,7 +1445,7 @@ function buyManyDimensionAutobuyer(tier, bulk) {
 }
 
 const infCostMults = [null, 1e12, 1e14, 1e16, 1e18]
-const infPowerMults = [null, 5, 4, 3, 2]
+const infPowerMults = [null, 10, 8, 6, 4]
 function buyManyInfinityDimension(tier) {
     
     var dim = player["infinityDimension"+tier]
@@ -1460,22 +1460,9 @@ function buyManyInfinityDimension(tier) {
 
 }
 
-function getTimePow() {
-    if (player.infinityDimension4.amount != 0) return 2.5
-    else if (player.infinityDimension3.amount != 0) return 2.2
-    else if (player.infinityDimension2.amount != 0) return 1.5
-    else return 0.83
-}
 
 
-function getInfinityDimensionMultiplier(tier, diff) {
-    var dim = player["infinityDimension"+tier]
 
-    var base = dim.amount.times(dim.power).times(diff)
-    var timeVar = 1/Math.pow(player.thisInfinityTime+1, getTimePow()) + 1
-    return timeVar = Decimal.pow(timeVar,base)
-
-}
 
 function getInfinityDimensionProduction(tier) {
     var dim = player["infinityDimension"+tier]
@@ -1484,27 +1471,24 @@ function getInfinityDimensionProduction(tier) {
 }
 
 
-function infinityPowerProductionPerSecond() {
-    return player.infinityPower.times(getInfinityDimensionMultiplier(1, 0.05)).minus(player.infinityPower).times(100)
-}
 
 
 function resetInfDimensions() {
 
     if (player.infDimensionsUnlocked[0]) {
-        player.infinityPower = new Decimal(1)
+        player.infinityPower = new Decimal(0)
     }
     if (player.infDimensionsUnlocked[3] && player.infinityDimension4.amount != 0){
-        player.infinityDimension3.amount = new Decimal(10)
-        player.infinityDimension2.amount = new Decimal(10)
-        player.infinityDimension1.amount = new Decimal(10)
+        player.infinityDimension3.amount = new Decimal(0)
+        player.infinityDimension2.amount = new Decimal(0)
+        player.infinityDimension1.amount = new Decimal(0)
     } 
     else if (player.infDimensionsUnlocked[2] && player.infinityDimension3.amount != 0){
-        player.infinityDimension2.amount = new Decimal(10)
-        player.infinityDimension1.amount = new Decimal(10)
+        player.infinityDimension2.amount = new Decimal(0)
+        player.infinityDimension1.amount = new Decimal(0)
     } 
     else if (player.infDimensionsUnlocked[1] && player.infinityDimension2.amount != 0){
-        player.infinityDimension1.amount = new Decimal(10)
+        player.infinityDimension1.amount = new Decimal(0)
     }
     
 }
@@ -3121,8 +3105,8 @@ document.getElementById("quickReset").onclick = function () {
 
 function updateInfPower() {
     document.getElementById("infPowAmount").innerHTML = shortenMoney(player.infinityPower)
-    document.getElementById("infDimMultAmount").innerHTML = shortenMoney(Decimal.sqrt(player.infinityPower))
-    document.getElementById("infPowPerSec").innerHTML = "You are getting " +shortenDimensions(infinityPowerProductionPerSecond())+" Infinity Power per second."
+    document.getElementById("infDimMultAmount").innerHTML = shortenMoney(Decimal.pow(player.infinityPower, 7))
+    document.getElementById("infPowPerSec").innerHTML = "You are getting " +shortenDimensions(getInfinityDimensionProduction(1))+" Infinity Power per second."
 }
 
 
@@ -3181,7 +3165,8 @@ setInterval(function () {
 
     document.getElementById("dimTabButtons").style.display = "none"
 
-
+    player.totalTimePlayed += diff
+    player.thisInfinityTime += diff
 
  
 
@@ -3198,17 +3183,8 @@ setInterval(function () {
 
     
 
-    if (diff >= 200) {
-        for (var i=0; i<=diff; i++) {
-            player.totalTimePlayed += 0.5
-            player.thisInfinityTime += 0.5
-            player.infinityPower = Decimal.max(player.infinityPower.times(getInfinityDimensionMultiplier(1, 0.05)), 1)
-        }
-    } else {
-        player.totalTimePlayed += diff
-        player.thisInfinityTime += diff
-        player.infinityPower = Decimal.max(player.infinityPower.times(getInfinityDimensionMultiplier(1, diff/10)), 1)
-    }
+
+        player.infinityPower = player.infinityPower.plus(getInfinityDimensionProduction(1).times(diff/10))
 
 
 
