@@ -3967,6 +3967,7 @@ function loadFromPlayFabCallback(data, error){
         return;
     }
     if (data){
+        console.log(data)
         var id = playFabId;
         loadFromString(data.data.Data.save.value);
     }
