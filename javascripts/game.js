@@ -3106,7 +3106,7 @@ function updateInfPower() {
 
 function getNewInfReq() {
     if (!player.infDimensionsUnlocked[0]) return new Decimal("1e1100")
-    else if (!player.infDimensionsUnlocked[1]) return new Decimal("1e1750")
+    else if (!player.infDimensionsUnlocked[1]) return new Decimal("1e2000")
     else if (!player.infDimensionsUnlocked[2]) return new Decimal("1e2500")
     else return new Decimal("1e696969")
 }
