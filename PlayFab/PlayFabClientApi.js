@@ -4,7 +4,7 @@ var PlayFab = typeof PlayFab != "undefined" ? PlayFab : {};
 
 if(!PlayFab.settings) {
     PlayFab.settings = {
-        titleId: null, // You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website)
+        titleId: 5695, // You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website)
         developerSecretKey: null, // For security reasons you must never expose this value to the client or players - You must set this value for Server-APIs to work properly (Found in the Game Manager for your title, at the PlayFab Website)
         advertisingIdType: null,
         advertisingIdValue: null,
