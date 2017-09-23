@@ -3523,64 +3523,126 @@ function dimBoolean() {
 
 
 setInterval(function() {
-
-    if (player.autobuyers[11]%1 !== 0) {
-        if (player.autobuyers[11].ticks*100 >= player.autobuyers[11].interval && player.money.gte(Number.MAX_VALUE)) {
-            if (player.autobuyers[11].isOn) {
-                if (!player.break) {
-                    document.getElementById("bigcrunch").click()
-                } else if (player.autobuyers[11].priority <= gainedInfinityPoints()) {
-                    document.getElementById("bigcrunch").click()
-                }
-                
-                player.autobuyers[11].ticks = 1;
-            } 
-        } else player.autobuyers[11].ticks += 1;
-        
-    }
-    
-    
-        if (player.autobuyers[10]%1 !== 0) {
-            if (player.autobuyers[10].ticks*100 >= player.autobuyers[10].interval && (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() : player.eightAmount >= getGalaxyRequirement())) {
-                if (player.autobuyers[10].isOn && player.autobuyers[10].priority > player.galaxies) {
-                    document.getElementById("secondSoftReset").click()
-                    player.autobuyers[10].ticks = 1;
-                } 
-            } else player.autobuyers[10].ticks += 1;
-        }
-
-
-        if (player.autobuyers[9]%1 !== 0) {
-            if (dimBoolean()) {
-                if (player.autobuyers[9].isOn) {
-                    document.getElementById("softReset").click()
-                    player.autobuyers[9].ticks = 1;
-                } 
-            } else player.autobuyers[9].ticks += 1;
-        }
-
-        for (var i=0; i<priority.length; i++) {
-            if (priority[i].ticks*100 >= priority[i].interval || priority[i].interval == 100) {
-                if ((priority[i].isOn && canBuyDimension(priority[i].tier)) ) {
-                    if (priority[i] == player.autobuyers[8] ) {
-                        if (priority[i].target == 10) buyMaxTickSpeed()
-                        else buyTickSpeed()
-                    } else {
-                        if (priority[i].target > 10) {
-                            
-                                buyManyDimensionAutobuyer(priority[i].target-10, priority[i].bulk)
-                                
-                        }
-                        else {
-                            buyOneDimension(priority[i].target)
-                        }
+    if (!player.infinityUpgrades.includes("autoBuyerUpgrade")) {
+        if (player.autobuyers[11]%1 !== 0) {
+            if (player.autobuyers[11].ticks*100 >= player.autobuyers[11].interval && player.money.gte(Number.MAX_VALUE)) {
+                if (player.autobuyers[11].isOn) {
+                    if (!player.break) {
+                        document.getElementById("bigcrunch").click()
+                    } else if (player.autobuyers[11].priority <= gainedInfinityPoints()) {
+                        document.getElementById("bigcrunch").click()
                     }
-                    priority[i].ticks = 0;
-                }
-            } else priority[i].ticks += 1;
+                    
+                    player.autobuyers[11].ticks = 1;
+                } 
+            } else player.autobuyers[11].ticks += 1;
+            
         }
-        updateCosts()
+
+
+            if (player.autobuyers[10]%1 !== 0) {
+                if (player.autobuyers[10].ticks*100 >= player.autobuyers[10].interval && (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() : player.eightAmount >= getGalaxyRequirement())) {
+                    if (player.autobuyers[10].isOn && player.autobuyers[10].priority > player.galaxies) {
+                        document.getElementById("secondSoftReset").click()
+                        player.autobuyers[10].ticks = 1;
+                    } 
+                } else player.autobuyers[10].ticks += 1;
+            }
+
+
+            if (player.autobuyers[9]%1 !== 0) {
+                if (dimBoolean()) {
+                    if (player.autobuyers[9].isOn) {
+                        document.getElementById("softReset").click()
+                        player.autobuyers[9].ticks = 1;
+                    } 
+                } else player.autobuyers[9].ticks += 1;
+            }
+
+            for (var i=0; i<priority.length; i++) {
+                if (priority[i].ticks*100 >= priority[i].interval || priority[i].interval == 100) {
+                    if ((priority[i].isOn && canBuyDimension(priority[i].tier)) ) {
+                        if (priority[i] == player.autobuyers[8] ) {
+                            if (priority[i].target == 10) buyMaxTickSpeed()
+                            else buyTickSpeed()
+                        } else {
+                            if (priority[i].target > 10) {
+                                
+                                    buyManyDimensionAutobuyer(priority[i].target-10, priority[i].bulk)
+                                    
+                            }
+                            else {
+                                buyOneDimension(priority[i].target)
+                            }
+                        }
+                        priority[i].ticks = 0;
+                    }
+                } else priority[i].ticks += 1;
+            }
+            updateCosts()
+        }
 }, 100)
+
+setInterval(function() {
+    if (player.infinityUpgrades.includes("autoBuyerUpgrade")) {
+        if (player.autobuyers[11]%1 !== 0) {
+            if (player.autobuyers[11].ticks*100 >= player.autobuyers[11].interval && player.money.gte(Number.MAX_VALUE)) {
+                if (player.autobuyers[11].isOn) {
+                    if (!player.break) {
+                        document.getElementById("bigcrunch").click()
+                    } else if (player.autobuyers[11].priority <= gainedInfinityPoints()) {
+                        document.getElementById("bigcrunch").click()
+                    }
+                    
+                    player.autobuyers[11].ticks = 1;
+                } 
+            } else player.autobuyers[11].ticks += 1;
+            
+        }
+
+
+            if (player.autobuyers[10]%1 !== 0) {
+                if (player.autobuyers[10].ticks*100 >= player.autobuyers[10].interval && (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() : player.eightAmount >= getGalaxyRequirement())) {
+                    if (player.autobuyers[10].isOn && player.autobuyers[10].priority > player.galaxies) {
+                        document.getElementById("secondSoftReset").click()
+                        player.autobuyers[10].ticks = 1;
+                    } 
+                } else player.autobuyers[10].ticks += 1;
+            }
+
+
+            if (player.autobuyers[9]%1 !== 0) {
+                if (dimBoolean()) {
+                    if (player.autobuyers[9].isOn) {
+                        document.getElementById("softReset").click()
+                        player.autobuyers[9].ticks = 1;
+                    } 
+                } else player.autobuyers[9].ticks += 1;
+            }
+
+            for (var i=0; i<priority.length; i++) {
+                if (priority[i].ticks*100 >= priority[i].interval || priority[i].interval == 100) {
+                    if ((priority[i].isOn && canBuyDimension(priority[i].tier)) ) {
+                        if (priority[i] == player.autobuyers[8] ) {
+                            if (priority[i].target == 10) buyMaxTickSpeed()
+                            else buyTickSpeed()
+                        } else {
+                            if (priority[i].target > 10) {
+                                
+                                    buyManyDimensionAutobuyer(priority[i].target-10, priority[i].bulk)
+                                    
+                            }
+                            else {
+                                buyOneDimension(priority[i].target)
+                            }
+                        }
+                        priority[i].ticks = 0;
+                    }
+                } else priority[i].ticks += 1;
+            }
+            updateCosts()
+        }
+}, 50)
 
 /*function cheat() {
     player.infinitied = 1500
