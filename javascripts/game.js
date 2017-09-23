@@ -1441,7 +1441,7 @@ function buyManyDimensionAutobuyer(tier, bulk) {
 }
 
 const infCostMults = [1e12, 1e14, 1e16, 1e18]
-const tierMults = [null, 10, 5, 3, 2]
+const tierMults = [null, 5, 3, 2, 1]
 function buyManyInfinityDimension(tier) {
     
     var dim = player["infinityDimension"+tier]
@@ -2310,7 +2310,7 @@ function breakInfinity() {
 }
 
 function gainedInfinityPoints() {
-    return Decimal.floor(Decimal.pow(10, Decimal.log10(player.money).dividedBy(308).minus(0.75)).times(player.infMult)).toNumber()
+    return Decimal.floor(Decimal.pow(10, Decimal.log10(player.money).dividedBy(308).minus(0.75)).times(player.infMult))
 }
 
 
