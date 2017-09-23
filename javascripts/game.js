@@ -1460,7 +1460,7 @@ function buyManyDimensionAutobuyer(tier, bulk) {
 }
 
 const infCostMults = [null, 1e2, 1e4, 1e6, 1e8]
-const infPowerMults = [null, 10, 5, 3, 2]
+const infPowerMults = [null, 10, 8, 4, 2]
 function buyManyInfinityDimension(tier) {
     
     var dim = player["infinityDimension"+tier]
