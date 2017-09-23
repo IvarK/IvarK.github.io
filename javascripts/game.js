@@ -157,7 +157,7 @@ try {
 } catch (err) {console.log("Couldn't load Kongregate API")}
 
 function loadFromString(string) {
-    player = JSON.parse(string)
+    player = JSON.parse(atob(string))
 }
 
 
@@ -3838,12 +3838,12 @@ function playFabLoginCallback(data, error){
     }
 }
 
-function saveToPlayFab(saveString){
+function saveToPlayFab(){
     if (!playFabId || typeof PlayFab === 'undefined' || typeof PlayFab.ClientApi === 'undefined') return false;
     var requestData = {
         TitleId: "5695",
             Data: {
-                save: saveString
+                save: btoa(JSON.stringify(player))
             }
     }
     try{
