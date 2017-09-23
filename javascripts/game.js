@@ -1596,7 +1596,7 @@ document.getElementById("eightMax").onclick = function () {
 
 document.getElementById("softReset").onclick = function () {
     const name = TIER_NAMES[getShiftRequirement(0).tier]
-    if (player[name + "Amount"] < getShiftRequirement(0).amount) {  
+    if (player[name + "Amount"] >= getShiftRequirement(0).amount) {  
         softReset(1)
     }
 };
