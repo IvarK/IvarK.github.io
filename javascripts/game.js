@@ -3950,18 +3950,25 @@ function saveToPlayFabCallback(data, error){
 }
 
 function loadFromPlayFab(){
-    if (!playFabId || typeof PlayFab === 'undefined' || typeof PlayFab.ClientApi === 'undefined') return false;
+    if (!playFabId || typeof PlayFab === 'undefined' || typeof PlayFab.ClientApi === 'undefined'){
+        console.log(playFabId, PlayFab);
+         return false;
+    }
     var requestData = {
         Keys: ["save"],
         PlayFabId: playFabId
     }
     try{
+        console.log('attempting to send load request');
         PlayFab.ClientApi.GetUserData(requestData, loadFromPlayFabCallback);
+        console.log('sent load request');
     }
     catch(e){console.log(e);}
 }
-
+ 
 function loadFromPlayFabCallback(data, error){
+    console.log('loading callback fired');
+    console.log(data, error);
     if (error){
         console.log(error);
         return;
@@ -3969,7 +3976,7 @@ function loadFromPlayFabCallback(data, error){
     if (data){
         console.log(data)
         var id = playFabId;
-        loadFromString(data.data.Data.save.Value);
+        loadFromString(data.data.Data.save.value);
     }
 }
 
