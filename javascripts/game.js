@@ -3834,6 +3834,7 @@ function playFabLoginCallback(data, error){
     if (data){
         //NOTE: SAVE 'playFabId' to a global variable somewhere, I just declare mine at the start of the playfab stuff. Use this variable to tell if your player is logged in to playfab or not.
         playFabId = data.data.PlayFabId;
+        console.log("Logged in to playFab")
     }
 }
 
@@ -3842,7 +3843,7 @@ function saveToPlayFab(saveString){
     var requestData = {
         TitleId: "5695",
             Data: {
-                save: player
+                save: saveString
             }
     }
     try{
@@ -3881,7 +3882,7 @@ function loadFromPlayFabCallback(data, error){
     }
     if (data){
         var id = playFabId;
-        loadFromString(data.data.Data.save.Value);
+        loadFromString(data.data.Data.save.value);
     }
 }
 
