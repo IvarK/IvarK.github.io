@@ -77,22 +77,26 @@ var player = {
     infinityDimension1 : {
         cost: 1e6,
         amount: new Decimal(0),
-        bought: 0
+        bought: 0,
+        power: 1
     },
     infinityDimension2 : {
-        cost: 1e8,
+        cost: 1e7,
         amount: new Decimal(0),
-        bought: 0
+        bought: 0,
+        power: 1
     },
     infinityDimension3 : {
         cost: 1e10,
         amount: new Decimal(0),
-        bought: 0
+        bought: 0,
+        power: 1
     },
     infinityDimension4 : {
         cost: 1e20,
         amount: new Decimal(0),
-        bought: 0
+        bought: 0,
+        power: 1
     },
     options: {
         newsHidden: false,
@@ -151,6 +155,10 @@ try {
 	    // Proceed with loading your game...
 	});
 } catch (err) {console.log("Couldn't load Kongregate API")}
+
+function loadFromString(string) {
+    player = JSON.parse(string)
+}
 
 
 
@@ -215,22 +223,26 @@ function load_game() {
         player.infinityDimension1 = {
             cost: 1e6,
             amount: new Decimal(0),
-            bought: 0
+            bought: 0,
+            power: 1
         }
         player.infinityDimension2 = {
-            cost: 1e8,
+            cost: 1e7,
             amount: new Decimal(0),
-            bought: 0
+            bought: 0,
+            power: 1
         }
         player.infinityDimension3 = {
-            cost: 1e10,
+            cost: 1e9,
             amount: new Decimal(0),
-            bought: 0
+            bought: 0,
+            power: 1
         }
         player.infinityDimension4 = {
             cost: 1e15,
             amount: new Decimal(0),
-            bought: 0
+            bought: 0,
+            power: 1
         }
         player.infDimensionsUnlocked = [false, false, false, false]
     }
@@ -768,7 +780,7 @@ function updateCosts() {
 
     for (var i=1; i<=4; i++) {
         
-        document.getElementById("infMax"+i).innerHTML = "Cost: " + shortenCosts(player["infinityDimension"+i].cost * (10 - player["infinityDimension"+i].bought))
+        document.getElementById("infMax"+i).innerHTML = "Cost: " + shortenCosts(player["infinityDimension"+i].cost)
     }
 }
 
@@ -1432,7 +1444,8 @@ function buyManyDimensionAutobuyer(tier, bulk) {
         
 }
 
-const infCostMults = [1e12, 1e14, 1e16, 1e18]
+const infCostMults = [null, 1e12, 1e14, 1e16, 1e18]
+const infPowerMults = [null, 5, 4, 3, 2]
 function buyManyInfinityDimension(tier) {
     
     var dim = player["infinityDimension"+tier]
@@ -1441,26 +1454,38 @@ function buyManyInfinityDimension(tier) {
     
     player.infinityPoints = player.infinityPoints.minus(dim.cost)
     dim.amount = dim.amount.plus(10);
-    dim.cost *= infCostMults[tier-1]
+    dim.cost *= infCostMults[tier]
+    dim.power *= infPowerMults[tier]
     
 
 }
 
 function getTimePow() {
-    if (player.infinityDimension4.amount != 0) return 1.17
-    else if (player.infinityDimension3.amount != 0) return 1.16
-    else if (player.infinityDimension2.amount != 0) return 1.05
-    else return 0.75
+    if (player.infinityDimension4.amount != 0) return 2.5
+    else if (player.infinityDimension3.amount != 0) return 2.2
+    else if (player.infinityDimension2.amount != 0) return 1.5
+    else return 0.83
 }
 
 
 function getInfinityDimensionMultiplier(tier, diff) {
     var dim = player["infinityDimension"+tier]
 
-    var base = dim.amount.times(diff)
-    var timeVar = Decimal.pow((player.thisInfinityTime+1), getTimePow()).dividedBy(Decimal.pow(1.1, (dim.amount.times(0.1).plus(1))))
+    var base = dim.amount.times(dim.power).times(diff)
+    var timeVar = 1/Math.pow(player.thisInfinityTime+1, getTimePow()) + 1
     return timeVar = Decimal.pow(timeVar,base)
 
+}
+
+function getInfinityDimensionProduction(tier) {
+    var dim = player["infinityDimension"+tier]
+
+    return dim.amount.times(dim.power)
+}
+
+
+function infinityPowerProductionPerSecond() {
+    return player.infinityPower.times(getInfinityDimensionMultiplier(1, 0.05)).minus(player.infinityPower).times(100)
 }
 
 
@@ -3097,7 +3122,7 @@ document.getElementById("quickReset").onclick = function () {
 function updateInfPower() {
     document.getElementById("infPowAmount").innerHTML = shortenMoney(player.infinityPower)
     document.getElementById("infDimMultAmount").innerHTML = shortenMoney(Decimal.sqrt(player.infinityPower))
-    document.getElementById("infPowPerSec").innerHTML = "You are getting " +shortenDimensions(player.infinityDimension1.amount)+" Infinity Power per second."
+    document.getElementById("infPowPerSec").innerHTML = "You are getting " +shortenDimensions(infinityPowerProductionPerSecond())+" Infinity Power per second."
 }
 
 
@@ -3159,11 +3184,9 @@ setInterval(function () {
 
 
  
-    player.totalTimePlayed += 0.5
-    player.thisInfinityTime += 0.5
-    player.infinityPower = Decimal.max(player.infinityPower.times(getInfinityDimensionMultiplier(1, 0.05)), 1)
+
     for (var tier=1;tier<4;tier++) {
-        if (tier != 4 && player.infDimensionsUnlocked[tier-1]) player["infinityDimension"+tier].amount = player["infinityDimension"+tier].amount.times(Decimal.max((getInfinityDimensionMultiplier(tier+1, 0.005)), 1))
+        if (tier != 4 && player.infDimensionsUnlocked[tier-1]) player["infinityDimension"+tier].amount = player["infinityDimension"+tier].amount.plus(getInfinityDimensionProduction(tier+1).times(diff/100))
         if (player.infDimensionsUnlocked[tier-1]) {
             document.getElementById("infRow"+tier).style.display = "inline-block"
             document.getElementById("dimTabButtons").style.display = "inline-block"
@@ -3173,23 +3196,18 @@ setInterval(function () {
 
 
 
-    var x = 100
     
 
-    if (diff >= 500) {
-        for (var i=0; i<=diff/(500/x); i++) {
-            player.totalTimePlayed += 500/x
-            player.thisInfinityTime += 500/x
-            player.infinityPower = Decimal.max(player.infinityPower.times(getInfinityDimensionMultiplier(1, 50/x)), 1)
-            for (var tier=1;tier<4;tier++) {
-                if (tier != 4 && player.infDimensionsUnlocked[tier-1]) player["infinityDimension"+tier].amount = player["infinityDimension"+tier].amount.times(Decimal.max((getInfinityDimensionMultiplier(tier+1, 5/x)), 1))
-                if (player.infDimensionsUnlocked[tier-1]) {
-                    document.getElementById("infRow"+tier).style.display = "inline-block"
-                    document.getElementById("dimTabButtons").style.display = "inline-block"
-                }
-                else document.getElementById("infRow"+tier).style.display = "none"
-            }
+    if (diff >= 200) {
+        for (var i=0; i<=diff; i++) {
+            player.totalTimePlayed += 0.5
+            player.thisInfinityTime += 0.5
+            player.infinityPower = Decimal.max(player.infinityPower.times(getInfinityDimensionMultiplier(1, 0.05)), 1)
         }
+    } else {
+        player.totalTimePlayed += diff
+        player.thisInfinityTime += diff
+        player.infinityPower = Decimal.max(player.infinityPower.times(getInfinityDimensionMultiplier(1, diff/10)), 1)
     }
 
 
@@ -3787,6 +3805,87 @@ function init() {
     
 
 }
+
+
+//Playfab stuff
+
+function playFabLogin(){
+    var authTicket = kongregate.services.getGameAuthToken();
+    var requestData = {
+        TitleId: "5695",
+        KongregateId: kongregate.services.getUserId(),
+        AuthTicket: authTicket,
+        CreateAccount: true
+    }
+    try {
+        PlayFab.ClientApi.LoginWithKongregate(requestData, playFabLoginCallback);
+    }
+    catch (e){
+        console.log("Unable to send login request to PlayFab.");
+    }
+}
+
+var playFabId = -1
+function playFabLoginCallback(data, error){
+    if (error){
+        console.log(error.errorMessage);
+        return;
+    }
+    if (data){
+        //NOTE: SAVE 'playFabId' to a global variable somewhere, I just declare mine at the start of the playfab stuff. Use this variable to tell if your player is logged in to playfab or not.
+        playFabId = data.data.PlayFabId;
+    }
+}
+
+function saveToPlayFab(saveString){
+    if (!playFabId || typeof PlayFab === 'undefined' || typeof PlayFab.ClientApi === 'undefined') return false;
+    var requestData = {
+        TitleId: "5695",
+            Data: {
+                save: player
+            }
+    }
+    try{
+        PlayFab.ClientApi.UpdateUserData(requestData, saveToPlayFabCallback);
+    }
+    catch(e){console.log(e);}
+}
+
+function saveToPlayFabCallback(data, error){
+    if (error){
+        console.log(error);
+        return false;
+    }
+    if (data){
+        console.log("Game Saved!");
+        return true;
+    }
+}
+
+function loadFromPlayFab(){
+    if (!playFabId || typeof PlayFab === 'undefined' || typeof PlayFab.ClientApi === 'undefined') return false;
+    var requestData = {
+        Keys: ["save"],
+        PlayFabId: playFabId
+    }
+    try{
+        PlayFab.ClientApi.GetUserData(requestData, loadFromPlayFabCallback);
+    }
+    catch(e){console.log(e);}
+}
+
+function loadFromPlayFabCallback(data, error){
+    if (error){
+        console.log(error);
+        return;
+    }
+    if (data){
+        var id = playFabId;
+        loadFromString(data.data.Data.save.Value);
+    }
+}
+
+
 
 
 setInterval(function () {
