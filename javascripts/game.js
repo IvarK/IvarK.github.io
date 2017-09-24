@@ -157,10 +157,7 @@ try {
 	});
 } catch (err) {console.log("Couldn't load Kongregate API")}
 
-function loadFromString(string) {
-    player = JSON.parse(atob(string))
-    onLoad()
-}
+
 
 function onLoad() {
     if (player.totalmoney === undefined) player.totalmoney = player.money;
@@ -328,6 +325,11 @@ function onLoad() {
     achievementMult = Math.max(Math.pow((player.achievements.length-30), 3)/40,1)
     challengeMult = Decimal.max(10*3000/worstChallengeTime, 1)
     unspentBonus = Decimal.pow(player.infinityPoints.dividedBy(2),1.5).plus(1)
+}
+
+function loadFromString(string) {
+    player = JSON.parse(atob(string))
+    onLoad()
 }
 
 function load_game() {
