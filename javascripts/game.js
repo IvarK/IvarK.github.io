@@ -105,7 +105,8 @@ var player = {
         //Standard = normal prefixed numbers, Scientific = standard form, Engineering = powers of 3.
         scientific: false,
         invert: false,
-        challConf: false
+        challConf: false,
+        playFabEnabled: false
     }
 };
 
@@ -171,7 +172,8 @@ function onLoad() {
     if (player.options.invert === undefined) player.options.invert = false;
     if (player.options.challConf === undefined) player.options.challConf = false
 	if (player.options.notation === undefined) player.options.notation = "Standard";
-	if (player.options.newsHidden === undefined) player.options.newsHidden = false;
+    if (player.options.newsHidden === undefined) player.options.newsHidden = false;
+    if (player.options.playFabEnabled === undefined) player.options.playFabEnabled = false;
     if (player.achievements === undefined) player.achievements = [];
     if (player.sacrificed === undefined) player.sacrificed = new Decimal(0);
     if (player.infinityUpgrades === undefined) player.infinityUpgrades = [];
@@ -1002,12 +1004,7 @@ function softReset(bulk) {
         infinityDimension2: player.infinityDimension2,
         infinityDimension3: player.infinityDimension3,
         infinityDimension4: player.infinityDimension4,
-        options: {
-            newsHidden: player.options.newsHidden,
-            notation: player.options.notation,
-            invert: player.options.invert,
-            challConf: player.options.challConf
-        }
+        options: player.options
     };
     if (player.currentChallenge == "challenge10") {
         player.thirdCost = new Decimal(100)
@@ -1491,7 +1488,7 @@ function buyManyDimensionAutobuyer(tier, bulk) {
         
 }
 
-const infCostMults = [null, 1e2, 1e4, 1e6, 1e8]
+const infCostMults = [null, 1e3, 1e5, 1e7, 1e9]
 const infPowerMults = [null, 50, 30, 10, 5]
 function buyManyInfinityDimension(tier) {
     
@@ -2161,13 +2158,7 @@ document.getElementById("secondSoftReset").onclick = function () {
             infinityDimension2: player.infinityDimension2,
             infinityDimension3: player.infinityDimension3,
             infinityDimension4: player.infinityDimension4,
-            options: {
-                newsHidden: player.options.newsHidden,
-                scientific: player.options.scientific,
-                notation: player.options.notation,
-                invert: player.options.invert,
-                challConf: player.options.challConf
-            }
+            options: player.options
         };
 
 	    if (player.currentChallenge == "challenge10") {
@@ -2861,13 +2852,7 @@ document.getElementById("bigcrunch").onclick = function () {
         infinityDimension2: player.infinityDimension2,
         infinityDimension3: player.infinityDimension3,
         infinityDimension4: player.infinityDimension4,
-        options: {
-            newsHidden: player.options.newsHidden,
-            scientific: player.options.scientific,
-            notation: player.options.notation,
-            invert: player.options.invert,
-            challConf: player.options.challConf
-        }
+        options: player.options
       };
 
       if (player.resets == 0 && player.currentChallenge == "") {
@@ -3037,13 +3022,7 @@ function startChallenge(name) {
       infinityDimension2: player.infinityDimension2,
       infinityDimension3: player.infinityDimension3,
       infinityDimension4: player.infinityDimension4,
-      options: {
-        newsHidden: player.options.newsHidden,
-	    notation: player.options.notation,
-        scientific: player.options.scientific,
-        invert: player.options.invert,
-        challConf: player.options.challConf
-      }
+      options: player.options
     };
 	if (player.currentChallenge == "challenge10") {
         player.thirdCost = new Decimal(100)
