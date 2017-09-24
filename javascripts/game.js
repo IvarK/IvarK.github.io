@@ -77,13 +77,13 @@ var player = {
     infinityPower: new Decimal(1),
     spreadingCancer: 0,
     infinityDimension1 : {
-        cost: 1e6,
+        cost: 1e8,
         amount: new Decimal(0),
         bought: 0,
         power: 1
     },
     infinityDimension2 : {
-        cost: 1e7,
+        cost: 1e9,
         amount: new Decimal(0),
         bought: 0,
         power: 1
@@ -220,25 +220,25 @@ function onLoad() {
     if (player.infinityPower === undefined) {
         player.infinityPower = new Decimal(1)
         player.infinityDimension1 = {
-            cost: 1e6,
+            cost: 1e8,
             amount: new Decimal(0),
             bought: 0,
             power: 1
         }
         player.infinityDimension2 = {
-            cost: 1e7,
-            amount: new Decimal(0),
-            bought: 0,
-            power: 1
-        }
-        player.infinityDimension3 = {
             cost: 1e9,
             amount: new Decimal(0),
             bought: 0,
             power: 1
         }
+        player.infinityDimension3 = {
+            cost: 1e10,
+            amount: new Decimal(0),
+            bought: 0,
+            power: 1
+        }
         player.infinityDimension4 = {
-            cost: 1e15,
+            cost: 1e20,
             amount: new Decimal(0),
             bought: 0,
             power: 1
@@ -3935,6 +3935,8 @@ function init() {
     updateTickSpeed();
     updateAutobuyers();
     updateChallengeTimes()
+    playFabLogin();
+    playFabLoadCheck();
     
     
 
@@ -3942,6 +3944,14 @@ function init() {
 
 
 //Playfab stuff
+
+
+
+function closeToolTip() {
+    var elements = document.getElementsByClassName("popup")
+    for (var i=0; i<elements.length; i++) elements[i].style.display = "none"
+}
+
 
 function playFabLogin(){
     var authTicket = kongregate.services.getGameAuthToken();
@@ -3972,13 +3982,48 @@ function playFabLoginCallback(data, error){
     }
 }
 
+
+function playFabSaveCheck(){
+	if (playFabId == -1) return false;
+	if (typeof PlayFab === 'undefined' || typeof PlayFab.ClientApi === 'undefined'){
+		//Should never get this far without the api
+		console.log(error);
+		return;
+	}
+	var requestData = {
+		Keys: ["infinitied"],
+		PlayFabId: playFabId
+	}
+	try {
+		PlayFab.ClientApi.GetUserData(requestData, playFabSaveCheckCallback);
+	}
+	catch (e){console.log(e);}
+}
+
+function playFabSaveCheckCallback(data, error){
+	if (error){
+		console.log("error checking existing PlayFab data");
+		console.log(error);
+		return;
+	}
+	if (data){
+		var playFabInfinitied = (data.data.Data.infinitied) ? parseInt(data.data.Data.infinitied.Value) : 0;
+		if (playFabInfinitied > player.infinitied){
+			document.getElementById("saveCloud").style.display = "block";
+			return;
+		}
+		else saveToPlayFab();
+	}
+}
+
 function saveToPlayFab(){
     if (!playFabId || typeof PlayFab === 'undefined' || typeof PlayFab.ClientApi === 'undefined') return false;
     var requestData = {
         TitleId: "5695",
         PlayFabId: playFabId,
         Data: {
-            save: btoa(JSON.stringify(player))
+            save: btoa(JSON.stringify(player)),
+            infinitied: player.infinitied
         }
     }
     try{
@@ -4027,6 +4072,40 @@ function loadFromPlayFabCallback(data, error){
         var id = playFabId;
         loadFromString(data.data.Data.save.Value);
     }
+}
+
+
+function playFabLoadCheck() {
+    if (!playFabId || typeof PlayFab === 'undefined' || typeof PlayFab.ClientApi === 'undefined'){
+        console.log(playFabId, PlayFab);
+         return false;
+    }
+    var requestData = {
+        Keys: ["save"],
+        PlayFabId: playFabId
+    }
+    try{
+        console.log('attempting to send load request');
+        PlayFab.ClientApi.GetUserData(requestData, playFabLoadCheckCallback);
+        console.log('sent load request');
+    }
+    catch(e){console.log(e);}
+}
+
+function playFabLoadCheckCallback(data, error) {
+    if (error){
+		console.log("error checking existing PlayFab data");
+		console.log(error);
+		return;
+	}
+	if (data){
+		var playFabInfinitied = (data.data.Data.infinitied) ? parseInt(data.data.Data.infinitied.Value) : 0;
+		if (playFabInfinitied > player.infinitied){
+			document.getElementById("loadCloud").style.display = "block";
+			return;
+		}
+		else loadFromPlayFab();
+	}
 }
 
 
