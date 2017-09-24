@@ -583,8 +583,8 @@
 			},
 			error: {
 				"color": "black",
-				"background-color": "#48C0E8",
-				"border-color": "#4980CC",
+				"background-color": "#bf352d",
+				"border-color": "#330000",
         "font-family": "TypeWriter"
 			},
 			success: {
@@ -595,8 +595,8 @@
       },
 			info: {
 				"color": "black",
-				"background-color": "#bf352d",
-				"border-color": "#330000",
+				"background-color": "#48C0E8",
+				"border-color": "#4980CC",
         "font-family": "TypeWriter"
 			},
 			warn: {
