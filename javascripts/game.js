@@ -3980,7 +3980,7 @@ function loadFromPlayFabCallback(data, error){
     if (data){
         console.log(data)
         var id = playFabId;
-        loadFromString(data.data.Data.save.value);
+        loadFromString(data.data.Data.save.Value);
     }
 }
 
