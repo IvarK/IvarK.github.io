@@ -100,6 +100,8 @@ var player = {
         bought: 0,
         power: 1
     },
+    offlineProd: 0,
+    offlineProdCost: 1e7,
     options: {
         newsHidden: false,
         notation: "Standard",
@@ -109,6 +111,7 @@ var player = {
         challConf: false,
         sacrificeConfirmation: true
     }
+    
 };
 
 var c = document.getElementById("game");
@@ -202,6 +205,8 @@ function onLoad() {
     if (player.overXGalaxies === undefined) player.overXGalaxies = 10;
     if (player.partInfinitied === undefined) player.partInfinitied = 0
     if (player.spreadingCancer === undefined) player.spreadingCancer = 0
+    if (player.offlineProd === undefined) player.offlineProd = 0
+    if (player.offlineProdCost === undefined) player.offlineProdCost = 1e7
     if (player.secondAmount !== 0) {
         document.getElementById("thirdRow").style.display = "table-row";
         document.getElementById("tickSpeed").style.visibility = "visible";
@@ -711,6 +716,7 @@ function sacrificeConf() {
 
 
 
+
 function updateDimensions() {
     
     for (let tier = 1; tier <= 8; ++tier) {
@@ -804,7 +810,10 @@ function updateDimensions() {
     document.getElementById("postinfi13").innerHTML = "You passively generate Infinitied stat based on your fastest infinity.<br>"+timeDisplay(player.bestInfinityTime*5)+ " every <br>Cost: "+shortenCosts(20e6)+" IP"
     document.getElementById("postinfi23").innerHTML = "Option to bulk buy Dimension Boosts <br>Cost: "+shortenCosts(5e9)+" IP"
     document.getElementById("postinfi33").innerHTML = "Autobuyers work twice as fast<br>Cost:"+ shortenCosts(1e15)+" IP"
-    if (player.dimensionMultDecrease == 2) document.getElementById("postinfi42").innerHTML = "Dimension cost multiplier increase <br>"+player.dimensionMultDecrease+"x"
+    if (player.dimensionMultDecrease == 3) document.getElementById("postinfi42").innerHTML = "Dimension cost multiplier increase <br>"+player.dimensionMultDecrease+"x"
+
+    document.getElementById("offlineProd").innerHTML = "Generates "+player.offlineProd+"% of your fastest infinity IP/min, works offline<br>Currently: "+shortenMoney(bestRunIppm*(player.offlineProd/100)) +"IP/min<br> Cost: "+shortenCosts(player.offlineProdCost)+" IP"
+    if (player.offlineProd == 50) document.getElementById("offlineProd").innerHTML = "Generates "+player.offlineProd+"% of your fastest infinity IP/min, works offline<br>Currently: "+shortenMoney(bestRunIppm*(player.offlineProd/100)) +" IP/min"
 }
 
 function updateCosts() {
@@ -1009,6 +1018,8 @@ function softReset(bulk) {
         infinityDimension2: player.infinityDimension2,
         infinityDimension3: player.infinityDimension3,
         infinityDimension4: player.infinityDimension4,
+        offlineProd: player.offlineProd,
+        offlineProdCost: player.offlineProdCost,
         options: player.options
     };
     if (player.currentChallenge == "challenge10") {
@@ -1944,6 +1955,15 @@ document.getElementById("postinfi42").onclick = function() {
     }
 }
 
+document.getElementById("offlineProd").onclick = function() {
+    if (player.infinityPoints.gte(player.offlineProdCost) && player.offlineProd < 50) {
+        player.infinityPoints = player.infinityPoints.minus(player.offlineProdCost)
+        player.offlineProdCost *= 10
+        player.offlineProd += 5
+
+    }
+}
+
 
 
 
@@ -2164,6 +2184,8 @@ document.getElementById("secondSoftReset").onclick = function () {
             infinityDimension2: player.infinityDimension2,
             infinityDimension3: player.infinityDimension3,
             infinityDimension4: player.infinityDimension4,
+            offlineProd: player.offlineProd,
+            offlineProdCost: player.offlineProdCost,
             options: player.options
         };
 
@@ -2712,7 +2734,9 @@ function updateChallengeTimes() {
     updateWorstChallengeTime();
 }
 
+var bestRunIppm = 0
 function updateLastTenRuns() {
+    var tempBest = 0
     var tempTime = 0
     var tempIP = 0
     for (var i=0; i<10;i++) {
@@ -2723,6 +2747,7 @@ function updateLastTenRuns() {
     tempIP /= 10
     for (var i=0; i<10; i++) {
         var ippm = player.lastTenRuns[i][1]/(player.lastTenRuns[i][0]/600)
+        if (ippm > tempBest) tempBest = ippm
         var tempstring = shorten(ippm) + " IP/min"
         if (ippm<1) tempstring = shorten(ippm*60) + " IP/hour"
         document.getElementById("run"+(i+1)).innerHTML = "The infinity "+(i+1)+" infinities ago took " + timeDisplayShort(player.lastTenRuns[i][0]) + " and gave " + shortenDimensions(player.lastTenRuns[i][1]) +" IP. "+ tempstring
@@ -2732,6 +2757,8 @@ function updateLastTenRuns() {
     var tempstring = shorten(ippm) + " IP/min"
     if (ippm<1) tempstring = shorten(ippm*60) + " IP/hour"
     document.getElementById("averagerun").innerHTML = "Last 10 infinities average time: "+ timeDisplayShort(tempTime)+" Average IP gain: "+shortenDimensions(tempIP)+" IP. "+tempstring
+
+    bestRunIppm = tempBest
 }
 
 
@@ -2743,6 +2770,8 @@ function addTime(time, ip) {
     }
     player.lastTenRuns[0] = [time, ip]
 }
+
+
 
 function checkForEndMe() {
     var temp = 0
@@ -2869,6 +2898,8 @@ document.getElementById("bigcrunch").onclick = function () {
         infinityDimension2: player.infinityDimension2,
         infinityDimension3: player.infinityDimension3,
         infinityDimension4: player.infinityDimension4,
+        offlineProd: player.offlineProd,
+        offlineProdCost: player.offlineProdCost,
         options: player.options
         };
 
@@ -3041,6 +3072,8 @@ function startChallenge(name) {
       infinityDimension2: player.infinityDimension2,
       infinityDimension3: player.infinityDimension3,
       infinityDimension4: player.infinityDimension4,
+      offlineProd: player.offlineProd,
+      offlineProdCost: player.offlineProdCost,
       options: player.options
     };
 	if (player.currentChallenge == "challenge10") {
@@ -3203,6 +3236,8 @@ setInterval(function () {
         player.partInfinitied -= 5;
         player.infinitied ++;
     }
+
+    player.infinityPoints = player.infinityPoints.plus(bestRunIppm * (player.offlineProd/100) * (diff/600))
 
     if (player.currentChallenge != "challenge7") {
         for (let tier = 7; tier >= 1; --tier) {
@@ -3387,6 +3422,8 @@ setInterval(function () {
         if (player.infinityPoints.gte(1e15)) document.getElementById("postinfi33").className = "infinistorebtn1"
         else document.getElementById("postinfi33").className = "infinistorebtnlocked"
 
+        if (player.infinityPoints.gte(player.offlineProdCost)) document.getElementById("offlineProd").className = "infinistorebtn1"
+        else document.getElementById("offlineProd").className = "infinistorebtnlocked"
 
     } else {
         document.getElementById("infi11").className = "infinistorebtnlocked"
@@ -3485,7 +3522,9 @@ setInterval(function () {
     if (player.infinityUpgrades.includes("infinitiedMult")) document.getElementById("postinfi12").className = "infinistorebtnbought"
     if (player.infinityUpgrades.includes("postGalaxy")) document.getElementById("postinfi41").className = "infinistorebtnbought"
     if (player.infinityUpgrades.includes("challengeMult")) document.getElementById("postinfi32").className = "infinistorebtnbought"
-    if (player.dimensionMultDecrease == 2) document.getElementById("postinfi42").className = "infinistorebtnbought"
+    if (player.dimensionMultDecrease == 3) document.getElementById("postinfi42").className = "infinistorebtnbought"
+    if (player.offlineProd == 50) document.getElementById("offlineProd").className = "infinistorebtnbought"
+    
 
     if (player.infinityUpgrades.includes("infinitiedGeneration")) document.getElementById("postinfi13").className = "infinistorebtnbought"
     if (player.infinityUpgrades.includes("bulkBoost")) document.getElementById("postinfi23").className = "infinistorebtnbought"
@@ -3990,6 +4029,7 @@ function playFabLoginCallback(data, error){
     if (error){
         console.log(error.errorMessage);
         $.notify("Couldn't log in to PlayFab Cloud", "error")
+        document.getElementById("cloudOptions").style.display = "none"
         return;
     }
     if (data){
