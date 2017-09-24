@@ -496,6 +496,24 @@
 }
 
 
+.popup {
+    position: absolute;
+    left: 33%;
+    top: 33%;
+    border: 3px solid black;
+    width: 300px;
+    height: 120px;
+    background-color: #E0E0E0;
+    border-radius: 6px;
+    text-align:center;
+    z-index: 2;
+    color: black;
+    font-family: Typewriter;
+    padding: 10px;
+    display: none;
+}
+
+
 
 
 #progress {

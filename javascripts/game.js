@@ -327,10 +327,13 @@ function onLoad() {
     unspentBonus = Decimal.pow(player.infinityPoints.dividedBy(2),1.5).plus(1)
 }
 
+
+
 function loadFromString(string) {
     player = JSON.parse(atob(string))
     onLoad()
 }
+
 
 function load_game() {
     var save_data = get_cookie('dimensionSave');
@@ -339,6 +342,7 @@ function load_game() {
     onLoad()
     
 }
+
 
 function save_game() {
     set_cookie('dimensionSave', player);
@@ -1466,7 +1470,7 @@ function buyManyDimensionAutobuyer(tier, bulk) {
 }
 
 const infCostMults = [null, 1e2, 1e4, 1e6, 1e8]
-const infPowerMults = [null, 20, 15, 10, 5]
+const infPowerMults = [null, 50, 30, 10, 5]
 function buyManyInfinityDimension(tier) {
     
     var dim = player["infinityDimension"+tier]
