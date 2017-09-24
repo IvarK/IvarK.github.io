@@ -107,7 +107,7 @@ var player = {
         scientific: false,
         invert: false,
         challConf: false,
-        playFabEnabled: false
+        sacrificeConfirmation: true
     }
 };
 
@@ -167,7 +167,7 @@ function onLoad() {
     if (player.options.challConf === undefined) player.options.challConf = false
 	if (player.options.notation === undefined) player.options.notation = "Standard";
     if (player.options.newsHidden === undefined) player.options.newsHidden = false;
-    if (player.options.playFabEnabled === undefined) player.options.playFabEnabled = false;
+    if (player.options.sacrificeConfirmation === undefined) player.options.sacrificeConfirmation = true;
     if (player.achievements === undefined) player.achievements = [];
     if (player.sacrificed === undefined) player.sacrificed = new Decimal(0);
     if (player.infinityUpgrades === undefined) player.infinityUpgrades = [];
@@ -265,6 +265,8 @@ function onLoad() {
         if (player.resets > 2 && player.currentChallenge !== "challenge4") document.getElementById("seventhRow").style.display = "table-row";
     if (player.seventhAmount !== 0)
         if (player.resets > 3 && player.currentChallenge !== "challenge4") document.getElementById("eightRow").style.display = "table-row";
+
+    if (player.options.sacrificeConfirmation == false) document.getElementById("confirmation").checked = "true"
     transformSaveToDecimal();
     updateCosts();
     updateTickSpeed();
@@ -702,6 +704,13 @@ function updateWorstChallengeTime() {
 }
 
 
+function sacrificeConf() {
+    if (player.options.sacrificeConfirmation == false) player.options.sacrificeConfirmation = true
+    else player.options.sacrificeConfirmation = false
+}
+
+
+
 function updateDimensions() {
     
     for (let tier = 1; tier <= 8; ++tier) {
@@ -792,7 +801,7 @@ function updateDimensions() {
     document.getElementById("postinfi32").innerHTML = "Power up all dimensions based on slowest challenge run<br>Currently:"+Decimal.max(10*3000/worstChallengeTime, 1).toFixed(2)+"x<br>Cost: "+shortenCosts(1e7)+" IP"
     document.getElementById("postinfi42").innerHTML = "Dimension cost multiplier increase <br>"+player.dimensionMultDecrease+"x -> "+(player.dimensionMultDecrease-1)+"x<br>Cost: "+shortenCosts(player.dimensionMultDecreaseCost) +" IP"
 
-    document.getElementById("postinfi13").innerHTML = "You passively generate Infinitied stat based on your fastest infinity.<br>"+timeDisplay(player.bestInfinityTime*5)+ "every <br>Cost: "+shortenCosts(20e6)+" IP"
+    document.getElementById("postinfi13").innerHTML = "You passively generate Infinitied stat based on your fastest infinity.<br>"+timeDisplay(player.bestInfinityTime*5)+ " every <br>Cost: "+shortenCosts(20e6)+" IP"
     document.getElementById("postinfi23").innerHTML = "Option to bulk buy Dimension Boosts <br>Cost: "+shortenCosts(5e9)+" IP"
     document.getElementById("postinfi33").innerHTML = "Autobuyers work twice as fast<br>Cost:"+ shortenCosts(1e15)+" IP"
     if (player.dimensionMultDecrease == 2) document.getElementById("postinfi42").innerHTML = "Dimension cost multiplier increase <br>"+player.dimensionMultDecrease+"x"
@@ -3928,20 +3937,11 @@ function init() {
     updateTickSpeed();
     updateAutobuyers();
     updateChallengeTimes()
-
     try {
         kongregateAPI.loadAPI(function () {
             window.kongregate = kongregateAPI.getAPI();
-            // You can now access the Kongregate API with:
-            // kongregate.services.getUsername(), etc
-            // Proceed with loading your game...
         });
     } catch (err) {console.log("Couldn't load Kongregate API")}
-    
-    playFabLogin();
-    playFabLoadCheck();
-    
-    
 
 }
 
@@ -3957,6 +3957,9 @@ function closeToolTip() {
 
 
 function playFabLogin(){
+
+
+
     var authTicket = kongregate.services.getGameAuthToken();
     var requestData = {
         TitleId: "5695",
@@ -4121,6 +4124,14 @@ updateCosts();
 //updateInterval();
 updateDimensions();
 document.getElementById("hiddenheader").style.display = "none";
+
+
+window.onload = function() {
+    playFabLogin();
+    playFabLoadCheck();
+}
+
+
 init();
 var totalMult = Math.pow(player.totalmoney.e+1, 0.5)
 var currentMult = Math.pow(player.money.e+1, 0.5)
