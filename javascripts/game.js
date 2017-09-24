@@ -3955,6 +3955,16 @@ function closeToolTip() {
     for (var i=0; i<elements.length; i++) elements[i].style.display = "none"
 }
 
+function tooltipLoad() {
+    loadFromPlayFab()
+    closeToolTip()
+}
+
+function tooltipSave() {
+    saveToPlayFab()
+    closeToolTip()
+}
+
 
 function playFabLogin(){
 
@@ -4019,7 +4029,7 @@ function playFabSaveCheckCallback(data, error){
 		var playFabInfinitied = (data.data.Data.infinitied) ? parseInt(data.data.Data.infinitied.Value) : 0;
 		if (playFabInfinitied > player.infinitied){
             document.getElementById("saveCloud").style.display = "block";
-            document.getElementById("saveCloud").innerHTML = "You have a cloud save with "+playFabInfinitied+" infinities and you have "+player.infinitied+". Do you want to overwrite the cloud save?"
+            document.getElementById("savePopup").innerHTML = "You have a cloud save with "+playFabInfinitied+" infinities and you have "+player.infinitied+". Do you want to overwrite the cloud save?"
 			return;
 		}
 		else saveToPlayFab();
@@ -4117,7 +4127,7 @@ function playFabLoadCheckCallback(data, error) {
 		var playFabInfinitied = (data.data.Data.infinitied) ? parseInt(data.data.Data.infinitied.Value) : 0;
 		if (playFabInfinitied < player.infinitied){
             document.getElementById("loadCloud").style.display = "block";
-            document.getElementById("loadCloud").innerHTML = "You have a cloud save with "+playFabInfinitied+ " infinities. Do you want to load it?"
+            document.getElementById("loadPopup").innerHTML = "You have a cloud save with "+playFabInfinitied+ " infinities. Do you want to load it?"
 			return;
 		}
 		else loadFromPlayFab();
