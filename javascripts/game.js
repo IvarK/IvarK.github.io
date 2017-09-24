@@ -3984,6 +3984,7 @@ function playFabLoginCallback(data, error){
     if (data){
         //NOTE: SAVE 'playFabId' to a global variable somewhere, I just declare mine at the start of the playfab stuff. Use this variable to tell if your player is logged in to playfab or not.
         playFabId = data.data.PlayFabId;
+        playFabLoadCheck()
         console.log("Logged in to playFab")
     }
 }
@@ -4047,6 +4048,7 @@ function saveToPlayFabCallback(data, error){
     if (data){
         console.log("Game Saved!");
         $.notify("Game saved to cloud", "info")
+        save_game()
         return true;
     }
 }
@@ -4122,8 +4124,8 @@ function playFabLoadCheckCallback(data, error) {
 
 
 setInterval(function () {
-    playFabSaveCheck();
-    setTimeout(function() { save_game() }, 2000)
+    if (playFabId != -1) playFabSaveCheck();
+    else save_game()
     
 }, 30000);
 updateCosts();
@@ -4134,7 +4136,6 @@ document.getElementById("hiddenheader").style.display = "none";
 
 window.onload = function() {
     playFabLogin();
-    setTimeout(function() { playFabLoadCheck() }, 1000)
 }
 
 
