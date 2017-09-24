@@ -35,9 +35,6 @@
         <div id="news"></div>
         <canvas id="game" height="30px"></canvas>
         <div id="matter"></div>
-        <button onclick="playFabLogin()" class="storebtn">Login to playFab</button>
-        <button onclick="saveToPlayFab()" class="storebtn">Cloud save</button>
-        <button onclick="loadFromPlayFab()" class="storebtn">Cloud load</button>
         <div>
             <p>You have <span id="coinAmount" style="font-size:35px; color: black">0</span> antimatter.</p>
         </div>
@@ -294,6 +291,12 @@
                     <td><div><button id="newsbtn" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:120%">Hide/show the news</button></div></td>
                     <td><div><button id="reset" class="storebtn" style="color:black; width: 200px; height: 55px; font-size: 20px">RESET THE GAME</button></div></td>
                 </tr>
+                <tr>
+                    <td><div><button onclick="saveToPlayFab()" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:120%">Cloud save</button></div></td>
+                    <td><div><button onclick="loadFromPlayFab()" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:120%">Cloud load</button></div></td>
+                </tr>
+                
+                
             </table>
             <div style="display: none;"><textarea id="exportOutput" style="color:black; width: 200px; height: 55px;"></textarea></div>
         </div>
@@ -1125,6 +1128,6 @@
 <script src="PlayFab/PlayFabClientApi.js"></script>
 <script src="javascripts/autobuyer.js"></script>
 <script src="javascripts/decimal.js"></script>
-<script src="javascripts/game.js?6"></script>
+<script src="javascripts/game.js?7"></script>
 
 </html>
