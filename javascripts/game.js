@@ -90,7 +90,7 @@ var player = {
     },
     infinityDimension3 : {
         cost: 1e10,
-        amount: new Decimal(0),
+        amount: new Decimal(0), 
         bought: 0,
         power: 1
     },
@@ -1818,6 +1818,18 @@ function updateAchPow() {
         player.achievements.includes("Many Deaths") &&
         player.achievements.includes("Gift from the Gods") &&
         player.achievements.includes("Is this hell?")) {
+        amount += 1;
+        document.getElementById("achRow5").className = "completedrow"
+    }
+
+    if (player.achievements.includes("ERROR 909: Dimension not found") &&
+        player.achievements.includes("Can't hold all these infinities") &&
+        player.achievements.includes("This achievement doesn't exist") &&
+        player.achievements.includes("End me") &&
+        player.achievements.includes("NEW DIMENSIONS???") &&
+        player.achievements.includes("Spreading Cancer") &&
+        player.achievements.includes("How the antitables have turned") &&
+        player.achievements.includes("Blink of an eye")) {
         amount += 1;
         document.getElementById("achRow5").className = "completedrow"
     }
