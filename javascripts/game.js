@@ -4128,7 +4128,7 @@ document.getElementById("hiddenheader").style.display = "none";
 
 window.onload = function() {
     playFabLogin();
-    playFabLoadCheck();
+    setTimeout(function() { playFabLoadCheck() }, 1000)
 }
 
 
