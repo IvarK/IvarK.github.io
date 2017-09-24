@@ -242,6 +242,8 @@ function onLoad() {
         player.infDimensionsUnlocked = [false, false, false, false]
     }
 
+    
+
     if (player.matter === null) player.matter = new Decimal(0)
     for (var i=0; i<12; i++) {
         if (player.autobuyers[i]%1 !== 0 && player.autobuyers[i].tier === undefined) {
@@ -304,6 +306,26 @@ function onLoad() {
         }
         player.autobuyers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
         player.version = 1
+    }
+    if (player.version == 1) {
+        if (player.dimensionMultDecrease != 10) {
+            if (player.dimensionMultDecrease == 9) {
+                player.dimensionMultDecrease = 10
+                player.dimensionMultDecreaseCost = 1e8
+                player.infinityPoints = player.infinityPoints.plus(1e8)
+            }
+            if (player.dimensionMultDecrease == 8) {
+                player.dimensionMultDecrease = 10
+                player.dimensionMultDecreaseCost = 1e8
+                player.infinityPoints = player.infinityPoints.plus(2.1e9)
+            }
+            if (player.dimensionMultDecrease == 7) {
+                player.dimensionMultDecrease = 10
+                player.dimensionMultDecreaseCost = 1e8
+                player.infinityPoints = player.infinityPoints.plus(4.21e10)
+            }
+        }
+        player.version = 2
     }
 
     if (player.options.invert) {
@@ -3118,7 +3140,7 @@ function getNewInfReq() {
     if (!player.infDimensionsUnlocked[0]) return new Decimal("1e1100")
     else if (!player.infDimensionsUnlocked[1]) return new Decimal("1e1900")
     else if (!player.infDimensionsUnlocked[2]) return new Decimal("1e2400")
-    else return new Decimal("1e3000")
+    else return new Decimal("1e6500")
 }
 
 
