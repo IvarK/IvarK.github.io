@@ -1491,7 +1491,7 @@ function buyManyDimensionAutobuyer(tier, bulk) {
         
 }
 
-const infCostMults = [null, 1e3, 1e5, 1e7, 1e9]
+const infCostMults = [null, 1e3, 1e6, 1e8, 1e10]
 const infPowerMults = [null, 50, 30, 10, 5]
 function buyManyInfinityDimension(tier) {
     
@@ -1935,7 +1935,7 @@ document.getElementById("postinfi32").onclick = function() {
 document.getElementById("postinfi42").onclick = function() {
     if (player.infinityPoints.gte(player.dimensionMultDecreaseCost) && player.dimensionMultDecrease != 3) {
         player.infinityPoints = player.infinityPoints.minus(player.dimensionMultDecreaseCost)
-        player.dimensionMultDecreaseCost *= 2000
+        player.dimensionMultDecreaseCost *= 5000
         player.dimensionMultDecrease--;
         document.getElementById("postinfi42").innerHTML = "Dimension cost multiplier increase <br>"+player.dimensionMultDecrease+"x -> "+(player.dimensionMultDecrease-1)+"x<br>Cost: "+shortenCosts(player.dimensionMultDecreaseCost) +" IP"
         if (player.dimensionMultDecrease == 3) document.getElementById("postinfi42").innerHTML = "Dimension cost multiplier increase <br>"+player.dimensionMultDecrease+"x"
