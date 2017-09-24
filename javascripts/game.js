@@ -4092,7 +4092,7 @@ function playFabLoadCheck() {
          return false;
     }
     var requestData = {
-        Keys: ["save"],
+        Keys: ["infinitied"],
         PlayFabId: playFabId
     }
     try{
