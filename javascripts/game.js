@@ -3117,8 +3117,8 @@ function updateInfPower() {
 function getNewInfReq() {
     if (!player.infDimensionsUnlocked[0]) return new Decimal("1e1100")
     else if (!player.infDimensionsUnlocked[1]) return new Decimal("1e1900")
-    else if (!player.infDimensionsUnlocked[2]) return new Decimal("1e2500")
-    else return new Decimal("1e696969")
+    else if (!player.infDimensionsUnlocked[2]) return new Decimal("1e2400")
+    else return new Decimal("1e3000")
 }
 
 
@@ -3538,7 +3538,7 @@ function dimBoolean() {
 
 
 setInterval(function() {
-    if (!player.infinityUpgrades.includes("autoBuyerUpgrade")) {
+    if (!player.infinityUpgrades.includes("autobuyerUpgrade")) {
         if (player.autobuyers[11]%1 !== 0) {
             if (player.autobuyers[11].ticks*100 >= player.autobuyers[11].interval && player.money.gte(Number.MAX_VALUE)) {
                 if (player.autobuyers[11].isOn) {
@@ -3599,7 +3599,7 @@ setInterval(function() {
 }, 100)
 
 setInterval(function() {
-    if (player.infinityUpgrades.includes("autoBuyerUpgrade")) {
+    if (player.infinityUpgrades.includes("autobuyerUpgrade")) {
         if (player.autobuyers[11]%1 !== 0) {
             if (player.autobuyers[11].ticks*100 >= player.autobuyers[11].interval && player.money.gte(Number.MAX_VALUE)) {
                 if (player.autobuyers[11].isOn) {
