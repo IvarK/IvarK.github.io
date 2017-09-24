@@ -2204,7 +2204,7 @@ document.getElementById("secondSoftReset").onclick = function () {
             player.seventhPow = Decimal.max(Decimal.pow(2.5, player.resets - 5), 1)
             player.eightPow = Decimal.max(Decimal.pow(2.5, player.resets - 6), 1)
         }
-        if (player.options.notation == "Emojis") player.spreadingCancer++;
+        if (player.options.notation == "Emojis") player.spreadingCancer+=1;
         if (player.spreadingCancer >= 10) giveAchievement("Spreading Cancer")
         if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
         if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.98);
