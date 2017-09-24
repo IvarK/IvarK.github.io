@@ -159,14 +159,10 @@ try {
 
 function loadFromString(string) {
     player = JSON.parse(atob(string))
+    onLoad()
 }
 
-
-
-function load_game() {
-    var save_data = get_cookie('dimensionSave');
-    if (!save_data) return;
-    player = save_data;
+function onLoad() {
     if (player.totalmoney === undefined) player.totalmoney = player.money;
     if (player.options === undefined) {
         player.options = {
@@ -332,6 +328,14 @@ function load_game() {
     achievementMult = Math.max(Math.pow((player.achievements.length-30), 3)/40,1)
     challengeMult = Decimal.max(10*3000/worstChallengeTime, 1)
     unspentBonus = Decimal.pow(player.infinityPoints.dividedBy(2),1.5).plus(1)
+}
+
+function load_game() {
+    var save_data = get_cookie('dimensionSave');
+    if (!save_data) return;
+    player = save_data;
+    onLoad()
+    
 }
 
 function save_game() {
