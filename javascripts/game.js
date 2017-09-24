@@ -150,14 +150,7 @@ function get_cookie(cookie_name) {
     return JSON.parse(c_value, function(k, v) { return (v === Infinity) ? "Infinity" : v; });
 }
 
-try {
-	kongregateAPI.loadAPI(function () {
-	    window.kongregate = kongregateAPI.getAPI();
-	    // You can now access the Kongregate API with:
-	    // kongregate.services.getUsername(), etc
-	    // Proceed with loading your game...
-	});
-} catch (err) {console.log("Couldn't load Kongregate API")}
+
 
 
 
@@ -3935,6 +3928,16 @@ function init() {
     updateTickSpeed();
     updateAutobuyers();
     updateChallengeTimes()
+
+    try {
+        kongregateAPI.loadAPI(function () {
+            window.kongregate = kongregateAPI.getAPI();
+            // You can now access the Kongregate API with:
+            // kongregate.services.getUsername(), etc
+            // Proceed with loading your game...
+        });
+    } catch (err) {console.log("Couldn't load Kongregate API")}
+    
     playFabLogin();
     playFabLoadCheck();
     
