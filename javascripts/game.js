@@ -3136,7 +3136,7 @@ function getNewInfReq() {
     if (!player.infDimensionsUnlocked[0]) return new Decimal("1e1100")
     else if (!player.infDimensionsUnlocked[1]) return new Decimal("1e1900")
     else if (!player.infDimensionsUnlocked[2]) return new Decimal("1e2400")
-    else return new Decimal("1e6500")
+    else return new Decimal("1e10500")
 }
 
 
