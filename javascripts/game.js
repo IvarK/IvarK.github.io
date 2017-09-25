@@ -416,6 +416,7 @@ function transformSaveToDecimal() {
     player.infinityDimension3.amount = new Decimal(player.infinityDimension3.amount)
     player.infinityDimension4.amount = new Decimal(player.infinityDimension4.amount)
     player.infinityPoints = new Decimal(player.infinityPoints)
+    player.lastTenRuns = [[new Decimal(player.lastTenRuns[0][0]), player.lastTenRuns[0][1]], [new Decimal(player.lastTenRuns[1][0]), player.lastTenRuns[1][1]], [new Decimal(player.lastTenRuns[2][0]), player.lastTenRuns[2][1]], [new Decimal(player.lastTenRuns[3][0]), player.lastTenRuns[3][1]], [new Decimal(player.lastTenRuns[4][0]), player.lastTenRuns[4][1]], [new Decimal(player.lastTenRuns[5][0]), player.lastTenRuns[5][1]], [new Decimal(player.lastTenRuns[6][0]), player.lastTenRuns[6][1]], [new Decimal(player.lastTenRuns[7][0]), player.lastTenRuns[7][1]], [new Decimal(player.lastTenRuns[8][0]), player.lastTenRuns[8][1]], [new Decimal(player.lastTenRuns[9][0]), player.lastTenRuns[9][1]]]
 }
 
 
@@ -2749,16 +2750,16 @@ function updateChallengeTimes() {
 var bestRunIppm = 0
 function updateLastTenRuns() {
     var tempBest = 0
-    var tempTime = 0
-    var tempIP = 0
+    var tempTime = new Decimal(0)
+    var tempIP = new Decimal(0)
     for (var i=0; i<10;i++) {
-        tempTime += player.lastTenRuns[i][0]
-        tempIP += player.lastTenRuns[i][1]
+        tempTime = tempTime.plus(player.lastTenRuns[i][0])
+        tempIP = tempIP.plus(player.lastTenRuns[i][1])
     }
-    tempTime /= 10
-    tempIP /= 10
+    tempTime = tempTime.dividedBy(10)
+    tempIP = tempIP.dividedBy(10)
     for (var i=0; i<10; i++) {
-        var ippm = player.lastTenRuns[i][1]/(player.lastTenRuns[i][0]/600)
+        var ippm = player.lastTenRuns[i][1]/(player.lastTenRuns[i][0].dividedBy(600))
         if (ippm > tempBest) tempBest = ippm
         var tempstring = shorten(ippm) + " IP/min"
         if (ippm<1) tempstring = shorten(ippm*60) + " IP/hour"
@@ -3198,7 +3199,7 @@ function newDimension() {
         }
     }
 }
-
+var blink = true
 
 setInterval(function() {
     if (getDimensionFinalMultiplier(1).gte(new Decimal("1e308")) &&
@@ -3217,6 +3218,14 @@ setInterval(function() {
         getDimensionFinalMultiplier(5).lt(getDimensionFinalMultiplier(6)) &&
         getDimensionFinalMultiplier(6).lt(getDimensionFinalMultiplier(7)) &&
         getDimensionFinalMultiplier(7).lt(getDimensionFinalMultiplier(8))) giveAchievement("How the antitables have turned")
+        if (blink) {
+            document.getElementById("Blink of an eye").style.display = "none"
+            blink = false
+        }
+        else {
+            document.getElementById("Blink of an eye").style.display = "block"
+            blink = true
+        }
 }, 1000)
 
 
@@ -3285,7 +3294,7 @@ setInterval(function () {
     player.totalTimePlayed += diff
     player.thisInfinityTime += diff
 
- 
+
 
     for (var tier=1;tier<4;tier++) {
         if (tier != 4 && player.infDimensionsUnlocked[tier-1]) player["infinityDimension"+tier].amount = player["infinityDimension"+tier].amount.plus(getInfinityDimensionProduction(tier+1).times(diff/100))
