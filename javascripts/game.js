@@ -3328,7 +3328,7 @@ setInterval(function () {
 
 
 
-    for (var tier=1;tier<4;tier++) {
+    for (let tier=1;tier<4;tier++) {
         if (tier != 4 && player.infDimensionsUnlocked[tier-1]) player["infinityDimension"+tier].amount = player["infinityDimension"+tier].amount.plus(getInfinityDimensionProduction(tier+1).times(diff/100))
         if (player.infDimensionsUnlocked[tier-1]) {
             document.getElementById("infRow"+tier).style.display = "inline-block"
