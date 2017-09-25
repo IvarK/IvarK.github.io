@@ -331,11 +331,12 @@ function onLoad() {
         }
         player.version = 2
     }
-	
-    if (player.version == 2) {
-        player.newsArray = []
-        player.version = 3
-    }
+   	if (player.version == 2) {
+		player.newsArray = []
+		player.version = 3
+	}
+
+    
 
     if (player.options.invert) {
         document.getElementById("body").classList.add("invert");
@@ -421,7 +422,7 @@ function transformSaveToDecimal() {
     player.infinityDimension3.amount = new Decimal(player.infinityDimension3.amount)
     player.infinityDimension4.amount = new Decimal(player.infinityDimension4.amount)
     player.infinityPoints = new Decimal(player.infinityPoints)
-    player.lastTenRuns = [[new Decimal(player.lastTenRuns[0][0]), player.lastTenRuns[0][1]], [new Decimal(player.lastTenRuns[1][0]), player.lastTenRuns[1][1]], [new Decimal(player.lastTenRuns[2][0]), player.lastTenRuns[2][1]], [new Decimal(player.lastTenRuns[3][0]), player.lastTenRuns[3][1]], [new Decimal(player.lastTenRuns[4][0]), player.lastTenRuns[4][1]], [new Decimal(player.lastTenRuns[5][0]), player.lastTenRuns[5][1]], [new Decimal(player.lastTenRuns[6][0]), player.lastTenRuns[6][1]], [new Decimal(player.lastTenRuns[7][0]), player.lastTenRuns[7][1]], [new Decimal(player.lastTenRuns[8][0]), player.lastTenRuns[8][1]], [new Decimal(player.lastTenRuns[9][0]), player.lastTenRuns[9][1]]]
+    player.lastTenRuns = [[parseInt(player.lastTenRuns[0][0]), player.lastTenRuns[0][1]], [parseInt(player.lastTenRuns[1][0]), player.lastTenRuns[1][1]], [parseInt(player.lastTenRuns[2][0]), player.lastTenRuns[2][1]], [parseInt(player.lastTenRuns[3][0]), player.lastTenRuns[3][1]], [parseInt(player.lastTenRuns[4][0]), player.lastTenRuns[4][1]], [parseInt(player.lastTenRuns[5][0]), player.lastTenRuns[5][1]], [parseInt(player.lastTenRuns[6][0]), player.lastTenRuns[6][1]], [parseInt(player.lastTenRuns[7][0]), player.lastTenRuns[7][1]], [parseInt(player.lastTenRuns[8][0]), player.lastTenRuns[8][1]], [parseInt(player.lastTenRuns[9][0]), player.lastTenRuns[9][1]]]
 }
 
 
@@ -2764,7 +2765,7 @@ function updateLastTenRuns() {
     tempTime = tempTime.dividedBy(10)
     tempIP = tempIP.dividedBy(10)
     for (var i=0; i<10; i++) {
-        var ippm = player.lastTenRuns[i][1]/(player.lastTenRuns[i][0].dividedBy(600))
+        var ippm = player.lastTenRuns[i][1]/(player.lastTenRuns[i][0]/600)
         if (ippm > tempBest) tempBest = ippm
         var tempstring = shorten(ippm) + " IP/min"
         if (ippm<1) tempstring = shorten(ippm*60) + " IP/hour"
