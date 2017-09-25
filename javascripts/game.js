@@ -1186,7 +1186,6 @@ document.getElementById("tickSpeed").onclick = function () {
     
     updateTickSpeed();
     updateMoney();
-    updateCosts();
 };
 
 function buyMaxTickSpeed() {
@@ -1344,7 +1343,7 @@ function onBuyDimension(tier) {
 
     
 
-    updateCosts();
+
     updateMoney();
 }
 
@@ -1720,7 +1719,6 @@ document.getElementById("maxall").onclick = function () {
         
         
         
-    updateCosts()
 };
 
 
@@ -2468,7 +2466,6 @@ function sacrifice() {
         player.money = new Decimal(100)
         
     }
-    updateCosts();
     for (let tier = 1; tier <= 8; ++tier) {
         const name = TIER_NAMES[tier];
         document.getElementById(name + "D").innerHTML = DISPLAY_NAMES[tier] + " Dimension x" + formatValue(player.options.notation, getDimensionFinalMultiplier(tier), 1, 1);
