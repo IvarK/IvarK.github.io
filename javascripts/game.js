@@ -331,6 +331,11 @@ function onLoad() {
         }
         player.version = 2
     }
+	
+    if (player.version == 2) {
+        player.newsArray = []
+        player.version = 3
+    }
 
     if (player.options.invert) {
         document.getElementById("body").classList.add("invert");
