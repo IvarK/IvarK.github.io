@@ -214,6 +214,7 @@ function onLoad() {
         document.getElementById("tickLabel").style.visibility = "visible";
         document.getElementById("tickSpeedAmount").style.visibility = "visible";
     }
+    if (player.options.notation == "Mixed") player.options.notation = "Mixed scientific"
 
     if (player.infinityPower === undefined) {
         player.infinityPower = new Decimal(1)
@@ -295,6 +296,7 @@ function onLoad() {
     document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+player.infMult +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
 
     document.getElementById("notation").innerHTML = "Notation: " + player.options.notation
+    
 
 
     if (name == "challenge12") document.getElementById("matter").style.display = "inline-block";
@@ -534,9 +536,12 @@ function formatValue(notation, value, places, placesUnder1000) {
         if ((notation === "Standard")) {
             if (power <= 303) return (matissa * Decimal.pow(10, power % 3)).toFixed(places) + " " + FormatList[(power - (power % 3)) / 3];
             else return (matissa * Decimal.pow(10, power % 3)).toFixed(places) + " " + getAbbreviation(power)
-        } else if (notation === "Mixed") {
+        } else if (notation === "Mixed scientific") {
             if (power < 33) return (matissa * Decimal.pow(10, power % 3)).toFixed(places) + " " + FormatList[(power - (power % 3)) / 3];
             else return ((matissa).toFixed(places) + "e" + power);
+        } else if (notation === "Mixed engineering") {
+            if (power < 33) return (matissa * Decimal.pow(10, power % 3)).toFixed(places) + " " + FormatList[(power - (power % 3)) / 3];
+            else return ((matissa * Decimal.pow(10, power % 3)).toFixed(places) + "ᴇ" + (power - (power % 3)));
         } else if (notation === "Scientific") {
             return ((matissa).toFixed(places) + "e" + power);
         } else if (notation === "Engineering") {
@@ -2402,7 +2407,7 @@ function setAchieveTooltip() {
 
 document.getElementById("notation").onclick = function () {
     player.options.scientific = !player.options.scientific;
-    if (player.options.notation === "Mixed") {
+    if (player.options.notation === "Mixed engineering") {
         player.options.notation = "Scientific";
         document.getElementById("notation").innerHTML = ("Notation: Scientific")
     } else if (player.options.notation === "Scientific") {
@@ -2418,8 +2423,11 @@ document.getElementById("notation").onclick = function () {
         player.options.notation = "Emojis";
         document.getElementById("notation").innerHTML = ("Notation: Cancer")
     } else if (player.options.notation === "Emojis") {
-        player.options.notation = "Mixed";
-        document.getElementById("notation").innerHTML = ("Notation: Mixed")
+        player.options.notation = "Mixed scientific";
+        document.getElementById("notation").innerHTML = ("Notation: Mixed scientific")
+    } else if (player.options.notation === "Mixed scientific") {
+        player.options.notation = "Mixed engineering";
+        document.getElementById("notation").innerHTML = ("Notation: Mixed engineering")
     }
     setAchieveTooltip();
     updateCosts();
