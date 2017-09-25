@@ -257,7 +257,7 @@ function onLoad() {
             if (i == 8) player.autobuyers[i].target = 1
         }
 
-        if (player.autobuyers[i]%1 !== 0 && player.autobuyers[i].bulk === undefined) {
+        if (player.autobuyers[i]%1 !== 0 && (player.autobuyers[i].bulk === undefined || player.autobuyers[i].bulk === NaN || player.autobuyers[i].bulk === null)) {
             player.autobuyers[i].bulk = 1
         }
     }
