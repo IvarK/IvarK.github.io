@@ -2752,7 +2752,7 @@ function updateChallengeTimes() {
 
 var bestRunIppm = 0
 function updateLastTenRuns() {
-    var tempBest = 0
+    let tempBest = 0
     var tempTime = new Decimal(0)
     var tempIP = new Decimal(0)
     for (var i=0; i<10;i++) {
