@@ -4219,7 +4219,7 @@ function playFabLoadCheckCallback(data, error) {
 		var playFabInfinitied = (data.data.Data.infinitied) ? parseInt(data.data.Data.infinitied.Value) : 0;
 		if (playFabInfinitied < player.infinitied){
             document.getElementById("loadCloud").style.display = "block";
-            document.getElementById("loadPopup").innerHTML = "You have a cloud save with "+playFabInfinitied+ " infinities and your local save has "+player.infinitied+". Do you want to load it?"
+            document.getElementById("loadPopup").innerHTML = "You have a cloud save with "+playFabInfinitied+ " infinities and your local save has "+player.infinitied+". Do you want to load the cloud save?"
 			return;
 		}
 		else loadFromPlayFab();
