@@ -4055,7 +4055,7 @@ var playFabId = -1
 function playFabLoginCallback(data, error){
     if (error){
         console.log(error.errorMessage);
-        $.notify("Couldn't log in to PlayFab Cloud", "error")
+        $.notify("Couldn't log in to PlayFab Cloud. You need to be logged in to Kongregate.", "error")
         document.getElementById("cloudOptions").style.display = "none"
         return;
     }
