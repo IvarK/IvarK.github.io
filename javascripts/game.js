@@ -534,6 +534,9 @@ function formatValue(notation, value, places, placesUnder1000) {
         if ((notation === "Standard")) {
             if (power <= 303) return (matissa * Decimal.pow(10, power % 3)).toFixed(places) + " " + FormatList[(power - (power % 3)) / 3];
             else return (matissa * Decimal.pow(10, power % 3)).toFixed(places) + " " + getAbbreviation(power)
+        } else if (notation === "Mixed") {
+            if (power < 33) return (matissa * Decimal.pow(10, power % 3)).toFixed(places) + " " + FormatList[(power - (power % 3)) / 3];
+            else return ((matissa).toFixed(places) + "e" + power);
         } else if (notation === "Scientific") {
             return ((matissa).toFixed(places) + "e" + power);
         } else if (notation === "Engineering") {
@@ -2399,7 +2402,7 @@ function setAchieveTooltip() {
 
 document.getElementById("notation").onclick = function () {
     player.options.scientific = !player.options.scientific;
-    if (player.options.notation === "Emojis") {
+    if (player.options.notation === "Mixed") {
         player.options.notation = "Scientific";
         document.getElementById("notation").innerHTML = ("Notation: Scientific")
     } else if (player.options.notation === "Scientific") {
@@ -2414,6 +2417,9 @@ document.getElementById("notation").onclick = function () {
     } else if (player.options.notation === "Standard") {
         player.options.notation = "Emojis";
         document.getElementById("notation").innerHTML = ("Notation: Cancer")
+    } else if (player.options.notation === "Emojis") {
+        player.options.notation = "Mixed";
+        document.getElementById("notation").innerHTML = ("Notation: Mixed")
     }
     setAchieveTooltip();
     updateCosts();
