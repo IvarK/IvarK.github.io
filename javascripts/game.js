@@ -3661,7 +3661,7 @@ function dimBoolean() {
     const name = TIER_NAMES[getShiftRequirement(0).tier]
     if (!player.autobuyers[9].isOn) return false
     if (player.autobuyers[9].ticks*100 < player.autobuyers[9].interval) return false
-    if (player[name + "Amount"] < getShiftRequirement(player.autobuyers[9].bulk-1).amount) return false
+    if (player[name + "Amount"] < getShiftRequirement(player.currentChallenge == "" ? player.autobuyers[9].bulk-1 : 1).amount) return false
     if (player.overXGalaxies <= player.galaxies) return true
     if (player.currentChallenge =="challenge4" && player.autobuyers[9].priority < getShiftRequirement(0).amount && getShiftRequirement(0).tier == 6) return false
     if (player.autobuyers[9].priority < getShiftRequirement(0).amount && getShiftRequirement(0).tier == 8) return false
@@ -3701,7 +3701,7 @@ setInterval(function() {
             if (player.autobuyers[9]%1 !== 0) {
                 if (dimBoolean()) {
                     if (player.autobuyers[9].isOn) {
-                        softReset(player.autobuyers[9].bulk)
+                        softReset(player.currentChallenge == "" ? player.autobuyers[9].bulk : 1)
                         player.autobuyers[9].ticks = 1;
                     } 
                 } else player.autobuyers[9].ticks += 1;
