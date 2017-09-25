@@ -3226,6 +3226,13 @@ function newDimension() {
 }
 var blink = true
 
+
+setInterval(function() {
+    try {
+        kongregate.stats.submit('Log10 of total antimatter', player.totalmoney.e);
+    } catch (err) {console.log("Couldn't load Kongregate API")}
+}, 10000)
+
 setInterval(function() {
     if (getDimensionFinalMultiplier(1).gte(new Decimal("1e308")) &&
         getDimensionFinalMultiplier(2).gte(new Decimal("1e308")) &&
