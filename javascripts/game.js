@@ -271,6 +271,12 @@ function onLoad() {
     if (player.seventhAmount !== 0)
         if (player.resets > 3 && player.currentChallenge !== "challenge4") document.getElementById("eightRow").style.display = "table-row";
 
+
+
+    if (player.autobuyers[9]%1 !== 0) {
+        if (player.autobuyers[9].bulk === null || player.autobuyers[9].bulk === undefined) player.autobuyers[9].bulk = 1
+    }
+
     if (player.options.sacrificeConfirmation == false) document.getElementById("confirmation").checked = "true"
     transformSaveToDecimal();
     updateCosts();
@@ -336,6 +342,8 @@ function onLoad() {
 		player.version = 3
 	}
 
+
+    
     
 
     if (player.options.invert) {
