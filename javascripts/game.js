@@ -4206,9 +4206,11 @@ function playFabLoadCheckCallback(data, error) {
 
 setInterval(function () {
     save_game()
-    playFabSaveCheck();
-    
 }, 30000);
+
+setInterval(function () {
+    playFabSaveCheck();
+}, 1000*60*5)
 updateCosts();
 //updateInterval();
 updateDimensions();
