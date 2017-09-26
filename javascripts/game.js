@@ -3250,8 +3250,8 @@ setInterval(function() {
         //show the message received and nag for attention
         //like this:
         if (data.version != player.version) {
-            player.version = 3.1
-            $.notify("If you see this, it's just hevipelle testing stuff at master", "info")
+            player.version = data.version
+            $.notify(data.message, "info")
             //or some more resilient method 
             //like forced news bar with message running over and over
         }
