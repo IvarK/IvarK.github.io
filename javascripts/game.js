@@ -4195,7 +4195,6 @@ function saveToPlayFabCallback(data, error){
     if (data){
         console.log("Game Saved!");
         $.notify("Game saved to cloud", "info")
-        closeToolTip()
         save_game()
         return true;
     }
@@ -4228,7 +4227,6 @@ function loadFromPlayFabCallback(data, error){
     if (data){
         console.log(data)
         $.notify("Loaded from cloud", "info")
-        closeToolTip()
         var id = playFabId;
         loadFromString(data.data.Data.save.Value);
     }
