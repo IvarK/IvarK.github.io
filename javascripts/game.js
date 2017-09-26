@@ -4157,7 +4157,8 @@ function playFabSaveCheck(){
 function playFabSaveCheckCallback(data, error){
 	if (error){
 		console.log("error checking existing PlayFab data");
-		console.log(error);
+        console.log(error);
+        playFabLogin()
 		return;
 	}
 	if (data){
@@ -4191,6 +4192,7 @@ function saveToPlayFabCallback(data, error){
     if (error){
         console.log(error);
         return false;
+        
     }
     if (data){
         console.log("Game Saved!");
@@ -4275,7 +4277,7 @@ setInterval(function () {
 }, 30000);
 
 setInterval(function () {
-    playFabSaveCheck();
+    if (playFabId != -1) playFabSaveCheck();
 }, 1000*60*5)
 updateCosts();
 //updateInterval();
