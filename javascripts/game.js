@@ -1867,7 +1867,7 @@ function updateAchPow() {
         player.achievements.includes("How the antitables have turned") &&
         player.achievements.includes("Blink of an eye")) {
         amount += 1;
-        document.getElementById("achRow5").className = "completedrow"
+        document.getElementById("achRow6").className = "completedrow"
     }
 
     for (i = amount; i > 0; i--) {
