@@ -3225,9 +3225,8 @@ function newDimension() {
     }
 }
 var blink = true
-
 setInterval(() => {
-    $.ajax("version.txt").done(data => {
+    $.getJSON('https://raw.githubusercontent.com/IvarK/IvarK.github.io/versioning/version.txt', function(data){
         //data is actual content of version.txt, so 
         //do whatever you need with it
         //I'd compare it with last result and if it's different
