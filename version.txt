@@ -1,1 +1,1 @@
-{"version" : 3.21, "message" : "The last test, I will use this feature to annoynce updates."}
+{"version" : 3.21, "message" : "The last test, I will use this feature to annoynce updates. (sorry for the inconvenience, can't test locally or in test branches)"}
