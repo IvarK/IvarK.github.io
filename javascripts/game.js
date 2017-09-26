@@ -109,7 +109,8 @@ var player = {
         scientific: false,
         invert: false,
         challConf: false,
-        sacrificeConfirmation: true
+        sacrificeConfirmation: true,
+        retryChallenge: false
     }
     
 };
@@ -171,6 +172,7 @@ function onLoad() {
 	if (player.options.notation === undefined) player.options.notation = "Standard";
     if (player.options.newsHidden === undefined) player.options.newsHidden = false;
     if (player.options.sacrificeConfirmation === undefined) player.options.sacrificeConfirmation = true;
+    if (player.options.retryChallenge === undefined) player.options.retryChallenge = false;
     if (player.achievements === undefined) player.achievements = [];
     if (player.sacrificed === undefined) player.sacrificed = new Decimal(0);
     if (player.infinityUpgrades === undefined) player.infinityUpgrades = [];
@@ -285,6 +287,8 @@ function onLoad() {
     updateAchPow();
     updateChallenges();
     updateCheckBoxes();
+    toggleChallengeRetry()
+    toggleChallengeRetry()
     
     loadAutoBuyerSettings();
     updateLastTenRuns()
@@ -1576,6 +1580,17 @@ function resetInfDimensions() {
 }
 
 
+function toggleChallengeRetry() {
+    if (player.options.retryChallenge) {
+        player.options.retryChallenge = false
+        document.getElementById("retry").innerHTML = "Automatically retry challenges OFF"
+    } else {
+        player.options.retryChallenge = true
+        document.getElementById("retry").innerHTML = "Automatically retry challenges ON"
+    }
+}
+
+
 
 
 document.getElementById("first").onclick = function () {
@@ -2836,7 +2851,7 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.currentChallenge == "challenge5" && player.thisInfinityTime <= 1800) giveAchievement("Is this hell?")
         if (player.firstAmount == 1 && player.resets == 0 && player.galaxies == 0 && player.currentChallenge == "challenge12") giveAchievement("ERROR 909: Dimension not found")
         if (player.currentChallenge != "" && player.challengeTimes[challNumber-2] > player.thisInfinityTime) player.challengeTimes[challNumber-2] = player.thisInfinityTime
-        if ((player.bestInfinityTime > 600 && !player.break) || player.currentChallenge != "") showTab("dimensions")
+        if ((player.bestInfinityTime > 600 && !player.break) || (player.currentChallenge != "" && !player.options.retryChallenge)) showTab("dimensions")
         if (player.currentChallenge == "challenge5") {
             try {
                 kongregate.stats.submit('Challenge 9 time record (ms)', Math.floor(player.thisInfinityTime*100));
@@ -2894,7 +2909,7 @@ document.getElementById("bigcrunch").onclick = function () {
         sacrificed: new Decimal(0),
         achievements: player.achievements,
         challenges: player.challenges,
-        currentChallenge: "",
+        currentChallenge: player.currentChallenge,
         infinityUpgrades: player.infinityUpgrades,
         infinityPoints: player.infinityPoints,
         infinitied: player.infinitied + 1,
@@ -2940,6 +2955,8 @@ document.getElementById("bigcrunch").onclick = function () {
         offlineProdCost: player.offlineProdCost,
         options: player.options
         };
+
+        if (!player.options.retryChallenge) player.currentChallenge = ""
 
         if (player.resets == 0 && player.currentChallenge == "") {
             if (player.infinityUpgrades.includes("skipReset1")) player.resets++;
@@ -3350,7 +3367,7 @@ setInterval(function () {
     
     if (player.money.gte(Number.MAX_VALUE) && (!player.break || player.currentChallenge != "")) {
         document.getElementById("bigcrunch").style.display = 'inline-block';
-        if (player.currentChallenge == "" && (player.bestInfinityTime <= 600 || player.break)) {}
+        if ((player.currentChallenge == "" || player.options.retryChallenge) && (player.bestInfinityTime <= 600 || player.break)) {}
         else showTab('emptiness');
     } else document.getElementById("bigcrunch").style.display = 'none';
 
@@ -3525,7 +3542,7 @@ setInterval(function () {
     document.getElementById("infinitybtn").style.display = "none";
     document.getElementById("challengesbtn").style.display = "none";
 
-    if (player.money.gte(Number.MAX_VALUE) && (player.currentChallenge != "" || (player.bestInfinityTime > 600 && !player.break))) {
+    if (player.money.gte(Number.MAX_VALUE) && ((player.currentChallenge != "" && !player.options.retryChallenge) || (player.bestInfinityTime > 600 && !player.break))) {
         document.getElementById("dimensionsbtn").style.display = "none";
         document.getElementById("optionsbtn").style.display = "none";
         document.getElementById("statisticsbtn").style.display = "none";
