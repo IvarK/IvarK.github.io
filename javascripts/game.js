@@ -3242,6 +3242,23 @@ function newDimension() {
     }
 }
 var blink = true
+setInterval(() => {
+    $.getJSON('version.txt', function(data){
+        //data is actual content of version.txt, so 
+        //do whatever you need with it
+        //I'd compare it with last result and if it's different
+        //show the message received and nag for attention
+        //like this:
+        if (data.version != player.version) {
+            $.notify("If you see this, it's just hevipelle testing stuff at master", "info")
+            //or some more resilient method 
+            //like forced news bar with message running over and over
+        }
+    })
+}, 60000)
+
+
+
 
 
 setInterval(function() {
