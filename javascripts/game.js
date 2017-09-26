@@ -3233,7 +3233,7 @@ setInterval(() => {
         //show the message received and nag for attention
         //like this:
         if (data.version != player.version) {
-            $.notify("REFRESH FOR AN UPDATE YOU MOTHERFUCKING COCKSUCKER", "info")
+            $.notify("If you see this, it's just hevipelle testing stuff at master", "info")
             //or some more resilient method 
             //like forced news bar with message running over and over
         }
