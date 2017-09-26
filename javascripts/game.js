@@ -3242,7 +3242,7 @@ function newDimension() {
     }
 }
 var blink = true
-setInterval(() => {
+setInterval(function() {
     $.getJSON('version.txt', function(data){
         //data is actual content of version.txt, so 
         //do whatever you need with it
@@ -3250,6 +3250,7 @@ setInterval(() => {
         //show the message received and nag for attention
         //like this:
         if (data.version != player.version) {
+            player.version = 3.1
             $.notify("If you see this, it's just hevipelle testing stuff at master", "info")
             //or some more resilient method 
             //like forced news bar with message running over and over
