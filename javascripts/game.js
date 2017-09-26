@@ -3251,7 +3251,8 @@ setInterval(function() {
         //like this:
         if (data.version != player.version) {
             player.version = data.version
-            $.notify(data.message, "info")
+            document.getElementById("update").style.display = "block"
+            document.getElementById("updatePopup").innerHTML = data.message
             //or some more resilient method 
             //like forced news bar with message running over and over
         }
