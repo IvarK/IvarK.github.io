@@ -3226,14 +3226,13 @@ function newDimension() {
 }
 var blink = true
 setInterval(() => {
-    $.getJSON('https://raw.githubusercontent.com/IvarK/IvarK.github.io/versioning/version.txt', function(data){
+    $.getJSON('version.txt', function(data){
         //data is actual content of version.txt, so 
         //do whatever you need with it
         //I'd compare it with last result and if it's different
         //show the message received and nag for attention
         //like this:
-        if (!lastData || data.version != lastData) {
-            lastData = data.version
+        if (data.version != player.version) {
             $.notify("REFRESH FOR AN UPDATE YOU MOTHERFUCKING COCKSUCKER", "info")
             //or some more resilient method 
             //like forced news bar with message running over and over
