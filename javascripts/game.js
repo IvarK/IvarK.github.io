@@ -4357,8 +4357,4 @@ setInterval( function() {
     challengeMult = Decimal.max(10*3000/worstChallengeTime, 1)
     unspentBonus = Decimal.pow(player.infinityPoints.dividedBy(2),1.5).plus(1)
 }, 500)
-function resize() {
-    c.width = window.innerWidth;
-    c.height = 64;
-}
-resize();
+
