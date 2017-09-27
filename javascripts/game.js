@@ -3707,7 +3707,7 @@ setInterval(function () {
     if (player.money >= 10e79) giveAchievement("Antimatter Apocalypse")
     if (player.totalTimePlayed >= 10 * 60 * 60 * 24 * 8) giveAchievement("One for each dimension")
     if (player.seventhAmount > 1e12) giveAchievement("Multidimensional");
-
+    if (isNaN(player.totalmoney)) player.totalmoney = new Decimal(10)
 
     player.lastUpdate = thisUpdate;
 }, 50);
