@@ -627,13 +627,16 @@ function getDimensionFinalMultiplier(tier) {
         if (player.infinityUpgrades.includes("unspentBonus")) multiplier = multiplier.times(unspentBonus);
         if (player.achievements.includes("There's no point in doing that...")) multiplier = multiplier.times(1.1);
         if (player.achievements.includes("I forgot to nerf that")) multiplier = multiplier.times(1.05);
+        if (player.achievements.includes("ERROR 909: Dimension not found")) multiplier = multiplier.times(1.5);
     }
     multiplier = multiplier.times(timeMult());
     if (tier == 8 && player.achievements.includes("The 9th Dimension is a lie")) multiplier = multiplier.times(1.1);
     else if (player.achievements.includes("You didn't need it anyway")) multiplier = multiplier.times(1.02);
     if (tier <= 4 && player.achievements.includes("Zero Deaths")) multiplier = multiplier.times(1.25);
     if (player.achievements.includes("Antichallenged")) multiplier = multiplier.times(1.1);
-    
+    if (player.achievements.includes("Can't hold all these infinities")) multiplier = multiplier.times(1.1);
+    if (player.achievements.includes("End me") && player.currentChallenge != "") multiplier = multiplier.times(1.15);
+    if (player.achievements.includes("How the antitables have turned")) multiplier = multiplier.times(1+tier/100);
     return multiplier;
 }
 
@@ -1123,6 +1126,9 @@ function softReset(bulk) {
 
     if (player.challenges.includes("challenge1")) player.money = new Decimal(100)
     if (player.achievements.includes("That's fast!")) player.money = new Decimal(1000);
+    if (player.achievements.includes("That's faster!")) player.money = new Decimal(2e5);
+    if (player.achievements.includes("Forever isn't that long")) player.money = new Decimal(1e10);
+    if (player.achievements.includes("Blink of an eye")) player.money = new Decimal(1e25);
     
     if (player.resets >= 10) {
         giveAchievement("Boosting to the max");
@@ -1320,9 +1326,8 @@ function getDimensionPowerMultiplier(tier) {
 
     if (player.currentChallenge == "challenge9") dimMult = Decimal.pow(10/0.30,Decimal.random())*0.30
 
-    if (player.infinityUpgrades.includes('dimMult')) {
-        dimMult *= 1.1;
-    }
+    if (player.infinityUpgrades.includes('dimMult')) dimMult *= 1.1;
+    if (player.achievements.includes("Is this hell?")) dimMult *= 1.01;
     
     return dimMult;
 }
@@ -2300,7 +2305,9 @@ document.getElementById("secondSoftReset").onclick = function () {
         if (player.galaxies >= 1) giveAchievement("You got past The Big Wall");
         if (player.challenges.includes("challenge1")) player.money = new Decimal(100)
         if (player.achievements.includes("That's fast!")) player.money = new Decimal(1000);
-
+        if (player.achievements.includes("That's faster!")) player.money = new Decimal(2e5);
+        if (player.achievements.includes("Forever isn't that long")) player.money = new Decimal(1e10);
+        if (player.achievements.includes("Blink of an eye")) player.money = new Decimal(1e25);
     }
 };
 
@@ -2481,8 +2488,10 @@ function resetDimensions() {
 function calcSacrificeBoost() {
     if (player.firstAmount == 0) return 1;
     if (player.currentChallenge != "challenge11") {
-        if (player.achievements.includes("The Gods are pleased")) return Decimal.max(Decimal.pow((Decimal.log10(player.firstAmount).dividedBy(10.0)), 2.05).dividedBy(Decimal.max(Decimal.pow((Decimal.log10(Decimal.max(player.sacrificed, 1)).dividedBy(10.0)), 2.05), 1), 1), 1);
-        else return Decimal.max(Decimal.pow((Decimal.log10(player.firstAmount).dividedBy(10.0)), 2).dividedBy(Decimal.max(Decimal.pow((Decimal.log10(Decimal.max(player.sacrificed, 1)).dividedBy(10.0)), 2), 1), 1), 1);
+        var sacrificePow=2;
+        if (player.achievements.includes("The Gods are pleased")) sacrificePow += 0.2;
+        if (player.achievements.includes("Gift from the Gods")) sacrificePow += 0.3;
+        return Decimal.max(Decimal.pow((Decimal.log10(player.firstAmount).dividedBy(10.0)), sacrificePow).dividedBy(Decimal.max(Decimal.pow((Decimal.log10(Decimal.max(player.sacrificed, 1)).dividedBy(10.0)), sacrificePow), 1), 1), 1);
     } else {
         if (player.firstAmount != 0) return Decimal.max(Decimal.pow(player.firstAmount, 0.05).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.04), 1)), 1)
         else return 1
@@ -3026,6 +3035,9 @@ document.getElementById("bigcrunch").onclick = function () {
         updateAutobuyers();
         if (player.challenges.includes("challenge1")) player.money = new Decimal(100)
         if (player.achievements.includes("That's fast!")) player.money = new Decimal(1000);
+        if (player.achievements.includes("That's faster!")) player.money = new Decimal(2e5);
+        if (player.achievements.includes("Forever isn't that long")) player.money = new Decimal(1e10);
+        if (player.achievements.includes("Blink of an eye")) player.money = new Decimal(1e25);
         if (player.challenges.length >= 2 && !player.achievements.includes("Daredevil")) giveAchievement("Daredevil");
         if (player.challenges.length == 12 && !player.achievements.includes("AntiChallenged")) giveAchievement("AntiChallenged");
 
@@ -3165,6 +3177,9 @@ function startChallenge(name) {
     updateChallenges();
     if (player.challenges.includes("challenge1")) player.money = new Decimal(100)
     if (player.achievements.includes("That's fast!")) player.money = new Decimal(1000);
+    if (player.achievements.includes("That's faster!")) player.money = new Decimal(2e5);
+    if (player.achievements.includes("Forever isn't that long")) player.money = new Decimal(1e10);
+    if (player.achievements.includes("Blink of an eye")) player.money = new Decimal(1e25);
     showTab("dimensions")
     try {
         kongregate.stats.submit('Infinitied', player.infinitied);
