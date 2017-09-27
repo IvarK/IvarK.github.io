@@ -3254,7 +3254,7 @@ setInterval(function() {
         //I'd compare it with last result and if it's different
         //show the message received and nag for attention
         //like this:
-        if (data.version != player.version) {
+        if (data.version > player.version) {
             player.version = data.version
             document.getElementById("update").style.display = "block"
             document.getElementById("updatePopup").innerHTML = data.message
