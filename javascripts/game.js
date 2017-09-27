@@ -159,7 +159,7 @@ function get_cookie(cookie_name) {
 
 
 function onLoad() {
-    if (player.totalmoney === undefined) player.totalmoney = player.money;
+    if (player.totalmoney === undefined || player.totalmoney === NaN) player.totalmoney = player.money;
     if (player.options === undefined) {
         player.options = {
             scientific: false,
