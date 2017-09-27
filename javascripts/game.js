@@ -3952,7 +3952,7 @@ setInterval(function () {
 }, 1000 / 30);*/
 
 var s = document.getElementById('news');
-
+document.addEventListener("visibilitychange", () => {if (!document.hidden) {scrollNextMessage();}}, false);
 var scrollTimeouts = [];
 
 function scrollNextMessage() {
@@ -3979,7 +3979,7 @@ function scrollNextMessage() {
     //distance to travel is s.parentElement.clientWidth + s.clientWidth + parent padding
     //we want to travel at rate pixels per second so we need to travel for (distance / rate) seconds
     let dist = s.parentElement.clientWidth + s.clientWidth + 20; //20 is div_container padding
-    let rate = 500; //change this value to change the scroll speed
+    let rate = 100; //change this value to change the scroll speed
     let transformDuration = dist / rate;
 
     if (!player.options.newsHidden) {
@@ -4209,7 +4209,8 @@ function playFabSaveCheck(){
 function playFabSaveCheckCallback(data, error){
 	if (error){
 		console.log("error checking existing PlayFab data");
-		console.log(error);
+        console.log(error);
+        playFabLogin()
 		return;
 	}
 	if (data){
@@ -4243,6 +4244,7 @@ function saveToPlayFabCallback(data, error){
     if (error){
         console.log(error);
         return false;
+        
     }
     if (data){
         console.log("Game Saved!");
@@ -4327,7 +4329,7 @@ setInterval(function () {
 }, 30000);
 
 setInterval(function () {
-    playFabSaveCheck();
+    if (playFabId != -1) playFabSaveCheck();
 }, 1000*60*5)
 updateCosts();
 //updateInterval();
