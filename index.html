@@ -11,7 +11,7 @@
     <script src="javascripts/jquery-3.2.1.min.js"></script>
     <script src='https://cdn1.kongregate.com/javascripts/kongregate_api.js'></script>
     <script src="javascripts/notify.js"></script>
-    <link rel="stylesheet" type="text/css" href="stylesheets/styles.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/styles.css?1">
     <script>
         (function(i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;
@@ -33,8 +33,9 @@
 
 <body id="body">
     <div class="container" style="color:#4F5957; font-family: Typewriter; text-align:center; font-size: 13px">
-        <div id="news"></div>
-        <canvas id="game" height="30px"></canvas>
+        <div id='game'>
+            <div id='news'>.</div>
+        </div>
         <div id="matter"></div>
         <div>
             <p>You have <span id="coinAmount" style="font-size:35px; color: black">0</span> antimatter.</p>
@@ -100,7 +101,7 @@
                         <td id="secondD">
                             Second Dimension
                         </td>
-                        <td style="text-alignment:center">
+                        <td>
                             <div id="secondAmount" align="left">0 (0)</div>
                         </td>
                         <td><button id="second" style="color:black; height: 35px" class="storebtn">Cost: 100</button>
@@ -113,7 +114,7 @@
                         <td id="thirdD">
                             Third Dimension
                         </td>
-                        <td style="text-alignment:center">
+                        <td>
                             <div id="thirdAmount" align="left">0 (0)</div>
                         </td>
                         <td>
@@ -127,7 +128,7 @@
                         <td id="fourthD">
                             Fourth Dimension
                         </td>
-                        <td style="text-alignment:center">
+                        <td>
                             <div id="fourthAmount" align="left">0 (0)</div>
                         </td>
                         <td>
@@ -141,7 +142,7 @@
                         <td id="fifthD">
                             Fifth Dimension
                         </td>
-                        <td style="text-alignment:center">
+                        <td>
                             <div id="fifthAmount" align="left">0 (0)</div>
                         </td>
                         <td>
@@ -155,7 +156,7 @@
                         <td id="sixthD">
                             Sixth Dimension
                         </td>
-                        <td style="text-alignment:center">
+                        <td>
                             <div id="sixthAmount" align="left">0 (0)</div>
                         </td>
                         <td>
@@ -169,7 +170,7 @@
                         <td id="seventhD">
                             Seventh Dimension
                         </td>
-                        <td style="text-alignment:center">
+                        <td>
                             <div id="seventhAmount" align="left">0 (0)</div>
                         </td>
                         <td>
@@ -183,7 +184,7 @@
                         <td id="eightD">
                             Eight Dimension
                         </td>
-                        <td style="text-alignment:center">
+                        <td>
                             <div id="eightAmount" align="left">0 (0)</div>
                         </td>
                         <td>
@@ -1139,6 +1140,7 @@
 <script src="PlayFab/PlayFabClientApi.js"></script>
 <script src="javascripts/autobuyer.js"></script>
 <script src="javascripts/decimal.js"></script>
-<script src="javascripts/game.js?29"></script>
+<script src="javascripts/game.js?30"></script>
+
 
 </html>

@@ -115,8 +115,8 @@ var player = {
     
 };
 
-var c = document.getElementById("game");
-var ctx = c.getContext("2d");
+/*var c = document.getElementById("game");
+var ctx = c.getContext("2d");*/
 
 var defaultStart = $.extend(true, {}, player);
 var firstButton = document.getElementById("first");
@@ -2454,8 +2454,9 @@ document.getElementById("newsbtn").onclick = function() {
     document.getElementById("game").style.display = "none";
     player.options.newsHidden = true
   } else {
-    document.getElementById("game").style.display = "inline-block";
+    document.getElementById("game").style.display = "block";
     player.options.newsHidden = false
+    scrollNextMessage()
   }
 }
 
@@ -3917,7 +3918,7 @@ var conditionalNewsArray = ["Our universe is falling apart. We are all evacuatin
 "Studies show a massive problem with the time-space continuum. In other words, a large amount of antimatter has dissapeared from the cosmos", 
 "Should we call antimatter Matter now? There seems to be more of it."]
 
-var initpos = c.width;
+/*var initpos = c.width;
 ctx.textBaseline = 'top';
 var newsTextValue = Decimal.round(Decimal.random() * (newsArray.length - 1))
 var newsText = newsArray[newsTextValue];
@@ -3948,7 +3949,58 @@ setInterval(function () {
 
 
     }
-}, 1000 / 30);
+}, 1000 / 30);*/
+
+var s = document.getElementById('news');
+document.addEventListener("visibilitychange", () => {if (!document.hidden) {scrollNextMessage();}}, false);
+var scrollTimeouts = [];
+
+function scrollNextMessage() {
+  //select a message at random
+  let idx = Math.floor(Math.random() * newsArray.length)
+  let msg = {msg: newsArray[idx], index: idx};
+  
+  scrollTimeouts.forEach((v) => {clearTimeout(v);});
+  scrollTimeouts = [];
+  
+  //set the text
+  s.innerHTML = msg.msg;
+  
+  //get the parent width so we can start the message beyond it
+  let parentWidth = s.parentElement.clientWidth;
+  
+  //set the transition to blank so the move happens immediately
+  s.style.transition = '';
+  //move div_text to the right, beyond the edge of the div_container
+  s.style.transform = `translateX(${parentWidth}px)`;  
+  
+  //we need to use a setTimeout here to allow the browser time to move the div_text before we start the scrolling
+  scrollTimeouts.push(setTimeout(() => {
+    //distance to travel is s.parentElement.clientWidth + s.clientWidth + parent padding
+    //we want to travel at rate pixels per second so we need to travel for (distance / rate) seconds
+    let dist = s.parentElement.clientWidth + s.clientWidth + 20; //20 is div_container padding
+    let rate = 100; //change this value to change the scroll speed
+    let transformDuration = dist / rate;
+
+    if (!player.options.newsHidden) {
+        if (!player.newsArray.includes(msg.idx)) player.newsArray.push(msg.index);
+        if (player.newsArray.length>=50 && !player.achievements.includes("Fake News")) giveAchievement("Fake News") 
+    } 
+
+
+    //set the transition duration
+    s.style.transition = `transform ${transformDuration}s linear`;
+    let textWidth = s.clientWidth;
+    //we need to move it to -(width+parent padding) before it won't be visible
+    s.style.transform = `translateX(-${textWidth+5}px)`;
+    //automatically start the next message scrolling after this one finishes
+    //you could add more time to this timeout if you wanted to have some time between messages
+    scrollTimeouts.push(setTimeout(scrollNextMessage, Math.ceil(transformDuration * 1000)));
+  }, 100));
+}
+  
+  //start scrolling
+  scrollNextMessage();
 
 document.getElementById("challenge2").onclick = function () {
   startChallenge("challenge2")
