@@ -1,1 +1,1 @@
-{"version" : 3.21, "message" : "The last test, I will use this feature to annoynce updates. (sorry for the inconvenience, can't test locally or in test branches)"}
+{"version" : 4.01, "message" : "Refresh for more unique achievement rewards and better cloud saving functionality."}
