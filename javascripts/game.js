@@ -347,6 +347,10 @@ function onLoad() {
 		player.newsArray = []
 		player.version = 3
 	}
+	if (player.version == 3) {
+		player.newsArray = []
+		player.version = 4
+	}
 
 
     
@@ -3983,7 +3987,7 @@ function scrollNextMessage() {
     let transformDuration = dist / rate;
 
     if (!player.options.newsHidden) {
-        if (!player.newsArray.includes(msg.idx)) player.newsArray.push(msg.index);
+        if (!player.newsArray.includes(msg.index)) player.newsArray.push(msg.index);
         if (player.newsArray.length>=50 && !player.achievements.includes("Fake News")) giveAchievement("Fake News") 
     } 
 
