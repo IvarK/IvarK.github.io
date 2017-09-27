@@ -347,7 +347,7 @@ function onLoad() {
 		player.newsArray = []
 		player.version = 3
 	}
-	if (player.version == 3) {
+	if (player.version < 4) {
 		player.newsArray = []
 		player.version = 4
 	}
