@@ -343,13 +343,9 @@ function onLoad() {
         }
         player.version = 2
     }
-   	if (player.version == 2) {
+	if (player.version < 5) {
 		player.newsArray = []
-		player.version = 3
-	}
-	if (player.version < 4) {
-		player.newsArray = []
-		player.version = 4
+		player.version = 5
 	}
 
 
