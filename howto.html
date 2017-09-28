@@ -39,7 +39,7 @@ Dimensions are your production units in game.  The first Dimension produces your
 <br>
 <b>Interval:</b> The length of time between ticks. This is lowered by purchasing tick interval reductions.
 <br>
-<b>Cost:</b> The cost of antimatter for reducing the tick interval by the % displayed above (initially 10%).
+<b>Cost:</b> The cost of antimatter for reducing the tick interval by the % displayed above (Without Galaxies your base tickspeed decrease is 11% per purchase)
 <br>
 <b>Buy Max:</b> This will buy the maximum amount of tick interval decreases available with your current amount of Antimatter
 </div>
@@ -108,8 +108,37 @@ Challenges change in game mechanics in different ways to create more difficult i
 <div style="text-align: center" id='div11' class='hidden'>
 <b>Autobuyers:</b>
 <br>
-Once unlocked you can enable and disable autobuyers via the infinity tab.  Autobuyers can be upgraded to work faster, and some have multiple buy options to help optimize your runs.
+Autobuyers, awarded by completing challenges, allow the automatic purchase of dimensions, dimension shifts/boosts, galaxies, tickspeed interval decreases, and Big Crunches. They are located under the infinty tab in "Autobuyers".
+<br>
+<b>Priority:</b> Priorities tell the game which autobuyer will buy if two costs are the same. Priority 1 is bought 1st, Priority 2 is bought 2nd, etc. 
 </div>
+<b>Autobuyer Speed:</b>The cooloff period before the autobuyer makes another puchase.
+<br>
+<b>Autobuyer Multiplier:</b> Once the Speed of an Autobuyer is maxed, all future upgrades will double the amount the autobuyer purchases.
+<br>
+<b>Dimension Autobuyer Buy Quantity:</b> Autobuyers for dimensions can be set to buy a single, or until 10, on each cooldown.
+<br>
+<b>Tickspeed Autobuyer Buy Quantity:</b> The tickspeed autobuyer can be set to buy a single or the max available on each cooldown.
+<br>
+<b>Automatic Dimboost Customization:</b> With the Dimboost autobuyer you can set the max amount of 8th dimensions to use for the autobuyer, the amount of galaxies before dimboosts are always autopurchased, and (unlockable) the ability to buy bulk dimboosts.
+</div>
+<hr>
+<button onclick='changestate(12)' class="storebtn">Breaking Infinity</button>
+<div style="text-align: center" id='div12' class='hidden'>
+Originally Antimatter Dimensions was restriced by "Infinity". Since a significant update, you can now "Break Infinity" once your Big Crunch autobuyer has been maxed. This opens up a a selection of new upgrades as well as the ability to gain more than 1 infinity point per run.
+<br>
+<b>Fixing Infinity:</b>You can revert the breaking at anytime by clicking fix infininty. Use this option to lower your fastest infinity time. It's also recommended to use this to decrease your challenge times.
+<button onclick='changestate(13)' class="storebtn">Infinity Dimensions</button>
+<div style="text-align: center" id='div13' class='hidden'>
+Like the original dimensions, infinity dimensions are a very important resource in game which leads to a production boost.
+<br>
+<b>Unlocking Infinity Dimensions:</b>Infinity Dimensions are unlocked by reaching a certain amount of antimatter.
+<br>
+<b>Infinity Dimension Cost:</b>Infinity dimensions are only purchasable in sets of 10, and cost Infinity points.
+<br>
+<b>Infinity Dimension Production:</b>Similar to the original dimensions, each infinity dimension produces the dimension above it. Dimension 3 produce 2, 2 produces 1.  Instead of antimatter, Infinity Dimension produces Infintiy power, which translates to an overall multiplier on all original dimensions.
+</div>
+<hr>
 </body>
 </html>
 
