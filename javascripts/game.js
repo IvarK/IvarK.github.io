@@ -1292,10 +1292,10 @@ function multiplySameCosts(cost) {
     const tierCosts = [ null, new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15) ];
     
     for (let i = 1; i <= 8; ++i) {
-        if (Decimal.log10(player[tiers[i] + "Cost"]).equals(Decimal.log10(cost))) player[tiers[i] + "Cost"] = player[tiers[i] + "Cost"].times(tierCosts[i])
+        if (player[tiers[i] + "Cost"].e == cost.e) player[tiers[i] + "Cost"] = player[tiers[i] + "Cost"].times(tierCosts[i])
         
     }
-    if (Decimal.log10(player.tickSpeedCost).equals(Decimal.log10(cost))) player.tickSpeedCost = player.tickSpeedCost.times(10)
+    if (player.tickSpeedCost.e == cost.e) player.tickSpeedCost = player.tickSpeedCost.times(10)
     }
 
 
