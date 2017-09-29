@@ -3191,6 +3191,16 @@ function startChallenge(name) {
     if (player.infinitied >= 10) giveAchievement("That's a lot of infinites");
   }
   resetInfDimensions();
+
+  if (player.resets == 0 && player.currentChallenge == "") {
+    if (player.infinityUpgrades.includes("skipReset1")) player.resets++;
+    if (player.infinityUpgrades.includes("skipReset2")) player.resets++;
+    if (player.infinityUpgrades.includes("skipReset3")) player.resets++;
+    if (player.infinityUpgrades.includes("skipResetGalaxy")) {
+        player.resets++;
+        if (player.galaxies == 0) player.galaxies = 1
+    }
+}
   
 }
 
