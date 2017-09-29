@@ -2528,6 +2528,8 @@ document.getElementById("sacrifice").onclick = function () {
     if (player.eightAmount == 0) {
         return false;
     }
+
+    if (player.resets < 5) return false
     
     if (!document.getElementById("confirmation").checked) {
         if (!confirm("Dimensional Sacrifice will remove all of your first to seventh dimensions (with the cost and multiplier unchanged) for a boost to Eighth Dimension. It will take time to regain production.")) {
