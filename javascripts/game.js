@@ -3563,6 +3563,11 @@ setInterval(function () {
         document.getElementById("sacrifice").style.display = "none";
     }
 
+    if (player.infinitied > 0) document.getElementById("sacrifice").style.display = "inline-block";
+
+    if (player.eightAmount > 0 && player.resets > 4) document.getElementById("sacrifice").className = "storebtn"
+    else document.getElementById("sacrifice").className = "unavailablebtn"
+
     if (player.autobuyers[11]%1 !== 0 && player.autobuyers[11].interval == 100) {
         document.getElementById("postinftable").style.display = "inline-block"
         document.getElementById("postinftable2").style.display = "inline-block"
