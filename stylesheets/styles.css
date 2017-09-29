@@ -525,7 +525,20 @@
     display: none;
 }
 
+#footercontainer{
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    z-index: -1
+}
 
+#footer {
+    height: 50px;
+    margin: auto;
+    text-align:center;
+    font-size: 20px;
+    font-family: Typewriter;
+}
 
 
 #progress {
@@ -542,6 +555,8 @@
     font-size: 130%;
     border-radius: 5px;
 }
+
+
 
 @keyframes glow {
     20% { text-shadow: 0 0 10px green; }
