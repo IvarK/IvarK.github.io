@@ -343,13 +343,9 @@ function onLoad() {
         }
         player.version = 2
     }
-   	if (player.version == 2) {
+	if (player.version < 5) {
 		player.newsArray = []
-		player.version = 3
-	}
-	if (player.version < 4) {
-		player.newsArray = []
-		player.version = 4
+		player.version = 5
 	}
 
 
@@ -3306,7 +3302,7 @@ setInterval(function() {
         getDimensionFinalMultiplier(5).lt(getDimensionFinalMultiplier(6)) &&
         getDimensionFinalMultiplier(6).lt(getDimensionFinalMultiplier(7)) &&
         getDimensionFinalMultiplier(7).lt(getDimensionFinalMultiplier(8))) giveAchievement("How the antitables have turned")
-        if (blink) {
+        if (blink && !player.achievements.includes("Blink of an eye")) {
             document.getElementById("Blink of an eye").style.display = "none"
             blink = false
         }
