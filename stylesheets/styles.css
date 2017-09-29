@@ -451,7 +451,7 @@
 
 
 .autoBuyerDiv {
-    border: solid 2px black;
+    border: solid 1px grey;
     width:230px;
     height:155px;
     text-align:center;
@@ -903,3 +903,5 @@ screen and (max-width: 480px) {
         color: #444;
     }
 }
+
+

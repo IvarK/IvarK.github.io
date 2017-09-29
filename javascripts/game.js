@@ -102,6 +102,7 @@ var player = {
     },
     offlineProd: 0,
     offlineProdCost: 1e7,
+    challengeTarget: 0,
     options: {
         newsHidden: false,
         notation: "Standard",
@@ -209,6 +210,11 @@ function onLoad() {
     if (player.spreadingCancer === undefined) player.spreadingCancer = 0
     if (player.offlineProd === undefined) player.offlineProd = 0
     if (player.offlineProdCost === undefined) player.offlineProdCost = 1e7
+    if (player.challengeTarget === undefined) {
+        player.challengeTarget = 0
+        if (player.currentChallenge != "") player.challengeTarget = Number.MAX_VALUE
+    }
+    
     if (player.secondAmount !== 0) {
         document.getElementById("thirdRow").style.display = "table-row";
         document.getElementById("tickSpeed").style.visibility = "visible";
@@ -527,7 +533,7 @@ function getAbbreviation(e) {
 
 function formatValue(notation, value, places, placesUnder1000) {
 
-    if ((value <= Number.MAX_VALUE || (player.break && player.currentChallenge == "")) && (value >= 1000)) {
+    if ((value <= Number.MAX_VALUE || (player.break && (player.currentChallenge == "" || !new Decimal(Number.MAX_VALUE).equals(player.challengeTarget)) )) && (value >= 1000)) {
         if (isDecimal(value)) {
            var power = value.e
            var temp = value.toExponential(4).split("e")
@@ -1050,6 +1056,7 @@ function softReset(bulk) {
         infinityDimension4: player.infinityDimension4,
         offlineProd: player.offlineProd,
         offlineProdCost: player.offlineProdCost,
+        challengeTarget: player.challengeTarget,
         options: player.options
     };
     if (player.currentChallenge == "challenge10") {
@@ -2239,6 +2246,7 @@ document.getElementById("secondSoftReset").onclick = function () {
             infinityDimension4: player.infinityDimension4,
             offlineProd: player.offlineProd,
             offlineProdCost: player.offlineProdCost,
+            challengeTarget: player.challengeTarget,
             options: player.options
         };
 
@@ -2965,6 +2973,7 @@ document.getElementById("bigcrunch").onclick = function () {
         infinityDimension4: player.infinityDimension4,
         offlineProd: player.offlineProd,
         offlineProdCost: player.offlineProdCost,
+        challengeTarget: player.challengeTarget,
         options: player.options
         };
 
@@ -3058,7 +3067,7 @@ function exitChallenge() {
     updateChallenges();
 }
 
-function startChallenge(name) {
+function startChallenge(name, target) {
   if(player.options.challConf || name == "" ? true : confirm("You will start over with just your infinity upgrades and achievements. You need to reach infinity with special conditions. NOTE: The rightmost infinity upgrade column doesn't work on challenges.")) {
     if (player.currentChallenge != "") document.getElementById(player.currentChallenge).innerHTML = "Start"
     player = {
@@ -3144,6 +3153,7 @@ function startChallenge(name) {
       infinityDimension4: player.infinityDimension4,
       offlineProd: player.offlineProd,
       offlineProdCost: player.offlineProdCost,
+      challengeTarget: target,
       options: player.options
     };
 	if (player.currentChallenge == "challenge10") {
@@ -3370,7 +3380,7 @@ setInterval(function () {
         }
     }
         
-        if (player.money.lte(Number.MAX_VALUE) || (player.break && player.currentChallenge == "")) {
+        if (player.money.lte(Number.MAX_VALUE) || (player.break && player.currentChallenge == "") || (player.currentChallenge != "" && player.money.lte(player.challengeTarget))) {
       if (player.currentChallenge == "challenge3") {
         player.money = player.money.plus(getDimensionProductionPerSecond(1).times(diff/10).times(player.chall3Pow));
         player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(1).times(diff/10).times(player.chall3Pow));
@@ -3412,7 +3422,7 @@ setInterval(function () {
 
 
     
-    if (player.money.gte(Number.MAX_VALUE) && (!player.break || player.currentChallenge != "")) {
+    if (player.money.gte(Number.MAX_VALUE) && (!player.break || (player.currentChallenge != "" && player.money.gte(player.challengeTarget)))) {
         document.getElementById("bigcrunch").style.display = 'inline-block';
         if ((player.currentChallenge == "" || player.options.retryChallenge) && (player.bestInfinityTime <= 600 || player.break)) {}
         else showTab('emptiness');
@@ -3594,7 +3604,7 @@ setInterval(function () {
     document.getElementById("infinitybtn").style.display = "none";
     document.getElementById("challengesbtn").style.display = "none";
 
-    if (player.money.gte(Number.MAX_VALUE) && ((player.currentChallenge != "" && !player.options.retryChallenge) || (player.bestInfinityTime > 600 && !player.break))) {
+    if (player.money.gte(Number.MAX_VALUE) && (((player.currentChallenge != "" && player.money.gte(player.challengeTarget)) && !player.options.retryChallenge) || (player.bestInfinityTime > 600 && !player.break))) {
         document.getElementById("dimensionsbtn").style.display = "none";
         document.getElementById("optionsbtn").style.display = "none";
         document.getElementById("statisticsbtn").style.display = "none";
@@ -4035,47 +4045,47 @@ function scrollNextMessage() {
   scrollNextMessage();
 
 document.getElementById("challenge2").onclick = function () {
-  startChallenge("challenge2")
+  startChallenge("challenge2", new Decimal("1e1000"))
 }
 
 document.getElementById("challenge3").onclick = function () {
-  startChallenge("challenge3")
+  startChallenge("challenge3", Number.MAX_VALUE)
 }
 
 document.getElementById("challenge4").onclick = function () {
-  startChallenge("challenge4")
+  startChallenge("challenge4", Number.MAX_VALUE)
 }
 
 document.getElementById("challenge5").onclick = function () {
-  startChallenge("challenge5");
+  startChallenge("challenge5", Number.MAX_VALUE);
 }
 
 document.getElementById("challenge6").onclick = function () {
-  startChallenge("challenge6");
+  startChallenge("challenge6", Number.MAX_VALUE);
 }
 
 document.getElementById("challenge7").onclick = function () {
-  startChallenge("challenge7");
+  startChallenge("challenge7", Number.MAX_VALUE);
 }
 
 document.getElementById("challenge8").onclick = function () {
-  startChallenge("challenge8");
+  startChallenge("challenge8", Number.MAX_VALUE);
 }
 
 document.getElementById("challenge9").onclick = function () {
-  startChallenge("challenge9");
+  startChallenge("challenge9", Number.MAX_VALUE);
 }
 
 document.getElementById("challenge10").onclick = function () {
-  startChallenge("challenge10");
+  startChallenge("challenge10", Number.MAX_VALUE);
 }
 
 document.getElementById("challenge11").onclick = function () {
-    startChallenge("challenge11");
+    startChallenge("challenge11", Number.MAX_VALUE);
   }
 
 document.getElementById("challenge12").onclick = function () {
-  startChallenge("challenge12");
+  startChallenge("challenge12", Number.MAX_VALUE);
 }
 
 
