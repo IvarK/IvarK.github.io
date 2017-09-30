@@ -587,9 +587,7 @@ function updateMoney() {
 
 function updateCoinPerSec() {
     var element = document.getElementById("coinsPerSec");
-	if (player.currentChallenge == "postc1") {
-      element.innerHTML = 'You are getting ' + (shortenDimensions((getDimensionProductionPerSecond(1).plus(getDimensionProductionPerSecond(2)).times(player.chall3Pow)))) + ' antimatter per second.';
-    } else if (player.currentChallenge == "challenge3") {
+    if (player.currentChallenge == "challenge3" || player.currentChallenge == "postc1") {
       element.innerHTML = 'You are getting ' + shortenDimensions(getDimensionProductionPerSecond(1).times(player.chall3Pow)) + ' antimatter per second.';
     } else if (player.currentChallenge == "challenge7") {
       element.innerHTML = 'You are getting ' + (shortenDimensions(getDimensionProductionPerSecond(1).plus(getDimensionProductionPerSecond(2)))) + ' antimatter per second.';
@@ -618,7 +616,7 @@ function getDimensionFinalMultiplier(tier) {
     const name = TIER_NAMES[tier];
     if (player.currentChallenge == "postc2" && tier != player.postC2Tier) return 0; 
     let multiplier = new Decimal(player[name + 'Pow']);
-    if (player.currentChallenge == "challenge7" || player.currentChallenge == "postc1") {
+    if (player.currentChallenge == "challenge7") {
         if (tier == 4) multiplier = multiplier.pow(1.4)
         if (tier == 2) multiplier = multiplier.pow(1.7)
     }
@@ -675,7 +673,7 @@ function getDimensionRateOfChange(tier) {
     let toGain = getDimensionProductionPerSecond(tier + 1)
 
     const name = TIER_NAMES[tier];
-    if (player.currentChallenge == "challenge7" || player.currentChallenge == "postc1") {
+    if (player.currentChallenge == "challenge7") {
         if (tier == 7) return 0
         else toGain = getDimensionProductionPerSecond(tier + 2);
     }
@@ -1435,8 +1433,7 @@ function buyOneDimension(tier) {
     }
 
     if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0;
-    if (player.currentChallenge == "challenge8") clearDimensions(tier-1);
-    if (player.currentChallenge == "postc1") clearDimensions(tier-2);
+    if (player.currentChallenge == "challenge8" || player.currentChallenge == "postc1") clearDimensions(tier-1);
 
     onBuyDimension(tier);
     
@@ -1485,8 +1482,7 @@ function buyManyDimension(tier) {
     else multiplySameCosts(player[name + 'Cost']);  
     if (player[name + 'Cost'].gte(Number.MAX_VALUE)) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
     if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0;
-    if (player.currentChallenge == "challenge8") clearDimensions(tier-1);
-    if (player.currentChallenge == "postc1") clearDimensions(tier-2);
+    if (player.currentChallenge == "challenge8" || player.currentChallenge == "postc1") clearDimensions(tier-1);
 
     onBuyDimension(tier);
     
@@ -1549,7 +1545,7 @@ function buyManyDimensionAutobuyer(tier, bulk) {
         }
         if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1") && player.matter.equals(0)) player.matter = new Decimal(1);
         if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0;
-        if (player.currentChallenge == "postc1") clearDimensions(tier-2);
+        if (player.currentChallenge == "postc1") clearDimensions(tier-1);
         if (player.currentChallenge == "postc2") player.postC2Tier = tier;
 }
 
@@ -1760,8 +1756,7 @@ document.getElementById("maxall").onclick = function () {
                 player[name + "Amount"] = player[name + "Amount"].plus(10)
                 player[name + "Pow"] = player[name + "Pow"].times(getDimensionPowerMultiplier(tier))
                 if (player[name + 'Cost'].gte(Number.MAX_VALUE)) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
-                if (player.currentChallenge == "challenge8") clearDimensions(tier-1);
-                if (player.currentChallenge == "postc1") clearDimensions(tier-2);
+                if (player.currentChallenge == "challenge8" || player.currentChallenge == "postc1") clearDimensions(tier-1);
                     onBuyDimension(tier);
             }
             
@@ -2525,7 +2520,7 @@ function sacrifice() {
     player.eightPow = player.eightPow.times(calcSacrificeBoost())
     player.sacrificed = player.sacrificed.plus(player.firstAmount)
     if (player.currentChallenge != "challenge11") {
-        if (player.currentChallenge == "challenge7" || player.currentChallenge == "postc1") clearDimensions(6);
+        if (player.currentChallenge == "challenge7") clearDimensions(6);
         else clearDimensions(7);
         if (Decimal.max(Decimal.pow((Decimal.log10(Decimal.max(player.sacrificed, 1)) / 10.0), 2), 2) >= 600) giveAchievement("The Gods are pleased");
     } else {
@@ -3233,7 +3228,7 @@ function startChallenge(name, target) {
 
 function getDimensionProductionPerSecond(tier) {
     let ret = Decimal.floor(player[TIER_NAMES[tier] + 'Amount']).times(getDimensionFinalMultiplier(tier)).times(new Decimal(1000).dividedBy(player.tickspeed))
-    if (player.currentChallenge == "challenge7" || player.currentChallenge == "postc1") {
+    if (player.currentChallenge == "challenge7") {
         if (tier == 4) ret = Decimal.pow(Decimal.floor(player[TIER_NAMES[tier] + 'Amount']), 1.3).times(getDimensionFinalMultiplier(tier)).dividedBy(player.tickspeed.dividedBy(1000))
         else if (tier == 2) ret = Decimal.pow(Decimal.floor(player[TIER_NAMES[tier] + 'Amount']), 1.5).times(getDimensionFinalMultiplier(tier)).dividedBy(player.tickspeed.dividedBy(1000))
     }
@@ -3366,8 +3361,8 @@ setInterval(function () {
         else player.resets -= 2;
         softReset(1);
     }
-    player.chall3Pow = player.chall3Pow.times(Decimal.pow(1.00038, diff))
-    player.chall2Pow = Math.min(player.chall2Pow + diff/1800, 1)
+    if (player.currentChallenge == "challenge3" || player.matter.gte(1)) player.chall3Pow = player.chall3Pow.times(Decimal.pow(1.00038, diff));
+    player.chall2Pow = Math.min(player.chall2Pow + diff/1800, 1);
     if (player.infinityUpgrades.includes("passiveGen")) player.partInfinityPoint += diff / player.bestInfinityTime;
     if (player.partInfinityPoint >= 10) {
         player.partInfinityPoint -= 10;
@@ -3382,7 +3377,7 @@ setInterval(function () {
 
     player.infinityPoints = player.infinityPoints.plus(bestRunIppm * (player.offlineProd/100) * (diff/600))
 
-    if (player.currentChallenge != "challenge7" && player.currentChallenge != "postc1") {
+    if (player.currentChallenge != "challenge7") {
         for (let tier = 7; tier >= 1; --tier) {
             const name = TIER_NAMES[tier];
             
@@ -3407,10 +3402,6 @@ setInterval(function () {
       if (player.currentChallenge == "challenge7") {
           player.money = player.money.plus(getDimensionProductionPerSecond(2).times(diff/10));
           player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(2).times(diff/10))
-      }
-      if (player.currentChallenge == "postc1") {
-          player.money = player.money.plus(getDimensionProductionPerSecond(2).times(diff/10).times(player.chall3Pow));
-          player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(2).times(diff/10).times(player.chall3Pow))
       }
     }
 
@@ -3686,19 +3677,19 @@ setInterval(function () {
     document.getElementById("progressbar").innerHTML = Decimal.min((Decimal.log10(player.money.plus(1)) / Decimal.log10(Number.MAX_VALUE) * 100), 100).toFixed(2) + "%"
 
     
-    const scale1 = [2.82e-45,1e-42,7.23e-30,5e-21,9e-17,6.2e-11,5e-8,3.555e-6,7.5e-4,1,2.5e3,2.6006e6,3.3e8,5e12,4.5e17,1.08e21,1.53e24,1.41e27,5e32,8e36,1.7e45,1.7e48,3.3e55,3.3e61,5e68,1e73,3.4e80,1e113];
+    const scale1 = [2.82e-45,1e-42,7.23e-30,5e-21,9e-17,6.2e-11,5e-8,3.555e-6,7.5e-4,1,2.5e3,2.6006e6,3.3e8,5e12,4.5e17,1.08e21,1.53e24,1.41e27,5e32,8e36,1.7e45,1.7e48,3.3e55,3.3e61,5e68,1e73,3.4e80,1e113,Number.MAX_VALUE];
     const scale2 = [" protons."," nucleuses."," Hydrogen atoms."," viruses."," red blood cells."," grains of sand."," grains of rice."," teaspoons."," wine bottles."," fridge-freezers."," Olympic-sized swimming pools."," Great Pyramids of Giza."," Great Walls of China."," large asteroids.",
-                   " dwarf planets."," Earths."," Jupiters."," Suns."," red giants."," hypergiant stars."," nebulas."," Oort clouds."," Local Bubbles."," galaxies."," Local Groups."," Sculptor Voids."," observable universes."," Dimensions."];
+                   " dwarf planets."," Earths."," Jupiters."," Suns."," red giants."," hypergiant stars."," nebulas."," Oort clouds."," Local Bubbles."," galaxies."," Local Groups."," Sculptor Voids."," observable universes."," Dimensions.", " Infinity Dimensions."];
     var id = 0;
     if (player.money.times(4.22419e-105).gt(2.82e-45)) {
-        if (player.money.times(4.22419e-105).gt(1e113)) id = scale1.length - 1;
+        if (player.money.times(4.22419e-105).gt(scale1[scale1.length - 1])) id = scale1.length - 1;
         else {
             while (player.money.times(4.22419e-105).gt(scale1[id])) id++;
             if (id > 0) id--;
         }
         if (id >= 7 && id < 11) document.getElementById("infoScale").innerHTML = "If every antimatter were a planck volume, you would have enough to fill " + formatValue(player.options.notation, player.money * 4.22419e-105 / scale1[id], 2, 1) + scale2[id];
         else document.getElementById("infoScale").innerHTML = "If every antimatter were a planck volume, you would have enough to make " + formatValue(player.options.notation, player.money.times(4.22419e-105).dividedBy(scale1[id]), 2, 1) + scale2[id];
-    } else {
+    } else { //does this part work correctly? i doubt it does
         if (player.money.times(1e-54) < 2.82e-45) document.getElementById("infoScale").innerHTML = "If every antimatter were " + formatValue(player.options.notation,2.82e-45 / 1e-54 / player.money, 2, 1) + " attometers cubed, you would have enough to make a proton.";
         else if (player.money * 1e-63 < 2.82e-45) document.getElementById("infoScale").innerHTML = "If every antimatter were " + formatValue(player.options.notation,2.82e-45 / 1e-63 / player.money, 2, 1) + " zeptometers cubed, you would have enough to make a proton.";
         else if (player.money * 1e-72 < 2.82e-45) document.getElementById("infoScale").innerHTML = "If every antimatter were " + formatValue(player.options.notation,2.82e-45 / 1e-72 / player.money, 2, 1) + " yoctometers cubed, you would have enough to make a proton.";
