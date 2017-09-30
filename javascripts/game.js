@@ -627,16 +627,19 @@ function getDimensionFinalMultiplier(tier) {
         if (player.infinityUpgrades.includes("unspentBonus")) multiplier = multiplier.times(unspentBonus);
         if (player.achievements.includes("There's no point in doing that...")) multiplier = multiplier.times(1.1);
         if (player.achievements.includes("I forgot to nerf that")) multiplier = multiplier.times(1.05);
-        if (player.achievements.includes("ERROR 909: Dimension not found")) multiplier = multiplier.times(1.5);
+        if (player.achievements.includes("ERROR 909: Dimension not found")) multiplier = multiplier.times(3);
     }
     multiplier = multiplier.times(timeMult());
     if (tier == 8 && player.achievements.includes("The 9th Dimension is a lie")) multiplier = multiplier.times(1.1);
     else if (player.achievements.includes("You didn't need it anyway")) multiplier = multiplier.times(1.02);
     if (tier <= 4 && player.achievements.includes("Zero Deaths")) multiplier = multiplier.times(1.25);
     if (player.achievements.includes("Antichallenged")) multiplier = multiplier.times(1.1);
-    if (player.achievements.includes("Can't hold all these infinities")) multiplier = multiplier.times(1.1);
-    if (player.achievements.includes("End me") && player.currentChallenge != "") multiplier = multiplier.times(1.15);
+    if (player.achievements.includes("Can't hold all these infinities")) multiplier = multiplier.times(1.1); // tbd
+    if (player.achievements.includes("End me") && player.currentChallenge != "") multiplier = multiplier.times(1.4);
     if (player.achievements.includes("How the antitables have turned")) multiplier = multiplier.times(1+tier/100);
+    if (player.achievements.includes("Many Deaths") && player.thisInfinityTime < 1800) multiplier = multiplier.times(3600/(player.thisInfinityTime+1800))
+    if (player.achievements.includes("Blink of an eye") && player.thisInfinityTime < 3) multiplier = multiplier.times(3.3/(player.thisInfinityTime+0.3))
+
     return multiplier;
 }
 
