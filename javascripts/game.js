@@ -1080,6 +1080,10 @@ function softReset(bulk) {
             if (player.galaxies == 0) player.galaxies = 1
         }
     }
+	if (player.currentChallenge == "postc4") {
+        player.eightAmount = 1;
+        player.eightBought = 1;
+    }
 
    /* player.firstPow = Decimal.pow(2, player.resets + 1)
     player.secondPow = Decimal.pow(2, player.resets)
@@ -2276,7 +2280,11 @@ document.getElementById("secondSoftReset").onclick = function () {
                 if (player.galaxies == 0) player.galaxies = 1
             }
         }
-    
+        if (player.currentChallenge == "postc4") {
+            player.eightAmount = 1;
+            player.eightBought = 1;
+            player.resets = 4;
+        }
         player.firstPow = Decimal.pow(2, player.resets + 1)
         player.secondPow = Decimal.pow(2, player.resets)
         player.thirdPow = Decimal.max(Decimal.pow(2, player.resets - 1), 1)
@@ -3175,6 +3183,11 @@ function startChallenge(name, target) {
         player.eightCost = new Decimal(4e6)
     }
     if (player.currentChallenge == "postc1") player.costMultipliers = [new Decimal(1e3),new Decimal(5e3),new Decimal(1e4),new Decimal(1.2e4),new Decimal(1.8e4),new Decimal(2.6e4),new Decimal(3.2e4),new Decimal(4.2e4)];
+    if (player.currentChallenge == "postc4") {
+        player.eightAmount = 1;
+        player.eightBought = 1;
+        player.resets = 4;
+    }
     if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
     if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.98);
     updateCosts();
@@ -3346,7 +3359,7 @@ setInterval(function() {
         }
 }, 1000)
 
-
+var postC4Count = 0;
 
 setInterval(function () {
     var thisUpdate = new Date().getTime();
@@ -3364,6 +3377,11 @@ setInterval(function () {
     }
     if (player.currentChallenge == "challenge3" || player.matter.gte(1)) player.chall3Pow = player.chall3Pow.times(Decimal.pow(1.00038, diff));
     player.chall2Pow = Math.min(player.chall2Pow + diff/1800, 1);
+    postC4Count++;
+    if (postC4Count >= 8 || diff > 300) {
+        sacrifice();
+        postC4Count = 0;
+    }
     if (player.infinityUpgrades.includes("passiveGen")) player.partInfinityPoint += diff / player.bestInfinityTime;
     if (player.partInfinityPoint >= 10) {
         player.partInfinityPoint -= 10;
