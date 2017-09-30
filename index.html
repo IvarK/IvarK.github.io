@@ -587,207 +587,214 @@
         
         <div id="challenges" class="tab">
             <br>
-            <button class="storebtn" style="font-size: 100%; width:200px" onclick="exitChallenge()">Exit Challenge</button>
-            
-    <table class="table" style="margin: 0 auto">
-      <tr>
-        <td>
-          <div class= "challengediv">
-            <span style="font-size: 110%">Reach infinity for the first time.</span>
-            <br>
-            <br>
-            <div class="outer">
-                <button id="challenge1" class="challengesbtn">Start</button>
-              <br>
-              <span>Reward: First Dimension autobuyer</span>
-            </div>
-          </div>
-        </td>
-        <td>
-          <div class= "challengediv">
-            <span style="font-size: 110%">Buying anything halts your production, gradually coming back over 3 minutes.</span>
-            <br>
-            <br>
-            
-            <div class="outer">
-              
-              <button id="challenge2" class="challengesbtn">Start</button>
-              <br>
-              <span>Reward: Second Dimension autobuyer</span>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-         <td>
-          <div class= "challengediv">
-            <span style="font-size: 110%">First dimension is heavily weakened but gets an exponentially increasing bonus that resets on reset.</span>
-            <br>
-            <br>
-            
-            <div class="outer">
-              
-              <button id="challenge3" class="challengesbtn">Start</button>
-              <br>
-              <span>Reward: Third Dimension autobuyer</span>
-            </div>
-          </div>
-        </td>
-        <td>
-            <div class= "challengediv">
-                <span style="font-size: 110%">Buying a dimension automatically erases all lower tier dimensions, like a sacrifice without the boost.</span>
-                <br>
-                <br>
-                
-                <div class="outer">
-                
-                <button id="challenge8" class="challengesbtn">Start</button>
-                <br>
-                <span>Reward: Fourth Dimension autobuyer</span>
-                </div>
-            </div>
-            </td>
-            </tr>
+            <button class="storebtn" style="font-size: 100%; width:200px" onclick="exitChallenge()">Exit Challenge</button><br><br>
             <tr>
-                <td>
-                    <div class= "challengediv">
-                      <span style="font-size: 110%">Tickspeed starts at 7%.</span>
-                      <br>
-                      <br>
-                      
-                      <div class="outer">
-                        
-                        <button id="challenge6" class="challengesbtn">Start</button>
-                        <br>
-                        <span>Reward: Fifth Dimension autobuyer</span>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                        <div class= "challengediv">
-                          <span style="font-size: 110%">Each dimension costs the dimension 2 before it, with modified prices</span>
-                          <br>
-                          <br>
-                         
-                          <div class="outer">
-                            
-                            <button id="challenge10" class="challengesbtn">Start</button>
-                            <br>
-                            <span>Reward: Sixth Dimension autobuyer</span>
-                          </div>
-                        </div>
-                      </td>
-                      </tr>
-                      <tr>
-                            <td>
+                <td><button class="secondarytabbtn" onclick="showChallengesTab('challenges')">Challenges</button><td>
+                <td><button class="secondarytabbtn" onclick="showChallengesTab('breakchallenges')">Break challenges</button><td>
+            </tr>
+            <div id="challenges" class="challengeTab">
+                <table class="table" style="margin: 0 auto">
+                    <tr>
+                        <td>
                             <div class= "challengediv">
-                              <span style="font-size: 110%">Multiplier per 10 dimensions is random from 0.30 and 10</span>
-                              <br>
-                              <br>
-                              
-                              <div class="outer">
-                                
-                                <button id="challenge9" class="challengesbtn">Start</button>
+                                <span style="font-size: 110%">Reach infinity for the first time.</span>
                                 <br>
-                                <span>Reward: Seventh Dimension autobuyer</span>
-                              </div>
+                                <br>
+                                <div class="outer">
+                                    <button id="challenge1" class="challengesbtn">Start</button>
+                                    <br>
+                                    <span>Reward: First Dimension autobuyer</span>
+                                </div>
                             </div>
-                          </td>
-                                <td>
-                                 <div class= "challengediv">
-                                   <span style="font-size: 110%">Dimension Boost and galaxies are useless, sacrifice resets everything but is immensely more powerful</span>
-                                   <br>
-                                   <br>
-                                   
-                                   <div class="outer">
-                                     
-                                     <button id="challenge11" class="challengesbtn">Start</button>
-                                     <br>
-                                     <span>Reward: Eighth Dimension autobuyer</span>
-                                   </div>
-                                 </div>
-                               </td>
-                            </tr>
-                            <tr>
-                                    <td>
-                                            <div class= "challengediv">
-                                              <span style="font-size: 110%">Whenever you buy 10 of a dimension or tickspeed, everything else of equal cost will increase to its next cost step.</span>
-                                              <br>
-                                              <br>
-                                              
-                                              <div class="outer">
-                                                
-                                                <button id="challenge5" class="challengesbtn">Start</button>
-                                                <br>
-                                                <span>Reward: Tickspeed autobuyer</span>
-                                              </div>
-                                            </div>
-                                          </td>
-         <td>
-          <div class= "challengediv">
-            <span style="font-size: 110%">There are only 6 dimensions, with dimension boost and antimatter galaxy costs modified.</span>
-            <br>
-            <br>
-            
-            <div class="outer">
-              
-              <button id="challenge4" class="challengesbtn">Start</button>
-              <br>
-              <span>Reward: Automated Dimension Boosts</span>
+                        </td>
+                        <td>
+                            <div class= "challengediv">
+                                <span style="font-size: 110%">Buying anything halts your production, gradually coming back over 3 minutes.</span>
+                                <br>
+                                <br>
+                                
+                                <div class="outer">
+                                    
+                                    <button id="challenge2" class="challengesbtn">Start</button>
+                                    <br>
+                                    <span>Reward: Second Dimension autobuyer</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class= "challengediv">
+                                <span style="font-size: 110%">First dimension is heavily weakened but gets an exponentially increasing bonus that resets on reset.</span>
+                                <br>
+                                <br>
+                                
+                                <div class="outer">
+                                    
+                                    <button id="challenge3" class="challengesbtn">Start</button>
+                                    <br>
+                                    <span>Reward: Third Dimension autobuyer</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class= "challengediv">
+                                <span style="font-size: 110%">Buying a dimension automatically erases all lower tier dimensions, like a sacrifice without the boost.</span>
+                                <br>
+                                <br>
+                                
+                                <div class="outer">
+                                
+                                    <button id="challenge8" class="challengesbtn">Start</button>
+                                    <br>
+                                    <span>Reward: Fourth Dimension autobuyer</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class= "challengediv">
+                                <span style="font-size: 110%">Tickspeed starts at 7%.</span>
+                                <br>
+                                <br>
+                                
+                                <div class="outer">
+                                
+                                    <button id="challenge6" class="challengesbtn">Start</button>
+                                    <br>
+                                    <span>Reward: Fifth Dimension autobuyer</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class= "challengediv">
+                                <span style="font-size: 110%">Each dimension costs the dimension 2 before it, with modified prices</span>
+                                <br>
+                                <br>
+                                
+                                <div class="outer">
+                                
+                                    <button id="challenge10" class="challengesbtn">Start</button>
+                                    <br>
+                                    <span>Reward: Sixth Dimension autobuyer</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class= "challengediv">
+                                <span style="font-size: 110%">Multiplier per 10 dimensions is random from 0.30 and 10</span>
+                                <br>
+                                <br>
+                                
+                                <div class="outer">
+                                
+                                    <button id="challenge9" class="challengesbtn">Start</button>
+                                    <br>
+                                    <span>Reward: Seventh Dimension autobuyer</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class= "challengediv">
+                                <span style="font-size: 110%">Dimension Boost and galaxies are useless, sacrifice resets everything but is immensely more powerful</span>
+                                <br>
+                                <br>
+                                
+                                <div class="outer">
+                                    
+                                    <button id="challenge11" class="challengesbtn">Start</button>
+                                    <br>
+                                    <span>Reward: Eighth Dimension autobuyer</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class= "challengediv">
+                                <span style="font-size: 110%">Whenever you buy 10 of a dimension or tickspeed, everything else of equal cost will increase to its next cost step.</span>
+                                <br>
+                                <br>
+                                
+                                <div class="outer">
+                                
+                                    <button id="challenge5" class="challengesbtn">Start</button>
+                                    <br>
+                                    <span>Reward: Tickspeed autobuyer</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class= "challengediv">
+                                <span style="font-size: 110%">There are only 6 dimensions, with dimension boost and antimatter galaxy costs modified.</span>
+                                <br>
+                                <br>
+                                
+                                <div class="outer">
+                                    
+                                    <button id="challenge4" class="challengesbtn">Start</button>
+                                    <br>
+                                    <span>Reward: Automated Dimension Boosts</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class= "challengediv">
+                                <span style="font-size: 110%">There's normal matter which rises. If it exceeds your antimatter, it will (soft) reset.</span>
+                                <br>
+                                <br>
+                                
+                                <div class="outer">
+                                
+                                    <button id="challenge12" class="challengesbtn">Start</button>
+                                    <br>
+                                    <span>Reward: Automated Galaxies</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class= "challengediv">
+                                <span style="font-size: 110%">Each dimension produces the dimension 2 below it; first dimensions produce reduced antimatter.</span>
+                                <br>
+                                <br>
+                                
+                                <div class="outer">
+                                    
+                                    <button id="challenge7" class="challengesbtn">Start</button>
+                                    <br>
+                                    <span>Reward: Automated Big Crunches</span>
+                                </div>
+                            </div>
+                        </td>  
+                    </tr>
+                </table>
             </div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-            <td>
-                    <div class= "challengediv">
-                      <span style="font-size: 110%">There's normal matter which rises. If it exceeds your antimatter, it will (soft) reset.</span>
-                      <br>
-                      <br>
-                      
-                      <div class="outer">
-                        
-                        <button id="challenge12" class="challengesbtn">Start</button>
-                        <br>
-                        <span>Reward: Automated Galaxies</span>
-                      </div>
-                    </div>
-                  </td>
-         <td>
-          <div class= "challengediv">
-            <span style="font-size: 110%">Each dimension produces the dimension 2 below it; first dimensions produce reduced antimatter.</span>
-            <br>
-            <br>
-            
-            <div class="outer">
-              
-              <button id="challenge7" class="challengesbtn">Start</button>
-              <br>
-              <span>Reward: Automated Big Crunches</span>
+            <div id="breakchallenges" class="challengeTab">
+                <button class="storebtn" onclick="startChallenge('postc1', new Decimal('1e1000'))">postChall1</button>
+                <button class="storebtn" onclick="startChallenge('postc2', new Decimal('1e1000'))">postChall2</button>
             </div>
-          </div>
-        </td>
-         
-      </tr>
-     
-    </table>
-    <div>
-        <table id="footer">
-            <tr>
-                <td>
-                    <div style="text-align:center">
-                        <a href="howto.html" target="_newtab">How to play  </a> |
-                        <a href="about.html" target="_newtab">Donate   </a> |
-                        <a href="changelog.html" target="_newtab">Changelog   </a> |
-                        <a href="https://discord.gg/ST9NaXa" target="_newtab">Discord</a> |
-                        <a href="https://www.reddit.com/r/AntimatterDimensions/" target="_newtab">Subreddit</a>
+            <table id="footer">
+                <tr>
+                    <td>
+                        <div style="text-align:center">
+                            <a href="howto.html" target="_newtab">How to play  </a> |
+                            <a href="about.html" target="_newtab">Donate   </a> |
+                            <a href="changelog.html" target="_newtab">Changelog   </a> |
+                            <a href="https://discord.gg/ST9NaXa" target="_newtab">Discord</a> |
+                            <a href="https://www.reddit.com/r/AntimatterDimensions/" target="_newtab">Subreddit</a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+       
     
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </div>
-          </div>
+       
         
         <div id="infinity" class="tab" align="center">
             <br>
