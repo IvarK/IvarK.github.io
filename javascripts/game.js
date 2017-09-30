@@ -623,8 +623,9 @@ function getDimensionFinalMultiplier(tier) {
         if (tier == 2) multiplier = multiplier.pow(1.7)
     }
     multiplier = multiplier.times(player.achPow);
-
-    multiplier = multiplier.times(Decimal.max(Decimal.pow(player.infinityPower, 7), 1))
+    
+    if (player.currentChallenge == "postc3") multiplier = multiplier.times(Decimal.max(Decimal.pow(player.infinityPower, 14), 1))
+    else multiplier = multiplier.times(Decimal.max(Decimal.pow(player.infinityPower, 7), 1))
     
     if (player.infinityUpgrades.includes("totalMult")) multiplier = multiplier.times(totalMult)
     if (player.infinityUpgrades.includes("currentMult")) multiplier = multiplier.times(currentMult)
@@ -1174,7 +1175,8 @@ function getTickSpeedMultiplier() {
     if (player.galaxies < 3) {
         let baseMultiplier = 0.9;
         if (player.galaxies == 0) baseMultiplier = 0.89
-        if (player.currentChallenge == "challenge6" || player.currentChallenge == "postc1") baseMultiplier = 0.93
+        if (player.currentChallenge == "challenge6" || player.currentChallenge == "postc1") baseMultiplier = 0.93;
+        if (player.currentChallenge == "postc3") return 1;
         let perGalaxy = 0.02;
         
         if (player.infinityUpgrades.includes("galaxyBoost")) {
@@ -1188,6 +1190,7 @@ function getTickSpeedMultiplier() {
     } else {
         let baseMultiplier = 0.8
         if (player.currentChallenge == "challenge6" || player.currentChallenge == "postc1") baseMultiplier = 0.83
+        if (player.currentChallenge == "postc3") baseMultiplier = 1;
         let perGalaxy = 0.965
         let galaxies = player.galaxies-2
         if (player.infinityUpgrades.includes("galaxyBoost")) {
@@ -3267,7 +3270,8 @@ document.getElementById("quickReset").onclick = function () {
 
 function updateInfPower() {
     document.getElementById("infPowAmount").innerHTML = shortenMoney(player.infinityPower)
-    document.getElementById("infDimMultAmount").innerHTML = shortenMoney(Decimal.pow(player.infinityPower, 7))
+    if (player.currentChallenge == "postc3") document.getElementById("infDimMultAmount").innerHTML = shortenMoney(Decimal.pow(player.infinityPower, 14))
+    else document.getElementById("infDimMultAmount").innerHTML = shortenMoney(Decimal.pow(player.infinityPower, 7))
     document.getElementById("infPowPerSec").innerHTML = "You are getting " +shortenDimensions(getInfinityDimensionProduction(1))+" Infinity Power per second."
 }
 
