@@ -1071,6 +1071,7 @@ function softReset(bulk) {
         player.seventhCost = new Decimal(2e5)
         player.eightCost = new Decimal(4e6)
     }
+    if (player.currentChallenge == "postc1") player.costMultipliers = [new Decimal(1e3),new Decimal(5e3),new Decimal(1e4),new Decimal(1.2e4),new Decimal(1.8e4),new Decimal(2.6e4),new Decimal(3.2e4),new Decimal(4.2e4)];
     if (player.resets == 1 && player.currentChallenge == "") {
         if (player.infinityUpgrades.includes("skipReset2")) player.resets++;
         if (player.infinityUpgrades.includes("skipReset3")) player.resets++;
@@ -1212,7 +1213,7 @@ function buyTickSpeed() {
     }
     
     player.money = player.money.minus(player.tickSpeedCost);
-    if (player.currentChallenge != "challenge5" && player.currentChallenge !== "postc1") player.tickSpeedCost = player.tickSpeedCost.times(player.tickspeedMultiplier);
+    if (player.currentChallenge != "challenge5") player.tickSpeedCost = player.tickSpeedCost.times(player.tickspeedMultiplier);
     else multiplySameCosts(player.tickSpeedCost)
     if (player.tickSpeedCost.gte(Number.MAX_VALUE)) player.tickspeedMultiplier = player.tickspeedMultiplier.times(player.tickSpeedMultDecrease);
     if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0
@@ -1357,9 +1358,8 @@ function clearDimensions(amount) {
 
 function getDimensionCostMultiplier(tier) {
 
-	const multiplier2 = [new Decimal(1e3),new Decimal(5e3),new Decimal(1e4),new Decimal(1e4),new Decimal(2e4),new Decimal(2e4),new Decimal(4e4),new Decimal(4e4)]
-    
-    if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") return multiplier2[tier - 1];
+	const multiplier2 = [new Decimal(1e3),new Decimal(5e3),new Decimal(1e4),new Decimal(1.2e4),new Decimal(1.8e4),new Decimal(2.6e4),new Decimal(3.2e4),new Decimal(4.2e4)];
+    if (player.currentChallenge == "challenge10") return multiplier2[tier - 1];
     else return player.costMultipliers[tier - 1];
 }
 
@@ -1425,7 +1425,7 @@ function buyOneDimension(tier) {
     if (player[name + 'Bought'] === 10) {
         player[name + 'Bought'] = 0;
         player[name + 'Pow']  = player[name + 'Pow'].times(getDimensionPowerMultiplier(tier));
-        if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc1") player[name + 'Cost'] = player[name + 'Cost'].times((getDimensionCostMultiplier(tier)));
+        if (player.currentChallenge != "challenge5") player[name + 'Cost'] = player[name + 'Cost'].times((getDimensionCostMultiplier(tier)));
         
         else multiplySameCosts(cost);
         if (player[name + 'Cost'].gte(Number.MAX_VALUE)) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
@@ -1530,7 +1530,7 @@ function buyManyDimensionAutobuyer(tier, bulk) {
             var x = bulk
             while (player.money.gte(player[name + "Cost"].times(10)) && x > 0) {
                 player.money = player.money.minus(player[name + "Cost"].times(10))
-                if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc1") player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
+                if (player.currentChallenge != "challenge5") player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
                 else multiplySameCosts(player[name + 'Cost'])
                 player[name + "Amount"] = player[name + "Amount"].plus(10)
                 player[name + "Pow"] = player[name + "Pow"].times(getDimensionPowerMultiplier(tier))
@@ -3174,6 +3174,7 @@ function startChallenge(name, target) {
         player.seventhCost = new Decimal(2e5)
         player.eightCost = new Decimal(4e6)
     }
+    if (player.currentChallenge == "postc1") player.costMultipliers = [new Decimal(1e3),new Decimal(5e3),new Decimal(1e4),new Decimal(1.2e4),new Decimal(1.8e4),new Decimal(2.6e4),new Decimal(3.2e4),new Decimal(4.2e4)];
     if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
     if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.98);
     updateCosts();
