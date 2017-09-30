@@ -637,8 +637,9 @@ function getDimensionFinalMultiplier(tier) {
     if (player.achievements.includes("Can't hold all these infinities")) multiplier = multiplier.times(1.1); // tbd
     if (player.achievements.includes("End me") && player.currentChallenge != "") multiplier = multiplier.times(1.4);
     if (player.achievements.includes("How the antitables have turned")) multiplier = multiplier.times(1+tier/100);
-    if (player.achievements.includes("Many Deaths") && player.thisInfinityTime < 1800) multiplier = multiplier.times(3600/(player.thisInfinityTime+1800))
-    if (player.achievements.includes("Blink of an eye") && player.thisInfinityTime < 3) multiplier = multiplier.times(3.3/(player.thisInfinityTime+0.3))
+    if (player.achievements.includes("Many Deaths") && player.thisInfinityTime < 1800) multiplier = multiplier.times(3600/(player.thisInfinityTime+1800));
+    if (player.achievements.includes("Blink of an eye") && player.thisInfinityTime < 3) multiplier = multiplier.times(3.3/(player.thisInfinityTime+0.3));
+    if (player.achievements.includes("This achievement doesn't exist")) multiplier = multiplier.times(1+Decimal.pow(player.antimatter,0.00002));
 
     return multiplier;
 }
