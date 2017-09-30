@@ -3377,11 +3377,12 @@ setInterval(function () {
     }
     if (player.currentChallenge == "challenge3" || player.matter.gte(1)) player.chall3Pow = player.chall3Pow.times(Decimal.pow(1.00038, diff));
     player.chall2Pow = Math.min(player.chall2Pow + diff/1800, 1);
-    postC4Count++;
-    if (postC4Count >= 8 || diff > 300) {
+    if (player.currentChallenge == "postc4") {
+      postC4Count++;
+      if (postC4Count >= 8 || diff > 300) {
         sacrifice();
         postC4Count = 0;
-    }
+    }}
     if (player.infinityUpgrades.includes("passiveGen")) player.partInfinityPoint += diff / player.bestInfinityTime;
     if (player.partInfinityPoint >= 10) {
         player.partInfinityPoint -= 10;
