@@ -81,25 +81,29 @@ var player = {
         cost: 1e8,
         amount: new Decimal(0),
         bought: 0,
-        power: 1
+        power: 1,
+        baseAmount: 0
     },
     infinityDimension2 : {
         cost: 1e9,
         amount: new Decimal(0),
         bought: 0,
-        power: 1
+        power: 1,
+        baseAmount: 0
     },
     infinityDimension3 : {
         cost: 1e10,
         amount: new Decimal(0), 
         bought: 0,
-        power: 1
+        power: 1,
+        baseAmount: 0
     },
     infinityDimension4 : {
         cost: 1e20,
         amount: new Decimal(0),
         bought: 0,
-        power: 1
+        power: 1,
+        baseAmount: 0
     },
     offlineProd: 0,
     offlineProdCost: 1e7,
@@ -253,6 +257,17 @@ function onLoad() {
             power: 1
         }
         player.infDimensionsUnlocked = [false, false, false, false]
+    }
+
+    if (player.infinityDimension1.baseAmount === undefined) {
+        player.infinityDimension1.baseAmount = 0;
+        player.infinityDimension2.baseAmount = 0;
+        player.infinityDimension3.baseAmount = 0;
+        player.infinityDimension4.baseAmount = 0;
+
+        player.infinityDimension1.baseAmount = new Decimal(player.infinityDimension1.power).log(50).times(10)
+
+
     }
 
     
@@ -614,7 +629,7 @@ function hasInfinityMult(tier) {
 
 function getDimensionFinalMultiplier(tier) {
     const name = TIER_NAMES[tier];
-    if (player.currentChallenge == "postc2" && tier != player.postC2Tier) return 0; 
+    if (player.currentChallenge == "postc2" && tier != player.postC2Tier) return new Decimal(0); 
     let multiplier = new Decimal(player[name + 'Pow']);
     if (player.currentChallenge == "challenge7") {
         if (tier == 4) multiplier = multiplier.pow(1.4)
