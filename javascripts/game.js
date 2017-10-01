@@ -266,6 +266,9 @@ function onLoad() {
         player.infinityDimension4.baseAmount = 0;
 
         player.infinityDimension1.baseAmount = new Decimal(player.infinityDimension1.power).log(50).times(10)
+        player.infinityDimension2.baseAmount = new Decimal(player.infinityDimension2.power).log(30).times(10)
+        player.infinityDimension3.baseAmount = new Decimal(player.infinityDimension3.power).log(10).times(10)
+        player.infinityDimension4.baseAmount = new Decimal(player.infinityDimension4.power).log(5).times(10)
 
 
     }
@@ -662,10 +665,12 @@ function getDimensionFinalMultiplier(tier) {
     if (player.achievements.includes("End me") && player.currentChallenge != "") multiplier = multiplier.times(1.15);
     if (player.achievements.includes("How the antitables have turned")) multiplier = multiplier.times(1+tier/100);
 
-    if (player.currentChallenge == "postc2") {
+    if (player.currentChallenge == "postc3") {
         if (player.postC2Tier == tier) return Decimal.pow(multiplier, 2);
-        else return Decimal.pow(multiplier, 0.5);
+        else return Decimal.pow(multiplier, 0.25);
     }
+
+    if (player.challenges.includes("postc3") && tier == player.postC2Tier) return Decimal.pow(multiplier, 2);
 
     return multiplier;
 }
@@ -1404,7 +1409,7 @@ function onBuyDimension(tier) {
         giveAchievement("The 9th Dimension is a lie");
     }
 
-    if (player.currentChallenge == "postc2") player.postC2Tier = tier;
+    player.postC2Tier = tier;
 
 
     updateMoney();
@@ -1571,7 +1576,7 @@ function buyManyDimensionAutobuyer(tier, bulk) {
         if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1") && player.matter.equals(0)) player.matter = new Decimal(1);
         if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0;
         if (player.currentChallenge == "postc1") clearDimensions(tier-1);
-        if (player.currentChallenge == "postc2") player.postC2Tier = tier;
+        player.postC2Tier = tier;
 }
 
 const infCostMults = [null, 1e3, 1e6, 1e8, 1e10]
@@ -1586,6 +1591,7 @@ function buyManyInfinityDimension(tier) {
     dim.amount = dim.amount.plus(10);
     dim.cost *= infCostMults[tier]
     dim.power *= infPowerMults[tier]
+    dim.baseAmount += 10
     
 
 }
