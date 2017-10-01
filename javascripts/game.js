@@ -629,7 +629,7 @@ function hasInfinityMult(tier) {
 
 function getDimensionFinalMultiplier(tier) {
     const name = TIER_NAMES[tier];
-    if (player.currentChallenge == "postc2" && tier != player.postC2Tier) return new Decimal(0); 
+   
     let multiplier = new Decimal(player[name + 'Pow']);
     if (player.currentChallenge == "challenge7") {
         if (tier == 4) multiplier = multiplier.pow(1.4)
@@ -661,6 +661,12 @@ function getDimensionFinalMultiplier(tier) {
     if (player.achievements.includes("Can't hold all these infinities")) multiplier = multiplier.times(1.1);
     if (player.achievements.includes("End me") && player.currentChallenge != "") multiplier = multiplier.times(1.15);
     if (player.achievements.includes("How the antitables have turned")) multiplier = multiplier.times(1+tier/100);
+
+    if (player.currentChallenge == "postc2") {
+        if (player.postC2Tier == tier) return Decimal.pow(multiplier, 2);
+        else return Decimal.pow(multiplier, 0.5);
+    }
+
     return multiplier;
 }
 
