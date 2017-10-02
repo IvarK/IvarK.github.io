@@ -3852,8 +3852,10 @@ setInterval(function() {
                                     
                             }
                             else {
-                                if (priority[i].bulk > 20) buyManyDimensionAutobuyer(priority[i].target, Math.floor(priority[i].bulk/10)-1);
-                                for (var j=-10; j<priority[i].bulk%10;j++) buyOneDimension(priority[i].target);
+                                if (priority[i].bulk > 10) {
+				    if (priority[i].bulk > 20) buyManyDimensionAutobuyer(priority[i].target, Math.floor(priority[i].bulk/10)-1);
+                                    for (var j=-10; j<priority[i].bulk%10;j++) buyOneDimension(priority[i].target);
+				} else for (var j=0; j<priority[i].bulk;j++) buyOneDimension(priority[i].target);
                             }
                         }
                         priority[i].ticks = 0;
