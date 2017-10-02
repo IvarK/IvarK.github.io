@@ -672,6 +672,8 @@ function getDimensionFinalMultiplier(tier) {
         else return Decimal.pow(multiplier, 0.25);
     }
 
+    multiplier = multiplier.times(player.postC3Reward)
+
     if (player.challenges.includes("postc2")) return Decimal.pow(multiplier, 1.2);
 
     return multiplier;
@@ -1251,7 +1253,7 @@ function buyTickSpeed() {
     if (player.tickSpeedCost.gte(Number.MAX_VALUE)) player.tickspeedMultiplier = player.tickspeedMultiplier.times(player.tickSpeedMultDecrease);
     if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0
     player.tickspeed = player.tickspeed.times(getTickSpeedMultiplier());
-    if (player.challenges.includes("postc3")) player.postC3Reward *= 0.05+(player.galaxies*0.005)
+    if (player.challenges.includes("postc3") || player.currentChallenge == "postc3") player.postC3Reward *= 0.05+(player.galaxies*0.005)
     return true;
 }
 
@@ -1270,7 +1272,8 @@ function buyMaxTickSpeed() {
         else multiplySameCosts(player.tickSpeedCost)
         if (player.tickSpeedCost.gte(Number.MAX_VALUE)) player.tickspeedMultiplier = player.tickspeedMultiplier.times(player.tickSpeedMultDecrease);
         player.tickspeed = player.tickspeed.times(getTickSpeedMultiplier());
-        if (player.currentChallenge == "t") player.chall2Pow = 0
+        if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0
+        if (player.challenges.includes("postc3") || player.currentChallenge == "postc3") player.postC3Reward *= 1.05+(player.galaxies*0.005)
     }
 
     
