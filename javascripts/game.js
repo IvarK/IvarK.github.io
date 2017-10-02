@@ -77,6 +77,7 @@ var player = {
     infinityPower: new Decimal(1),
     spreadingCancer: 0,
     postC2Tier: 0,
+    postC3Reward: 1,
     infinityDimension1 : {
         cost: 1e8,
         amount: new Decimal(0),
@@ -214,6 +215,7 @@ function onLoad() {
     if (player.partInfinitied === undefined) player.partInfinitied = 0
     if (player.spreadingCancer === undefined) player.spreadingCancer = 0
     if (player.postC2Tier === undefined) player.postC2Tier = 0
+    if (player.postC3Reward === undefined) player.postC3Reward = 1
     if (player.offlineProd === undefined) player.offlineProd = 0
     if (player.offlineProdCost === undefined) player.offlineProdCost = 1e7
     if (player.challengeTarget === undefined) {
@@ -1080,6 +1082,7 @@ function softReset(bulk) {
         infinityPower: player.infinityPower,
         spreadingCancer: player.spreadingCancer,
         postC2Tier: 1,
+        postC3Reward: 1,
         infinityDimension1: player.infinityDimension1,
         infinityDimension2: player.infinityDimension2,
         infinityDimension3: player.infinityDimension3,
@@ -1219,7 +1222,7 @@ function getTickSpeedMultiplier() {
     } else {
         let baseMultiplier = 0.8
         if (player.currentChallenge == "challenge6" || player.currentChallenge == "postc1") baseMultiplier = 0.83
-        if (player.currentChallenge == "postc3") baseMultiplier = 1;
+        if (player.currentChallenge == "postc3") return 1;
         let perGalaxy = 0.965
         let galaxies = player.galaxies-2
         if (player.infinityUpgrades.includes("galaxyBoost")) {
@@ -1248,6 +1251,7 @@ function buyTickSpeed() {
     if (player.tickSpeedCost.gte(Number.MAX_VALUE)) player.tickspeedMultiplier = player.tickspeedMultiplier.times(player.tickSpeedMultDecrease);
     if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0
     player.tickspeed = player.tickspeed.times(getTickSpeedMultiplier());
+    if (player.challenges.includes("postc3")) player.postC3Reward *= 0.05+(player.galaxies*0.005)
     return true;
 }
 
@@ -2279,6 +2283,7 @@ document.getElementById("secondSoftReset").onclick = function () {
             infDimensionsUnlocked: player.infDimensionsUnlocked,
             infinityPower: player.infinityPower,
             postC2Tier: 1,
+            postC3Reward: 1,
             infinityDimension1: player.infinityDimension1,
             infinityDimension2: player.infinityDimension2,
             infinityDimension3: player.infinityDimension3,
@@ -3007,6 +3012,7 @@ document.getElementById("bigcrunch").onclick = function () {
         dimensionMultDecreaseCost: player.dimensionMultDecreaseCost,
         version: player.version,
         postC2Tier: 1,
+        postC3Reward: 1,
         overXGalaxies: player.overXGalaxies,
         spreadingCancer: player.spreadingCancer,
         infDimensionsUnlocked: player.infDimensionsUnlocked,
@@ -3188,6 +3194,7 @@ function startChallenge(name, target) {
       dimensionMultDecreaseCost: player.dimensionMultDecreaseCost,
       version: player.version,
       postC2Tier: 1,
+      postC3Reward: 1,
       overXGalaxies: player.overXGalaxies,
       spreadingCancer: player.spreadingCancer,
       infDimensionsUnlocked: player.infDimensionsUnlocked,
