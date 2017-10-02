@@ -775,11 +775,64 @@
                 </table>
             </div>
             <div id="breakchallenges" class="challengeTab">
-
-                <button id="postc1" class="storebtn" onclick="startChallenge('postc1', new Decimal('1e850'))">all prebreak challenges (except 9/12) at once</button>
-                <button id="postc2" class="storebtn" onclick="startChallenge('postc2', new Decimal('1e10000'))">only latest bought dimension is active</button>
-                <button id="postc3" class="storebtn" onclick="startChallenge('postc3', new Decimal('1e10000'))">infinity power power is squared, but tickspeed is nerfed</button>
-                <button id="postc4" class="storebtn" onclick="startChallenge('postc4', new Decimal('1e10000'))">automatically sacrifice every 8 ticks; start with 8th dim</button>
+                <table  class="table" style="margin: 0 auto">
+                    <tr>
+                        <td>
+                            <div class="challengediv" id="postc1div" style="height: 125px">
+                                <span>All previous challenges (except tickspeed challenge and automatic big crunch challenge) at once.</span>
+                                <br>
+                                <br>
+                                <div class="outer">
+                                    <button id="postc1" class="challengesbtn" onclick="startChallenge('postc1', new Decimal('1e850'))">Start</button>
+                                    <br>
+                                    <span>Goal: 1e850</span><br>
+                                    <span>Reward: You get to fuck ass</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                                <div class="challengediv" id="postc2div" style="height: 125px">
+                                    <span>Only latest bought dimension production is normal, all other dimensions produce less.</span>
+                                    <br>
+                                    <br>
+                                    <div class="outer">
+                                        <button id="postc2" class="challengesbtn" onclick="startChallenge('postc2', new Decimal('1e7000'))">Start</button>
+                                        <br>
+                                        <span>Goal: 1e7000</span><br>
+                                        <span>Reward: All normal dimension multipliers become multiplier^1.2</span>
+                                    </div>
+                                </div>
+                            </td>
+                    </tr>
+                    <tr>
+                            <td>
+                                <div class="challengediv" id="postc3div" style="height: 125px">
+                                    <span>Tickspeed interval decrease is always at 0%, but every tickspeed purchase you get a static multiplier on all dimensions (increases with galaxies).</span>
+                                    <br>
+                                    <br>
+                                    <div class="outer">
+                                        <button id="postc3" class="challengesbtn" onclick="startChallenge('postc3', new Decimal('1e850'))">Start</button>
+                                        <br>
+                                        <span>Goal: (temp) 1e10000</span><br>
+                                        <span>Reward: Static multiplier on each tickspeed purchase</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                    <div class="challengediv" id="postc4div" style="height: 125px">
+                                        <span>Automatically sacrifice ever 8 ticks once you have 8th Dimension.</span>
+                                        <br>
+                                        <br>
+                                        <div class="outer">
+                                            <button id="postc4" class="challengesbtn" onclick="startChallenge('postc4', new Decimal('1e7000'))">Start</button>
+                                            <br>
+                                            <span>Goal: (temp) 1e10000</span><br>
+                                            <span>Reward: Sacrifice autobuyer and more powerful sacrifice</span>
+                                        </div>
+                                    </div>
+                                </td>
+                        </tr>
+                </table>
 
             </div>
             <table id="footer">

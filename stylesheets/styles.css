@@ -85,13 +85,14 @@
     background: #F2F2F2;
     font-weight: bold;
     font-family: Typewriter;
-    border: 3px solid black;
+    border: 2px solid black;
     border-radius: 10px;
     font-size: 80%;
     transition-duration: 0.2s;
     padding: 2px;
     margin: 3px 8px;
     position: relative;
+    border-radius: 5px;
   }
   
 

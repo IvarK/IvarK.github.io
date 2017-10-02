@@ -665,12 +665,12 @@ function getDimensionFinalMultiplier(tier) {
     if (player.achievements.includes("End me") && player.currentChallenge != "") multiplier = multiplier.times(1.15);
     if (player.achievements.includes("How the antitables have turned")) multiplier = multiplier.times(1+tier/100);
 
-    if (player.currentChallenge == "postc3") {
-        if (player.postC2Tier == tier) return Decimal.pow(multiplier, 2);
+    if (player.currentChallenge == "postc2") {
+        if (player.postC2Tier == tier) return multiplier;
         else return Decimal.pow(multiplier, 0.25);
     }
 
-    if (player.challenges.includes("postc3") && tier == player.postC2Tier) return Decimal.pow(multiplier, 2);
+    if (player.challenges.includes("postc2")) return Decimal.pow(multiplier, 1.2);
 
     return multiplier;
 }
@@ -1615,16 +1615,16 @@ function resetInfDimensions() {
         player.infinityPower = new Decimal(0)
     }
     if (player.infDimensionsUnlocked[3] && player.infinityDimension4.amount != 0){
-        player.infinityDimension3.amount = new Decimal(0)
-        player.infinityDimension2.amount = new Decimal(0)
-        player.infinityDimension1.amount = new Decimal(0)
+        player.infinityDimension3.amount = new Decimal(player.infinityDimension3.baseAmount)
+        player.infinityDimension2.amount = new Decimal(player.infinityDimension2.baseAmount)
+        player.infinityDimension1.amount = new Decimal(player.infinityDimension1.baseAmount)
     } 
     else if (player.infDimensionsUnlocked[2] && player.infinityDimension3.amount != 0){
-        player.infinityDimension2.amount = new Decimal(0)
-        player.infinityDimension1.amount = new Decimal(0)
+        player.infinityDimension2.amount = new Decimal(player.infinityDimension2.baseAmount)
+        player.infinityDimension1.amount = new Decimal(player.infinityDimension1.baseAmount)
     } 
     else if (player.infDimensionsUnlocked[1] && player.infinityDimension2.amount != 0){
-        player.infinityDimension1.amount = new Decimal(0)
+        player.infinityDimension1.amount = new Decimal(player.infinityDimension1.baseAmount)
     }
     
 }
@@ -2924,7 +2924,7 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.currentChallenge != "" && !player.challenges.includes(player.currentChallenge)) {
             player.challenges.push(player.currentChallenge);
         }
-        if (!player.break) {
+        if (!player.break || player.currentChallenge != "") {
             player.infinityPoints = player.infinityPoints.plus(player.infMult);
             addTime(player.thisInfinityTime, player.infMult)
         }
@@ -4233,6 +4233,7 @@ function init() {
     showInfTab('preinf')
     showStatsTab('stats')
     showDimTab('antimatterdimensions')
+    showChallengesTab('challenges')
     load_game();
     updateTickSpeed();
     updateAutobuyers();
