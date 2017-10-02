@@ -2455,7 +2455,7 @@ document.getElementById("reset").onclick = function () {
 
 function breakInfinity() {
     if (player.autobuyers[11]%1 === 0 || player.autobuyers[11].interval>100) return false
-    if (player.break) {
+    if (player.break && !player.currentChallenge.includes("post")) {
         player.break = false
         document.getElementById("break").innerHTML = "BREAK INFINITY"
     } else {
@@ -3052,7 +3052,8 @@ document.getElementById("bigcrunch").onclick = function () {
         player.eightPow = Decimal.max(Decimal.pow(2, player.resets - 6), 1)
 
 
-        
+        if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1") document.getElementById("matter").style.display = "block";
+        else document.getElementById("matter").style.display = "none";
 
         if (player.infinityUpgrades.includes("resetMult")) {
             player.firstPow = Decimal.pow(2.5, player.resets + 1)
@@ -3225,6 +3226,8 @@ function startChallenge(name, target) {
         player.eightBought = 1;
         player.resets = 4;
     }
+
+    if (player.currentChallenge.includes("post")) player.break = true
     if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
     if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.98);
     updateCosts();
