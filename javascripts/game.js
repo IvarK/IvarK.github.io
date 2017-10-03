@@ -647,8 +647,7 @@ function getDimensionFinalMultiplier(tier) {
     }
     multiplier = multiplier.times(player.achPow);
     
-    if (player.currentChallenge == "postc3") multiplier = multiplier.times(Decimal.max(Decimal.pow(player.infinityPower, 14), 1))
-    else multiplier = multiplier.times(Decimal.max(Decimal.pow(player.infinityPower, 7), 1))
+    multiplier = multiplier.times(Decimal.max(Decimal.pow(player.infinityPower, 7), 1))
     
     if (player.infinityUpgrades.includes("totalMult")) multiplier = multiplier.times(totalMult)
     if (player.infinityUpgrades.includes("currentMult")) multiplier = multiplier.times(currentMult)
@@ -679,7 +678,7 @@ function getDimensionFinalMultiplier(tier) {
 
     multiplier = multiplier.times(player.postC3Reward)
 
-    if (player.challenges.includes("postc4")) return Decimal.pow(multiplier, 1.2);
+    if (player.challenges.includes("postc4")) return Decimal.pow(multiplier, 1.1);
 
     return multiplier;
 }
@@ -989,7 +988,7 @@ function getInfinityDimensionRateOfChange(tier) {
 
 function updateInfinityDimensions() {
     for (let tier = 1; tier <= 4; ++tier) {
-        document.getElementById("infD"+tier).innerHTML = DISPLAY_NAMES[tier] + " Infinity Dimension x" + shortenDimensions(player["infinityDimension"+tier].power);
+        document.getElementById("infD"+tier).innerHTML = DISPLAY_NAMES[tier] + " Infinity Dimension x" + shortenDimensions(player["infinityDimension"+tier].power).times(infDimPow);
         document.getElementById("infAmount"+tier).innerHTML = getInfinityDimensionDescription(tier);  
     }
 
@@ -1615,12 +1614,12 @@ function buyManyInfinityDimension(tier) {
 
 
 
-
+var infDimPow = 1
 
 function getInfinityDimensionProduction(tier) {
     var dim = player["infinityDimension"+tier]
 
-    return dim.amount.times(dim.power)
+    return dim.amount.times(dim.power).times(infDimPow)
 }
 
 
@@ -2559,7 +2558,7 @@ function resetDimensions() {
 function calcSacrificeBoost() {
     if (player.firstAmount == 0) return new Decimal(1);
     if (player.challenges.includes("postc2")) {
-        return Decimal.max(Decimal.pow(player.firstAmount, 0.05).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.05), 1)), 1)
+        return Decimal.max(Decimal.pow(player.firstAmount, 0.01).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.01), 1)), 1)
     }
     if (player.currentChallenge != "challenge11") {
         var sacrificePow=2;
@@ -3351,8 +3350,7 @@ document.getElementById("quickReset").onclick = function () {
 
 function updateInfPower() {
     document.getElementById("infPowAmount").innerHTML = shortenMoney(player.infinityPower)
-    if (player.currentChallenge == "postc3") document.getElementById("infDimMultAmount").innerHTML = shortenMoney(Decimal.pow(player.infinityPower, 14))
-    else document.getElementById("infDimMultAmount").innerHTML = shortenMoney(Decimal.pow(player.infinityPower, 7))
+    document.getElementById("infDimMultAmount").innerHTML = shortenMoney(Decimal.pow(player.infinityPower, 7))
     document.getElementById("infPowPerSec").innerHTML = "You are getting " +shortenDimensions(getInfinityDimensionProduction(1))+" Infinity Power per second."
 }
 
@@ -3438,6 +3436,10 @@ setInterval(function() {
     if (player.money.gte(nextAt[player.postChallUnlocked])) {
         player.postChallUnlocked += 1
         updateChallenges()
+    }
+    infDimPow = 1
+    for (var i=0; i < player.challenges; i++) {
+        if (player.challenges[i].includes("post")) infDimPow *= 1.5
     }
 
 }, 1000)
@@ -4098,7 +4100,9 @@ function scrollNextMessage() {
     if (!player.options.newsHidden) {
         if (!player.newsArray.includes(msg.index)) player.newsArray.push(msg.index);
         if (player.newsArray.length>=50 && !player.achievements.includes("Fake News")) giveAchievement("Fake News") 
-    } 
+    }
+
+    if (player.achievements.includes("Fake News")) player.newsArray = []
 
 
     //set the transition duration
