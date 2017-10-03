@@ -3438,7 +3438,7 @@ setInterval(function() {
         updateChallenges()
     }
     infDimPow = 1
-    for (var i=0; i < player.challenges; i++) {
+    for (var i=0; i < player.challenges.length; i++) {
         if (player.challenges[i].includes("post")) infDimPow *= 1.5
     }
 
