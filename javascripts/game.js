@@ -76,7 +76,8 @@ var player = {
     infDimensionsUnlocked: [false, false, false, false],
     infinityPower: new Decimal(1),
     spreadingCancer: 0,
-    postC2Tier: 0,
+    postChallUnlocked: 0,
+    postC4Tier: 0,
     postC3Reward: 1,
     infinityDimension1 : {
         cost: 1e8,
@@ -215,11 +216,12 @@ function onLoad() {
     if (player.overXGalaxies === undefined) player.overXGalaxies = 10;
     if (player.partInfinitied === undefined) player.partInfinitied = 0
     if (player.spreadingCancer === undefined) player.spreadingCancer = 0
-    if (player.postC2Tier === undefined) player.postC2Tier = 0
+    if (player.postC4Tier === undefined) player.postC4Tier = 0
     if (player.postC3Reward === undefined) player.postC3Reward = 1
     if (player.offlineProd === undefined) player.offlineProd = 0
     if (player.offlineProdCost === undefined) player.offlineProdCost = 1e7
     if (player.autoSacrifice === undefined) player.autoSacrifice = 1
+    if (player.postChallUnlocked === undefined) player.postChallUnlocked = 0
     if (player.challengeTarget === undefined) {
         player.challengeTarget = 0
         if (player.currentChallenge != "") player.challengeTarget = Number.MAX_VALUE
@@ -322,7 +324,7 @@ function onLoad() {
     
     loadAutoBuyerSettings();
     updateLastTenRuns()
-    if (player.currentChallenge == "challenge12" || player.currentChallenge == "challenge9" || player.currentChallenge == "challenge5" || player.currentChallenge == "postc1" || player.currentChallenge == "postc2") document.getElementById("quickReset").style.display = "inline-block";
+    if (player.currentChallenge == "challenge12" || player.currentChallenge == "challenge9" || player.currentChallenge == "challenge5" || player.currentChallenge == "postc1" || player.currentChallenge == "postc4") document.getElementById("quickReset").style.display = "inline-block";
     else document.getElementById("quickReset").style.display = "none";
  
 
@@ -670,14 +672,14 @@ function getDimensionFinalMultiplier(tier) {
     if (player.achievements.includes("End me") && player.currentChallenge != "") multiplier = multiplier.times(1.15);
     if (player.achievements.includes("How the antitables have turned")) multiplier = multiplier.times(1+tier/100);
 
-    if (player.currentChallenge == "postc2") {
-        if (player.postC2Tier == tier) return multiplier;
+    if (player.currentChallenge == "postc4") {
+        if (player.postC4Tier == tier) return multiplier;
         else return Decimal.pow(multiplier, 0.25);
     }
 
     multiplier = multiplier.times(player.postC3Reward)
 
-    if (player.challenges.includes("postc2")) return Decimal.pow(multiplier, 1.2);
+    if (player.challenges.includes("postc4")) return Decimal.pow(multiplier, 1.2);
 
     return multiplier;
 }
@@ -948,6 +950,11 @@ function updateChallenges() {
             document.getElementById(player.currentChallenge).className = "onchallengebtn"
             document.getElementById(player.currentChallenge).innerHTML = "Running"
         }
+
+        for (var i=1; i<=player.postChallUnlocked; i++) document.getElementById("postc"+i+"div").style.display = "inline-block"
+
+
+
     } catch (err) {updateChallenges()}
   
 
@@ -1086,7 +1093,8 @@ function softReset(bulk) {
         infDimensionsUnlocked: player.infDimensionsUnlocked,
         infinityPower: player.infinityPower,
         spreadingCancer: player.spreadingCancer,
-        postC2Tier: 1,
+        postChallUnlocked: player.postChallUnlocked,
+        postC4Tier: 1,
         postC3Reward: 1,
         infinityDimension1: player.infinityDimension1,
         infinityDimension2: player.infinityDimension2,
@@ -1115,7 +1123,7 @@ function softReset(bulk) {
             if (player.galaxies == 0) player.galaxies = 1
         }
     }
-	if (player.currentChallenge == "postc4") {
+	if (player.currentChallenge == "postc2") {
         player.eightAmount = new Decimal(1);
         player.eightBought = 1;
     }
@@ -1418,7 +1426,7 @@ function onBuyDimension(tier) {
         giveAchievement("The 9th Dimension is a lie");
     }
 
-    player.postC2Tier = tier;
+    player.postC4Tier = tier;
 
 
     updateMoney();
@@ -1585,7 +1593,7 @@ function buyManyDimensionAutobuyer(tier, bulk) {
         if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1") && player.matter.equals(0)) player.matter = new Decimal(1);
         if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0;
         if (player.currentChallenge == "postc1") clearDimensions(tier-1);
-        player.postC2Tier = tier;
+        player.postC4Tier = tier;
 }
 
 const infCostMults = [null, 1e3, 1e6, 1e8, 1e10]
@@ -2287,7 +2295,8 @@ document.getElementById("secondSoftReset").onclick = function () {
             spreadingCancer: player.spreadingCancer,
             infDimensionsUnlocked: player.infDimensionsUnlocked,
             infinityPower: player.infinityPower,
-            postC2Tier: 1,
+            postChallUnlocked: player.postChallUnlocked,
+            postC4Tier: 1,
             postC3Reward: 1,
             infinityDimension1: player.infinityDimension1,
             infinityDimension2: player.infinityDimension2,
@@ -2318,7 +2327,7 @@ document.getElementById("secondSoftReset").onclick = function () {
                 if (player.galaxies == 0) player.galaxies = 1
             }
         }
-        if (player.currentChallenge == "postc4") {
+        if (player.currentChallenge == "postc2") {
             player.eightAmount = new Decimal(1);
             player.eightBought = 1;
             player.resets = 4;
@@ -2549,7 +2558,7 @@ function resetDimensions() {
 
 function calcSacrificeBoost() {
     if (player.firstAmount == 0) return new Decimal(1);
-    if (player.challenges.includes("postc4")) {
+    if (player.challenges.includes("postc2")) {
         return Decimal.max(Decimal.pow(player.firstAmount, 0.05).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.05), 1)), 1)
     }
     if (player.currentChallenge != "challenge11") {
@@ -2695,7 +2704,7 @@ function updateAutobuyers() {
         document.getElementById("autoBuyerGalaxies").style.display = "inline-block"
     }
 
-    if (player.challenges.includes("postc4") && player.autoSacrifice == 1) {
+    if (player.challenges.includes("postc2") && player.autoSacrifice == 1) {
         player.autoSacrifice = autoSacrifice
         document.getElementById("autoBuyerSac").style.display = "inline-block"
     }
@@ -3035,7 +3044,8 @@ document.getElementById("bigcrunch").onclick = function () {
         dimensionMultDecrease: player.dimensionMultDecrease,
         dimensionMultDecreaseCost: player.dimensionMultDecreaseCost,
         version: player.version,
-        postC2Tier: 1,
+        postChallUnlocked: player.postChallUnlocked,
+        postC4Tier: 1,
         postC3Reward: 1,
         overXGalaxies: player.overXGalaxies,
         spreadingCancer: player.spreadingCancer,
@@ -3218,7 +3228,8 @@ function startChallenge(name, target) {
       dimensionMultDecrease: player.dimensionMultDecrease,
       dimensionMultDecreaseCost: player.dimensionMultDecreaseCost,
       version: player.version,
-      postC2Tier: 1,
+      postChallUnlocked: player.postChallUnlocked,
+      postC4Tier: 1,
       postC3Reward: 1,
       overXGalaxies: player.overXGalaxies,
       spreadingCancer: player.spreadingCancer,
@@ -3243,7 +3254,7 @@ function startChallenge(name, target) {
         player.eightCost = new Decimal(4e6)
     }
     if (player.currentChallenge == "postc1") player.costMultipliers = [new Decimal(1e3),new Decimal(5e3),new Decimal(1e4),new Decimal(1.2e4),new Decimal(1.8e4),new Decimal(2.6e4),new Decimal(3.2e4),new Decimal(4.2e4)];
-    if (player.currentChallenge == "postc4") {
+    if (player.currentChallenge == "postc2") {
         player.eightAmount = new Decimal(1);
         player.eightBought = 1;
         player.resets = 4;
@@ -3268,7 +3279,7 @@ function startChallenge(name, target) {
     document.getElementById("eightRow").style.display= "none";
     if (name == "challenge12" || player.currentChallenge == "postc1") document.getElementById("matter").style.display = "block";
     else document.getElementById("matter").style.display = "none";
-    if (name == "challenge12" || name == "challenge9" || name == "challenge5" || player.currentChallenge == "postc1" || player.currentChallenge == "postc2") document.getElementById("quickReset").style.display = "inline-block";
+    if (name == "challenge12" || name == "challenge9" || name == "challenge5" || player.currentChallenge == "postc1" || player.currentChallenge == "postc4") document.getElementById("quickReset").style.display = "inline-block";
     else document.getElementById("quickReset").style.display = "none";
     updateTickSpeed();
     showTab('dimensions');
@@ -3393,6 +3404,8 @@ setInterval(function() {
     } catch (err) {console.log("Couldn't load Kongregate API")}
 }, 10000)
 
+const nextAt = [new Decimal("1e2000"), new Decimal("1e5000"), new Decimal("1e10000"), new Decimal("1e14000"), new Decimal("1e3000003")]
+
 setInterval(function() {
     if (getDimensionFinalMultiplier(1).gte(new Decimal("1e308")) &&
         getDimensionFinalMultiplier(2).gte(new Decimal("1e308")) &&
@@ -3410,17 +3423,27 @@ setInterval(function() {
         getDimensionFinalMultiplier(5).lt(getDimensionFinalMultiplier(6)) &&
         getDimensionFinalMultiplier(6).lt(getDimensionFinalMultiplier(7)) &&
         getDimensionFinalMultiplier(7).lt(getDimensionFinalMultiplier(8))) giveAchievement("How the antitables have turned")
-        if (blink && !player.achievements.includes("Blink of an eye")) {
-            document.getElementById("Blink of an eye").style.display = "none"
-            blink = false
-        }
-        else {
-            document.getElementById("Blink of an eye").style.display = "block"
-            blink = true
-        }
+
+
+    if (blink && !player.achievements.includes("Blink of an eye")) {
+        document.getElementById("Blink of an eye").style.display = "none"
+        blink = false
+    }
+    else {
+        document.getElementById("Blink of an eye").style.display = "block"
+        blink = true
+    }
+
+    document.getElementById("nextchall").innerHTML = "Next challenge unlocks at "+ shortenCosts(nextAt[player.postChallUnlocked]) + " antimatter."
+    if (player.money.gte(nextAt[player.postChallUnlocked])) {
+        player.postChallUnlocked += 1
+        updateChallenges()
+    }
+
 }, 1000)
 
-var postC4Count = 0;
+var postC2Count = 0;
+
 
 setInterval(function () {
     var thisUpdate = new Date().getTime();
@@ -3438,11 +3461,11 @@ setInterval(function () {
     }
     if (player.currentChallenge == "challenge3" || player.matter.gte(1)) player.chall3Pow = player.chall3Pow.times(Decimal.pow(1.00038, diff));
     player.chall2Pow = Math.min(player.chall2Pow + diff/1800, 1);
-    if (player.currentChallenge == "postc4") {
-      postC4Count++;
-      if (postC4Count >= 8 || diff > 300) {
+    if (player.currentChallenge == "postc2") {
+      postC2Count++;
+      if (postC2Count >= 8 || diff > 300) {
         sacrifice();
-        postC4Count = 0;
+        postC2Count = 0;
     }}
     if (player.infinityUpgrades.includes("passiveGen")) player.partInfinityPoint += diff / player.bestInfinityTime;
     if (player.partInfinityPoint >= 10) {
