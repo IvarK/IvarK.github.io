@@ -971,7 +971,7 @@ function getInfinityDimensionDescription(tier) {
 
 
 function getInfinityDimensionRateOfChange(tier) {
-    let toGain = player["infinityDimension"+(tier+1)].amount
+    let toGain = player["infinityDimension"+(tier+1)].amount.times(player["infinityDimension"+(tier+1)].power)
     const current = Decimal.max(player["infinityDimension"+tier].amount, 1);
     const change  = toGain.times(10).dividedBy(current);
     return change;
