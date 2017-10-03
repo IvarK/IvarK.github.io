@@ -3844,7 +3844,7 @@ function autoBuyerTick() {
         if (player.autobuyers[11]%1 !== 0) {
             if (player.autobuyers[11].ticks*100 >= player.autobuyers[11].interval && player.money.gte(Number.MAX_VALUE)) {
                 if (player.autobuyers[11].isOn) {
-                    if (!player.break) {
+                    if (!player.break || player.currentChallenge != "") {
                         document.getElementById("bigcrunch").click()
                     } else if (player.autobuyers[11].priority <= gainedInfinityPoints()) {
                         document.getElementById("bigcrunch").click()
