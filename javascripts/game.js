@@ -2930,7 +2930,7 @@ function checkForEndMe() {
 document.getElementById("bigcrunch").onclick = function () {
     var challNumber = parseInt(player.currentChallenge[player.currentChallenge.length-1])
     if (player.currentChallenge.length == 11) challNumber = parseInt("1"+player.currentChallenge[player.currentChallenge.length-1])
-    if (player.money.gte(Number.MAX_VALUE)) {
+    if ((player.money.gte(Number.MAX_VALUE) && !player.currentChallenge.includes("post")) || player.money.gte(player.target)) {
         if (!player.achievements.includes("That's fast!") && player.thisInfinityTime <= 72000) giveAchievement("That's fast!");
         if (player.thisInfinityTime <= 6000) giveAchievement("That's faster!")
         if (player.thisInfinityTime <= 600) giveAchievement("Forever isn't that long")
@@ -3840,83 +3840,83 @@ function dimBoolean() {
 
 
 function autoBuyerTick() {
-    if (!player.infinityUpgrades.includes("autobuyerUpgrade")) {
-        if (player.autobuyers[11]%1 !== 0) {
-            if (player.autobuyers[11].ticks*100 >= player.autobuyers[11].interval && player.money.gte(Number.MAX_VALUE)) {
-                if (player.autobuyers[11].isOn) {
-                    if (!player.break || player.currentChallenge != "") {
-                        document.getElementById("bigcrunch").click()
-                    } else if (player.autobuyers[11].priority <= gainedInfinityPoints()) {
-                        document.getElementById("bigcrunch").click()
-                    }
-                    
-                    player.autobuyers[11].ticks = 1;
-                } 
-            } else player.autobuyers[11].ticks += 1;
+    
+    if (player.autobuyers[11]%1 !== 0) {
+    if (player.autobuyers[11].ticks*100 >= player.autobuyers[11].interval && player.money.gte(Number.MAX_VALUE)) {
+        if (player.autobuyers[11].isOn) {
+            if (!player.break || player.currentChallenge != "") {
+                document.getElementById("bigcrunch").click()
+            } else if (player.autobuyers[11].priority <= gainedInfinityPoints()) {
+                document.getElementById("bigcrunch").click()
+            }
             
+            player.autobuyers[11].ticks = 1;
+        } 
+    } else player.autobuyers[11].ticks += 1;
+
+    }
+
+
+    if (player.autobuyers[10]%1 !== 0) {
+        if (player.autobuyers[10].ticks*100 >= player.autobuyers[10].interval && (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() : player.eightAmount >= getGalaxyRequirement())) {
+            if (player.autobuyers[10].isOn && player.autobuyers[10].priority > player.galaxies) {
+                document.getElementById("secondSoftReset").click()
+                player.autobuyers[10].ticks = 1;
+            } 
+        } else player.autobuyers[10].ticks += 1;
+    }
+
+
+    if (player.autobuyers[9]%1 !== 0) {
+        if (dimBoolean()) {
+            if (player.autobuyers[9].isOn) {
+                if (player.resets < 4) softReset(1)
+                else softReset(player.autobuyers[9].bulk)
+                player.autobuyers[9].ticks = 1;
+            } 
+        } else player.autobuyers[9].ticks += 1;
+    }
+
+    if (player.autoSacrifice%1 !== 0) {
+        if (calcSacrificeBoost().gte(player.autoSacrifice.priority) && player.autoSacrifice.isOn) {
+            sacrifice()
         }
-
-
-            if (player.autobuyers[10]%1 !== 0) {
-                if (player.autobuyers[10].ticks*100 >= player.autobuyers[10].interval && (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() : player.eightAmount >= getGalaxyRequirement())) {
-                    if (player.autobuyers[10].isOn && player.autobuyers[10].priority > player.galaxies) {
-                        document.getElementById("secondSoftReset").click()
-                        player.autobuyers[10].ticks = 1;
-                    } 
-                } else player.autobuyers[10].ticks += 1;
-            }
-
-
-            if (player.autobuyers[9]%1 !== 0) {
-                if (dimBoolean()) {
-                    if (player.autobuyers[9].isOn) {
-                        if (player.resets < 4) softReset(1)
-                        else softReset(player.autobuyers[9].bulk)
-                        player.autobuyers[9].ticks = 1;
-                    } 
-                } else player.autobuyers[9].ticks += 1;
-            }
-
-            if (player.autoSacrifice%1 !== 0) {
-                if (calcSacrificeBoost().gte(player.autoSacrifice.priority) && player.autoSacrifice.isOn) {
-                    sacrifice()
-                }
-            }
+    }
 
 
 
 
-            for (var i=0; i<priority.length; i++) {
-                if (priority[i].ticks*100 >= priority[i].interval || priority[i].interval == 100) {
-                    if ((priority[i].isOn && canBuyDimension(priority[i].tier)) ) {
-                        if (priority[i] == player.autobuyers[8] ) {
-                            if (priority[i].target == 10) buyMaxTickSpeed()
-                            else buyTickSpeed()
-                        } else {
-                            if (priority[i].target > 10) {
-                                
-                                    buyManyDimensionAutobuyer(priority[i].target-10, priority[i].bulk)
-                                    
-                            }
-                            else {
-                                buyOneDimension(priority[i].target)
-                            }
-                        }
-                        priority[i].ticks = 0;
+    for (var i=0; i<priority.length; i++) {
+        if (priority[i].ticks*100 >= priority[i].interval || priority[i].interval == 100) {
+            if ((priority[i].isOn && canBuyDimension(priority[i].tier)) ) {
+                if (priority[i] == player.autobuyers[8] ) {
+                    if (priority[i].target == 10) buyMaxTickSpeed()
+                    else buyTickSpeed()
+                } else {
+                    if (priority[i].target > 10) {
+                        
+                            buyManyDimensionAutobuyer(priority[i].target-10, priority[i].bulk)
+                            
                     }
-                } else priority[i].ticks += 1;
+                    else {
+                        buyOneDimension(priority[i].target)
+                    }
+                }
+                priority[i].ticks = 0;
             }
-            updateCosts()
-        }
+        } else priority[i].ticks += 1;
+    }
+    updateCosts()
+
 }
 
 
 setInterval(function() {
-    autoBuyerTick()
+    if (!player.infinityUpgrades.includes("autobuyerUpgrade")) autoBuyerTick()
 }, 100)
 
 setInterval(function() {
-    autoBuyerTick()
+    if (player.infinityUpgrades.includes("autobuyerUpgrade")) autoBuyerTick()
 }, 50)
 
 /*function cheat() {
