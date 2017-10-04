@@ -609,7 +609,7 @@ function updateMoney() {
     var element2 = document.getElementById("matter");
     if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1") element2.innerHTML = "There is " + formatValue(player.options.notation, player.matter, 2, 1) + " matter.";
     if (player.currentChallenge == "postc6") element2.innerHTML = "There is " + formatValue(player.options.notation, Decimal.pow(player.matter,20), 2, 1) + " matter.";
-}}
+}
 
 function updateCoinPerSec() {
     var element = document.getElementById("coinsPerSec");
