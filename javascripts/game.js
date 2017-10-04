@@ -327,7 +327,9 @@ function onLoad() {
     
     loadAutoBuyerSettings();
     updateLastTenRuns()
-    if (player.currentChallenge == "challenge12" || player.currentChallenge == "challenge9" || player.currentChallenge == "challenge5" || player.currentChallenge == "postc1" || player.currentChallenge == "postc4" || player.currentChallenge == "postc5") document.getElementById("quickReset").style.display = "inline-block";
+
+    if (player.currentChallenge == "challenge12" || player.currentChallenge == "challenge9" || player.currentChallenge == "challenge5" ||
+        player.currentChallenge == "postc1" || player.currentChallenge == "postc4" || player.currentChallenge == "postc5" || player.currentChallenge == "postc6") document.getElementById("quickReset").style.display = "inline-block";
     else document.getElementById("quickReset").style.display = "none";
  
 
@@ -338,7 +340,7 @@ function onLoad() {
     
 
 
-    if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1") document.getElementById("matter").style.display = "inline-block";
+    if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") document.getElementById("matter").style.display = "inline-block";
     else document.getElementById("matter").style.display = "none";
 
     var achievements = document.getElementsByClassName('achievement');
@@ -608,10 +610,10 @@ function formatValue(notation, value, places, placesUnder1000) {
 function updateMoney() {
     var element = document.getElementById("coinAmount");
     element.innerHTML = formatValue(player.options.notation, player.money, 2, 1);
-    if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1") {
-	var element2 = document.getElementById("matter");
-	element2.innerHTML = "There is " + formatValue(player.options.notation, player.matter, 2, 1) + " matter.";
-}}
+    var element2 = document.getElementById("matter");
+    if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1") element2.innerHTML = "There is " + formatValue(player.options.notation, player.matter, 2, 1) + " matter.";
+    if (player.currentChallenge == "postc6") element2.innerHTML = "There is " + formatValue(player.options.notation, Decimal.pow(player.matter,20), 2, 1) + " matter.";
+}
 
 function updateCoinPerSec() {
     var element = document.getElementById("coinsPerSec");
@@ -3110,7 +3112,7 @@ document.getElementById("bigcrunch").onclick = function () {
         player.eightPow = Decimal.max(Decimal.pow(2, player.resets - 6), 1)
 
 
-        if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1") document.getElementById("matter").style.display = "block";
+        if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") document.getElementById("matter").style.display = "block";
         else document.getElementById("matter").style.display = "none";
 
         if (player.infinityUpgrades.includes("resetMult")) {
@@ -3303,9 +3305,10 @@ function startChallenge(name, target) {
     document.getElementById("sixthRow").style.display= "none";
     document.getElementById("seventhRow").style.display= "none";
     document.getElementById("eightRow").style.display= "none";
-    if (name == "challenge12" || player.currentChallenge == "postc1") document.getElementById("matter").style.display = "block";
+    if (name == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") document.getElementById("matter").style.display = "block";
     else document.getElementById("matter").style.display = "none";
-    if (name == "challenge12" || name == "challenge9" || name == "challenge5" || player.currentChallenge == "postc1" || player.currentChallenge == "postc4" || player.currentChallenge == "postc5") document.getElementById("quickReset").style.display = "inline-block";
+
+    if (name == "challenge12" || name == "challenge9" || name == "challenge5" || player.currentChallenge == "postc1" || player.currentChallenge == "postc4" || player.currentChallenge == "postc5" || player.currentChallenge == "postc6") document.getElementById("quickReset").style.display = "inline-block";
     else document.getElementById("quickReset").style.display = "none";
     updateTickSpeed();
     showTab('dimensions');
@@ -3345,6 +3348,7 @@ function getDimensionProductionPerSecond(tier) {
         else if (tier == 2) ret = Decimal.pow(Decimal.floor(player[TIER_NAMES[tier] + 'Amount']), 1.5).times(getDimensionFinalMultiplier(tier)).dividedBy(player.tickspeed.dividedBy(1000))
     }
     if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") ret = ret.times(player.chall2Pow)
+    if (player.currentChallenge == "postc6") ret = ret.dividedBy(Decimal.pow(player.matter,20))
     return ret;
 }
 
@@ -3483,7 +3487,8 @@ setInterval(function () {
     if (diff < 0) diff = 1;
     if (player.thisInfinityTime < -10) player.thisInfinityTime = Infinity
     if (player.bestInfinityTime < -10) player.bestInfinityTime = Infinity
-    player.matter = player.matter.times(Decimal.pow((1.02 + player.resets/200 + player.galaxies/100), diff))
+    if (player.currentChallenge == "postc6" && player.matter.gte(1)) player.matter = player.matter.plus(diff/10)
+    else player.matter = player.matter.times(Decimal.pow((1.02 + player.resets/200 + player.galaxies/100), diff));
     if (player.matter.gt(player.money) && (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1")) {
         if (player.resets == 0) player.resets--;
         else player.resets -= 2;
