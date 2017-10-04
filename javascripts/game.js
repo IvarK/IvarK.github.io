@@ -4307,11 +4307,11 @@ function init() {
 
 function purchaseIP() {
     console.log("purchase ip")
-    kongregate.mtx.purchaseItems(['doubleip'], onPurchase)
+    kongregate.mtx.purchaseItems(['doubleip'], onPurchase())
 }
 
 function purchaseDimMult() {
-    kongregate.mtx.purchaseItems(['doublemult'], onPurchase)
+    kongregate.mtx.purchaseItems(['doublemult'], onPurchase())
 }
 
 
@@ -4320,6 +4320,20 @@ function purchaseTimeSkip() {
 }
 
 
+function onPurchase(result) {
+    console.log("purchasing...")
+    if (result.success) {
+        console.log("purchase successfull!")
+        updateKongPurchases()
+    }
+}
+
+
+function onPurchaseTimeSkip(result) {
+    if (result.success) {
+        player.lastUpdate -= 21600000
+    }
+}
 
 
 
@@ -4358,20 +4372,6 @@ function updateKongPurchases() {
 
 }
 
-function onPurchase(result) {
-    console.log("purchasing...")
-    if (result.success) {
-        console.log("purchase successfull!")
-        updateKongPurchases()
-    }
-}
-
-
-function onPurchaseTimeSkip(result) {
-    if (result.success) {
-        player.lastUpdate -= 21600000
-    }
-}
 
 
 
