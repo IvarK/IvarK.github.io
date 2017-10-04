@@ -4303,6 +4303,28 @@ function init() {
 
 //kongregate purchases
 
+
+
+function purchaseIP() {
+    kongregate.mtx.purchaseItems(['doubleip'], onPurchase)
+}
+
+function purchaseDimMult() {
+    kongregate.mtx.purchaseItems(['doublemult'], onPurchase)
+}
+
+
+function purchaseTimeSkip() {
+    kongregate.mtx.purchaseItems(['timeskip'], onPurchaseTimeSkip)
+}
+
+
+
+
+
+
+
+
 function updateKongPurchases() {
     console.log("updating kong purchases")
     kongregate.mtx.requestItemList(["ip"], ipItems())
