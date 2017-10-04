@@ -4306,6 +4306,7 @@ function init() {
 
 
 function purchaseIP() {
+    console.log("purchase ip")
     kongregate.mtx.purchaseItems(['doubleip'], onPurchase)
 }
 
