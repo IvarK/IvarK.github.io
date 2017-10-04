@@ -557,6 +557,22 @@
     border-radius: 5px;
 }
 
+.greedbtn {
+    height: 40px;
+    width: 100px;
+    background-color: #f2d729;
+    border: 1px solid red;
+    border-radius: 5px;
+    font-family: TypeWriter;
+    transition-duration: 0.2s;
+}
+
+.greedbtn:hover {
+    cursor: pointer;
+    background-color: #9E913A;
+
+}
+
 
 
 @keyframes glow {

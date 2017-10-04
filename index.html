@@ -55,17 +55,32 @@
             <button id="bigcrunch" style="font-family: Typewriter; font-size: 50px; width: 360px; height: 100px;" class="tabbtn">Big Crunch</button>
         </div>
         <div>
-            <button id="dimensionsbtn" style="font-family: Typewriter; font-size: 25px" class="tabbtn">Dimensions</button>
-            <button id="optionsbtn" style="font-family: Typewriter; font-size: 25px" class="tabbtn">Options</button>
-            <button id="statisticsbtn" style="font-family: Typewriter; font-size: 25px" class="tabbtn">Statistics</button>
-            <button id="achievementsbtn" style="font-family: Typewriter; font-size: 25px" class="tabbtn">Achievements</button>
-            <button id="challengesbtn" style="font-family: Typewriter; font-size: 25px" class="tabbtn">Challenges</button>
-            <button id="infinitybtn" style="font-family: Typewriter; font-size: 25px" class="infinitybtn">Infinity</button>
+            <button id="dimensionsbtn" style="font-family: Typewriter; font-size: 24px" class="tabbtn">Dimensions</button>
+            <button id="optionsbtn" style="font-family: Typewriter; font-size: 24px" class="tabbtn">Options</button>
+            <button id="statisticsbtn" style="font-family: Typewriter; font-size: 24px" class="tabbtn">Statistics</button>
+            <button id="achievementsbtn" style="font-family: Typewriter; font-size: 24px" class="tabbtn">Achievements</button>
+            <button id="challengesbtn" style="font-family: Typewriter; font-size: 24px" class="tabbtn">Challenges</button>
+            <button id="infinitybtn" style="font-family: Typewriter; font-size: 24px" class="infinitybtn">Infinity</button>
+            <button id="shopbtn" style="font-family: Typewriter; font-size: 24px" class="tabbtn" onclick="showTab('shop')">Shop</button>
         </div>
         <div id="emptiness" class="tab" style="font-size: 150%">
             <br> The world has collapsed on itself due to excess of antimatter.
             <br>
             <br>
+        </div>
+        <div id="shop" class="tab" style="font-size: 15px" >
+            <div align="center">
+                <br>
+                <span> Double your IP gain from all sources. Forever. </span><br>
+                <button class="greedbtn" onclick="kongregate.mtx.purchaseItems(['doubleip'], onPurchase())">50 Kreds</button>
+                <br><br><br>
+                <span> Double all your dimension multipliers (dimensions 1-8). Forever. </span><br>
+                <button class="greedbtn" onclick="kongregate.mtx.purchaseItems(['doublemult'], onPurchase())">30 Kreds</button>
+                <br><br><br>
+                <span>Get 6 hours worth of offline production. (Doesn't work for autobuyers)</span><br>
+                <button class="greedbtn" onclick="kongregate.mtx.purchaseItems(['timeskip'], onPurchaseTimeSkip())">10 Kreds</button>
+                <br>
+            </div>
         </div>
         <div id="dimensions" class="tab">
             <table class="table" align="center" style="margin: auto" id="dimTabButtons">
@@ -827,6 +842,34 @@
                                 <br>
                                 <div class="outer">
                                     <button id="postc4" class="challengesbtn" onclick="startChallenge('postc4', new Decimal('1e13000'))">Start</button>
+                                    <br>
+                                    <span>Goal: 1e13000</span><br>
+                                    <span>Reward: All normal dimension multipliers become multiplier^1.2</span>
+                                </div>
+                            </div>
+                        </td>    
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="challengediv" id="postc5div" style="height: 125px; display: none">
+                                <span>When buying dimensions 1-4 or tickspeed, everything with costs bigger or equal increases. When buying dimensions 5-8, everything with costs smaller or equal increases</span>
+                                <br>
+                                <br>
+                                <div class="outer">
+                                    <button id="postc5" class="challengesbtn" onclick="startChallenge('postc5', new Decimal('1e10000'))">Start</button>
+                                    <br>
+                                    <span>Goal: (temp) 1e10000</span><br>
+                                    <span>Reward: You will want to kill yourself</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="challengediv" id="postc6div" style="height: 125px; display: none">
+                                <span>There's an exponentially rising matter that divides the multiplier on all of your dimensions.</span>
+                                <br>
+                                <br>
+                                <div class="outer">
+                                    <button id="postc6" class="challengesbtn" onclick="startChallenge('postc6', new Decimal('1e13000'))">Start</button>
                                     <br>
                                     <span>Goal: 1e13000</span><br>
                                     <span>Reward: All normal dimension multipliers become multiplier^1.2</span>
