@@ -4307,11 +4307,11 @@ function init() {
 
 function purchaseIP() {
     console.log("purchase ip")
-    kongregate.mtx.purchaseItems(['doubleip'], onPurchase())
+    kongregate.mtx.purchaseItems(['doubleip'], onPurchaseResult)
 }
 
 function purchaseDimMult() {
-    kongregate.mtx.purchaseItems(['doublemult'], onPurchase())
+    kongregate.mtx.purchaseItems(['doublemult'], onPurchaseResult)
 }
 
 
@@ -4320,7 +4320,7 @@ function purchaseTimeSkip() {
 }
 
 
-function onPurchase(result) {
+function onPurchaseResult(result) {
     console.log("purchasing...")
     if (result.success) {
         console.log("purchase successfull!")
