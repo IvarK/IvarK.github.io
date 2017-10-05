@@ -94,6 +94,25 @@
     position: relative;
     border-radius: 5px;
   }
+
+  .infchallengediv {
+    display:table;
+    text-align:center;
+    width:350px;
+    height: 105px;
+    color: white;
+    background: #181818;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-size: 80%;
+    transition-duration: 0.2s;
+    padding: 2px;
+    margin: 3px 8px;
+    position: relative;
+    border-radius: 5px;
+  }
   
 
 .completedchallengesbtn {

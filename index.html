@@ -796,7 +796,7 @@
                 <table  class="table" style="margin: 0 auto">
                     <tr>
                         <td>
-                            <div class="challengediv" id="postc1div" style="height: 125px; display: none">
+                            <div class="infchallengediv" id="postc1div" style="height: 140px; display: none">
                                 <span>All previous challenges (except tickspeed challenge and automatic big crunch challenge) at once.</span>
                                 <br>
                                 <br>
@@ -809,7 +809,7 @@
                             </div>
                         </td>
                         <td>
-                            <div class="challengediv" id="postc2div" style="height: 125px; display: none">
+                            <div class="infchallengediv" id="postc2div" style="height: 140px; display: none">
                                 <span>Automatically sacrifice ever 8 ticks once you have 8th Dimension.</span>
                                 <br>
                                 <br>
@@ -825,7 +825,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <div class="challengediv" id="postc3div" style="height: 125px; display: none">
+                            <div class="infchallengediv" id="postc3div" style="height: 140px; display: none">
                                 <span>Tickspeed interval decrease is always at 0%, but every tickspeed purchase you get a static multiplier on all dimensions (increases with galaxies).</span>
                                 <br>
                                 <br>
@@ -838,7 +838,7 @@
                             </div>
                         </td>
                         <td>
-                            <div class="challengediv" id="postc4div" style="height: 125px; display: none">
+                            <div class="infchallengediv" id="postc4div" style="height: 140px; display: none">
                                 <span>Only latest bought dimension production is normal, all other dimensions produce less.</span>
                                 <br>
                                 <br>
@@ -853,32 +853,60 @@
                     </tr>
                     <tr>
                         <td>
-                            <div class="challengediv" id="postc5div" style="height: 125px; display: none">
-                                <span>When buying dimensions 1-4 or tickspeed, everything with costs bigger or equal increases. When buying dimensions 5-8, everything with costs smaller or equal increases</span>
+                            <div class="infchallengediv" id="postc5div" style="height: 140px; display: none">
+                                <span>When buying dimensions 1-4, everything with costs bigger or equal increases. When buying dimensions 5-8, everything with costs smaller or equal increases. When buying tickspeed, everything with the same cost increases.</span>
                                 <br>
                                 <br>
                                 <div class="outer">
                                     <button id="postc5" class="challengesbtn" onclick="startChallenge('postc5', new Decimal('1e16000'))">Start</button>
                                     <br>
                                     <span>Goal: (temp) 1e16000</span><br>
-                                    <span>Reward: You will want to kill yourself</span>
+                                    <span>Reward: Galaxies are 10% more powerful and reduce the requirements for them and dimensional boosts by 1</span>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <div class="challengediv" id="postc6div" style="height: 125px; display: none">
+                            <div class="infchallengediv" id="postc6div" style="height: 140px; display: none">
                                 <span>There's an exponentially rising matter that divides the multiplier on all of your dimensions.</span>
                                 <br>
                                 <br>
                                 <div class="outer">
-                                    <button id="postc6" class="challengesbtn" onclick="startChallenge('postc6', new Decimal('1e13000'))">Start</button>
+                                    <button id="postc6" class="challengesbtn" onclick="startChallenge('postc6', new Decimal('1e20500'))">Start</button>
                                     <br>
-                                    <span>Goal: 1e13000</span><br>
+                                    <span>Goal: 1e20500</span><br>
                                     <span>Reward: All normal dimension multipliers become multiplier^1.2</span>
                                 </div>
                             </div>
                         </td>    
                     </tr>
+                    <tr>
+                            <td>
+                                <div class="infchallengediv" id="postc7div" style="height: 140px; display: none">
+                                    <span>You can't get antimatter Galaxies, but dimensional boost multiplier 2.5x -> 10x</span>
+                                    <br>
+                                    <br>
+                                    <div class="outer">
+                                        <button id="postc7" class="challengesbtn" onclick="startChallenge('postc7', new Decimal('1e9500'))">Start</button>
+                                        <br>
+                                        <span>Goal: (temp) 1e9500</span><br>
+                                        <span>Reward: Dimensional boost multiplier 2.5x -> 10x</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="infchallengediv" id="postc8div" style="height: 140px; display: none">
+                                    <span>Your multipliers goes to 0x within 3 seconds of a purchase. Purchases set this briefly back to 100%</span>
+                                    <br>
+                                    <br>
+                                    <div class="outer">
+                                        <button id="postc8" class="challengesbtn" onclick="startChallenge('postc8', new Decimal('1e20500'))">Start</button>
+                                        <br>
+                                        <span>Goal: 1e20500</span><br>
+                                        <span>Reward: All normal dimension multipliers become multiplier^1.2</span>
+                                    </div>
+                                </div>
+                            </td>    
+                        </tr>
                 </table>
 
             </div>
