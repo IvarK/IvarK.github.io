@@ -37,9 +37,11 @@
             <div id='news'>.</div>
         </div>
         <div id="matter"></div>
+        <div style="position: relative"><div class="IP" id="infinityPoints2"></div></div>
         <div>
             <p>You have <span id="coinAmount" style="font-size:35px; color: black">0</span> antimatter.</p>
         </div>
+        
         <div style="position: relative"><button id="postInfinityButton" class="postinfcrunch">Big Crunch for x Infinity Points</button></div>
         <div style="position: relative"><button id="newDimensionButton" class="newdim" onclick="newDimension()">Get x antimatter to unlock a new Dimension.</button></div>
         <div id="coinsPerSec">You are getting 0 antimatter per second.</div>
@@ -812,9 +814,9 @@
                                 <br>
                                 <br>
                                 <div class="outer">
-                                    <button id="postc2" class="challengesbtn" onclick="startChallenge('postc2', new Decimal('1e10000'))">Start</button>
+                                    <button id="postc2" class="challengesbtn" onclick="startChallenge('postc2', new Decimal('1e10500'))">Start</button>
                                     <br>
-                                    <span>Goal: (temp) 1e10000</span><br>
+                                    <span>Goal: 1e10500</span><br>
                                     <span>Reward: Sacrifice autobuyer and more powerful sacrifice</span>
                                 </div>
                             </div>
@@ -828,9 +830,9 @@
                                 <br>
                                 <br>
                                 <div class="outer">
-                                    <button id="postc3" class="challengesbtn" onclick="startChallenge('postc3', new Decimal('1e10000'))">Start</button>
+                                    <button id="postc3" class="challengesbtn" onclick="startChallenge('postc3', new Decimal('1e5000'))">Start</button>
                                     <br>
-                                    <span>Goal: (temp) 1e10000</span><br>
+                                    <span>Goal: 1e5000</span><br>
                                     <span>Reward: Static multiplier on each tickspeed purchase</span>
                                 </div>
                             </div>
@@ -856,9 +858,9 @@
                                 <br>
                                 <br>
                                 <div class="outer">
-                                    <button id="postc5" class="challengesbtn" onclick="startChallenge('postc5', new Decimal('1e10000'))">Start</button>
+                                    <button id="postc5" class="challengesbtn" onclick="startChallenge('postc5', new Decimal('1e16000'))">Start</button>
                                     <br>
-                                    <span>Goal: (temp) 1e10000</span><br>
+                                    <span>Goal: (temp) 1e16000</span><br>
                                     <span>Reward: You will want to kill yourself</span>
                                 </div>
                             </div>
@@ -992,7 +994,8 @@
         <div id="autobuyers" class="inftab">
             <br>
             <table class="table" style="margin: 0 auto">
-                <button class="storebtn" id="toggleautobuyers" style="font-size: 100%; width: 150px; height: 50px;" onclick="toggleAutoBuyers()">Enable/disable autobuyers</button>
+                <button class="storebtn" id="toggleautobuyers" style="font-size: 100%; width: 150px; height: 50px; margin: 3px" onclick="toggleAutoBuyers()">Enable/disable autobuyers</button>
+                <button class="storebtn" id="togglebulk" style="font-size: 100%; width: 150px; height: 50px;margin: 3px" onclick="toggleBulk()">Disable bulk buy                     </button>
                 <tr>
                     <td>
                         <div class="autoBuyerDiv" id="autoBuyer1">

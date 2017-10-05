@@ -78,7 +78,7 @@ var player = {
     spreadingCancer: 0,
     postChallUnlocked: 0,
     postC4Tier: 0,
-    postC3Reward: 1,
+    postC3Reward: new Decimal(1),
     infinityDimension1 : {
         cost: 1e8,
         amount: new Decimal(0),
@@ -119,7 +119,8 @@ var player = {
         invert: false,
         challConf: false,
         sacrificeConfirmation: true,
-        retryChallenge: false
+        retryChallenge: false,
+        bulkOn: true
     }
     
 };
@@ -185,6 +186,7 @@ function onLoad() {
     if (player.options.newsHidden === undefined) player.options.newsHidden = false;
     if (player.options.sacrificeConfirmation === undefined) player.options.sacrificeConfirmation = true;
     if (player.options.retryChallenge === undefined) player.options.retryChallenge = false;
+    if (player.options.bulkOn === undefined) player.options.bulkOn = true
     if (player.achievements === undefined) player.achievements = [];
     if (player.sacrificed === undefined) player.sacrificed = new Decimal(0);
     if (player.infinityUpgrades === undefined) player.infinityUpgrades = [];
@@ -220,7 +222,7 @@ function onLoad() {
     if (player.partInfinitied === undefined) player.partInfinitied = 0
     if (player.spreadingCancer === undefined) player.spreadingCancer = 0
     if (player.postC4Tier === undefined) player.postC4Tier = 0
-    if (player.postC3Reward === undefined) player.postC3Reward = 1
+    if (player.postC3Reward === undefined) player.postC3Reward = new Decimal(1)
     if (player.offlineProd === undefined) player.offlineProd = 0
     if (player.offlineProdCost === undefined) player.offlineProdCost = 1e7
     if (player.autoSacrifice === undefined) player.autoSacrifice = 1
@@ -274,10 +276,10 @@ function onLoad() {
         player.infinityDimension3.baseAmount = 0;
         player.infinityDimension4.baseAmount = 0;
 
-        player.infinityDimension1.baseAmount = new Decimal(player.infinityDimension1.power).log(50).times(10)
-        player.infinityDimension2.baseAmount = new Decimal(player.infinityDimension2.power).log(30).times(10)
-        player.infinityDimension3.baseAmount = new Decimal(player.infinityDimension3.power).log(10).times(10)
-        player.infinityDimension4.baseAmount = new Decimal(player.infinityDimension4.power).log(5).times(10)
+        player.infinityDimension1.baseAmount = new Decimal(player.infinityDimension1.power).log(50).times(10).toNumber()
+        player.infinityDimension2.baseAmount = new Decimal(player.infinityDimension2.power).log(30).times(10).toNumber()
+        player.infinityDimension3.baseAmount = new Decimal(player.infinityDimension3.power).log(10).times(10).toNumber()
+        player.infinityDimension4.baseAmount = new Decimal(player.infinityDimension4.power).log(5).times(10).toNumber()
 
 
     }
@@ -324,6 +326,8 @@ function onLoad() {
     updateCheckBoxes();
     toggleChallengeRetry()
     toggleChallengeRetry()
+    toggleBulk()
+    toggleBulk()
     
     loadAutoBuyerSettings();
     updateLastTenRuns()
@@ -338,7 +342,7 @@ function onLoad() {
 
     document.getElementById("notation").innerHTML = "Notation: " + player.options.notation
     
-
+    
 
     if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") document.getElementById("matter").style.display = "inline-block";
     else document.getElementById("matter").style.display = "none";
@@ -473,6 +477,7 @@ function transformSaveToDecimal() {
     player.infinityDimension3.amount = new Decimal(player.infinityDimension3.amount)
     player.infinityDimension4.amount = new Decimal(player.infinityDimension4.amount)
     player.infinityPoints = new Decimal(player.infinityPoints)
+    player.postC3Reward = new Decimal(player.postC3Reward)
     player.lastTenRuns = [[parseFloat(player.lastTenRuns[0][0]), player.lastTenRuns[0][1]], [parseFloat(player.lastTenRuns[1][0]), player.lastTenRuns[1][1]], [parseFloat(player.lastTenRuns[2][0]), player.lastTenRuns[2][1]], [parseFloat(player.lastTenRuns[3][0]), player.lastTenRuns[3][1]], [parseFloat(player.lastTenRuns[4][0]), player.lastTenRuns[4][1]], [parseFloat(player.lastTenRuns[5][0]), player.lastTenRuns[5][1]], [parseFloat(player.lastTenRuns[6][0]), player.lastTenRuns[6][1]], [parseFloat(player.lastTenRuns[7][0]), player.lastTenRuns[7][1]], [parseFloat(player.lastTenRuns[8][0]), player.lastTenRuns[8][1]], [parseFloat(player.lastTenRuns[9][0]), player.lastTenRuns[9][1]]]
 }
 
@@ -862,7 +867,7 @@ function updateDimensions() {
         }
         else {
             document.getElementById("infinityPoints1").innerHTML = "You have  " + shortenDimensions(player.infinityPoints) + " Infinity points."
-            document.getElementById("infinityPoints2").innerHTML = "You have  " + shortenDimensions(player.infinityPoints) + " Infinity points."
+            document.getElementById("infinityPoints2").innerHTML = "You have  <b>" + shortenDimensions(player.infinityPoints) + "</b> Infinity points."
         }
         if (player.infinitied == 1) document.getElementById("infinitied").innerHTML = "You have infinitied 1 time."
         else document.getElementById("infinitied").innerHTML = "You have infinitied " + player.infinitied + " times."
@@ -984,7 +989,7 @@ function getInfinityDimensionDescription(tier) {
 
 
 function getInfinityDimensionRateOfChange(tier) {
-    let toGain = player["infinityDimension"+(tier+1)].amount.times(player["infinityDimension"+(tier+1)].power)
+    let toGain = getInfinityDimensionProduction(tier+1)
     const current = Decimal.max(player["infinityDimension"+tier].amount, 1);
     const change  = toGain.times(10).dividedBy(current);
     return change;
@@ -1101,7 +1106,7 @@ function softReset(bulk) {
         spreadingCancer: player.spreadingCancer,
         postChallUnlocked: player.postChallUnlocked,
         postC4Tier: 1,
-        postC3Reward: 1,
+        postC3Reward: new Decimal(1),
         infinityDimension1: player.infinityDimension1,
         infinityDimension2: player.infinityDimension2,
         infinityDimension3: player.infinityDimension3,
@@ -1266,12 +1271,11 @@ function buyTickSpeed() {
     
     player.money = player.money.minus(player.tickSpeedCost);
     if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5") player.tickSpeedCost = player.tickSpeedCost.times(player.tickspeedMultiplier);
-    else if (player.currentChallenge == "postc5") multiplyPC5Costs(player.tickSpeedCost, 0)
     else multiplySameCosts(player.tickSpeedCost)
     if (player.tickSpeedCost.gte(Number.MAX_VALUE)) player.tickspeedMultiplier = player.tickspeedMultiplier.times(player.tickSpeedMultDecrease);
     if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0
     player.tickspeed = player.tickspeed.times(getTickSpeedMultiplier());
-    if (player.challenges.includes("postc3") || player.currentChallenge == "postc3") player.postC3Reward *= 0.05+(player.galaxies*0.005)
+    if (player.challenges.includes("postc3") || player.currentChallenge == "postc3") player.postC3Reward *= 1.05+(player.galaxies*0.005)
     return true;
 }
 
@@ -1287,7 +1291,6 @@ function buyMaxTickSpeed() {
     while (player.money.gt(player.tickSpeedCost)) {
         player.money = player.money.minus(player.tickSpeedCost);
         if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5") player.tickSpeedCost = player.tickSpeedCost.times(player.tickspeedMultiplier);
-        else if (player.currentChallenge == "postc5") multiplyPC5Costs(player.tickSpeedCost, 0)
         else multiplySameCosts(player.tickSpeedCost)
         if (player.tickSpeedCost.gte(Number.MAX_VALUE)) player.tickspeedMultiplier = player.tickspeedMultiplier.times(player.tickSpeedMultDecrease);
         player.tickspeed = player.tickspeed.times(getTickSpeedMultiplier());
@@ -2325,7 +2328,7 @@ document.getElementById("secondSoftReset").onclick = function () {
             infinityPower: player.infinityPower,
             postChallUnlocked: player.postChallUnlocked,
             postC4Tier: 1,
-            postC3Reward: 1,
+            postC3Reward: new Decimal(1),
             infinityDimension1: player.infinityDimension1,
             infinityDimension2: player.infinityDimension2,
             infinityDimension3: player.infinityDimension3,
@@ -2877,7 +2880,8 @@ function updateCheckBoxes() {
             else document.getElementById((i+1) + "ison").checked = ""
         }
     }
-
+    if (player.autoSacrifice.isOn) document.getElementById("13ison").checked = "true"
+    else document.getElementById("13ison").checked = ""
 
 }
 
@@ -2890,8 +2894,21 @@ function toggleAutoBuyers() {
             else player.autobuyers[i].isOn = true
         }
     }
+    if (bool) player.autoSacrifice.isOn = false
+    else player.autoSacrifice.isOn = true
     updateCheckBoxes()
     updateAutobuyers()
+}
+
+function toggleBulk() {
+
+    if (player.options.bulkOn) {
+        player.options.bulkOn = false
+        document.getElementById("togglebulk").innerHTML = "Enable bulk buy"
+    } else {
+        player.options.bulkOn = true
+        document.getElementById("togglebulk").innerHTML = "Disable bulk buy"
+    }
 }
 
 
@@ -3074,7 +3091,7 @@ document.getElementById("bigcrunch").onclick = function () {
         version: player.version,
         postChallUnlocked: player.postChallUnlocked,
         postC4Tier: 1,
-        postC3Reward: 1,
+        postC3Reward: new Decimal(1),
         overXGalaxies: player.overXGalaxies,
         spreadingCancer: player.spreadingCancer,
         infDimensionsUnlocked: player.infDimensionsUnlocked,
@@ -3165,12 +3182,13 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.achievements.includes("Blink of an eye")) player.money = new Decimal(1e25);
         if (player.challenges.length >= 2 && !player.achievements.includes("Daredevil")) giveAchievement("Daredevil");
         if (player.challenges.length == 12 && !player.achievements.includes("AntiChallenged")) giveAchievement("AntiChallenged");
+        resetInfDimensions();
 
     }
   updateChallenges();
   updateChallengeTimes()
   updateLastTenRuns()
-  resetInfDimensions();
+  
   
 }
 
@@ -3258,7 +3276,7 @@ function startChallenge(name, target) {
       version: player.version,
       postChallUnlocked: player.postChallUnlocked,
       postC4Tier: 1,
-      postC3Reward: 1,
+      postC3Reward: new Decimal(1),
       overXGalaxies: player.overXGalaxies,
       spreadingCancer: player.spreadingCancer,
       infDimensionsUnlocked: player.infDimensionsUnlocked,
@@ -3433,7 +3451,7 @@ setInterval(function() {
     } catch (err) {console.log("Couldn't load Kongregate API")}
 }, 10000)
 
-const nextAt = [new Decimal("1e2000"), new Decimal("1e5000"), new Decimal("1e10000"), new Decimal("1e14000"), new Decimal("1e16000"), new Decimal("1e18000"), new Decimal("1e9999999")]
+const nextAt = [new Decimal("1e2000"), new Decimal("1e5000"), new Decimal("1e12000"), new Decimal("1e14000"), new Decimal("1e18000"), new Decimal("1e20000"), new Decimal("1e9999999")]
 
 setInterval(function() {
     if (getDimensionFinalMultiplier(1).gte(new Decimal("1e308")) &&
@@ -3616,6 +3634,11 @@ setInterval(function () {
                 document.getElementById(name + 'Max').className = canAfford(player[name + 'Cost'].times(10 - player[name + 'Bought'])) ? 'storebtn' : 'unavailablebtn';
             }
         }
+    }
+
+    for (var tier = 1; tier < 5; tier++) {
+        if (player.infinityPoints.gte(player["infinityDimension"+tier].cost)) document.getElementById("infMax"+tier).className = "storebtn"
+        else document.getElementById("infMax"+tier).className = "unavailablebtn"
     }
 
     
@@ -3953,8 +3976,8 @@ function autoBuyerTick() {
                 } else {
                     if (priority[i].target > 10) {
                         
-                            buyManyDimensionAutobuyer(priority[i].target-10, priority[i].bulk)
-                            
+                        if (player.options.bulkOn) buyManyDimensionAutobuyer(priority[i].target-10, priority[i].bulk)
+                        else buyManyDimensionAutobuyer(priority[i].target-10, 1)
                     }
                     else {
                         buyOneDimension(priority[i].target)

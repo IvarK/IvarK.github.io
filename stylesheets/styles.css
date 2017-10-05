@@ -148,6 +148,7 @@
     cursor: pointer;
     border-radius: 4px;
     font-size: 55%;
+    vertical-align: top;
 }
 
 .storebtn:hover {
@@ -358,6 +359,13 @@
     font-weight: bold;
     border: 2px solid #4980CC;
     border-radius: 4px;
+}
+
+.IP {
+    left:81.5%;
+    position: absolute;
+    font-size: 15px;
+    width: 150px;
 }
 
 .newdim {
