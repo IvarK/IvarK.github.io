@@ -4490,6 +4490,9 @@ function updateKongPurchases() {
         kongDimMult = dimmult
         kongIPMult = ipmult
     }
+
+    document.getElementById("kongip").innerHTML = "x"+kongIPMult
+    document.getElementById("kongdim").innerHTML = "x"+kongDimMult
 }
 
 
@@ -4729,7 +4732,7 @@ window.addEventListener('keydown', function(event) {
             document.getElementById("secondSoftReset").onclick();
         break;
 
-        case 32: // Space
+        case 77: // M
             document.getElementById("maxall").onclick()
         break;
 
