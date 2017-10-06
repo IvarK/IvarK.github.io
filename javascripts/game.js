@@ -4457,7 +4457,7 @@ function updateKongPurchases() {
         kongIPMult = mult
     }
 
-    kongregate.mtx.requestItemList(["dim"], dimItems)
+    kongregate.mtx.requestUserItemList(["dim"], dimItems)
 
     function dimItems(result) {
         console.log("checking for dim mult")
@@ -4475,12 +4475,18 @@ function updateKongPurchases() {
 
     function items(result) {
         console.log("checking for all items")
+        let ipmult = 1
+        let dimmult = 1
         for(var i = 0; i < result.data.length; i++) {
             var item = result.data[i];
             console.log((i+1) + ". " + item.identifier + ", " + 
             item.id + "," + item.data);
-            if (item.identifier == "doublemult") mult *= 2
+            if (item.identifier == "doublemult") dimmult *= 2
+            if (item.identifier == "doubleip") ipmult *= 2
+            
         }
+        kongDimMult = dimmult
+        kongIPMult = ipmult
     }
 }
 
