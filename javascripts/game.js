@@ -691,6 +691,7 @@ function getDimensionFinalMultiplier(tier) {
     multiplier = multiplier.times(player.postC3Reward)
     if (player.currentChallenge == "postc6") multiplier = multiplier.dividedBy(Decimal.max(player.matter, 1))
     if (player.currentChallenge == "postc8") multiplier = multiplier.times(postc8Mult)
+    if (player.challenges.includes("postc8") && tier < 8 && tier > 1) multiplier = multiplier.times( Decimal.pow(getDimensionFinalMultiplier(1).times(getDimensionFinalMultiplier(8)), 0.02) )
 
     if (player.challenges.includes("postc4")) return Decimal.pow(multiplier, 1.1);
 
@@ -4414,7 +4415,7 @@ function onPurchaseTimeSkip(result) {
 
 function updateKongPurchases() {
     console.log("updating kong purchases")
-    kongregate.mtx.requestItemList(["ip"], ipItems())
+    kongregate.mtx.requestItemList(["ip"], ipItems)
 
     function ipItems(result) {
         console.log("checking for ip mult")
@@ -4428,7 +4429,7 @@ function updateKongPurchases() {
         kongIPMult = mult
     }
 
-    kongregate.mtx.requestItemList(["dim"], dimItems())
+    kongregate.mtx.requestItemList(["dim"], dimItems)
 
     function dimItems(result) {
         console.log("checking for dim mult")
