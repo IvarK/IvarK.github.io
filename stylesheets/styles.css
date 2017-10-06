@@ -85,13 +85,33 @@
     background: #F2F2F2;
     font-weight: bold;
     font-family: Typewriter;
-    border: 3px solid black;
+    border: 2px solid black;
     border-radius: 10px;
     font-size: 80%;
     transition-duration: 0.2s;
     padding: 2px;
     margin: 3px 8px;
     position: relative;
+    border-radius: 5px;
+  }
+
+  .infchallengediv {
+    display:table;
+    text-align:center;
+    width:350px;
+    height: 105px;
+    color: white;
+    background: #181818;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-size: 80%;
+    transition-duration: 0.2s;
+    padding: 2px;
+    margin: 3px 8px;
+    position: relative;
+    border-radius: 5px;
   }
   
 
@@ -147,6 +167,7 @@
     cursor: pointer;
     border-radius: 4px;
     font-size: 55%;
+    vertical-align: top;
 }
 
 .storebtn:hover {
@@ -359,6 +380,13 @@
     border-radius: 4px;
 }
 
+.IP {
+    left:81.5%;
+    position: absolute;
+    font-size: 15px;
+    width: 150px;
+}
+
 .newdim {
     font-weight: bold;
     border-radius: 4px;
@@ -451,7 +479,7 @@
 
 
 .autoBuyerDiv {
-    border: solid 2px black;
+    border: solid 1px grey;
     width:230px;
     height:155px;
     text-align:center;
@@ -554,6 +582,22 @@
     color: black;
     font-size: 130%;
     border-radius: 5px;
+}
+
+.greedbtn {
+    height: 40px;
+    width: 100px;
+    background-color: #f2d729;
+    border: 1px solid red;
+    border-radius: 5px;
+    font-family: TypeWriter;
+    transition-duration: 0.2s;
+}
+
+.greedbtn:hover {
+    cursor: pointer;
+    background-color: #9E913A;
+
 }
 
 
@@ -903,3 +947,5 @@ screen and (max-width: 480px) {
         color: #444;
     }
 }
+
+
