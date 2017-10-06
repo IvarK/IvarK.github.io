@@ -3576,12 +3576,22 @@ setInterval(function () {
         postC2Count = 0;
     }}
     if (player.infinityUpgrades.includes("passiveGen")) player.partInfinityPoint += diff / player.bestInfinityTime;
+    if (player.partInfinityPoint >= 100) {
+        player.infinityPoints = player.infinityPoints.plus(player.infMult * kongIPMult * (player.partInfinityPoint/10));
+        player.partInfinityPoint = 0;
+    }
+
     if (player.partInfinityPoint >= 10) {
         player.partInfinityPoint -= 10;
         player.infinityPoints = player.infinityPoints.plus(player.infMult * kongIPMult);
     }
 
     if (player.infinityUpgrades.includes("infinitiedGeneration")) player.partInfinitied += diff / player.bestInfinityTime;
+    if (player.partInfinitied >= 50) {
+        player.infinitied += Math.floor(player.partInfinitied/5)
+        player.partInfinitied = 0;
+    }
+
     if (player.partInfinitied >= 5) {
         player.partInfinitied -= 5;
         player.infinitied ++;
@@ -4746,6 +4756,10 @@ window.addEventListener('keydown', function(event) {
     switch (event.keyCode) {
         case 67: // C
             document.getElementById("bigcrunch").onclick()
+        break;
+
+        case 70: // F
+            $.notify("Paying respects", "info")
         break;
     }
   }, false);
