@@ -342,7 +342,7 @@ function onLoad() {
 
     document.getElementById("notation").innerHTML = "Notation: " + player.options.notation
     
-    
+    if (player.infinitied == 0) document.getElementById("infinityPoints2").style.display = "none"
 
     if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") document.getElementById("matter").style.display = "inline-block";
     else document.getElementById("matter").style.display = "none";
@@ -684,7 +684,7 @@ function getDimensionFinalMultiplier(tier) {
     if (player.achievements.includes("How the antitables have turned")) multiplier = multiplier.times(1+tier/100);
     if (player.achievements.includes("Many Deaths") && player.thisInfinityTime < 1800) multiplier = multiplier.times(3600/(player.thisInfinityTime+1800));
     if (player.achievements.includes("Blink of an eye") && player.thisInfinityTime < 3) multiplier = multiplier.times(3.3/(player.thisInfinityTime+0.3));
-    if (player.achievements.includes("This achievement doesn't exist")) multiplier = multiplier.times(1+Decimal.pow(player.antimatter,0.00002));
+    if (player.achievements.includes("This achievement doesn't exist")) multiplier = multiplier.times(1+Decimal.pow(player.money,0.00002));
 
     if (player.currentChallenge == "postc4") {
         if (player.postC4Tier == tier) return multiplier;
@@ -1393,7 +1393,7 @@ function giveAchievement(name) {
     try {
         kongregate.stats.submit('Achievements', player.achievements.length);
     } catch (err) {console.log("Couldn't load Kongregate API")}
-
+    if (name == "All your IP are belong to us") player.infMult *= 4
     updateAchPow();
 }
 
@@ -2438,7 +2438,7 @@ document.getElementById("secondSoftReset").onclick = function () {
         if (player.spreadingCancer >= 10) giveAchievement("Spreading Cancer")
         if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
         if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.98);
-        if (player.achievements.includes("YOU CAN GET 50 GALAXIES!??")) player.tickspeed = player.tickspeed.times(Decimal.pow(0.99,galaxies));
+        if (player.achievements.includes("YOU CAN GET 50 GALAXIES!??")) player.tickspeed = player.tickspeed.times(Decimal.pow(0.99,player.galaxies));
         clearInterval(player.interval);
         //updateInterval();
         updateDimensions();
@@ -2561,8 +2561,7 @@ function breakInfinity() {
 }
 
 function gainedInfinityPoints() {
-    if (player.achievements.includes("All your IP is belong to us")) return Decimal.floor(Decimal.pow(10, Decimal.log10(player.totalmoney).dividedBy(308).minus(0.75)).times(player.infMult * kongIPMult))
-    else return Decimal.floor(Decimal.pow(10, Decimal.log10(player.money).dividedBy(308).minus(0.75)).times(player.infMult * kongIPMult))
+    return Decimal.floor(Decimal.pow(10, Decimal.log10(player.money).dividedBy(308).minus(0.75)).times(player.infMult * kongIPMult))
 }
 
 
@@ -2644,8 +2643,8 @@ function resetDimensions() {
 function calcSacrificeBoost() {
     if (player.firstAmount == 0) return new Decimal(1);
     if (player.challenges.includes("postc2")) {
-        if (player.achievements.includes("yet another infinity reference")) return Decimal.max(Decimal.pow(player.firstAmount, 0.01).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.01), 1)), 1)
-        else return Decimal.max(Decimal.pow(player.secondAmount, 0.01).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.01), 1)), 1)
+        if (player.achievements.includes("yet another infinity reference")) return Decimal.max(Decimal.pow(player.firstAmount, 0.011).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.011), 1)), 1)
+        else return Decimal.max(Decimal.pow(player.firstAmount, 0.01).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.01), 1)), 1)
     }
     if (player.currentChallenge != "challenge11") {
         var sacrificePow=2;
@@ -2667,8 +2666,7 @@ function sacrifice() {
     if (player.resets < 5) return false
     if (calcSacrificeBoost().gte(Number.MAX_VALUE)) giveAchievement("yet another infinity reference");
     player.eightPow = player.eightPow.times(calcSacrificeBoost())
-    if (player.challenges.includes("postc2") && !player.achievements.includes("yet another infinity reference")) player.sacrificed = player.sacrificed.plus(player.secondAmount)
-    else player.sacrificed = player.sacrificed.plus(player.firstAmount);
+    player.sacrificed = player.sacrificed.plus(player.firstAmount);
     if (player.currentChallenge != "challenge11") {
         if (player.currentChallenge == "challenge7") clearDimensions(6);
         else clearDimensions(7);
@@ -3071,7 +3069,7 @@ document.getElementById("bigcrunch").onclick = function () {
         else {
             player.infinityPoints = player.infinityPoints.plus(gainedInfinityPoints())
             addTime(player.thisInfinityTime, gainedInfinityPoints())
-            if (gainedInfinityPoints().gte(1e150)) giveAchievement("All your IP is belong to us")
+            if (gainedInfinityPoints().gte(1e150)) giveAchievement("All your IP are belong to us")
         }
         
         player = {
@@ -3528,6 +3526,10 @@ setInterval(function() {
         getDimensionFinalMultiplier(6).lt(getDimensionFinalMultiplier(7)) &&
         getDimensionFinalMultiplier(7).lt(getDimensionFinalMultiplier(8))) giveAchievement("How the antitables have turned")
 
+
+
+    if (player.infinitied == 0) document.getElementById("infinityPoints2").style.display = "none"
+    else document.getElementById("infinityPoints2").style.display = "inline-block"
 
     if (blink && !player.achievements.includes("Blink of an eye")) {
         document.getElementById("Blink of an eye").style.display = "none"
