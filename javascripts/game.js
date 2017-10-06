@@ -686,6 +686,8 @@ function getDimensionFinalMultiplier(tier) {
     if (player.achievements.includes("Many Deaths") && player.thisInfinityTime < 1800) multiplier = multiplier.times(3600/(player.thisInfinityTime+1800));
     if (player.achievements.includes("Blink of an eye") && player.thisInfinityTime < 3) multiplier = multiplier.times(3.3/(player.thisInfinityTime+0.3));
     if (player.achievements.includes("This achievement doesn't exist")) multiplier = multiplier.times(1+Decimal.pow(player.money,0.00002));
+    if (player.achievements.includes("Too much over 9000 to be over 9000")) multiplier = multiplier.times(1+Decimal.pow(player.money,0.00002));
+
 
     if (player.currentChallenge == "postc4") {
         if (player.postC4Tier == tier) return multiplier;
@@ -1265,41 +1267,28 @@ function canBuyTickSpeed() {
 }
 
 function getTickSpeedMultiplier() {
+    if (player.currentChallenge == "postc3") return 1;
     if (player.galaxies < 3) {
         let baseMultiplier = 0.9;
         if (player.galaxies == 0) baseMultiplier = 0.89
         if (player.currentChallenge == "challenge6" || player.currentChallenge == "postc1") baseMultiplier = 0.93;
-        if (player.currentChallenge == "postc3") return 1;
         let perGalaxy = 0.02;
         
-        if (player.infinityUpgrades.includes("galaxyBoost")) {
-            perGalaxy *= 2
-        }
-        if (player.infinityUpgrades.includes("postGalaxy")) {
-            perGalaxy *= 1.5
-        }
-
-        if (player.challenges.includes("postc5")) {
-            perGalaxy *= 1.1
-        }
+        if (player.infinityUpgrades.includes("galaxyBoost")) perGalaxy *= 2;
+        if (player.infinityUpgrades.includes("postGalaxy")) perGalaxy *= 1.5;
+        if (player.challenges.includes("postc5")) perGalaxy *= 1.1;
+        if (player.achievements.includes("Do you even bend time bro?")) perGalaxy *= 1.01
         
         return baseMultiplier-(player.galaxies*perGalaxy);
     } else {
         let baseMultiplier = 0.8
         if (player.currentChallenge == "challenge6" || player.currentChallenge == "postc1") baseMultiplier = 0.83
-        if (player.currentChallenge == "postc3") return 1;
         let perGalaxy = 0.965
         let galaxies = player.galaxies-2
-        if (player.infinityUpgrades.includes("galaxyBoost")) {
-            galaxies *= 2
-        }
-        if (player.infinityUpgrades.includes("postGalaxy")) {
-            galaxies *= 1.5
-        }
-
-        if (player.challenges.includes("postc5")) {
-            galaxies *= 1.1
-        }
+        if (player.infinityUpgrades.includes("galaxyBoost")) perGalaxy *= 2;
+        if (player.infinityUpgrades.includes("postGalaxy")) perGalaxy *= 1.5;
+        if (player.challenges.includes("postc5")) perGalaxy *= 1.1;
+        if (player.achievements.includes("Do you even bend time bro?")) perGalaxy *= 1.01
 
         return baseMultiplier * (Math.pow(perGalaxy, (galaxies-2)))
     }
@@ -2441,7 +2430,7 @@ document.getElementById("secondSoftReset").onclick = function () {
         if (player.spreadingCancer >= 10) giveAchievement("Spreading Cancer")
         if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
         if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.98);
-        if (player.achievements.includes("YOU CAN GET 50 GALAXIES!??")) player.tickspeed = player.tickspeed.times(Decimal.pow(0.99,player.galaxies));
+        if (player.achievements.includes("YOU CAN GET 50 GALAXIES!??")) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
         clearInterval(player.interval);
         //updateInterval();
         updateDimensions();
@@ -3074,6 +3063,7 @@ document.getElementById("bigcrunch").onclick = function () {
             addTime(player.thisInfinityTime, gainedInfinityPoints())
             if (gainedInfinityPoints().gte(1e150)) giveAchievement("All your IP are belong to us")
         }
+        if (player.thisInfinityTime > 250 && player.achievements.includes("2Minf")) player.infinitied += 249;
         
         player = {
         money: new Decimal(10),
