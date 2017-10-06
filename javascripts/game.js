@@ -333,7 +333,7 @@ function onLoad() {
     updateLastTenRuns()
 
     if (player.currentChallenge == "challenge12" || player.currentChallenge == "challenge9" || player.currentChallenge == "challenge5" ||
-        player.currentChallenge == "postc1" || player.currentChallenge == "postc4" || player.currentChallenge == "postc5" || player.currentChallenge == "postc6") document.getElementById("quickReset").style.display = "inline-block";
+        player.currentChallenge == "postc1" || player.currentChallenge == "postc4" || player.currentChallenge == "postc5" || player.currentChallenge == "postc6" || player.currentChallenge == "postc8") document.getElementById("quickReset").style.display = "inline-block";
     else document.getElementById("quickReset").style.display = "none";
  
 
@@ -1179,14 +1179,14 @@ function softReset(bulk) {
     }
 
     if (player.challenges.includes("postc7")) {
-        player.firstPow = Decimal.pow(5, player.resets + 1)
-        player.secondPow = Decimal.pow(5, player.resets)
-        player.thirdPow = Decimal.max(Decimal.pow(5, player.resets - 1), 1)
-        player.fourthPow = Decimal.max(Decimal.pow(5, player.resets - 2), 1)
-        player.fifthPow = Decimal.max(Decimal.pow(5, player.resets - 3), 1)
-        player.sixthPow = Decimal.max(Decimal.pow(5, player.resets - 4), 1)
-        player.seventhPow = Decimal.max(Decimal.pow(5, player.resets - 5), 1)
-        player.eightPow = Decimal.max(Decimal.pow(5, player.resets - 6), 1)
+        player.firstPow = Decimal.pow(4, player.resets + 1)
+        player.secondPow = Decimal.pow(4, player.resets)
+        player.thirdPow = Decimal.max(Decimal.pow(4, player.resets - 1), 1)
+        player.fourthPow = Decimal.max(Decimal.pow(4, player.resets - 2), 1)
+        player.fifthPow = Decimal.max(Decimal.pow(4, player.resets - 3), 1)
+        player.sixthPow = Decimal.max(Decimal.pow(4, player.resets - 4), 1)
+        player.seventhPow = Decimal.max(Decimal.pow(4, player.resets - 5), 1)
+        player.eightPow = Decimal.max(Decimal.pow(4, player.resets - 6), 1)
     }
 
 
@@ -3372,7 +3372,7 @@ function startChallenge(name, target) {
     if (name == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") document.getElementById("matter").style.display = "block";
     else document.getElementById("matter").style.display = "none";
 
-    if (name == "challenge12" || name == "challenge9" || name == "challenge5" || player.currentChallenge == "postc1" || player.currentChallenge == "postc4" || player.currentChallenge == "postc5" || player.currentChallenge == "postc6") document.getElementById("quickReset").style.display = "inline-block";
+    if (name == "challenge12" || name == "challenge9" || name == "challenge5" || player.currentChallenge == "postc1" || player.currentChallenge == "postc4" || player.currentChallenge == "postc5" || player.currentChallenge == "postc6" || player.currentChallenge == "postc8") document.getElementById("quickReset").style.display = "inline-block";
     else document.getElementById("quickReset").style.display = "none";
     updateTickSpeed();
     showTab('dimensions');
