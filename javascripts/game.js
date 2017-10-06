@@ -4460,14 +4460,14 @@ function updateKongPurchases() {
         kongDimMult = mult
     }
 
-    kongregate.mtx.requestItemList([], items)
+    kongregate.mtx.requesUserItemList("", items)
 
     function items(result) {
-        console.log("checking for dim mult")
+        console.log("checking for all items")
         for(var i = 0; i < result.data.length; i++) {
             var item = result.data[i];
             console.log((i+1) + ". " + item.identifier + ", " + 
-                        item.id + "," + item.name);
+            item.id + "," + item.data);
             if (item.identifier == "doublemult") mult *= 2
         }
     }
