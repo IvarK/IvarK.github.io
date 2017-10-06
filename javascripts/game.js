@@ -394,7 +394,8 @@ function onLoad() {
     
 
     if (player.options.invert) {
-        document.getElementById("body").classList.add("invert");
+        document.getElementById("body").style.filter = "invert(100%)";
+        document.getElementById("body").style.backgroundColor = "black";
     }
     if (player.options.newsHidden) {
         document.getElementById("game").style.display = "none";
@@ -1906,10 +1907,12 @@ document.getElementById("maxall").onclick = function () {
 document.getElementById("invert").onclick = function () {
     if (player.options.invert) {
         player.options.invert = false;
-        document.getElementById("body").classList.remove("invert");
+        document.getElementById("body").style.filter = "invert(0%)";
+        document.getElementById("body").style.backgroundColor = "white";
     } else {
         player.options.invert = true;
-        document.getElementById("body").classList.add("invert");
+        document.getElementById("body").style.filter = "invert(100%)";
+        document.getElementById("body").style.backgroundColor = "black";
     }
 }
 
