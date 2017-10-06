@@ -4471,7 +4471,7 @@ function updateKongPurchases() {
         kongDimMult = mult
     }
 
-    kongregate.mtx.requesUserItemList("", items)
+    kongregate.mtx.requestUserItemList("", items)
 
     function items(result) {
         console.log("checking for all items")
