@@ -238,7 +238,6 @@
                 </div>
             </div>
             <div id="infinitydimensions" class="dimtab">
-                    <div id="infinityPoints2" style="color: black; font-size: 140%; width: 25%; margin: 0 auto">You have made x Infinity points.</div>
                 <div>
                     <p>You have <span id="infPowAmount" style="font-size:35px; color: black">0</span> infinity power. translated to <span id="infDimMultAmount" style="font-size:35px; color: black">0</span>x multiplier on all dimensions</p>
                 </div>
@@ -605,10 +604,13 @@
         <div id="challenges" class="tab">
             <br>
             <button class="storebtn" style="font-size: 100%; width:200px" onclick="exitChallenge()">Exit Challenge</button><br><br>
-            <tr>
-                <td><button class="secondarytabbtn" onclick="showChallengesTab('challenges')">Challenges</button><td>
-                <td><button class="secondarytabbtn" onclick="showChallengesTab('breakchallenges')">Infinity Challenges</button><td>
-            </tr>
+            <table class="table" align="center" style="margin: auto; display: none" id="challTabButtons">
+                <tr>
+                    <td><button class="secondarytabbtn" onclick="showChallengesTab('challenges')">Challenges</button><td>
+                    <td><button class="secondarytabbtn" onclick="showChallengesTab('breakchallenges')">Infinity Challenges</button><td>
+                </tr>
+            </table>
+            <div id="nextchall"></div>
             <div id="challenges" class="challengeTab">
                 <table class="table" style="margin: 0 auto">
                     <tr>
@@ -792,7 +794,6 @@
                 </table>
             </div>
             <div id="breakchallenges" class="challengeTab">
-                <div id="nextchall"></div>
                 <table  class="table" style="margin: 0 auto">
                     <tr>
                         <td>
@@ -1410,7 +1411,7 @@
 <script src="PlayFab/PlayFabClientApi.js"></script>
 <script src="javascripts/autobuyer.js"></script>
 <script src="javascripts/decimal.js"></script>
-<script src="javascripts/game.js?47"></script>
+<script src="javascripts/game.js?48"></script>
 
 
 </html>

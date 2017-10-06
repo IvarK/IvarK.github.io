@@ -3497,7 +3497,7 @@ setInterval(function() {
     } catch (err) {console.log("Couldn't load Kongregate API")}
 }, 10000)
 
-const nextAt = [new Decimal("1e2000"), new Decimal("1e5000"), new Decimal("1e12000"), new Decimal("1e14000"), new Decimal("1e18000"), new Decimal("1e20000"), new Decimal("1e23000"), new Decimal("1e24000"), new Decimal("1e9999999")]
+const nextAt = [new Decimal("1e2000"), new Decimal("1e5000"), new Decimal("1e12000"), new Decimal("1e14000"), new Decimal("1e18000"), new Decimal("1e20000"), new Decimal("1e23000"), new Decimal("1e30000")]
 
 setInterval(function() {
     if (getDimensionFinalMultiplier(1).gte(new Decimal("1e308")) &&
@@ -3526,17 +3526,23 @@ setInterval(function() {
         document.getElementById("Blink of an eye").style.display = "block"
         blink = true
     }
-
-    document.getElementById("nextchall").innerHTML = "Next challenge unlocks at "+ shortenCosts(nextAt[player.postChallUnlocked]) + " antimatter."
-    if (player.money.gte(nextAt[player.postChallUnlocked])) {
-        player.postChallUnlocked += 1
-        updateChallenges()
+    if (nextAt[player.postChallUnlocked] === undefined) {
+        document.getElementById("nextchall").innerHTML = ""
+    }
+    else {
+        document.getElementById("nextchall").innerHTML = "Next challenge unlocks at "+ shortenCosts(nextAt[player.postChallUnlocked]) + " antimatter."
+        if (player.money.gte(nextAt[player.postChallUnlocked])) {
+            player.postChallUnlocked += 1
+            updateChallenges()
+        }
     }
     let temp = 1
     for (var i=0; i < player.challenges.length; i++) {
         if (player.challenges[i].includes("post")) temp *= 1.5
     }
     infDimPow = temp
+
+    if (player.money.gte(new Decimal("1e2000"))) document.getElementById("challTabButtons").style.display = "table"
 
 }, 1000)
 
@@ -3633,6 +3639,8 @@ setInterval(function () {
 
 
         player.infinityPower = player.infinityPower.plus(getInfinityDimensionProduction(1).times(diff/10))
+
+
 
 
 
@@ -4380,7 +4388,6 @@ function init() {
 function purchaseIP() {
     console.log("purchase ip")
     kongregate.mtx.purchaseItems(['doubleip'], onPurchaseResult)
-    updateKongPurchases()
 }
 
 function purchaseDimMult() {
