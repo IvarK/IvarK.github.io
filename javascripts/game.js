@@ -3560,6 +3560,9 @@ setInterval(function() {
 
     if (player.money.gte(new Decimal("1e2000"))) document.getElementById("challTabButtons").style.display = "table"
 
+    document.getElementById("kongip").innerHTML = "Double your IP gain from all sources. Forever. Currently x"+kongIPMult
+    document.getElementById("kongdim").innerHTML = "Double all your dimension multipliers (dimensions 1-8). Forever. x"+kongDimMult
+
 }, 1000)
 
 var postC2Count = 0;
