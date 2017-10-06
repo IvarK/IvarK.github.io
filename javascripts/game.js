@@ -4450,6 +4450,17 @@ function updateKongPurchases() {
         kongDimMult = mult
     }
 
+    kongregate.mtx.requestItemList([], items)
+
+    function items(result) {
+        console.log("checking for dim mult")
+        for(var i = 0; i < result.data.length; i++) {
+            var item = result.data[i];
+            console.log((i+1) + ". " + item.identifier + ", " + 
+                        item.id + "," + item.name);
+            if (item.identifier == "doublemult") mult *= 2
+        }
+    }
 }
 
 
@@ -4669,6 +4680,7 @@ document.getElementById("hiddenheader").style.display = "none";
 
 window.onload = function() {
     playFabLogin();
+    updateKongPurchases()
 }
 
 window.addEventListener('keydown', function(event) {
