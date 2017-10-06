@@ -1285,10 +1285,10 @@ function getTickSpeedMultiplier() {
         if (player.currentChallenge == "challenge6" || player.currentChallenge == "postc1") baseMultiplier = 0.83
         let perGalaxy = 0.965
         let galaxies = player.galaxies-2
-        if (player.infinityUpgrades.includes("galaxyBoost")) perGalaxy *= 2;
-        if (player.infinityUpgrades.includes("postGalaxy")) perGalaxy *= 1.5;
-        if (player.challenges.includes("postc5")) perGalaxy *= 1.1;
-        if (player.achievements.includes("Do you even bend time bro?")) perGalaxy *= 1.01
+        if (player.infinityUpgrades.includes("galaxyBoost")) galaxies *= 2;
+        if (player.infinityUpgrades.includes("postGalaxy")) galaxies *= 1.5;
+        if (player.challenges.includes("postc5")) galaxies *= 1.1;
+        if (player.achievements.includes("Do you even bend time bro?")) galaxies *= 1.01
 
         return baseMultiplier * (Math.pow(perGalaxy, (galaxies-2)))
     }
