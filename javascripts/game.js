@@ -1336,6 +1336,7 @@ function buyMaxTickSpeed() {
         else multiplySameCosts(player.tickSpeedCost)
         if (player.tickSpeedCost.gte(Number.MAX_VALUE)) player.tickspeedMultiplier = player.tickspeedMultiplier.times(player.tickSpeedMultDecrease);
         player.tickspeed = player.tickspeed.times(getTickSpeedMultiplier());
+        if (getTickSpeedMultiplier() < 0.001) giveAchievement("Do you even bend time bro?");
         if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0
         if (player.challenges.includes("postc3") || player.currentChallenge == "postc3") player.postC3Reward *= 1.05+(player.galaxies*0.005)
         postc8Mult = new Decimal(1)
@@ -2434,6 +2435,7 @@ document.getElementById("secondSoftReset").onclick = function () {
         if (player.spreadingCancer >= 10) giveAchievement("Spreading Cancer")
         if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
         if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.98);
+        if (player.achievements.includes("YOU CAN GET 50 GALAXIES!??")) player.tickspeed = player.tickspeed.times(Decimal.pow(0.99,galaxies));
         clearInterval(player.interval);
         //updateInterval();
         updateDimensions();
@@ -2449,6 +2451,7 @@ document.getElementById("secondSoftReset").onclick = function () {
         document.getElementById("seventhRow").style.display = "none";
         document.getElementById("eightRow").style.display = "none";
         updateTickSpeed();
+        if (player.galaxies >= 50) giveAchievement("YOU CAN GET 50 GALAXIES!??")
         if (player.galaxies >= 2) giveAchievement("Double Galaxy");
         if (player.galaxies >= 1) giveAchievement("You got past The Big Wall");
         if (player.challenges.includes("challenge1")) player.money = new Decimal(100)
@@ -2555,7 +2558,8 @@ function breakInfinity() {
 }
 
 function gainedInfinityPoints() {
-    return Decimal.floor(Decimal.pow(10, Decimal.log10(player.money).dividedBy(308).minus(0.75)).times(player.infMult * kongIPMult))
+    if (player.achievements.includes("All your IP is belong to us")) return Decimal.floor(Decimal.pow(10, Decimal.log10(player.totalmoney).dividedBy(308).minus(0.75)).times(player.infMult * kongIPMult))
+    else return Decimal.floor(Decimal.pow(10, Decimal.log10(player.money).dividedBy(308).minus(0.75)).times(player.infMult * kongIPMult))
 }
 
 
@@ -2637,7 +2641,8 @@ function resetDimensions() {
 function calcSacrificeBoost() {
     if (player.firstAmount == 0) return new Decimal(1);
     if (player.challenges.includes("postc2")) {
-        return Decimal.max(Decimal.pow(player.firstAmount, 0.01).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.01), 1)), 1)
+        if (player.achievements.includes("yet another infinity reference")) return Decimal.max(Decimal.pow(player.firstAmount, 0.01).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.01), 1)), 1)
+        else return Decimal.max(Decimal.pow(player.secondAmount, 0.01).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.01), 1)), 1)
     }
     if (player.currentChallenge != "challenge11") {
         var sacrificePow=2;
@@ -2657,9 +2662,10 @@ function sacrifice() {
     }
 
     if (player.resets < 5) return false
-
+    if (calcSacrificeBoost().gte(Number.MAX_VALUE)) giveAchievement("yet another infinity reference");
     player.eightPow = player.eightPow.times(calcSacrificeBoost())
-    player.sacrificed = player.sacrificed.plus(player.firstAmount)
+    if (player.challenges.includes("postc2") && !player.achievements.includes("yet another infinity reference")) player.sacrificed = player.sacrificed.plus(player.secondAmount)
+    else player.sacrificed = player.sacrificed.plus(player.firstAmount);
     if (player.currentChallenge != "challenge11") {
         if (player.currentChallenge == "challenge7") clearDimensions(6);
         else clearDimensions(7);
@@ -3044,6 +3050,7 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.currentChallenge == "challenge5" && player.thisInfinityTime <= 1800) giveAchievement("Is this hell?")
         if (player.firstAmount == 1 && player.resets == 0 && player.galaxies == 0 && player.currentChallenge == "challenge12") giveAchievement("ERROR 909: Dimension not found")
         if (player.currentChallenge != "" && player.challengeTimes[challNumber-2] > player.thisInfinityTime) player.challengeTimes[challNumber-2] = player.thisInfinityTime
+	    if (player.challenges.length == 20) giveAchievement("Anti-antichallenged");
         if ((player.bestInfinityTime > 600 && !player.break) || (player.currentChallenge != "" && !player.options.retryChallenge)) showTab("dimensions")
         if (player.currentChallenge == "challenge5") {
             try {
@@ -3061,6 +3068,7 @@ document.getElementById("bigcrunch").onclick = function () {
         else {
             player.infinityPoints = player.infinityPoints.plus(gainedInfinityPoints())
             addTime(player.thisInfinityTime, gainedInfinityPoints())
+            if (gainedInfinityPoints().gte(1e150)) giveAchievement("All your IP is belong to us")
         }
         
         player = {
@@ -3596,7 +3604,7 @@ setInterval(function () {
         player.partInfinitied -= 5;
         player.infinitied ++;
     }
-
+    if (player.infinitied > 2e6) giveAchievement("2Minf")
     player.infinityPoints = player.infinityPoints.plus(bestRunIppm * (player.offlineProd/100) * (diff/600))
 
     if (player.currentChallenge != "challenge7") {
@@ -3646,7 +3654,7 @@ setInterval(function () {
 
 
     if (player.money.gte(new Decimal("9e9999"))) giveAchievement("This achievement doesn't exist")
-
+    if (player.money.gte(new Decimal("1e35000"))) giveAchievement("Too much over 9000 to be over 9000")
 
         player.infinityPower = player.infinityPower.plus(getInfinityDimensionProduction(1).times(diff/10))
 
