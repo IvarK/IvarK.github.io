@@ -4204,7 +4204,7 @@ function scrollNextMessage() {
   //set the transition to blank so the move happens immediately
   s.style.transition = '';
   //move div_text to the right, beyond the edge of the div_container
-  s.style.transform = `translateX(${parentWidth}px)`;  
+  s.style.transform = "translateX(${parentWidth}px)";  
   
   //we need to use a setTimeout here to allow the browser time to move the div_text before we start the scrolling
   scrollTimeouts.push(setTimeout( function() {
