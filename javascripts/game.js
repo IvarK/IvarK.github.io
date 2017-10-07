@@ -4223,10 +4223,10 @@ function scrollNextMessage() {
 
 
     //set the transition duration
-    s.style.transition = `transform ${transformDuration}s linear`;
+    s.style.transition = "transform ${transformDuration}s linear";
     let textWidth = s.clientWidth;
     //we need to move it to -(width+parent padding) before it won't be visible
-    s.style.transform = `translateX(-${textWidth+5}px)`;
+    s.style.transform = "translateX(-${textWidth+5}px)";
     //automatically start the next message scrolling after this one finishes
     //you could add more time to this timeout if you wanted to have some time between messages
     scrollTimeouts.push(setTimeout(scrollNextMessage, Math.ceil(transformDuration * 1000)));
