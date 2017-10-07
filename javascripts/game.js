@@ -603,7 +603,7 @@ function getAbbreviation(e) {
     var prefixes = ['', 'U', 'D', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'O', 'N']
     var prefixes2 = ['', 'Dc', 'Vg', 'Tg', 'Qa', 'Qi', 'Se', 'St', 'Og', 'Nn']
     var prefixes3 = ['', 'Ce', 'Dn', 'Tc', 'Qe', 'Qu', 'Sc', 'Si', 'Oe', 'Ne']
-    var prefixes4 = ['', 'D', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'O', 'N']
+    var prefixes4 = ['', 'U', 'D', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'O', 'N']
     var index = Decimal.floor(e/3)-1
     var index2 = Decimal.floor(index/10)
     var index3 = Decimal.floor(index2/10)
@@ -3561,6 +3561,7 @@ setInterval(function() {
 
 var nextAt = [new Decimal("1e2000"), new Decimal("1e5000"), new Decimal("1e12000"), new Decimal("1e14000"), new Decimal("1e18000"), new Decimal("1e20000"), new Decimal("1e23000"), new Decimal("1e30000")]
 
+var goals = [new Decimal("1e850"), new Decimal("1e10500"), new Decimal("1e5000"), new Decimal("1e13000"), new Decimal("1e11111"), new Decimal("1e20500"), new Decimal("1e10000"), new Decimal("1e30000")]
 setInterval(function() {
     if (getDimensionFinalMultiplier(1).gte(new Decimal("1e308")) &&
         getDimensionFinalMultiplier(2).gte(new Decimal("1e308")) &&
@@ -3612,6 +3613,10 @@ setInterval(function() {
 
     document.getElementById("kongip").innerHTML = "Double your IP gain from all sources. Forever. Currently x"+kongIPMult
     document.getElementById("kongdim").innerHTML = "Double all your dimension multipliers (dimensions 1-8). Forever. Currently x"+kongDimMult
+
+    for (var i=1; i <=8; i++) {
+        document.getElementById("postc"+i+"goal").innerHTML = "Goal: "+shortenCosts(goals[i-1])
+    }
 
 }, 1000)
 
@@ -3665,7 +3670,7 @@ setInterval(function () {
         player.partInfinitied -= 5;
         player.infinitied ++;
     }
-    if (player.infinitied > 2e6) giveAchievement("2Minf")
+    if (player.infinitied > 2e6) giveAchievement("2 Million Infinities")
     player.infinityPoints = player.infinityPoints.plus(bestRunIppm * (player.offlineProd/100) * (diff/600))
 
     if (player.currentChallenge != "challenge7") {
