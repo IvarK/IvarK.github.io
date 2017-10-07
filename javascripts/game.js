@@ -154,7 +154,7 @@ if (!String.prototype.includes) {
       }
     };
   }
-  
+
 
   if (!Array.prototype.includes) {
     Object.defineProperty(Array.prototype, 'includes', {
@@ -206,6 +206,12 @@ if (!String.prototype.includes) {
       }
     });
   }
+
+  if (!Math.log10) {
+    Math.log10 = Math.log10 || function(x) {
+        return Math.log(x) * Math.LOG10E;
+    };
+}
 
 
 function set_save(name, value) {
