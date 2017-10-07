@@ -139,29 +139,14 @@ var seventhButton = document.getElementById("seventh");
 var eightButton = document.getElementById("eight");
 var tickSpeedButton = document.getElementById("tickSpeed");
 
-function set_cookie(cookie_name, value) {
-    localStorage.setItem(cookie_name, btoa(JSON.stringify(value, function(k, v) { return (v === Infinity) ? "Infinity" : v; })))
+function set_save(name, value) {
+    localStorage.setItem(name, btoa(JSON.stringify(value, function(k, v) { return (v === Infinity) ? "Infinity" : v; })))
 }
 
-function get_cookie(cookie_name) {
-    var c_value = document.cookie;
+function get_save(name) {
     if (localStorage.getItem("dimensionSave") !== null) {
-        return JSON.parse(atob(localStorage.getItem(cookie_name), function(k, v) { return (v === Infinity) ? "Infinity" : v; }))
-    } else {
-        var c_start = c_value.indexOf(" " + cookie_name + "=");
-        if (c_start == -1) {
-            c_start = c_value.indexOf(cookie_name + "=");
-        }
-        if (c_start == -1) return false;
-        c_start = c_value.indexOf("=", c_start) + 1;
-        var c_end = c_value.indexOf(";", c_start);
-        if (c_end == -1) {
-            c_end = c_value.length;
-        }
-        c_value = atob(unescape(c_value.substring(c_start, c_end)));
-        set_cookie("dimensionSave", player)
+        return JSON.parse(atob(localStorage.getItem(name), function(k, v) { return (v === Infinity) ? "Infinity" : v; }))
     }
-    return JSON.parse(c_value, function(k, v) { return (v === Infinity) ? "Infinity" : v; });
 }
 
 
@@ -424,7 +409,7 @@ function loadFromString(string) {
 
 
 function load_game() {
-    var save_data = get_cookie('dimensionSave');
+    var save_data = get_save('dimensionSave');
     if (!save_data) return;
     player = save_data;
     onLoad()
@@ -433,7 +418,7 @@ function load_game() {
 
 
 function save_game() {
-    set_cookie('dimensionSave', player);
+    set_save('dimensionSave', player);
     $.notify("Game saved", "info")
 }
 
@@ -2513,7 +2498,7 @@ document.getElementById("importbtn").onclick = function () {
 
 document.getElementById("reset").onclick = function () {
     if (confirm("Do you really want to erase all your progress?")) {
-        set_cookie('dimensionSave', defaultStart);
+        set_save('dimensionSave', defaultStart);
         player = defaultStart
         save_game();
         load_game();

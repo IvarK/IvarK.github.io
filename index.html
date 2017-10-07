@@ -32,14 +32,14 @@
 </head>
 
 <body id="body" style="height: 95vh">
-    <div class="container" style="color:#4F5957; font-family: Typewriter; text-align:center; font-size: 13px">
+    <div class="container" style="color:#4F5957; font-family: Typewriter; text-align:center; font-size: 11px">
         <div id='game'>
             <div id='news'>.</div>
         </div>
         <div id="matter"></div>
         <div style="position: relative"><div class="IP" id="infinityPoints2"></div></div>
         <div>
-            <p>You have <span id="coinAmount" style="font-size:35px; color: black">0</span> antimatter.</p>
+            <p>You have <span id="coinAmount" style="font-size:25px; color: black">0</span> antimatter.</p>
         </div>
         
         <div style="position: relative"><button id="postInfinityButton" class="postinfcrunch">Big Crunch for x Infinity Points</button></div>
@@ -48,8 +48,8 @@
         
         <tr id="tickSpeedRow" style="visibility: hidden">
             <div id="tickLabel" style="visibility: hidden">Make the game 10% faster.</div>
-            <button id="tickSpeed" style="color:black; visibility: hidden; height: 30px;width: 150px; font-size: 12px" class="storebtn">Cost: 1000</button>
-            <button id="tickSpeedMax" onclick="buyMaxTickSpeed()" style="color:black; visibility: hidden; height: 30px; font-size: 12px" class="storebtn">Buy Max</button>
+            <button id="tickSpeed" style="color:black; visibility: hidden; height: 25px;width: 150px; font-size: 12px" class="storebtn">Cost: 1000</button>
+            <button id="tickSpeedMax" onclick="buyMaxTickSpeed()" style="color:black; visibility: hidden; height: 25px; font-size: 12px" class="storebtn">Buy Max</button>
             <div id="tickSpeedAmount" style="visibility: hidden">Tickspeed: 1000</div>
         </tr>
         <p></p>
@@ -57,13 +57,13 @@
             <button id="bigcrunch" style="font-family: Typewriter; font-size: 50px; width: 360px; height: 100px;" class="tabbtn">Big Crunch</button>
         </div>
         <div>
-            <button id="dimensionsbtn" style="font-family: Typewriter; font-size: 24px" class="tabbtn">Dimensions</button>
-            <button id="optionsbtn" style="font-family: Typewriter; font-size: 24px" class="tabbtn">Options</button>
-            <button id="statisticsbtn" style="font-family: Typewriter; font-size: 24px" class="tabbtn">Statistics</button>
-            <button id="achievementsbtn" style="font-family: Typewriter; font-size: 24px" class="tabbtn">Achievements</button>
-            <button id="challengesbtn" style="font-family: Typewriter; font-size: 24px" class="tabbtn">Challenges</button>
-            <button id="infinitybtn" style="font-family: Typewriter; font-size: 24px" class="infinitybtn">Infinity</button>
-            <button id="shopbtn" style="font-family: Typewriter; font-size: 24px" class="tabbtn" onclick="showTab('shop')">Shop</button>
+            <button id="dimensionsbtn" style="font-family: Typewriter; font-size: 20px" class="tabbtn">Dimensions</button>
+            <button id="optionsbtn" style="font-family: Typewriter; font-size: 20px" class="tabbtn">Options</button>
+            <button id="statisticsbtn" style="font-family: Typewriter; font-size: 20px" class="tabbtn">Statistics</button>
+            <button id="achievementsbtn" style="font-family: Typewriter; font-size: 20px" class="tabbtn">Achievements</button>
+            <button id="challengesbtn" style="font-family: Typewriter; font-size: 20px" class="tabbtn">Challenges</button>
+            <button id="infinitybtn" style="font-family: Typewriter; font-size: 20px" class="infinitybtn">Infinity</button>
+            <button id="shopbtn" style="font-family: Typewriter; font-size: 20px" class="tabbtn" onclick="showTab('shop')">Shop</button>
         </div>
         <div id="emptiness" class="tab" style="font-size: 150%">
             <br> The world has collapsed on itself due to excess of antimatter.
@@ -94,14 +94,14 @@
             </table>
             <div id="antimatterdimensions" class="dimtab">
                 <p></p>
-                <input id="confirmation" type="checkbox" style="width:20px; height:20px; display: none" ach-tooltip="No confirmation when doing Dimensional Sacrifice" onchange="sacrificeConf()">
+                <input id="confirmation" type="checkbox" style="width:20px; height:25px; display: none" ach-tooltip="No confirmation when doing Dimensional Sacrifice" onchange="sacrificeConf()">
                 <button id="sacrifice" class="storebtn" style="font-size:12px; width: 260px; display: none" ach-tooltip="">Dimensional Sacrifice</button>
                 <button id="maxall" class="storebtn" style="font-size: 12px">Max all</Button>
                 <span id="chall2Pow"></span>
                 <span id="chall3Pow"></span>
                 <table class="table" >
                 <tbody id="parent">
-                    <tr style="font-size: 18px" id="firstRow">
+                    <tr style="font-size: 15px" id="firstRow">
                         <td id="firstD" width="32%">
                             First Dimension x1
                         </td>
@@ -109,26 +109,26 @@
                             <div id="firstAmount">0 (0)</div>
                         </td>
                         <td align="right" width="10%">
-                            <button id="first" style="color:black; height: 35px" class="storebtn" align="right">Cost: 10</button>
+                            <button id="first" style="color:black; height: 25px; font-size: 10px" class="storebtn" align="right">Cost: 10</button>
                         </td>
                         <td align="right" width="10%">
-                            <button id="firstMax" style="color:black; width:195px; height:35px" class="storebtn" align="right">Cost: 10</button>
+                            <button id="firstMax" style="color:black; width:195px; height: 25px; font-size: 10px" class="storebtn" align="right">Cost: 10</button>
                         </td>
                     </tr>
-                    <tr id="secondRow" style="display: none; font-size: 18px">
+                    <tr id="secondRow" style="display: none; font-size: 15px">
                         <td id="secondD">
                             Second Dimension
                         </td>
                         <td>
                             <div id="secondAmount" align="left">0 (0)</div>
                         </td>
-                        <td><button id="second" style="color:black; height: 35px" class="storebtn">Cost: 100</button>
+                        <td><button id="second" style="color:black; height: 25px; font-size: 10px" class="storebtn">Cost: 100</button>
                         </td>
                         <td>
-                            <button id="secondMax" style="color:black; width:195px; height:35px" class="storebtn">Cost: 10</button>
+                            <button id="secondMax" style="color:black; width:195px; height: 25px; font-size: 10px" class="storebtn">Cost: 10</button>
                         </td>
                     </tr>
-                    <tr id="thirdRow" style="display: none; font-size: 18px">
+                    <tr id="thirdRow" style="display: none; font-size: 15px">
                         <td id="thirdD">
                             Third Dimension
                         </td>
@@ -136,13 +136,13 @@
                             <div id="thirdAmount" align="left">0 (0)</div>
                         </td>
                         <td>
-                            <button id="third" style="color:black; height: 35px" class="storebtn">Cost: 10000</button>
+                            <button id="third" style="color:black; height: 25px; font-size: 10px" class="storebtn">Cost: 10000</button>
                         </td>
                         <td>
-                            <button id="thirdMax" style="color:black; width:195px; height:35px" class="storebtn">Cost: 10</button>
+                            <button id="thirdMax" style="color:black; width:195px; height: 25px; font-size: 10px" class="storebtn">Cost: 10</button>
                         </td>
                     </tr>
-                    <tr id="fourthRow" style="display: none; font-size: 18px">
+                    <tr id="fourthRow" style="display: none; font-size: 15px">
                         <td id="fourthD">
                             Fourth Dimension
                         </td>
@@ -150,13 +150,13 @@
                             <div id="fourthAmount" align="left">0 (0)</div>
                         </td>
                         <td>
-                            <button id="fourth" style="color:black; height: 35px" class="storebtn">Cost: 1000000</button>
+                            <button id="fourth" style="color:black; height: 25px; font-size: 10px" class="storebtn">Cost: 1000000</button>
                         </td>
                         <td>
-                            <button id="fourthMax" style="color:black; width:195px; height:35px" class="storebtn">Cost: 10</button>
+                            <button id="fourthMax" style="color:black; width:195px; height: 25px; font-size: 10px" class="storebtn">Cost: 10</button>
                         </td>
                     </tr>
-                    <tr id="fifthRow" style="display: none; font-size: 18px">
+                    <tr id="fifthRow" style="display: none; font-size: 15px">
                         <td id="fifthD">
                             Fifth Dimension
                         </td>
@@ -164,13 +164,13 @@
                             <div id="fifthAmount" align="left">0 (0)</div>
                         </td>
                         <td>
-                            <button id="fifth" style="color:black; height: 35px" class="storebtn">Cost: 1000000</button>
+                            <button id="fifth" style="color:black; height: 25px; font-size: 10px" class="storebtn">Cost: 1000000</button>
                         </td>
                         <td>
-                            <button id="fifthMax" style="color:black; width:195px; height:35px" class="storebtn">Cost: 10</button>
+                            <button id="fifthMax" style="color:black; width:195px; height: 25px; font-size: 10px" class="storebtn">Cost: 10</button>
                         </td>
                     </tr>
-                    <tr id="sixthRow" style="display: none; font-size: 18px">
+                    <tr id="sixthRow" style="display: none; font-size: 15px">
                         <td id="sixthD">
                             Sixth Dimension
                         </td>
@@ -178,13 +178,13 @@
                             <div id="sixthAmount" align="left">0 (0)</div>
                         </td>
                         <td>
-                            <button id="sixth" style="color:black; height: 35px" class="storebtn">Cost: 1000000</button>
+                            <button id="sixth" style="color:black; height: 25px; font-size: 10px" class="storebtn">Cost: 1000000</button>
                         </td>
                         <td>
-                            <button id="sixthMax" style="color:black; width:195px; height:35px" class="storebtn">Cost: 10</button>
+                            <button id="sixthMax" style="color:black; width:195px; height: 25px; font-size: 10px" class="storebtn">Cost: 10</button>
                         </td>
                     </tr>
-                    <tr id="seventhRow" style="display: none; font-size: 18px">
+                    <tr id="seventhRow" style="display: none; font-size: 15px">
                         <td id="seventhD">
                             Seventh Dimension
                         </td>
@@ -192,13 +192,13 @@
                             <div id="seventhAmount" align="left">0 (0)</div>
                         </td>
                         <td>
-                            <button id="seventh" style="color:black; height: 35px" class="storebtn">Cost: 1000000</button>
+                            <button id="seventh" style="color:black; height: 25px; font-size: 10px" class="storebtn">Cost: 1000000</button>
                         </td>
                         <td>
-                            <button id="seventhMax" style="color:black; width:195px; height:35px" class="storebtn">Cost: 10</button>
+                            <button id="seventhMax" style="color:black; width:195px; height: 25px; font-size: 10px" class="storebtn">Cost: 10</button>
                         </td>
                     </tr>
-                    <tr id="eightRow" style="display: none; font-size: 18px">
+                    <tr id="eightRow" style="display: none; font-size: 15px">
                         <td id="eightD">
                             Eight Dimension
                         </td>
@@ -207,10 +207,10 @@
                         </td>
                         <td>
 
-                            <button id="eight" style="color:black; height: 35px" class="storebtn">Cost: 1000000</button>
+                            <button id="eight" style="color:black; height: 25px; font-size: 10px" class="storebtn">Cost: 1000000</button>
                         </td>
                         <td>
-                            <button id="eightMax" style="color:black; width:195px; height:35px" class="storebtn">Cost: 10</button>
+                            <button id="eightMax" style="color:black; width:195px; height: 25px; font-size: 10px" class="storebtn">Cost: 10</button>
                         </td>
                     </tr>
                     </body>
@@ -221,7 +221,7 @@
                             Dimension Shift: requires 20 Fourth Dimension
                         </td>
                         <td>
-                            <button id="softReset" style="color:black; width: 200px; height: 30px; font-size: 10px" class="storebtn">Reset the game for a new Dimension</button>
+                            <button id="softReset" style="color:black; width: 200px; height: 25px; font-size: 10px" class="storebtn">Reset the game for a new Dimension</button>
                         </td>
                     </tr>
                     <tr style="font-size: 15px">
@@ -229,7 +229,7 @@
                             Antimatter Galaxies: requires 80 Eight Dimension
                         </td>
                         <td>
-                            <button id="secondSoftReset" style="color:black; width: 200px; height: 35px; font-size: 9px" class="storebtn">Lose all your previous progress, but get a tickspeed boost</button>
+                            <button id="secondSoftReset" style="color:black; width: 200px; height: 25px; font-size: 9px" class="storebtn">Lose all your previous progress, but get a tickspeed boost</button>
                         </td>
                     </tr>
                 </table>
@@ -253,7 +253,7 @@
                             <div id="infAmount1">0 (0)</div>
                         </td>
                         <td align="right" width="10%">
-                            <button id="infMax1" style="color:black; width:195px; height:35px" class="storebtn" align="right" onclick="buyManyInfinityDimension(1)">Cost: 10</button>
+                            <button id="infMax1" style="color:black; width:195px; height:30px" class="storebtn" align="right" onclick="buyManyInfinityDimension(1)">Cost: 10</button>
                         </td>
                     </tr>
                     <tr id="infRow2" style="display: none; font-size: 17px">
@@ -263,7 +263,7 @@
                         <td>
                             <div id="infAmount2" align="left">0 (0)</div>
                         <td>
-                            <button id="infMax2" style="color:black; width:195px; height:35px" class="storebtn" onclick="buyManyInfinityDimension(2)">Cost: 10</button>
+                            <button id="infMax2" style="color:black; width:195px; height:30px" class="storebtn" onclick="buyManyInfinityDimension(2)">Cost: 10</button>
                         </td>
                     </tr>
                     <tr id="infRow3" style="display: none; font-size: 17px">
@@ -274,7 +274,7 @@
                             <div id="infAmount3" align="left">0 (0)</div>
                         </td>
                         <td>
-                            <button id="infMax3" style="color:black; width:195px; height:35px" class="storebtn" onclick="buyManyInfinityDimension(3)">Cost: 10</button>
+                            <button id="infMax3" style="color:black; width:195px; height:30px" class="storebtn" onclick="buyManyInfinityDimension(3)">Cost: 10</button>
                         </td>
                     </tr>
                     <tr id="infRow4" style="display: none; font-size: 17px">
@@ -285,7 +285,7 @@
                             <div id="infAmount4" align="left">0 (0)</div>
                         </td>
                         <td>
-                            <button id="infMax4" style="color:black; width:195px; height:35px" class="storebtn" onclick="buyManyInfinityDimension(4)">Cost: 10</button>
+                            <button id="infMax4" style="color:black; width:195px; height:30px" class="storebtn" onclick="buyManyInfinityDimension(4)">Cost: 10</button>
                         </td>
                     </tr>
                 </table>
@@ -1438,7 +1438,7 @@
 <script src="PlayFab/PlayFabClientApi.js"></script>
 <script src="javascripts/autobuyer.js"></script>
 <script src="javascripts/decimal.js"></script>
-<script src="javascripts/game.js?55"></script>
+<script src="javascripts/game.js?56"></script>
 
 
 </html>

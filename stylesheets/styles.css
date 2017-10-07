@@ -14,7 +14,7 @@
 #game {
     border: 2px solid black;
     border-radius: 4px;
-    padding: 5px;
+    padding: 2px;
     width: 75%;
     overflow: hidden;
     margin: auto;
@@ -27,7 +27,7 @@
     position: relative;
     display: inline-block;
     font-family: Typewriter;
-    font-size: 20px;
+    font-size: 15px;
     white-space: nowrap;
     font-weight: bold
   }
@@ -162,11 +162,11 @@
     font-family: Typewriter;
     border: 1px solid #127A20;
     width: 120px;
-    height: 30px;
+    height: 25px;
     transition-duration: 0.2s;
     cursor: pointer;
     border-radius: 4px;
-    font-size: 55%;
+    font-size: 13px;
     vertical-align: top;
 }
 
@@ -345,7 +345,7 @@
     transition-duration: 0.2s;
     cursor: pointer;
     width: 175px;
-    height: 30px;
+    height: 25px;
     font-family: Typewriter;
 }
 
@@ -383,7 +383,7 @@
 .IP {
     left:81.5%;
     position: absolute;
-    font-size: 15px;
+    font-size: 12px;
     width: 150px;
 }
 
@@ -564,7 +564,7 @@
     height: 50px;
     margin: auto;
     text-align:center;
-    font-size: 20px;
+    font-size: 15px;
     font-family: Typewriter;
 }
 
@@ -577,10 +577,10 @@
 
 #progressbar {
     width: 0%;
-    height: 30px;
+    height: 17px;
     background-color: #127A20;
     color: black;
-    font-size: 130%;
+    font-size: 13px;
     border-radius: 5px;
 }
 
