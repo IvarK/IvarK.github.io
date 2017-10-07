@@ -3048,7 +3048,7 @@ document.getElementById("bigcrunch").onclick = function () {
             addTime(player.thisInfinityTime, gainedInfinityPoints())
             if (gainedInfinityPoints().gte(1e150)) giveAchievement("All your IP are belong to us")
         }
-        if (player.thisInfinityTime > 250 && player.achievements.includes("2Minf")) player.infinitied += 249;
+        if (player.thisInfinityTime > 250 && player.achievements.includes("2 Million Infinities")) player.infinitied += 249;
         
         player = {
         money: new Decimal(10),
