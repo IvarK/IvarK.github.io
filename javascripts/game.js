@@ -4192,7 +4192,7 @@ function scrollNextMessage() {
   let idx = Math.floor(Math.random() * newsArray.length)
   let msg = {msg: newsArray[idx], index: idx};
   
-  scrollTimeouts.forEach((v) => {clearTimeout(v);});
+  scrollTimeouts.forEach(function(v) {clearTimeout(v);});
   scrollTimeouts = [];
   
   //set the text
@@ -4207,7 +4207,7 @@ function scrollNextMessage() {
   s.style.transform = `translateX(${parentWidth}px)`;  
   
   //we need to use a setTimeout here to allow the browser time to move the div_text before we start the scrolling
-  scrollTimeouts.push(setTimeout(() => {
+  scrollTimeouts.push(setTimeout( function() {
     //distance to travel is s.parentElement.clientWidth + s.clientWidth + parent padding
     //we want to travel at rate pixels per second so we need to travel for (distance / rate) seconds
     let dist = s.parentElement.clientWidth + s.clientWidth + 20; //20 is div_container padding
