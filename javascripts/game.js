@@ -525,10 +525,10 @@ function isDecimal(value) {
 
 
 function getAbbreviation(e) {
-    const prefixes = ['', 'U', 'D', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'O', 'N']
-    const prefixes2 = ['', 'Dc', 'Vg', 'Tg', 'Qa', 'Qi', 'Se', 'St', 'Og', 'Nn']
-    const prefixes3 = ['', 'Ce', 'Dn', 'Tc', 'Qe', 'Qu', 'Sc', 'Si', 'Oe', 'Ne']
-    const prefixes4 = ['', 'D', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'O', 'N']
+    var prefixes = ['', 'U', 'D', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'O', 'N']
+    var prefixes2 = ['', 'Dc', 'Vg', 'Tg', 'Qa', 'Qi', 'Se', 'St', 'Og', 'Nn']
+    var prefixes3 = ['', 'Ce', 'Dn', 'Tc', 'Qe', 'Qu', 'Sc', 'Si', 'Oe', 'Ne']
+    var prefixes4 = ['', 'D', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'O', 'N']
     var index = Decimal.floor(e/3)-1
     var index2 = Decimal.floor(index/10)
     var index3 = Decimal.floor(index2/10)
@@ -634,7 +634,7 @@ function hasInfinityMult(tier) {
 
 
 function getDimensionFinalMultiplier(tier) {
-    const name = TIER_NAMES[tier];
+    var name = TIER_NAMES[tier];
    
     let multiplier = new Decimal(player[name + 'Pow']);
     if (player.currentChallenge == "challenge7") {
@@ -696,7 +696,7 @@ function getMoneyPerSecond() {
 }
 
 function getDimensionDescription(tier) {
-    const name = TIER_NAMES[tier];
+    var name = TIER_NAMES[tier];
     
     let description = shortenDimensions(player[name + 'Amount']) + ' (' + player[name + 'Bought'] + ')';
     
@@ -714,13 +714,13 @@ function getDimensionRateOfChange(tier) {
 
     let toGain = getDimensionProductionPerSecond(tier + 1)
 
-    const name = TIER_NAMES[tier];
+    var name = TIER_NAMES[tier];
     if (player.currentChallenge == "challenge7") {
         if (tier == 7) return 0
         else toGain = getDimensionProductionPerSecond(tier + 2);
     }
-    const current = Decimal.max(player[name + 'Amount'], 1);
-    const change  = toGain.times(10).dividedBy(current);
+    var current = Decimal.max(player[name + 'Amount'], 1);
+    var change  = toGain.times(10).dividedBy(current);
     
     return change;
 }
@@ -805,7 +805,7 @@ function sacrificeConf() {
 function updateDimensions() {
     
     for (let tier = 1; tier <= 8; ++tier) {
-        const name = TIER_NAMES[tier];
+        var name = TIER_NAMES[tier];
         if (!canBuyDimension(tier)) {
             break;
         }
@@ -815,7 +815,7 @@ function updateDimensions() {
 
 
     for (let tier = 1; tier <= 8; ++tier) {
-        const name = TIER_NAMES[tier];
+        var name = TIER_NAMES[tier];
         if (!canBuyDimension(tier)) {
             break;
         }
@@ -835,7 +835,7 @@ function updateDimensions() {
         document.getElementById("tickSpeedAmount").style.visibility = "visible";
     }
     
-    const shiftRequirement = getShiftRequirement(0);
+    var shiftRequirement = getShiftRequirement(0);
     if (player.currentChallenge == "challenge4" ? shiftRequirement.tier < 6 : shiftRequirement.tier < 8) {
         document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires ' + shiftRequirement.amount + " " + DISPLAY_NAMES[shiftRequirement.tier] + " Dimensions";
     }
@@ -976,7 +976,7 @@ function updateChallenges() {
 
 
 function getInfinityDimensionDescription(tier) {
-    const name = TIER_NAMES[tier];
+    var name = TIER_NAMES[tier];
     
     let description = shortenDimensions(player['infinityDimension'+tier].amount) + ' (' + player['infinityDimension'+tier].bought + ')';
     
@@ -990,8 +990,8 @@ function getInfinityDimensionDescription(tier) {
 
 function getInfinityDimensionRateOfChange(tier) {
     let toGain = getInfinityDimensionProduction(tier+1)
-    const current = Decimal.max(player["infinityDimension"+tier].amount, 1);
-    const change  = toGain.times(10).dividedBy(current);
+    var current = Decimal.max(player["infinityDimension"+tier].amount, 1);
+    var change  = toGain.times(10).dividedBy(current);
     return change;
 }
 
@@ -1006,7 +1006,7 @@ function updateInfinityDimensions() {
 
 
     for (let tier = 1; tier <= 4; ++tier) {
-        const name = TIER_NAMES[tier];
+        var name = TIER_NAMES[tier];
         if (!player.infDimensionsUnlocked[tier-1]) {
             break;
         }
@@ -1372,8 +1372,8 @@ function giveAchievement(name) {
     updateAchPow();
 }
 
-const TIER_NAMES = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
-const DISPLAY_NAMES = [ null, "First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth" ];
+var TIER_NAMES = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
+var DISPLAY_NAMES = [ null, "First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth" ];
 
 function canAfford(cost) {
     return ((cost.lt(new Decimal("1.79e308")) && !player.break) || player.break) && cost.lte(player.money);
@@ -1382,8 +1382,8 @@ function canAfford(cost) {
 
 
 function multiplySameCosts(cost) {
-    const tiers = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
-    const tierCosts = [ null, new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15) ];
+    var tiers = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
+    var tierCosts = [ null, new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15) ];
     
     for (let i = 1; i <= 8; ++i) {
         if (player[tiers[i] + "Cost"].e == cost.e) player[tiers[i] + "Cost"] = player[tiers[i] + "Cost"].times(tierCosts[i])
@@ -1394,7 +1394,7 @@ function multiplySameCosts(cost) {
 
 
 function multiplyPC5Costs(cost, tier) {
-    const tiers = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
+    var tiers = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
 
     if (tier < 5) {
         for (var i = 1; i<9; i++) {
@@ -1449,7 +1449,7 @@ function getDimensionPowerMultiplier(tier) {
 
 
 function clearDimensions(amount) {
-	const tiers = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
+	var tiers = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
     
     for (i = 1; i <= amount; i++) {
         player[tiers[i] + "Amount"] = new Decimal(0)
@@ -1459,7 +1459,7 @@ function clearDimensions(amount) {
 
 function getDimensionCostMultiplier(tier) {
 
-	const multiplier2 = [new Decimal(1e3),new Decimal(5e3),new Decimal(1e4),new Decimal(1.2e4),new Decimal(1.8e4),new Decimal(2.6e4),new Decimal(3.2e4),new Decimal(4.2e4)];
+	var multiplier2 = [new Decimal(1e3),new Decimal(5e3),new Decimal(1e4),new Decimal(1.2e4),new Decimal(1.8e4),new Decimal(2.6e4),new Decimal(3.2e4),new Decimal(4.2e4)];
     if (player.currentChallenge == "challenge10") return multiplier2[tier - 1];
     else return player.costMultipliers[tier - 1];
 }
@@ -1488,8 +1488,8 @@ function onBuyDimension(tier) {
 }
 
 function buyOneDimension(tier) {
-    const name = TIER_NAMES[tier];
-    const cost = player[name + 'Cost'];
+    var name = TIER_NAMES[tier];
+    var cost = player[name + 'Cost'];
 
     if (player.currentChallenge != "challenge10" && player.currentChallenge != "postc1") {
         if (!canBuyDimension(tier)) {
@@ -1543,8 +1543,8 @@ function buyOneDimension(tier) {
 }
 
 function buyManyDimension(tier) {
-    const name = TIER_NAMES[tier];
-    const cost = player[name + 'Cost'].times(10 - player[name + 'Bought']);
+    var name = TIER_NAMES[tier];
+    var cost = player[name + 'Cost'].times(10 - player[name + 'Bought']);
     
     if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") && player.matter.equals(0)) player.matter = new Decimal(1);
     if (player.currentChallenge != "challenge10" && player.currentChallenge != "postc1") {
@@ -1594,8 +1594,8 @@ function buyManyDimension(tier) {
 
 function buyManyDimensionAutobuyer(tier, bulk) {
 
-        const name = TIER_NAMES[tier];
-        const cost = player[name + 'Cost'].times(10 - player[name + 'Bought'])
+        var name = TIER_NAMES[tier];
+        var cost = player[name + 'Cost'].times(10 - player[name + 'Bought'])
         if (tier >= 3 && (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1")) {
             if (!canBuyDimension(tier)) return false
             if (player[TIER_NAMES[tier-2] + 'Amount'].lt(cost)) return false
@@ -1653,8 +1653,8 @@ function buyManyDimensionAutobuyer(tier, bulk) {
         player.postC4Tier = tier;
 }
 
-const infCostMults = [null, 1e3, 1e6, 1e8, 1e10]
-const infPowerMults = [null, 50, 30, 10, 5]
+var infCostMults = [null, 1e3, 1e6, 1e8, 1e10]
+var infPowerMults = [null, 50, 30, 10, 5]
 function buyManyInfinityDimension(tier) {
     
     var dim = player["infinityDimension"+tier]
@@ -1803,7 +1803,7 @@ document.getElementById("eightMax").onclick = function () {
 };
 
 document.getElementById("softReset").onclick = function () {
-    const name = TIER_NAMES[getShiftRequirement(0).tier]
+    var name = TIER_NAMES[getShiftRequirement(0).tier]
     if (player[name + "Amount"] >= getShiftRequirement(0).amount) {  
         softReset(1)
     }
@@ -1813,8 +1813,8 @@ document.getElementById("maxall").onclick = function () {
     buyMaxTickSpeed();
     
     for (let tier = 8; tier >= 1; tier--) {
-        const name = TIER_NAMES[tier];
-        const cost = player[name + 'Cost'].times(10 - player[name + 'Bought'])
+        var name = TIER_NAMES[tier];
+        var cost = player[name + 'Cost'].times(10 - player[name + 'Bought'])
         if (tier >= 3 && (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1")) {
             if (canBuyDimension(tier) && player[TIER_NAMES[tier-2] + 'Amount'].gte(cost)) {
                 
@@ -2600,7 +2600,7 @@ document.getElementById("newsbtn").onclick = function() {
 
 
 function resetDimensions() {
-    const tiers = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
+    var tiers = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
     
     for (i = 1; i <= 8; i++) {
         player[tiers[i] + "Amount"] = new Decimal(0)
@@ -2655,7 +2655,7 @@ function sacrifice() {
         
     }
     for (let tier = 1; tier <= 8; ++tier) {
-        const name = TIER_NAMES[tier];
+        var name = TIER_NAMES[tier];
         document.getElementById(name + "D").innerHTML = DISPLAY_NAMES[tier] + " Dimension x" + formatValue(player.options.notation, getDimensionFinalMultiplier(tier), 1, 1);
         document.getElementById(name + "Amount").innerHTML = getDimensionDescription(tier);  
     }
@@ -3405,10 +3405,10 @@ function getDimensionProductionPerSecond(tier) {
 
 function updateETAs() {
     for (let tier = 1; tier <= 8; ++tier) {
-        const name = TIER_NAMES[tier] + "Cost";
+        var name = TIER_NAMES[tier] + "Cost";
         document.getElementById("ETADim" + tier).innerHTML = timeDisplay(getETA(name))
     }
-    const resetCosts = [1e12,1e17,1e23,1e30]
+    var resetCosts = [1e12,1e17,1e23,1e30]
     if (player.resets<4) document.getElementById("ETAreset1").innerHTML = timeDisplay(getETA(resetCosts[player.resets]))
     else document.getElementById("ETAreset1").innerHTML = timeDisplay(getETA(Decimal.pow(10,Decimal.ceiling(player.resets*1.5)*15-31)))
     document.getElementById("ETAreset2").innerHTML = timeDisplay(getETA(Decimal.pow(10,player.galaxies*90+129)))
@@ -3484,7 +3484,7 @@ setInterval(function() {
     } catch (err) {console.log("Couldn't load Kongregate API")}
 }, 10000)
 
-const nextAt = [new Decimal("1e2000"), new Decimal("1e5000"), new Decimal("1e12000"), new Decimal("1e14000"), new Decimal("1e18000"), new Decimal("1e20000"), new Decimal("1e23000"), new Decimal("1e30000")]
+var nextAt = [new Decimal("1e2000"), new Decimal("1e5000"), new Decimal("1e12000"), new Decimal("1e14000"), new Decimal("1e18000"), new Decimal("1e20000"), new Decimal("1e23000"), new Decimal("1e30000")]
 
 setInterval(function() {
     if (getDimensionFinalMultiplier(1).gte(new Decimal("1e308")) &&
@@ -3595,13 +3595,13 @@ setInterval(function () {
 
     if (player.currentChallenge != "challenge7") {
         for (let tier = 7; tier >= 1; --tier) {
-            const name = TIER_NAMES[tier];
+            var name = TIER_NAMES[tier];
             
             player[name + 'Amount'] = player[name + 'Amount'].plus(getDimensionProductionPerSecond(tier + 1).times(diff / 100));
     }
     } else {
         for (let tier = 6; tier >= 1; --tier) {
-            const name = TIER_NAMES[tier];
+            var name = TIER_NAMES[tier];
             
             player[name + 'Amount'] = player[name + 'Amount'].plus(getDimensionProductionPerSecond(tier + 2).times(diff / 100));
         }
@@ -3682,7 +3682,7 @@ setInterval(function () {
 	Marathon = 0; }
 
     for (let tier = 1; tier <= 8; ++tier) {
-        const name = TIER_NAMES[tier];
+        var name = TIER_NAMES[tier];
         if (player.currentChallenge != "challenge10" && player.currentChallenge != "postc1") {
             document.getElementById(name).className = canAfford(player[name + 'Cost']) ? 'storebtn' : 'unavailablebtn';
             document.getElementById(name + 'Max').className = canAfford(player[name + 'Cost'].times(10 - player[name + 'Bought'])) ? 'storebtn' : 'unavailablebtn';
@@ -3900,8 +3900,8 @@ setInterval(function () {
     document.getElementById("progressbar").innerHTML = Decimal.min((Decimal.log10(player.money.plus(1)) / Decimal.log10(Number.MAX_VALUE) * 100), 100).toFixed(2) + "%"
 
     
-    const scale1 = [2.82e-45,1e-42,7.23e-30,5e-21,9e-17,6.2e-11,5e-8,3.555e-6,7.5e-4,1,2.5e3,2.6006e6,3.3e8,5e12,4.5e17,1.08e21,1.53e24,1.41e27,5e32,8e36,1.7e45,1.7e48,3.3e55,3.3e61,5e68,1e73,3.4e80,1e113,Number.MAX_VALUE];
-    const scale2 = [" protons."," nucleuses."," Hydrogen atoms."," viruses."," red blood cells."," grains of sand."," grains of rice."," teaspoons."," wine bottles."," fridge-freezers."," Olympic-sized swimming pools."," Great Pyramids of Giza."," Great Walls of China."," large asteroids.",
+    var scale1 = [2.82e-45,1e-42,7.23e-30,5e-21,9e-17,6.2e-11,5e-8,3.555e-6,7.5e-4,1,2.5e3,2.6006e6,3.3e8,5e12,4.5e17,1.08e21,1.53e24,1.41e27,5e32,8e36,1.7e45,1.7e48,3.3e55,3.3e61,5e68,1e73,3.4e80,1e113,Number.MAX_VALUE];
+    var scale2 = [" protons."," nucleuses."," Hydrogen atoms."," viruses."," red blood cells."," grains of sand."," grains of rice."," teaspoons."," wine bottles."," fridge-freezers."," Olympic-sized swimming pools."," Great Pyramids of Giza."," Great Walls of China."," large asteroids.",
                    " dwarf planets."," Earths."," Jupiters."," Suns."," red giants."," hypergiant stars."," nebulas."," Oort clouds."," Local Bubbles."," galaxies."," Local Groups."," Sculptor Voids."," observable universes."," Dimensions.", " Infinity Dimensions."];
     var id = 0;
     if (player.money.times(4.22419e-105).gt(2.82e-45)) {
@@ -3919,7 +3919,7 @@ setInterval(function () {
         else document.getElementById("infoScale").innerHTML = "If every antimatter were " + formatValue(player.options.notation,2.82e-45 / 4.22419e-105 / player.money, 2, 1) + " planck volumes, you would have enough to make a proton.";
     }
     
-    const shiftRequirement = getShiftRequirement(0);
+    var shiftRequirement = getShiftRequirement(0);
     
     if (player[TIER_NAMES[shiftRequirement.tier] + 'Amount'] >= shiftRequirement.amount) {
         document.getElementById("softReset").className = 'storebtn';
@@ -3970,7 +3970,7 @@ setInterval(function () {
 
 
 function dimBoolean() {
-    const name = TIER_NAMES[getShiftRequirement(0).tier]
+    var name = TIER_NAMES[getShiftRequirement(0).tier]
     if (!player.autobuyers[9].isOn) return false
     if (player.autobuyers[9].ticks*100 < player.autobuyers[9].interval) return false
     if (player[name + "Amount"] < getShiftRequirement(player.autobuyers[9].bulk-1).amount) return false
@@ -4184,7 +4184,7 @@ setInterval(function () {
 }, 1000 / 30);*/
 
 var s = document.getElementById('news');
-document.addEventListener("visibilitychange", () => {if (!document.hidden) {scrollNextMessage();}}, false);
+document.addEventListener("visibilitychange", function() {if (!document.hidden) {scrollNextMessage();}}, false);
 var scrollTimeouts = [];
 
 function scrollNextMessage() {
@@ -4703,7 +4703,7 @@ window.addEventListener('keydown', function(event) {
         break;
 
         case 68: // D
-            const name = TIER_NAMES[getShiftRequirement(0).tier]
+            var name = TIER_NAMES[getShiftRequirement(0).tier]
             if (player[name + "Amount"] >= getShiftRequirement(0).amount) {  
                 softReset(1)
             }
