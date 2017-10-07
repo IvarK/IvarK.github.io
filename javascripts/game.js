@@ -2624,6 +2624,9 @@ function setAchieveTooltip() {
     var forgotAchieve = document.getElementById("I forgot to nerf that")
     var potato = document.getElementById("Faster than a potato")
     var dimensional = document.getElementById("Multidimensional")
+    var IPBelongs = document.getElementById("All your IP are belong to us")
+    var over9000 = document.getElementById("Too much over 9000 to be over 9000")
+    var reference = document.getElementById("yet another infinity reference")
 
     apocAchieve.setAttribute('ach-tooltip', "Get over " + formatValue(player.options.notation, 1e80, 0, 0) + " antimatter");
     noPointAchieve.setAttribute('ach-tooltip', "Buy a single First Dimension when you have over " + formatValue(player.options.notation, 1e150, 0, 0) + " of them. Reward: First Dimensions are 10% stronger");
@@ -2631,6 +2634,9 @@ function setAchieveTooltip() {
     sanic.setAttribute('ach-tooltip', "Have antimatter/sec exceed your current antimatter above " + formatValue(player.options.notation, 1e63, 0, 0));
     potato.setAttribute('ach-tooltip', "Get more than " + formatValue(player.options.notation, 1e26, 0, 0) + " ticks per second. Reward: Reduces starting tick interval by 2%");
     dimensional.setAttribute('ach-tooltip', "Reach " + formatValue(player.options.notation, 1e12, 0, 0) + " of all dimensions except 8th");
+    IPBelongs.setAttribute('ach-tooltip', "Big Crunch for "+shortenCosts(1e150)+" IP. Reward: Additional 4x multiplier to IP")
+    over9000.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal("1e35000"))+" antimatter. Reward: Dimensions are more powerful the more unspent antimatter you have.")
+    reference.setAttribute('ach-tooltip', "Get x"+shortenDimensions(Number.MAX_VALUE)+" multiplier in a single sacrifice. Reward: Sacrifices are stronger.")
 }
 
 document.getElementById("notation").onclick = function () {
