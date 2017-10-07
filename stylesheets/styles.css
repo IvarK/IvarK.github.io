@@ -312,7 +312,8 @@
     height: 25px;
     transition-duration: 0.2s;
     border-radius: 4px;
-    font-size: 55%;
+    font-size: 13px;
+    vertical-align: top;
 }
 
 .unavailablebtn:hover {
