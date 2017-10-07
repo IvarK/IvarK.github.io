@@ -139,6 +139,23 @@ var seventhButton = document.getElementById("seventh");
 var eightButton = document.getElementById("eight");
 var tickSpeedButton = document.getElementById("tickSpeed");
 
+
+if (!String.prototype.includes) {
+    String.prototype.includes = function(search, start) {
+      'use strict';
+      if (typeof start !== 'number') {
+        start = 0;
+      }
+      
+      if (start + search.length > this.length) {
+        return false;
+      } else {
+        return this.indexOf(search, start) !== -1;
+      }
+    };
+  }
+
+
 function set_save(name, value) {
     localStorage.setItem(name, btoa(JSON.stringify(value, function(k, v) { return (v === Infinity) ? "Infinity" : v; })))
 }
