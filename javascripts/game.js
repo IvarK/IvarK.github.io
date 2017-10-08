@@ -2636,7 +2636,7 @@ function setAchieveTooltip() {
     dimensional.setAttribute('ach-tooltip', "Reach " + formatValue(player.options.notation, 1e12, 0, 0) + " of all dimensions except 8th");
     IPBelongs.setAttribute('ach-tooltip', "Big Crunch for "+shortenCosts(1e150)+" IP. Reward: Additional 4x multiplier to IP")
     over9000.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal("1e35000"))+" antimatter. Reward: Dimensions are more powerful the more unspent antimatter you have.")
-    reference.setAttribute('ach-tooltip', "Get x"+shortenDimensions(Number.MAX_VALUE)+" multiplier in a single sacrifice. Reward: Sacrifices are stronger.")
+    reference.setAttribute('ach-tooltip', "Get a x"+shortenDimensions(Number.MAX_VALUE)+" multiplier in a single sacrifice. Reward: Sacrifices are stronger.")
 }
 
 document.getElementById("notation").onclick = function () {
@@ -3110,7 +3110,7 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.firstAmount == 1 && player.resets == 0 && player.galaxies == 0 && player.currentChallenge == "challenge12") giveAchievement("ERROR 909: Dimension not found")
         if (player.currentChallenge != "" && player.challengeTimes[challNumber-2] > player.thisInfinityTime) player.challengeTimes[challNumber-2] = player.thisInfinityTime
         if (player.challenges.length == 20) giveAchievement("Anti-antichallenged");
-        if (player.currentChallenge == "postc5" && player.thisInfinityTime == 100) giveAchievement("Hevipelle did nothing wrong")
+        if (player.currentChallenge == "postc5" && player.thisInfinityTime <= 100) giveAchievement("Hevipelle did nothing wrong")
         if ((player.bestInfinityTime > 600 && !player.break) || (player.currentChallenge != "" && !player.options.retryChallenge)) showTab("dimensions")
         if (player.currentChallenge == "challenge5") {
             try {
