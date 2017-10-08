@@ -1753,7 +1753,7 @@ var infDimPow = 1
 function getInfinityDimensionProduction(tier) {
     var dim = player["infinityDimension"+tier]
 
-    if (player.challenges.includes("postc6"))return dim.amount.times(dim.power).times(infDimPow).dividedBy(Decimal.pow(player.tickspeed/1000, 0.001))
+    if (player.challenges.includes("postc6")) return dim.amount.times(dim.power).times(infDimPow).dividedBy(Decimal.pow(player.tickspeed.dividedBy(1000), 0.001))
     else return dim.amount.times(dim.power).times(infDimPow)
 }
 
