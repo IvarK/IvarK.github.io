@@ -746,7 +746,7 @@ function getDimensionFinalMultiplier(tier) {
     if (player.achievements.includes("Many Deaths") && player.thisInfinityTime < 1800) multiplier = multiplier.times(3600/(player.thisInfinityTime+1800));
     if (player.achievements.includes("Blink of an eye") && player.thisInfinityTime < 3) multiplier = multiplier.times(3.3/(player.thisInfinityTime+0.3));
     if (player.achievements.includes("This achievement doesn't exist")) multiplier = multiplier.times(1+Decimal.pow(player.money,0.00002));
-    if (player.achievements.includes("Too much over 9000 to be over 9000")) multiplier = multiplier.times(1+Decimal.pow(player.money,0.00002));
+    if (player.achievements.includes("I got a few to spare")) multiplier = multiplier.times(1+Decimal.pow(player.money,0.00002));
 
 
     if (player.currentChallenge == "postc4") {
@@ -2072,6 +2072,18 @@ function updateAchPow() {
         document.getElementById("achRow6").className = "completedrow"
     }
 
+    if (player.achievements.includes("Hevipelle did nothing wrong") &&
+        player.achievements.includes("Anti-antichallenged") &&
+        player.achievements.includes("YOU CAN GET 50 GALAXIES!??") &&
+        player.achievements.includes("I got a few to spare") &&
+        player.achievements.includes("All your IP are belong to us") &&
+        player.achievements.includes("Do you even bend time bro?") &&
+        player.achievements.includes("2 Million Infinities") &&
+        player.achievements.includes("Yet another infinity reference")) {
+        amount += 1;
+        document.getElementById("achRow7").className = "completedrow"
+    }
+
     for (i = amount; i > 0; i--) {
         player.achPow = Decimal.pow(1.5, amount)
     }
@@ -2625,8 +2637,8 @@ function setAchieveTooltip() {
     var potato = document.getElementById("Faster than a potato")
     var dimensional = document.getElementById("Multidimensional")
     var IPBelongs = document.getElementById("All your IP are belong to us")
-    var over9000 = document.getElementById("Too much over 9000 to be over 9000")
-    var reference = document.getElementById("yet another infinity reference")
+    var over9000 = document.getElementById("I got a few to spare")
+    var reference = document.getElementById("Yet another infinity reference")
 
     apocAchieve.setAttribute('ach-tooltip', "Get over " + formatValue(player.options.notation, 1e80, 0, 0) + " antimatter");
     noPointAchieve.setAttribute('ach-tooltip', "Buy a single First Dimension when you have over " + formatValue(player.options.notation, 1e150, 0, 0) + " of them. Reward: First Dimensions are 10% stronger");
@@ -2701,7 +2713,7 @@ function resetDimensions() {
 function calcSacrificeBoost() {
     if (player.firstAmount == 0) return new Decimal(1);
     if (player.challenges.includes("postc2")) {
-        if (player.achievements.includes("yet another infinity reference")) return Decimal.max(Decimal.pow(player.firstAmount, 0.011).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.011), 1)), 1)
+        if (player.achievements.includes("Yet another infinity reference")) return Decimal.max(Decimal.pow(player.firstAmount, 0.011).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.011), 1)), 1)
         else return Decimal.max(Decimal.pow(player.firstAmount, 0.01).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.01), 1)), 1)
     }
     if (player.currentChallenge != "challenge11") {
@@ -2722,7 +2734,7 @@ function sacrifice() {
     }
 
     if (player.resets < 5) return false
-    if (calcSacrificeBoost().gte(Number.MAX_VALUE)) giveAchievement("yet another infinity reference");
+    if (calcSacrificeBoost().gte(Number.MAX_VALUE)) giveAchievement("Yet another infinity reference");
     player.eightPow = player.eightPow.times(calcSacrificeBoost())
     player.sacrificed = player.sacrificed.plus(player.firstAmount);
     if (player.currentChallenge != "challenge11") {
@@ -3727,7 +3739,7 @@ setInterval(function () {
 
 
     if (player.money.gte(new Decimal("9e9999"))) giveAchievement("This achievement doesn't exist")
-    if (player.money.gte(new Decimal("1e35000"))) giveAchievement("Too much over 9000 to be over 9000")
+    if (player.money.gte(new Decimal("1e35000"))) giveAchievement("I got a few to spare")
 
         player.infinityPower = player.infinityPower.plus(getInfinityDimensionProduction(1).times(diff/10))
 
