@@ -3110,7 +3110,7 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.firstAmount == 1 && player.resets == 0 && player.galaxies == 0 && player.currentChallenge == "challenge12") giveAchievement("ERROR 909: Dimension not found")
         if (player.currentChallenge != "" && player.challengeTimes[challNumber-2] > player.thisInfinityTime) player.challengeTimes[challNumber-2] = player.thisInfinityTime
         if (player.challenges.length == 20) giveAchievement("Anti-antichallenged");
-        if (player.currentChallenge == "postc5" && player.thisInfinityTime == 10*600) giveAchievement("Hevipelle did nothing wrong")
+        if (player.currentChallenge == "postc5" && player.thisInfinityTime == 100) giveAchievement("Hevipelle did nothing wrong")
         if ((player.bestInfinityTime > 600 && !player.break) || (player.currentChallenge != "" && !player.options.retryChallenge)) showTab("dimensions")
         if (player.currentChallenge == "challenge5") {
             try {
