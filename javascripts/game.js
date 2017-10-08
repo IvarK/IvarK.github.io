@@ -1006,7 +1006,7 @@ function updateCosts() {
 }
 
 function updateTickSpeed() {
-    var exp = Decimal.floor(Decimal.log10(player.tickspeed));
+    var exp = player.tickspeed.e;
     if (exp > 1) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Decimal.round(player.tickspeed);
     else {
         document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Decimal.round(player.tickspeed.times(new Decimal(100).dividedBy(Decimal.pow(10, exp)))) + ' / ' + shorten(new Decimal(100).dividedBy(Decimal.pow(10, exp)));
@@ -2627,7 +2627,7 @@ function breakInfinity() {
 }
 
 function gainedInfinityPoints() {
-    return Decimal.floor(Decimal.pow(10, Decimal.log10(player.money).dividedBy(308).minus(0.75)).times(player.infMult * kongIPMult))
+    return Decimal.floor(Decimal.pow(10, player.money.e/308 -0.75).times(player.infMult * kongIPMult))
 }
 
 
@@ -2722,7 +2722,7 @@ function calcSacrificeBoost() {
         var sacrificePow=2;
         if (player.achievements.includes("The Gods are pleased")) sacrificePow += 0.2;
         if (player.achievements.includes("Gift from the Gods")) sacrificePow += 0.3;
-        return Decimal.max(Decimal.pow((Decimal.log10(player.firstAmount).dividedBy(10.0)), sacrificePow).dividedBy(Decimal.max(Decimal.pow((Decimal.log10(Decimal.max(player.sacrificed, 1)).dividedBy(10.0)), sacrificePow), 1), 1), 1);
+        return Decimal.max(Decimal.pow(((player.firstAmount.e).dividedBy(10.0)), sacrificePow).dividedBy(Decimal.max(Decimal.pow(((Decimal.max(player.sacrificed.e, 1)).dividedBy(10.0)), sacrificePow), 1), 1), 1);
     } else {
         if (player.firstAmount != 0) return Decimal.max(Decimal.pow(player.firstAmount, 0.05).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.04), 1)), 1)
         else return new Decimal(1)
@@ -2742,7 +2742,7 @@ function sacrifice() {
     if (player.currentChallenge != "challenge11") {
         if (player.currentChallenge == "challenge7") clearDimensions(6);
         else clearDimensions(7);
-        if (Decimal.max(Decimal.pow((Decimal.log10(Decimal.max(player.sacrificed, 1)) / 10.0), 2), 2) >= 600) giveAchievement("The Gods are pleased");
+        if (Decimal.max(Decimal.pow((Decimal.max(player.sacrificed, 1).e / 10.0), 2), 2) >= 600) giveAchievement("The Gods are pleased");
     } else {
         player.chall11Pow *= calcSacrificeBoost()
         resetDimensions();
@@ -3997,8 +3997,8 @@ setInterval(function () {
     if (player.infinityUpgrades.includes("autoBuyerUpgrade")) document.getElementById("postinfi33").className = "infinistorebtnbought"
             
 
-    document.getElementById("progressbar").style.width = Decimal.min((Decimal.log10(player.money.plus(1)) / Decimal.log10(Number.MAX_VALUE) * 100), 100).toFixed(2) + "%"
-    document.getElementById("progressbar").innerHTML = Decimal.min((Decimal.log10(player.money.plus(1)) / Decimal.log10(Number.MAX_VALUE) * 100), 100).toFixed(2) + "%"
+    if (player.money.lte(Number.MAX_VALUE)) document.getElementById("progressbar").style.width = Decimal.min((Decimal.log10(player.money.plus(1)) / Decimal.log10(Number.MAX_VALUE) * 100), 100).toFixed(2) + "%"
+    if (player.money.lte(Number.MAX_VALUE)) document.getElementById("progressbar").innerHTML = Decimal.min((Decimal.log10(player.money.plus(1)) / Decimal.log10(Number.MAX_VALUE) * 100), 100).toFixed(2) + "%"
 
     
     var scale1 = [2.82e-45,1e-42,7.23e-30,5e-21,9e-17,6.2e-11,5e-8,3.555e-6,7.5e-4,1,2.5e3,2.6006e6,3.3e8,5e12,4.5e17,1.08e21,1.53e24,1.41e27,5e32,8e36,1.7e45,1.7e48,3.3e55,3.3e61,5e68,1e73,3.4e80,1e113,Number.MAX_VALUE];
