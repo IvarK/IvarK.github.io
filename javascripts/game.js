@@ -849,11 +849,12 @@ function getETA(cost) {
 }
 
 function ETACalc(t) {
-    var value = player.money + calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult"));
+    var value = player.money.plus(getDimensionProductionPerSecond(1).times(t));
     var div = 1;
-    for (let tier = 1; tier <= 8; ++tier) {
-        div *= (tier+1);
-        value += getDimensionRateOfChange(tier) / div * Decimal.pow(t,tier);
+    for (let tier = 2; tier <= 8; ++tier) {
+        var name = TIER_NAMES[tier-1]
+        div *= tier;
+        value = value.plus(getDimensionProductionPerSecond(tier).times(getDimensionProductionPerSecond(tier-1)).times(Decimal.pow(t,tier)).dividedBy(player[name+"Amount"].times(div))) ;
     }
     return value
 }
@@ -3488,7 +3489,7 @@ function startChallenge(name, target) {
 }
 
 function getDimensionProductionPerSecond(tier) {
-    let ret = Decimal.floor(player[TIER_NAMES[tier] + 'Amount']).times(getDimensionFinalMultiplier(tier)).times(new Decimal(1000).dividedBy(player.tickspeed))
+    let ret = Decimal.floor(player[TIER_NAMES[tier] + 'Amount']).times(getDimensionFinalMultiplier(tier)).times(1000).dividedBy(player.tickspeed)
     if (player.currentChallenge == "challenge7") {
         if (tier == 4) ret = Decimal.pow(Decimal.floor(player[TIER_NAMES[tier] + 'Amount']), 1.3).times(getDimensionFinalMultiplier(tier)).dividedBy(player.tickspeed.dividedBy(1000))
         else if (tier == 2) ret = Decimal.pow(Decimal.floor(player[TIER_NAMES[tier] + 'Amount']), 1.5).times(getDimensionFinalMultiplier(tier)).dividedBy(player.tickspeed.dividedBy(1000))
