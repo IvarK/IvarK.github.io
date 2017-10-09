@@ -2690,62 +2690,47 @@ document.getElementById("newsbtn").onclick = function() {
   }
 }
 
-
-function resetDimensions() {
-    var tiers = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
-    
-    for (i = 1; i <= 8; i++) {
-        player[tiers[i] + "Amount"] = new Decimal(0)
-        player[tiers[i] + "Pow"] = new Decimal(1)
-    }
-    player.firstCost = new Decimal(10)
-    player.secondCost = new Decimal(100)
-    player.thirdCost = new Decimal(10000)
-    player.fourthCost = new Decimal(1e6)
-    player.fifthCost = new Decimal(1e9)
-    player.sixthCost = new Decimal(1e13)
-    player.seventhCost = new Decimal(1e18)
-    player.eightCost = new Decimal(1e24)
-    player.eightPow = new Decimal(player.chall11Pow)
-}
-
 function calcSacrificeBoost() {
     if (player.firstAmount == 0) return new Decimal(1);
+    if (player.currentChallenge == "postc1" || player.currentChallenge == "challenge11") return Decimal.max(Decimal.pow(player.firstAmount, 0.005).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.001), 1)), 1)
     if (player.challenges.includes("postc2")) {
         if (player.achievements.includes("Yet another infinity reference")) return Decimal.max(Decimal.pow(player.firstAmount, 0.0102).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.0102), 1)), 1)
         else return Decimal.max(Decimal.pow(player.firstAmount, 0.01).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.01), 1)), 1)
     }
-    if (player.currentChallenge != "challenge11") {
-        var sacrificePow=2;
-        if (player.achievements.includes("The Gods are pleased")) sacrificePow += 0.1;
-        if (player.achievements.includes("Gift from the Gods")) sacrificePow += 0.2;
-        return Decimal.max(Decimal.pow(((player.firstAmount.e).dividedBy(10.0)), sacrificePow).dividedBy(Decimal.max(Decimal.pow(((Decimal.max(player.sacrificed.e, 1)).dividedBy(10.0)), sacrificePow), 1), 1), 1);
-    } else {
-        if (player.firstAmount != 0) return Decimal.max(Decimal.pow(player.firstAmount, 0.02).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.005), 1)), 1)
-        else return new Decimal(1)
-    }
+    var sacrificePow=2;
+    if (player.achievements.includes("The Gods are pleased")) sacrificePow += 0.1;
+    if (player.achievements.includes("Gift from the Gods")) sacrificePow += 0.2;
+    return Decimal.max(Decimal.pow(((player.firstAmount.e).dividedBy(10.0)), sacrificePow).dividedBy(Decimal.max(Decimal.pow(((Decimal.max(player.sacrificed.e, 1)).dividedBy(10.0)), sacrificePow), 1), 1), 1);
 }
 
 
 function sacrifice() {
-    if (player.eightAmount == 0) {
-        return false;
-    }
-
+    if (player.currentChallenge == "postc1" || player.currentChallenge == "challenge4" ? player.sixthAmount == 0 : player.eightAmount == 0) return false;
     if (player.resets < 5) return false
+	
     if (calcSacrificeBoost().gte(Number.MAX_VALUE)) giveAchievement("Yet another infinity reference");
     player.eightPow = player.eightPow.times(calcSacrificeBoost())
-    player.sacrificed = player.sacrificed.plus(player.firstAmount);
-    if (player.currentChallenge != "challenge11") {
-        if (player.currentChallenge == "challenge7") clearDimensions(6);
+    
+    if (player.currentChallenge != "challenge11" && player.currentChallenge != "postc1") {
+	    if (player.currentChallenge == "challenge4") {
+            clearDimensions(5);
+            player.sixthPow = player.sixthPow.times(calcSacrificeBoost())
+        }
+        else if (player.currentChallenge == "challenge7") clearDimensions(6);
         else clearDimensions(7);
-        if (Decimal.max(Decimal.pow((Decimal.max(player.sacrificed, 1).e / 10.0), 2), 2) >= 600) giveAchievement("The Gods are pleased");
     } else {
         player.chall11Pow *= calcSacrificeBoost()
-        resetDimensions();
-        player.money = new Decimal(100)
-        
+        var s = [new Decimal(player.chall11Pow),player.tickspeed,player.tickspeedCost,player.tickspeedMultiplier]
+        softReset(0)
+        if (player.currentChallenge == "postc1") player.sixthPow = s[0]
+        player.eightPow = s[0];
+        player.chall11Pow = s[0]
+        player.tickspeed = s[1];
+        player.tickspeedCost = s[2];
+        player.tickspeedMultiplier = s[3];
     }
+    player.sacrificed = player.sacrificed.plus(player.firstAmount);
+    if (Decimal.max(Decimal.pow((Decimal.max(player.sacrificed, 1).e / 10.0), 2), 2) >= 600) giveAchievement("The Gods are pleased");
     for (let tier = 1; tier <= 8; ++tier) {
         var name = TIER_NAMES[tier];
         document.getElementById(name + "D").innerHTML = DISPLAY_NAMES[tier] + " Dimension x" + formatValue(player.options.notation, getDimensionFinalMultiplier(tier), 1, 1);
@@ -3912,8 +3897,9 @@ setInterval(function () {
 
     if (player.infinitied > 0) document.getElementById("sacrifice").style.display = "inline-block";
 
-    if (player.eightAmount > 0 && player.resets > 4) document.getElementById("sacrifice").className = "storebtn"
+    if (player.currentChallenge == "postc1" || player.currentChallenge == "challenge4" ? player.sixthAmount > 0 : player.eightAmount > 0) document.getElementById("sacrifice").className = "storebtn"
     else document.getElementById("sacrifice").className = "unavailablebtn"
+    if (player.resets < 5) document.getElementById("sacrifice").className = "unavailablebtn"
 
     if (player.autobuyers[11]%1 !== 0 && player.autobuyers[11].interval == 100) {
         document.getElementById("postinftable").style.display = "inline-block"
@@ -4047,7 +4033,7 @@ setInterval(function () {
 
     document.getElementById("newDimensionButton").innerHTML = "Get " + shortenCosts(getNewInfReq()) + " antimatter to unlock a new Dimension."
 
-    document.getElementById("sacrifice").setAttribute('ach-tooltip', "Boosts 8th Dimension by " + formatValue(player.options.notation, calcSacrificeBoost(), 2, 2) + "x");
+    document.getElementById("sacrifice").setAttribute('ach-tooltip', "Boosts" + 8-(player.currentChallenge == "postc1" || player.currentChallenge == "challenge4")*2 + "th Dimension by " + formatValue(player.options.notation, calcSacrificeBoost(), 2, 2) + "x");
 
     document.getElementById("sacrifice").innerHTML = "Dimensional Sacrifice ("+formatValue(player.options.notation, calcSacrificeBoost(), 2, 2)+"x)";
 
