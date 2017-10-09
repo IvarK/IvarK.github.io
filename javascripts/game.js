@@ -2805,44 +2805,22 @@ document.getElementById("sacrifice").onclick = function () {
 
 
 function updateAutobuyers() {
-    var autoBuyerDim1 = new Autobuyer (1)
-    var autoBuyerDim2 = new Autobuyer (2)
-    var autoBuyerDim3 = new Autobuyer (3)
-    var autoBuyerDim4 = new Autobuyer (4)
-    var autoBuyerDim5 = new Autobuyer (5)
-    var autoBuyerDim6 = new Autobuyer (6)
-    var autoBuyerDim7 = new Autobuyer (7)
-    var autoBuyerDim8 = new Autobuyer (8)
-    var autoBuyerDimBoost = new Autobuyer (9)
-    var autoBuyerGalaxy = new Autobuyer (document.getElementById("secondSoftReset"))
-    var autoBuyerTickspeed = new Autobuyer (document.getElementById("tickSpeed"))
-    var autoBuyerInf = new Autobuyer (document.getElementById("bigcrunch"))
-    var autoSacrifice = new Autobuyer(13)
+    var autoBuyerDim1 = new Autobuyer (1,3)
+    var autoBuyerDim2 = new Autobuyer (2,4)
+    var autoBuyerDim3 = new Autobuyer (3,5)
+    var autoBuyerDim4 = new Autobuyer (4,6)
+    var autoBuyerDim5 = new Autobuyer (5,8)
+    var autoBuyerDim6 = new Autobuyer (6,10)
+    var autoBuyerDim7 = new Autobuyer (7,12)
+    var autoBuyerDim8 = new Autobuyer (8,15)
+    var autoBuyerDimBoost = new Autobuyer (9,24)
+    var autoBuyerGalaxy = new Autobuyer (document.getElementById("secondSoftReset"),300)
+    var autoBuyerTickspeed = new Autobuyer (document.getElementById("tickSpeed"),10)
+    var autoBuyerInf = new Autobuyer (document.getElementById("bigcrunch"),300)
+    var autoSacrifice = new Autobuyer(13,0.1)
 
+   
     
-    autoBuyerDim1.interval = 3000
-    autoBuyerDim2.interval = 4000
-    autoBuyerDim3.interval = 5000
-    autoBuyerDim4.interval = 6000
-    autoBuyerDim5.interval = 8000
-    autoBuyerDim6.interval = 10000
-    autoBuyerDim7.interval = 12000
-    autoBuyerDim8.interval = 15000
-    autoBuyerDimBoost.interval = 24000
-    autoBuyerGalaxy.interval = 300000
-    autoBuyerTickspeed.interval = 10000
-    autoBuyerInf.interval = 300000
-
-    autoSacrifice.interval = 100
-    
-    autoBuyerDim1.tier = 1
-    autoBuyerDim2.tier = 2
-    autoBuyerDim3.tier = 3
-    autoBuyerDim4.tier = 4
-    autoBuyerDim5.tier = 5
-    autoBuyerDim6.tier = 6
-    autoBuyerDim7.tier = 7
-    autoBuyerDim8.tier = 8
     autoBuyerTickSpeed.tier = 9
     
     if (player.challenges.includes("challenge1") && player.autobuyers[0] == 1) {
