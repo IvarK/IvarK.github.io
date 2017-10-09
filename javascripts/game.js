@@ -449,7 +449,29 @@ function onLoad() {
 		player.version = 5
 	}
 
-
+    if (player.version < 99) { //unsure what the current version is and im too lazy to check lol
+        for (var i=0;i<8;i++) {
+            if (player.autobuyers[i]%1 !== 0) {
+                while (player.autobuyers[i].bulk > 1) {
+                    player.autobuyers[i].bulk /= 2;
+                    player.autobuyers[i].cost /= 2.4;
+                    player.infinityPoints = player.infinityPoints.plus(player.autobuyers[i].cost);
+                }
+            }
+        }
+        if (player.autobuyers[8] !== 9) {
+            player.infinityPoints = player.infinityPoints.plus(player.autobuyers[8].cost-1);
+            player.autobuyers[8] = 9
+        }
+        if (player.autobuyers[10] !== 11) {
+            if (player.autobuyers[10].cost > 512) {
+                player.infinityPoints = player.infinityPoints.plus(player.autobuyers[10].cost-512);
+                player.autobuyers[10].cost = new Decimal(30000);
+                player.autobuyers[10].interval = 30000*Decimal.pow(0.6,9);
+            }
+        }
+        //player.version = 99
+    }
     
     
 
@@ -540,6 +562,9 @@ function transformSaveToDecimal() {
     player.infinityPoints = new Decimal(player.infinityPoints)
     player.postC3Reward = new Decimal(player.postC3Reward)
     player.lastTenRuns = [[parseFloat(player.lastTenRuns[0][0]), player.lastTenRuns[0][1]], [parseFloat(player.lastTenRuns[1][0]), player.lastTenRuns[1][1]], [parseFloat(player.lastTenRuns[2][0]), player.lastTenRuns[2][1]], [parseFloat(player.lastTenRuns[3][0]), player.lastTenRuns[3][1]], [parseFloat(player.lastTenRuns[4][0]), player.lastTenRuns[4][1]], [parseFloat(player.lastTenRuns[5][0]), player.lastTenRuns[5][1]], [parseFloat(player.lastTenRuns[6][0]), player.lastTenRuns[6][1]], [parseFloat(player.lastTenRuns[7][0]), player.lastTenRuns[7][1]], [parseFloat(player.lastTenRuns[8][0]), player.lastTenRuns[8][1]], [parseFloat(player.lastTenRuns[9][0]), player.lastTenRuns[9][1]]]
+    for (var i=0;i<12;i++) {
+        if (player.autobuyers[i] != i+1) player.autobuyers[i].cost = new Decimal(player.autobuyers[i].cost);
+    }
 }
 
 
@@ -2235,14 +2260,18 @@ document.getElementById("offlineProd").onclick = function() {
 
 
 buyAutobuyer = function(id) {
-    if (player.autobuyers[id].cost > player.infinityPoints) return false;
+    if (player.autobuyers[id].cost.gt(player.infinityPoints)) return false;
     player.infinityPoints = player.infinityPoints.minus(player.autobuyers[id].cost);
     if (player.autobuyers[id].interval <= 100) {
         player.autobuyers[id].bulk *= 2;
-        player.autobuyers[id].cost = Math.ceil(2.4*player.autobuyers[id].cost);
+        if (player.autobuyers[id].cost.lt(32768)) player.autobuyers[id].cost = Decimal.ceil(player.autobuyers[id].cost.times(2.7));
+        else player.autobuyers[id].cost = Decimal.ceil(player.autobuyers[id].cost.times(Decimal.pow(2,player.autobuyers[id].bulk/Decimal.pow(0.774,id))));
+        //price scale is tentative
     } else {
         player.autobuyers[id].interval = Math.max(player.autobuyers[id].interval*0.6, 100);
-        if (player.autobuyers[id].interval > 120) player.autobuyers[id].cost *= 2; //if your last purchase wont be very strong, dont double the cost
+        if (id == 10 && player.autobuyers[10].cost.eq(256)) player.autobuyers[10].cost = new Decimal(1e5);
+        else if (id == 8) player.autobuyers[8].cost = Decimal.ceil(player.autobuyers[id].cost.times(3.1));
+        else if (player.autobuyers[id].interval > 120) player.autobuyers[id].cost = player.autobuyers[id].cost.times(2); //if your last purchase wont be very strong, dont double the cost
     }
     updateAutobuyers();
 }
