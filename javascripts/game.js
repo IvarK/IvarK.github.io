@@ -822,11 +822,8 @@ function getShiftRequirement(bulk) {
 
 function getGalaxyRequirement() {
     let amount = 80 + (player.galaxies * 60);
-    if (player.currentChallenge == "challenge4") amount = 99 + (player.galaxies * 90)
-    if (player.infinityUpgrades.includes("resetBoost")) {
-        amount -= 9;
-    }
-
+    if (player.currentChallenge == "challenge4") amount = 108 + (player.galaxies * 101)
+    if (player.infinityUpgrades.includes("resetBoost")) amount -= 9;
     if (player.challenges.includes("postc5")) amount -= 1
     
     return amount;
@@ -1161,7 +1158,7 @@ function softReset(bulk) {
         costMultipliers: [new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15)],
         tickspeedMultiplier: new Decimal(10),
         chall2Pow: player.chall2Pow,
-        chall3Pow: new Decimal(0.01),
+        chall3Pow: new Decimal(0.01*Decimal.pow(0.5,player.resets)),
         matter: new Decimal(0),
         chall11Pow: 1,
         partInfinityPoint: player.partInfinityPoint,
@@ -1201,7 +1198,7 @@ function softReset(bulk) {
         player.seventhCost = new Decimal(2e5)
         player.eightCost = new Decimal(4e6)
     }
-    if (player.currentChallenge == "postc1") player.costMultipliers = [new Decimal(1e3),new Decimal(5e3),new Decimal(1e4),new Decimal(1.2e4),new Decimal(1.8e4),new Decimal(2.6e4),new Decimal(3.2e4),new Decimal(4.2e4)];
+    if (player.currentChallenge == "postc1") player.costMultipliers = [new Decimal(1e3),new Decimal(8e3),new Decimal(1.5e4),new Decimal(2e4),new Decimal(3e4),new Decimal(4e4),new Decimal(3e4),new Decimal(2e4)];
     if (player.resets == 1 && player.currentChallenge == "") {
         if (player.infinityUpgrades.includes("skipReset2")) player.resets++;
         if (player.infinityUpgrades.includes("skipReset3")) player.resets++;
@@ -1214,7 +1211,6 @@ function softReset(bulk) {
         player.eightAmount = new Decimal(1);
         player.eightBought = 1;
     }
-
    /* player.firstPow = Decimal.pow(2, player.resets + 1)
     player.secondPow = Decimal.pow(2, player.resets)
     player.thirdPow = Decimal.max(Decimal.pow(2, player.resets - 1), 1)
@@ -1234,6 +1230,7 @@ function softReset(bulk) {
         player.sixthPow = Decimal.max(Decimal.pow(2.5, player.resets - 4), 1)
         player.seventhPow = Decimal.max(Decimal.pow(2.5, player.resets - 5), 1)
         player.eightPow = Decimal.max(Decimal.pow(2.5, player.resets - 6), 1)
+	player.chall3Pow = new Decimal(0.01*Decimal.pow(0.4,player.resets)) //you start at 1% ignoring resets
     }
     if (player.currentChallenge == "challenge11" || player.currentChallenge == "postc1") {
         player.firstPow = new Decimal(1)
@@ -1267,10 +1264,10 @@ function softReset(bulk) {
         player.sixthPow = Decimal.max(Decimal.pow(10, player.resets - 4), 1)
         player.seventhPow = Decimal.max(Decimal.pow(10, player.resets - 5), 1)
         player.eightPow = Decimal.max(Decimal.pow(10, player.resets - 6), 1)
-    }
+    } //why is there one for both 4 AND 10? and shouldnt this go after the normal c7 one?
     
     if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
-    if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.98);
+    if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.9);
     
 
     
@@ -1332,7 +1329,7 @@ function getTickSpeedMultiplier() {
     if (player.galaxies < 3) {
         let baseMultiplier = 0.9;
         if (player.galaxies == 0) baseMultiplier = 0.89
-        if (player.currentChallenge == "challenge6" || player.currentChallenge == "postc1") baseMultiplier = 0.93;
+        if (player.currentChallenge == "challenge6" || player.currentChallenge == "postc1") baseMultiplier = 0.95;
         let perGalaxy = 0.02;
         
         if (player.infinityUpgrades.includes("galaxyBoost")) perGalaxy *= 2;
@@ -1343,7 +1340,7 @@ function getTickSpeedMultiplier() {
         return baseMultiplier-(player.galaxies*perGalaxy);
     } else {
         let baseMultiplier = 0.8
-        if (player.currentChallenge == "challenge6" || player.currentChallenge == "postc1") baseMultiplier = 0.83
+        if (player.currentChallenge == "challenge6" || player.currentChallenge == "postc1") baseMultiplier = 0.85
         let perGalaxy = 0.965
         let galaxies = player.galaxies-2
         if (player.infinityUpgrades.includes("galaxyBoost")) galaxies *= 2;
@@ -1515,7 +1512,7 @@ function getDimensionPowerMultiplier(tier) {
     let dimMult = 2;
 
 
-    if (player.currentChallenge == "challenge9" || player.currentChallenge == "postc1") dimMult = Decimal.pow(10/0.30,Decimal.random())*0.30
+    if (player.currentChallenge == "challenge9" || player.currentChallenge == "postc1") dimMult = Decimal.pow(10/0.3,Decimal.random())*0.3
 
     if (player.infinityUpgrades.includes('dimMult')) dimMult *= 1.1;
     if (player.achievements.includes("Is this hell?")) dimMult *= 1.01;
@@ -1535,7 +1532,7 @@ function clearDimensions(amount) {
 
 function getDimensionCostMultiplier(tier) {
 
-	var multiplier2 = [new Decimal(1e3),new Decimal(5e3),new Decimal(1e4),new Decimal(1.2e4),new Decimal(1.8e4),new Decimal(2.6e4),new Decimal(3.2e4),new Decimal(4.2e4)];
+	var multiplier2 = [new Decimal(1e3),new Decimal(8e3),new Decimal(1.5e4),new Decimal(2e4),new Decimal(3e4),new Decimal(4e4),new Decimal(3e4),new Decimal(2e4)];
     if (player.currentChallenge == "challenge10") return multiplier2[tier - 1];
     else return player.costMultipliers[tier - 1];
 }
@@ -2503,7 +2500,7 @@ document.getElementById("secondSoftReset").onclick = function () {
         if (player.options.notation == "Emojis") player.spreadingCancer+=1;
         if (player.spreadingCancer >= 10) giveAchievement("Spreading Cancer")
         if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
-        if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.98);
+        if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.9);
         if (player.achievements.includes("YOU CAN GET 50 GALAXIES!??")) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
         clearInterval(player.interval);
         //updateInterval();
@@ -2693,62 +2690,47 @@ document.getElementById("newsbtn").onclick = function() {
   }
 }
 
-
-function resetDimensions() {
-    var tiers = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
-    
-    for (i = 1; i <= 8; i++) {
-        player[tiers[i] + "Amount"] = new Decimal(0)
-        player[tiers[i] + "Pow"] = new Decimal(1)
-    }
-    player.firstCost = new Decimal(10)
-    player.secondCost = new Decimal(100)
-    player.thirdCost = new Decimal(10000)
-    player.fourthCost = new Decimal(1e6)
-    player.fifthCost = new Decimal(1e9)
-    player.sixthCost = new Decimal(1e13)
-    player.seventhCost = new Decimal(1e18)
-    player.eightCost = new Decimal(1e24)
-    player.eightPow = new Decimal(player.chall11Pow)
-}
-
 function calcSacrificeBoost() {
     if (player.firstAmount == 0) return new Decimal(1);
+    if (player.currentChallenge == "postc1" || player.currentChallenge == "challenge11") return Decimal.max(Decimal.pow(player.firstAmount, 0.005).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.001), 1)), 1)
     if (player.challenges.includes("postc2")) {
-        if (player.achievements.includes("Yet another infinity reference")) return Decimal.max(Decimal.pow(player.firstAmount, 0.011).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.011), 1)), 1)
+        if (player.achievements.includes("Yet another infinity reference")) return Decimal.max(Decimal.pow(player.firstAmount, 0.0102).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.0102), 1)), 1)
         else return Decimal.max(Decimal.pow(player.firstAmount, 0.01).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.01), 1)), 1)
     }
-    if (player.currentChallenge != "challenge11") {
-        var sacrificePow=2;
-        if (player.achievements.includes("The Gods are pleased")) sacrificePow += 0.2;
-        if (player.achievements.includes("Gift from the Gods")) sacrificePow += 0.3;
-        return Decimal.max(Decimal.pow(((player.firstAmount.e).dividedBy(10.0)), sacrificePow).dividedBy(Decimal.max(Decimal.pow(((Decimal.max(player.sacrificed.e, 1)).dividedBy(10.0)), sacrificePow), 1), 1), 1);
-    } else {
-        if (player.firstAmount != 0) return Decimal.max(Decimal.pow(player.firstAmount, 0.05).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.04), 1)), 1)
-        else return new Decimal(1)
-    }
+    var sacrificePow=2;
+    if (player.achievements.includes("The Gods are pleased")) sacrificePow += 0.1;
+    if (player.achievements.includes("Gift from the Gods")) sacrificePow += 0.2;
+    return Decimal.max(Decimal.pow(((player.firstAmount.e).dividedBy(10.0)), sacrificePow).dividedBy(Decimal.max(Decimal.pow(((Decimal.max(player.sacrificed.e, 1)).dividedBy(10.0)), sacrificePow), 1), 1), 1);
 }
 
 
 function sacrifice() {
-    if (player.eightAmount == 0) {
-        return false;
-    }
-
+    if (player.currentChallenge == "postc1" || player.currentChallenge == "challenge4" ? player.sixthAmount == 0 : player.eightAmount == 0) return false;
     if (player.resets < 5) return false
+	
     if (calcSacrificeBoost().gte(Number.MAX_VALUE)) giveAchievement("Yet another infinity reference");
     player.eightPow = player.eightPow.times(calcSacrificeBoost())
-    player.sacrificed = player.sacrificed.plus(player.firstAmount);
-    if (player.currentChallenge != "challenge11") {
-        if (player.currentChallenge == "challenge7") clearDimensions(6);
+    
+    if (player.currentChallenge != "challenge11" && player.currentChallenge != "postc1") {
+	    if (player.currentChallenge == "challenge4") {
+            clearDimensions(5);
+            player.sixthPow = player.sixthPow.times(calcSacrificeBoost())
+        }
+        else if (player.currentChallenge == "challenge7") clearDimensions(6);
         else clearDimensions(7);
-        if (Decimal.max(Decimal.pow((Decimal.max(player.sacrificed, 1).e / 10.0), 2), 2) >= 600) giveAchievement("The Gods are pleased");
     } else {
         player.chall11Pow *= calcSacrificeBoost()
-        resetDimensions();
-        player.money = new Decimal(100)
-        
+        var s = [new Decimal(player.chall11Pow),player.tickspeed,player.tickspeedCost,player.tickspeedMultiplier]
+        softReset(0)
+        if (player.currentChallenge == "postc1") player.sixthPow = s[0]
+        player.eightPow = s[0];
+        player.chall11Pow = s[0]
+        player.tickspeed = s[1];
+        player.tickspeedCost = s[2];
+        player.tickspeedMultiplier = s[3];
     }
+    player.sacrificed = player.sacrificed.plus(player.firstAmount);
+    if (Decimal.max(Decimal.pow((Decimal.max(player.sacrificed, 1).e / 10.0), 2), 2) >= 600) giveAchievement("The Gods are pleased");
     for (let tier = 1; tier <= 8; ++tier) {
         var name = TIER_NAMES[tier];
         document.getElementById(name + "D").innerHTML = DISPLAY_NAMES[tier] + " Dimension x" + formatValue(player.options.notation, getDimensionFinalMultiplier(tier), 1, 1);
@@ -3274,7 +3256,7 @@ document.getElementById("bigcrunch").onclick = function () {
         }
 
         if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
-        if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.98);
+        if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.9);
         clearInterval(player.interval);
         //updateInterval();
         updateDimensions();
@@ -3429,7 +3411,7 @@ function startChallenge(name, target) {
         player.seventhCost = new Decimal(2e5)
         player.eightCost = new Decimal(4e6)
     }
-    if (player.currentChallenge == "postc1") player.costMultipliers = [new Decimal(1e3),new Decimal(5e3),new Decimal(1e4),new Decimal(1.2e4),new Decimal(1.8e4),new Decimal(2.6e4),new Decimal(3.2e4),new Decimal(4.2e4)];
+    if (player.currentChallenge == "postc1") player.costMultipliers = [new Decimal(1e3),new Decimal(8e3),new Decimal(1.5e4),new Decimal(2e4),new Decimal(3e4),new Decimal(4e4),new Decimal(3e4),new Decimal(2e4)];
     if (player.currentChallenge == "postc2") {
         player.eightAmount = new Decimal(1);
         player.eightBought = 1;
@@ -3438,7 +3420,7 @@ function startChallenge(name, target) {
 
     if (player.currentChallenge.includes("post")) player.break = true
     if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
-    if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.98);
+    if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.9);
     clearInterval(player.interval);
     //updateInterval();
     updateDimensions();
@@ -3520,9 +3502,7 @@ function calcPerSec(amount, pow, hasMult) {
 }
 
 document.getElementById("quickReset").onclick = function () {
-    if (player.resets == 0) player.resets--;
-    else player.resets -= 2;
-    softReset(1);
+    softReset((player.resets == 0)-1)
 }
 
 
@@ -3653,12 +3633,9 @@ setInterval(function () {
     if (player.thisInfinityTime < -10) player.thisInfinityTime = Infinity
     if (player.bestInfinityTime < -10) player.bestInfinityTime = Infinity
     /*if (player.currentChallenge == "postc6" && player.matter.gte(1)) player.matter = player.matter.plus(diff/10)
-    else */player.matter = player.matter.times(Decimal.pow((1.02 + player.resets/200 + player.galaxies/100), diff));
-    if (player.matter.gt(player.money) && (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1")) {
-        if (player.resets == 0) player.resets--;
-        else player.resets -= 2;
-        softReset(1);
-    }
+    else */player.matter = player.matter.times(Decimal.pow((1.025 + player.resets/100 + player.galaxies/50 + Math.min(player.infinitied,25)/3000 + Math.min(player.infinitied,50)/3000), diff));
+	//yes it scales to infinities! The cap for it is low enough it shouldnt matter too much, but it should make it somewhat reasonable even at lower infs.
+    if (player.matter.gt(player.money) && (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1")) softReset((player.resets == 0)-1);
 
     if (player.currentChallenge == "postc8") postc8Mult = postc8Mult.times(Math.pow(0.000000046416, diff))
 
@@ -3774,13 +3751,11 @@ setInterval(function () {
     updateDimensions();
     updateInfinityDimensions();
     updateInfPower();
-    if (calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).gt(player.money)) {
-	if(player.money.gt(Math.pow(10,63)) && !player.achievements.includes("Supersanic")) giveAchievement("Supersanic");
-    Marathon++;
-    
-	if (Marathon >= 300 && !player.achievements.includes("Over in 30 seconds")) giveAchievement("Over in 30 seconds");
-    } else {
-	Marathon = 0; }
+    if (calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).gt(player.money) && diff < 90) {
+	if (player.money.gt(1e63)) giveAchievement("Supersanic");
+        Marathon += diff;
+	if (Marathon >= 300) giveAchievement("Over in 30 seconds");
+    } else Marathon = 0;
 
     for (let tier = 1; tier <= 8; ++tier) {
         var name = TIER_NAMES[tier];
@@ -3921,8 +3896,9 @@ setInterval(function () {
 
     if (player.infinitied > 0) document.getElementById("sacrifice").style.display = "inline-block";
 
-    if (player.eightAmount > 0 && player.resets > 4) document.getElementById("sacrifice").className = "storebtn"
+    if (player.currentChallenge == "postc1" || player.currentChallenge == "challenge4" ? player.sixthAmount > 0 : player.eightAmount > 0) document.getElementById("sacrifice").className = "storebtn"
     else document.getElementById("sacrifice").className = "unavailablebtn"
+    if (player.resets < 5) document.getElementById("sacrifice").className = "unavailablebtn"
 
     if (player.autobuyers[11]%1 !== 0 && player.autobuyers[11].interval == 100) {
         document.getElementById("postinftable").style.display = "inline-block"
@@ -4056,7 +4032,7 @@ setInterval(function () {
 
     document.getElementById("newDimensionButton").innerHTML = "Get " + shortenCosts(getNewInfReq()) + " antimatter to unlock a new Dimension."
 
-    document.getElementById("sacrifice").setAttribute('ach-tooltip', "Boosts 8th Dimension by " + formatValue(player.options.notation, calcSacrificeBoost(), 2, 2) + "x");
+    document.getElementById("sacrifice").setAttribute('ach-tooltip', "Boosts" + 8-(player.currentChallenge == "postc1" || player.currentChallenge == "challenge4")*2 + "th Dimension by " + formatValue(player.options.notation, calcSacrificeBoost(), 2, 2) + "x");
 
     document.getElementById("sacrifice").innerHTML = "Dimensional Sacrifice ("+formatValue(player.options.notation, calcSacrificeBoost(), 2, 2)+"x)";
 
@@ -4337,50 +4313,7 @@ function scrollNextMessage() {
   //start scrolling
   scrollNextMessage();
 
-document.getElementById("challenge2").onclick = function () {
-  startChallenge("challenge2", new Decimal("1e1000"))
-}
-
-document.getElementById("challenge3").onclick = function () {
-  startChallenge("challenge3", Number.MAX_VALUE)
-}
-
-document.getElementById("challenge4").onclick = function () {
-  startChallenge("challenge4", Number.MAX_VALUE)
-}
-
-document.getElementById("challenge5").onclick = function () {
-  startChallenge("challenge5", Number.MAX_VALUE);
-}
-
-document.getElementById("challenge6").onclick = function () {
-  startChallenge("challenge6", Number.MAX_VALUE);
-}
-
-document.getElementById("challenge7").onclick = function () {
-  startChallenge("challenge7", Number.MAX_VALUE);
-}
-
-document.getElementById("challenge8").onclick = function () {
-  startChallenge("challenge8", Number.MAX_VALUE);
-}
-
-document.getElementById("challenge9").onclick = function () {
-  startChallenge("challenge9", Number.MAX_VALUE);
-}
-
-document.getElementById("challenge10").onclick = function () {
-  startChallenge("challenge10", Number.MAX_VALUE);
-}
-
-document.getElementById("challenge11").onclick = function () {
-    startChallenge("challenge11", Number.MAX_VALUE);
-  }
-
-document.getElementById("challenge12").onclick = function () {
-  startChallenge("challenge12", Number.MAX_VALUE);
-}
-
+//i added onclick startChallenge attributes to the HTML side
 
 
 function showInfTab(tabName) {
