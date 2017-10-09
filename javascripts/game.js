@@ -4111,34 +4111,11 @@ function autoBuyerTick() {
     }
 
 
-    if (player.autobuyers[10]%1 !== 0) {
-        if (player.autobuyers[10].ticks*100 >= player.autobuyers[10].interval && (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() : player.eightAmount >= getGalaxyRequirement())) {
-            if (player.autobuyers[10].isOn && player.autobuyers[10].priority > player.galaxies) {
-                document.getElementById("secondSoftReset").click()
-                player.autobuyers[10].ticks = 1;
-            } 
-        } else player.autobuyers[10].ticks += 1;
-    }
-
-
-    if (player.autobuyers[9]%1 !== 0) {
-        if (dimBoolean()) {
-            if (player.autobuyers[9].isOn) {
-                if (player.resets < 4) softReset(1)
-                else softReset(player.autobuyers[9].bulk)
-                player.autobuyers[9].ticks = 1;
-            } 
-        } else player.autobuyers[9].ticks += 1;
-    }
-
     if (player.autoSacrifice%1 !== 0) {
         if (calcSacrificeBoost().gte(player.autoSacrifice.priority) && player.autoSacrifice.isOn) {
             sacrifice()
         }
     }
-
-
-
 
     for (var i=0; i<priority.length; i++) {
         if (priority[i].ticks*100 >= priority[i].interval || priority[i].interval == 100) {
@@ -4160,8 +4137,27 @@ function autoBuyerTick() {
             }
         } else priority[i].ticks += 1;
     }
+	
     updateCosts()
+    if (player.autobuyers[10]%1 !== 0) {
+        if (player.autobuyers[10].ticks*100 >= player.autobuyers[10].interval && (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() : player.eightAmount >= getGalaxyRequirement())) {
+            if (player.autobuyers[10].isOn && player.autobuyers[10].priority > player.galaxies) {
+                document.getElementById("secondSoftReset").click()
+                player.autobuyers[10].ticks = 1;
+            } 
+        } else player.autobuyers[10].ticks += 1;
+    }
 
+
+    if (player.autobuyers[9]%1 !== 0) {
+        if (dimBoolean()) {
+            if (player.autobuyers[9].isOn) {
+                if (player.resets < 4) softReset(1)
+                else softReset(player.autobuyers[9].bulk)
+                player.autobuyers[9].ticks = 1;
+            } 
+        } else player.autobuyers[9].ticks += 1;
+    }
 }
 
 
