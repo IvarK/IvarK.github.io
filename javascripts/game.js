@@ -822,11 +822,8 @@ function getShiftRequirement(bulk) {
 
 function getGalaxyRequirement() {
     let amount = 80 + (player.galaxies * 60);
-    if (player.currentChallenge == "challenge4") amount = 99 + (player.galaxies * 90)
-    if (player.infinityUpgrades.includes("resetBoost")) {
-        amount -= 9;
-    }
-
+    if (player.currentChallenge == "challenge4") amount = 108 + (player.galaxies * 101)
+    if (player.infinityUpgrades.includes("resetBoost")) amount -= 9;
     if (player.challenges.includes("postc5")) amount -= 1
     
     return amount;
@@ -1161,7 +1158,7 @@ function softReset(bulk) {
         costMultipliers: [new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15)],
         tickspeedMultiplier: new Decimal(10),
         chall2Pow: player.chall2Pow,
-        chall3Pow: new Decimal(0.01),
+        chall3Pow: new Decimal(0.01*Decimal.pow(0.5,player.resets)),
         matter: new Decimal(0),
         chall11Pow: 1,
         partInfinityPoint: player.partInfinityPoint,
@@ -1201,7 +1198,7 @@ function softReset(bulk) {
         player.seventhCost = new Decimal(2e5)
         player.eightCost = new Decimal(4e6)
     }
-    if (player.currentChallenge == "postc1") player.costMultipliers = [new Decimal(1e3),new Decimal(5e3),new Decimal(1e4),new Decimal(1.2e4),new Decimal(1.8e4),new Decimal(2.6e4),new Decimal(3.2e4),new Decimal(4.2e4)];
+    if (player.currentChallenge == "postc1") player.costMultipliers = [new Decimal(1e3),new Decimal(8e3),new Decimal(1.5e4),new Decimal(2e4),new Decimal(3e4),new Decimal(4e4),new Decimal(3e4),new Decimal(2e4)];
     if (player.resets == 1 && player.currentChallenge == "") {
         if (player.infinityUpgrades.includes("skipReset2")) player.resets++;
         if (player.infinityUpgrades.includes("skipReset3")) player.resets++;
@@ -1214,7 +1211,6 @@ function softReset(bulk) {
         player.eightAmount = new Decimal(1);
         player.eightBought = 1;
     }
-
    /* player.firstPow = Decimal.pow(2, player.resets + 1)
     player.secondPow = Decimal.pow(2, player.resets)
     player.thirdPow = Decimal.max(Decimal.pow(2, player.resets - 1), 1)
@@ -1234,6 +1230,7 @@ function softReset(bulk) {
         player.sixthPow = Decimal.max(Decimal.pow(2.5, player.resets - 4), 1)
         player.seventhPow = Decimal.max(Decimal.pow(2.5, player.resets - 5), 1)
         player.eightPow = Decimal.max(Decimal.pow(2.5, player.resets - 6), 1)
+	player.chall3Pow = new Decimal(0.01*Decimal.pow(0.4,player.resets)) //you start at 1% ignoring resets
     }
     if (player.currentChallenge == "challenge11" || player.currentChallenge == "postc1") {
         player.firstPow = new Decimal(1)
@@ -1267,10 +1264,10 @@ function softReset(bulk) {
         player.sixthPow = Decimal.max(Decimal.pow(10, player.resets - 4), 1)
         player.seventhPow = Decimal.max(Decimal.pow(10, player.resets - 5), 1)
         player.eightPow = Decimal.max(Decimal.pow(10, player.resets - 6), 1)
-    }
+    } //why is there one for both 4 AND 10? and shouldnt this go after the normal c7 one?
     
     if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
-    if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.98);
+    if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.9);
     
 
     
@@ -1332,7 +1329,7 @@ function getTickSpeedMultiplier() {
     if (player.galaxies < 3) {
         let baseMultiplier = 0.9;
         if (player.galaxies == 0) baseMultiplier = 0.89
-        if (player.currentChallenge == "challenge6" || player.currentChallenge == "postc1") baseMultiplier = 0.93;
+        if (player.currentChallenge == "challenge6" || player.currentChallenge == "postc1") baseMultiplier = 0.95;
         let perGalaxy = 0.02;
         
         if (player.infinityUpgrades.includes("galaxyBoost")) perGalaxy *= 2;
@@ -1343,7 +1340,7 @@ function getTickSpeedMultiplier() {
         return baseMultiplier-(player.galaxies*perGalaxy);
     } else {
         let baseMultiplier = 0.8
-        if (player.currentChallenge == "challenge6" || player.currentChallenge == "postc1") baseMultiplier = 0.83
+        if (player.currentChallenge == "challenge6" || player.currentChallenge == "postc1") baseMultiplier = 0.85
         let perGalaxy = 0.965
         let galaxies = player.galaxies-2
         if (player.infinityUpgrades.includes("galaxyBoost")) galaxies *= 2;
@@ -1515,7 +1512,7 @@ function getDimensionPowerMultiplier(tier) {
     let dimMult = 2;
 
 
-    if (player.currentChallenge == "challenge9" || player.currentChallenge == "postc1") dimMult = Decimal.pow(10/0.30,Decimal.random())*0.30
+    if (player.currentChallenge == "challenge9" || player.currentChallenge == "postc1") dimMult = Decimal.pow(10/0.3,Decimal.random())*0.3
 
     if (player.infinityUpgrades.includes('dimMult')) dimMult *= 1.1;
     if (player.achievements.includes("Is this hell?")) dimMult *= 1.01;
@@ -1535,7 +1532,7 @@ function clearDimensions(amount) {
 
 function getDimensionCostMultiplier(tier) {
 
-	var multiplier2 = [new Decimal(1e3),new Decimal(5e3),new Decimal(1e4),new Decimal(1.2e4),new Decimal(1.8e4),new Decimal(2.6e4),new Decimal(3.2e4),new Decimal(4.2e4)];
+	var multiplier2 = [new Decimal(1e3),new Decimal(8e3),new Decimal(1.5e4),new Decimal(2e4),new Decimal(3e4),new Decimal(4e4),new Decimal(3e4),new Decimal(2e4)];
     if (player.currentChallenge == "challenge10") return multiplier2[tier - 1];
     else return player.costMultipliers[tier - 1];
 }
@@ -2503,7 +2500,7 @@ document.getElementById("secondSoftReset").onclick = function () {
         if (player.options.notation == "Emojis") player.spreadingCancer+=1;
         if (player.spreadingCancer >= 10) giveAchievement("Spreading Cancer")
         if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
-        if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.98);
+        if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.9);
         if (player.achievements.includes("YOU CAN GET 50 GALAXIES!??")) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
         clearInterval(player.interval);
         //updateInterval();
@@ -2715,16 +2712,16 @@ function resetDimensions() {
 function calcSacrificeBoost() {
     if (player.firstAmount == 0) return new Decimal(1);
     if (player.challenges.includes("postc2")) {
-        if (player.achievements.includes("Yet another infinity reference")) return Decimal.max(Decimal.pow(player.firstAmount, 0.011).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.011), 1)), 1)
+        if (player.achievements.includes("Yet another infinity reference")) return Decimal.max(Decimal.pow(player.firstAmount, 0.0102).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.0102), 1)), 1)
         else return Decimal.max(Decimal.pow(player.firstAmount, 0.01).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.01), 1)), 1)
     }
     if (player.currentChallenge != "challenge11") {
         var sacrificePow=2;
-        if (player.achievements.includes("The Gods are pleased")) sacrificePow += 0.2;
-        if (player.achievements.includes("Gift from the Gods")) sacrificePow += 0.3;
+        if (player.achievements.includes("The Gods are pleased")) sacrificePow += 0.1;
+        if (player.achievements.includes("Gift from the Gods")) sacrificePow += 0.2;
         return Decimal.max(Decimal.pow(((player.firstAmount.e).dividedBy(10.0)), sacrificePow).dividedBy(Decimal.max(Decimal.pow(((Decimal.max(player.sacrificed.e, 1)).dividedBy(10.0)), sacrificePow), 1), 1), 1);
     } else {
-        if (player.firstAmount != 0) return Decimal.max(Decimal.pow(player.firstAmount, 0.05).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.04), 1)), 1)
+        if (player.firstAmount != 0) return Decimal.max(Decimal.pow(player.firstAmount, 0.02).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.005), 1)), 1)
         else return new Decimal(1)
     }
 }
@@ -3274,7 +3271,7 @@ document.getElementById("bigcrunch").onclick = function () {
         }
 
         if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
-        if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.98);
+        if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.9);
         clearInterval(player.interval);
         //updateInterval();
         updateDimensions();
@@ -3429,7 +3426,7 @@ function startChallenge(name, target) {
         player.seventhCost = new Decimal(2e5)
         player.eightCost = new Decimal(4e6)
     }
-    if (player.currentChallenge == "postc1") player.costMultipliers = [new Decimal(1e3),new Decimal(5e3),new Decimal(1e4),new Decimal(1.2e4),new Decimal(1.8e4),new Decimal(2.6e4),new Decimal(3.2e4),new Decimal(4.2e4)];
+    if (player.currentChallenge == "postc1") player.costMultipliers = [new Decimal(1e3),new Decimal(8e3),new Decimal(1.5e4),new Decimal(2e4),new Decimal(3e4),new Decimal(4e4),new Decimal(3e4),new Decimal(2e4)];
     if (player.currentChallenge == "postc2") {
         player.eightAmount = new Decimal(1);
         player.eightBought = 1;
@@ -3438,7 +3435,7 @@ function startChallenge(name, target) {
 
     if (player.currentChallenge.includes("post")) player.break = true
     if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
-    if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.98);
+    if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.9);
     clearInterval(player.interval);
     //updateInterval();
     updateDimensions();
@@ -3520,9 +3517,7 @@ function calcPerSec(amount, pow, hasMult) {
 }
 
 document.getElementById("quickReset").onclick = function () {
-    if (player.resets == 0) player.resets--;
-    else player.resets -= 2;
-    softReset(1);
+    softReset((player.resets == 0)-1)
 }
 
 
@@ -3653,12 +3648,8 @@ setInterval(function () {
     if (player.thisInfinityTime < -10) player.thisInfinityTime = Infinity
     if (player.bestInfinityTime < -10) player.bestInfinityTime = Infinity
     /*if (player.currentChallenge == "postc6" && player.matter.gte(1)) player.matter = player.matter.plus(diff/10)
-    else */player.matter = player.matter.times(Decimal.pow((1.02 + player.resets/200 + player.galaxies/100), diff));
-    if (player.matter.gt(player.money) && (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1")) {
-        if (player.resets == 0) player.resets--;
-        else player.resets -= 2;
-        softReset(1);
-    }
+    else */player.matter = player.matter.times(Decimal.pow((1.25 + player.resets/100 + player.galaxies/50 + Math.min(player.infinitied,50)/2000), diff));
+    if (player.matter.gt(player.money) && (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1")) softReset((player.resets == 0)-1);
 
     if (player.currentChallenge == "postc8") postc8Mult = postc8Mult.times(Math.pow(0.000000046416, diff))
 
