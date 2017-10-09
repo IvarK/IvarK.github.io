@@ -4328,50 +4328,7 @@ function scrollNextMessage() {
   //start scrolling
   scrollNextMessage();
 
-document.getElementById("challenge2").onclick = function () {
-  startChallenge("challenge2", new Decimal("1e1000"))
-}
-
-document.getElementById("challenge3").onclick = function () {
-  startChallenge("challenge3", Number.MAX_VALUE)
-}
-
-document.getElementById("challenge4").onclick = function () {
-  startChallenge("challenge4", Number.MAX_VALUE)
-}
-
-document.getElementById("challenge5").onclick = function () {
-  startChallenge("challenge5", Number.MAX_VALUE);
-}
-
-document.getElementById("challenge6").onclick = function () {
-  startChallenge("challenge6", Number.MAX_VALUE);
-}
-
-document.getElementById("challenge7").onclick = function () {
-  startChallenge("challenge7", Number.MAX_VALUE);
-}
-
-document.getElementById("challenge8").onclick = function () {
-  startChallenge("challenge8", Number.MAX_VALUE);
-}
-
-document.getElementById("challenge9").onclick = function () {
-  startChallenge("challenge9", Number.MAX_VALUE);
-}
-
-document.getElementById("challenge10").onclick = function () {
-  startChallenge("challenge10", Number.MAX_VALUE);
-}
-
-document.getElementById("challenge11").onclick = function () {
-    startChallenge("challenge11", Number.MAX_VALUE);
-  }
-
-document.getElementById("challenge12").onclick = function () {
-  startChallenge("challenge12", Number.MAX_VALUE);
-}
-
+//i added onclick startChallenge attributes to the HTML side
 
 
 function showInfTab(tabName) {
