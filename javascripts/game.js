@@ -454,7 +454,7 @@ function onLoad() {
             if (player.autobuyers[i]%1 !== 0) {
                 while (player.autobuyers[i].bulk > 1) {
                     player.autobuyers[i].bulk /= 2;
-                    player.autobuyers[i].cost /= 2.4;
+                    player.autobuyers[i].cost = player.autobuyers[i].cost.dividedBy(2.4);
                     player.infinityPoints = player.infinityPoints.plus(player.autobuyers[i].cost);
                 }
             }
@@ -463,11 +463,15 @@ function onLoad() {
             player.infinityPoints = player.infinityPoints.plus(player.autobuyers[8].cost-1);
             player.autobuyers[8] = 9
         }
+	    if (player.autobuyers[9] !== 10) {
+            if (player.autobuyers[9].interval == 100) player.autobuyers[9].interval = 145.1188224
+            else player.autobuyers[9].interval *= 1.5
+        }
         if (player.autobuyers[10] !== 11) {
             if (player.autobuyers[10].cost > 512) {
                 player.infinityPoints = player.infinityPoints.plus(player.autobuyers[10].cost-512);
-                player.autobuyers[10].cost = new Decimal(30000);
-                player.autobuyers[10].interval = 30000*Decimal.pow(0.6,9);
+                player.autobuyers[10].cost = new Decimal(100000);
+                player.autobuyers[10].interval = 1007.7696;
             }
         }
         //player.version = 99
@@ -2265,7 +2269,7 @@ buyAutobuyer = function(id) {
     if (player.autobuyers[id].interval <= 100) {
         player.autobuyers[id].bulk *= 2;
         if (player.autobuyers[id].cost.lt(32768)) player.autobuyers[id].cost = Decimal.ceil(player.autobuyers[id].cost.times(2.7));
-        else player.autobuyers[id].cost = Decimal.ceil(player.autobuyers[id].cost.times(Decimal.pow(2,player.autobuyers[id].bulk/Decimal.pow(0.774,id))));
+        else player.autobuyers[id].cost = Decimal.ceil(player.autobuyers[id].cost.times(Decimal.pow(1.7,player.autobuyers[id].bulk*Decimal.pow(1.25,id-8))));
         //price scale is tentative
     } else {
         player.autobuyers[id].interval = Math.max(player.autobuyers[id].interval*0.6, 100);
@@ -2824,7 +2828,7 @@ function updateAutobuyers() {
     autoBuyerDim6.interval = 10000
     autoBuyerDim7.interval = 12000
     autoBuyerDim8.interval = 15000
-    autoBuyerDimBoost.interval = 16000
+    autoBuyerDimBoost.interval = 24000
     autoBuyerGalaxy.interval = 300000
     autoBuyerTickspeed.interval = 10000
     autoBuyerInf.interval = 300000
