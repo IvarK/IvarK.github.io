@@ -15,7 +15,7 @@
 
 var Autobuyer = function Autobuyer(target) {
     this.target = target
-    this.cost = 1
+    this.cost = new Decimal(1)
     this.interval = 5000;
     this.priority = 1;
     this.ticks = 0;
