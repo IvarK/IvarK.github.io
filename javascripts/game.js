@@ -3633,7 +3633,8 @@ setInterval(function () {
     if (player.thisInfinityTime < -10) player.thisInfinityTime = Infinity
     if (player.bestInfinityTime < -10) player.bestInfinityTime = Infinity
     /*if (player.currentChallenge == "postc6" && player.matter.gte(1)) player.matter = player.matter.plus(diff/10)
-    else */player.matter = player.matter.times(Decimal.pow((1.25 + player.resets/100 + player.galaxies/50 + Math.min(player.infinitied,50)/2000), diff));
+    else */player.matter = player.matter.times(Decimal.pow((1.025 + player.resets/100 + player.galaxies/50 + Math.min(player.infinitied,25)/3000 + Math.min(player.infinitied,50)/3000), diff));
+	//yes it scales to infinities! The cap for it is low enough it shouldnt matter too much, but it should make it somewhat reasonable even at lower infs.
     if (player.matter.gt(player.money) && (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1")) softReset((player.resets == 0)-1);
 
     if (player.currentChallenge == "postc8") postc8Mult = postc8Mult.times(Math.pow(0.000000046416, diff))
@@ -3750,13 +3751,11 @@ setInterval(function () {
     updateDimensions();
     updateInfinityDimensions();
     updateInfPower();
-    if (calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).gt(player.money)) {
-	if(player.money.gt(Math.pow(10,63)) && !player.achievements.includes("Supersanic")) giveAchievement("Supersanic");
-    Marathon++;
-    
-	if (Marathon >= 300 && !player.achievements.includes("Over in 30 seconds")) giveAchievement("Over in 30 seconds");
-    } else {
-	Marathon = 0; }
+    if (calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).gt(player.money) && diff < 90) {
+	if (player.money.gt(1e63)) giveAchievement("Supersanic");
+        Marathon += diff;
+	if (Marathon >= 300) giveAchievement("Over in 30 seconds");
+    } else Marathon = 0;
 
     for (let tier = 1; tier <= 8; ++tier) {
         var name = TIER_NAMES[tier];
