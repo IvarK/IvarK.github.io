@@ -4638,6 +4638,7 @@ function playFabLoginCallback(data, error){
         //NOTE: SAVE 'playFabId' to a global variable somewhere, I just declare mine at the start of the playfab stuff. Use this variable to tell if your player is logged in to playfab or not.
         playFabId = data.data.PlayFabId;
         $.notify("Logged in to PlayFab Cloud", "info")
+        
         playFabLoadCheck()
         console.log("Logged in to playFab")
     }
@@ -4795,6 +4796,7 @@ document.getElementById("hiddenheader").style.display = "none";
 window.onload = function() {
     playFabLogin();
     updateKongPurchases()
+    if (kongregate.services.getGameAuthToken() === undefined) document.getElementById("shopbtn").style.display = "none"
 }
 
 window.addEventListener('keydown', function(event) {
