@@ -120,7 +120,8 @@ var player = {
         challConf: false,
         sacrificeConfirmation: true,
         retryChallenge: false,
-        bulkOn: true
+        bulkOn: true,
+        cloud: true
     }
     
 };
@@ -247,6 +248,7 @@ function onLoad() {
     if (player.options.sacrificeConfirmation === undefined) player.options.sacrificeConfirmation = true;
     if (player.options.retryChallenge === undefined) player.options.retryChallenge = false;
     if (player.options.bulkOn === undefined) player.options.bulkOn = true
+    if (player.options.cloud === undefined) player.options.cloud = true
     if (player.achievements === undefined) player.achievements = [];
     if (player.sacrificed === undefined) player.sacrificed = new Decimal(0);
     if (player.infinityUpgrades === undefined) player.infinityUpgrades = [];
@@ -388,6 +390,8 @@ function onLoad() {
     toggleChallengeRetry()
     toggleBulk()
     toggleBulk()
+    toggleCloud()
+    toggleCloud()
     
     loadAutoBuyerSettings();
     updateLastTenRuns()
@@ -4605,6 +4609,7 @@ function playFabLoginCallback(data, error){
         console.log(error.errorMessage);
         $.notify("Couldn't log in to PlayFab Cloud. You need to be logged in to Kongregate.", "error")
         document.getElementById("cloudOptions").style.display = "none"
+        document.getElementById("cloud").style.display = "none"
         return;
     }
     if (data){
@@ -4612,7 +4617,7 @@ function playFabLoginCallback(data, error){
         playFabId = data.data.PlayFabId;
         $.notify("Logged in to PlayFab Cloud", "info")
         
-        playFabLoadCheck()
+        if (player.options.cloud) playFabLoadCheck()
         console.log("Logged in to playFab")
     }
 }
@@ -4750,7 +4755,15 @@ function playFabLoadCheckCallback(data, error) {
 	}
 }
 
-
+function toggleCloud() {
+    if (player.options.cloud) {
+        player.options.cloud = false
+        document.getElementById("cloud").innerHTML = "Automatic cloud saving/loading OFF"
+    } else {
+        player.options.cloud = true
+        document.getElementById("cloud").innerHTML = "Automatic cloud saving/loading ON"
+    }
+}
 
 
 setInterval(function () {
@@ -4758,7 +4771,7 @@ setInterval(function () {
 }, 30000);
 
 setInterval(function () {
-    if (playFabId != -1) playFabSaveCheck();
+    if (playFabId != -1 && player.options.cloud) playFabSaveCheck();
 }, 1000*60*5)
 updateCosts();
 //updateInterval();
