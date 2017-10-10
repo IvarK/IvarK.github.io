@@ -453,7 +453,33 @@ function onLoad() {
 		player.version = 5
 	}
 
-
+    if (player.version < 99) { //unsure what the current version is and im too lazy to check lol
+        for (var i=0;i<8;i++) {
+            if (player.autobuyers[i]%1 !== 0) {
+                while (player.autobuyers[i].bulk > 1) {
+                    player.autobuyers[i].bulk /= 2;
+                    player.autobuyers[i].cost = player.autobuyers[i].cost.dividedBy(2.4);
+                    player.infinityPoints = player.infinityPoints.plus(player.autobuyers[i].cost);
+                }
+            }
+        }
+        if (player.autobuyers[8] !== 9) {
+            player.infinityPoints = player.infinityPoints.plus(player.autobuyers[8].cost-1);
+            player.autobuyers[8] = 9
+        }
+	    if (player.autobuyers[9] !== 10) {
+            if (player.autobuyers[9].interval == 100) player.autobuyers[9].interval = 145.1188224
+            else player.autobuyers[9].interval *= 1.5
+        }
+        if (player.autobuyers[10] !== 11) {
+            if (player.autobuyers[10].cost > 512) {
+                player.infinityPoints = player.infinityPoints.plus(player.autobuyers[10].cost-512);
+                player.autobuyers[10].cost = new Decimal(100000);
+                player.autobuyers[10].interval = 1007.7696;
+            }
+        }
+        //player.version = 99
+    }
     
     
 
@@ -544,6 +570,9 @@ function transformSaveToDecimal() {
     player.infinityPoints = new Decimal(player.infinityPoints)
     player.postC3Reward = new Decimal(player.postC3Reward)
     player.lastTenRuns = [[parseFloat(player.lastTenRuns[0][0]), player.lastTenRuns[0][1]], [parseFloat(player.lastTenRuns[1][0]), player.lastTenRuns[1][1]], [parseFloat(player.lastTenRuns[2][0]), player.lastTenRuns[2][1]], [parseFloat(player.lastTenRuns[3][0]), player.lastTenRuns[3][1]], [parseFloat(player.lastTenRuns[4][0]), player.lastTenRuns[4][1]], [parseFloat(player.lastTenRuns[5][0]), player.lastTenRuns[5][1]], [parseFloat(player.lastTenRuns[6][0]), player.lastTenRuns[6][1]], [parseFloat(player.lastTenRuns[7][0]), player.lastTenRuns[7][1]], [parseFloat(player.lastTenRuns[8][0]), player.lastTenRuns[8][1]], [parseFloat(player.lastTenRuns[9][0]), player.lastTenRuns[9][1]]]
+    for (var i=0;i<12;i++) {
+        if (player.autobuyers[i] != i+1) player.autobuyers[i].cost = new Decimal(player.autobuyers[i].cost);
+    }
 }
 
 
@@ -2239,14 +2268,18 @@ document.getElementById("offlineProd").onclick = function() {
 
 
 buyAutobuyer = function(id) {
-    if (player.autobuyers[id].cost > player.infinityPoints) return false;
+    if (player.autobuyers[id].cost.gt(player.infinityPoints)) return false;
     player.infinityPoints = player.infinityPoints.minus(player.autobuyers[id].cost);
     if (player.autobuyers[id].interval <= 100) {
         player.autobuyers[id].bulk *= 2;
-        player.autobuyers[id].cost = Math.ceil(2.4*player.autobuyers[id].cost);
+        if (player.autobuyers[id].cost.lt(32768)) player.autobuyers[id].cost = Decimal.ceil(player.autobuyers[id].cost.times(2.7));
+        else player.autobuyers[id].cost = Decimal.ceil(player.autobuyers[id].cost.times(Decimal.pow(1.7,player.autobuyers[id].bulk*Decimal.pow(1.25,id-8))));
+        //price scale is tentative
     } else {
         player.autobuyers[id].interval = Math.max(player.autobuyers[id].interval*0.6, 100);
-        if (player.autobuyers[id].interval > 120) player.autobuyers[id].cost *= 2; //if your last purchase wont be very strong, dont double the cost
+        if (id == 10 && player.autobuyers[10].cost.eq(256)) player.autobuyers[10].cost = new Decimal(1e5);
+        else if (id == 8) player.autobuyers[8].cost = Decimal.ceil(player.autobuyers[id].cost.times(3.1));
+        else if (player.autobuyers[id].interval > 120) player.autobuyers[id].cost = player.autobuyers[id].cost.times(2); //if your last purchase wont be very strong, dont double the cost
     }
     updateAutobuyers();
 }
@@ -2776,44 +2809,22 @@ document.getElementById("sacrifice").onclick = function () {
 
 
 function updateAutobuyers() {
-    var autoBuyerDim1 = new Autobuyer (1)
-    var autoBuyerDim2 = new Autobuyer (2)
-    var autoBuyerDim3 = new Autobuyer (3)
-    var autoBuyerDim4 = new Autobuyer (4)
-    var autoBuyerDim5 = new Autobuyer (5)
-    var autoBuyerDim6 = new Autobuyer (6)
-    var autoBuyerDim7 = new Autobuyer (7)
-    var autoBuyerDim8 = new Autobuyer (8)
-    var autoBuyerDimBoost = new Autobuyer (9)
-    var autoBuyerGalaxy = new Autobuyer (document.getElementById("secondSoftReset"))
-    var autoBuyerTickspeed = new Autobuyer (document.getElementById("tickSpeed"))
-    var autoBuyerInf = new Autobuyer (document.getElementById("bigcrunch"))
-    var autoSacrifice = new Autobuyer(13)
+    var autoBuyerDim1 = new Autobuyer (1,3)
+    var autoBuyerDim2 = new Autobuyer (2,4)
+    var autoBuyerDim3 = new Autobuyer (3,5)
+    var autoBuyerDim4 = new Autobuyer (4,6)
+    var autoBuyerDim5 = new Autobuyer (5,8)
+    var autoBuyerDim6 = new Autobuyer (6,10)
+    var autoBuyerDim7 = new Autobuyer (7,12)
+    var autoBuyerDim8 = new Autobuyer (8,15)
+    var autoBuyerDimBoost = new Autobuyer (9,24)
+    var autoBuyerGalaxy = new Autobuyer (document.getElementById("secondSoftReset"),300)
+    var autoBuyerTickspeed = new Autobuyer (document.getElementById("tickSpeed"),10)
+    var autoBuyerInf = new Autobuyer (document.getElementById("bigcrunch"),300)
+    var autoSacrifice = new Autobuyer(13,0.1)
 
+   
     
-    autoBuyerDim1.interval = 3000
-    autoBuyerDim2.interval = 4000
-    autoBuyerDim3.interval = 5000
-    autoBuyerDim4.interval = 6000
-    autoBuyerDim5.interval = 8000
-    autoBuyerDim6.interval = 10000
-    autoBuyerDim7.interval = 12000
-    autoBuyerDim8.interval = 15000
-    autoBuyerDimBoost.interval = 16000
-    autoBuyerGalaxy.interval = 300000
-    autoBuyerTickspeed.interval = 10000
-    autoBuyerInf.interval = 300000
-
-    autoSacrifice.interval = 100
-    
-    autoBuyerDim1.tier = 1
-    autoBuyerDim2.tier = 2
-    autoBuyerDim3.tier = 3
-    autoBuyerDim4.tier = 4
-    autoBuyerDim5.tier = 5
-    autoBuyerDim6.tier = 6
-    autoBuyerDim7.tier = 7
-    autoBuyerDim8.tier = 8
     autoBuyerTickSpeed.tier = 9
     
     if (player.challenges.includes("challenge1") && player.autobuyers[0] == 1) {
@@ -4106,34 +4117,11 @@ function autoBuyerTick() {
     }
 
 
-    if (player.autobuyers[10]%1 !== 0) {
-        if (player.autobuyers[10].ticks*100 >= player.autobuyers[10].interval && (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() : player.eightAmount >= getGalaxyRequirement())) {
-            if (player.autobuyers[10].isOn && player.autobuyers[10].priority > player.galaxies) {
-                document.getElementById("secondSoftReset").click()
-                player.autobuyers[10].ticks = 1;
-            } 
-        } else player.autobuyers[10].ticks += 1;
-    }
-
-
-    if (player.autobuyers[9]%1 !== 0) {
-        if (dimBoolean()) {
-            if (player.autobuyers[9].isOn) {
-                if (player.resets < 4) softReset(1)
-                else softReset(player.autobuyers[9].bulk)
-                player.autobuyers[9].ticks = 1;
-            } 
-        } else player.autobuyers[9].ticks += 1;
-    }
-
     if (player.autoSacrifice%1 !== 0) {
         if (calcSacrificeBoost().gte(player.autoSacrifice.priority) && player.autoSacrifice.isOn) {
             sacrifice()
         }
     }
-
-
-
 
     for (var i=0; i<priority.length; i++) {
         if (priority[i].ticks*100 >= priority[i].interval || priority[i].interval == 100) {
@@ -4155,8 +4143,27 @@ function autoBuyerTick() {
             }
         } else priority[i].ticks += 1;
     }
+	
     updateCosts()
+    if (player.autobuyers[10]%1 !== 0) {
+        if (player.autobuyers[10].ticks*100 >= player.autobuyers[10].interval && (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() : player.eightAmount >= getGalaxyRequirement())) {
+            if (player.autobuyers[10].isOn && player.autobuyers[10].priority > player.galaxies) {
+                document.getElementById("secondSoftReset").click()
+                player.autobuyers[10].ticks = 1;
+            } 
+        } else player.autobuyers[10].ticks += 1;
+    }
 
+
+    if (player.autobuyers[9]%1 !== 0) {
+        if (dimBoolean()) {
+            if (player.autobuyers[9].isOn) {
+                if (player.resets < 4) softReset(1)
+                else softReset(player.autobuyers[9].bulk)
+                player.autobuyers[9].ticks = 1;
+            } 
+        } else player.autobuyers[9].ticks += 1;
+    }
 }
 
 
