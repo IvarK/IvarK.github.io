@@ -471,6 +471,7 @@ function onLoad() {
     }
     updateAutobuyers();
     setAchieveTooltip();
+    updatePriorities()
     totalMult = Math.pow(player.totalmoney.e+1, 0.5)
     currentMult = Math.pow(player.money.e+1, 0.5)
     infinitiedMult = Math.log10(player.infinitied)*10
