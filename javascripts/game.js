@@ -2998,7 +2998,7 @@ function updatePriorities() {
     var sacValue = document.getElementById("prioritySac").value
     if (sacValue.includes("e")) sacValue = parseFloat(sacValue.split("e")[0]) * Math.pow(10, parseInt(sacValue.split("e")[1]))
     else sacValue = parseInt(sacValue)
-    player.autoSacrifice.priority = sacValue
+    player.autoSacrifice.priority = isNaN(sacValue) ? 10 : sacValue
 
     priorityOrder()
 }
