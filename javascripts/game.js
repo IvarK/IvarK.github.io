@@ -4468,6 +4468,10 @@ function init() {
     document.getElementById('infinitybtn').onclick = function () {
         showTab('infinity');
     };
+    document.getElementById("shopbtn").onclick = function () {
+        showTab('shop')
+        updateKongPurchases()
+    }
     //show one tab during init or they'll all start hidden
     showTab('dimensions')
     showInfTab('preinf')
