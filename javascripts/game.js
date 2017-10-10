@@ -2722,7 +2722,7 @@ function calcSacrificeBoost() {
         var sacrificePow=2;
         if (player.achievements.includes("The Gods are pleased")) sacrificePow += 0.2;
         if (player.achievements.includes("Gift from the Gods")) sacrificePow += 0.3;
-        return Decimal.max(Decimal.pow(((player.firstAmount.e).dividedBy(10.0)), sacrificePow).dividedBy(Decimal.max(Decimal.pow(((Decimal.max(player.sacrificed.e, 1)).dividedBy(10.0)), sacrificePow), 1), 1), 1);
+        return Decimal.max(Decimal.pow((player.firstAmount.e/10.0), sacrificePow).dividedBy(Decimal.max(Decimal.pow(((Decimal.max(player.sacrificed.e, 1)).dividedBy(10.0)), sacrificePow), 1), 1), 1);
     } else {
         if (player.firstAmount != 0) return Decimal.max(Decimal.pow(player.firstAmount, 0.05).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.04), 1)), 1)
         else return new Decimal(1)
@@ -4527,33 +4527,6 @@ function onPurchaseTimeSkip(result) {
 
 function updateKongPurchases() {
     console.log("updating kong purchases")
-    kongregate.mtx.requestItemList(["ip"], ipItems)
-
-    function ipItems(result) {
-        console.log("checking for ip mult")
-        let mult = 1
-        for(var i = 0; i < result.data.length; i++) {
-            var item = result.data[i];
-            console.log((i+1) + ". " + item.identifier + ", " + 
-                        item.id + "," + item.name);
-            if (item.identifier == "doubleip") mult *= 2
-        }
-        kongIPMult = mult
-    }
-
-    kongregate.mtx.requestUserItemList(["dim"], dimItems)
-
-    function dimItems(result) {
-        console.log("checking for dim mult")
-        let mult = 1
-        for(var i = 0; i < result.data.length; i++) {
-            var item = result.data[i];
-            console.log((i+1) + ". " + item.identifier + ", " + 
-                        item.id + "," + item.name);
-            if (item.identifier == "doublemult") mult *= 2
-        }
-        kongDimMult = mult
-    }
 
     kongregate.mtx.requestUserItemList("", items)
 
