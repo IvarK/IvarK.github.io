@@ -3636,8 +3636,8 @@ setInterval(function() {
 
     if (player.money.gte(new Decimal("1e2000"))) document.getElementById("challTabButtons").style.display = "table"
 
-    document.getElementById("kongip").innerHTML = "Double your IP gain from all sources. Forever. Currently x"+kongIPMult
-    document.getElementById("kongdim").innerHTML = "Double all your dimension multipliers (dimensions 1-8). Forever. Currently x"+kongDimMult
+    document.getElementById("kongip").innerHTML = "Double your IP gain from all sources (additive). Forever. Currently: x"+kongIPMult+", next: "+(kongIPMult==1? 2: kongIPMult+2)
+    document.getElementById("kongdim").innerHTML = "Double all your dimension multipliers (dimensions 1-8) (multiplicative). Forever. Currently: x"+kongDimMult+", next: "+(kongDimMult*2)
 
     for (var i=1; i <=8; i++) {
         document.getElementById("postc"+i+"goal").innerHTML = "Goal: "+shortenCosts(goals[i-1])
@@ -4540,22 +4540,23 @@ function updateKongPurchases() {
 
     function items(result) {
         console.log("checking for all items")
-        let ipmult = 1
+        let ipmult = 0
         let dimmult = 1
         for(var i = 0; i < result.data.length; i++) {
             var item = result.data[i];
             console.log((i+1) + ". " + item.identifier + ", " + 
             item.id + "," + item.data);
             if (item.identifier == "doublemult") dimmult *= 2
-            if (item.identifier == "doubleip") ipmult *= 2
+            if (item.identifier == "doubleip") ipmult += 2
             
         }
         kongDimMult = dimmult
-        kongIPMult = ipmult
+        if (ipmult !== 0) kongIPMult = ipmult
+        else kongIPMult = 1
     }
 
-    document.getElementById("kongip").innerHTML = "x"+kongIPMult
-    document.getElementById("kongdim").innerHTML = "x"+kongDimMult
+    document.getElementById("kongip").innerHTML = "Double your IP gain from all sources (additive). Forever. Currently: x"+kongIPMult+", next: "+(kongIPMult==1? 2: kongIPMult+2)
+    document.getElementById("kongdim").innerHTML = "Double all your dimension multipliers (dimensions 1-8) (multiplicative). Forever. Currently: x"+kongDimMult+", next: "+(kongDimMult*2)
 }
 
 
