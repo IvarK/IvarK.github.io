@@ -2999,6 +2999,7 @@ function updatePriorities() {
     if (sacValue.includes("e")) sacValue = parseFloat(sacValue.split("e")[0]) * Math.pow(10, parseInt(sacValue.split("e")[1]))
     else sacValue = parseInt(sacValue)
     player.autoSacrifice.priority = isNaN(sacValue) ? 10 : sacValue
+    if (player.autoSacrifice.priority === null) player.autoSacrifice.priority = 10
 
     priorityOrder()
 }
@@ -3148,7 +3149,7 @@ document.getElementById("bigcrunch").onclick = function () {
             addTime(player.thisInfinityTime, gainedInfinityPoints())
             if (gainedInfinityPoints().gte(1e150)) giveAchievement("All your IP are belong to us")
         }
-        if (player.thisInfinityTime > 250 && player.achievements.includes("2 Million Infinities")) player.infinitied += 249;
+        if (player.thisInfinityTime > 50 && player.achievements.includes("2 Million Infinities")) player.infinitied += 249;
         
         player = {
         money: new Decimal(10),
