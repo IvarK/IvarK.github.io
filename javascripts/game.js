@@ -452,6 +452,10 @@ function onLoad() {
 		player.newsArray = []
 		player.version = 5
 	}
+	if (player.version < 99) { //unsure what the version is
+        if (player.achievements.includes("All your IP are belong to us")) player.infMult /= 4;
+        //player.version = 99;
+	}
 
 
     
@@ -962,7 +966,7 @@ function updateDimensions() {
     document.getElementById("infi23").innerHTML = "Fourth and Fifth Dimension power <br>" + formatValue(player.options.notation, dimMults(), 1, 1) + "x<br>Cost: 1 IP"
     document.getElementById("infi31").innerHTML = "Production increase over time in current infinity<br>Currently: " + Decimal.max(Math.pow(player.thisInfinityTime / 2400, 0.25), 1).toFixed(2) + "x<br>Cost: 3 IP"
     document.getElementById("infi32").innerHTML = "Bonus for unspent Infinity Points on 1st Dimension<br>(Currently " + formatValue(player.options.notation, Decimal.pow(player.infinityPoints/2,1.5).plus(1), 2, 2) + "x)<br>Cost: 5 IP"
-    document.getElementById("infi34").innerHTML = "Infinity Point generation (based on fastest infinity) <br>(Currently "+shortenDimensions(player.infMult * kongIPMult)+" every " + timeDisplay(player.bestInfinityTime*10) + ")<br>Cost: 10 IP"
+    document.getElementById("infi34").innerHTML = "Infinity Point generation (based on fastest infinity) <br>(Currently "+shortenDimensions(player.infMult * kongIPMult * (player.achievements.includes("All your IP are belong to us")?Math.floor(player.achPow/4):1))+" every " + timeDisplay(player.bestInfinityTime*10) + ")<br>Cost: 10 IP"
     document.getElementById("postinfi11").innerHTML = "Power up all dimensions based on total antimatter produced<br>Currently: "+ Math.pow(player.totalmoney.e+1, 0.5).toFixed(2)+"x<br>Cost: "+shortenCosts(1e4)+" IP"
     document.getElementById("postinfi21").innerHTML = "Power up all dimensions based on current antimatter<br>Currently: "+ Math.pow(player.money.e+1, 0.5).toFixed(2)+"x<br>Cost: "+shortenCosts(5e4)+" IP"
     document.getElementById("postinfi31").innerHTML = "Tickspeed cost multiplier increase <br>"+player.tickSpeedMultDecrease+"x -> "+(player.tickSpeedMultDecrease-1)+"x<br>Cost: "+shortenDimensions(player.tickSpeedMultDecreaseCost) +" IP"
@@ -1449,7 +1453,6 @@ function giveAchievement(name) {
     try {
         kongregate.stats.submit('Achievements', player.achievements.length);
     } catch (err) {console.log("Couldn't load Kongregate API")}
-    if (name == "All your IP are belong to us") player.infMult *= 4
     updateAchPow();
 }
 
@@ -2632,7 +2635,7 @@ function breakInfinity() {
 }
 
 function gainedInfinityPoints() {
-    return Decimal.floor(Decimal.pow(10, player.money.e/308 -0.75).times(player.infMult * kongIPMult))
+    return Decimal.floor(Decimal.pow(10, player.money.e/308 -0.75).times(player.infMult * kongIPMult * (player.achievements.includes("All your IP are belong to us")?player.achPow/4:1)))
 }
 
 
@@ -3142,8 +3145,8 @@ document.getElementById("bigcrunch").onclick = function () {
             player.challenges.push(player.currentChallenge);
         }
         if (!player.break || player.currentChallenge != "") {
-            player.infinityPoints = player.infinityPoints.plus(player.infMult * kongIPMult);
-            addTime(player.thisInfinityTime, player.infMult * kongIPMult)
+            player.infinityPoints = player.infinityPoints.plus(player.infMult * kongIPMult * (player.achievements.includes("All your IP are belong to us")?Math.floor(player.achPow/4):1));
+            addTime(player.thisInfinityTime, player.infMult * kongIPMult * (player.achievements.includes("All your IP are belong to us")?Math.floor(player.achPow/4):1))
         }
         else {
             player.infinityPoints = player.infinityPoints.plus(gainedInfinityPoints())
@@ -3678,13 +3681,13 @@ setInterval(function () {
     }}
     if (player.infinityUpgrades.includes("passiveGen")) player.partInfinityPoint += diff / player.bestInfinityTime;
     if (player.partInfinityPoint >= 100) {
-        player.infinityPoints = player.infinityPoints.plus(player.infMult * kongIPMult * (player.partInfinityPoint/10));
+        player.infinityPoints = player.infinityPoints.plus(player.infMult * kongIPMult * (player.partInfinityPoint/10) * (player.achievements.includes("All your IP are belong to us")?Math.floor(player.achPow/4):1));
         player.partInfinityPoint = 0;
     }
 
     if (player.partInfinityPoint >= 10) {
         player.partInfinityPoint -= 10;
-        player.infinityPoints = player.infinityPoints.plus(player.infMult * kongIPMult);
+        player.infinityPoints = player.infinityPoints.plus(player.infMult * kongIPMult * (player.achievements.includes("All your IP are belong to us")?Math.floor(player.achPow/4):1));
     }
 
     if (player.infinityUpgrades.includes("infinitiedGeneration")) player.partInfinitied += diff / player.bestInfinityTime;
