@@ -1342,7 +1342,7 @@ function getTickSpeedMultiplier() {
         
         if (player.infinityUpgrades.includes("galaxyBoost")) perGalaxy *= 2;
         if (player.infinityUpgrades.includes("postGalaxy")) perGalaxy *= 1.5;
-        if (player.challenges.includes("postc5")) perGalaxy *= 1.1;
+        if (player.challenges.includes("postc5")) perGalaxy *= 1.05;
         if (player.achievements.includes("Do you even bend time bro?")) perGalaxy *= 1.01
         
         return baseMultiplier-(player.galaxies*perGalaxy);
@@ -1353,7 +1353,7 @@ function getTickSpeedMultiplier() {
         let galaxies = player.galaxies-2
         if (player.infinityUpgrades.includes("galaxyBoost")) galaxies *= 2;
         if (player.infinityUpgrades.includes("postGalaxy")) galaxies *= 1.5;
-        if (player.challenges.includes("postc5")) galaxies *= 1.1;
+        if (player.challenges.includes("postc5")) galaxies *= 1.05;
         if (player.achievements.includes("Do you even bend time bro?")) galaxies *= 1.01
 
         return baseMultiplier * (Math.pow(perGalaxy, (galaxies-2)))
@@ -3632,7 +3632,7 @@ setInterval(function() {
     }
     let temp = 1
     for (var i=0; i < player.challenges.length; i++) {
-        if (player.challenges[i].includes("post")) temp *= 1.5
+        if (player.challenges[i].includes("post")) temp *= 1.4
     }
     infDimPow = temp
 
