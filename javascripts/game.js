@@ -3132,7 +3132,6 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.currentChallenge == "challenge5" && player.thisInfinityTime <= 1800) giveAchievement("Is this hell?")
         if (player.firstAmount == 1 && player.resets == 0 && player.galaxies == 0 && player.currentChallenge == "challenge12") giveAchievement("ERROR 909: Dimension not found")
         if (player.currentChallenge != "" && player.challengeTimes[challNumber-2] > player.thisInfinityTime) player.challengeTimes[challNumber-2] = player.thisInfinityTime
-        if (player.challenges.length == 20) giveAchievement("Anti-antichallenged");
         if (player.currentChallenge == "postc5" && player.thisInfinityTime <= 100) giveAchievement("Hevipelle did nothing wrong")
         if ((player.bestInfinityTime > 600 && !player.break) || (player.currentChallenge != "" && !player.options.retryChallenge)) showTab("dimensions")
         if (player.currentChallenge == "challenge5") {
@@ -3144,6 +3143,7 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.currentChallenge != "" && !player.challenges.includes(player.currentChallenge)) {
             player.challenges.push(player.currentChallenge);
         }
+	if (player.challenges.length == 20) giveAchievement("Anti-antichallenged");
         if (!player.break || player.currentChallenge != "") {
             player.infinityPoints = player.infinityPoints.plus(player.infMult * kongIPMult * (player.achievements.includes("All your IP are belong to us")?Math.floor(player.achPow/4):1));
             addTime(player.thisInfinityTime, player.infMult * kongIPMult * (player.achievements.includes("All your IP are belong to us")?Math.floor(player.achPow/4):1))
