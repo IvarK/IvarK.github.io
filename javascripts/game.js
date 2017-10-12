@@ -736,7 +736,7 @@ function getDimensionFinalMultiplier(tier) {
     if (hasInfinityMult(tier)) multiplier = multiplier.times(dimMults());
     if (tier == 1) {
         if (player.infinityUpgrades.includes("unspentBonus")) multiplier = multiplier.times(unspentBonus);
-        if (player.achievements.includes("There's no point in doing that...")) multiplier = multiplier.times(1.1);
+        if (player.achievements.includes("There's no point in doing that")) multiplier = multiplier.times(1.1);
         if (player.achievements.includes("I forgot to nerf that")) multiplier = multiplier.times(1.05);
         if (player.achievements.includes("ERROR 909: Dimension not found")) multiplier = multiplier.times(3);
     }
