@@ -764,7 +764,7 @@ function getDimensionFinalMultiplier(tier) {
     if (player.currentChallenge == "postc8") multiplier = multiplier.times(postc8Mult)
     if (player.challenges.includes("postc8") && tier < 8 && tier > 1) multiplier = multiplier.times( Decimal.pow(getDimensionFinalMultiplier(1).times(getDimensionFinalMultiplier(8)), 0.02) )
 
-    if (player.challenges.includes("postc4")) return Decimal.pow(multiplier, 1.1);
+    if (player.challenges.includes("postc4")) return Decimal.pow(multiplier, 1.05);
 
     
 
@@ -1758,7 +1758,7 @@ var infDimPow = 1
 function getInfinityDimensionProduction(tier) {
     var dim = player["infinityDimension"+tier]
 
-    if (player.challenges.includes("postc6")) return dim.amount.times(dim.power).times(infDimPow).dividedBy(Decimal.pow(player.tickspeed.dividedBy(1000), 0.001))
+    if (player.challenges.includes("postc6")) return dim.amount.times(dim.power).times(infDimPow).dividedBy(Decimal.pow(player.tickspeed.dividedBy(1000), 0.0005))
     else return dim.amount.times(dim.power).times(infDimPow)
 }
 
