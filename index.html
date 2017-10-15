@@ -90,6 +90,7 @@
                 <tr>
                     <td><button class="secondarytabbtn" onclick="showDimTab('antimatterdimensions')">Dimensions</button><td>
                     <td><button class="secondarytabbtn" onclick="showDimTab('infinitydimensions')">Infinity Dimensions</button><td>
+                    <td><button class="secondarytabbtn" onclick="showDimTab('timeDimensions')">Time Dimensions</button><td>
                 </tr>
             </table>
             <div id="antimatterdimensions" class="dimtab">
@@ -289,6 +290,58 @@
                         </td>
                     </tr>
                 </table>
+            </div>
+            <div id="timedimensions" class="dimtab">
+                    <div>
+                            <p>You have <span id="timeShardAmount" style="font-size:35px; color: black">0</span> time shards. Next tickspeed upgrade at <span id="tickThreshold" style="font-size:35px; color: black">0</span></p>
+                        </div>
+                        
+                        <div id="timeShardsPerSec">You are getting 0 timeShards per second.</div>
+                        <table class="table" >
+                            <tr style="font-size: 17px" id="timeRow1">
+                                <td id="timeD1" width="32%">
+                                    First Time Dimension x1
+                                </td>
+                                <td>
+                                    <div id="timeAmount1">0 (0)</div>
+                                </td>
+                                <td align="right" width="10%">
+                                    <button id="timeMax1" style="color:black; width:195px; height:30px" class="storebtn" align="right" onclick="buyTimeDimension(1)">Cost: 10</button>
+                                </td>
+                            </tr>
+                            <tr id="timeRow2" style="display: none; font-size: 17px">
+                                <td id="timeD2">
+                                    Second Time Dimension x1
+                                </td>
+                                <td>
+                                    <div id="timeAmount2" align="left">0 (0)</div>
+                                <td>
+                                    <button id="timeMax2" style="color:black; width:195px; height:30px" class="storebtn" onclick="buyTimeDimension(2)">Cost: 10</button>
+                                </td>
+                            </tr>
+                            <tr id="timeRow3" style="display: none; font-size: 17px">
+                                <td id="timeD3">
+                                    Third Time Dimension x1
+                                </td>
+                                <td>
+                                    <div id="timeAmount3" align="left">0 (0)</div>
+                                </td>
+                                <td>
+                                    <button id="timeMax3" style="color:black; width:195px; height:30px" class="storebtn" onclick="buyTimeDimension(3)">Cost: 10</button>
+                                </td>
+                            </tr>
+                            <tr id="timeRow4" style="display: none; font-size: 17px">
+                                <td id="timeD4">
+                                    Fourth Time Dimension x1
+                                </td>
+                                <td>
+                                    <div id="timeAmount4" align="left">0 (0)</div>
+                                </td>
+                                <td>
+                                    <button id="timeMax4" style="color:black; width:195px; height:30px" class="storebtn" onclick="buyTimeDimension(4)">Cost: 10</button>
+                                </td>
+                            </tr>
+                        </table>
             </div>
             <div id="footercontainer">
                 <table id="footer">

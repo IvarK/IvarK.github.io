@@ -107,6 +107,28 @@ var player = {
         power: 1,
         baseAmount: 0
     },
+    timeShards: new Decimal(0),
+    tickThreshold: new Decimal(0),
+    timeDimension1: {
+        cost: 1,
+        amount: new Decimal(0),
+        power: 1,
+    },
+    timeDimension2: {
+        cost: 10,
+        amount: new Decimal(0),
+        power: 1,
+    },
+    timeDimension3: {
+        cost: 100,
+        amount: new Decimal(0),
+        power: 1,
+    },
+    timeDimension4: {
+        cost: 1000,
+        amount: new Decimal(0),
+        power: 1,
+    },
     offlineProd: 0,
     offlineProdCost: 1e7,
     challengeTarget: 0,
@@ -332,6 +354,30 @@ function onLoad() {
         player.infDimensionsUnlocked = [false, false, false, false]
     }
 
+    if (player.timeShards === undefined) {
+        player.timeShards = new Decimal(0)
+        player.timeDimension1 = {
+            cost: 1,
+            amount: new Decimal(0),
+            power: 1,
+        }
+        player.timeDimension2 = {
+            cost: 10,
+            amount: new Decimal(0),
+            power: 1,
+        }
+        player.timeDimension3 = {
+            cost: 100,
+            amount: new Decimal(0),
+            power: 1,
+        }
+        player.timeDimension4 = {
+            cost: 1000,
+            amount: new Decimal(0),
+            power: 1,
+        }
+    }
+
     if (player.infinityDimension1.baseAmount === undefined) {
         player.infinityDimension1.baseAmount = 0;
         player.infinityDimension2.baseAmount = 0;
@@ -543,6 +589,12 @@ function transformSaveToDecimal() {
     player.infinityDimension3.amount = new Decimal(player.infinityDimension3.amount)
     player.infinityDimension4.amount = new Decimal(player.infinityDimension4.amount)
     player.infinityPoints = new Decimal(player.infinityPoints)
+    player.timeDimension1.amount = new Decimal(player.timeDimension1.amount)
+    player.timeDimension2.amount = new Decimal(player.timeDimension2.amount)
+    player.timeDimension3.amount = new Decimal(player.timeDimension3.amount)
+    player.timeDimension4.amount = new Decimal(player.timeDimension4.amount)
+    player.timeShards = new Decimal(player.timeShards)
+    player.tickThreshold = new Decimal(player.tickThreshold)
     player.postC3Reward = new Decimal(player.postC3Reward)
     player.lastTenRuns = [[parseFloat(player.lastTenRuns[0][0]), player.lastTenRuns[0][1]], [parseFloat(player.lastTenRuns[1][0]), player.lastTenRuns[1][1]], [parseFloat(player.lastTenRuns[2][0]), player.lastTenRuns[2][1]], [parseFloat(player.lastTenRuns[3][0]), player.lastTenRuns[3][1]], [parseFloat(player.lastTenRuns[4][0]), player.lastTenRuns[4][1]], [parseFloat(player.lastTenRuns[5][0]), player.lastTenRuns[5][1]], [parseFloat(player.lastTenRuns[6][0]), player.lastTenRuns[6][1]], [parseFloat(player.lastTenRuns[7][0]), player.lastTenRuns[7][1]], [parseFloat(player.lastTenRuns[8][0]), player.lastTenRuns[8][1]], [parseFloat(player.lastTenRuns[9][0]), player.lastTenRuns[9][1]]]
 }
@@ -1008,6 +1060,11 @@ function updateCosts() {
         
         document.getElementById("infMax"+i).innerHTML = "Cost: " + shortenCosts(player["infinityDimension"+i].cost)
     }
+
+    for (var i=1; i<=4; i++) {
+        
+        document.getElementById("timeMax"+i).innerHTML = "Cost: " + shortenCosts(player["timeDimension"+i].cost)
+    }
 }
 
 function updateTickSpeed() {
@@ -1055,6 +1112,8 @@ function updateChallenges() {
 }
 
 
+//infinity dimensions
+
 
 function getInfinityDimensionDescription(tier) {
     var name = TIER_NAMES[tier];
@@ -1099,6 +1158,107 @@ function updateInfinityDimensions() {
     }
 }
 
+function getInfinityDimensionProduction(tier) {
+    var dim = player["infinityDimension"+tier]
+
+    if (player.challenges.includes("postc6")) return dim.amount.times(dim.power).times(infDimPow).dividedBy(Decimal.pow(player.tickspeed.dividedBy(1000), 0.0005))
+    else return dim.amount.times(dim.power).times(infDimPow)
+}
+
+
+
+
+function resetInfDimensions() {
+
+    if (player.infDimensionsUnlocked[0]) {
+        player.infinityPower = new Decimal(0)
+    }
+    if (player.infDimensionsUnlocked[3] && player.infinityDimension4.amount != 0){
+        player.infinityDimension3.amount = new Decimal(player.infinityDimension3.baseAmount)
+        player.infinityDimension2.amount = new Decimal(player.infinityDimension2.baseAmount)
+        player.infinityDimension1.amount = new Decimal(player.infinityDimension1.baseAmount)
+    } 
+    else if (player.infDimensionsUnlocked[2] && player.infinityDimension3.amount != 0){
+        player.infinityDimension2.amount = new Decimal(player.infinityDimension2.baseAmount)
+        player.infinityDimension1.amount = new Decimal(player.infinityDimension1.baseAmount)
+    } 
+    else if (player.infDimensionsUnlocked[1] && player.infinityDimension2.amount != 0){
+        player.infinityDimension1.amount = new Decimal(player.infinityDimension1.baseAmount)
+    }
+    
+}
+
+
+var infCostMults = [null, 1e3, 1e6, 1e8, 1e10]
+var infPowerMults = [null, 50, 30, 10, 5]
+function buyManyInfinityDimension(tier) {
+    
+    var dim = player["infinityDimension"+tier]
+    if (player.infinityPoints.lt(dim.cost)) return false
+    if (!player.infDimensionsUnlocked[tier-1]) return false
+    
+    player.infinityPoints = player.infinityPoints.minus(dim.cost)
+    dim.amount = dim.amount.plus(10);
+    dim.cost *= infCostMults[tier]
+    dim.power *= infPowerMults[tier]
+    dim.baseAmount += 10
+    
+
+}
+
+
+
+var infDimPow = 1
+
+
+//time dimensions
+
+
+function getTimeDimensionProduction(tier) {
+    var dim = player["timeDimension"+tier]
+    var ret = dim.amount.times(dim.power)
+    return ret
+}
+
+
+function getTimeDimensionRateOfChange(tier) {
+    let toGain = getTimeDimensionProduction(tier+1)
+    var current = Decimal.max(player["TimeDimension"+tier].amount, 1);
+    var change  = toGain.times(10).dividedBy(current);
+    return change;
+}
+
+function getTimeDimensionDescription(tier) {
+    var name = TIER_NAMES[tier];
+    
+    let description = shortenDimensions(player['timeDimension'+tier].amount);
+    
+    if (tier < 4) {
+        description += '  (+' + formatValue(player.options.notation, getTimeDimensionRateOfChange(tier), 2, 2) + '%/s)';
+    }
+    
+    return description;
+}
+
+function updateInfinityDimensions() {
+    for (let tier = 1; tier <= 4; ++tier) {
+        document.getElementById("infD"+tier).innerHTML = DISPLAY_NAMES[tier] + " Infinity Dimension x" + shortenDimensions(player["infinityDimension"+tier].power * (infDimPow));
+        document.getElementById("infAmount"+tier).innerHTML = getInfinityDimensionDescription(tier);  
+    }
+
+
+    for (let tier = 1; tier <= 4; ++tier) {
+        var name = TIER_NAMES[tier];
+        if (!player.infDimensionsUnlocked[tier-1]) {
+            break;
+        }
+        
+        document.getElementById("infRow"+tier).style.display = "table-row";
+        document.getElementById("infRow"+tier).style.visibility = "visible";
+        
+        
+    }
+}
 
 
 
@@ -1192,6 +1352,12 @@ function softReset(bulk) {
         infinityDimension2: player.infinityDimension2,
         infinityDimension3: player.infinityDimension3,
         infinityDimension4: player.infinityDimension4,
+        timeShards: new Decimal(0),
+        tickThreshold: new Decimal(0),
+        timeDimension1: player.timeDimension1,
+        timeDimension2: player.timeDimension2,
+        timeDimension3: player.timeDimension3,
+        timeDimension4: player.timeDimension4,
         offlineProd: player.offlineProd,
         offlineProdCost: player.offlineProdCost,
         challengeTarget: player.challengeTarget,
@@ -1734,56 +1900,9 @@ function buyManyDimensionAutobuyer(tier, bulk) {
         player.postC4Tier = tier;
 }
 
-var infCostMults = [null, 1e3, 1e6, 1e8, 1e10]
-var infPowerMults = [null, 50, 30, 10, 5]
-function buyManyInfinityDimension(tier) {
-    
-    var dim = player["infinityDimension"+tier]
-    if (player.infinityPoints.lt(dim.cost)) return false
-    if (!player.infDimensionsUnlocked[tier-1]) return false
-    
-    player.infinityPoints = player.infinityPoints.minus(dim.cost)
-    dim.amount = dim.amount.plus(10);
-    dim.cost *= infCostMults[tier]
-    dim.power *= infPowerMults[tier]
-    dim.baseAmount += 10
-    
-
-}
 
 
 
-var infDimPow = 1
-
-function getInfinityDimensionProduction(tier) {
-    var dim = player["infinityDimension"+tier]
-
-    if (player.challenges.includes("postc6")) return dim.amount.times(dim.power).times(infDimPow).dividedBy(Decimal.pow(player.tickspeed.dividedBy(1000), 0.0005))
-    else return dim.amount.times(dim.power).times(infDimPow)
-}
-
-
-
-
-function resetInfDimensions() {
-
-    if (player.infDimensionsUnlocked[0]) {
-        player.infinityPower = new Decimal(0)
-    }
-    if (player.infDimensionsUnlocked[3] && player.infinityDimension4.amount != 0){
-        player.infinityDimension3.amount = new Decimal(player.infinityDimension3.baseAmount)
-        player.infinityDimension2.amount = new Decimal(player.infinityDimension2.baseAmount)
-        player.infinityDimension1.amount = new Decimal(player.infinityDimension1.baseAmount)
-    } 
-    else if (player.infDimensionsUnlocked[2] && player.infinityDimension3.amount != 0){
-        player.infinityDimension2.amount = new Decimal(player.infinityDimension2.baseAmount)
-        player.infinityDimension1.amount = new Decimal(player.infinityDimension1.baseAmount)
-    } 
-    else if (player.infDimensionsUnlocked[1] && player.infinityDimension2.amount != 0){
-        player.infinityDimension1.amount = new Decimal(player.infinityDimension1.baseAmount)
-    }
-    
-}
 
 
 function toggleChallengeRetry() {
@@ -2455,6 +2574,12 @@ document.getElementById("secondSoftReset").onclick = function () {
             infinityDimension2: player.infinityDimension2,
             infinityDimension3: player.infinityDimension3,
             infinityDimension4: player.infinityDimension4,
+            timeShards: new Decimal(0),
+            tickThreshold: new Decimal(0),
+            timeDimension1: player.timeDimension1,
+            timeDimension2: player.timeDimension2,
+            timeDimension3: player.timeDimension3,
+            timeDimension4: player.timeDimension4,
             offlineProd: player.offlineProd,
             offlineProdCost: player.offlineProdCost,
             challengeTarget: player.challengeTarget,
@@ -3236,6 +3361,12 @@ document.getElementById("bigcrunch").onclick = function () {
         infinityDimension2: player.infinityDimension2,
         infinityDimension3: player.infinityDimension3,
         infinityDimension4: player.infinityDimension4,
+        timeShards: new Decimal(0),
+        tickThreshold: new Decimal(0),
+        timeDimension1: player.timeDimension1,
+        timeDimension2: player.timeDimension2,
+        timeDimension3: player.timeDimension3,
+        timeDimension4: player.timeDimension4,
         offlineProd: player.offlineProd,
         offlineProdCost: player.offlineProdCost,
         challengeTarget: player.challengeTarget,
@@ -3421,6 +3552,12 @@ function startChallenge(name, target) {
       infinityDimension2: player.infinityDimension2,
       infinityDimension3: player.infinityDimension3,
       infinityDimension4: player.infinityDimension4,
+      timeShards: new Decimal(0),
+      tickThreshold: new Decimal(0),
+      timeDimension1: player.timeDimension1,
+      timeDimension2: player.timeDimension2,
+      timeDimension3: player.timeDimension3,
+      timeDimension4: player.timeDimension4,
       offlineProd: player.offlineProd,
       offlineProdCost: player.offlineProdCost,
       challengeTarget: target,
