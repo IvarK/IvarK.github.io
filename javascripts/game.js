@@ -2221,6 +2221,18 @@ function updateAchPow() {
         amount += 1;
         document.getElementById("achRow5").className = "completedrow"
     }
+	
+    if (player.achievements.includes("61") &&
+        player.achievements.includes("62") &&
+        player.achievements.includes("63") &&
+        player.achievements.includes("64") &&
+        player.achievements.includes("65") &&
+        player.achievements.includes("66") &&
+        player.achievements.includes("67") &&
+        player.achievements.includes("68")) {
+        amount += 1;
+        document.getElementById("achRow6").className = "completedrow"
+    }
 
     if (player.achievements.includes("ERROR 909: Dimension not found") &&
         player.achievements.includes("Can't hold all these infinities") &&
@@ -2231,7 +2243,7 @@ function updateAchPow() {
         player.achievements.includes("How the antitables have turned") &&
         player.achievements.includes("Blink of an eye")) {
         amount += 1;
-        document.getElementById("achRow6").className = "completedrow"
+        document.getElementById("achRow7").className = "completedrow"
     }
 
     if (player.achievements.includes("Hevipelle did nothing wrong") &&
@@ -2243,16 +2255,23 @@ function updateAchPow() {
         player.achievements.includes("2 Million Infinities") &&
         player.achievements.includes("Yet another infinity reference")) {
         amount += 1;
-        document.getElementById("achRow7").className = "completedrow"
+        document.getElementById("achRow8").className = "completedrow"
+    }
+    if (player.achievements.includes("91") &&
+        player.achievements.includes("92") &&
+        player.achievements.includes("93") &&
+        player.achievements.includes("94") &&
+        player.achievements.includes("95") &&
+        player.achievements.includes("96") &&
+        player.achievements.includes("97") &&
+        player.achievements.includes("To Eternity!")) {
+        amount++;
+        document.getElementById("achRow9").className = "completedrow"
     }
 
-    for (i = amount; i > 0; i--) {
-        player.achPow = Decimal.pow(1.5, amount)
-    }
+    player.achPow = Decimal.pow(1.5, amount)
 
     document.getElementById("achmultlabel").innerHTML = "Current achievement multiplier on each Dimension: " + player.achPow.toFixed(1) + "x"
-
-
 }
 
 
