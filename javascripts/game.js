@@ -80,6 +80,7 @@ var player = {
     postC4Tier: 0,
     postC3Reward: new Decimal(1),
     eternityPoints: new Decimal(0),
+    eternities: 0,
     infinityDimension1 : {
         cost: 1e8,
         amount: new Decimal(0),
@@ -369,6 +370,7 @@ function onLoad() {
         player.eternityPoints = new Decimal(0)
         player.tickThreshold = new Decimal(1)
         player.totalTickGained = 0
+        player.eternities = 0
         player.timeDimension1 = {
             cost: 1,
             amount: new Decimal(0),
@@ -1387,6 +1389,7 @@ function softReset(bulk) {
         timeDimension3: player.timeDimension3,
         timeDimension4: player.timeDimension4,
         eternityPoints: player.eternityPoints,
+        eternities: player.eternities,
         totalTickGained: 0,
         offlineProd: player.offlineProd,
         offlineProdCost: player.offlineProdCost,
@@ -2612,6 +2615,7 @@ document.getElementById("secondSoftReset").onclick = function () {
             timeDimension3: player.timeDimension3,
             timeDimension4: player.timeDimension4,
             eternityPoints: player.eternityPoints,
+            eternities: player.eternities,
             totalTickGained: 0,
             offlineProd: player.offlineProd,
             offlineProdCost: player.offlineProdCost,
@@ -3402,6 +3406,7 @@ document.getElementById("bigcrunch").onclick = function () {
         timeDimension3: player.timeDimension3,
         timeDimension4: player.timeDimension4,
         eternityPoints: player.eternityPoints,
+        eternities: player.eternities,
         totalTickGained: 0,
         offlineProd: player.offlineProd,
         offlineProdCost: player.offlineProdCost,
@@ -3596,6 +3601,7 @@ function startChallenge(name, target) {
       timeDimension3: player.timeDimension3,
       timeDimension4: player.timeDimension4,
       eternityPoints: player.eternityPoints,
+      eternities: player.eternities,
       totalTickGained: 0,
       offlineProd: player.offlineProd,
       offlineProdCost: player.offlineProdCost,
@@ -3929,7 +3935,8 @@ setInterval(function () {
         player["timeDimension"+tier].amount = player["timeDimension"+tier].amount.plus(getTimeDimensionProduction(tier+1).times(diff/100))
     }
 
-
+    if (player.eternities > 0) document.getElementById("dimTabButtons").style.display = "inline-block"
+    
 
     if (player.money.gte(new Decimal("9e9999"))) giveAchievement("This achievement doesn't exist")
     if (player.money.gte(new Decimal("1e35000"))) giveAchievement("I got a few to spare")
