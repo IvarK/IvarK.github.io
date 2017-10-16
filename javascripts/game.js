@@ -1277,7 +1277,7 @@ function buyTimeDimension(tier) {
     dim.amount = dim.amount.plus(1);
     dim.bought += 1
     dim.cost *= timeDimCostMults[tier]
-    dim.power *= 1.33
+    dim.power *= 2
     
 
 }
@@ -3947,7 +3947,7 @@ setInterval(function () {
 
     if (player.timeShards.gte(player.tickThreshold)) {
         player.tickspeed = player.tickspeed.times(getTickSpeedMultiplier())
-        player.tickThreshold = player.tickThreshold.times(1.666)
+        player.tickThreshold = player.tickThreshold.times(1.33)
         player.totalTickGained++;
         document.getElementById("totaltickgained").innerHTML = "You've gained "+shortenDimensions(player.totalTickGained)+" tickspeed upgrades."
         updateTickSpeed();
