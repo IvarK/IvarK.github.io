@@ -811,6 +811,7 @@ function getDimensionFinalMultiplier(tier) {
         if (player.achievements.includes("There's no point in doing that...")) multiplier = multiplier.times(1.1);
         if (player.achievements.includes("I forgot to nerf that")) multiplier = multiplier.times(1.05);
         if (player.achievements.includes("ERROR 909: Dimension not found")) multiplier = multiplier.times(3);
+        if (player.achievements.includes("68")) multiplier = multiplier.times(1.5);
     }
     multiplier = multiplier.times(timeMult());
     if (tier == 8 && player.achievements.includes("The 9th Dimension is a lie")) multiplier = multiplier.times(1.1);
@@ -824,22 +825,18 @@ function getDimensionFinalMultiplier(tier) {
     if (player.achievements.includes("Blink of an eye") && player.thisInfinityTime < 3) multiplier = multiplier.times(3.3/(player.thisInfinityTime+0.3));
     if (player.achievements.includes("This achievement doesn't exist")) multiplier = multiplier.times(1+Decimal.pow(player.money,0.00002));
     if (player.achievements.includes("I got a few to spare")) multiplier = multiplier.times(1+Decimal.pow(player.money,0.00002));
+    if (player.achievements.includes("65") && player.currentChallenge != "" && player.thisInfinityTime < 1800) multiplier = multiplier.times(2400/(player.thisInfinityTime+600))
+    if (player.achievements.includes("81") && player.thisInfinityTime < 50) multiplier = multiplier.times(301-player.thisInfinityTime*6)
+    if (player.achievements.includes("82") && player.thisInfinityTime < 600) multiplier = multiplier.times(101-player.thisInfinityTime/6)
 
-
-    if (player.currentChallenge == "postc4") {
-        if (player.postC4Tier == tier) return multiplier;
-        else return Decimal.pow(multiplier, 0.25);
-    }
 
     multiplier = multiplier.times(player.postC3Reward)
     if (player.currentChallenge == "postc6") multiplier = multiplier.dividedBy(Decimal.max(player.matter, 1))
     if (player.currentChallenge == "postc8") multiplier = multiplier.times(postc8Mult)
     if (player.challenges.includes("postc8") && tier < 8 && tier > 1) multiplier = multiplier.times( Decimal.pow(getDimensionFinalMultiplier(1).times(getDimensionFinalMultiplier(8)), 0.02) )
+    if (player.challenges.includes("postc4")) multiplier = multiplier.pow(1.05);
 
-    if (player.challenges.includes("postc4")) return Decimal.pow(multiplier, 1.05);
-
-    
-
+    if (player.currentChallenge == "postc4" && player.postC4Tier != tier) return Decimal.pow(multiplier, 0.25);
     return multiplier;
 }
 
@@ -884,14 +881,11 @@ function getShiftRequirement(bulk) {
         tier = Decimal.min(player.resets + 4, 6)
         if (tier == 6) amount += (player.resets+bulk - 2) * 20;
     }
-    if (tier == 8) {
-        amount += (player.resets+bulk - 4) * 15;
-    }
     
-    if (player.infinityUpgrades.includes("resetBoost")) {
-        amount -= 9;
-    }
-
+    if (tier == 8) amount += (player.resets+bulk - 4) * 15;
+    
+    if (player.infinityUpgrades.includes("resetBoost")) amount -= 9;
+    if (player.achievements.includes("86")) amount -= 5;
     if (player.challenges.includes("postc5")) amount -= 1
     
     return { tier: tier, amount: amount };
@@ -1093,7 +1087,8 @@ function updateTickSpeed() {
     else {
         document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Decimal.round(player.tickspeed.times(new Decimal(100).dividedBy(Decimal.pow(10, exp)))) + ' / ' + shorten(new Decimal(100).dividedBy(Decimal.pow(10, exp)));
     }
-    if (player.tickspeed.lt(1e-26) && !player.achievements.includes("Faster than a potato")) giveAchievement("Faster than a potato");
+    if (player.tickspeed.lt(1e-26)) giveAchievement("Faster than a potato");
+    if (player.tickspeed.lt(1e-52)) giveAchievement("66");
 
     /*	else if (player.tickspeed > 10) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Decimal.round(player.tickspeed*10)  + ' / 10';
     	else if (player.tickspeed > 1) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Decimal.round(player.tickspeed*100) + ' / 100';
@@ -1179,10 +1174,13 @@ function updateInfinityDimensions() {
 }
 
 function getInfinityDimensionProduction(tier) {
-    var dim = player["infinityDimension"+tier]
-
-    if (player.challenges.includes("postc6")) return dim.amount.times(dim.power).times(infDimPow).dividedBy(Decimal.pow(player.tickspeed.dividedBy(1000), 0.0005))
-    else return dim.amount.times(dim.power).times(infDimPow)
+    const dim = player["infinityDimension"+tier];
+    var prod = dim.amount.times(dim.power).times(infDimPow);
+    
+    if (player.achievements.includes("84") && tier == 1) prod = prod.times(2);
+    
+    if (player.challenges.includes("postc6")) prod = prod.dividedBy(player.tickspeed.dividedBy(1000).pow(0.0005));
+    return prod;
 }
 
 
@@ -1298,6 +1296,7 @@ function resetTimeDimensions() {
 
 function softReset(bulk) {
     player.resets+=bulk;
+    if (bulk >= 1000) giveAchievement(86);
     player = {
         money: new Decimal(10),
         tickSpeedCost: new Decimal(1000),
@@ -1475,6 +1474,8 @@ function softReset(bulk) {
     
     if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
     if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.98);
+    if (player.achievements.includes("66")) player.tickspeed = player.tickspeed.times(0.98);
+    if (player.achievements.includes("YOU CAN GET 50 GALAXIES!??")) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
     
 
     
@@ -1650,6 +1651,7 @@ function giveAchievement(name) {
         kongregate.stats.submit('Achievements', player.achievements.length);
     } catch (err) {console.log("Couldn't load Kongregate API")}
     if (name == "All your IP are belong to us") player.infMult *= 4
+    if (name == "83") player.infMult *= 4
     updateAchPow();
 }
 
@@ -2398,6 +2400,14 @@ buyAutobuyer = function(id) {
     if (player.autobuyers[id].interval <= 100) {
         player.autobuyers[id].bulk *= 2;
         player.autobuyers[id].cost = Math.ceil(2.4*player.autobuyers[id].cost);
+        var b1 = true;
+        var b2 = true;
+	    for (let i=0;i<8;i++) {
+            if (player.autobuyers[i].bulk < 512) b1 = false;
+            if (player.autobuyers[i].cost < 1e306) b2 = false;
+        }
+        if (b1) giveAchievement(61);
+        if (b2) giveAchievement(95);
     } else {
         player.autobuyers[id].interval = Math.max(player.autobuyers[id].interval*0.6, 100);
         if (player.autobuyers[id].interval > 120) player.autobuyers[id].cost *= 2; //if your last purchase wont be very strong, dont double the cost
@@ -2671,6 +2681,7 @@ document.getElementById("secondSoftReset").onclick = function () {
         if (player.spreadingCancer >= 10) giveAchievement("Spreading Cancer")
         if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
         if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.98);
+        if (player.achievements.includes("66")) player.tickspeed = player.tickspeed.times(0.98);
         if (player.achievements.includes("YOU CAN GET 50 GALAXIES!??")) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
         clearInterval(player.interval);
         //updateInterval();
@@ -2881,7 +2892,8 @@ function resetDimensions() {
 function calcSacrificeBoost() {
     if (player.firstAmount == 0) return new Decimal(1);
     if (player.challenges.includes("postc2")) {
-        if (player.achievements.includes("Yet another infinity reference")) return Decimal.max(Decimal.pow(player.firstAmount, 0.011).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.011), 1)), 1)
+        if (player.achievements.includes("87")) return Decimal.max(Decimal.pow(player.firstAmount, 0.012).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.012), 1)), 1)
+        else if (player.achievements.includes("Yet another infinity reference")) return Decimal.max(Decimal.pow(player.firstAmount, 0.011).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.011), 1)), 1)
         else return Decimal.max(Decimal.pow(player.firstAmount, 0.01).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.01), 1)), 1)
     }
     if (player.currentChallenge != "challenge11") {
@@ -2903,6 +2915,7 @@ function sacrifice() {
 
     if (player.resets < 5) return false
     if (calcSacrificeBoost().gte(Number.MAX_VALUE)) giveAchievement("Yet another infinity reference");
+    if (calcSacrificeBoost().gte(Number.MAX_VALUE) && player.currentChallenge == "postc2" && player.sacrificed > 0) giveAchievement("87");
     player.eightPow = player.eightPow.times(calcSacrificeBoost())
     player.sacrificed = player.sacrificed.plus(player.firstAmount);
     if (player.currentChallenge != "challenge11") {
@@ -3251,7 +3264,9 @@ function updateLastTenRuns() {
     var tempstring = shorten(ippm) + " IP/min"
     if (ippm<1) tempstring = shorten(ippm*60) + " IP/hour"
     document.getElementById("averagerun").innerHTML = "Last 10 infinities average time: "+ timeDisplayShort(tempTime)+" Average IP gain: "+shortenDimensions(tempIP)+" IP. "+tempstring
-
+    
+    if (tempBest >= 1e8) giveAchievement(62);
+    if (tempBest >= 1e300) giveAchievement(83);
     bestRunIppm = tempBest
 }
 
@@ -3272,6 +3287,7 @@ function checkForEndMe() {
     for (var i=0; i<11; i++) {
         temp += player.challengeTimes[i]
     }
+    if (temp <= 1800) giveAchievement(65)
     if (temp <= 50) giveAchievement("End me")
 }
 
@@ -3280,7 +3296,7 @@ document.getElementById("bigcrunch").onclick = function () {
     var challNumber = parseInt(player.currentChallenge[player.currentChallenge.length-1])
     if (player.currentChallenge.length == 11) challNumber = parseInt("1"+player.currentChallenge[player.currentChallenge.length-1])
     if ((player.money.gte(Number.MAX_VALUE) && !player.currentChallenge.includes("post")) || (player.currentChallenge !== "" && player.money.gte(player.challengeTarget))) {
-        if (!player.achievements.includes("That's fast!") && player.thisInfinityTime <= 72000) giveAchievement("That's fast!");
+        if (player.thisInfinityTime <= 72000) giveAchievement("That's fast!");
         if (player.thisInfinityTime <= 6000) giveAchievement("That's faster!")
         if (player.thisInfinityTime <= 600) giveAchievement("Forever isn't that long")
         if (player.thisInfinityTime <= 2) giveAchievement("Blink of an eye")
@@ -3290,9 +3306,9 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.currentChallenge == "challenge2" && player.thisInfinityTime <= 1800) giveAchievement("Many Deaths")
         if (player.currentChallenge == "challenge11" && player.thisInfinityTime <= 1800) giveAchievement("Gift from the Gods")
         if (player.currentChallenge == "challenge5" && player.thisInfinityTime <= 1800) giveAchievement("Is this hell?")
+        if (player.currentChallenge == "challenge3" && player.thisInfinityTime <= 100) giveAchievement("68");
         if (player.firstAmount == 1 && player.resets == 0 && player.galaxies == 0 && player.currentChallenge == "challenge12") giveAchievement("ERROR 909: Dimension not found")
         if (player.currentChallenge != "" && player.challengeTimes[challNumber-2] > player.thisInfinityTime) player.challengeTimes[challNumber-2] = player.thisInfinityTime
-        if (player.challenges.length == 20) giveAchievement("Anti-antichallenged");
         if (player.currentChallenge == "postc5" && player.thisInfinityTime <= 100) giveAchievement("Hevipelle did nothing wrong")
         if ((player.bestInfinityTime > 600 && !player.break) || (player.currentChallenge != "" && !player.options.retryChallenge)) showTab("dimensions")
         if (player.currentChallenge == "challenge5") {
@@ -3304,6 +3320,8 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.currentChallenge != "" && !player.challenges.includes(player.currentChallenge)) {
             player.challenges.push(player.currentChallenge);
         }
+        if (player.challenges.length > 12) giveAchievement("67");
+        if (player.challenges.length == 20) giveAchievement("Anti-antichallenged");
         if (!player.break || player.currentChallenge != "") {
             player.infinityPoints = player.infinityPoints.plus(player.infMult * kongIPMult);
             addTime(player.thisInfinityTime, player.infMult * kongIPMult)
@@ -3312,6 +3330,8 @@ document.getElementById("bigcrunch").onclick = function () {
             player.infinityPoints = player.infinityPoints.plus(gainedInfinityPoints())
             addTime(player.thisInfinityTime, gainedInfinityPoints())
             if (gainedInfinityPoints().gte(1e150)) giveAchievement("All your IP are belong to us")
+            if (gainedInfinityPoints().gte(1e200) && player.thisInfinityTime <= 20) giveAchievement("81")
+            if (gainedInfinityPoints().gte(1e250) && player.thisInfinityTime <= 200) giveAchievement("82")
         }
         if (player.thisInfinityTime > 50 && player.achievements.includes("2 Million Infinities")) player.infinitied += 249;
         
@@ -3453,6 +3473,8 @@ document.getElementById("bigcrunch").onclick = function () {
 
         if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
         if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.98);
+        if (player.achievements.includes("66")) player.tickspeed = player.tickspeed.times(0.98);
+        if (player.achievements.includes("YOU CAN GET 50 GALAXIES!??")) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
         clearInterval(player.interval);
         //updateInterval();
         updateDimensions();
@@ -3627,6 +3649,8 @@ function startChallenge(name, target) {
     if (player.currentChallenge.includes("post")) player.break = true
     if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
     if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.98);
+    if (player.achievements.includes("66")) player.tickspeed = player.tickspeed.times(0.98);
+    if (player.achievements.includes("YOU CAN GET 50 GALAXIES!??")) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
     clearInterval(player.interval);
     //updateInterval();
     updateDimensions();
@@ -3942,6 +3966,10 @@ setInterval(function () {
     if (player.money.gte(new Decimal("1e35000"))) giveAchievement("I got a few to spare")
 
     player.infinityPower = player.infinityPower.plus(getInfinityDimensionProduction(1).times(diff/10))
+    
+    if (player.infinityPower > 0) giveAchievement(63);
+    if (player.infinityPower > 1e6) giveAchievement(64); //TBD
+    if (player.infinityPower > 1e60) giveAchievement(84); //TBD
 
     player.timeShards = player.timeShards.plus(getTimeDimensionProduction(1).times(diff/10))
 
