@@ -1296,7 +1296,7 @@ function resetTimeDimensions() {
 
 function softReset(bulk) {
     player.resets+=bulk;
-    if (bulk >= 1000) giveAchievement(86);
+    if (bulk >= 1000) giveAchievement("86");
     player = {
         money: new Decimal(10),
         tickSpeedCost: new Decimal(1000),
@@ -2406,8 +2406,8 @@ buyAutobuyer = function(id) {
             if (player.autobuyers[i].bulk < 512) b1 = false;
             if (player.autobuyers[i].cost < 1e306) b2 = false;
         }
-        if (b1) giveAchievement(61);
-        if (b2) giveAchievement(95);
+        if (b1) giveAchievement("61");
+        if (b2) giveAchievement("85");
     } else {
         player.autobuyers[id].interval = Math.max(player.autobuyers[id].interval*0.6, 100);
         if (player.autobuyers[id].interval > 120) player.autobuyers[id].cost *= 2; //if your last purchase wont be very strong, dont double the cost
@@ -3265,8 +3265,8 @@ function updateLastTenRuns() {
     if (ippm<1) tempstring = shorten(ippm*60) + " IP/hour"
     document.getElementById("averagerun").innerHTML = "Last 10 infinities average time: "+ timeDisplayShort(tempTime)+" Average IP gain: "+shortenDimensions(tempIP)+" IP. "+tempstring
     
-    if (tempBest >= 1e8) giveAchievement(62);
-    if (tempBest >= 1e300) giveAchievement(83);
+    if (tempBest >= 1e8) giveAchievement("62");
+    if (tempBest >= 1e300) giveAchievement("83");
     bestRunIppm = tempBest
 }
 
@@ -3287,7 +3287,7 @@ function checkForEndMe() {
     for (var i=0; i<11; i++) {
         temp += player.challengeTimes[i]
     }
-    if (temp <= 1800) giveAchievement(65)
+    if (temp <= 1800) giveAchievement("65")
     if (temp <= 50) giveAchievement("End me")
 }
 
@@ -3967,9 +3967,9 @@ setInterval(function () {
 
     player.infinityPower = player.infinityPower.plus(getInfinityDimensionProduction(1).times(diff/10))
     
-    if (player.infinityPower > 0) giveAchievement(63);
-    if (player.infinityPower > 1e6) giveAchievement(64); //TBD
-    if (player.infinityPower > 1e60) giveAchievement(84); //TBD
+    if (player.infinityPower > 0) giveAchievement("63");
+    if (player.infinityPower > 1e6) giveAchievement("64"); //TBD
+    if (player.infinityPower > 1e60) giveAchievement("84"); //TBD
 
     player.timeShards = player.timeShards.plus(getTimeDimensionProduction(1).times(diff/10))
 
