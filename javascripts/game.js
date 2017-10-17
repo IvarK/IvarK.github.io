@@ -4412,47 +4412,28 @@ function chall7cheat() {
 
 
 
-var newsArray = ["You just made your 1,000,000,000,000,000 antimatter. This one tastes like chicken", "Nerf the galaxies please.", "9th Dimension is a lie.",
-"The cookie is a lie.", "Antimatter cookies have been confirmed to not exist, whoever claims that, stop.", "Antimatter ghosts do not exist. Just like matter ghosts. They don't have any matter, for that matter.",
-"Nuclear power plants have been abandoned in favor of antimatter power.", "What do you mean, more than two dimensions??? We're on a screen, clearly there are only 2 dimensions.",
-"Antimatter prices have drastically dropped due to newfound abundance.", "In the news today, humans make a antimatter animal sacrifice to the antimatter god.", "You made one antimatter! Whatever that means.",
-"Scientists confirm that the colour of antimatter is Blurple", "How does it matter if its antimatter?", "None of this matters", "IN THE END, IT DOESN'T ANTIMATTER -hevipelle",
-"New news company has become rivals with us. They are made entirely of antimatter.", "How much is Infinity? -literally everyone at least once", "How does NASA organise a party? They planet.",
-"The square root of 9 is 3, therefore the 9th dimension can't exist.", "Electrons are now seeing the happy things in life. We're calling these happy electrons 'Positrons.' Wait, that's taken?",
-"This completely useless sentence will get you nowhere and you know it. What a horrible obnoxious man would come up with it, he will probably go to hell, and why would the developer even implement it? Even if you kept reading it you wouldn't be able to finish it (the first time).",
-"GHOST SAYS HELLO -Boo-chan", "Can someone tell hevi to calm down? -Mee6", "Due to Antimatter messing with physics, a creature that was once a moose is now a human", "!hi", "Eh, the Fourth Dimension is alright...",
-"Alright -Alright", "The English greeting is not present in Antimatter speak.", "To buy max or not to buy max, that is the question", "You do know that you won't reach Infinity in -1 seconds, right?", "This antimatter triggers me",
-"No, mom, I can't pause this game.", "Scientific notation has entered the battlefield.", "Make the Universe Great Again! -Tronald Dump", "#dank-maymays",
-"A new religion has been created, and it's spreading like wildfire. The believers of this religion worship the Heavenly Pelle, the goddess of antimatter. They also believe that 10^308 is infinite.",
-"Someone has just touched a blob, and blown up. Was the blob antimatter, or was the guy made of Explodium?", "Antimatter people seem to be even more afraid of 13 then we are. They destroyed entire galaxies just to remove 13 from their percents.",
-"If you are not playing on Kongregate or ivark.github.io, the site is bootleg.", "Rate 5 on Kongregate so more people can experience this 5 star Rating", "BOO!", "You ate for too long. -hevipelle", "I hate myself. -Boo-chan",
-"Gee golly -Xandawesome", "Need more quotes! -hevipelle", "Above us, there is nothing above, But the stars, above.", "If black lives matter, do white lives antimatter?", "Somebody wasn't nice, he got an antimatter-storm.",
-"You are living, you occupy space, you have a mass, you matter... unless you antimatter.", "I clicked too fast... my PC is now dematerialised.",
-"If an alien lands on your front lawn and extends an appendage as a gesture of greeting, before you get friendly, toss it an eightball. If the appendage explodes, then the alien was probably made of antimatter. If not, then you can proceed to take it to your leader. -Neil deGrasse Tyson",
-"There always must be equal matter than there is antimatter, I guess your mom balances that a bit", "Nothing is created, nothing is destroyed.", "We dug a big hole to store this antimatter... Adele's rolling in it.",
-"If everything is antimatter, how can you see yourself?", "The stock markets have crashed due to antimatter beings somehow knowing what they will be tomorrow.", "My dog ate too much antimatter, now he is doing 'meow!'", "If you put infinity into your calculator it will result in 42!",
-"To understand dimensional sacrifice, you do actually need a PhD in theoretical physics. Sorry!", "You have found the rarest antimatter pepe, it's ultra rare!", "Can we get 1e169 likes on this video??? Smash that like button!!",
-"You got assimilated by the 9th dimension? Just call your doctor for mental illness!", "The smell of antimatter has been revealed. It smells like kittens", "Just another antimatter in the wall", "GET SNIPED, WEAKLING", "Thanks a lot -dankesehr",
-"This world situation is a SOS situation to the world!! MAYDAY, MAYDAY!!", "As for sure as the sun rises in the west, of all the singers and poets on earth, I am the bestest. - hevipelle", "I'm good at using github -hevipelle",
-"A new chat server has been created for Antimatter people to spy on Matter people, and the world has fallen into chaos and discord", "A new study has come out linking the consumption of potatoes with increased risk of Antimatter implosion.  Scientists suggest eating more.",
-"A new group for the standardisation of numbers have come forward with a novel new format involving emoji's.", "I thought that I fixed that bug but apparently some update broke it again -hevipelle",
-"Maybe I'm gay then -Bootato", "Breaking news! Hevipelle has just announced that the buy max button is in fact going to be removed!", "I dedicate this game to my girlfriend", 
-"Antimatter guns don't kill antimatter people, antimatter people kill antimatter people but does that mean that antimatter toaster doesn't toast antimatter toasts, antimatter toast toasts antimatter toasts?", 
-"But to an antimatter person, wouldn't they be matter and us antimatter?", "And nothing Antimatters", "Why is there no 9th dimension? Because 7 8 9.", 
-"School starting up strikes fear in students universe-wide, as schools are no longer segregated between Matter and antimatter. Annihilation is prominent.",
-"Why does no one talk about the 0th dimension?", "Antimatter ice cream stand has recently opened- they have octillions of flavors!", "The 9th dimension cannot exist because the Nein-speaking nazis died in WW2.",
-"The fatter catter satter on the antimatter.", "Who let the DOgs out?", "I've got 1.79e308 problems, but none of them antimatters", "If you can't read this you disabled the news.", 
-"Doesn't leave, just mutes the server so he doesn't receive notifications", "Most quotes found online are falsely atributed -Abraham Lincoln", "It should work now, but it doesn't -hevipelle",
-"This game doesn't have any errors... they're alternative successes.", "A third type of matter has been discovered: null matter. It doesn't do anything and is basically useless. The scientists who discovered it were fired.",
-"Where does Antimatter Nemo live? In a NNnNeMI-NNnNe.", "Your Mother-in-Law keeps nagging you about all these antimatter colliders.", "If matter exists, then does antimatter not exist?", "Does Hevi just pick quotes to put into the game?",
-"If you break the fourth wall... well, there's still the fifth, sixth, seventh, and eighth to get through before you encounter bad things, so you should be fine", "Antimatter=Life. Not cobblestone, not dirt, nothing like that. Antimatter.",
-"Breaking News: Error Error Error", "Anti Emoji Movie a huge hit", "How much antiwood could an antiwoodchuck chuck if an antiwoodchuck could chuck antiwood?", "Chaos isnt a pit, chaos is a matter", 
-"That's because I'm a good game developer and pushed some code that totally works -hevipelle", "What's the matter with anti matter?", "If this game was made by Valve, Zero Deaths would be impossible.", 
-"Florida man attempts to get Zero Deaths on first run, is stopped by heat death of the universe.", "Asian man trys to steal the trophy of fastest infinty of -1 seconds, AND HE DOES IT!", 
-"Doesn't it annoy you when people don't finish their", "Having done half the achievements isn't much of an achievement -Boo", "Don't anti-quote me on this", "Antimatter is honest, matter makes up everything",
-"According to no known laws of aviation, there are multiple ways a bee should be able to be swallowed up by antimatter", "You either die as matter or live long enough to be consumed by the antimatter, and then die again", 
-"If you gaze long enough into the antimatter, the antimatter gazes back into you", "Always gonna give you up. Always gonna let you down. - anti-Rick Astley", 
-"Antimatter Dimensions: the next update is always 5 hours away. Always.", "#DimensionLivesAntimatter"]
+var newsArray = [["Maybe I'm gay then -Bootato",true], ["Breaking news! Hevipelle has just announced that the buy max button is in fact going to be removed!",true], ["I dedicate this game to my girlfriend",true], 
+["Antimatter guns don't kill antimatter people, antimatter people kill antimatter people but does that mean that antimatter toaster doesn't toast antimatter toasts, antimatter toast toasts antimatter toasts?",true],
+["But to an antimatter person, wouldn't they be matter and us antimatter?",true], ["And nothing Antimatters",true], ["Why is there no 9th dimension? Because 7 8 9.", player.resets>=4],
+["School starting up strikes fear in students universe-wide, as schools are no longer segregated between Matter and antimatter. Annihilation is prominent.",player.currentChallenge=="challenge12"||player.currentChallenge=="postc1"||player.currentChallenge=="postc5"],
+["Why does no one talk about the 0th dimension?",true], ["Antimatter ice cream stand has recently opened- they have octillions of flavors!",player.totalMoney.gte(1e27)], ["The 9th dimension cannot exist because the Nein-speaking nazis died in WW2.",player.resets>=4],
+["The fatter catter satter on the antimatter.",true], ["Who let the DOgs out?",true], ["I've got 1.79e308 problems, but none of them antimatters",true], ["If you can't read this you disabled the news.", true],
+["Doesn't leave, just mutes the server so he doesn't receive notifications",true], ["Most quotes found online are falsely atributed -Abraham Lincoln",true], ["It should work now, but it doesn't -hevipelle",true],
+["This game doesn't have any errors... they're alternative successes.",true], ["A third type of matter has been discovered: null matter. It doesn't do anything and is basically useless. The scientists who discovered it were fired.",true],
+["Where does Antimatter Nemo live? In a NNnNeMI-NNnNe.",true], ["Your Mother-in-Law keeps nagging you about all these antimatter colliders.",true], ["If matter exists, then does antimatter not exist?",true], ["Does Hevi just pick quotes to put into the game?",true],
+["If you break the fourth wall... well, there's still the fifth, sixth, seventh, and eighth to get through before you encounter bad things, so you should be fine",true], ["Antimatter=Life. Not cobblestone, not dirt, nothing like that. Antimatter.",true],
+["Breaking News: Error Error Error",true], ["Anti Emoji Movie a huge hit",!player.achievements.includes("Spreading Cancer")], ["How much antiwood could an antiwoodchuck chuck if an antiwoodchuck could chuck antiwood?",true], ["Chaos isnt a pit, chaos is a matter",true],
+["That's because I'm a good game developer and pushed some code that totally works -hevipelle",true], ["What's the matter with anti matter?",true], ["If this game was made by Valve, Zero Deaths would be impossible.",true],
+["Florida man attempts to get Zero Deaths on first run, is stopped by heat death of the universe.",true], ["Asian man trys to steal the trophy of fastest infinty of -1 seconds, AND HE DOES IT!", player.infinitied>0],
+["Doesn't it annoy you when people don't finish their",true], ["Having done half the achievements isn't much of an achievement -Boo",player.achievements.length>=36], ["Don't anti-quote me on this",true], ["Antimatter is honest, matter makes up everything",true],
+["According to no known laws of aviation, there are multiple ways a bee should be able to be swallowed up by antimatter",true], ["You either die as matter or live long enough to be consumed by the antimatter, and then die again",true],
+["If you gaze long enough into the antimatter, the antimatter gazes back into you",true], ["Always gonna give you up. Always gonna let you down. - anti-Rick Astley",true],
+["Antimatter Dimensions: the next update is always 5 hours away. Always.",true], ["#DimensionLivesAntimatter",true], ["Scientists discover a ninth dimension! No one believes them.",player.infDimensionsUnlocked[0]&&!player.infDimensionsUnlocked[2]],
+["Scientists are finally making some headway. Doubt of the ninth dimension continues.",player.infDimensionsUnlocked[1]&&!player.infDimensionsUnlocked[2]],["Scientists announce that they have found not just nine, but ELEVEN dimensions!",player.infDimensionsUnlocked[2]],
+["Scientists find a twelfth dimension. Many don't know what to make out of their discoveries.",player.infDimensionsUnlocked[3]],["All seats for the cancer movie are sold out!",player.spreadingCancer >= 5000],
+["It is reported that one has done the impossible: broken the limit of infinity.",player.money.gt(Number.MAX_VALUE)],["Sustainable growth, for the short-term.",Marathon>=60],["Stellar infinity antimatter race: don't blink or you'll miss it!",player.bestInfinityTime<0.2],
+["Professional game speedrunner repeatedly accomplishes the impossible!",worstChallengeTime<0.4],["You just won the game.",player.achievements.length==72],["Game player gets totally scammed after paying real cash!",kongIPMult>75],["Someone is feeling lucky today.",Math.random()<0.0000001]
+["...Why did you play the game for long enough to be able to see this?",player.newsArray.length>newsArray.length-3]]
 
 
 var conditionalNewsArray = ["Our universe is falling apart. We are all evacuating. This is the last news cast", "THIS NEWS STATION HAS SHUT DOWN DUE TO COLLAPSING UNIVERSE", 
@@ -4498,9 +4479,11 @@ document.addEventListener("visibilitychange", function() {if (!document.hidden) 
 var scrollTimeouts = [];
 
 function scrollNextMessage() {
+	if (!player.options.newsHidden) {
   //select a message at random
   let idx = Math.floor(Math.random() * newsArray.length)
-  let msg = {msg: newsArray[idx], index: idx};
+  while (!newsArray[idx,1]) idx=Math.floor(Math.random() * newsArray.length);
+  let msg = {msg: newsArray[idx,0], index: idx};
   
   scrollTimeouts.forEach(function(v) {clearTimeout(v);});
   scrollTimeouts = [];
@@ -4524,12 +4507,9 @@ function scrollNextMessage() {
     let rate = 100; //change this value to change the scroll speed
     let transformDuration = dist / rate;
 
-    if (!player.options.newsHidden) {
         if (!player.newsArray.includes(msg.index)) player.newsArray.push(msg.index);
         if (player.newsArray.length>=50 && !player.achievements.includes("Fake News")) giveAchievement("Fake News") 
     }
-
-    if (player.achievements.includes("Fake News")) player.newsArray = []
 
 
     //set the transition duration
