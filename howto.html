@@ -54,7 +54,7 @@
   </div>
   <hr>
   <button onclick='changestate(3)' class="storebtn">Dimension Shift/Boost</button>
-  <div style="text-align: center" id='div3' class='hidden'>
+  <div style="text-align: left" id='div3' class='hidden'>
   <b>Dimension Shift:</b> This resets your current game, but unlocks another dimension for your next run. Each one requires 20 (base) of your highest unlocked dimension.
   <br>
   <b>Dimension Boost:</b> A dimension shift, but you don't unlock a new dimension. This happens after 4 dimension shifts. Each one requires 20+(boosts*15) (base) eighth dimensions.
@@ -63,7 +63,7 @@
   </div>
   <hr>
   <button onclick='changestate(5)' class="storebtn">Antimatter Galaxies</button>
-  <div style="text-align: center" id='div5' class='hidden'>
+  <div style="text-align: left" id='div5' class='hidden'>
   Purchasing an Antimatter Galaxy will reset your game back to the point where only 4 Dimensions are available, but will increase the effect of your tick speed interval reduction by 2%.
   <br>
   Though it will have very little impact for the first few purchases, the increase is multiplicative and won’t take long to be visible.
@@ -74,7 +74,7 @@
   </div>
   <hr>
   <button onclick='changestate(7)' class="storebtn">Dimensional Sacrifice</button>
-  <div style="text-align: center" id='div7' class='hidden'>
+  <div style="text-align: left" id='div7' class='hidden'>
   You unlock Dimensional Sacrifice after your first dimensional boost.
   <br>
   Sacrificing will immediately reduce the owned quantity of dimensions 1 through 7 to zero. This does not reduce the multiplier or the current cost.  In return, it will multiply the Eighth Dimension Multiplier by the shown value. It will take time to get back to the production you previously had, but you will end up with a net increase.
@@ -93,7 +93,7 @@
   </div>
   <hr>
   <button onclick='changestate(8)' class="storebtn">Infinity</button>
-  <div style="text-align: center" id='div8' class='hidden'>
+  <div style="text-align: left" id='div8' class='hidden'>
   Once you have too much Antimatter for the world to handle (~2^1024, or 1.7976931348623157e308) you’ll reach infinity and be able to perform a “Big Crunch”.
   <br>
   Each Infinity completed will give an Infinity Point. These can be spent on upgrades in the new infinity tab. You must purchase these upgrades from top to bottom.
@@ -102,14 +102,14 @@
   </div>
   <hr>
   <button onclick='changestate(9)' class="storebtn">Achievements</button>
-  <div style="text-align: center" id='div9' class='hidden'>
+  <div style="text-align: left" id='div9' class='hidden'>
   Each achievement has conditions that must be met before they are earned.  Some are very simple, and some are significantly trickier.  You may have to infinity or start a challenge before attempting some of the harder ones.
   <br>
   You will recieve a x1.5 multiplier to all dimensions for each completed row. In addition, some achievements have their own rewards.
   </div>
   <hr>
   <button onclick='changestate(10)' class="storebtn">Challenges</button>
-  <div style="text-align: center" id='div10' class='hidden'>
+  <div style="text-align: left" id='div10' class='hidden'>
   Challenges are unlocked after first infinity; they change in-game mechanics in different ways to create more difficult infinity circumstances.
   <br>
   Each completed challenge will award an auto buyer.  You can run them multiple times (though only the first time grants a reward), and they can be exited at any time via the “Exit Challenge” button on the challenge tab.
@@ -118,10 +118,10 @@
   </div>
   <hr>
   <button onclick='changestate(11)' class="storebtn">Autobuyers</button>
-  <div style="text-align: center" id='div11' class='hidden'>
+  <div style="text-align: left" id='div11' class='hidden'>
   <b>Autobuyers:</b>
   <br>
-  Autobuyers, awarded by completing challenges, allow the automatic purchase of dimensions, dimension shifts/boosts, galaxies, tickspeed interval decreases, and Big Crunches. They are located under the infinty tab in "Autobuyers".
+  Autobuyers (awarded by completing challenges) allow the automatic purchase of dimensions, dimension shifts/boosts, galaxies, tickspeed interval decreases, Big Crunches, and Dimensional Sacrifice (later). They are located under the infinty tab in "Autobuyers".
   <br><br>
   <b>Priority:</b> Priorities tell the game which autobuyer will buy if two are affordable in the same tick. Priority 1 is bought 1st, Priority 2 is bought 2nd, etc. Two equal priorities will pick their buying order randomly. <!-- While you cannot set these, big crunch has a priority of 0, galaxies have a priority of 10, dimboosts 11, and sacrifice (once unlocked) 11. -->
   <br>
@@ -145,7 +145,7 @@
   </div>
   <hr>
   <button onclick='changestate(12)' class="storebtn">Breaking Infinity</button>
-  <div style="text-align: center" id='div12' class='hidden'>
+  <div style="text-align: left" id='div12' class='hidden'>
   Originally Antimatter Dimensions was restricted by "Infinity". Since a significant update, you can now "Break Infinity" once your Big Crunch autobuyer has been maxed. This opens up a a selection of new upgrades as well as the ability to gain more than 1 infinity point per run.
   <br>
   <b>Fixing Infinity:</b>You can revert the breaking at anytime by clicking fix infininty.
@@ -154,7 +154,7 @@
   </div>
   <hr>
   <button onclick='changestate(13)' class="storebtn">Infinity Dimensions</button>
-  <div style="text-align: center" id='div13' class='hidden'>
+  <div style="text-align: left" id='div13' class='hidden'>
   <b>Unlocking Infinity Dimensions:</b>Infinity Dimensions are unlocked by reaching a certain amount of antimatter.
   <br>
   <b>Infinity Dimension Cost:</b>Infinity dimensions are only purchasable in sets of 10, and cost Infinity points.
@@ -165,14 +165,14 @@
   </div>
   <hr>
   <button onclick='changestate(14)' class="storebtn">Infinity Challenges</button>
-  <div style="text-align: center" id='div14' class='hidden'>
-  Infinity Challenges are like regular challenges, but they have higher end goals and are generally harder than regular challenges (but have a much better reward).
+  <div style="text-align: left" id='div14' class='hidden'>
+  Infinity Challenges are like regular challenges, but they have higher end goals and are generally harder than regular challenges (but have a different kind of reward).
     <br>
-  They unlock at set amounts of antimatter.
+  They unlock at set amounts of antimatter - the ones unlocking later are (generally) more difficult.
     </div>
     <hr>
-    <button onclick='changestate(14)' class="storebtn">Eternities</button>
-  <div style="text-align: center" id='div15' class='hidden'>
+    <button onclick='changestate(15)' class="storebtn">Eternities</button>
+  <div style="text-align: left" id='div15' class='hidden'>
     Coming Soon (TM)!
     </div>
   </body>
