@@ -111,7 +111,7 @@ var player = {
     offlineProdCost: 1e7,
     challengeTarget: 0,
     autoSacrifice: 1,
-    ninthDimension: [0,0,new Decimal('1e-2830'),new Decimal('1e41900'),2e223],
+    ninthDimension: [0,0,new Decimal('1e-2833'),new Decimal('1e41900'),2e223],
     options: {
         newsHidden: false,
         notation: "Standard",
@@ -379,7 +379,7 @@ function onLoad() {
     if (player.autobuyers[9]%1 !== 0) {
         if (player.autobuyers[9].bulk === null || player.autobuyers[9].bulk === undefined) player.autobuyers[9].bulk = 1
     }
-    if (player.ninthDimension == undefined) player.ninthDimension = [0,0,new Decimal('1e-2830'),new Decimal('1e41900'),2e223];
+    if (player.ninthDimension == undefined) player.ninthDimension = [0,0,new Decimal('1e-2833'),new Decimal('1e41900'),2e223];
 
     if (player.options.sacrificeConfirmation == false) document.getElementById("confirmation").checked = "true"
     transformSaveToDecimal();
@@ -942,7 +942,7 @@ function updateDimensions() {
         document.getElementById("softReset").innerHTML = "Reset the game for a new Dimension";
     }
 
-    if (player.galaxies < 68) document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + getGalaxyRequirement() + ' Ninth Dimensions';
+    if (player.galaxies >= 68) document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + getGalaxyRequirement() + ' Ninth Dimensions';
     else if (player.currentChallenge != "challenge4") document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + getGalaxyRequirement() + ' Eighth Dimensions';
     else document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + getGalaxyRequirement() + ' Sixth Dimensions';
     document.getElementById("totalmoney").innerHTML = 'You have made a total of ' + shortenMoney(player.totalmoney) + ' antimatter.';
@@ -1213,7 +1213,7 @@ function softReset(bulk) {
         offlineProdCost: player.offlineProdCost,
         challengeTarget: player.challengeTarget,
         autoSacrifice: player.autoSacrifice,
-        ninthDimension: [0,0,new Decimal('1e-2830'),new Decimal('1e41900'),2e223],
+        ninthDimension: [0,0,new Decimal('1e-2833'),new Decimal('1e41900'),2e223],
         options: player.options
     };
     if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -2511,7 +2511,7 @@ document.getElementById("secondSoftReset").onclick = function () {
             offlineProdCost: player.offlineProdCost,
             challengeTarget: player.challengeTarget,
             autoSacrifice: player.autoSacrifice,
-            ninthDimension: [0,0,new Decimal('1e-2830'),new Decimal('1e41900'),2e223],
+            ninthDimension: [0,0,new Decimal('1e-2833'),new Decimal('1e41900'),2e223],
             options: player.options
         };
 
@@ -3295,7 +3295,7 @@ document.getElementById("bigcrunch").onclick = function () {
         offlineProdCost: player.offlineProdCost,
         challengeTarget: player.challengeTarget,
         autoSacrifice: player.autoSacrifice,
-        ninthDimension: [0,0,new Decimal('1e-2830'),new Decimal('1e41900'),2e223],
+        ninthDimension: [0,0,new Decimal('1e-2833'),new Decimal('1e41900'),2e223],
         options: player.options
         };
 
@@ -3482,7 +3482,7 @@ function startChallenge(name, target) {
       offlineProdCost: player.offlineProdCost,
       challengeTarget: target,
       autoSacrifice: player.autoSacrifice,
-      ninthDimension: [0,0,new Decimal('1e-2830'),new Decimal('1e41900'),2e223],
+      ninthDimension: [0,0,new Decimal('1e-2833'),new Decimal('1e41900'),2e223],
       options: player.options
     };
 	if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
