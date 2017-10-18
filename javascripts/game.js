@@ -930,7 +930,7 @@ function updateDimensions() {
     }
     
     var shiftRequirement = getShiftRequirement(0);
-    if (shiftRequirement.tier == 9) 'Dimension Boost: requires ' + shiftRequirement.amount + " Ninth Dimensions";
+    if (shiftRequirement.tier == 9) document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + shiftRequirement.amount + " Ninth Dimensions";
     else if (player.currentChallenge == "challenge4" ? shiftRequirement.tier < 6 : shiftRequirement.tier < 8) {
         document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires ' + shiftRequirement.amount + " " + DISPLAY_NAMES[shiftRequirement.tier] + " Dimensions";
     }
