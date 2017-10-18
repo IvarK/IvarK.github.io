@@ -1937,6 +1937,13 @@ document.getElementById("softReset").onclick = function () {
 document.getElementById("maxall").onclick = function () {    
     buyMaxTickSpeed();
     
+	while canAfford(player.ninthDimension[3].times(10-player.ninthDimension[1])) {
+        player.ninthDimension[0] += 10-player.ninthDimension[1];
+        player.ninthDimension[1] = 0;
+        player.ninthDimension[2] = player.ninthDimension[2].times(2.2);
+        player.ninthDimension[3] = player.ninthDimension[3].times(player.ninthDimension[4]);
+        player.ninthDimension[4] *= 2;
+    }
     for (let tier = 8; tier >= 1; tier--) {
         var name = TIER_NAMES[tier];
         var cost = player[name + 'Cost'].times(10 - player[name + 'Bought'])
