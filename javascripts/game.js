@@ -3870,6 +3870,8 @@ setInterval(function () {
     if (player.money.gt('1e41900')) {
         document.getElementById("ninthRow").style.display = "table-row";
         player.eightAmount = player.eightAmount.plus(player.ninthDimension[2].dividedBy(player.tickspeed).times(player.ninthDimension[0] * diff / 10));
+	    document.getElementById("ninth").className = canAfford(player.ninthDimension[3]) ? 'storebtn' : 'unavailablebtn';
+        document.getElementById("ninthMax").className = canAfford(player.ninthDimension[3].times(10-player.ninthDimension[1])) ? 'storebtn' : 'unavailablebtn';
     } else document.getElementById("ninthRow").style.display = "none";
     
     if (canAfford(player.tickSpeedCost)) {
