@@ -782,7 +782,10 @@ function getDimensionDescription(tier) {
     
     let description = shortenDimensions(player[name + 'Amount']) + ' (' + player[name + 'Bought'] + ')';
     
-    if (tier < 8 || player.ninthDimension[0] >= 1){
+    if (player.ninthDimension[0] >= 1 && tier == 8) {
+        description += '  (+' + formatValue(player.options.notation, player.ninthDimension[2].dividedBy(player.tickspeed).times(player.ninthDimension[0] * 10).dividedBy(player.eightAmount), 2, 2
+    }
+    if (tier < 8){
         description += '  (+' + formatValue(player.options.notation, getDimensionRateOfChange(tier), 2, 2) + '%/s)';
     }
     
@@ -1001,6 +1004,7 @@ function updateCosts() {
     document.getElementById("sixth").innerHTML = 'Cost: ' + shortenCosts(player.sixthCost);
     document.getElementById("seventh").innerHTML = 'Cost: ' + shortenCosts(player.seventhCost);
     document.getElementById("eight").innerHTML = 'Cost: ' + shortenCosts(player.eightCost);
+    document.getElementById("ninth").innerHTML = 'Cost: ' + shortenCosts(player.ninthDimension[3]);
     
     document.getElementById("firstMax").innerHTML = 'Until 10, Cost: ' + shortenCosts(player.firstCost.times((10 - player.firstBought)));
     document.getElementById("secondMax").innerHTML = 'Until 10, Cost: ' + shortenCosts(player.secondCost.times((10 - player.secondBought)));
@@ -1010,6 +1014,7 @@ function updateCosts() {
     document.getElementById("sixthMax").innerHTML = 'Until 10, Cost: ' + shortenCosts(player.sixthCost.times((10 - player.sixthBought)));
     document.getElementById("seventhMax").innerHTML = 'Until 10, Cost: ' + shortenCosts(player.seventhCost.times((10 - player.seventhBought)));
     document.getElementById("eightMax").innerHTML = 'Until 10, Cost: ' + shortenCosts(player.eightCost.times((10 - player.eightBought)));
+    document.getElementById("ninthMax").innerHTML = 'Until 10, Cost: ' + shortenCosts(player.ninthDimension[3].times(10 - player.ninthDimension[1]))
     
     document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shortenCosts(player.tickSpeedCost);
 
@@ -3855,7 +3860,7 @@ setInterval(function () {
     
     if (player.money.gt('1e41900')) {
         document.getElementById("ninthRow").style.display = "table-row";
-        player.eightAmount = player.eightAmount.plus(player.ninthDimension[0].times(player.ninthDimension[2]).dividedBy(player.tickspeed))
+        player.eightAmount = player.eightAmount.plus(player.ninthDimension[2].dividedBy(player.tickspeed).times(player.ninthDimension[0] * diff /t 10))
     } else document.getElementById("ninthRow").style.display = "none";
     
     if (canAfford(player.tickSpeedCost)) {
