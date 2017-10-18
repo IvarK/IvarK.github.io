@@ -2573,7 +2573,7 @@ document.getElementById("secondSoftReset").onclick = function () {
         if (player.achievements.includes("That's faster!")) player.money = new Decimal(2e5);
         if (player.achievements.includes("Forever isn't that long")) player.money = new Decimal(1e10);
         if (player.achievements.includes("Blink of an eye")) player.money = new Decimal(1e25);
-    }
+
 };
 
 document.getElementById("exportbtn").onclick = function () {
