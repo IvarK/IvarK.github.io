@@ -2414,7 +2414,7 @@ document.getElementById("secondSoftReset").onclick = function () {
     if (player.currentChallenge == "challenge11" || player.currentChallenge == "postc1" || player.currentChallenge == "postc7") return false;
     if (player.currentChallenge == "challenge4" && player.sixthAmount < getGalaxyRequirement()) return false;
     if (player.ninthDimension[0] == 0 && player.currentChallenge != "challenge4" && player.eightAmount < getGalaxyRequirement()) return false;
-    if (player.ninthDimension[0] >= 0 && player.ninthDimension[0] < getGalaxyRequirement()) return false;
+    if (player.galaxies >= 60 && player.ninthDimension[0] < getGalaxyRequirement()) return false;
       if (player.sacrificed == 0) giveAchievement("I don't believe in Gods");
         player = {
             money: new Decimal(10),
