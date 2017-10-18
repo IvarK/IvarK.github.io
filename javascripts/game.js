@@ -547,6 +547,7 @@ function transformSaveToDecimal() {
     player.infinityPoints = new Decimal(player.infinityPoints)
     player.postC3Reward = new Decimal(player.postC3Reward)
     player.lastTenRuns = [[parseFloat(player.lastTenRuns[0][0]), player.lastTenRuns[0][1]], [parseFloat(player.lastTenRuns[1][0]), player.lastTenRuns[1][1]], [parseFloat(player.lastTenRuns[2][0]), player.lastTenRuns[2][1]], [parseFloat(player.lastTenRuns[3][0]), player.lastTenRuns[3][1]], [parseFloat(player.lastTenRuns[4][0]), player.lastTenRuns[4][1]], [parseFloat(player.lastTenRuns[5][0]), player.lastTenRuns[5][1]], [parseFloat(player.lastTenRuns[6][0]), player.lastTenRuns[6][1]], [parseFloat(player.lastTenRuns[7][0]), player.lastTenRuns[7][1]], [parseFloat(player.lastTenRuns[8][0]), player.lastTenRuns[8][1]], [parseFloat(player.lastTenRuns[9][0]), player.lastTenRuns[9][1]]]
+    player.ninthDimension = [player.ninthDimension[0],player.ninthDimension[1],new Decimal(player.ninthDimension[2]),new Decimal(player.ninthDimension[3]),player.ninthDimension[4]];
 }
 
 
@@ -783,7 +784,7 @@ function getDimensionDescription(tier) {
     let description = shortenDimensions(player[name + 'Amount']) + ' (' + player[name + 'Bought'] + ')';
     
     if (player.ninthDimension[0] >= 1 && tier == 8) {
-        description += '  (+' + formatValue(player.options.notation, player.ninthDimension[2].dividedBy(player.tickspeed).times(player.ninthDimension[0] * 10).dividedBy(player.eightAmount), 2, 2)
+        description += '  (+' + formatValue(player.options.notation, player.ninthDimension[2].dividedBy(player.tickspeed).times(player.ninthDimension[0] * 10).dividedBy(player.eightAmount), 2, 2) + '%/s)'
     }
     if (tier < 8){
         description += '  (+' + formatValue(player.options.notation, getDimensionRateOfChange(tier), 2, 2) + '%/s)';
@@ -915,7 +916,7 @@ function updateDimensions() {
         
         
     }
-    document.getElementById("ninthD").innerHTML = "Ninth Dimension x" + player.ninthDimension[2].d[0].toString()[0] + "e" + player.ninthDimension[2].e;
+    document.getElementById("ninthD").innerHTML = "Ninth Dimension x" + player.ninthDimension[2].toExponential(1);
     document.getElementById("ninthAmount").innerHTML = player.ninthDimension[0] + " (" + player.ninthDimension[1] + ")"
     
     
