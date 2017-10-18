@@ -942,8 +942,8 @@ function updateDimensions() {
         document.getElementById("softReset").innerHTML = "Reset the game for a new Dimension";
     }
 
-    if (player.currentChallenge != "challenge4") document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + getGalaxyRequirement() + ' Eighth Dimensions';
-    else if (player.galaxies < 68) documefnt.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + getGalaxyRequirement() + ' Ninth Dimensions';
+    if (player.galaxies < 68) documefnt.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + getGalaxyRequirement() + ' Ninth Dimensions';
+    else if (player.currentChallenge != "challenge4") document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + getGalaxyRequirement() + ' Eighth Dimensions';
     else document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + getGalaxyRequirement() + ' Sixth Dimensions';
     document.getElementById("totalmoney").innerHTML = 'You have made a total of ' + shortenMoney(player.totalmoney) + ' antimatter.';
     document.getElementById("totalresets").innerHTML = 'You have done ' + player.resets + ' soft resets.';
@@ -2413,8 +2413,8 @@ document.getElementById("toggleBtnTickSpeed").onclick = function () {
 document.getElementById("secondSoftReset").onclick = function () {
     if (player.currentChallenge == "challenge11" || player.currentChallenge == "postc1" || player.currentChallenge == "postc7") return false;
     if (player.currentChallenge == "challenge4" && player.sixthAmount < getGalaxyRequirement()) return false;
-    if (player.ninthDimension[0] == 0 && player.currentChallenge != "challenge4" && player.eightAmount < getGalaxyRequirement()) return false;
-    if (player.galaxies >= 60 && player.ninthDimension[0] < getGalaxyRequirement()) return false;
+    if (player.galaxies < 68 && player.currentChallenge != "challenge4" && player.eightAmount < getGalaxyRequirement()) return false;
+    if (player.galaxies >= 68 && player.ninthDimension[0] < getGalaxyRequirement()) return false;
       if (player.sacrificed == 0) giveAchievement("I don't believe in Gods");
         player = {
             money: new Decimal(10),
