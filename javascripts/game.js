@@ -3860,7 +3860,7 @@ setInterval(function () {
     
     if (player.money.gt('1e41900')) {
         document.getElementById("ninthRow").style.display = "table-row";
-        player.eightAmount = player.eightAmount.plus(player.ninthDimension[2].dividedBy(player.tickspeed).times(player.ninthDimension[0] * diff /t 10))
+        player.eightAmount = player.eightAmount.plus(player.ninthDimension[2].dividedBy(player.tickspeed).times(player.ninthDimension[0] * diff / 10));
     } else document.getElementById("ninthRow").style.display = "none";
     
     if (canAfford(player.tickSpeedCost)) {
