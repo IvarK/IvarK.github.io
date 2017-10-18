@@ -812,7 +812,7 @@ function getDimensionRateOfChange(tier) {
 }
 
 function getShiftRequirement(bulk) {
-    if (player.resets+bulk >= 550) return {tier: 9, amount:(player.resets+bulk-550)*15};
+    if (player.resets+bulk >= 275) return {tier: 9, amount:(player.resets+bulk-275)*15};
     
     let tier = Decimal.min(player.resets + 4, 8);
     let amount = 20;
@@ -837,7 +837,7 @@ function getShiftRequirement(bulk) {
 function getGalaxyRequirement() {
     let amount = 80 + (player.galaxies * 60);
     if (player.currentChallenge == "challenge4") amount = 99 + (player.galaxies * 90)
-    if (player.galaxies >= 60) amount = player.galaxies * 60 - 3520;
+    if (player.galaxies >= 68) amount = (player.galaxies-68) * 60 + 80;
     if (player.infinityUpgrades.includes("resetBoost")) {
         amount -= 9;
     }
@@ -943,7 +943,7 @@ function updateDimensions() {
     }
 
     if (player.currentChallenge != "challenge4") document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + getGalaxyRequirement() + ' Eighth Dimensions';
-    else if (player.galaxies < 60) document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + getGalaxyRequirement() + ' Ninth Dimensions';
+    else if (player.galaxies < 68) documefnt.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + getGalaxyRequirement() + ' Ninth Dimensions';
     else document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + getGalaxyRequirement() + ' Sixth Dimensions';
     document.getElementById("totalmoney").innerHTML = 'You have made a total of ' + shortenMoney(player.totalmoney) + ' antimatter.';
     document.getElementById("totalresets").innerHTML = 'You have done ' + player.resets + ' soft resets.';
@@ -4100,7 +4100,7 @@ setInterval(function () {
     }
     
     if (player.ninthDimension[0] >= getGalaxyRequirement()) document.getElementById("softReset").className = 'storebtn';
-    else if (player.galaxies >= 60) document.getElementById("softReset").className = 'unavailablebtn';
+    else if (player.galaxies >= 68) document.getElementById("softReset").className = 'unavailablebtn';
     
     if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") document.getElementById("chall2Pow").style.display = "inline-block"
     else document.getElementById("chall2Pow").style.display = "none"
