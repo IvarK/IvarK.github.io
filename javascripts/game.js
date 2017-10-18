@@ -943,6 +943,7 @@ function updateDimensions() {
     }
 
     if (player.currentChallenge != "challenge4") document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + getGalaxyRequirement() + ' Eighth Dimensions';
+    else if (player.galaxies < 60) document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + getGalaxyRequirement() + ' Ninth Dimensions';
     else document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + getGalaxyRequirement() + ' Sixth Dimensions';
     document.getElementById("totalmoney").innerHTML = 'You have made a total of ' + shortenMoney(player.totalmoney) + ' antimatter.';
     document.getElementById("totalresets").innerHTML = 'You have done ' + player.resets + ' soft resets.';
@@ -4081,8 +4082,8 @@ setInterval(function () {
     }
     
     var shiftRequirement = getShiftRequirement(0);
-    
-    if (player[TIER_NAMES[shiftRequirement.tier] + 'Amount'] >= shiftRequirement.amount) {
+    if (shiftRequirement.tier == 9 && player.ninthDimension[0] >= shiftRequirement.amount) document.getElementById("softReset").className = 'storebtn';
+    else if (shiftRequirement.tier != 9 && player[TIER_NAMES[shiftRequirement.tier] + 'Amount'] >= shiftRequirement.amount) {
         document.getElementById("softReset").className = 'storebtn';
     } else {
         document.getElementById("softReset").className = 'unavailablebtn';
@@ -4097,6 +4098,9 @@ setInterval(function () {
     if (player.currentChallenge == "challenge4" && player.sixthAmount >= getGalaxyRequirement()) {
         document.getElementById("secondSoftReset").className = 'storebtn';
     }
+    
+    if (player.ninthDimension[0] >= getGalaxyRequirement()) document.getElementById("softReset").className = 'storebtn';
+    else if (player.galaxies >= 60) document.getElementById("softReset").className = 'unavailablebtn';
     
     if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") document.getElementById("chall2Pow").style.display = "inline-block"
     else document.getElementById("chall2Pow").style.display = "none"
