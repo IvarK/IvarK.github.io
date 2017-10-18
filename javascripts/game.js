@@ -783,7 +783,7 @@ function getDimensionDescription(tier) {
     let description = shortenDimensions(player[name + 'Amount']) + ' (' + player[name + 'Bought'] + ')';
     
     if (player.ninthDimension[0] >= 1 && tier == 8) {
-        description += '  (+' + formatValue(player.options.notation, player.ninthDimension[2].dividedBy(player.tickspeed).times(player.ninthDimension[0] * 10).dividedBy(player.eightAmount), 2, 2
+        description += '  (+' + formatValue(player.options.notation, player.ninthDimension[2].dividedBy(player.tickspeed).times(player.ninthDimension[0] * 10).dividedBy(player.eightAmount), 2, 2)
     }
     if (tier < 8){
         description += '  (+' + formatValue(player.options.notation, getDimensionRateOfChange(tier), 2, 2) + '%/s)';
