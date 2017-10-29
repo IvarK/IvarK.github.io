@@ -3833,7 +3833,7 @@ setInterval(function() {
     } catch (err) {console.log("Couldn't load Kongregate API")}
 }, 10000)
 
-var nextAt = [new Decimal("1e2000"), new Decimal("1e5000"), new Decimal("1e12000"), new Decimal("1e14000"), new Decimal("1e18000"), new Decimal("1e20000"), new Decimal("1e23000"), new Decimal("1e30000")]
+var nextAt = [new Decimal("1e2000"), new Decimal("1e5000"), new Decimal("1e12000"), new Decimal("1e14000"), new Decimal("1e18000"), new Decimal("1e20000"), new Decimal("1e23000"), new Decimal("1e30000"), new Decimal("1e39000"), new Decimal("1e45000")]
 
 var goals = [new Decimal("1e850"), new Decimal("1e10500"), new Decimal("1e5000"), new Decimal("1e13000"), new Decimal("1e11111"), new Decimal("1e20500"), new Decimal("1e10000"), new Decimal("1e30000")]
 setInterval(function() {
@@ -4316,7 +4316,7 @@ setInterval(function () {
 
 
     if (player.infDimensionsUnlocked.includes(false) && player.break) {
-        document.getElementById("newDimensionButton").style.display = "inline-block"
+        if (!player.infDimensionUnlocked[4] || player.challenges.length >= 20) document.getElementById("newDimensionButton").style.display = "inline-block"
     } else document.getElementById("newDimensionButton").style.display = "none"
 
     if (player.money.gte(getNewInfReq())) document.getElementById("newDimensionButton").className = "newdim"
