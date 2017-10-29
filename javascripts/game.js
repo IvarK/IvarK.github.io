@@ -518,7 +518,7 @@ function onLoad() {
 		player.version = 5
 	}
 
-
+    document.getElementById("eternityPoints").innerHTML = "You have <b>"+shortenDimensions(player.eternityPoints)+"</b> Eternity points."
     
     
 
@@ -1382,15 +1382,15 @@ function softReset(bulk) {
         infinityDimension2: player.infinityDimension2,
         infinityDimension3: player.infinityDimension3,
         infinityDimension4: player.infinityDimension4,
-        timeShards: new Decimal(0),
-        tickThreshold: new Decimal(1),
+        timeShards: player.timeShards,
+        tickThreshold: player.tickThreshold,
         timeDimension1: player.timeDimension1,
         timeDimension2: player.timeDimension2,
         timeDimension3: player.timeDimension3,
         timeDimension4: player.timeDimension4,
         eternityPoints: player.eternityPoints,
         eternities: player.eternities,
-        totalTickGained: 0,
+        totalTickGained: player.totalTickGained,
         offlineProd: player.offlineProd,
         offlineProdCost: player.offlineProdCost,
         challengeTarget: player.challengeTarget,
@@ -1495,9 +1495,10 @@ function softReset(bulk) {
     document.getElementById("sixthRow").style.display = "none";
     document.getElementById("seventhRow").style.display = "none";
     document.getElementById("eightRow").style.display = "none";
+    
+    
+    player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
     updateTickSpeed();
-    resetTimeDimensions()
-
     if (player.challenges.includes("challenge1")) player.money = new Decimal(100)
     if (player.achievements.includes("That's fast!")) player.money = new Decimal(1000);
     if (player.achievements.includes("That's faster!")) player.money = new Decimal(2e5);
@@ -2608,15 +2609,15 @@ document.getElementById("secondSoftReset").onclick = function () {
             infinityDimension2: player.infinityDimension2,
             infinityDimension3: player.infinityDimension3,
             infinityDimension4: player.infinityDimension4,
-            timeShards: new Decimal(0),
-            tickThreshold: new Decimal(1),
+            timeShards: player.timeShards,
+            tickThreshold: player.tickThreshold,
             timeDimension1: player.timeDimension1,
             timeDimension2: player.timeDimension2,
             timeDimension3: player.timeDimension3,
             timeDimension4: player.timeDimension4,
             eternityPoints: player.eternityPoints,
             eternities: player.eternities,
-            totalTickGained: 0,
+            totalTickGained: player.totalTickGained,
             offlineProd: player.offlineProd,
             offlineProdCost: player.offlineProdCost,
             challengeTarget: player.challengeTarget,
@@ -2686,7 +2687,7 @@ document.getElementById("secondSoftReset").onclick = function () {
         document.getElementById("sixthRow").style.display = "none";
         document.getElementById("seventhRow").style.display = "none";
         document.getElementById("eightRow").style.display = "none";
-        updateTickSpeed();
+        
         if (player.galaxies >= 50) giveAchievement("YOU CAN GET 50 GALAXIES!??")
         if (player.galaxies >= 2) giveAchievement("Double Galaxy");
         if (player.galaxies >= 1) giveAchievement("You got past The Big Wall");
@@ -2695,7 +2696,8 @@ document.getElementById("secondSoftReset").onclick = function () {
         if (player.achievements.includes("That's faster!")) player.money = new Decimal(2e5);
         if (player.achievements.includes("Forever isn't that long")) player.money = new Decimal(1e10);
         if (player.achievements.includes("Blink of an eye")) player.money = new Decimal(1e25);
-        resetTimeDimensions()
+        player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
+        updateTickSpeed();
     }
 };
 
@@ -3399,15 +3401,15 @@ document.getElementById("bigcrunch").onclick = function () {
         infinityDimension2: player.infinityDimension2,
         infinityDimension3: player.infinityDimension3,
         infinityDimension4: player.infinityDimension4,
-        timeShards: new Decimal(0),
-        tickThreshold: new Decimal(1),
+        timeShards: player.timeShards,
+        tickThreshold: player.tickThreshold,
         timeDimension1: player.timeDimension1,
         timeDimension2: player.timeDimension2,
         timeDimension3: player.timeDimension3,
         timeDimension4: player.timeDimension4,
         eternityPoints: player.eternityPoints,
         eternities: player.eternities,
-        totalTickGained: 0,
+        totalTickGained: player.totalTickGained,
         offlineProd: player.offlineProd,
         offlineProdCost: player.offlineProdCost,
         challengeTarget: player.challengeTarget,
@@ -3469,7 +3471,7 @@ document.getElementById("bigcrunch").onclick = function () {
         document.getElementById("eightRow").style.display = "none";
         document.getElementById("matter").style.display = "none";
         document.getElementById("quickReset").style.display = "none";
-        updateTickSpeed();
+        
         checkForEndMe()
         
         try {
@@ -3491,7 +3493,8 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.challenges.length >= 2 && !player.achievements.includes("Daredevil")) giveAchievement("Daredevil");
         if (player.challenges.length == 12 && !player.achievements.includes("AntiChallenged")) giveAchievement("AntiChallenged");
         resetInfDimensions();
-        resetTimeDimensions()
+        player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
+        updateTickSpeed();
 
     }
   updateChallenges();
@@ -3594,15 +3597,15 @@ function startChallenge(name, target) {
       infinityDimension2: player.infinityDimension2,
       infinityDimension3: player.infinityDimension3,
       infinityDimension4: player.infinityDimension4,
-      timeShards: new Decimal(0),
-      tickThreshold: new Decimal(1),
+      timeShards: player.timeShards,
+      tickThreshold: player.tickThreshold,
       timeDimension1: player.timeDimension1,
       timeDimension2: player.timeDimension2,
       timeDimension3: player.timeDimension3,
       timeDimension4: player.timeDimension4,
       eternityPoints: player.eternityPoints,
       eternities: player.eternities,
-      totalTickGained: 0,
+      totalTickGained: player.totalTickGained,
       offlineProd: player.offlineProd,
       offlineProdCost: player.offlineProdCost,
       challengeTarget: target,
@@ -3646,7 +3649,7 @@ function startChallenge(name, target) {
 
     if (name == "challenge12" || name == "challenge9" || name == "challenge5" || player.currentChallenge == "postc1" || player.currentChallenge == "postc4" || player.currentChallenge == "postc5" || player.currentChallenge == "postc6" || player.currentChallenge == "postc8") document.getElementById("quickReset").style.display = "inline-block";
     else document.getElementById("quickReset").style.display = "none";
-    updateTickSpeed();
+    
     showTab('dimensions');
     updateChallenges();
     if (player.challenges.includes("challenge1")) player.money = new Decimal(100)
@@ -3664,7 +3667,8 @@ function startChallenge(name, target) {
     if (player.infinitied >= 10) giveAchievement("That's a lot of infinites");
   }
   resetInfDimensions();
-  resetTimeDimensions()
+  player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
+  updateTickSpeed();
 
   if (player.resets == 0 && player.currentChallenge == "") {
     if (player.infinityUpgrades.includes("skipReset1")) player.resets++;
@@ -3829,6 +3833,7 @@ setInterval(function() {
 
     document.getElementById("kongip").innerHTML = "Double your IP gain from all sources (additive). Forever. Currently: x"+kongIPMult+", next: "+(kongIPMult==1? 2: kongIPMult+2)+"x"
     document.getElementById("kongdim").innerHTML = "Double all your dimension multipliers (dimensions 1-8) (multiplicative). Forever. Currently: x"+kongDimMult+", next: "+(kongDimMult*2)+"x"
+    document.getElementById("eternityPoints").innerHTML = "You have <b>"+shortenDimensions(player.eternityPoints)+"</b> Eternity points."
 
     for (var i=1; i <=8; i++) {
         document.getElementById("postc"+i+"goal").innerHTML = "Goal: "+shortenCosts(goals[i-1])

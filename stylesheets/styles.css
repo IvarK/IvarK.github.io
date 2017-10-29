@@ -388,6 +388,13 @@
     width: 150px;
 }
 
+.EP {
+    right:81.5%;
+    position: absolute;
+    font-size: 12px;
+    width: 150px;
+}
+
 .newdim {
     font-weight: bold;
     border-radius: 4px;
