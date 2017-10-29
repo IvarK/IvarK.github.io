@@ -109,6 +109,20 @@ var player = {
         power: 1,
         baseAmount: 0
     },
+    infinityDimension5 : {
+        cost: 1e185,
+        amount: new Decimal(0),
+        bought: 0,
+        power: 1,
+        baseAmount: 0
+    },
+    infinityDimension6 : {
+        cost: 1e250,
+        amount: new Decimal(0),
+        bought: 0,
+        power: 1,
+        baseAmount: 0
+    },
     timeShards: new Decimal(0),
     tickThreshold: new Decimal(1),
     totalTickGained: 0,
@@ -445,6 +459,57 @@ function onLoad() {
     }
 
     if (player.options.sacrificeConfirmation == false) document.getElementById("confirmation").checked = "true"
+
+    if (player.version === undefined) { // value will need to be adjusted when update goes live
+        for (var i = 0; i < player.autobuyers.length; i++) {
+            if (player.autobuyers[i]%1 !== 0) player.infinityPoints = player.infinityPoints.plus(player.autobuyers[i].cost - 1)
+        }
+        player.autobuyers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        player.version = 1
+    }
+    if (player.version == 1) {
+        if (player.dimensionMultDecrease != 10) {
+            if (player.dimensionMultDecrease == 9) {
+                player.dimensionMultDecrease = 10
+                player.dimensionMultDecreaseCost = 1e8
+                player.infinityPoints = player.infinityPoints.plus(1e8)
+            }
+            if (player.dimensionMultDecrease == 8) {
+                player.dimensionMultDecrease = 10
+                player.dimensionMultDecreaseCost = 1e8
+                player.infinityPoints = player.infinityPoints.plus(2.1e9)
+            }
+            if (player.dimensionMultDecrease == 7) {
+                player.dimensionMultDecrease = 10
+                player.dimensionMultDecreaseCost = 1e8
+                player.infinityPoints = player.infinityPoints.plus(4.21e10)
+            }
+        }
+        player.version = 2
+    }
+	if (player.version < 5) {
+		player.newsArray = []
+		player.version = 5
+    }
+    
+    if (player.version < 6) {
+        player.infDimensionsUnlocked.push(false)
+        player.infDimensionsUnlocked.push(false)
+        player.infinityDimension5 = {
+            cost: 1e185,
+            amount: new Decimal(0),
+            bought: 0,
+            power: 1,
+            baseAmount: 0
+        }
+        player.infinityDimension6 = {
+            cost: 1e250,
+            amount: new Decimal(0),
+            bought: 0,
+            power: 1,
+            baseAmount: 0
+        }
+    }
     transformSaveToDecimal();
     updateCosts();
     updateTickSpeed();
@@ -486,37 +551,7 @@ function onLoad() {
             achievement.className = 'achievement achievementlocked';
         }
     }
-    if (player.version === undefined) { // value will need to be adjusted when update goes live
-        for (var i = 0; i < player.autobuyers.length; i++) {
-            if (player.autobuyers[i]%1 !== 0) player.infinityPoints = player.infinityPoints.plus(player.autobuyers[i].cost - 1)
-        }
-        player.autobuyers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-        player.version = 1
-    }
-    if (player.version == 1) {
-        if (player.dimensionMultDecrease != 10) {
-            if (player.dimensionMultDecrease == 9) {
-                player.dimensionMultDecrease = 10
-                player.dimensionMultDecreaseCost = 1e8
-                player.infinityPoints = player.infinityPoints.plus(1e8)
-            }
-            if (player.dimensionMultDecrease == 8) {
-                player.dimensionMultDecrease = 10
-                player.dimensionMultDecreaseCost = 1e8
-                player.infinityPoints = player.infinityPoints.plus(2.1e9)
-            }
-            if (player.dimensionMultDecrease == 7) {
-                player.dimensionMultDecrease = 10
-                player.dimensionMultDecreaseCost = 1e8
-                player.infinityPoints = player.infinityPoints.plus(4.21e10)
-            }
-        }
-        player.version = 2
-    }
-	if (player.version < 5) {
-		player.newsArray = []
-		player.version = 5
-	}
+    
 
     document.getElementById("eternityPoints").innerHTML = "You have <b>"+shortenDimensions(player.eternityPoints)+"</b> Eternity points."
     
@@ -543,6 +578,7 @@ function onLoad() {
     achievementMult = Math.max(Math.pow((player.achievements.length-30), 3)/40,1)
     challengeMult = Decimal.max(10*3000/worstChallengeTime, 1)
     unspentBonus = Decimal.pow(player.infinityPoints.dividedBy(2),1.5).plus(1)
+    transformSaveToDecimal();
 }
 
 
@@ -607,6 +643,8 @@ function transformSaveToDecimal() {
     player.infinityDimension2.amount = new Decimal(player.infinityDimension2.amount)
     player.infinityDimension3.amount = new Decimal(player.infinityDimension3.amount)
     player.infinityDimension4.amount = new Decimal(player.infinityDimension4.amount)
+    player.infinityDimension5.amount = new Decimal(player.infinityDimension5.amount)
+    player.infinityDimension6.amount = new Decimal(player.infinityDimension6.amount)
     player.infinityPoints = new Decimal(player.infinityPoints)
     player.timeDimension1.amount = new Decimal(player.timeDimension1.amount)
     player.timeDimension2.amount = new Decimal(player.timeDimension2.amount)
@@ -931,7 +969,7 @@ function ETACalc(t) {
     for (let tier = 2; tier <= 8; ++tier) {
         var name = TIER_NAMES[tier-1]
         div *= tier;
-        value = value.plus(getDimensionProductionPerSecond(tier).times(getDimensionProductionPerSecond(tier-1)).times(Decimal.pow(t,tier)).dividedBy(player[name+"Amount"].times(div))) ;
+        value = value.plus(getDimensionProductionPerSecond(tier).times(getDimensionProductionPerSecond(tier-1)).times(Decimal.pow(t,tier)).dividedBy(Decimal.max(player[name+"Amount"].times(div), 1))) ;
     }
     return value
 }
@@ -1076,7 +1114,7 @@ function updateCosts() {
     document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shortenCosts(player.tickSpeedCost);
 
 
-    for (var i=1; i<=4; i++) {
+    for (var i=1; i<=6; i++) {
         
         document.getElementById("infMax"+i).innerHTML = "Cost: " + shortenCosts(player["infinityDimension"+i].cost) + " IP"
     }
@@ -1140,7 +1178,7 @@ function getInfinityDimensionDescription(tier) {
     
     let description = shortenDimensions(player['infinityDimension'+tier].amount) + ' (' + player['infinityDimension'+tier].bought + ')';
     
-    if (tier < 4) {
+    if (tier < 6) {
         description += '  (+' + formatValue(player.options.notation, getInfinityDimensionRateOfChange(tier), 2, 2) + '%/s)';
     }
     
@@ -1159,13 +1197,9 @@ function getInfinityDimensionRateOfChange(tier) {
 
 
 function updateInfinityDimensions() {
-    for (let tier = 1; tier <= 4; ++tier) {
+    for (let tier = 1; tier <= 6; ++tier) {
         document.getElementById("infD"+tier).innerHTML = DISPLAY_NAMES[tier] + " Infinity Dimension x" + shortenDimensions(player["infinityDimension"+tier].power * (infDimPow));
-        document.getElementById("infAmount"+tier).innerHTML = getInfinityDimensionDescription(tier);  
-    }
-
-
-    for (let tier = 1; tier <= 4; ++tier) {
+        document.getElementById("infAmount"+tier).innerHTML = getInfinityDimensionDescription(tier);
         var name = TIER_NAMES[tier];
         if (!player.infDimensionsUnlocked[tier-1]) {
             break;
@@ -1173,8 +1207,6 @@ function updateInfinityDimensions() {
         
         document.getElementById("infRow"+tier).style.display = "table-row";
         document.getElementById("infRow"+tier).style.visibility = "visible";
-        
-        
     }
 }
 
@@ -1193,11 +1225,24 @@ function resetInfDimensions() {
     if (player.infDimensionsUnlocked[0]) {
         player.infinityPower = new Decimal(0)
     }
+    if (player.infDimensionsUnlocked[5] && player.infinityDimension6.amount != 0){
+        player.infinityDimension5.amount = new Decimal(player.infinityDimension5.baseAmount)
+        player.infinityDimension4.amount = new Decimal(player.infinityDimension4.baseAmount)
+        player.infinityDimension3.amount = new Decimal(player.infinityDimension3.baseAmount)
+        player.infinityDimension2.amount = new Decimal(player.infinityDimension2.baseAmount)
+        player.infinityDimension1.amount = new Decimal(player.infinityDimension1.baseAmount)
+    }
+    if (player.infDimensionsUnlocked[4] && player.infinityDimension5.amount != 0){
+        player.infinityDimension4.amount = new Decimal(player.infinityDimension4.baseAmount)
+        player.infinityDimension3.amount = new Decimal(player.infinityDimension3.baseAmount)
+        player.infinityDimension2.amount = new Decimal(player.infinityDimension2.baseAmount)
+        player.infinityDimension1.amount = new Decimal(player.infinityDimension1.baseAmount)
+    }
     if (player.infDimensionsUnlocked[3] && player.infinityDimension4.amount != 0){
         player.infinityDimension3.amount = new Decimal(player.infinityDimension3.baseAmount)
         player.infinityDimension2.amount = new Decimal(player.infinityDimension2.baseAmount)
         player.infinityDimension1.amount = new Decimal(player.infinityDimension1.baseAmount)
-    } 
+    }
     else if (player.infDimensionsUnlocked[2] && player.infinityDimension3.amount != 0){
         player.infinityDimension2.amount = new Decimal(player.infinityDimension2.baseAmount)
         player.infinityDimension1.amount = new Decimal(player.infinityDimension1.baseAmount)
@@ -1209,8 +1254,8 @@ function resetInfDimensions() {
 }
 
 
-var infCostMults = [null, 1e3, 1e6, 1e8, 1e10]
-var infPowerMults = [null, 50, 30, 10, 5]
+var infCostMults = [null, 1e3, 1e6, 1e8, 1e10, 1e15]
+var infPowerMults = [null, 50, 30, 10, 5, 5]
 function buyManyInfinityDimension(tier) {
     
     var dim = player["infinityDimension"+tier]
@@ -1382,6 +1427,8 @@ function softReset(bulk) {
         infinityDimension2: player.infinityDimension2,
         infinityDimension3: player.infinityDimension3,
         infinityDimension4: player.infinityDimension4,
+        infinityDimension5: player.infinityDimension5,
+        infinityDimension6: player.infinityDimension6,
         timeShards: player.timeShards,
         tickThreshold: player.tickThreshold,
         timeDimension1: player.timeDimension1,
@@ -2609,6 +2656,8 @@ document.getElementById("secondSoftReset").onclick = function () {
             infinityDimension2: player.infinityDimension2,
             infinityDimension3: player.infinityDimension3,
             infinityDimension4: player.infinityDimension4,
+            infinityDimension5: player.infinityDimension5,
+            infinityDimension6: player.infinityDimension6,
             timeShards: player.timeShards,
             tickThreshold: player.tickThreshold,
             timeDimension1: player.timeDimension1,
@@ -3401,6 +3450,8 @@ document.getElementById("bigcrunch").onclick = function () {
         infinityDimension2: player.infinityDimension2,
         infinityDimension3: player.infinityDimension3,
         infinityDimension4: player.infinityDimension4,
+        infinityDimension5: player.infinityDimension5,
+        infinityDimension6: player.infinityDimension6,
         timeShards: player.timeShards,
         tickThreshold: player.tickThreshold,
         timeDimension1: player.timeDimension1,
@@ -3598,6 +3649,8 @@ function startChallenge(name, target) {
       infinityDimension2: player.infinityDimension2,
       infinityDimension3: player.infinityDimension3,
       infinityDimension4: player.infinityDimension4,
+      infinityDimension5: player.infinityDimension5,
+      infinityDimension6: player.infinityDimension6,
       timeShards: player.timeShards,
       tickThreshold: player.tickThreshold,
       timeDimension1: player.timeDimension1,
@@ -3930,15 +3983,15 @@ setInterval(function () {
 
 
 
-    for (let tier=1;tier<4;tier++) {
-        if (tier != 4 && player.infDimensionsUnlocked[tier-1]) player["infinityDimension"+tier].amount = player["infinityDimension"+tier].amount.plus(getInfinityDimensionProduction(tier+1).times(diff/100))
+    for (let tier=1;tier<6;tier++) {
+        if (tier != 6 && player.infDimensionsUnlocked[tier-1]) player["infinityDimension"+tier].amount = player["infinityDimension"+tier].amount.plus(getInfinityDimensionProduction(tier+1).times(diff/100))
         if (player.infDimensionsUnlocked[tier-1]) {
             document.getElementById("infRow"+tier).style.display = "inline-block"
             document.getElementById("dimTabButtons").style.display = "inline-block"
         }
         else document.getElementById("infRow"+tier).style.display = "none"
 
-        player["timeDimension"+tier].amount = player["timeDimension"+tier].amount.plus(getTimeDimensionProduction(tier+1).times(diff/100))
+        if (tier <4) player["timeDimension"+tier].amount = player["timeDimension"+tier].amount.plus(getTimeDimensionProduction(tier+1).times(diff/100))
     }
 
     if (player.eternities > 0) document.getElementById("dimTabButtons").style.display = "inline-block"
@@ -4011,7 +4064,7 @@ setInterval(function () {
         }
     }
 
-    for (var tier = 1; tier < 5; tier++) {
+    for (var tier = 1; tier < 7; tier++) {
         if (player.infinityPoints.gte(player["infinityDimension"+tier].cost)) document.getElementById("infMax"+tier).className = "storebtn"
         else document.getElementById("infMax"+tier).className = "unavailablebtn"
     }
