@@ -753,16 +753,16 @@ function getDimensionFinalMultiplier(tier) {
     if (player.achievements.includes("This achievement doesn't exist")) multiplier = multiplier.times(1+Decimal.pow(player.money,0.00002));
     if (player.achievements.includes("I got a few to spare")) multiplier = multiplier.times(1+Decimal.pow(player.money,0.00002));
 
-
+    multiplier = multiplier.times(player.postC3Reward)
+    if (player.currentChallenge == "postc6") multiplier = multiplier.dividedBy(Decimal.max(player.matter, 1))
+    if (player.currentChallenge == "postc8") multiplier = multiplier.times(postc8Mult)
+    if (player.challenges.includes("postc8") && tier < 8 && tier > 1) multiplier = multiplier.times( Decimal.pow(getDimensionFinalMultiplier(1).times(getDimensionFinalMultiplier(8)), 0.02) )
     if (player.currentChallenge == "postc4") {
         if (player.postC4Tier == tier) return multiplier;
         else return Decimal.pow(multiplier, 0.25);
     }
 
-    multiplier = multiplier.times(player.postC3Reward)
-    if (player.currentChallenge == "postc6") multiplier = multiplier.dividedBy(Decimal.max(player.matter, 1))
-    if (player.currentChallenge == "postc8") multiplier = multiplier.times(postc8Mult)
-    if (player.challenges.includes("postc8") && tier < 8 && tier > 1) multiplier = multiplier.times( Decimal.pow(getDimensionFinalMultiplier(1).times(getDimensionFinalMultiplier(8)), 0.02) )
+    
 
     if (player.challenges.includes("postc4")) return Decimal.pow(multiplier, 1.1);
 
@@ -2998,7 +2998,7 @@ function updatePriorities() {
     player.overXGalaxies = parseInt(document.getElementById("overGalaxies").value)
     var sacValue = document.getElementById("prioritySac").value
     if (sacValue.includes("e")) sacValue = parseFloat(sacValue.split("e")[0]) * Math.pow(10, parseInt(sacValue.split("e")[1]))
-    else sacValue = parseInt(sacValue)
+    else sacValue = parseFloat(sacValue)
     player.autoSacrifice.priority = isNaN(sacValue) ? 10 : sacValue
     if (player.autoSacrifice.priority === null) player.autoSacrifice.priority = 10
 
@@ -3129,7 +3129,7 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.currentChallenge == "challenge5" && player.thisInfinityTime <= 1800) giveAchievement("Is this hell?")
         if (player.firstAmount == 1 && player.resets == 0 && player.galaxies == 0 && player.currentChallenge == "challenge12") giveAchievement("ERROR 909: Dimension not found")
         if (player.currentChallenge != "" && player.challengeTimes[challNumber-2] > player.thisInfinityTime) player.challengeTimes[challNumber-2] = player.thisInfinityTime
-        if (player.challenges.length == 20) giveAchievement("Anti-antichallenged");
+        
         if (player.currentChallenge == "postc5" && player.thisInfinityTime <= 100) giveAchievement("Hevipelle did nothing wrong")
         if ((player.bestInfinityTime > 600 && !player.break) || (player.currentChallenge != "" && !player.options.retryChallenge)) showTab("dimensions")
         if (player.currentChallenge == "challenge5") {
@@ -3319,7 +3319,7 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.challenges.length >= 2 && !player.achievements.includes("Daredevil")) giveAchievement("Daredevil");
         if (player.challenges.length == 12 && !player.achievements.includes("AntiChallenged")) giveAchievement("AntiChallenged");
         resetInfDimensions();
-
+        if (player.challenges.length == 20) giveAchievement("Anti-antichallenged");
     }
   updateChallenges();
   updateChallengeTimes()
