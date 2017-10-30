@@ -43,7 +43,9 @@
             <p>You have <span id="coinAmount" style="font-size:25px; color: black">0</span> antimatter.</p>
         </div>
         
-        <div style="position: relative"><button id="postInfinityButton" class="postinfcrunch">Big Crunch for x Infinity Points</button></div>
+        <div style="position: relative">
+            <button id="postInfinityButton" class="postinfcrunch">Big Crunch for x Infinity Points</button>
+        </div>
         <div style="position: relative"><button id="newDimensionButton" class="newdim" onclick="newDimension()">Get x antimatter to unlock a new Dimension.</button></div>
         <div id="coinsPerSec">You are getting 0 antimatter per second.</div>
         
@@ -409,7 +411,11 @@
                 </tr>
                 <tr>
                     <td><div><button id="retry" onclick="toggleChallengeRetry()" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:120%">Automatically retry challenges</button></div></td>
+                    <td><div><button id="hotkeys" onclick="toggleHotkeys()" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:120%">Disable hotkeys</button></div></td>
+                </tr>
+                <tr>
                     <td><div><button id="cloud" onclick="toggleCloud()" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:120%">Toggle automatic cloud saving/loading</button></div></td>
+                    <td></td>
                 </tr>
                 
                 
@@ -977,9 +983,9 @@
                                 <br>
                                 <br>
                                 <div class="outer">
-                                    <button id="postc6" class="challengesbtn" onclick="startChallenge('postc6', new Decimal('1e20500'))">Start</button>
+                                    <button id="postc6" class="challengesbtn" onclick="startChallenge('postc6', new Decimal('2e22222'))">Start</button>
                                     <br>
-                                    <span id="postc6goal" >Goal: 1e20500</span><br>
+                                    <span id="postc6goal" >Goal: 2e22222</span><br>
                                     <span>Reward: Tickspeed affects Infinity Dimensions with reduced effect</span>
                                 </div>
                             </div>

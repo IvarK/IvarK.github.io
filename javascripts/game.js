@@ -164,7 +164,8 @@ var player = {
         sacrificeConfirmation: true,
         retryChallenge: false,
         bulkOn: true,
-        cloud: true
+        cloud: true,
+        hotkeys: true
     }
     
 };
@@ -292,6 +293,7 @@ function onLoad() {
     if (player.options.retryChallenge === undefined) player.options.retryChallenge = false;
     if (player.options.bulkOn === undefined) player.options.bulkOn = true
     if (player.options.cloud === undefined) player.options.cloud = true
+    if (player.options.hotkeys === undefined) player.options.hotkeys = true
     if (player.achievements === undefined) player.achievements = [];
     if (player.sacrificed === undefined) player.sacrificed = new Decimal(0);
     if (player.infinityUpgrades === undefined) player.infinityUpgrades = [];
@@ -569,6 +571,8 @@ function onLoad() {
     } else {
         document.getElementById("challengeconfirmation").innerHTML = "Challenge confirmation on"
     }
+
+    if (!player.options.hotkeys) document.getElementById("hotkeys").innerHTML = "Enable hotkeys"
     updateAutobuyers();
     setAchieveTooltip();
     updatePriorities()
@@ -1590,7 +1594,7 @@ function getTickSpeedMultiplier() {
         
         if (player.infinityUpgrades.includes("galaxyBoost")) perGalaxy *= 2;
         if (player.infinityUpgrades.includes("postGalaxy")) perGalaxy *= 1.5;
-        if (player.challenges.includes("postc5")) perGalaxy *= 1.05;
+        if (player.challenges.includes("postc5")) perGalaxy *= 1.1;
         if (player.achievements.includes("Do you even bend time bro?")) perGalaxy *= 1.01
         
         return baseMultiplier-(player.galaxies*perGalaxy);
@@ -1601,7 +1605,7 @@ function getTickSpeedMultiplier() {
         let galaxies = player.galaxies-2
         if (player.infinityUpgrades.includes("galaxyBoost")) galaxies *= 2;
         if (player.infinityUpgrades.includes("postGalaxy")) galaxies *= 1.5;
-        if (player.challenges.includes("postc5")) galaxies *= 1.05;
+        if (player.challenges.includes("postc5")) galaxies *= 1.1;
         if (player.achievements.includes("Do you even bend time bro?")) galaxies *= 1.01
 
         return baseMultiplier * (Math.pow(perGalaxy, (galaxies-2)))
@@ -3261,6 +3265,16 @@ function toggleBulk() {
     }
 }
 
+function toggleHotkeys() {
+    if (player.options.hotkeys) {
+        player.options.hotkeys = false
+        document.getElementById("hotkeys").innerHTML = "Enable hotkeys"
+    } else {
+        player.options.hotkeys = true
+        document.getElementById("hotkeys").innerHTML = "Disable hotkeys"
+    }
+}
+
 
 
 
@@ -3551,7 +3565,7 @@ document.getElementById("bigcrunch").onclick = function () {
         player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
         updateTickSpeed();
         if (player.challenges.length == 20) giveAchievement("Anti-antichallenged");
-
+        IPminpeak = new Decimal(0)
     }
   updateChallenges();
   updateChallengeTimes()
@@ -3752,6 +3766,7 @@ function eternity() {
         updateChallenges();
         updateChallengeTimes()
         updateLastTenRuns()
+        IPminpeak = new Decimal(0)
     }
 }
 
@@ -3879,7 +3894,7 @@ function startChallenge(name, target) {
         player.eightBought = 1;
         player.resets = 4;
     }
-
+    IPminpeak = new Decimal(0)
     if (player.currentChallenge.includes("post")) player.break = true
     if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
     if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.98);
@@ -4034,9 +4049,9 @@ setInterval(function() {
     } catch (err) {console.log("Couldn't load Kongregate API")}
 }, 10000)
 
-var nextAt = [new Decimal("1e2000"), new Decimal("1e5000"), new Decimal("1e12000"), new Decimal("1e14000"), new Decimal("1e18000"), new Decimal("1e20000"), new Decimal("1e23000"), new Decimal("1e30000")]
+var nextAt = [new Decimal("1e2000"), new Decimal("1e5000"), new Decimal("1e12000"), new Decimal("1e14000"), new Decimal("1e18000"), new Decimal("1e20000"), new Decimal("1e23000"), new Decimal("1e28500")]
 
-var goals = [new Decimal("1e850"), new Decimal("1e10500"), new Decimal("1e5000"), new Decimal("1e13000"), new Decimal("1e11111"), new Decimal("1e20500"), new Decimal("1e10000"), new Decimal("1e30000")]
+var goals = [new Decimal("1e850"), new Decimal("1e10500"), new Decimal("1e5000"), new Decimal("1e13000"), new Decimal("1e11111"), new Decimal("2e22222"), new Decimal("1e10000"), new Decimal("1e27000")]
 setInterval(function() {
     if (getDimensionFinalMultiplier(1).gte(new Decimal("1e308")) &&
         getDimensionFinalMultiplier(2).gte(new Decimal("1e308")) &&
@@ -4094,10 +4109,13 @@ setInterval(function() {
         document.getElementById("postc"+i+"goal").innerHTML = "Goal: "+shortenCosts(goals[i-1])
     }
 
+
+    
+
 }, 1000)
 
 var postC2Count = 0;
-
+var IPminpeak = new Decimal(0)
 
 setInterval(function () {
     var thisUpdate = new Date().getTime();
@@ -4232,8 +4250,10 @@ setInterval(function () {
     if (player.break) document.getElementById("iplimit").style.display = "inline"
     else document.getElementById("iplimit").style.display = "none"
 
-    document.getElementById("postInfinityButton").innerHTML = "Big Crunch for "+shortenDimensions(gainedInfinityPoints())+" Infinity Points"
-
+    var currentIPmin = gainedInfinityPoints().dividedBy(player.thisInfinityTime/600)
+    if (currentIPmin.gt(IPminpeak)) IPminpeak = currentIPmin
+    document.getElementById("postInfinityButton").innerHTML = "<b>Big Crunch for "+shortenDimensions(gainedInfinityPoints())+" Infinity Points</b><br>"+shortenDimensions(currentIPmin) + " IP/min"+
+                                                                "<br>Peaked at "+shortenDimensions(IPminpeak)+" IP/min"
     updateMoney();
     updateCoinPerSec();
     updateDimensions();
@@ -5256,6 +5276,7 @@ window.onload = function() {
 }
 
 window.addEventListener('keydown', function(event) {
+    if (!player.options.hotkeys) return false
     switch (event.keyCode) {
         case 65: // A
             toggleAutoBuyers();
@@ -5277,7 +5298,7 @@ window.addEventListener('keydown', function(event) {
         break;
 
         case 83: // S
-            sacrifice()
+            document.getElementById("sacrifice").onclick()
         break;
 
         case 49: // 1
@@ -5315,6 +5336,7 @@ window.addEventListener('keydown', function(event) {
   }, false);
 
   window.addEventListener('keyup', function(event) {
+    if (!player.options.hotkeys) return false
     switch (event.keyCode) {
         case 67: // C
             document.getElementById("bigcrunch").onclick()
