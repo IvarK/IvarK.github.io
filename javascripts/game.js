@@ -4015,8 +4015,10 @@ function newDimension() {
         if (!player.infDimensionsUnlocked[0]) player.infDimensionsUnlocked[0] = true
         else if (!player.infDimensionsUnlocked[1]) player.infDimensionsUnlocked[1] = true
         else if (!player.infDimensionsUnlocked[2]) player.infDimensionsUnlocked[2] = true
-        else if (!player.infDimensionsUnlocked[3]) {
-            player.infDimensionsUnlocked[3] = true
+        else if (!player.infDimensionsUnlocked[3]) player.infDimensionsUnlocked[3] = true
+        else if (!player.infDimensionsUnlocked[4]) player.infDimensionsUnlocked[4] = true
+        else if (!player.infDimensionsUnlocked[5]) {
+            player.infDimensionsUnlocked[5] = true
             giveAchievement("NEW DIMENSIONS???")
         }
     }
