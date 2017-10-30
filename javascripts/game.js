@@ -110,7 +110,7 @@ var player = {
         baseAmount: 0
     },
     infinityDimension5 : {
-        cost: 1e185,
+        cost: 1e140,
         amount: new Decimal(0),
         bought: 0,
         power: 1,
@@ -498,7 +498,7 @@ function onLoad() {
         player.infDimensionsUnlocked.push(false)
         player.infDimensionsUnlocked.push(false)
         player.infinityDimension5 = {
-            cost: 1e185,
+            cost: 1e140,
             amount: new Decimal(0),
             bought: 0,
             power: 1,
@@ -4005,7 +4005,7 @@ function getNewInfReq() {
     else if (!player.infDimensionsUnlocked[1]) return new Decimal("1e1900")
     else if (!player.infDimensionsUnlocked[2]) return new Decimal("1e2400")
     else if (!player.infDimensionsUnlocked[3]) return new Decimal("1e10500")
-    else if (!player.infDimensionsUnlocked[4]) return new Decimal("1e39000")
+    else if (!player.infDimensionsUnlocked[4]) return new Decimal("1e30000")
     else return new Decimal("1e45000")
 }
 
