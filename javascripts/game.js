@@ -1269,7 +1269,7 @@ function getInfinityDimensionProduction(tier) {
 function getInfinityDimensionPower(tier) {
     var dim = player["infinityDimension"+tier]
     var mult = new Decimal(dim.power).times(infDimPow)
-    if (player.replicanti.unl && player.replicanti.amount > 1) mult = mult.times(Math.log2(player.replicanti.amount))
+    if (player.replicanti.unl && player.replicanti.amount > 1) mult = mult.times(Math.pow(Math.log2(player.replicanti.amount), 2))
 
     return mult
 
@@ -4412,7 +4412,7 @@ setInterval(function () {
     replicantiTicks += 50
 
     document.getElementById("replicantiamount").innerHTML = shortenDimensions(player.replicanti.amount)
-    document.getElementById("replicantimult").innerHTML = shorten(Math.log2(player.replicanti.amount))
+    document.getElementById("replicantimult").innerHTML = shorten(Math.pow(Math.log2(player.replicanti.amount), 2))
 
     
     updateMoney();
