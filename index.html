@@ -1048,6 +1048,7 @@
                 <td><button class="secondarytabbtn" onclick="showInfTab('preinf')">Upgrades</button><td>
                 <td><button class="secondarytabbtn" onclick="showInfTab('autobuyers')">Autobuyers</button><td>
                 <td><button id="postinfbtn" class="secondarytabbtn" onclick="showInfTab('postinf')" >Break Infinity</button><td>
+                <td><button id="replicantitabbtn" class="secondarytabbtn" onclick="showInfTab('replicantis')">Replicantis</button><td>
             </tr>
             <div id="preinf" class="inftab">
             <br>
@@ -1498,6 +1499,17 @@
                         </tr>
                     </table>
                 </div>
+        </div>
+        <div id="replicantis">
+            <br>
+            <button class="storebtn" id="replicantiunlock" onclick="unlockReplicantis()" style="width:200px; height: 80px">Unlock Replicantis<br>Cost: 1e140 IP</button>
+            <div id="replicantidiv" style="display: none">
+                <p style="font-size: 15px">You have <span id="replicantiamount" style="font-size:23px; color: black">0</span> replicanti. Translated to <span id="replicantimult" style="font-size:23px; color: black">0</span>x multiplier on all infinity dimensions</p>
+                <br>
+                <button class="storebtn" id="replicantichance" onclick="upgradeReplicantiChance()" style="width:180px; height: 50px; font-size: 10px">Replicate chance: 1%<br>+1% Costs: 1e6969 IP</button>
+                <button class="storebtn" id="replicantiinterval" onclick="upgradeReplicantiInterval()" style="width:180px; height: 50px; font-size: 10px">Interval: 1000ms<br>-> 900 Costs: 1e6969 IP</button>
+                <button class="storebtn" id="replicantimax" onclick="upgradeReplicantiGalaxy()" style="width:180px; height: 50px; font-size: 10px">Max Replicanti galaxies: 0<br>+1 Costs: 1e6969 IP</button>
+            </div>
         </div>
         
         </div>
