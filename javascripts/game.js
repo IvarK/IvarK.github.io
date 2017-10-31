@@ -2527,7 +2527,7 @@ function upgradeReplicantiChance() {
 function upgradeReplicantiInterval() {
     if (player.infinityPoints.gte(player.replicanti.intervalCost)) {
         player.infinityPoints = player.infinityPoints.minus(player.replicanti.intervalCost)
-        player.replicanti.intervalCost = player.replicanti.intervalCost.times(1e20)
+        player.replicanti.intervalCost = player.replicanti.intervalCost.times(1e10)
         player.replicanti.interval *= 0.9
         if (player.replicanti.interval < 50) player.replicanti.interval = 50
         document.getElementById("replicantiinterval").innerHTML = "Interval: "+Math.round(player.replicanti.interval)+"ms<br>-> "+Math.round(player.replicanti.interval*0.9)+" Costs: "+shortenCosts(player.replicanti.intervalCost)+" IP"
