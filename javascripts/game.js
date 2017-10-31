@@ -117,7 +117,7 @@ var player = {
         baseAmount: 0
     },
     infinityDimension6 : {
-        cost: 1e250,
+        cost: 1e200,
         amount: new Decimal(0),
         bought: 0,
         power: 1,
@@ -522,7 +522,7 @@ function onLoad() {
             baseAmount: 0
         }
         player.infinityDimension6 = {
-            cost: 1e250,
+            cost: 1e200,
             amount: new Decimal(0),
             bought: 0,
             power: 1,
@@ -622,6 +622,8 @@ function onLoad() {
     challengeMult = Decimal.max(10*3000/worstChallengeTime, 1)
     unspentBonus = Decimal.pow(player.infinityPoints.dividedBy(2),1.5).plus(1)
     transformSaveToDecimal();
+
+    if (player.eternities == 0) document.getElementById("eternityPoints").style.display = "none"
 }
 
 
@@ -1269,7 +1271,7 @@ function getInfinityDimensionProduction(tier) {
 function getInfinityDimensionPower(tier) {
     var dim = player["infinityDimension"+tier]
     var mult = new Decimal(dim.power).times(infDimPow)
-    if (player.replicanti.unl && player.replicanti.amount > 1) mult = mult.times(Math.pow(Math.log2(player.replicanti.amount), 1.5))
+    if (player.replicanti.unl && player.replicanti.amount > 1) mult = mult.times(Math.pow(Math.log2(player.replicanti.amount), 2))
 
     return mult
 
@@ -1313,8 +1315,8 @@ function resetInfDimensions() {
 }
 
 
-var infCostMults = [null, 1e3, 1e6, 1e8, 1e10, 1e15]
-var infPowerMults = [null, 50, 30, 10, 5, 5]
+var infCostMults = [null, 1e3, 1e6, 1e8, 1e10, 1e15, 1e20]
+var infPowerMults = [null, 50, 30, 10, 5, 5, 5]
 function buyManyInfinityDimension(tier) {
     
     var dim = player["infinityDimension"+tier]
@@ -2499,6 +2501,16 @@ function updateInfCosts() {
     document.getElementById("replicantiinterval").innerHTML = "Interval: "+Math.round(player.replicanti.interval)+"ms<br>-> "+Math.round(player.replicanti.interval*0.9)+" Costs: "+shortenCosts(player.replicanti.intervalCost)+" IP"
     document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP"
     document.getElementById("replicantiunlock").innerHTML = "Unlock Replicantis<br>Cost: "+shortenCosts(1e140)+" IP"
+
+    document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
+
+
+    document.getElementById("replicantichance").className = (player.infinityPoints.gte(player.replicanti.chanceCost)) ? "storebtn" : "unavailablebtn"
+    document.getElementById("replicantiinterval").className = (player.infinityPoints.gte(player.replicanti.intervalCost)) ? "storebtn" : "unavailablebtn"
+    document.getElementById("replicantimax").className = (player.infinityPoints.gte(player.replicanti.galCost)) ? "storebtn" : "unavailablebtn"
+    document.getElementById("replicantireset").className = (player.replicanti.galaxies < player.replicanti.gal && player.replicanti.amount == Number.MAX_VALUE) ? "storebtn" : "unavailablebtn"
+    document.getElementById("replicantiunlock").className = (player.infinityPoints.gte(1e140)) ? "storebtn" : "unavailablebtn"
+
 }
 
 
@@ -2518,7 +2530,7 @@ function unlockReplicantis() {
 function upgradeReplicantiChance() {
     if (player.infinityPoints.gte(player.replicanti.chanceCost)) {
         player.infinityPoints = player.infinityPoints.minus(player.replicanti.chanceCost)
-        player.replicanti.chanceCost = player.replicanti.chanceCost.times(1e20)
+        player.replicanti.chanceCost = player.replicanti.chanceCost.times(1e15)
         player.replicanti.chance += 0.01
         document.getElementById("replicantichance").innerHTML = "Replicate chance: "+Math.round(player.replicanti.chance*100)+"%<br>+1% Costs: "+shortenCosts(player.replicanti.chanceCost)+" IP"
     }
@@ -2537,7 +2549,7 @@ function upgradeReplicantiInterval() {
 function upgradeReplicantiGalaxy() {
     if (player.infinityPoints.gte(player.replicanti.galCost)) {
         player.infinityPoints = player.infinityPoints.minus(player.replicanti.galCost)
-        player.replicanti.galCost = player.replicanti.galCost.times(1e80)
+        player.replicanti.galCost = player.replicanti.galCost.times(1e50)
         player.replicanti.gal += 1
         if (player.replicanti.interval < 50) player.replicanti.interval = 50
         document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP"
@@ -2549,6 +2561,9 @@ function replicantiGalaxy() {
     if (player.replicanti.galaxies < player.replicanti.gal && player.replicanti.amount == Number.MAX_VALUE) {
         player.replicanti.amount = 1
         player.replicanti.galaxies += 1
+        player.galaxies-=1
+        galaxyReset()
+        document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
     }
 }
 
@@ -2691,186 +2706,193 @@ document.getElementById("toggleBtnTickSpeed").onclick = function () {
 
 
 
-document.getElementById("secondSoftReset").onclick = function () {
+document.getElementById("secondSoftReset").onclick = function() {
     var bool = player.currentChallenge != "challenge11" && player.currentChallenge != "postc1" && player.currentChallenge != "postc7"
     if (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() && bool : player.eightAmount >= getGalaxyRequirement() && bool) {
-      if (player.sacrificed == 0) giveAchievement("I don't believe in Gods");
-        player = {
-            money: new Decimal(10),
-            tickSpeedCost: new Decimal(1000),
-            tickspeed: new Decimal(1000),
-            firstCost: new Decimal(10),
-            secondCost: new Decimal(100),
-            thirdCost: new Decimal(10000),
-            fourthCost: new Decimal(1000000),
-            fifthCost: new Decimal(1e9),
-            sixthCost: new Decimal(1e13),
-            seventhCost: new Decimal(1e18),
-            eightCost: new Decimal(1e24),
-            firstAmount: new Decimal(0),
-            secondAmount: new Decimal(0),
-            thirdAmount: new Decimal(0),
-            fourthAmount: new Decimal(0),
-            firstBought: 0,
-            secondBought: 0,
-            thirdBought: 0,
-            fourthBought: 0,
-            fifthAmount: new Decimal(0),
-            sixthAmount: new Decimal(0),
-            seventhAmount: new Decimal(0),
-            eightAmount: new Decimal(0),
-            fifthBought: 0,
-            sixthBought: 0,
-            seventhBought: 0,
-            eightBought: 0,
-            firstPow: new Decimal(1),
-            secondPow: new Decimal(1),
-            thirdPow: new Decimal(1),
-            fourthPow: new Decimal(1),
-            fifthPow: new Decimal(1),
-            sixthPow: new Decimal(1),
-            seventhPow: new Decimal(1),
-            eightPow: new Decimal(1),
-            sacrificed: new Decimal(0),
-            achievements: player.achievements,
-            challenges: player.challenges,
-            currentChallenge: player.currentChallenge,
-            infinityUpgrades: player.infinityUpgrades,
-            infinityPoints: player.infinityPoints,
-            infinitied: player.infinitied,
-            totalTimePlayed: player.totalTimePlayed,
-            bestInfinityTime: player.bestInfinityTime,
-            thisInfinityTime: player.thisInfinityTime,
-            resets: 0,
-            galaxies: player.galaxies + 1,
-            totalmoney: player.totalmoney,
-            tickDecrease: player.tickDecrease - 0.03,
-            interval: null,
-            lastUpdate: player.lastUpdate,
-            achPow: player.achPow,
-	    newsArray: player.newsArray,
-            autobuyers: player.autobuyers,
-            costMultipliers: [new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15)],
-            tickspeedMultiplier: new Decimal(10),
-            chall2Pow: player.chall2Pow,
-            chall3Pow: new Decimal(0.01),
-            matter: new Decimal(0),
-            chall11Pow: 1,
-            partInfinityPoint: player.partInfinityPoint,
-            partInfinitied: player.partInfinitied,
-            break: player.break,
-            challengeTimes: player.challengeTimes,
-            lastTenRuns: player.lastTenRuns,
-            infMult: player.infMult,
-            infMultCost: player.infMultCost,
-            tickSpeedMultDecrease: player.tickSpeedMultDecrease,
-            tickSpeedMultDecreaseCost: player.tickSpeedMultDecreaseCost,
-            dimensionMultDecrease: player.dimensionMultDecrease,
-            dimensionMultDecreaseCost: player.dimensionMultDecreaseCost,
-            version: player.version,
-            overXGalaxies: player.overXGalaxies,
-            spreadingCancer: player.spreadingCancer,
-            infDimensionsUnlocked: player.infDimensionsUnlocked,
-            infinityPower: player.infinityPower,
-            postChallUnlocked: player.postChallUnlocked,
-            postC4Tier: 1,
-            postC3Reward: new Decimal(1),
-            infinityDimension1: player.infinityDimension1,
-            infinityDimension2: player.infinityDimension2,
-            infinityDimension3: player.infinityDimension3,
-            infinityDimension4: player.infinityDimension4,
-            infinityDimension5: player.infinityDimension5,
-            infinityDimension6: player.infinityDimension6,
-            timeShards: player.timeShards,
-            tickThreshold: player.tickThreshold,
-            timeDimension1: player.timeDimension1,
-            timeDimension2: player.timeDimension2,
-            timeDimension3: player.timeDimension3,
-            timeDimension4: player.timeDimension4,
-            eternityPoints: player.eternityPoints,
-            eternities: player.eternities,
-            totalTickGained: player.totalTickGained,
-            offlineProd: player.offlineProd,
-            offlineProdCost: player.offlineProdCost,
-            challengeTarget: player.challengeTarget,
-            autoSacrifice: player.autoSacrifice,
-            replicanti: player.replicanti,
-            options: player.options
-        };
-
-	    if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
-            player.thirdCost = new Decimal(100)
-            player.fourthCost = new Decimal(500)
-            player.fifthCost = new Decimal(2500)
-            player.sixthCost = new Decimal(2e4)
-            player.seventhCost = new Decimal(2e5)
-            player.eightCost = new Decimal(4e6)
-        }
-
-        if (player.resets == 0 && player.currentChallenge == "") {
-            if (player.infinityUpgrades.includes("skipReset1")) player.resets++;
-            if (player.infinityUpgrades.includes("skipReset2")) player.resets++;
-            if (player.infinityUpgrades.includes("skipReset3")) player.resets++;
-            if (player.infinityUpgrades.includes("skipResetGalaxy")) {
-                player.resets++;
-                if (player.galaxies == 0) player.galaxies = 1
-            }
-        }
-        if (player.currentChallenge == "postc2") {
-            player.eightAmount = new Decimal(1);
-            player.eightBought = 1;
-            player.resets = 4;
-        }
-        player.firstPow = Decimal.pow(2, player.resets + 1)
-        player.secondPow = Decimal.pow(2, player.resets)
-        player.thirdPow = Decimal.max(Decimal.pow(2, player.resets - 1), 1)
-        player.fourthPow = Decimal.max(Decimal.pow(2, player.resets - 2), 1)
-        player.fifthPow = Decimal.max(Decimal.pow(2, player.resets - 3), 1)
-        player.sixthPow = Decimal.max(Decimal.pow(2, player.resets - 4), 1)
-        player.seventhPow = Decimal.max(Decimal.pow(2, player.resets - 5), 1)
-        player.eightPow = Decimal.max(Decimal.pow(2, player.resets - 6), 1)
-    
-    
-        if (player.infinityUpgrades.includes("resetMult")) {
-            player.firstPow = Decimal.pow(2.5, player.resets + 1)
-            player.secondPow = Decimal.pow(2.5, player.resets)
-            player.thirdPow = Decimal.max(Decimal.pow(2.5, player.resets - 1), 1)
-            player.fourthPow = Decimal.max(Decimal.pow(2.5, player.resets - 2), 1)
-            player.fifthPow = Decimal.max(Decimal.pow(2.5, player.resets - 3), 1)
-            player.sixthPow = Decimal.max(Decimal.pow(2.5, player.resets - 4), 1)
-            player.seventhPow = Decimal.max(Decimal.pow(2.5, player.resets - 5), 1)
-            player.eightPow = Decimal.max(Decimal.pow(2.5, player.resets - 6), 1)
-        }
-        if (player.options.notation == "Emojis") player.spreadingCancer+=1;
-        if (player.spreadingCancer >= 10) giveAchievement("Spreading Cancer")
-        if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
-        if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.98);
-        if (player.achievements.includes("YOU CAN GET 50 GALAXIES!??")) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
-        clearInterval(player.interval);
-        //updateInterval();
-        document.getElementById("secondRow").style.display = "none";
-        document.getElementById("thirdRow").style.display = "none";
-        document.getElementById("tickSpeed").style.visibility = "hidden";
-        document.getElementById("tickSpeedMax").style.visibility = "hidden";
-        document.getElementById("tickLabel").style.visibility = "hidden";
-        document.getElementById("tickSpeedAmount").style.visibility = "hidden";
-        document.getElementById("fourthRow").style.display = "none";
-        document.getElementById("fifthRow").style.display = "none";
-        document.getElementById("sixthRow").style.display = "none";
-        document.getElementById("seventhRow").style.display = "none";
-        document.getElementById("eightRow").style.display = "none";
-        
-        if (player.galaxies >= 50) giveAchievement("YOU CAN GET 50 GALAXIES!??")
-        if (player.galaxies >= 2) giveAchievement("Double Galaxy");
-        if (player.galaxies >= 1) giveAchievement("You got past The Big Wall");
-        if (player.challenges.includes("challenge1")) player.money = new Decimal(100)
-        if (player.achievements.includes("That's fast!")) player.money = new Decimal(1000);
-        if (player.achievements.includes("That's faster!")) player.money = new Decimal(2e5);
-        if (player.achievements.includes("Forever isn't that long")) player.money = new Decimal(1e10);
-        if (player.achievements.includes("Blink of an eye")) player.money = new Decimal(1e25);
-        player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
-        updateTickSpeed();
+        galaxyReset()
     }
+}
+
+
+function galaxyReset() {
+    
+    if (player.sacrificed == 0) giveAchievement("I don't believe in Gods");
+    player = {
+        money: new Decimal(10),
+        tickSpeedCost: new Decimal(1000),
+        tickspeed: new Decimal(1000),
+        firstCost: new Decimal(10),
+        secondCost: new Decimal(100),
+        thirdCost: new Decimal(10000),
+        fourthCost: new Decimal(1000000),
+        fifthCost: new Decimal(1e9),
+        sixthCost: new Decimal(1e13),
+        seventhCost: new Decimal(1e18),
+        eightCost: new Decimal(1e24),
+        firstAmount: new Decimal(0),
+        secondAmount: new Decimal(0),
+        thirdAmount: new Decimal(0),
+        fourthAmount: new Decimal(0),
+        firstBought: 0,
+        secondBought: 0,
+        thirdBought: 0,
+        fourthBought: 0,
+        fifthAmount: new Decimal(0),
+        sixthAmount: new Decimal(0),
+        seventhAmount: new Decimal(0),
+        eightAmount: new Decimal(0),
+        fifthBought: 0,
+        sixthBought: 0,
+        seventhBought: 0,
+        eightBought: 0,
+        firstPow: new Decimal(1),
+        secondPow: new Decimal(1),
+        thirdPow: new Decimal(1),
+        fourthPow: new Decimal(1),
+        fifthPow: new Decimal(1),
+        sixthPow: new Decimal(1),
+        seventhPow: new Decimal(1),
+        eightPow: new Decimal(1),
+        sacrificed: new Decimal(0),
+        achievements: player.achievements,
+        challenges: player.challenges,
+        currentChallenge: player.currentChallenge,
+        infinityUpgrades: player.infinityUpgrades,
+        infinityPoints: player.infinityPoints,
+        infinitied: player.infinitied,
+        totalTimePlayed: player.totalTimePlayed,
+        bestInfinityTime: player.bestInfinityTime,
+        thisInfinityTime: player.thisInfinityTime,
+        resets: 0,
+        galaxies: player.galaxies + 1,
+        totalmoney: player.totalmoney,
+        tickDecrease: player.tickDecrease - 0.03,
+        interval: null,
+        lastUpdate: player.lastUpdate,
+        achPow: player.achPow,
+    newsArray: player.newsArray,
+        autobuyers: player.autobuyers,
+        costMultipliers: [new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15)],
+        tickspeedMultiplier: new Decimal(10),
+        chall2Pow: player.chall2Pow,
+        chall3Pow: new Decimal(0.01),
+        matter: new Decimal(0),
+        chall11Pow: 1,
+        partInfinityPoint: player.partInfinityPoint,
+        partInfinitied: player.partInfinitied,
+        break: player.break,
+        challengeTimes: player.challengeTimes,
+        lastTenRuns: player.lastTenRuns,
+        infMult: player.infMult,
+        infMultCost: player.infMultCost,
+        tickSpeedMultDecrease: player.tickSpeedMultDecrease,
+        tickSpeedMultDecreaseCost: player.tickSpeedMultDecreaseCost,
+        dimensionMultDecrease: player.dimensionMultDecrease,
+        dimensionMultDecreaseCost: player.dimensionMultDecreaseCost,
+        version: player.version,
+        overXGalaxies: player.overXGalaxies,
+        spreadingCancer: player.spreadingCancer,
+        infDimensionsUnlocked: player.infDimensionsUnlocked,
+        infinityPower: player.infinityPower,
+        postChallUnlocked: player.postChallUnlocked,
+        postC4Tier: 1,
+        postC3Reward: new Decimal(1),
+        infinityDimension1: player.infinityDimension1,
+        infinityDimension2: player.infinityDimension2,
+        infinityDimension3: player.infinityDimension3,
+        infinityDimension4: player.infinityDimension4,
+        infinityDimension5: player.infinityDimension5,
+        infinityDimension6: player.infinityDimension6,
+        timeShards: player.timeShards,
+        tickThreshold: player.tickThreshold,
+        timeDimension1: player.timeDimension1,
+        timeDimension2: player.timeDimension2,
+        timeDimension3: player.timeDimension3,
+        timeDimension4: player.timeDimension4,
+        eternityPoints: player.eternityPoints,
+        eternities: player.eternities,
+        totalTickGained: player.totalTickGained,
+        offlineProd: player.offlineProd,
+        offlineProdCost: player.offlineProdCost,
+        challengeTarget: player.challengeTarget,
+        autoSacrifice: player.autoSacrifice,
+        replicanti: player.replicanti,
+        options: player.options
+    };
+
+    if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
+        player.thirdCost = new Decimal(100)
+        player.fourthCost = new Decimal(500)
+        player.fifthCost = new Decimal(2500)
+        player.sixthCost = new Decimal(2e4)
+        player.seventhCost = new Decimal(2e5)
+        player.eightCost = new Decimal(4e6)
+    }
+
+    if (player.resets == 0 && player.currentChallenge == "") {
+        if (player.infinityUpgrades.includes("skipReset1")) player.resets++;
+        if (player.infinityUpgrades.includes("skipReset2")) player.resets++;
+        if (player.infinityUpgrades.includes("skipReset3")) player.resets++;
+        if (player.infinityUpgrades.includes("skipResetGalaxy")) {
+            player.resets++;
+            if (player.galaxies == 0) player.galaxies = 1
+        }
+    }
+    if (player.currentChallenge == "postc2") {
+        player.eightAmount = new Decimal(1);
+        player.eightBought = 1;
+        player.resets = 4;
+    }
+    player.firstPow = Decimal.pow(2, player.resets + 1)
+    player.secondPow = Decimal.pow(2, player.resets)
+    player.thirdPow = Decimal.max(Decimal.pow(2, player.resets - 1), 1)
+    player.fourthPow = Decimal.max(Decimal.pow(2, player.resets - 2), 1)
+    player.fifthPow = Decimal.max(Decimal.pow(2, player.resets - 3), 1)
+    player.sixthPow = Decimal.max(Decimal.pow(2, player.resets - 4), 1)
+    player.seventhPow = Decimal.max(Decimal.pow(2, player.resets - 5), 1)
+    player.eightPow = Decimal.max(Decimal.pow(2, player.resets - 6), 1)
+
+
+    if (player.infinityUpgrades.includes("resetMult")) {
+        player.firstPow = Decimal.pow(2.5, player.resets + 1)
+        player.secondPow = Decimal.pow(2.5, player.resets)
+        player.thirdPow = Decimal.max(Decimal.pow(2.5, player.resets - 1), 1)
+        player.fourthPow = Decimal.max(Decimal.pow(2.5, player.resets - 2), 1)
+        player.fifthPow = Decimal.max(Decimal.pow(2.5, player.resets - 3), 1)
+        player.sixthPow = Decimal.max(Decimal.pow(2.5, player.resets - 4), 1)
+        player.seventhPow = Decimal.max(Decimal.pow(2.5, player.resets - 5), 1)
+        player.eightPow = Decimal.max(Decimal.pow(2.5, player.resets - 6), 1)
+    }
+    if (player.options.notation == "Emojis") player.spreadingCancer+=1;
+    if (player.spreadingCancer >= 10) giveAchievement("Spreading Cancer")
+    if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
+    if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.98);
+    if (player.achievements.includes("YOU CAN GET 50 GALAXIES!??")) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
+    clearInterval(player.interval);
+    //updateInterval();
+    document.getElementById("secondRow").style.display = "none";
+    document.getElementById("thirdRow").style.display = "none";
+    document.getElementById("tickSpeed").style.visibility = "hidden";
+    document.getElementById("tickSpeedMax").style.visibility = "hidden";
+    document.getElementById("tickLabel").style.visibility = "hidden";
+    document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+    document.getElementById("fourthRow").style.display = "none";
+    document.getElementById("fifthRow").style.display = "none";
+    document.getElementById("sixthRow").style.display = "none";
+    document.getElementById("seventhRow").style.display = "none";
+    document.getElementById("eightRow").style.display = "none";
+    
+    if (player.galaxies >= 50) giveAchievement("YOU CAN GET 50 GALAXIES!??")
+    if (player.galaxies >= 2) giveAchievement("Double Galaxy");
+    if (player.galaxies >= 1) giveAchievement("You got past The Big Wall");
+    if (player.challenges.includes("challenge1")) player.money = new Decimal(100)
+    if (player.achievements.includes("That's fast!")) player.money = new Decimal(1000);
+    if (player.achievements.includes("That's faster!")) player.money = new Decimal(2e5);
+    if (player.achievements.includes("Forever isn't that long")) player.money = new Decimal(1e10);
+    if (player.achievements.includes("Blink of an eye")) player.money = new Decimal(1e25);
+    player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
+    updateTickSpeed();
+    
 };
 
 document.getElementById("exportbtn").onclick = function () {
@@ -3646,6 +3668,9 @@ document.getElementById("bigcrunch").onclick = function () {
             player.eightPow = Decimal.max(Decimal.pow(2.5, player.resets - 6), 1)
         }
 
+
+        document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
+
         if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
         if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.98);
         clearInterval(player.interval);
@@ -3894,6 +3919,10 @@ function eternity() {
         updateChallengeTimes()
         updateLastTenRuns()
         IPminpeak = new Decimal(0)
+
+        document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
+
+        if (player.eternities == 0) document.getElementById("eternityPoints").style.display = "inline-block"
     }
 }
 
@@ -4064,6 +4093,8 @@ function startChallenge(name, target) {
     
     giveAchievement("To infinity!");
     if (player.infinitied >= 10) giveAchievement("That's a lot of infinites");
+
+    document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
   }
   resetInfDimensions();
   player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
@@ -4077,6 +4108,8 @@ function startChallenge(name, target) {
         player.resets++;
         if (player.galaxies == 0) player.galaxies = 1
     }
+
+    
 }
   
 }
@@ -4241,6 +4274,8 @@ setInterval(function() {
     document.getElementById("kongip").innerHTML = "Double your IP gain from all sources (additive). Forever. Currently: x"+kongIPMult+", next: "+(kongIPMult==1? 2: kongIPMult+2)+"x"
     document.getElementById("kongdim").innerHTML = "Double all your dimension multipliers (dimensions 1-8) (multiplicative). Forever. Currently: x"+kongDimMult+", next: "+(kongDimMult*2)+"x"
     document.getElementById("eternityPoints").innerHTML = "You have <b>"+shortenDimensions(player.eternityPoints)+"</b> Eternity points."
+
+    if (player.eternities == 0) document.getElementById("eternityPoints").style.display = "none"
 
     for (var i=1; i <=8; i++) {
         document.getElementById("postc"+i+"goal").innerHTML = "Goal: "+shortenCosts(goals[i-1])
@@ -4432,7 +4467,7 @@ setInterval(function () {
     document.getElementById("replicantiapprox").innerHTML ="Approximately "+ timeDisplay(estimate*10) + " Until Infinite Replicanti"
 
     document.getElementById("replicantiamount").innerHTML = shortenDimensions(player.replicanti.amount)
-    document.getElementById("replicantimult").innerHTML = shorten(Math.pow(Math.log2(player.replicanti.amount), 1.5))
+    document.getElementById("replicantimult").innerHTML = shorten(Math.pow(Math.log2(player.replicanti.amount), 2))
 
     
     updateMoney();
