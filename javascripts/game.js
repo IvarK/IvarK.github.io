@@ -2518,7 +2518,7 @@ function unlockReplicantis() {
 function upgradeReplicantiChance() {
     if (player.infinityPoints.gte(player.replicanti.chanceCost)) {
         player.infinityPoints = player.infinityPoints.minus(player.replicanti.chanceCost)
-        player.replicanti.chanceCost = player.replicanti.chanceCost.times(1e25)
+        player.replicanti.chanceCost = player.replicanti.chanceCost.times(1e20)
         player.replicanti.chance += 0.01
         document.getElementById("replicantichance").innerHTML = "Replicate chance: "+Math.round(player.replicanti.chance*100)+"%<br>+1% Costs: "+shortenCosts(player.replicanti.chanceCost)+" IP"
     }
