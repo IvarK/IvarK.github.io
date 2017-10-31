@@ -2549,7 +2549,7 @@ function upgradeReplicantiInterval() {
 function upgradeReplicantiGalaxy() {
     if (player.infinityPoints.gte(player.replicanti.galCost)) {
         player.infinityPoints = player.infinityPoints.minus(player.replicanti.galCost)
-        player.replicanti.galCost = player.replicanti.galCost.times(1e50)
+        player.replicanti.galCost = player.replicanti.galCost.times(1e35)
         player.replicanti.gal += 1
         if (player.replicanti.interval < 50) player.replicanti.interval = 50
         document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP"
