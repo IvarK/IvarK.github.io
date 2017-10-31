@@ -1269,7 +1269,7 @@ function getInfinityDimensionProduction(tier) {
 function getInfinityDimensionPower(tier) {
     var dim = player["infinityDimension"+tier]
     var mult = new Decimal(dim.power).times(infDimPow)
-    if (player.replicanti.unl && player.replicanti.amount > 1) mult = mult.times(Math.pow(Math.log2(player.replicanti.amount), 2))
+    if (player.replicanti.unl && player.replicanti.amount > 1) mult = mult.times(Math.pow(Math.log2(player.replicanti.amount), 1.5))
 
     return mult
 
@@ -2545,6 +2545,13 @@ function upgradeReplicantiGalaxy() {
 }
 
 
+function replicantiGalaxy() {
+    if (player.replicanti.galaxies < player.replicanti.gal && player.replicanti.amount == Number.MAX_VALUE) {
+        player.replicanti.amount = 1
+        player.replicanti.galaxies += 1
+    }
+}
+
 
 
 
@@ -3613,6 +3620,7 @@ document.getElementById("bigcrunch").onclick = function () {
         }
 
         if (player.replicanti.unl) player.replicanti.amount = 1
+        player.replicanti.galaxies = 0
 
         player.firstPow = Decimal.pow(2, player.resets + 1)
         player.secondPow = Decimal.pow(2, player.resets)
@@ -3853,6 +3861,7 @@ function eternity() {
 
 
         if (player.replicanti.unl) player.replicanti.amount = 1
+        player.replicanti.galaxies = 0
 
         if (player.achievements.includes("Claustrophobic")) player.tickspeed = player.tickspeed.times(0.98);
         if (player.achievements.includes("Faster than a potato")) player.tickspeed = player.tickspeed.times(0.98);
@@ -4015,6 +4024,7 @@ function startChallenge(name, target) {
     }
 
     if (player.replicanti.unl) player.replicanti.amount = 1
+    player.replicanti.galaxies = 0
 
     IPminpeak = new Decimal(0)
     if (player.currentChallenge.includes("post")) player.break = true
@@ -4240,8 +4250,11 @@ setInterval(function() {
     document.getElementById("replicantichance").className = (player.infinityPoints.gte(player.replicanti.chanceCost)) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantiinterval").className = (player.infinityPoints.gte(player.replicanti.intervalCost)) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantimax").className = (player.infinityPoints.gte(player.replicanti.galCost)) ? "storebtn" : "unavailablebtn"
+    document.getElementById("replicantireset").className = (player.replicanti.galaxies < player.replicanti.gal && player.replicanti.amount == Number.MAX_VALUE) ? "storebtn" : "unavailablebtn"
+    document.getElementById("replicantiunlock").className = (player.infinityPoints.gte(1e140)) ? "storebtn" : "unavailablebtn"
     
-
+    
+    
 }, 1000)
 
 var postC2Count = 0;
@@ -4387,11 +4400,14 @@ setInterval(function () {
                                                                 "<br>Peaked at "+shortenDimensions(IPminpeak)+" IP/min"
 
 
+
+    var est = player.replicanti.chance * 1000 / player.replicanti.interval
+    var current = Math.log2(player.replicanti.amount)
+    
+
     if (diff > 5 && player.replicanti.amount > 100) {
-        var est = player.replicanti.chance * 1000 / player.replicanti.interval
-        var current = Math.log2(player.replicanti.amount)
-        var estimate = Math.pow(2, current+diff*est/10)
-        player.replicanti.amount = Math.min(Number.MAX_VALUE, estimate)
+        var gained = Math.pow(2, current+diff*est/10)
+        player.replicanti.amount = Math.min(Number.MAX_VALUE, gained)
     } else {
         if (player.replicanti.interval <= replicantiTicks && player.replicanti.unl) {
             if (player.replicanti.amount <= 100) {
@@ -4411,8 +4427,12 @@ setInterval(function () {
     }
     replicantiTicks += 50
 
+    
+    var estimate = (1024 - current) / est
+    document.getElementById("replicantiapprox").innerHTML ="Approximately "+ timeDisplay(estimate*10) + " Until Infinite Replicanti"
+
     document.getElementById("replicantiamount").innerHTML = shortenDimensions(player.replicanti.amount)
-    document.getElementById("replicantimult").innerHTML = shorten(Math.pow(Math.log2(player.replicanti.amount), 2))
+    document.getElementById("replicantimult").innerHTML = shorten(Math.pow(Math.log2(player.replicanti.amount), 1.5))
 
     
     updateMoney();
