@@ -83,56 +83,56 @@ var player = {
     eternityPoints: new Decimal(0),
     eternities: 0,
     infinityDimension1 : {
-        cost: 1e8,
+        cost: new Decimal(1e8),
         amount: new Decimal(0),
         bought: 0,
         power: 1,
         baseAmount: 0
     },
     infinityDimension2 : {
-        cost: 1e9,
+        cost: new Decimal(1e9),
         amount: new Decimal(0),
         bought: 0,
         power: 1,
         baseAmount: 0
     },
     infinityDimension3 : {
-        cost: 1e10,
+        cost: new Decimal(1e10),
         amount: new Decimal(0), 
         bought: 0,
         power: 1,
         baseAmount: 0
     },
     infinityDimension4 : {
-        cost: 1e20,
+        cost: new Decimal(1e20),
         amount: new Decimal(0),
         bought: 0,
         power: 1,
         baseAmount: 0
     },
     infinityDimension5 : {
-        cost: 1e140,
+        cost: new Decimal(1e140),
         amount: new Decimal(0),
         bought: 0,
         power: 1,
         baseAmount: 0
     },
     infinityDimension6 : {
-        cost: 1e200,
+        cost: new Decimal(1e200),
         amount: new Decimal(0),
         bought: 0,
         power: 1,
         baseAmount: 0
     },
     infinityDimension7 : {
-        cost: 1e250,
+        cost: new Decimal(1e250),
         amount: new Decimal(0),
         bought: 0,
         power: 1,
         baseAmount: 0
     },
     infinityDimension8 : {
-        cost: 1e280,
+        cost: new Decimal(1e280),
         amount: new Decimal(0),
         bought: 0,
         power: 1,
@@ -384,28 +384,28 @@ function onLoad() {
     if (player.infinityPower === undefined) {
         player.infinityPower = new Decimal(1)
         player.infinityDimension1 = {
-            cost: 1e8,
+            cost: new Decimal(1e8),
             amount: new Decimal(0),
             bought: 0,
             power: 1,
             baseAmount: 0
         }
         player.infinityDimension2 = {
-            cost: 1e9,
+            cost: new Decimal(1e9),
             amount: new Decimal(0),
             bought: 0,
             power: 1,
             baseAmount: 0
         }
         player.infinityDimension3 = {
-            cost: 1e10,
+            cost: new Decimal(1e10),
             amount: new Decimal(0),
             bought: 0,
             power: 1,
             baseAmount: 0
         }
         player.infinityDimension4 = {
-            cost: 1e20,
+            cost: new Decimal(1e20),
             amount: new Decimal(0),
             bought: 0,
             power: 1,
@@ -531,14 +531,14 @@ function onLoad() {
         player.infDimensionsUnlocked.push(false)
         player.infDimensionsUnlocked.push(false)
         player.infinityDimension5 = {
-            cost: 1e140,
+            cost: new Decimal(1e140),
             amount: new Decimal(0),
             bought: 0,
             power: 1,
             baseAmount: 0
         }
         player.infinityDimension6 = {
-            cost: 1e200,
+            cost: new Decimal(1e200),
             amount: new Decimal(0),
             bought: 0,
             power: 1,
@@ -551,14 +551,14 @@ function onLoad() {
         player.infDimensionsUnlocked.push(false)
         player.infDimensionsUnlocked.push(false)
         player.infinityDimension7 = {
-            cost: 1e250,
+            cost: new Decimal(1e250),
             amount: new Decimal(0),
             bought: 0,
             power: 1,
             baseAmount: 0
         }
         player.infinityDimension8 = {
-            cost: 1e280,
+            cost: new Decimal(1e280),
             amount: new Decimal(0),
             bought: 0,
             power: 1,
@@ -740,6 +740,10 @@ function transformSaveToDecimal() {
     player.replicanti.chanceCost = new Decimal(player.replicanti.chanceCost)
     player.replicanti.intervalCost = new Decimal(player.replicanti.intervalCost)
     player.replicanti.galCost = new Decimal(player.replicanti.galCost)
+
+    for (var i=1; i<=8; i++) {
+        player["infinityDimension"+i].cost = new Decimal(player["infinityDimension"+i].cost)
+    }
 }
 
 
