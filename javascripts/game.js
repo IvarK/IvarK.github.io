@@ -123,6 +123,20 @@ var player = {
         power: 1,
         baseAmount: 0
     },
+    infinityDimension7 : {
+        cost: 1e250,
+        amount: new Decimal(0),
+        bought: 0,
+        power: 1,
+        baseAmount: 0
+    },
+    infinityDimension8 : {
+        cost: 1e290,
+        amount: new Decimal(0),
+        bought: 0,
+        power: 1,
+        baseAmount: 0
+    },
     timeShards: new Decimal(0),
     tickThreshold: new Decimal(1),
     totalTickGained: 0,
@@ -531,6 +545,25 @@ function onLoad() {
         player.version = 6
     }
 
+    if (player.infinityDimension7 == undefined) {
+        player.infDimensionsUnlocked.push(false)
+        player.infDimensionsUnlocked.push(false)
+        player.infinityDimension7 = {
+            cost: 1e250,
+            amount: new Decimal(0),
+            bought: 0,
+            power: 1,
+            baseAmount: 0
+        }
+        player.infinityDimension8 = {
+            cost: 1e290,
+            amount: new Decimal(0),
+            bought: 0,
+            power: 1,
+            baseAmount: 0
+        }
+    }
+
     if (player.replicanti === undefined) {
         player.replicanti = {
             amount: 0,
@@ -690,6 +723,8 @@ function transformSaveToDecimal() {
     player.infinityDimension4.amount = new Decimal(player.infinityDimension4.amount)
     player.infinityDimension5.amount = new Decimal(player.infinityDimension5.amount)
     player.infinityDimension6.amount = new Decimal(player.infinityDimension6.amount)
+    player.infinityDimension7.amount = new Decimal(player.infinityDimension7.amount)
+    player.infinityDimension8.amount = new Decimal(player.infinityDimension8.amount)
     player.infinityPoints = new Decimal(player.infinityPoints)
     player.timeDimension1.amount = new Decimal(player.timeDimension1.amount)
     player.timeDimension2.amount = new Decimal(player.timeDimension2.amount)
@@ -1070,7 +1105,10 @@ function updateDimensions() {
     }
     
     if (canBuyTickSpeed()) {
-        document.getElementById("tickLabel").innerHTML = 'Reduce the tick interval by ' + ((1 - getTickSpeedMultiplier()) * 100).toFixed(2) + '%.';
+        var tickmult = getTickSpeedMultiplier()
+        var places = 0
+        if (tickmult < 0.2) places = Math.floor(Math.log10(Math.round(1/tickmult)))
+        document.getElementById("tickLabel").innerHTML = 'Reduce the tick interval by ' + ((1 - tickmult) * 100).toFixed(places) + '%.';
         
         document.getElementById("tickSpeed").style.visibility = "visible";
         document.getElementById("tickSpeedMax").style.visibility = "visible";
@@ -1166,7 +1204,7 @@ function updateCosts() {
     document.getElementById("tickSpeed").innerHTML = 'Cost: ' + shortenCosts(player.tickSpeedCost);
 
 
-    for (var i=1; i<=6; i++) {
+    for (var i=1; i<=8; i++) {
         
         document.getElementById("infMax"+i).innerHTML = "Cost: " + shortenCosts(player["infinityDimension"+i].cost) + " IP"
     }
@@ -1230,7 +1268,7 @@ function getInfinityDimensionDescription(tier) {
     
     let description = shortenDimensions(player['infinityDimension'+tier].amount) + ' (' + player['infinityDimension'+tier].bought + ')';
     
-    if (tier < 6) {
+    if (tier < 8) {
         description += '  (+' + formatValue(player.options.notation, getInfinityDimensionRateOfChange(tier), 2, 2) + '%/s)';
     }
     
@@ -1249,7 +1287,7 @@ function getInfinityDimensionRateOfChange(tier) {
 
 
 function updateInfinityDimensions() {
-    for (let tier = 1; tier <= 6; ++tier) {
+    for (let tier = 1; tier <= 8; ++tier) {
         document.getElementById("infD"+tier).innerHTML = DISPLAY_NAMES[tier] + " Infinity Dimension x" + shortenDimensions(getInfinityDimensionPower(tier));
         document.getElementById("infAmount"+tier).innerHTML = getInfinityDimensionDescription(tier);
         var name = TIER_NAMES[tier];
@@ -1286,6 +1324,23 @@ function resetInfDimensions() {
     if (player.infDimensionsUnlocked[0]) {
         player.infinityPower = new Decimal(0)
     }
+    if (player.infDimensionsUnlocked[7] && player.infinityDimension6.amount != 0){
+        player.infinityDimension7.amount = new Decimal(player.infinityDimension7.baseAmount)
+        player.infinityDimension6.amount = new Decimal(player.infinityDimension6.baseAmount)
+        player.infinityDimension5.amount = new Decimal(player.infinityDimension5.baseAmount)
+        player.infinityDimension4.amount = new Decimal(player.infinityDimension4.baseAmount)
+        player.infinityDimension3.amount = new Decimal(player.infinityDimension3.baseAmount)
+        player.infinityDimension2.amount = new Decimal(player.infinityDimension2.baseAmount)
+        player.infinityDimension1.amount = new Decimal(player.infinityDimension1.baseAmount)
+    }
+    if (player.infDimensionsUnlocked[6] && player.infinityDimension6.amount != 0){
+        player.infinityDimension6.amount = new Decimal(player.infinityDimension6.baseAmount)
+        player.infinityDimension5.amount = new Decimal(player.infinityDimension5.baseAmount)
+        player.infinityDimension4.amount = new Decimal(player.infinityDimension4.baseAmount)
+        player.infinityDimension3.amount = new Decimal(player.infinityDimension3.baseAmount)
+        player.infinityDimension2.amount = new Decimal(player.infinityDimension2.baseAmount)
+        player.infinityDimension1.amount = new Decimal(player.infinityDimension1.baseAmount)
+    }
     if (player.infDimensionsUnlocked[5] && player.infinityDimension6.amount != 0){
         player.infinityDimension5.amount = new Decimal(player.infinityDimension5.baseAmount)
         player.infinityDimension4.amount = new Decimal(player.infinityDimension4.baseAmount)
@@ -1315,8 +1370,8 @@ function resetInfDimensions() {
 }
 
 
-var infCostMults = [null, 1e3, 1e6, 1e8, 1e10, 1e15, 1e20]
-var infPowerMults = [null, 50, 30, 10, 5, 5, 5]
+var infCostMults = [null, 1e3, 1e6, 1e8, 1e10, 1e15, 1e20, 1e25, 1e30]
+var infPowerMults = [null, 50, 30, 10, 5, 5, 5, 5, 5]
 function buyManyInfinityDimension(tier) {
     
     var dim = player["infinityDimension"+tier]
@@ -1490,6 +1545,8 @@ function softReset(bulk) {
         infinityDimension4: player.infinityDimension4,
         infinityDimension5: player.infinityDimension5,
         infinityDimension6: player.infinityDimension6,
+        infinityDimension7: player.infinityDimension7,
+        infinityDimension8: player.infinityDimension8,
         timeShards: player.timeShards,
         tickThreshold: player.tickThreshold,
         timeDimension1: player.timeDimension1,
@@ -2803,6 +2860,8 @@ function galaxyReset() {
         infinityDimension4: player.infinityDimension4,
         infinityDimension5: player.infinityDimension5,
         infinityDimension6: player.infinityDimension6,
+        infinityDimension7: player.infinityDimension7,
+        infinityDimension8: player.infinityDimension8,
         timeShards: player.timeShards,
         tickThreshold: player.tickThreshold,
         timeDimension1: player.timeDimension1,
@@ -3612,6 +3671,8 @@ document.getElementById("bigcrunch").onclick = function () {
         infinityDimension4: player.infinityDimension4,
         infinityDimension5: player.infinityDimension5,
         infinityDimension6: player.infinityDimension6,
+        infinityDimension7: player.infinityDimension7,
+        infinityDimension8: player.infinityDimension8,
         timeShards: player.timeShards,
         tickThreshold: player.tickThreshold,
         timeDimension1: player.timeDimension1,
@@ -3846,6 +3907,20 @@ function eternity() {
                 power: 1,
                 baseAmount: 0
             },
+            infinityDimension7 : {
+                cost: 1e250,
+                amount: new Decimal(0),
+                bought: 0,
+                power: 1,
+                baseAmount: 0
+            },
+            infinityDimension8 : {
+                cost: 1e290,
+                amount: new Decimal(0),
+                bought: 0,
+                power: 1,
+                baseAmount: 0
+            },
             timeShards: new Decimal(0),
             tickThreshold: new Decimal(1),
             totalTickGained: 0,
@@ -4021,6 +4096,8 @@ function startChallenge(name, target) {
       infinityDimension4: player.infinityDimension4,
       infinityDimension5: player.infinityDimension5,
       infinityDimension6: player.infinityDimension6,
+      infinityDimension7: player.infinityDimension7,
+      infinityDimension8: player.infinityDimension8,
       timeShards: player.timeShards,
       tickThreshold: player.tickThreshold,
       timeDimension1: player.timeDimension1,
@@ -4170,7 +4247,9 @@ function getNewInfReq() {
     else if (!player.infDimensionsUnlocked[2]) return new Decimal("1e2400")
     else if (!player.infDimensionsUnlocked[3]) return new Decimal("1e10500")
     else if (!player.infDimensionsUnlocked[4]) return new Decimal("1e30000")
-    else return new Decimal("1e45000")
+    else if (!player.infDimensionsUnlocked[5]) return new Decimal("1e45000")
+    else if (!player.infDimensionsUnlocked[6]) return new Decimal("1e54000")
+    else return new Decimal("1e60000")
 }
 
 
@@ -4181,8 +4260,10 @@ function newDimension() {
         else if (!player.infDimensionsUnlocked[2]) player.infDimensionsUnlocked[2] = true
         else if (!player.infDimensionsUnlocked[3]) player.infDimensionsUnlocked[3] = true
         else if (!player.infDimensionsUnlocked[4]) player.infDimensionsUnlocked[4] = true
-        else if (!player.infDimensionsUnlocked[5]) {
-            player.infDimensionsUnlocked[5] = true
+        else if (!player.infDimensionsUnlocked[5]) player.infDimensionsUnlocked[5] = true
+        else if (!player.infDimensionsUnlocked[6]) player.infDimensionsUnlocked[6] = true
+        else if (!player.infDimensionsUnlocked[7]) {
+            player.infDimensionsUnlocked[7] = true
             giveAchievement("NEW DIMENSIONS???")
         }
     }
@@ -4219,7 +4300,7 @@ setInterval(function() {
     updateDimensions()
 }, 100)
 
-var nextAt = [new Decimal("1e2000"), new Decimal("1e5000"), new Decimal("1e12000"), new Decimal("1e14000"), new Decimal("1e18000"), new Decimal("1e20000"), new Decimal("1e23000"), new Decimal("1e28500")]
+var nextAt = [new Decimal("1e2000"), new Decimal("1e5000"), new Decimal("1e12000"), new Decimal("1e14000"), new Decimal("1e18000"), new Decimal("1e20000"), new Decimal("1e23000"), new Decimal("1e28000")]
 
 var goals = [new Decimal("1e850"), new Decimal("1e10500"), new Decimal("1e5000"), new Decimal("1e13000"), new Decimal("1e11111"), new Decimal("2e22222"), new Decimal("1e10000"), new Decimal("1e27000")]
 setInterval(function() {
@@ -4381,8 +4462,8 @@ setInterval(function () {
 
 
 
-    for (let tier=1;tier<6;tier++) {
-        if (tier != 6 && player.infDimensionsUnlocked[tier-1]) player["infinityDimension"+tier].amount = player["infinityDimension"+tier].amount.plus(getInfinityDimensionProduction(tier+1).times(diff/100))
+    for (let tier=1;tier<8;tier++) {
+        if (tier != 8 && player.infDimensionsUnlocked[tier-1]) player["infinityDimension"+tier].amount = player["infinityDimension"+tier].amount.plus(getInfinityDimensionProduction(tier+1).times(diff/100))
         if (player.infDimensionsUnlocked[tier-1]) {
             document.getElementById("infRow"+tier).style.display = "inline-block"
             document.getElementById("dimTabButtons").style.display = "inline-block"
@@ -4501,7 +4582,7 @@ setInterval(function () {
         }
     }
 
-    for (var tier = 1; tier < 7; tier++) {
+    for (var tier = 1; tier < 9; tier++) {
         if (player.infinityPoints.gte(player["infinityDimension"+tier].cost)) document.getElementById("infMax"+tier).className = "storebtn"
         else document.getElementById("infMax"+tier).className = "unavailablebtn"
     }
