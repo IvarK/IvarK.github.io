@@ -64,6 +64,7 @@ var player = {
     partInfinitied: 0,
     break: false,
     challengeTimes: [600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31],
+    infchallengeTimes: [600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31],
     lastTenRuns: [[600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1]],
     infMult: 1,
     infMultCost: 100,
@@ -131,7 +132,7 @@ var player = {
         baseAmount: 0
     },
     infinityDimension8 : {
-        cost: 1e290,
+        cost: 1e280,
         amount: new Decimal(0),
         bought: 0,
         power: 1,
@@ -349,6 +350,7 @@ function onLoad() {
     if (player.tickspeedMultiplier === undefined) player.tickspeedMultiplier = new Decimal(10)
     if (player.partInfinityPoint === undefined) player.partInfinityPoint = 0
     if (player.challengeTimes === undefined) player.challengeTimes = [600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31]
+    if (player.infchallengeTimes === undefined) player.infchallengeTimes = [600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31]
     if (player.lastTenRuns === undefined) player.lastTenRuns = [[600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1]]
     if (player.infMult === undefined) player.infMult = 1
     if (player.infMultCost === undefined) player.infMultCost = 100
@@ -556,7 +558,7 @@ function onLoad() {
             baseAmount: 0
         }
         player.infinityDimension8 = {
-            cost: 1e290,
+            cost: 1e280,
             amount: new Decimal(0),
             bought: 0,
             power: 1,
@@ -1524,6 +1526,7 @@ function softReset(bulk) {
         partInfinitied: player.partInfinitied,
         break: player.break,
         challengeTimes: player.challengeTimes,
+        infchallengeTimes: player.infchallengeTimes,
         lastTenRuns: player.lastTenRuns,
         infMult: player.infMult,
         infMultCost: player.infMultCost,
@@ -2621,6 +2624,7 @@ function replicantiGalaxy() {
         player.galaxies-=1
         galaxyReset()
         document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
+        document.getElementById("replicantireset").className = "unavailablebtn"
     }
 }
 
@@ -2839,6 +2843,7 @@ function galaxyReset() {
         partInfinitied: player.partInfinitied,
         break: player.break,
         challengeTimes: player.challengeTimes,
+        infchallengeTimes: player.infchallengeTimes,
         lastTenRuns: player.lastTenRuns,
         infMult: player.infMult,
         infMultCost: player.infMultCost,
@@ -3495,6 +3500,10 @@ function updateChallengeTimes() {
     document.getElementById("challengetime10").innerHTML = "Challenge " + 10 + " time record " + timeDisplayShort(player.challengeTimes[2])
     document.getElementById("challengetime11").innerHTML = "Challenge " + 11 + " time record " + timeDisplayShort(player.challengeTimes[10])
     document.getElementById("challengetime12").innerHTML = "Challenge " + 12 + " time record " + timeDisplayShort(player.challengeTimes[5])
+
+    for (var i=0; i<8; i++) {
+        document.getElementById("infchallengetime"+(i+1)).innerHTML = "Infinity Challenge " + (i+1) + " time record " + timeDisplayShort(player.infchallengeTimes[i])
+    }
     updateWorstChallengeTime();
 }
 
@@ -3562,6 +3571,7 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.currentChallenge == "challenge5" && player.thisInfinityTime <= 1800) giveAchievement("Is this hell?")
         if (player.firstAmount == 1 && player.resets == 0 && player.galaxies == 0 && player.currentChallenge == "challenge12") giveAchievement("ERROR 909: Dimension not found")
         if (player.currentChallenge != "" && player.challengeTimes[challNumber-2] > player.thisInfinityTime) player.challengeTimes[challNumber-2] = player.thisInfinityTime
+        if (player.currentChallenge.includes("post") && player.infchallengeTimes[challNumber-1] > player.thisInfinityTime) player.infchallengeTimes[challNumber-1] = player.thisInfinityTime
         
         if (player.currentChallenge == "postc5" && player.thisInfinityTime <= 100) giveAchievement("Hevipelle did nothing wrong")
         if ((player.bestInfinityTime > 600 && !player.break) || (player.currentChallenge != "" && !player.options.retryChallenge)) showTab("dimensions")
@@ -3650,6 +3660,7 @@ document.getElementById("bigcrunch").onclick = function () {
         partInfinitied: player.partInfinitied,
         break: player.break,
         challengeTimes: player.challengeTimes,
+        infchallengeTimes: player.infchallengeTimes,
         lastTenRuns: player.lastTenRuns,
         infMult: player.infMult,
         infMultCost: player.infMultCost,
@@ -3850,6 +3861,7 @@ function eternity() {
             matter: new Decimal(0),
             chall11Pow: 1,
             challengeTimes: player.challengeTimes,
+            infchallengeTimes: player.infchallengeTimes,
             lastTenRuns: player.lastTenRuns,
             infMult: 1,
             infMultCost: 100,
@@ -4075,6 +4087,7 @@ function startChallenge(name, target) {
       partInfinitied: player.partInfinitied,
       break: player.break,
       challengeTimes: player.challengeTimes,
+      infchallengeTimes: player.infchallengeTimes,
       lastTenRuns: player.lastTenRuns,
       infMult: player.infMult,
       infMultCost: player.infMultCost,
