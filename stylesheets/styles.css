@@ -11,6 +11,10 @@
     src: url('MonospaceTypewriter.ttf');
 }
 
+*:focus {
+    outline: none;
+}
+
 #game {
     border: 2px solid black;
     border-radius: 4px;

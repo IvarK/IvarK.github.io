@@ -246,6 +246,11 @@ td {
     border: 2px solid #b341e0 !important;
 }
 
+.eternitybtn:hover {
+    color: #511568;
+    background: white;
+}
+
 @keyframes antimatterGlow {
     0%  {color: #2196F3;}
     33% {color: #673AB7;}
