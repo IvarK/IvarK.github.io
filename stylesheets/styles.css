@@ -877,6 +877,13 @@ footer {
     -webkit-font-smoothing: subpixel-antialiased;
 }
 
+br {
+    content: " ";
+    display: block;
+    margin: 3px;
+    line-height: 10px;
+}
+
 @media print,
 screen and (max-width: 960px) {
     div.wrapper {
