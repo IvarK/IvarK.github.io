@@ -1190,8 +1190,8 @@ function updateDimensions() {
     document.getElementById("postinfi33").innerHTML = "Autobuyers work twice as fast<br>Cost:"+ shortenCosts(1e15)+" IP"
     if (player.dimensionMultDecrease == 3) document.getElementById("postinfi42").innerHTML = "Dimension cost multiplier increase <br>"+player.dimensionMultDecrease+"x"
 
-    document.getElementById("offlineProd").innerHTML = "Generates "+player.offlineProd+"% of your best IP/min from last 10 infinities, works offline<br>Currently: "+shortenMoney(bestRunIppm*(player.offlineProd/100)) +"IP/min<br> Cost: "+shortenCosts(player.offlineProdCost)+" IP"
-    if (player.offlineProd == 50) document.getElementById("offlineProd").innerHTML = "Generates "+player.offlineProd+"% of your fastest infinity IP/min, works offline<br>Currently: "+shortenMoney(bestRunIppm*(player.offlineProd/100)) +" IP/min"
+    document.getElementById("offlineProd").innerHTML = "Generates "+player.offlineProd+"% of your best IP/min from last 10 infinities, works offline<br>Currently: "+shortenMoney(bestRunIppm.times(player.offlineProd/100)) +"IP/min<br> Cost: "+shortenCosts(player.offlineProdCost)+" IP"
+    if (player.offlineProd == 50) document.getElementById("offlineProd").innerHTML = "Generates "+player.offlineProd+"% of your fastest infinity IP/min, works offline<br>Currently: "+shortenMoney(bestRunIppm.times(player.offlineProd/100)) +" IP/min"
 }
 
 function updateCosts() {
@@ -2650,7 +2650,7 @@ function replicantiGalaxy() {
 
 
 buyAutobuyer = function(id) {
-    if (player.autobuyers[id].cost > player.infinityPoints) return false;
+    if (player.infinityPoints.lt(player.autobuyers[id].cost)) return false;
     player.infinityPoints = player.infinityPoints.minus(player.autobuyers[id].cost);
     if (player.autobuyers[id].interval <= 100) {
         player.autobuyers[id].bulk *= 2;
@@ -3517,7 +3517,7 @@ function updateChallengeTimes() {
     updateWorstChallengeTime();
 }
 
-var bestRunIppm = 0
+var bestRunIppm = new Decimal(0)
 function updateLastTenRuns() {
     let tempBest = 0
     var tempTime = new Decimal(0)
@@ -4448,7 +4448,7 @@ setInterval(function () {
         player.infinitied ++;
     }
     if (player.infinitied > 2e6) giveAchievement("2 Million Infinities")
-    player.infinityPoints = player.infinityPoints.plus(bestRunIppm * (player.offlineProd/100) * (diff/600))
+    player.infinityPoints = player.infinityPoints.plus(bestRunIppm.times(player.offlineProd/100).times(diff/600))
 
     if (player.currentChallenge != "challenge7") {
         for (let tier = 7; tier >= 1; --tier) {
