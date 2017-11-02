@@ -416,10 +416,13 @@
     cursor: pointer;
 }
 
+
+
 .newdim:hover {
     color: #FFF;
     background: #5AC467;
 }
+
 
 .newdimlocked {
     border-radius: 4px;
@@ -441,6 +444,29 @@
 .newdimlocked:hover {
     color: #000000;
     background: #B84B5F;
+}
+
+.eternitybtn {
+    font-weight: bold;
+    border-radius: 4px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    position: absolute;
+    right: 80%;
+    width: 200px;
+    height: 60px;
+    font-family: Typewriter;
+    color: #b341e0;
+    background: black;
+    border: 2px solid #b341e0;
+    cursor: pointer;
+}
+
+
+
+.eternitybtn:hover {
+    color: #511568;
+    background: white;
 }
 
 
@@ -887,6 +913,13 @@ footer {
     position: fixed;
     bottom: 50px;
     -webkit-font-smoothing: subpixel-antialiased;
+}
+
+br {
+    content: " ";
+    display: block;
+    margin: 3px;
+    line-height: 5px;
 }
 
 @media print,

@@ -630,6 +630,7 @@ function onLoad() {
     
 
     document.getElementById("eternityPoints").innerHTML = "You have <b>"+shortenDimensions(player.eternityPoints)+"</b> Eternity points."
+    document.getElementById("eternitybtn").style.display = player.infinityPoints.gte(Number.MAX_VALUE) ? "inline-block" : "none"
     
     
 
@@ -3596,7 +3597,7 @@ document.getElementById("bigcrunch").onclick = function () {
         }
         if (!player.break || player.currentChallenge != "") {
             player.infinityPoints = player.infinityPoints.plus(player.infMult * kongIPMult);
-            addTime(player.thisInfinityTime, player.infMult * kongIPMult)
+            addTime(player.thisInfinityTime, new Decimal(player.infMult * kongIPMult))
         }
         else {
             player.infinityPoints = player.infinityPoints.plus(gainedInfinityPoints())
@@ -3977,7 +3978,17 @@ function eternity() {
             offlineProdCost: 1e7,
             challengeTarget: 0,
             autoSacrifice: 1,
-            replicanti: player.replicanti,
+            replicanti: {
+                amount: 0,
+                unl: false,
+                chance: 0.01,
+                chanceCost: new Decimal(1e150),
+                interval: 1000,
+                intervalCost: new Decimal(1e160),
+                gal: 0,
+                galaxies: 0,
+                galCost: new Decimal(1e170)
+            },
             options: player.options
         };
 
@@ -4010,6 +4021,7 @@ function eternity() {
         if (player.achievements.includes("That's faster!")) player.money = new Decimal(2e5);
         if (player.achievements.includes("Forever isn't that long")) player.money = new Decimal(1e10);
         if (player.achievements.includes("Blink of an eye")) player.money = new Decimal(1e25);
+        if (player.achievements.includes("All your IP are belong to us")) player.infMult *= 4
         resetInfDimensions();
         updateTickSpeed();
         updateChallenges();
@@ -4017,9 +4029,14 @@ function eternity() {
         updateLastTenRuns()
         IPminpeak = new Decimal(0)
 
+        if (player.replicanti.unl == true) {
+            document.getElementById("replicantidiv").style.display="inline-block"
+            document.getElementById("replicantiunlock").style.display="none"
+        }
+
         document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
 
-        if (player.eternities == 0) document.getElementById("eternityPoints").style.display = "inline-block"
+        document.getElementById("eternityPoints").style.display = "inline-block"
     }
 }
 
@@ -4379,6 +4396,8 @@ setInterval(function() {
     document.getElementById("kongdim").innerHTML = "Double all your dimension multipliers (dimensions 1-8) (multiplicative). Forever. Currently: x"+kongDimMult+", next: "+(kongDimMult*2)+"x"
     document.getElementById("eternityPoints").innerHTML = "You have <b>"+shortenDimensions(player.eternityPoints)+"</b> Eternity points."
 
+    document.getElementById("eternitybtn").style.display = player.infinityPoints.gte(Number.MAX_VALUE) ? "inline-block" : "none"
+
     if (player.eternities == 0) document.getElementById("eternityPoints").style.display = "none"
 
     for (var i=1; i <=8; i++) {
@@ -4608,6 +4627,11 @@ setInterval(function () {
     for (var tier = 1; tier < 9; tier++) {
         if (player.infinityPoints.gte(player["infinityDimension"+tier].cost)) document.getElementById("infMax"+tier).className = "storebtn"
         else document.getElementById("infMax"+tier).className = "unavailablebtn"
+    }
+
+    for (var tier = 1; tier < 5; tier++) {
+        if (player.eternityPoints.gte(player["timeDimension"+tier].cost)) document.getElementById("timeMax"+tier).className = "storebtn"
+        else document.getElementById("timeMax"+tier).className = "unavailablebtn"
     }
 
     
