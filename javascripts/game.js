@@ -191,7 +191,8 @@ var player = {
         retryChallenge: false,
         bulkOn: true,
         cloud: true,
-        hotkeys: true
+        hotkeys: true,
+        theme: undefined
     }
     
 };
@@ -300,6 +301,41 @@ function get_save(name) {
         return JSON.parse(atob(localStorage.getItem(name), function(k, v) { return (v === Infinity) ? "Infinity" : v; }))
     }
 }
+
+function setTheme(name) {
+    document.querySelectorAll("link").forEach(e => {
+        if (e.href.includes("theme")) e.remove();
+    });
+
+    if(name === undefined) {
+        document.getElementById("theme").innerHTML="Current theme: Normal";
+    } else {
+        document.getElementById("theme").innerHTML="Current theme: " + name;
+    }
+
+    if (name === undefined) return;
+
+    var head = document.head;
+    var link = document.createElement('link');
+
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    link.href = "stylesheets/theme-" + name + ".css";
+
+    head.appendChild(link);
+}
+
+document.getElementById("theme").onclick = function () {
+    if (player.options.theme === undefined) {
+        player.options.theme = "Dark";
+    } else if (player.options.theme === "Dark") {
+        player.options.theme = undefined;
+    }
+
+    setTheme(player.options.theme);
+
+}
+
 
 
 let kongIPMult = 1
@@ -579,6 +615,8 @@ function onLoad() {
             galCost: new Decimal(1e170)
         }
     }
+
+    setTheme(player.options.theme);
     transformSaveToDecimal();
     updateCosts();
     updateTickSpeed();
@@ -5687,4 +5725,3 @@ setInterval( function() {
     challengeMult = Decimal.max(10*3000/worstChallengeTime, 1)
     unspentBonus = Decimal.pow(player.infinityPoints.dividedBy(2),1.5).plus(1)
 }, 500)
-
