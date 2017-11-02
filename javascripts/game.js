@@ -187,7 +187,6 @@ var player = {
         notation: "Standard",
         //Standard = normal prefixed numbers, Scientific = standard form, Engineering = powers of 3.
         scientific: false,
-        invert: false,
         challConf: false,
         sacrificeConfirmation: true,
         retryChallenge: false,
@@ -332,6 +331,8 @@ document.getElementById("theme").onclick = function () {
     if (player.options.theme === undefined) {
         player.options.theme = "Dark";
     } else if (player.options.theme === "Dark") {
+        player.options.theme = "Inverted";
+    } else if (player.options.theme === "Inverted") {
         player.options.theme = undefined;
     }
 
@@ -355,7 +356,6 @@ function onLoad() {
         }
     }
     if (player.options.notation === undefined) player.options.notation = "Standard"
-    if (player.options.invert === undefined) player.options.invert = false;
     if (player.options.challConf === undefined) player.options.challConf = false
 	if (player.options.notation === undefined) player.options.notation = "Standard";
     if (player.options.newsHidden === undefined) player.options.newsHidden = false;
@@ -409,6 +409,8 @@ function onLoad() {
         player.challengeTarget = 0
         if (player.currentChallenge != "") player.challengeTarget = Number.MAX_VALUE
     }
+
+    setTheme(player.options.theme);
     
     if (player.secondAmount !== 0) {
         document.getElementById("thirdRow").style.display = "table-row";
@@ -676,10 +678,7 @@ function onLoad() {
     
     
 
-    if (player.options.invert) {
-        document.getElementById("body").style.filter = "invert(100%)";
-        document.getElementById("body").style.backgroundColor = "black";
-    }
+
     if (player.options.newsHidden) {
         document.getElementById("game").style.display = "none";
     }
@@ -2345,19 +2344,6 @@ document.getElementById("maxall").onclick = function () {
         
         
 };
-
-
-document.getElementById("invert").onclick = function () {
-    if (player.options.invert) {
-        player.options.invert = false;
-        document.getElementById("body").style.filter = "invert(0%)";
-        document.getElementById("body").style.backgroundColor = "white";
-    } else {
-        player.options.invert = true;
-        document.getElementById("body").style.filter = "invert(100%)";
-        document.getElementById("body").style.backgroundColor = "black";
-    }
-}
 
 document.getElementById("challengeconfirmation").onclick = function () {
     if (!player.options.challConf) {
@@ -5090,8 +5076,6 @@ setInterval(function() {
     updateChallenges()
     updateAutobuyers()
 }
-
-
 function chall7cheat() {
     player.infinitied = 50
     player.infinityPoints = 50
@@ -5099,13 +5083,11 @@ function chall7cheat() {
     player.challenges.push("challenge1")
     updateChallenges()
     updateAutobuyers()
-
     setInterval(function() {
         document.getElementById("maxall").click()
         document.getElementById("secondSoftReset").click()
         document.getElementById("softReset").click()
     }, 100)
-
 }*/
 
 
@@ -5164,7 +5146,6 @@ var conditionalNewsArray = ["Our universe is falling apart. We are all evacuatin
 ctx.textBaseline = 'top';
 var newsTextValue = Decimal.round(Decimal.random() * (newsArray.length - 1))
 var newsText = newsArray[newsTextValue];
-
 setInterval(function () {
     //document.getElementById("news").innerHTML = newsArray[Decimal.round(Decimal.random() * (newsArray.length - 1))];
     ctx.clearRect(0, 0, c.width, c.height);
@@ -5188,8 +5169,6 @@ setInterval(function () {
             else if (!conditionalNewsArray.includes(newsText) && !player.newsArray.includes(newsTextValue)) player.newsArray.push(newsTextValue);
   			if (player.newsArray.length>=50 && !player.achievements.includes("Fake News")) giveAchievement("Fake News") 
         }
-
-
     }
 }, 1000 / 30);*/
 
