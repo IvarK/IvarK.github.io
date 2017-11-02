@@ -4062,6 +4062,8 @@ function eternity() {
         document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
         document.getElementById("eternitybtn").style.display = player.infinityPoints.gte(Number.MAX_VALUE) ? "inline-block" : "none"
         document.getElementById("eternityPoints").style.display = "inline-block"
+
+        document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult * kongIPMult) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
     }
 }
 
@@ -4148,7 +4150,7 @@ function startChallenge(name, target) {
       dimensionMultDecrease: player.dimensionMultDecrease,
       dimensionMultDecreaseCost: player.dimensionMultDecreaseCost,
       version: player.version,
-      postChallUnlocked: player.postChallUnlocked,
+      postChallUnlocked: 0,
       postC4Tier: 1,
       postC3Reward: new Decimal(1),
       overXGalaxies: player.overXGalaxies,
