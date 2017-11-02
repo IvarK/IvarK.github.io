@@ -187,7 +187,6 @@ var player = {
         notation: "Standard",
         //Standard = normal prefixed numbers, Scientific = standard form, Engineering = powers of 3.
         scientific: false,
-        invert: false,
         challConf: false,
         sacrificeConfirmation: true,
         retryChallenge: false,
@@ -332,6 +331,8 @@ document.getElementById("theme").onclick = function () {
     if (player.options.theme === undefined) {
         player.options.theme = "Dark";
     } else if (player.options.theme === "Dark") {
+        player.options.theme = "Inverted";
+    } else if (player.options.theme === "Inverted") {
         player.options.theme = undefined;
     }
 
@@ -355,7 +356,6 @@ function onLoad() {
         }
     }
     if (player.options.notation === undefined) player.options.notation = "Standard"
-    if (player.options.invert === undefined) player.options.invert = false;
     if (player.options.challConf === undefined) player.options.challConf = false
 	if (player.options.notation === undefined) player.options.notation = "Standard";
     if (player.options.newsHidden === undefined) player.options.newsHidden = false;
@@ -409,6 +409,8 @@ function onLoad() {
         player.challengeTarget = 0
         if (player.currentChallenge != "") player.challengeTarget = Number.MAX_VALUE
     }
+
+    setTheme(player.options.theme);
     
     if (player.secondAmount !== 0) {
         document.getElementById("thirdRow").style.display = "table-row";
@@ -676,10 +678,7 @@ function onLoad() {
     
     
 
-    if (player.options.invert) {
-        document.getElementById("body").style.filter = "invert(100%)";
-        document.getElementById("body").style.backgroundColor = "black";
-    }
+
     if (player.options.newsHidden) {
         document.getElementById("game").style.display = "none";
     }
@@ -2345,19 +2344,6 @@ document.getElementById("maxall").onclick = function () {
         
         
 };
-
-
-document.getElementById("invert").onclick = function () {
-    if (player.options.invert) {
-        player.options.invert = false;
-        document.getElementById("body").style.filter = "invert(0%)";
-        document.getElementById("body").style.backgroundColor = "white";
-    } else {
-        player.options.invert = true;
-        document.getElementById("body").style.filter = "invert(100%)";
-        document.getElementById("body").style.backgroundColor = "black";
-    }
-}
 
 document.getElementById("challengeconfirmation").onclick = function () {
     if (!player.options.challConf) {
@@ -4098,6 +4084,8 @@ function eternity() {
         document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
         document.getElementById("eternitybtn").style.display = player.infinityPoints.gte(Number.MAX_VALUE) ? "inline-block" : "none"
         document.getElementById("eternityPoints").style.display = "inline-block"
+
+        document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult * kongIPMult) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
     }
 }
 
@@ -4184,7 +4172,7 @@ function startChallenge(name, target) {
       dimensionMultDecrease: player.dimensionMultDecrease,
       dimensionMultDecreaseCost: player.dimensionMultDecreaseCost,
       version: player.version,
-      postChallUnlocked: player.postChallUnlocked,
+      postChallUnlocked: 0,
       postC4Tier: 1,
       postC3Reward: new Decimal(1),
       overXGalaxies: player.overXGalaxies,
