@@ -454,12 +454,13 @@
     position: absolute;
     right: 80%;
     width: 200px;
-    height: 60px;
+    height: 70px;
     font-family: Typewriter;
     color: #b341e0;
     background: black;
     border: 2px solid #b341e0;
     cursor: pointer;
+    font-size: 12px;
 }
 
 

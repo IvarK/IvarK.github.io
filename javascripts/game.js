@@ -82,6 +82,8 @@ var player = {
     postC3Reward: new Decimal(1),
     eternityPoints: new Decimal(0),
     eternities: 0,
+    thisEternity: 0,
+    bestEternity: 9999999999,
     infinityDimension1 : {
         cost: new Decimal(1e8),
         amount: new Decimal(0),
@@ -578,6 +580,10 @@ function onLoad() {
             galaxies: 0,
             galCost: new Decimal(1e170)
         }
+    }
+    if (player.bestEternity === undefined) {
+        player.bestEternity = 9999999999
+        player.thisEternity = player.totalTimePlayed
     }
     transformSaveToDecimal();
     updateCosts();
@@ -1153,8 +1159,8 @@ function updateDimensions() {
         document.getElementById("infinitied").innerHTML = ""
         document.getElementById("thisInfinity").innerHTML = ""
     } else {
-        document.getElementById("bestInfinity").innerHTML = "Your fastest infinity is in " + timeDisplay(player.bestInfinityTime) + "."
-        document.getElementById("thisInfinity").innerHTML = "You have spent " + timeDisplay(player.thisInfinityTime) + " in this infinity."
+        document.getElementById("bestInfinity").innerHTML = "Your fastest Infinity is in " + timeDisplay(player.bestInfinityTime) + "."
+        document.getElementById("thisInfinity").innerHTML = "You have spent " + timeDisplay(player.thisInfinityTime) + " in this Infinity."
         if (player.infinityPoints.equals(1)) {
             document.getElementById("infinityPoints1").innerHTML = "You have 1 Infinity point."
             document.getElementById("infinityPoints2").innerHTML = "You have 1 Infinity point."
@@ -1166,6 +1172,16 @@ function updateDimensions() {
         if (player.infinitied == 1) document.getElementById("infinitied").innerHTML = "You have infinitied 1 time."
         else document.getElementById("infinitied").innerHTML = "You have infinitied " + player.infinitied + " times."
 
+    }
+
+    if (player.eternities == 0) {
+        document.getElementById("eternitied").innerHTML = ""
+        document.getElementById("besteternity").innerHTML = ""
+        document.getElementById("thiseternity").innerHTML = ""
+    } else {
+        document.getElementById("eternitied").innerHTML = "You have Eternitied "+player.eternities+" times."
+        document.getElementById("besteternity").innerHTML = "You have spent "+timeDisplay(player.thisEternity)+" in this Eternity"
+        document.getElementById("thiseternity").innerHTML = "Your fastest Eternity is in "+timeDisplay(player.bestEternity)+"."
     }
 
     document.getElementById("infi11").innerHTML = "Production increase over time <br>Currently: " + (Math.pow(0.5 * player.totalTimePlayed / 600, 0.15)).toFixed(2) + "x<br>Cost: 1 IP"
@@ -1569,6 +1585,8 @@ function softReset(bulk) {
         timeDimension4: player.timeDimension4,
         eternityPoints: player.eternityPoints,
         eternities: player.eternities,
+        thisEternity: player.thisEternity,
+        bestEternity: player.bestEternity,
         totalTickGained: player.totalTickGained,
         offlineProd: player.offlineProd,
         offlineProdCost: player.offlineProdCost,
@@ -2886,6 +2904,8 @@ function galaxyReset() {
         timeDimension4: player.timeDimension4,
         eternityPoints: player.eternityPoints,
         eternities: player.eternities,
+        thisEternity: player.thisEternity,
+        bestEternity: player.bestEternity,
         totalTickGained: player.totalTickGained,
         offlineProd: player.offlineProd,
         offlineProdCost: player.offlineProdCost,
@@ -3703,6 +3723,8 @@ document.getElementById("bigcrunch").onclick = function () {
         timeDimension4: player.timeDimension4,
         eternityPoints: player.eternityPoints,
         eternities: player.eternities,
+        thisEternity: player.thisEternity,
+        bestEternity: player.bestEternity,
         totalTickGained: player.totalTickGained,
         offlineProd: player.offlineProd,
         offlineProdCost: player.offlineProdCost,
@@ -3806,7 +3828,8 @@ document.getElementById("bigcrunch").onclick = function () {
 }
 
 function eternity() {
-    if (player.infinityPoints.gte(Number.MAX_VALUE)) {
+    if (player.infinityPoints.gte(Number.MAX_VALUE) && (player.eternities !== 0 || confirm("Eternity will reset everything except achievements and challenge records. You will also gain an Eternity point and unlock various upgrades. This is the only time you will see this message"))) {
+        if (player.thisEternity<player.bestEternity) player.bestEternity = player.thisEternity
         player = {
             money: new Decimal(10),
             tickSpeedCost: new Decimal(1000),
@@ -3973,6 +3996,8 @@ function eternity() {
             },
             eternityPoints: player.eternityPoints.plus(gainedEternityPoints()),
             eternities: player.eternities+1,
+            thisEternity: player.thisEternity,
+            bestEternity: player.bestEternity,
             totalTickGained: 0,
             offlineProd: 0,
             offlineProdCost: 1e7,
@@ -4035,7 +4060,7 @@ function eternity() {
         }
 
         document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
-
+        document.getElementById("eternitybtn").style.display = player.infinityPoints.gte(Number.MAX_VALUE) ? "inline-block" : "none"
         document.getElementById("eternityPoints").style.display = "inline-block"
     }
 }
@@ -4225,6 +4250,7 @@ function startChallenge(name, target) {
         player.resets++;
         if (player.galaxies == 0) player.galaxies = 1
     }
+
 
     
 }
@@ -4592,6 +4618,8 @@ setInterval(function () {
     document.getElementById("replicantiamount").innerHTML = shortenDimensions(player.replicanti.amount)
     document.getElementById("replicantimult").innerHTML = shorten(Math.pow(Math.log2(player.replicanti.amount), 2))
 
+
+    document.getElementById("eternitybtn").innerHTML = (player.eternities == 0) ? "Other times await.. I need to become Eternal" : "I need to become Eternal.<br>"+"Gain "+shortenDimensions(gainedEternityPoints())+" Eternity points."
     
     updateMoney();
     updateCoinPerSec();
@@ -4826,12 +4854,22 @@ setInterval(function () {
     if (player.infinityUpgrades.includes("infinitiedGeneration")) document.getElementById("postinfi13").className = "infinistorebtnbought"
     if (player.infinityUpgrades.includes("bulkBoost")) document.getElementById("postinfi23").className = "infinistorebtnbought"
     if (player.infinityUpgrades.includes("autoBuyerUpgrade")) document.getElementById("postinfi33").className = "infinistorebtnbought"
+
+    if (player.currentChallenge !== "") {
+        document.getElementById("progressbar").style.width = Decimal.min((Decimal.log10(player.money.plus(1)) / Decimal.log10(player.challengeTarget) * 100), 100).toFixed(2) + "%"
+        document.getElementById("progressbar").innerHTML = Decimal.min((Decimal.log10(player.money.plus(1)) / Decimal.log10(player.challengeTarget) * 100), 100).toFixed(2) + "%"
+    } else if (!player.break) {
+        document.getElementById("progressbar").style.width = Decimal.min((Decimal.log10(player.money.plus(1)) / Decimal.log10(Number.MAX_VALUE) * 100), 100).toFixed(2) + "%"
+        document.getElementById("progressbar").innerHTML = Decimal.min((Decimal.log10(player.money.plus(1)) / Decimal.log10(Number.MAX_VALUE) * 100), 100).toFixed(2) + "%"
+    } else if (player.infDimensionsUnlocked.includes(false)) {
+        document.getElementById("progressbar").style.width = Decimal.min(player.money.e / getNewInfReq().e * 100, 100).toFixed(2) + "%"
+        document.getElementById("progressbar").innerHTML = Decimal.min(player.money.e / getNewInfReq().e * 100, 100).toFixed(2) + "%"
+    } else {
+        document.getElementById("progressbar").style.width = Decimal.min(Decimal.log10(player.infinityPoints.plus(1)) / Decimal.log10(Number.MAX_VALUE)  * 100, 100).toFixed(2) + "%"
+        document.getElementById("progressbar").innerHTML = Decimal.min(Decimal.log10(player.infinityPoints.plus(1)) / Decimal.log10(Number.MAX_VALUE)  * 100, 100).toFixed(2) + "%"
+    }
             
 
-    if (player.money.lte(Number.MAX_VALUE)) document.getElementById("progressbar").style.width = Decimal.min((Decimal.log10(player.money.plus(1)) / Decimal.log10(Number.MAX_VALUE) * 100), 100).toFixed(2) + "%"
-    else document.getElementById("progressbar").style.width = "100%"
-    if (player.money.lte(Number.MAX_VALUE)) document.getElementById("progressbar").innerHTML = Decimal.min((Decimal.log10(player.money.plus(1)) / Decimal.log10(Number.MAX_VALUE) * 100), 100).toFixed(2) + "%"
-    else document.getElementById("progressbar").innerHTML = "100%"
 
     
     var scale1 = [2.82e-45,1e-42,7.23e-30,5e-21,9e-17,6.2e-11,5e-8,3.555e-6,7.5e-4,1,2.5e3,2.6006e6,3.3e8,5e12,4.5e17,1.08e21,1.53e24,1.41e27,5e32,8e36,1.7e45,1.7e48,3.3e55,3.3e61,5e68,1e73,3.4e80,1e113,Number.MAX_VALUE];
@@ -5643,6 +5681,10 @@ window.addEventListener('keydown', function(event) {
 
         case 83: // S
             document.getElementById("sacrifice").onclick()
+        break;
+
+        case 84: // T
+            buyMaxTickSpeed()
         break;
 
         case 49: // 1
