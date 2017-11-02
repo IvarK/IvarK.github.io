@@ -5076,8 +5076,6 @@ setInterval(function() {
     updateChallenges()
     updateAutobuyers()
 }
-
-
 function chall7cheat() {
     player.infinitied = 50
     player.infinityPoints = 50
@@ -5085,13 +5083,11 @@ function chall7cheat() {
     player.challenges.push("challenge1")
     updateChallenges()
     updateAutobuyers()
-
     setInterval(function() {
         document.getElementById("maxall").click()
         document.getElementById("secondSoftReset").click()
         document.getElementById("softReset").click()
     }, 100)
-
 }*/
 
 
@@ -5150,7 +5146,6 @@ var conditionalNewsArray = ["Our universe is falling apart. We are all evacuatin
 ctx.textBaseline = 'top';
 var newsTextValue = Decimal.round(Decimal.random() * (newsArray.length - 1))
 var newsText = newsArray[newsTextValue];
-
 setInterval(function () {
     //document.getElementById("news").innerHTML = newsArray[Decimal.round(Decimal.random() * (newsArray.length - 1))];
     ctx.clearRect(0, 0, c.width, c.height);
@@ -5174,8 +5169,6 @@ setInterval(function () {
             else if (!conditionalNewsArray.includes(newsText) && !player.newsArray.includes(newsTextValue)) player.newsArray.push(newsTextValue);
   			if (player.newsArray.length>=50 && !player.achievements.includes("Fake News")) giveAchievement("Fake News") 
         }
-
-
     }
 }, 1000 / 30);*/
 
