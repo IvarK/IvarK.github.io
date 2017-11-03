@@ -247,8 +247,8 @@ td {
 }
 
 .eternitybtn:hover {
-    color: #511568;
-    background: white;
+    color: #511568 !important;
+    background: white !important;
 }
 
 @keyframes antimatterGlow {
