@@ -667,6 +667,7 @@
     border-radius: 4px;
     font-size: 13px;
     vertical-align: top;
+    margin:7px;
 }
 
 .timestudy:hover {
@@ -959,6 +960,7 @@ br {
     margin: 3px;
     line-height: 5px;
 }
+
 
 /* tree css */
 .tree ul {
