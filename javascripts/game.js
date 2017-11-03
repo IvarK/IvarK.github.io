@@ -567,7 +567,7 @@ function onLoad() {
 		player.version = 5
     }
     
-    if (player.version < 6) {
+    if (player.infinityDimension5 === undefined) {
         player.infDimensionsUnlocked.push(false)
         player.infDimensionsUnlocked.push(false)
         player.infinityDimension5 = {
@@ -5355,6 +5355,9 @@ function init() {
     document.getElementById("shopbtn").onclick = function () {
         showTab('shop')
         updateKongPurchases()
+    }
+    document.getElementById("eternitystorebtn").onclick = function () {
+        showTab('eternitystore')
     }
     //show one tab during init or they'll all start hidden
     showTab('dimensions')
