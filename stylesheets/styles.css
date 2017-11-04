@@ -753,7 +753,12 @@
     background: #652F2F;
 }
 
-
+#treeimage {
+    padding-top: 160px;
+    position: absolute;
+    padding-left: 70px;
+    z-index: -999;
+}
 
 @keyframes glow {
     20% { text-shadow: 0 0 10px green; }
