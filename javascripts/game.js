@@ -1553,6 +1553,7 @@ function buyWithAntimatter() {
         player.timestudy.amcost = player.timestudy.amcost.times(new Decimal("1e20000"))
         player.timestudy.theorem += 1
         updateTheoremButtons()
+        updateTimeStudyButtons()
     }
 }
 
@@ -1562,6 +1563,7 @@ function buyWithIP() {
         player.timestudy.ipcost = player.timestudy.ipcost.times(1e100)
         player.timestudy.theorem += 1
         updateTheoremButtons()
+        updateTimeStudyButtons()
     }
 }
 
@@ -1571,6 +1573,7 @@ function buyWithEP() {
         player.timestudy.epcost = player.timestudy.epcost.times(100)
         player.timestudy.theorem += 1
         updateTheoremButtons()
+        updateTimeStudyButtons()
     }
 }
 
