@@ -1578,7 +1578,7 @@ function updateTheoremButtons() {
 }
 
 function buyTimeStudy(name, cost) {
-    if (player.timestudy.theorem >= cost && canBuyStudy(name)) {
+    if (player.timestudy.theorem >= cost && canBuyStudy(name) && !player.timestudy.studies.includes(name)) {
         player.timestudy.studies.push(name)
         player.timestudy.theorem -= cost
         document.getElementById(""+name).className = "timestudybought"
