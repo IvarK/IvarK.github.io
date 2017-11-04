@@ -693,7 +693,9 @@ function onLoad() {
     document.getElementById("eternitybtn").style.display = player.infinityPoints.gte(Number.MAX_VALUE) ? "inline-block" : "none"
     
     
-
+    for (var i=0; i<player.timestudy.studies.length; i++) {
+        document.getElementById(""+player.timestudy.studies[i]).className = "timestudybought"
+    }
 
     if (player.options.newsHidden) {
         document.getElementById("game").style.display = "none";
@@ -709,6 +711,7 @@ function onLoad() {
     setAchieveTooltip();
     updatePriorities()
     updateTheoremButtons()
+    updateTimeStudyButtons()
     totalMult = Math.pow(player.totalmoney.e+1, 0.5)
     currentMult = Math.pow(player.money.e+1, 0.5)
     infinitiedMult = Math.log10(player.infinitied)*10
@@ -1548,7 +1551,7 @@ function buyWithAntimatter() {
 
 function buyWithIP() {
     if (player.infinityPoints.gte(player.timestudy.ipcost)) {
-        player.money = player.money.minus(player.timestudy.ipcost)
+        player.infinityPoints = player.infinityPoints.minus(player.timestudy.ipcost)
         player.timestudy.ipcost = player.timestudy.ipcost.times(1e100)
         player.timestudy.theorem += 1
         updateTheoremButtons()
@@ -1557,7 +1560,7 @@ function buyWithIP() {
 
 function buyWithEP() {
     if (player.eternityPoints.gte(player.timestudy.epcost)) {
-        player.money = player.money.minus(player.timestudy.epcost)
+        player.eternityPoints = player.eternityPoints.minus(player.timestudy.epcost)
         player.timestudy.epcost = player.timestudy.epcost.times(100)
         player.timestudy.theorem += 1
         updateTheoremButtons()
@@ -1575,9 +1578,59 @@ function updateTheoremButtons() {
 }
 
 function buyTimeStudy(name, cost) {
-    if (player.timestudy.theorem >= cost) {
+    if (player.timestudy.theorem >= cost && canBuyStudy(name)) {
         player.timestudy.studies.push(name)
         player.timestudy.theorem -= cost
+        document.getElementById(""+name).className = "timestudybought"
+        updateTheoremButtons()
+        updateTimeStudyButtons()
+    }
+}
+
+function hasRow(row) {
+    for (var i=0; i<player.timestudy.studies.length; i++) {
+        if (Math.floor(player.timestudy.studies[i]/10) == row) return true
+    }
+}
+
+function canBuyStudy(name) {
+    var row = Math.floor(name/10)
+    var col = name%10
+
+    switch(row) {
+
+        case 1: return true
+        break;
+
+        case 2: if (hasRow(1)) return true; else return false
+        break;
+
+        case 3, 4, 6, 8, 9, 10, 13, 14, 15, 17: if (player.timestudy.studies.includes((row-1)*10 + col)) return true; else return false
+        break;
+
+        case 5: if (player.timestudy.studies.includes(41) && player.timestudy.studies.includes(42)) return true; else return false
+        break;
+
+        case 7: if (hasRow(6) && !hasRow(7)) return true; else return false
+        break;
+
+        case 11: if (hasRow(10)) return true; else return false
+        break;
+
+        case 12: if (hasRow(11) && !hasRow(12)) return true; else return false
+        break;
+
+        case 16: if (hasRow(15)) return true; else return false
+    }
+}
+var all = [11, 21, 22, 31, 32, 41, 42, 51, 61, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 131, 132, 141, 142, 151, 152, 161, 171]
+var studyCosts = [1, 1, 1, 2, 2, 41, 42, 51, 61, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 131, 132, 141, 142, 151, 152, 161, 171]
+function updateTimeStudyButtons() {
+    for (var i=0; i<all.length; i++) {
+        if (!player.timestudy.studies.includes(all[i])) {
+            if (canBuyStudy(all[i]) && studyCosts[i]<=player.timestudy.theorem) document.getElementById(all[i]).className = "timestudy"
+            else document.getElementById(all[i]).className = "timestudylocked"
+        }
     }
 }
 

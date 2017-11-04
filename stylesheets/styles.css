@@ -655,24 +655,62 @@
 }
 
 .timestudy {
-    color: #1e0830;
-    background: #939da0;
+    color: #b341e0;
+    background: black;
+    border: 1px solid #b341e0;
     font-weight: bold;
     font-family: Typewriter;
-    border: 1px solid #691fa5;
     width: 170px;
-    height: 50px;
+    height: 80px;
     transition-duration: 0.2s;
     cursor: pointer;
     border-radius: 4px;
     font-size: 13px;
     vertical-align: top;
     margin:7px;
+    font-size:12px;
 }
 
 .timestudy:hover {
-    color: #a68dba;
-    background: #202021;
+    color: #DADADA;
+    background: #3A0A57;
+}
+
+.timestudylocked {
+    color: #181818;
+    background: #5F5F5F;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 1px solid #691fa5;
+    width: 170px;
+    height: 80px;
+    transition-duration: 0.2s;
+    border-radius: 4px;
+    font-size: 13px;
+    vertical-align: top;
+    margin:7px;
+    font-size:12px;
+}
+
+.timestudylocked:hover {
+    color: #1D1D1D;
+    background: #660000;
+}
+
+.timestudybought {
+    color: #1e0830;
+    background: #0BD251;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 1px solid #691fa5;
+    width: 170px;
+    height: 80px;
+    transition-duration: 0.2s;
+    border-radius: 4px;
+    font-size: 13px;
+    vertical-align: top;
+    margin:7px;
+    font-size:12px;
 }
 
 .timetheorembtn {
@@ -705,7 +743,6 @@
     width: 170px;
     height: 70px;
     transition-duration: 0.2s;
-    cursor: pointer;
     border-radius: 4px;
     font-size: 13px;
     vertical-align: top;
