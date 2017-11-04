@@ -1549,7 +1549,7 @@ function buyWithAntimatter() {
 function buyWithIP() {
     if (player.infinityPoints.gte(player.timestudy.ipcost)) {
         player.money = player.money.minus(player.timestudy.ipcost)
-        player.timestudy.ipcost = player.timestudy.ipcost.times(1e50)
+        player.timestudy.ipcost = player.timestudy.ipcost.times(1e100)
         player.timestudy.theorem += 1
         updateTheoremButtons()
     }
