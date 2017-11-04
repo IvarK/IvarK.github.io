@@ -182,6 +182,13 @@ var player = {
         galaxies: 0,
         galCost: new Decimal(1e170)
     },
+    timestudy: {
+        theorem: 0,
+        amcost: new Decimal("1e20000"),
+        ipcost: new Decimal(1),
+        epcost: new Decimal(1),
+        studies: [],
+    },
     options: {
         newsHidden: false,
         notation: "Standard",
@@ -623,6 +630,15 @@ function onLoad() {
         player.bestEternity = 9999999999
         player.thisEternity = player.totalTimePlayed
     }
+    if (player.timestudy === undefined) {
+        player.timestudy = {
+            theorem: 0,
+            amcost: new Decimal("1e20000"),
+            ipcost: new Decimal(1),
+            epcost: new Decimal(1),
+            studies: [],
+        }
+    }
     transformSaveToDecimal();
     updateCosts();
     updateTickSpeed();
@@ -692,6 +708,7 @@ function onLoad() {
     updateAutobuyers();
     setAchieveTooltip();
     updatePriorities()
+    updateTheoremButtons()
     totalMult = Math.pow(player.totalmoney.e+1, 0.5)
     currentMult = Math.pow(player.money.e+1, 0.5)
     infinitiedMult = Math.log10(player.infinitied)*10
@@ -716,7 +733,6 @@ function load_game() {
     if (!save_data) return;
     player = save_data;
     onLoad()
-    
 }
 
 
@@ -792,6 +808,9 @@ function transformSaveToDecimal() {
     }
 
     player.infMultCost = new Decimal(player.infMultCost)
+    player.timestudy.amcost = new Decimal(player.timestudy.amcost)
+    player.timestudy.ipcost = new Decimal(player.timestudy.ipcost)
+    player.timestudy.epcost = new Decimal(player.timestudy.epcost)
 }
 
 
@@ -1456,7 +1475,7 @@ function buyManyInfinityDimension(tier) {
 var infDimPow = 1
 
 
-//time dimensions
+//ensions
 
 
 function getTimeDimensionProduction(tier) {
@@ -1487,7 +1506,7 @@ function getTimeDimensionDescription(tier) {
 
 function updateTimeDimensions() {
     for (let tier = 1; tier <= 4; ++tier) {
-        document.getElementById("timeD"+tier).innerHTML = DISPLAY_NAMES[tier] + " Time Dimension x" + shortenMoney(player["timeDimension"+tier].power);
+        document.getElementById("timeD"+tier).innerHTML = DISPLAY_NAMES[tier] + " Dimension x" + shortenMoney(player["timeDimension"+tier].power);
         document.getElementById("timeAmount"+tier).innerHTML = getTimeDimensionDescription(tier);  
     }
 }
@@ -1513,6 +1532,53 @@ function resetTimeDimensions() {
         dim.amount = new Decimal(dim.bought)
     }
 
+}
+
+
+// Time studies
+
+function buyWithAntimatter() {
+    if (player.money.gte(player.timestudy.amcost)) {
+        player.money = player.money.minus(player.timestudy.amcost)
+        player.timestudy.amcost = player.timestudy.amcost.times(new Decimal("1e20000"))
+        player.timestudy.theorem += 1
+        updateTheoremButtons()
+    }
+}
+
+function buyWithIP() {
+    if (player.infinityPoints.gte(player.timestudy.ipcost)) {
+        player.money = player.money.minus(player.timestudy.ipcost)
+        player.timestudy.ipcost = player.timestudy.ipcost.times(1e50)
+        player.timestudy.theorem += 1
+        updateTheoremButtons()
+    }
+}
+
+function buyWithEP() {
+    if (player.eternityPoints.gte(player.timestudy.epcost)) {
+        player.money = player.money.minus(player.timestudy.epcost)
+        player.timestudy.epcost = player.timestudy.epcost.times(100)
+        player.timestudy.theorem += 1
+        updateTheoremButtons()
+    }
+}
+
+function updateTheoremButtons() {
+    document.getElementById("theoremam").className = player.money.gte(player.timestudy.amcost) ? "timetheorembtn" : "timetheorembtnlocked"
+    document.getElementById("theoremip").className = player.infinityPoints.gte(player.timestudy.ipcost) ? "timetheorembtn" : "timetheorembtnlocked"
+    document.getElementById("theoremep").className = player.eternityPoints.gte(player.timestudy.epcost) ? "timetheorembtn" : "timetheorembtnlocked"
+    document.getElementById("theoremep").innerHTML = "Buy Time Theorems <br>Cost: "+shortenCosts(player.timestudy.epcost)+" EP"
+    document.getElementById("theoremip").innerHTML = "Buy Time Theorems <br>Cost: "+shortenCosts(player.timestudy.ipcost)+" IP"
+    document.getElementById("theoremam").innerHTML = "Buy Time Theorems <br>Cost: "+shortenCosts(player.timestudy.amcost)
+    document.getElementById("timetheorems").innerHTML = "You have "+player.timestudy.theorem+" Time "+ (player.timestudy.theorem == 1 ? "Theorem." : "Theorems.")
+}
+
+function buyTimeStudy(name, cost) {
+    if (player.timestudy.theorem >= cost) {
+        player.timestudy.studies.push(name)
+        player.timestudy.theorem -= cost
+    }
 }
 
 
@@ -1628,6 +1694,7 @@ function softReset(bulk) {
         challengeTarget: player.challengeTarget,
         autoSacrifice: player.autoSacrifice,
         replicanti: player.replicanti,
+        timestudy: player.timestudy,
         options: player.options
     };
     if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -2934,6 +3001,7 @@ function galaxyReset() {
         challengeTarget: player.challengeTarget,
         autoSacrifice: player.autoSacrifice,
         replicanti: player.replicanti,
+        timestudy: player.timestudy,
         options: player.options
     };
 
@@ -3753,6 +3821,7 @@ document.getElementById("bigcrunch").onclick = function () {
         challengeTarget: player.challengeTarget,
         autoSacrifice: player.autoSacrifice,
         replicanti: player.replicanti,
+        timestudy: player.timestudy,
         options: player.options
         };
 
@@ -4036,6 +4105,7 @@ function eternity() {
                 galaxies: 0,
                 galCost: new Decimal(1e170)
             },
+            timestudy: player.timestudy,
             options: player.options
         };
 
@@ -4201,6 +4271,7 @@ function startChallenge(name, target) {
       challengeTarget: target,
       autoSacrifice: player.autoSacrifice,
       replicanti: player.replicanti,
+      timestudy: player.timestudy,
       options: player.options
     };
 	if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -4460,6 +4531,7 @@ setInterval(function() {
     document.getElementById("replicantimax").className = (player.infinityPoints.gte(player.replicanti.galCost)) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantireset").className = (player.replicanti.galaxies < player.replicanti.gal && player.replicanti.amount == Number.MAX_VALUE) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantiunlock").className = (player.infinityPoints.gte(1e140)) ? "storebtn" : "unavailablebtn"
+    updateTheoremButtons()
     
     
     
@@ -5316,6 +5388,20 @@ function showDimTab(tabName) {
 function showChallengesTab(tabName) {
     //iterate over all elements in div_tab class. Hide everything that's not tabName and show tabName
     var tabs = document.getElementsByClassName('challengeTab');
+    var tab;
+    for (var i = 0; i < tabs.length; i++) {
+        tab = tabs.item(i);
+        if (tab.id === tabName) {
+            tab.style.display = 'block';
+        } else {
+            tab.style.display = 'none';
+        }
+    }
+}
+
+function showEternityTab(tabName) {
+    //iterate over all elements in div_tab class. Hide everything that's not tabName and show tabName
+    var tabs = document.getElementsByClassName('eternitytab');
     var tab;
     for (var i = 0; i < tabs.length; i++) {
         tab = tabs.item(i);

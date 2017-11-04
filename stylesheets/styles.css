@@ -675,6 +675,47 @@
     background: #202021;
 }
 
+.timetheorembtn {
+    color: #3AACD6;
+    background: #232028;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 1px solid #691fa5;
+    width: 170px;
+    height: 70px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 13px;
+    vertical-align: top;
+    margin:7px;
+}
+
+.timetheorembtn:hover {
+    color: #232028;
+    background: #3AACD6;
+}
+
+.timetheorembtnlocked {
+    color: black;
+    background: #4A4A4A;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 1px solid #691fa5;
+    width: 170px;
+    height: 70px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 13px;
+    vertical-align: top;
+    margin:7px;
+}
+
+.timetheorembtnlocked:hover {
+    background: #652F2F;
+}
+
 
 
 @keyframes glow {
@@ -958,6 +999,13 @@ br {
     content: " ";
     display: block;
     margin: 3px;
+    line-height: 5px;
+}
+
+#timestudies br {
+    content: " ";
+    display: block;
+    margin: 20px;
     line-height: 5px;
 }
 
