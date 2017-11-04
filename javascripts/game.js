@@ -4330,6 +4330,8 @@ function startChallenge(name, target) {
       timeDimension4: player.timeDimension4,
       eternityPoints: player.eternityPoints,
       eternities: player.eternities,
+      thisEternity: player.thisEternity,
+      bestEternity: player.bestEternity,
       totalTickGained: player.totalTickGained,
       offlineProd: player.offlineProd,
       offlineProdCost: player.offlineProdCost,
@@ -4691,7 +4693,7 @@ setInterval(function () {
 
 
 
-    for (let tier=1;tier<8;tier++) {
+    for (let tier=1;tier<9;tier++) {
         if (tier != 8 && player.infDimensionsUnlocked[tier-1]) player["infinityDimension"+tier].amount = player["infinityDimension"+tier].amount.plus(getInfinityDimensionProduction(tier+1).times(diff/100))
         if (player.infDimensionsUnlocked[tier-1]) {
             document.getElementById("infRow"+tier).style.display = "inline-block"
