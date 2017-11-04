@@ -122,10 +122,6 @@ input {
     color: #E0E0E0 !important;
 }
 
-td {
-    border-bottom: 1px solid #4F5957 !important;
-}
-
 .unavailablebtn {
     background: #37474F !important;
 }
@@ -249,6 +245,59 @@ td {
 .eternitybtn:hover {
     color: #511568 !important;
     background: white !important;
+}
+
+.eternitytabbtn {
+    color: #b341e0 !important;
+    background: black !important;
+    border: 2px solid #b341e0 !important;
+}
+
+.eternitytabbtn:hover {
+    color: #511568 !important;
+    background: white !important;
+}
+
+.timetheorembtn {
+    color: #3AACD6 !important;
+    background: #232028 !important;
+}
+
+.timetheorembtn:hover {
+    color: #232028 !important;
+    background: #3AACD6 !important;
+}
+
+.timestudy {
+    color: #b341e0 !important;
+    background: black !important;
+}
+
+.timestudy:hover {
+    color: #DADADA !important;
+    background: #3A0A57 !important;
+}
+
+.timetheorembtnlocked {
+    background: #37474F !important;
+}
+
+.timetheorembtnlocked:hover {
+    background: #652F2F !important;
+}
+
+.timestudylocked {
+    background: #37474F !important;
+}
+
+.timestudylocked:hover {
+    color: #1D1D1D !important;
+    background: #660000 !important;
+}
+
+.timestudybought {
+    color: #1e0830 !important;
+    background: #43A047 !important;
 }
 
 @keyframes antimatterGlow {
