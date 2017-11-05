@@ -3175,7 +3175,7 @@ function galaxyReset() {
     updateTickSpeed()
     if (player.achievements.includes("66")) player.tickspeed = player.tickspeed.times(0.98);
 
-    }
+    
 };
 
 document.getElementById("exportbtn").onclick = function () {
