@@ -688,10 +688,6 @@ function onLoad() {
         }
     }
     
-
-    document.getElementById("eternityPoints").innerHTML = "You have <b>"+shortenDimensions(player.eternityPoints)+"</b> Eternity points."
-    document.getElementById("eternitybtn").style.display = player.infinityPoints.gte(Number.MAX_VALUE) ? "inline-block" : "none"
-    
     
     for (var i=0; i<player.timestudy.studies.length; i++) {
         document.getElementById(""+player.timestudy.studies[i]).className = "timestudybought"
@@ -1024,8 +1020,8 @@ function getDimensionFinalMultiplier(tier) {
     if (player.achievements.includes("How the antitables have turned")) multiplier = multiplier.times(1+tier/100);
     if (player.achievements.includes("Many Deaths") && player.thisInfinityTime < 1800) multiplier = multiplier.times(3600/(player.thisInfinityTime+1800));
     if (player.achievements.includes("Blink of an eye") && player.thisInfinityTime < 3) multiplier = multiplier.times(3.3/(player.thisInfinityTime+0.3));
-    if (player.achievements.includes("This achievement doesn't exist")) multiplier = multiplier.times(Decimal.pow(player.money,0.00002).plus(1));
-    if (player.achievements.includes("I got a few to spare")) multiplier = multiplier.times(Decimal.pow(player.money,0.00002).plus(1));
+    if (player.achievements.includes("This achievement doesn't exist")) multiplier = multiplier.times(1+Decimal.pow(player.money,0.00002));
+    if (player.achievements.includes("I got a few to spare")) multiplier = multiplier.times(1+Decimal.pow(player.money,0.00002));
 
     multiplier = multiplier.times(player.postC3Reward)
     if (player.currentChallenge == "postc6") multiplier = multiplier.dividedBy(Decimal.max(player.matter, 1))
@@ -1227,8 +1223,8 @@ function updateDimensions() {
             document.getElementById("infinityPoints2").innerHTML = "You have 1 Infinity point."
         }
         else {
-            document.getElementById("infinityPoints1").innerHTML = "You have  " + shortenDimensions(player.infinityPoints) + " Infinity points."
-            document.getElementById("infinityPoints2").innerHTML = "You have  <b>" + shortenDimensions(player.infinityPoints) + "</b> Infinity points."
+            document.getElementById("infinityPoints1").innerHTML = "You have <span class=\"IPAmount1\">"+shortenDimensions(player.infinityPoints)+"</span> Infinity points."
+            document.getElementById("infinityPoints2").innerHTML = "You have <span class=\"IPAmount2\">"+shortenDimensions(player.infinityPoints)+"</span> Infinity points."
         }
         if (player.infinitied == 1) document.getElementById("infinitied").innerHTML = "You have infinitied 1 time."
         else document.getElementById("infinitied").innerHTML = "You have infinitied " + player.infinitied + " times."
@@ -1251,7 +1247,7 @@ function updateDimensions() {
     document.getElementById("infi22").innerHTML = "Second and seventh Dimension power based on infinitied stat<br>" + formatValue(player.options.notation, dimMults(), 1, 1) + "x<br>Cost: 1 IP"
     document.getElementById("infi23").innerHTML = "Fourth and Fifth Dimension power based on infinitied stat<br>" + formatValue(player.options.notation, dimMults(), 1, 1) + "x<br>Cost: 1 IP"
     document.getElementById("infi31").innerHTML = "Production increase over time in current infinity<br>Currently: " + Decimal.max(Math.pow(player.thisInfinityTime / 2400, 0.25), 1).toFixed(2) + "x<br>Cost: 3 IP"
-    document.getElementById("infi32").innerHTML = "Bonus for unspent Infinity Points on 1st Dimension<br>(Currently " + formatValue(player.options.notation, Decimal.pow(player.infinityPoints.dividedBy(2),1.5).plus(1), 2, 2) + "x)<br>Cost: 5 IP"
+    document.getElementById("infi32").innerHTML = "Bonus for unspent Infinity Points on 1st Dimension<br>(Currently " + formatValue(player.options.notation, Decimal.pow(player.infinityPoints/2,1.5).plus(1), 2, 2) + "x)<br>Cost: 5 IP"
     document.getElementById("infi34").innerHTML = "Infinity Point generation (based on fastest infinity) <br>(Currently "+shortenDimensions(player.infMult * kongIPMult)+" every " + timeDisplay(player.bestInfinityTime*10) + ")<br>Cost: 10 IP"
     document.getElementById("postinfi11").innerHTML = "Power up all dimensions based on total antimatter produced<br>Currently: "+ Math.pow(player.totalmoney.e+1, 0.5).toFixed(2)+"x<br>Cost: "+shortenCosts(1e4)+" IP"
     document.getElementById("postinfi21").innerHTML = "Power up all dimensions based on current antimatter<br>Currently: "+ Math.pow(player.money.e+1, 0.5).toFixed(2)+"x<br>Cost: "+shortenCosts(5e4)+" IP"
@@ -1592,7 +1588,7 @@ function updateTheoremButtons() {
     document.getElementById("theoremep").innerHTML = "Buy Time Theorems <br>Cost: "+shortenCosts(player.timestudy.epcost)+" EP"
     document.getElementById("theoremip").innerHTML = "Buy Time Theorems <br>Cost: "+shortenCosts(player.timestudy.ipcost)+" IP"
     document.getElementById("theoremam").innerHTML = "Buy Time Theorems <br>Cost: "+shortenCosts(player.timestudy.amcost)
-    document.getElementById("timetheorems").innerHTML = "You have "+player.timestudy.theorem+" Time "+ (player.timestudy.theorem == 1 ? "Theorem." : "Theorems.")
+    document.getElementById("timetheorems").innerHTML = "You have <span class=\"TheoremAmount\">"+player.timestudy.theorem+"</span> Time "+ (player.timestudy.theorem == 1 ? "Theorem." : "Theorems.")
 }
 
 function buyTimeStudy(name, cost) {
@@ -4596,8 +4592,8 @@ setInterval(function() {
 
     document.getElementById("kongip").innerHTML = "Double your IP gain from all sources (additive). Forever. Currently: x"+kongIPMult+", next: "+(kongIPMult==1? 2: kongIPMult+2)+"x"
     document.getElementById("kongdim").innerHTML = "Double all your dimension multipliers (dimensions 1-8) (multiplicative). Forever. Currently: x"+kongDimMult+", next: "+(kongDimMult*2)+"x"
-    document.getElementById("eternityPoints").innerHTML = "You have <b>"+shortenDimensions(player.eternityPoints)+"</b> Eternity points."
-
+    document.getElementById("eternityPoints").innerHTML = "You have <span class=\"EPAmount\">"+shortenDimensions(player.eternityPoints)+"</span> Eternity points."
+   
     document.getElementById("eternitybtn").style.display = player.infinityPoints.gte(Number.MAX_VALUE) ? "inline-block" : "none"
 
     if (player.eternities == 0) document.getElementById("eternityPoints").style.display = "none"

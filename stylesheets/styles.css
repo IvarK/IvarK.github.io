@@ -392,11 +392,19 @@
     width: 150px;
 }
 
+.IPAmount2 {
+    font-weight: bold;
+}
+
 .EP {
     right:81.5%;
     position: absolute;
     font-size: 12px;
     width: 150px;
+} 
+
+.EPAmount {
+    font-weight: bold;
 }
 
 .newdim {
