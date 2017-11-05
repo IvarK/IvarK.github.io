@@ -1055,7 +1055,7 @@ function getDimensionFinalMultiplier(tier) {
         else return Decimal.pow(multiplier, 0.25);
     }
 
-    if (player.currentChallenge == "postc4" && player.postC4Tier != tier) return Decimal.pow(multiplier, 0.25);
+    if (player.challenges.includes("postc4")) return Decimal.pow(multiplier, 1.05);
     return multiplier;
 }
 
@@ -2829,6 +2829,8 @@ function upgradeReplicantiChance() {
         document.getElementById("replicantichance").innerHTML = "Replicate chance: "+Math.round(player.replicanti.chance*100)+"%<br>+1% Costs: "+shortenCosts(player.replicanti.chanceCost)+" IP"
     }
 }
+
+
 
 function upgradeReplicantiInterval() {
     if (player.infinityPoints.gte(player.replicanti.intervalCost) && player.replicanti.interval !== 50) {
