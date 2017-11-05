@@ -811,6 +811,8 @@ function transformSaveToDecimal() {
     player.timestudy.amcost = new Decimal(player.timestudy.amcost)
     player.timestudy.ipcost = new Decimal(player.timestudy.ipcost)
     player.timestudy.epcost = new Decimal(player.timestudy.epcost)
+
+    player.autobuyers[11].priority = new Decimal(player.autobuyers[11].priority)
 }
 
 
@@ -2852,13 +2854,10 @@ buyAutobuyer = function(id) {
         player.autobuyers[id].bulk *= 2;
         player.autobuyers[id].cost = Math.ceil(2.4*player.autobuyers[id].cost);
         var b1 = true;
-        var b2 = true;
 	    for (let i=0;i<8;i++) {
             if (player.autobuyers[i].bulk < 512) b1 = false;
-            if (player.autobuyers[i].cost < 1e306) b2 = false;
         }
         if (b1) giveAchievement("61");
-        if (b2) giveAchievement("85");
     } else {
         player.autobuyers[id].interval = Math.max(player.autobuyers[id].interval*0.6, 100);
         if (player.autobuyers[id].interval > 120) player.autobuyers[id].cost *= 2; //if your last purchase wont be very strong, dont double the cost
@@ -3642,7 +3641,7 @@ function updatePriorities() {
     player.autobuyers[9].priority = parseInt(document.getElementById("priority10").value)
     player.autobuyers[10].priority = parseInt(document.getElementById("priority11").value)
     var infvalue = document.getElementById("priority12").value
-    if (infvalue.includes("e")) infvalue = parseFloat(infvalue.split("e")[0]) * Math.pow(10, parseInt(infvalue.split("e")[1]))
+    if (infvalue.includes("e")) infvalue = new Decimal(infvalue)
     else infvalue = parseInt(infvalue)
     player.autobuyers[11].priority = infvalue
     var bulk = Math.max(Math.floor(parseInt(document.getElementById("bulkDimboost").value)), 1)
@@ -4807,9 +4806,9 @@ setInterval(function () {
 
     var est = player.replicanti.chance * 1000 / player.replicanti.interval
     var current = Math.log2(player.replicanti.amount)
-    
+    if (current == 1024 && player.thisInfinityTime < 600*30) giveAchievement("85")
 
-    if (diff > 5 && player.replicanti.amount > 100) {
+    if (diff > 5) {
         var gained = Math.pow(2, current+diff*est/10)
         player.replicanti.amount = Math.min(Number.MAX_VALUE, gained)
     } else {
@@ -5181,7 +5180,7 @@ function autoBuyerTick() {
         if (player.autobuyers[11].isOn) {
             if (!player.break || player.currentChallenge != "") {
                 document.getElementById("bigcrunch").click()
-            } else if (player.autobuyers[11].priority <= gainedInfinityPoints()) {
+            } else if (player.autobuyers[11].priority.lt(gainedInfinityPoints())) {
                 document.getElementById("bigcrunch").click()
             }
             
