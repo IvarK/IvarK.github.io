@@ -4078,59 +4078,59 @@ function eternity() {
             infDimensionsUnlocked: [false, false, false, false, false, false],
             infinityPower: new Decimal(1),
             infinityDimension1 : {
-                cost: 1e8,
+                cost: new Decimal(1e8),
                 amount: new Decimal(0),
                 bought: 0,
-                power: 1,
+                power: new Decimal(1),
                 baseAmount: 0
             },
             infinityDimension2 : {
-                cost: 1e9,
+                cost: new Decimal(1e9),
                 amount: new Decimal(0),
                 bought: 0,
-                power: 1,
+                power: new Decimal(1),
                 baseAmount: 0
             },
             infinityDimension3 : {
-                cost: 1e10,
+                cost: new Decimal(1e10),
                 amount: new Decimal(0), 
                 bought: 0,
-                power: 1,
+                power: new Decimal(1),
                 baseAmount: 0
             },
             infinityDimension4 : {
-                cost: 1e20,
+                cost: new Decimal(1e20),
                 amount: new Decimal(0),
                 bought: 0,
-                power: 1,
+                power: new Decimal(1),
                 baseAmount: 0
             },
             infinityDimension5 : {
-                cost: 1e185,
+                cost: new Decimal(1e140),
                 amount: new Decimal(0),
                 bought: 0,
-                power: 1,
+                power: new Decimal(1),
                 baseAmount: 0
             },
             infinityDimension6 : {
-                cost: 1e250,
+                cost: new Decimal(1e200),
                 amount: new Decimal(0),
                 bought: 0,
-                power: 1,
+                power: new Decimal(1),
                 baseAmount: 0
             },
             infinityDimension7 : {
-                cost: 1e250,
+                cost: new Decimal(1e250),
                 amount: new Decimal(0),
                 bought: 0,
-                power: 1,
+                power: new Decimal(1),
                 baseAmount: 0
             },
             infinityDimension8 : {
-                cost: 1e290,
+                cost: new Decimal(1e280),
                 amount: new Decimal(0),
                 bought: 0,
-                power: 1,
+                power: new Decimal(1),
                 baseAmount: 0
             },
             timeShards: new Decimal(0),
@@ -4340,7 +4340,7 @@ function startChallenge(name, target) {
       timeDimension4: player.timeDimension4,
       eternityPoints: player.eternityPoints,
       eternities: player.eternities,
-      thisEternity: player.thisEternity,
+      thisEternity: 0,
       bestEternity: player.bestEternity,
       totalTickGained: player.totalTickGained,
       offlineProd: player.offlineProd,
