@@ -688,10 +688,6 @@ function onLoad() {
         }
     }
     
-
-    document.getElementById("eternityPoints").innerHTML = "You have <b>"+shortenDimensions(player.eternityPoints)+"</b> Eternity points."
-    document.getElementById("eternitybtn").style.display = player.infinityPoints.gte(Number.MAX_VALUE) ? "inline-block" : "none"
-    
     
     for (var i=0; i<player.timestudy.studies.length; i++) {
         document.getElementById(""+player.timestudy.studies[i]).className = "timestudybought"
@@ -1227,8 +1223,8 @@ function updateDimensions() {
             document.getElementById("infinityPoints2").innerHTML = "You have 1 Infinity point."
         }
         else {
-            document.getElementById("infinityPoints1").innerHTML = "You have  " + shortenDimensions(player.infinityPoints) + " Infinity points."
-            document.getElementById("infinityPoints2").innerHTML = "You have  <b>" + shortenDimensions(player.infinityPoints) + "</b> Infinity points."
+            document.getElementById("infinityPoints1").innerHTML = "You have <span class=\"IPAmount1\">"+shortenDimensions(player.infinityPoints)+"</span> Infinity points."
+            document.getElementById("infinityPoints2").innerHTML = "You have <span class=\"IPAmount2\">"+shortenDimensions(player.infinityPoints)+"</span> Infinity points."
         }
         if (player.infinitied == 1) document.getElementById("infinitied").innerHTML = "You have infinitied 1 time."
         else document.getElementById("infinitied").innerHTML = "You have infinitied " + player.infinitied + " times."
@@ -1592,7 +1588,7 @@ function updateTheoremButtons() {
     document.getElementById("theoremep").innerHTML = "Buy Time Theorems <br>Cost: "+shortenCosts(player.timestudy.epcost)+" EP"
     document.getElementById("theoremip").innerHTML = "Buy Time Theorems <br>Cost: "+shortenCosts(player.timestudy.ipcost)+" IP"
     document.getElementById("theoremam").innerHTML = "Buy Time Theorems <br>Cost: "+shortenCosts(player.timestudy.amcost)
-    document.getElementById("timetheorems").innerHTML = "You have "+player.timestudy.theorem+" Time "+ (player.timestudy.theorem == 1 ? "Theorem." : "Theorems.")
+    document.getElementById("timetheorems").innerHTML = "You have <span class=\"TheoremAmount\">"+player.timestudy.theorem+"</span> Time "+ (player.timestudy.theorem == 1 ? "Theorem." : "Theorems.")
 }
 
 function buyTimeStudy(name, cost) {
@@ -4596,7 +4592,7 @@ setInterval(function() {
 
     document.getElementById("kongip").innerHTML = "Double your IP gain from all sources (additive). Forever. Currently: x"+kongIPMult+", next: "+(kongIPMult==1? 2: kongIPMult+2)+"x"
     document.getElementById("kongdim").innerHTML = "Double all your dimension multipliers (dimensions 1-8) (multiplicative). Forever. Currently: x"+kongDimMult+", next: "+(kongDimMult*2)+"x"
-    document.getElementById("eternityPoints").innerHTML = "You have <b>"+shortenDimensions(player.eternityPoints)+"</b> Eternity points."
+    document.getElementById("eternityPoints").innerHTML = "You have <span class=\"EPAmount\">"+shortenDimensions(player.eternityPoints)+"</span> Eternity points."
 
     document.getElementById("eternitybtn").style.display = player.infinityPoints.gte(Number.MAX_VALUE) ? "inline-block" : "none"
 

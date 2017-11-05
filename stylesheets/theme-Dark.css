@@ -69,6 +69,10 @@ input {
     background-color: #455A64;
 }
 
+.container {
+    color: #888888 !important;
+}
+
 .challengesbtn {
     background: #546E7A !important;
 }
@@ -116,6 +120,16 @@ input {
 
 #infinityPoints1 {
     color: #4F5957 !important;
+}
+
+.IPAmount1 {
+    color: white !important;
+    text-shadow: 0px 0px 7px #fff;
+}
+
+.IPAmount2 {
+    color: white !important;
+    text-shadow: 0px 0px 7px #fff;
 }
 
 .statstab {
@@ -227,13 +241,13 @@ input {
 }
 
 #replicantiamount {
-    color: #6200EA !important;
-    text-shadow: 0px 0px 7px #6200EA;
+    color: #03A9F4 !important;
+    text-shadow: 0px 0px 7px #03A9F4;
 }
 
 #replicantimult {
-    color: #6200EA !important;
-    text-shadow: 0px 0px 7px #6200EA;
+    color: #03A9F4 !important;
+    text-shadow: 0px 0px 7px #03A9F4;
 }
 
 .eternitybtn {
@@ -256,6 +270,16 @@ input {
 .eternitytabbtn:hover {
     color: #511568 !important;
     background: white !important;
+}
+
+.EPAmount {
+    color: #b341e0 !important;
+    text-shadow: 0px 0px 7px #b341e0;
+}
+
+.TheoremAmount {
+    color: #64DD17 !important;
+    text-shadow: 0px 0px 7px #64DD17;
 }
 
 .timetheorembtn {
@@ -298,6 +322,15 @@ input {
 .timestudybought {
     color: #1e0830 !important;
     background: #43A047 !important;
+}
+
+.greedbtn {
+    background-color: #f2d729 !important;
+    color: black !important;
+}
+
+.greedbtn:hover {
+    background-color: #9E913A !important;
 }
 
 @keyframes antimatterGlow {
