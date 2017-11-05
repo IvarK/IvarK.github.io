@@ -233,8 +233,6 @@ input {
 #tickThreshold {
     color: #64DD17 !important;
     text-shadow: 0px 0px 7px #64DD17;
-    animation: timeShardGlow 4s infinite;
-    transform: scale(1.0);
 }
 
 #replicantiamount {
