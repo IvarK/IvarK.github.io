@@ -3675,7 +3675,7 @@ function updatePriorities() {
     player.autobuyers[9].priority = parseInt(document.getElementById("priority10").value)
     player.autobuyers[10].priority = parseInt(document.getElementById("priority11").value)
     var infvalue = document.getElementById("priority12").value
-    if (infvalue.includes("e")) infvalue = new Decimal(infvalue)
+    if (infvalue.includes("e") && infvalue !== undefined && infvalue !== "undefined") infvalue = new Decimal(infvalue)
     else infvalue = parseInt(infvalue)
     player.autobuyers[11].priority = infvalue
     var bulk = Math.max(Math.floor(parseInt(document.getElementById("bulkDimboost").value)), 1)
