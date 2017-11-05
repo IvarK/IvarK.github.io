@@ -1,4 +1,6 @@
 var Marathon = 0;
+var auto = false;
+var autoS = true;
 var player = {
     money: new Decimal(10),
     tickSpeedCost: new Decimal(1000),
@@ -189,6 +191,7 @@ var player = {
         epcost: new Decimal(1),
         studies: [],
     },
+    autoIP: new Decimal(0),
     options: {
         newsHidden: false,
         notation: "Standard",
@@ -506,7 +509,7 @@ function onLoad() {
 
 
     }
-
+    if (player.autoIP === undefined) player.autoIP = new Decimal(0)
     
 
     if (player.matter === null) player.matter = new Decimal(0)
@@ -524,6 +527,7 @@ function onLoad() {
         }
     }
     if (player.autobuyers[8].tier == 10) player.autobuyers[8].tier = 9
+
     if (player.thirdAmount !== 0) document.getElementById("fourthRow").style.display = "table-row";
     if (player.fourthAmount !== 0)
     if (player.resets > 0) document.getElementById("fifthRow").style.display = "table-row";
@@ -1759,6 +1763,7 @@ function softReset(bulk) {
         autoSacrifice: player.autoSacrifice,
         replicanti: player.replicanti,
         timestudy: player.timestudy,
+        autoIP: player.autoIP,
         options: player.options
     };
     if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -2139,6 +2144,7 @@ function onBuyDimension(tier) {
 function buyOneDimension(tier) {
     var name = TIER_NAMES[tier];
     var cost = player[name + 'Cost'];
+    auto = false;
 
     if (player.currentChallenge != "challenge10" && player.currentChallenge != "postc1") {
         if (!canBuyDimension(tier)) {
@@ -2194,6 +2200,7 @@ function buyOneDimension(tier) {
 function buyManyDimension(tier) {
     var name = TIER_NAMES[tier];
     var cost = player[name + 'Cost'].times(10 - player[name + 'Bought']);
+    auto = false;
     
     if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") && player.matter.equals(0)) player.matter = new Decimal(1);
     if (player.currentChallenge != "challenge10" && player.currentChallenge != "postc1") {
@@ -2242,7 +2249,6 @@ function buyManyDimension(tier) {
 }
 
 function buyManyDimensionAutobuyer(tier, bulk) {
-
         var name = TIER_NAMES[tier];
         var cost = player[name + 'Cost'].times(10 - player[name + 'Bought'])
         if (tier >= 3 && (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1")) {
@@ -2406,6 +2412,7 @@ document.getElementById("eightMax").onclick = function () {
 };
 
 document.getElementById("softReset").onclick = function () {
+    auto = false;
     var name = TIER_NAMES[getShiftRequirement(0).tier]
     if (player[name + "Amount"] >= getShiftRequirement(0).amount) {  
         softReset(1)
@@ -2990,7 +2997,8 @@ document.getElementById("secondSoftReset").onclick = function() {
 
 
 function galaxyReset() {
-    
+    if (autoS) auto = false;
+    autoS = true;
     if (player.sacrificed == 0) giveAchievement("I don't believe in Gods");
     player = {
         money: new Decimal(10),
@@ -3098,6 +3106,7 @@ function galaxyReset() {
         autoSacrifice: player.autoSacrifice,
         replicanti: player.replicanti,
         timestudy: player.timestudy,
+        autoIP: player.autoIP,
         options: player.options
     };
 
@@ -3422,7 +3431,7 @@ document.getElementById("sacrifice").onclick = function () {
             return false;
         }
     }
-    
+    auto = false;
     return sacrifice();
 }
 
@@ -3827,8 +3836,10 @@ document.getElementById("bigcrunch").onclick = function () {
             if (gainedInfinityPoints().gte(1e200) && player.thisInfinityTime <= 20) giveAchievement("81")
             if (gainedInfinityPoints().gte(1e250) && player.thisInfinityTime <= 200) giveAchievement("82")
         }
-        if (player.thisInfinityTime > 50 && player.achievements.includes("2 Million Infinities")) player.timestudy.studies.includes(32) ? player.infinitied += 249*player.resets : player.infinitied += 249;
-        
+        if (player.thisInfinityTime > 50 && player.achievements.includes("2 Million Infinities")) player.timestudy.studies.includes(32) ? player.infinitied += 250*player.resets-1 : player.infinitied += 249;
+        if (autoS && auto && gainedInfinityPoints().dividedBy(player.thisInfinityTime).gt(player.autoIP)) player.autoIP = gainedInfinityPoints().dividedBy(player.thisInfinityTime)
+        auto = !autoS; //only allow autoing if prev crunch was autoed
+        autoS = true;
         player = {
         money: new Decimal(10),
         tickSpeedCost: new Decimal(1000),
@@ -3935,6 +3946,7 @@ document.getElementById("bigcrunch").onclick = function () {
         autoSacrifice: player.autoSacrifice,
         replicanti: player.replicanti,
         timestudy: player.timestudy,
+        autoIP: player.autoIP,
         options: player.options
         };
 
@@ -4221,6 +4233,7 @@ function eternity() {
                 galCost: new Decimal(1e170)
             },
             timestudy: player.timestudy,
+            autoIP: new Decimal(0),
             options: player.options
         };
 
@@ -4389,6 +4402,7 @@ function startChallenge(name, target) {
       autoSacrifice: player.autoSacrifice,
       replicanti: player.replicanti,
       timestudy: player.timestudy,
+      autoIP: player.autoIP,
       options: player.options
     };
 	if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -4668,6 +4682,8 @@ setInterval(function () {
     if (diff < 0) diff = 1;
     if (player.thisInfinityTime < -10) player.thisInfinityTime = Infinity
     if (player.bestInfinityTime < -10) player.bestInfinityTime = Infinity
+    
+    if (diff > player.bestInfinityTime && !player.break) player.infinityPoints = player.infinityPoints.plus(player.autoIP.times(diff-player.bestInfinityTime))
     /*if (player.currentChallenge == "postc6" && player.matter.gte(1)) player.matter = player.matter.plus(diff/10)
     else */player.matter = player.matter.times(Decimal.pow((1.02 + player.resets/200 + player.galaxies/100), diff));
     if (player.matter.gt(player.money) && (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1")) {
@@ -5179,9 +5195,8 @@ function autoBuyerTick() {
     if (player.autobuyers[11]%1 !== 0) {
     if (player.autobuyers[11].ticks*100 >= player.autobuyers[11].interval && player.money.gte(Number.MAX_VALUE)) {
         if (player.autobuyers[11].isOn) {
-            if (!player.break || player.currentChallenge != "") {
-                document.getElementById("bigcrunch").click()
-            } else if (player.autobuyers[11].priority <= gainedInfinityPoints()) {
+            if (!player.break || player.currentChallenge != "" || player.autobuyers[11].priority <= gainedInfinityPoints()) {
+                autoS = false;
                 document.getElementById("bigcrunch").click()
             }
             
@@ -5195,6 +5210,7 @@ function autoBuyerTick() {
     if (player.autobuyers[10]%1 !== 0) {
         if (player.autobuyers[10].ticks*100 >= player.autobuyers[10].interval && (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() : player.eightAmount >= getGalaxyRequirement())) {
             if (player.autobuyers[10].isOn && player.autobuyers[10].priority > player.galaxies) {
+                autoS = false;
                 document.getElementById("secondSoftReset").click()
                 player.autobuyers[10].ticks = 1;
             } 
@@ -5890,6 +5906,8 @@ window.onload = function() {
 
 window.addEventListener('keydown', function(event) {
     if (!player.options.hotkeys) return false
+    auto = false;
+    
     switch (event.keyCode) {
         case 65: // A
             toggleAutoBuyers();
