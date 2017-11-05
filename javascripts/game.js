@@ -1570,7 +1570,7 @@ function buyWithIP() {
 function buyWithEP() {
     if (player.eternityPoints.gte(player.timestudy.epcost)) {
         player.eternityPoints = player.eternityPoints.minus(player.timestudy.epcost)
-        player.timestudy.epcost = player.timestudy.epcost.times(100)
+        player.timestudy.epcost = player.timestudy.epcost.times(2)
         player.timestudy.theorem += 1
         updateTheoremButtons()
         updateTimeStudyButtons()
