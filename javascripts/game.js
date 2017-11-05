@@ -1021,9 +1021,9 @@ function getDimensionFinalMultiplier(tier) {
     if (player.achievements.includes("How the antitables have turned")) multiplier = multiplier.times(1+tier/100);
     if (player.achievements.includes("Many Deaths") && player.thisInfinityTime < 1800) multiplier = multiplier.times(3600/(player.thisInfinityTime+1800));
     if (player.achievements.includes("Blink of an eye") && player.thisInfinityTime < 3) multiplier = multiplier.times(3.3/(player.thisInfinityTime+0.3));
-    /*if (player.achievements.includes("65") && player.currentChallenge != "" && player.thisInfinityTime < 1800) multiplier = multiplier.times(2400/(player.thisInfinityTime+600))
-    if (player.achievements.includes("81") && player.thisInfinityTime < 50) multiplier = multiplier.times(301-player.thisInfinityTime*6)
-    if (player.achievements.includes("82") && player.thisInfinityTime < 600) multiplier = multiplier.times(101-player.thisInfinityTime/6)*/
+    if (player.achievements.includes("65") && player.currentChallenge != "" && player.thisInfinityTime < 1800) multiplier = multiplier.times(Math.max(2400/(player.thisInfinityTime+600), 1))
+    if (player.achievements.includes("81") && player.thisInfinityTime < 50) multiplier = multiplier.times(Math.max(301-player.thisInfinityTime*6, 1))
+    if (player.achievements.includes("82") && player.thisInfinityTime < 600) multiplier = multiplier.times(Math.max(101-player.thisInfinityTime/6, 1))
     if (player.achievements.includes("This achievement doesn't exist")) multiplier = multiplier.times(Decimal.pow(player.money,0.00002).plus(1));
     if (player.achievements.includes("I got a few to spare")) multiplier = multiplier.times(Decimal.pow(player.money,0.00002).plus(1));
 
@@ -4742,6 +4742,7 @@ setInterval(function () {
 
     player.totalTimePlayed += diff
     player.thisInfinityTime += diff
+    player.thisEternity += diff
 
 
 
