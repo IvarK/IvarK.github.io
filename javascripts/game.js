@@ -192,6 +192,7 @@ var player = {
         studies: [],
     },
     autoIP: new Decimal(0),
+    autoTime: 1e300,
     options: {
         newsHidden: false,
         notation: "Standard",
@@ -510,7 +511,7 @@ function onLoad() {
 
     }
     if (player.autoIP === undefined) player.autoIP = new Decimal(0)
-    
+    if (player.autoTime === undefined) player.autoTime = 1e300
 
     if (player.matter === null) player.matter = new Decimal(0)
     for (var i=0; i<12; i++) {
@@ -1764,6 +1765,7 @@ function softReset(bulk) {
         replicanti: player.replicanti,
         timestudy: player.timestudy,
         autoIP: player.autoIP,
+        autoTime: player.autoTime,
         options: player.options
     };
     if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -3112,6 +3114,7 @@ function galaxyReset() {
         replicanti: player.replicanti,
         timestudy: player.timestudy,
         autoIP: player.autoIP,
+        autoTime: player.autoTime,
         options: player.options
     };
 
@@ -3842,7 +3845,10 @@ document.getElementById("bigcrunch").onclick = function () {
             if (gainedInfinityPoints().gte(1e250) && player.thisInfinityTime <= 200) giveAchievement("82")
         }
         if (player.thisInfinityTime > 50 && player.achievements.includes("2 Million Infinities")) player.timestudy.studies.includes(32) ? player.infinitied += 250*player.resets-1 : player.infinitied += 249;
-        if (autoS && auto && gainedInfinityPoints().dividedBy(player.thisInfinityTime).gt(player.autoIP)) player.autoIP = gainedInfinityPoints().dividedBy(player.thisInfinityTime)
+        if (autoS && auto) {
+		    if (gainedInfinityPoints().dividedBy(player.thisInfinityTime).gt(player.autoIP)) player.autoIP = gainedInfinityPoints().dividedBy(player.thisInfinityTime);
+            if (player.thisInfinityTime<player.autoTime) player.autoTime = player.thisInfinityTime;
+	    }
         auto = !autoS; //only allow autoing if prev crunch was autoed
         autoS = true;
         player = {
@@ -3952,6 +3958,7 @@ document.getElementById("bigcrunch").onclick = function () {
         replicanti: player.replicanti,
         timestudy: player.timestudy,
         autoIP: player.autoIP,
+        autoTime: player.autoTime,
         options: player.options
         };
 
@@ -4239,6 +4246,7 @@ function eternity() {
             },
             timestudy: player.timestudy,
             autoIP: new Decimal(0),
+            autoTime: 1e300,
             options: player.options
         };
 
@@ -4405,6 +4413,7 @@ function startChallenge(name, target) {
       replicanti: player.replicanti,
       timestudy: player.timestudy,
       autoIP: player.autoIP,
+      autoTime: player.autoTime,
       options: player.options
     };
 	if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -4685,7 +4694,7 @@ setInterval(function () {
     if (player.thisInfinityTime < -10) player.thisInfinityTime = Infinity
     if (player.bestInfinityTime < -10) player.bestInfinityTime = Infinity
     
-    if (diff > player.bestInfinityTime && !player.break) player.infinityPoints = player.infinityPoints.plus(player.autoIP.times(diff-player.bestInfinityTime))
+    if (diff > player.autoTime && !player.break) player.infinityPoints = player.infinityPoints.plus(player.autoIP.times(diff-player.autoTime))
     /*if (player.currentChallenge == "postc6" && player.matter.gte(1)) player.matter = player.matter.plus(diff/10)
     else */player.matter = player.matter.times(Decimal.pow((1.02 + player.resets/200 + player.galaxies/100), diff));
     if (player.matter.gt(player.money) && (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1")) {
