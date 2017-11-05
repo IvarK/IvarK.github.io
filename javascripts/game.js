@@ -2021,8 +2021,11 @@ function giveAchievement(name) {
     try {
         kongregate.stats.submit('Achievements', player.achievements.length);
     } catch (err) {console.log("Couldn't load Kongregate API")}
-    if (name == "All your IP are belong to us") player.infMult *= 4
-    if (name == "83") player.infMult *= 4
+    if (name == "All your IP are belong to us" || name == "83") {
+	    player.infMult *= 4
+        player.autoIP *= 4
+        player.autobuyers[11].priority *= 4
+    }
     updateAchPow();
 }
 
@@ -2512,6 +2515,8 @@ document.getElementById("infiMult").onclick = function() {
     if (player.infinityUpgrades.includes("skipResetGalaxy") && player.infinityUpgrades.includes("passiveGen") && player.infinityUpgrades.includes("galaxyBoost") && player.infinityUpgrades.includes("resetBoost") && player.infinityPoints.gte(player.infMultCost)) {
         player.infinityPoints = player.infinityPoints.minus(player.infMultCost)
         player.infMult *= 2
+        player.autoIP *= 2
+        player.autobuyers[11].priority *= 2
         player.infMultCost = player.infMultCost.times(10)
         document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult * kongIPMult) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
     }
@@ -4258,15 +4263,12 @@ function eternity() {
         document.getElementById("eightRow").style.display = "none";
         document.getElementById("matter").style.display = "none";
         document.getElementById("quickReset").style.display = "none";
-        if (!player.achievements.includes("To infinity!")) giveAchievement("To infinity!");
-        if (!player.achievements.includes("That's a lot of infinites") && player.infinitied >= 10) giveAchievement("That's a lot of infinites");
         if (player.infinitied >= 1 && !player.challenges.includes("challenge1")) player.challenges.push("challenge1");
         updateAutobuyers();
-        if (player.achievements.includes("That's fast!")) player.money = new Decimal(1000);
-        if (player.achievements.includes("That's faster!")) player.money = new Decimal(2e5);
         if (player.achievements.includes("Forever isn't that long")) player.money = new Decimal(1e10);
         if (player.achievements.includes("Blink of an eye")) player.money = new Decimal(1e25);
         if (player.achievements.includes("All your IP are belong to us")) player.infMult *= 4
+        if (player.achievements.includes("83")) player.infMult *= 4
         resetInfDimensions();
         updateTickSpeed();
         updateChallenges();
