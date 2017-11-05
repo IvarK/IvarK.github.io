@@ -829,6 +829,8 @@ function transformSaveToDecimal() {
     player.timestudy.ipcost = new Decimal(player.timestudy.ipcost)
     player.timestudy.epcost = new Decimal(player.timestudy.epcost)
 
+    player.autoIP = new Decimal(player.autoIP)
+
     if (player.autobuyers[11].priority !== undefined && player.autobuyers[11].priority !== null)player.autobuyers[11].priority = new Decimal(player.autobuyers[11].priority)
 }
 
