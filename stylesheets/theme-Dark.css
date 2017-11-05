@@ -1,9 +1,8 @@
 body {
     background: #1c1917;
-    background: -moz-linear-gradient(left, #0f0f0f 0%,  #141414 25%, #191919 75%, #1e1e1e 100%);
-    background: -webkit-linear-gradient(left, #0f0f0f 0%,  #141414 25%, #191919 75%, #1e1e1e 100%);
-    background: linear-gradient(to right, #0f0f0f 0%,  #141414 25%, #191919 75%, #1e1e1e 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0d0d0d', endColorstr='#1c1917', GradientType=1);
+    background: -moz-radial-gradient(circle at center, #1e1e1e 0%, #0f0f0f 100%);
+    background: -webkit-radial-gradient(circle at center, #1e1e1e 0%, #0f0f0f 100%);
+    background: radial-gradient(circle at center, #1e1e1e 0%, #0f0f0f 100%);
 }
 
 button {
@@ -11,10 +10,6 @@ button {
     background-color: #455A64 !important;
     border: 1px solid black;
     box-shadow: 0px 0px 7px 2px #111111;
-}
-
-*:focus {
-    outline: none;
 }
 
 .achievementunlocked {
@@ -238,6 +233,8 @@ input {
 #tickThreshold {
     color: #64DD17 !important;
     text-shadow: 0px 0px 7px #64DD17;
+    animation: timeShardGlow 4s infinite;
+    transform: scale(1.0);
 }
 
 #replicantiamount {
