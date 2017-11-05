@@ -74,7 +74,7 @@ var player = {
     dimensionMultDecreaseCost: 1e8,
     overXGalaxies: 10,
     version: 1,
-    infDimensionsUnlocked: [false, false, false, false, false, false],
+    infDimensionsUnlocked: [false, false, false, false, false, false, false, false],
     infinityPower: new Decimal(1),
     spreadingCancer: 0,
     postChallUnlocked: 0,
@@ -4115,7 +4115,7 @@ function eternity() {
             postC3Reward: new Decimal(1),
             overXGalaxies: player.overXGalaxies,
             spreadingCancer: player.spreadingCancer,
-            infDimensionsUnlocked: [false, false, false, false, false, false],
+            infDimensionsUnlocked: [false, false, false, false, false, false, false, false],
             infinityPower: new Decimal(1),
             infinityDimension1 : {
                 cost: new Decimal(1e8),
