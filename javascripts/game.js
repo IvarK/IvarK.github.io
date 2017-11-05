@@ -639,6 +639,14 @@ function onLoad() {
             studies: [],
         }
     }
+
+    if (player.eternities == 0) {
+        document.getElementById("eternityPoints").style.display = "none"
+        document.getElementById("eternitystorebtn").style.display = "none"
+    }
+
+    
+    
     transformSaveToDecimal();
     updateCosts();
     updateTickSpeed();
@@ -716,7 +724,7 @@ function onLoad() {
     unspentBonus = Decimal.pow(player.infinityPoints.dividedBy(2),1.5).plus(1)
     transformSaveToDecimal();
 
-    if (player.eternities == 0) document.getElementById("eternityPoints").style.display = "none"
+    
 }
 
 
@@ -742,6 +750,10 @@ function save_game() {
 
 
 function transformSaveToDecimal() {
+
+    player.infinityPoints = new Decimal(player.infinityPoints)
+    document.getElementById("eternitybtn").style.display = player.infinityPoints.gte(Number.MAX_VALUE) ? "inline-block" : "none"
+
     player.money = new Decimal(player.money)
     player.tickSpeedCost = new Decimal(player.tickSpeedCost)
     player.tickspeed = new Decimal(player.tickspeed)
@@ -784,7 +796,7 @@ function transformSaveToDecimal() {
     player.infinityDimension6.amount = new Decimal(player.infinityDimension6.amount)
     player.infinityDimension7.amount = new Decimal(player.infinityDimension7.amount)
     player.infinityDimension8.amount = new Decimal(player.infinityDimension8.amount)
-    player.infinityPoints = new Decimal(player.infinityPoints)
+    
     player.timeDimension1.amount = new Decimal(player.timeDimension1.amount)
     player.timeDimension2.amount = new Decimal(player.timeDimension2.amount)
     player.timeDimension3.amount = new Decimal(player.timeDimension3.amount)
@@ -4268,6 +4280,7 @@ function eternity() {
         document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
         document.getElementById("eternitybtn").style.display = player.infinityPoints.gte(Number.MAX_VALUE) ? "inline-block" : "none"
         document.getElementById("eternityPoints").style.display = "inline-block"
+        document.getElementById("eternitystorebtn").style.display = "inline-block"
 
         document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult * kongIPMult) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
     }
@@ -4637,7 +4650,10 @@ setInterval(function() {
 
     document.getElementById("eternitybtn").style.display = player.infinityPoints.gte(Number.MAX_VALUE) ? "inline-block" : "none"
 
-    if (player.eternities == 0) document.getElementById("eternityPoints").style.display = "none"
+    if (player.eternities == 0) {
+        document.getElementById("eternityPoints").style.display = "none"
+        document.getElementById("eternitystorebtn").style.display = "none"
+    }
 
     for (var i=1; i <=8; i++) {
         document.getElementById("postc"+i+"goal").innerHTML = "Goal: "+shortenCosts(goals[i-1])
