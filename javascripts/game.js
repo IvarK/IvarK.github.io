@@ -62,7 +62,6 @@ var player = {
     chall3Pow: new Decimal(0.01),
     matter: new Decimal(0),
     chall11Pow: 1,
-    partInfinityPoint: 0,
     partInfinitied: 0,
     break: false,
     challengeTimes: [600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31],
@@ -397,7 +396,6 @@ function onLoad() {
     if (player.autobuyers === undefined) player.autobuyers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     if (player.costMultipliers === undefined) player.costMultipliers = [new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15)]
     if (player.tickspeedMultiplier === undefined) player.tickspeedMultiplier = new Decimal(10)
-    if (player.partInfinityPoint === undefined) player.partInfinityPoint = 0
     if (player.challengeTimes === undefined) player.challengeTimes = [600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31]
     if (player.infchallengeTimes === undefined) player.infchallengeTimes = [600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31]
     if (player.lastTenRuns === undefined) player.lastTenRuns = [[600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1]]
@@ -1736,7 +1734,6 @@ function softReset(bulk) {
         chall3Pow: new Decimal(0.01),
         matter: new Decimal(0),
         chall11Pow: 1,
-        partInfinityPoint: player.partInfinityPoint,
         partInfinitied: player.partInfinitied,
         break: player.break,
         challengeTimes: player.challengeTimes,
@@ -3084,7 +3081,6 @@ function galaxyReset() {
         chall3Pow: new Decimal(0.01),
         matter: new Decimal(0),
         chall11Pow: 1,
-        partInfinityPoint: player.partInfinityPoint,
         partInfinitied: player.partInfinitied,
         break: player.break,
         challengeTimes: player.challengeTimes,
@@ -3674,9 +3670,7 @@ function updatePriorities() {
     }
     player.autobuyers[9].priority = parseInt(document.getElementById("priority10").value)
     player.autobuyers[10].priority = parseInt(document.getElementById("priority11").value)
-    var infvalue = document.getElementById("priority12").value
-    if (infvalue.includes("e") && infvalue !== undefined && infvalue !== "undefined") infvalue = new Decimal(infvalue)
-    else infvalue = new Decimal(infvalue)
+    var infvalue = new Decimal(document.getElementById("priority12").value)
     player.autobuyers[11].priority = infvalue
     var bulk = Math.max(Math.floor(parseInt(document.getElementById("bulkDimboost").value)), 1)
     if (isNaN(bulk)) bulk = 1
@@ -3928,7 +3922,6 @@ document.getElementById("bigcrunch").onclick = function () {
         newsArray: player.newsArray,
         matter: new Decimal(0),
         chall11Pow: 1,
-        partInfinityPoint: player.partInfinityPoint,
         partInfinitied: player.partInfinitied,
         break: player.break,
         challengeTimes: player.challengeTimes,
@@ -4130,7 +4123,6 @@ function eternity() {
             lastUpdate: player.lastUpdate,
             achPow: player.achPow,
             autobuyers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-            partInfinityPoint: 0,
             partInfinitied: 0,
             break: false,
             costMultipliers: [new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15)],
@@ -4384,7 +4376,6 @@ function startChallenge(name, target) {
       matter: new Decimal(0),
       newsArray: player.newsArray,
       chall11Pow: 1,
-      partInfinityPoint: player.partInfinityPoint,
       partInfinitied: player.partInfinitied,
       break: player.break,
       challengeTimes: player.challengeTimes,
@@ -4733,16 +4724,8 @@ setInterval(function () {
         sacrifice();
         postC2Count = 0;
     }}
-    if (player.infinityUpgrades.includes("passiveGen")) player.partInfinityPoint += diff / player.bestInfinityTime;
-    if (player.partInfinityPoint >= 100) {
-        player.infinityPoints = player.infinityPoints.plus(player.infMult.times(kongIPMult * (player.partInfinityPoint/10)));
-        player.partInfinityPoint = 0;
-    }
-
-    if (player.partInfinityPoint >= 10) {
-        player.partInfinityPoint -= 10;
-        player.infinityPoints = player.infinityPoints.plus(player.infMult.times(kongIPMult));
-    }
+	
+    if (player.infinityUpgrades.includes("passiveGen")) player.infinityPoints = player.infinityPoints.plus(player.infMult.times(kongIPMult*diff/player.bestInfinityTime/10));
 
     if (player.infinityUpgrades.includes("infinitiedGeneration")) player.partInfinitied += diff / player.bestInfinityTime;
     if (player.partInfinitied >= 50) {
