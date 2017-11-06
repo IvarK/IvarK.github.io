@@ -1637,7 +1637,17 @@ function canBuyStudy(name) {
         case 2: if (hasRow(1)) return true; else return false
         break;
 
-        case 3, 4, 6, 8, 9, 10, 13, 14, 15, 17: if (player.timestudy.studies.includes((row-1)*10 + col)) return true; else return false
+        case 3:
+        case 4:
+        case 6:
+        case 8:
+        case 9:
+        case 10:
+        case 13:
+        case 14:
+        case 15:
+        case 17: 
+        if (player.timestudy.studies.includes((row-1)*10 + col)) return true; else return false
         break;
 
         case 5: if (player.timestudy.studies.includes(41) || player.timestudy.studies.includes(42)) return true; else return false
