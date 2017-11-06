@@ -1966,7 +1966,7 @@ function buyTickSpeed() {
     if (player.tickSpeedCost.gte(Number.MAX_VALUE)) player.tickspeedMultiplier = player.tickspeedMultiplier.times(player.tickSpeedMultDecrease);
     if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0
     player.tickspeed = player.tickspeed.times(getTickSpeedMultiplier());
-    if (player.challenges.includes("postc3") || player.currentChallenge == "postc3") player.postC3Reward *= 1.05+(player.galaxies*0.005)
+    if (player.challenges.includes("postc3") || player.currentChallenge == "postc3") player.postC3Reward = player.postC3Reward.times(1.05+(player.galaxies*0.005))
     postc8Mult = new Decimal(1)
     return true;
 }
@@ -1988,7 +1988,7 @@ function buyMaxTickSpeed() {
         player.tickspeed = player.tickspeed.times(getTickSpeedMultiplier());
         if (getTickSpeedMultiplier() < 0.001) giveAchievement("Do you even bend time bro?");
         if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0
-        if (player.challenges.includes("postc3") || player.currentChallenge == "postc3") player.postC3Reward *= 1.05+(player.galaxies*0.005)
+        if (player.challenges.includes("postc3") || player.currentChallenge == "postc3") player.postC3Reward = player.postC3Reward.times(1.05+(player.galaxies*0.005))
         postc8Mult = new Decimal(1)
     }
 
