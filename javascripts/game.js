@@ -701,6 +701,11 @@ function onLoad() {
         }
     }
     
+
+    if (player.replicanti.galaxybuyer !== undefined) {
+        replicantiGalaxyAutoToggle()
+        replicantiGalaxyAutoToggle()
+    }
     
     for (var i=0; i<player.timestudy.studies.length; i++) {
         document.getElementById(""+player.timestudy.studies[i]).className = "timestudybought"
@@ -728,6 +733,7 @@ function onLoad() {
     challengeMult = Decimal.max(10*3000/worstChallengeTime, 1)
     unspentBonus = Decimal.pow(player.infinityPoints.dividedBy(2),1.5).plus(1)
     transformSaveToDecimal();
+    updateMilestones();
 
     
 }
@@ -2877,6 +2883,23 @@ function replicantiGalaxy() {
 
 
 
+function updateMilestones() {
+    if (player.eternities > 0) document.getElementById("reward1").className = "milestonereward"
+    if (player.eternities > 1) document.getElementById("reward2").className = "milestonereward"
+    if (player.eternities > 2) document.getElementById("reward3").className = "milestonereward"
+}
+
+function replicantiGalaxyAutoToggle() {
+    if (player.replicanti.galaxybuyer) {
+        player.replicanti.galaxybuyer = false
+        document.getElementById("replicantiresettoggle").innerHTML = "Auto galaxy OFF"
+    } else {
+        player.replicanti.galaxybuyer = true
+        document.getElementById("replicantiresettoggle").innerHTML = "Auto galaxy ON"
+    }
+}
+
+
 
 
 
@@ -4084,6 +4107,12 @@ document.getElementById("bigcrunch").onclick = function () {
 function eternity() {
     if (player.infinityPoints.gte(Number.MAX_VALUE) && (player.eternities !== 0 || confirm("Eternity will reset everything except achievements and challenge records. You will also gain an Eternity point and unlock various upgrades. This is the only time you will see this message"))) {
         if (player.thisEternity<player.bestEternity) player.bestEternity = player.thisEternity
+        temp = []
+        for (var i=0; i<player.challenges.length; i++) {
+            
+            if (!player.challenges[i].includes("post") && player.eternies > 1) temp.push(player.challenges[i])
+        }
+        player.challenges = temp
         player = {
             money: new Decimal(10),
             tickSpeedCost: new Decimal(1000),
@@ -4122,7 +4151,7 @@ function eternity() {
             eightPow: new Decimal(1),
             sacrificed: new Decimal(0),
             achievements: player.achievements,
-            challenges: [],
+            challenges: player.challenges,
             currentChallenge: "",
             infinityUpgrades: [],
             infinityPoints: new Decimal(0),
@@ -4137,7 +4166,7 @@ function eternity() {
             interval: null,
             lastUpdate: player.lastUpdate,
             achPow: player.achPow,
-            autobuyers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+            autobuyers: (player.eternities > 1) ? player.autobuyers : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
             partInfinityPoint: 0,
             partInfinitied: 0,
             break: false,
@@ -4224,30 +4253,10 @@ function eternity() {
             timeShards: new Decimal(0),
             tickThreshold: new Decimal(1),
             totalTickGained: 0,
-            timeDimension1: {
-                cost: 1,
-                amount: new Decimal(0),
-                power: 1,
-                bought: 0
-            },
-            timeDimension2: {
-                cost: 10,
-                amount: new Decimal(0),
-                power: 1,
-                bought: 0
-            },
-            timeDimension3: {
-                cost: 100,
-                amount: new Decimal(0),
-                power: 1,
-                bought: 0
-            },
-            timeDimension4: {
-                cost: 1000,
-                amount: new Decimal(0),
-                power: 1,
-                bought: 0
-            },
+            timeDimension1: player.timeDimension1,
+            timeDimension2: player.timeDimension2,
+            timeDimension3: player.timeDimension3,
+            timeDimension4: player.timeDimension4,
             eternityPoints: player.eternityPoints.plus(gainedEternityPoints()),
             eternities: player.eternities+1,
             thisEternity: player.thisEternity,
@@ -4266,7 +4275,8 @@ function eternity() {
                 intervalCost: new Decimal(1e160),
                 gal: 0,
                 galaxies: 0,
-                galCost: new Decimal(1e170)
+                galCost: new Decimal(1e170),
+                galaxybuyer: (player.eternities > 2 && player.galaxybuyer !== undefined) ? player.replicanti.galaxybuyer : undefined
             },
             timestudy: player.timestudy,
             autoIP: new Decimal(0),
@@ -4307,11 +4317,15 @@ function eternity() {
         updateChallengeTimes()
         updateLastTenRuns()
         IPminpeak = new Decimal(0)
+        updateMilestones()
+        resetTimeDimensions()
 
         if (player.replicanti.unl == true) {
             document.getElementById("replicantidiv").style.display="inline-block"
             document.getElementById("replicantiunlock").style.display="none"
         }
+
+        if (player.eternities > 2 && player.replicanti.galaxybuyer === undefined) player.replicanti.galaxybuyer = false
 
         document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
         document.getElementById("eternitybtn").style.display = player.infinityPoints.gte(Number.MAX_VALUE) ? "inline-block" : "none"
@@ -4697,6 +4711,7 @@ setInterval(function() {
         document.getElementById("postc"+i+"goal").innerHTML = "Goal: "+shortenCosts(goals[i-1])
     }
 
+    if (player.replicanti.galaxybuyer !== undefined) document.getElementById("replicantiresettoggle").style.display = "inline-block"
 
     document.getElementById("replicantichance").className = (player.infinityPoints.gte(player.replicanti.chanceCost)) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantiinterval").className = (player.infinityPoints.gte(player.replicanti.intervalCost) && player.replicanti.interval !== 50) ? "storebtn" : "unavailablebtn"
@@ -4888,6 +4903,8 @@ setInterval(function () {
         }
     }
     replicantiTicks += 50
+
+    if (player.replicanti.galaxybuyer && player.replicanti.amount == Number.MAX_VALUE) document.getElementById("replicantireset").click()
 
 
     var estimate = (1024 - current) / est
