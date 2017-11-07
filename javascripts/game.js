@@ -4110,7 +4110,7 @@ function eternity() {
         temp = []
         for (var i=0; i<player.challenges.length; i++) {
             
-            if (!player.challenges[i].includes("post") && player.eternies > 1) temp.push(player.challenges[i])
+            if (!player.challenges[i].includes("post") && player.eternities > 1) temp.push(player.challenges[i])
         }
         player.challenges = temp
         player = {
