@@ -4442,7 +4442,7 @@ function startChallenge(name, target) {
       timeDimension4: player.timeDimension4,
       eternityPoints: player.eternityPoints,
       eternities: player.eternities,
-      thisEternity: 0,
+      thisEternity: player.thisEternity,
       bestEternity: player.bestEternity,
       totalTickGained: player.totalTickGained,
       offlineProd: player.offlineProd,
