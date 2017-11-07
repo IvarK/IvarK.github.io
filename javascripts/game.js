@@ -1121,7 +1121,7 @@ function getShiftRequirement(bulk) {
 
 function getGalaxyRequirement() {
     let amount = 80 + (player.galaxies * 60);
-    if (player.timestudy.studies.includes(22)) amount = 80 + (player.galaxies * 55)
+    if (player.timestudy.studies.includes(21)) amount = 80 + (player.galaxies * 55)
     if (player.currentChallenge == "challenge4") amount = 99 + (player.galaxies * 90)
     if (player.infinityUpgrades.includes("resetBoost")) {
         amount -= 9;
@@ -1672,7 +1672,7 @@ function canBuyStudy(name) {
     }
 }
 var all = [11, 21, 22, 31, 32, 41, 42, 51, 61, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 131, 132, 141, 142, 151, 152, 161, 171]
-var studyCosts = [1, 5, 7, 4, 2, 3, 2, 7, 2, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 131, 132, 141, 142, 151, 152, 161, 171]
+var studyCosts = [1, 7, 5, 4, 2, 3, 2, 7, 2, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 131, 132, 141, 142, 151, 152, 161, 171]
 function updateTimeStudyButtons() {
     for (var i=0; i<all.length; i++) {
         if (!player.timestudy.studies.includes(all[i])) {
@@ -3339,7 +3339,7 @@ function breakInfinity() {
 
 function gainedInfinityPoints() {
     var ret = Decimal.floor(Decimal.pow(10, player.money.e/308 -0.75).times(player.infMult.times(kongIPMult)))
-    if (player.timestudy.studies.includes(21)) ret = ret.times(Decimal.pow(1.2, player.galaxies + player.replicanti.galaxies))
+    if (player.timestudy.studies.includes(22)) ret = ret.times(Decimal.pow(1.2, player.galaxies + player.replicanti.galaxies))
     if (player.timestudy.studies.includes(51)) ret = ret.times(1e30)
     return ret
 }
