@@ -2808,7 +2808,6 @@ function updateInfCosts() {
     document.getElementById("replicantiinterval").innerHTML = "Interval: "+Math.round(player.replicanti.interval)+"ms<br>-> "+Math.round(player.replicanti.interval*0.9)+" Costs: "+shortenCosts(player.replicanti.intervalCost)+" IP"
     document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP"
     document.getElementById("replicantiunlock").innerHTML = "Unlock Replicantis<br>Cost: "+shortenCosts(1e140)+" IP"
-    if (player.replicanti.interval == 50) document.getElementById("replicantiinterval").innerHTML = "Interval: "+Math.round(player.replicanti.interval)+"ms"
     document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
 
 
@@ -2846,11 +2845,10 @@ function upgradeReplicantiChance() {
 
 
 function upgradeReplicantiInterval() {
-    if (player.infinityPoints.gte(player.replicanti.intervalCost) && player.replicanti.interval !== 50) {
+    if (player.infinityPoints.gte(player.replicanti.intervalCost)) {
         player.infinityPoints = player.infinityPoints.minus(player.replicanti.intervalCost)
         player.replicanti.intervalCost = player.replicanti.intervalCost.times(1e10)
         player.replicanti.interval *= 0.9
-        if (player.replicanti.interval < 50) player.replicanti.interval = 50
         document.getElementById("replicantiinterval").innerHTML = "Interval: "+Math.round(player.replicanti.interval)+"ms<br>-> "+Math.round(player.replicanti.interval*0.9)+" Costs: "+shortenCosts(player.replicanti.intervalCost)+" IP"
     }
 }
@@ -4880,7 +4878,10 @@ setInterval(function () {
                 var temp = Math.round(player.replicanti.amount/100)
                 
                 for (var i=0; i<100; i++) {
-                    if (player.replicanti.chance > Math.random()) player.replicanti.amount = Math.min(Number.MAX_VALUE, temp+player.replicanti.amount)
+                    if (player.replicanti.chance > Math.random()) {
+                        if (player.replicanti.interval > 50) player.replicanti.amount = Math.min(Number.MAX_VALUE, temp+player.replicanti.amount)
+                        else player.replicanti.amount = Math.min(Number.MAX_VALUE, 50*temp/player.replicanti.interval+player.replicanti.amount)
+                    }
                 }
             }
             replicantiTicks = 0

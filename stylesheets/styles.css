@@ -768,6 +768,25 @@
     z-index: -999;
 }
 
+
+.milestonerewardlocked {
+    width: 250px;
+    height: 60px;
+    color: black;
+    background: #696969;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 1px solid #691fa5;
+    transition-duration: 0.2s;
+    border-radius: 4px;
+    vertical-align: top;
+    font-size: 12px;
+}
+
+.milestoneText {
+    font-size: 20px;
+}
+
 @keyframes glow {
     20% { text-shadow: 0 0 10px green; }
     100% { text-shadow: 0 0 10px white; }
