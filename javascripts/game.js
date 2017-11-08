@@ -1121,7 +1121,7 @@ function getShiftRequirement(bulk) {
 
 function getGalaxyRequirement() {
     let amount = 80 + (player.galaxies * 60);
-    if (player.timestudy.studies.includes(21)) amount = 80 + (player.galaxies * 55)
+    if (player.timestudy.studies.includes(21)) amount = 80 + (player.galaxies * 58)
     if (player.currentChallenge == "challenge4") amount = 99 + (player.galaxies * 90)
     if (player.infinityUpgrades.includes("resetBoost")) {
         amount -= 9;
