@@ -2864,7 +2864,6 @@ function upgradeReplicantiGalaxy() {
         player.infinityPoints = player.infinityPoints.minus(player.replicanti.galCost)
         player.replicanti.galCost = player.replicanti.galCost.times(1e35)
         player.replicanti.gal += 1
-        if (player.replicanti.interval < 50) player.replicanti.interval = 50
         document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP"
     }
 }
@@ -3472,7 +3471,8 @@ function sacrifice() {
     for (let tier = 1; tier <= 8; ++tier) {
         var name = TIER_NAMES[tier];
         document.getElementById(name + "D").innerHTML = DISPLAY_NAMES[tier] + " Dimension x" + formatValue(player.options.notation, getDimensionFinalMultiplier(tier), 1, 1);
-        document.getElementById(name + "Amount").innerHTML = getDimensionDescription(tier);  
+        document.getElementById(name + "Amount").innerHTML = getDimensionDescription(tier);
+        if (player.timestudy.includes(71) && tier !== 8) player[name+"Pow"] = player[name+"Pow"].times(calcSacrificeBoost())
     }
 
 }
