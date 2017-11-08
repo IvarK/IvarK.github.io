@@ -707,6 +707,11 @@ function onLoad() {
         replicantiGalaxyAutoToggle()
         replicantiGalaxyAutoToggle()
     }
+
+    if (player.infMultBuyer !== undefined) {
+        infMultAutoToggle()
+        infMultAutoToggle()
+    }
     
     for (var i=0; i<player.timestudy.studies.length; i++) {
         document.getElementById(""+player.timestudy.studies[i]).className = "timestudybought"
@@ -2899,6 +2904,16 @@ function replicantiGalaxyAutoToggle() {
     }
 }
 
+function infMultAutoToggle() {
+    if (player.infMultBuyer) {
+        player.infMultBuyer = false
+        document.getElementById("infmultbuyer").innerHTML = "Autobuy IP mult OFF"
+    } else {
+        player.infMultBuyer = true
+        document.getElementById("infmultbuyer").innerHTML = "Autobuy IP mult ON"
+    }
+}
+
 
 
 
@@ -4167,7 +4182,7 @@ function eternity() {
             interval: null,
             lastUpdate: player.lastUpdate,
             achPow: player.achPow,
-            autobuyers: (player.eternities > 1) ? player.autobuyers : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+            autobuyers: (player.eternities > 0) ? player.autobuyers : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
             partInfinityPoint: 0,
             partInfinitied: 0,
             break: false,
@@ -4277,11 +4292,12 @@ function eternity() {
                 gal: 0,
                 galaxies: 0,
                 galCost: new Decimal(1e170),
-                galaxybuyer: (player.eternities > 2 && player.galaxybuyer !== undefined) ? player.replicanti.galaxybuyer : undefined
+                galaxybuyer: (player.eternities > 1 && player.replicanti.galaxybuyer !== undefined) ? player.replicanti.galaxybuyer : undefined
             },
             timestudy: player.timestudy,
             autoIP: new Decimal(0),
             autoTime: 1e300,
+            infMultBuyer: (player.infMultBuyer !== undefined) ? player.infMultBuyer : undefined,
             options: player.options
         };
 
@@ -4327,6 +4343,8 @@ function eternity() {
         }
 
         if (player.eternities > 2 && player.replicanti.galaxybuyer === undefined) player.replicanti.galaxybuyer = false
+
+        if (player.eternities > 0 && player.infMultBuyer === undefined) player.infMultBuyer = false
 
         document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
         document.getElementById("eternitybtn").style.display = player.infinityPoints.gte(Number.MAX_VALUE) ? "inline-block" : "none"
@@ -4714,6 +4732,8 @@ setInterval(function() {
 
     if (player.replicanti.galaxybuyer !== undefined) document.getElementById("replicantiresettoggle").style.display = "inline-block"
 
+    if (player.infMultBuyer !== undefined) document.getElementById("infmultbuyer").style.display = "inline-block"
+
     document.getElementById("replicantichance").className = (player.infinityPoints.gte(player.replicanti.chanceCost)) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantiinterval").className = (player.infinityPoints.gte(player.replicanti.intervalCost) && player.replicanti.interval !== 50) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantimax").className = (player.infinityPoints.gte(player.replicanti.galCost)) ? "storebtn" : "unavailablebtn"
@@ -4906,6 +4926,18 @@ setInterval(function () {
     replicantiTicks += 50
 
     if (player.replicanti.galaxybuyer && player.replicanti.amount == Number.MAX_VALUE) document.getElementById("replicantireset").click()
+
+
+    if (player.infMultBuyer) {
+        var diff = player.infinityPoints.e - player.infMultCost.e
+
+        if (diff > 1) {
+            player.infMult = player.infMult.times(Decimal.pow(2, diff))
+            player.infMultCost = player.infMultCost.times(Decimal.pow(10, diff))
+            document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
+            player.money = player.money.minus(player.infMultCost.dividedBy(10))
+        }
+    }
 
 
     var estimate = (1024 - current) / est
