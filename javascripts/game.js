@@ -193,6 +193,7 @@ var player = {
     },
     autoIP: new Decimal(0),
     autoTime: 1e300,
+    infMultBuyer: false,
     options: {
         newsHidden: false,
         notation: "Standard",
@@ -417,6 +418,7 @@ function onLoad() {
     if (player.offlineProdCost === undefined) player.offlineProdCost = 1e7
     if (player.autoSacrifice === undefined) player.autoSacrifice = 1
     if (player.postChallUnlocked === undefined) player.postChallUnlocked = 0
+    if (player.infMultBuyer === undefined) player.infMultBuyer = false
     if (player.challengeTarget === undefined) {
         player.challengeTarget = 0
         if (player.currentChallenge != "") player.challengeTarget = Number.MAX_VALUE
@@ -1805,6 +1807,7 @@ function softReset(bulk) {
         timestudy: player.timestudy,
         autoIP: player.autoIP,
         autoTime: player.autoTime,
+        infMultBuyer: player.infMultBuyer,
         options: player.options
     };
     if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -3177,6 +3180,7 @@ function galaxyReset() {
         timestudy: player.timestudy,
         autoIP: player.autoIP,
         autoTime: player.autoTime,
+        infMultBuyer: player.infMultBuyer,
         options: player.options
     };
 
@@ -4022,6 +4026,7 @@ document.getElementById("bigcrunch").onclick = function () {
         timestudy: player.timestudy,
         autoIP: player.autoIP,
         autoTime: player.autoTime,
+        infMultBuyer: player.infMultBuyer,
         options: player.options
         };
 
@@ -4297,7 +4302,7 @@ function eternity() {
             timestudy: player.timestudy,
             autoIP: new Decimal(0),
             autoTime: 1e300,
-            infMultBuyer: (player.infMultBuyer !== undefined) ? player.infMultBuyer : undefined,
+            infMultBuyer: player.infMultBuyer,
             options: player.options
         };
 
@@ -4344,7 +4349,6 @@ function eternity() {
 
         if (player.eternities > 2 && player.replicanti.galaxybuyer === undefined) player.replicanti.galaxybuyer = false
 
-        if (player.eternities > 0 && player.infMultBuyer === undefined) player.infMultBuyer = false
 
         document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
         document.getElementById("eternitybtn").style.display = player.infinityPoints.gte(Number.MAX_VALUE) ? "inline-block" : "none"
@@ -4472,6 +4476,7 @@ function startChallenge(name, target) {
       timestudy: player.timestudy,
       autoIP: player.autoIP,
       autoTime: player.autoTime,
+      infMultBuyer: player.infMultBuyer,
       options: player.options
     };
 	if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -4732,7 +4737,7 @@ setInterval(function() {
 
     if (player.replicanti.galaxybuyer !== undefined) document.getElementById("replicantiresettoggle").style.display = "inline-block"
 
-    if (player.infMultBuyer !== undefined) document.getElementById("infmultbuyer").style.display = "inline-block"
+    if (player.eternities > 0) document.getElementById("infmultbuyer").style.display = "inline-block"
 
     document.getElementById("replicantichance").className = (player.infinityPoints.gte(player.replicanti.chanceCost)) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantiinterval").className = (player.infinityPoints.gte(player.replicanti.intervalCost) && player.replicanti.interval !== 50) ? "storebtn" : "unavailablebtn"
@@ -4931,11 +4936,11 @@ setInterval(function () {
     if (player.infMultBuyer) {
         var diff = player.infinityPoints.e - player.infMultCost.e
 
-        if (diff > 1) {
+        if (diff > 0) {
             player.infMult = player.infMult.times(Decimal.pow(2, diff))
             player.infMultCost = player.infMultCost.times(Decimal.pow(10, diff))
             document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
-            player.money = player.money.minus(player.infMultCost.dividedBy(10))
+            player.infinityPoints = player.infinityPoints.minus(player.infMultCost.dividedBy(10))
         }
     }
 
