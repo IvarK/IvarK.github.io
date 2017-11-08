@@ -1028,26 +1028,26 @@ function getDimensionFinalMultiplier(tier) {
     if (hasInfinityMult(tier)) multiplier = multiplier.times(dimMults());
     if (tier == 1) {
         if (player.infinityUpgrades.includes("unspentBonus")) multiplier = multiplier.times(unspentBonus);
-        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "There's no point in doing that";})) multiplier = multiplier.times(1.1);
-        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "I forgot to nerf that";})) multiplier = multiplier.times(1.05);
-        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "ERROR 909: Dimension not found";})) multiplier = multiplier.times(3);
-        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "68";})) multiplier = multiplier.times(1.5);
+        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "There's no point in doing that";}))) multiplier = multiplier.times(1.1);
+        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "I forgot to nerf that";}))) multiplier = multiplier.times(1.05);
+        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "ERROR 909: Dimension not found";}))) multiplier = multiplier.times(3);
+        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "68";}))) multiplier = multiplier.times(1.5);
     }
     multiplier = multiplier.times(timeMult());
-    if (tier == 8 && player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "The 9th Dimension is a lie";})) multiplier = multiplier.times(1.1);
-    else if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "You didn't need it anyway";})) multiplier = multiplier.times(1.02);
-    if (tier <= 4 && player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Zero Deaths";})) multiplier = multiplier.times(1.25);
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Antichallenged";})) multiplier = multiplier.times(1.1);
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Can't hold all these infinities";})) multiplier = multiplier.times(1.1); // tbd
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "End me";}) && player.currentChallenge != "") multiplier = multiplier.times(1.4);
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "How the antitables have turned";})) multiplier = multiplier.times(1+tier/100);
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Many Deaths";}) && player.thisInfinityTime < 1800) multiplier = multiplier.times(3600/(player.thisInfinityTime+1800));
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Blink of an eye";}) && player.thisInfinityTime < 3) multiplier = multiplier.times(3.3/(player.thisInfinityTime+0.3));
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "65";}) && player.currentChallenge != "" && player.thisInfinityTime < 1800) multiplier = multiplier.times(Math.max(2400/(player.thisInfinityTime+600), 1))
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "91";}) && player.thisInfinityTime < 50) multiplier = multiplier.times(Math.max(301-player.thisInfinityTime*6, 1))
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "92";}) && player.thisInfinityTime < 600) multiplier = multiplier.times(Math.max(101-player.thisInfinityTime/6, 1))
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "This achievement doesn't exist";})) multiplier = multiplier.times(Decimal.pow(player.money,0.00002).plus(1));
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "I got a few to spare";})) multiplier = multiplier.times(Decimal.pow(player.money,0.00002).plus(1));
+    if (tier == 8 && player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "The 9th Dimension is a lie";}))) multiplier = multiplier.times(1.1);
+    else if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "You didn't need it anyway";}))) multiplier = multiplier.times(1.02);
+    if (tier <= 4 && player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Zero Deaths";}))) multiplier = multiplier.times(1.25);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Antichallenged";}))) multiplier = multiplier.times(1.1);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Can't hold all these infinities";}))) multiplier = multiplier.times(1.1); // tbd
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "End me";})) && player.currentChallenge != "") multiplier = multiplier.times(1.4);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "How the antitables have turned";}))) multiplier = multiplier.times(1+tier/100);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Many Deaths";})) && player.thisInfinityTime < 1800) multiplier = multiplier.times(3600/(player.thisInfinityTime+1800));
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Blink of an eye";})) && player.thisInfinityTime < 3) multiplier = multiplier.times(3.3/(player.thisInfinityTime+0.3));
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "65";})) && player.currentChallenge != "" && player.thisInfinityTime < 1800) multiplier = multiplier.times(Math.max(2400/(player.thisInfinityTime+600), 1))
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "91";})) && player.thisInfinityTime < 50) multiplier = multiplier.times(Math.max(301-player.thisInfinityTime*6, 1))
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "92";})) && player.thisInfinityTime < 600) multiplier = multiplier.times(Math.max(101-player.thisInfinityTime/6, 1))
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "This achievement doesn't exist";}))) multiplier = multiplier.times(Decimal.pow(player.money,0.00002).plus(1));
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "I got a few to spare";}))) multiplier = multiplier.times(Decimal.pow(player.money,0.00002).plus(1));
 
     multiplier = multiplier.times(player.postC3Reward)
     if (player.currentChallenge == "postc6") multiplier = multiplier.dividedBy(Decimal.max(player.matter, 1))
@@ -1107,7 +1107,7 @@ function getShiftRequirement(bulk) {
     if (tier == 8) amount += (player.resets+bulk - 4) * 15;
 
     if (player.infinityUpgrades.includes("resetBoost")) amount -= 9;
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "96";})) amount -= 5;
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "96";}))) amount -= 5;
     if (player.challenges.includes("postc5")) amount -= 1
 
     return { tier: tier, amount: amount };
@@ -1418,7 +1418,7 @@ function getInfinityDimensionProduction(tier) {
 function getInfinityDimensionPower(tier) {
     var dim = player["infinityDimension"+tier]
     var mult = dim.power.times(infDimPow)
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "94";}) && tier == 1) mult = mult.times(2);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "94";})) && tier == 1) mult = mult.times(2);
     if (player.replicanti.unl && player.replicanti.amount > 1) {
         if (!player.timestudy.studies.includes(41)) mult = mult.times(Math.pow(Math.log2(player.replicanti.amount), 2))
         else mult = mult.times(Math.pow(player.replicanti.amount, 0.05))
@@ -1861,10 +1861,10 @@ function softReset(bulk) {
         player.eightPow = Decimal.max(Decimal.pow(10, player.resets - 6), 1)
     }
 
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Claustrophobic";})) player.tickspeed = player.tickspeed.times(0.98);
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Faster than a potato";})) player.tickspeed = player.tickspeed.times(0.98);
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "66";})) player.tickspeed = player.tickspeed.times(0.98);
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "YOU CAN GET 50 GALAXIES!??";})) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Claustrophobic";}))) player.tickspeed = player.tickspeed.times(0.98);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Faster than a potato";}))) player.tickspeed = player.tickspeed.times(0.98);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "66";}))) player.tickspeed = player.tickspeed.times(0.98);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "YOU CAN GET 50 GALAXIES!??";}))) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
 
 
 
@@ -1889,10 +1889,10 @@ function softReset(bulk) {
     player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
     updateTickSpeed();
     if (player.challenges.includes("challenge1")) player.money = new Decimal(100)
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's fast!";})) player.money = new Decimal(1000);
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's faster!";})) player.money = new Decimal(2e5);
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Forever isn't that long";})) player.money = new Decimal(1e10);
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Blink of an eye";})) player.money = new Decimal(1e25);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's fast!";}))) player.money = new Decimal(1000);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's faster!";}))) player.money = new Decimal(2e5);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Forever isn't that long";}))) player.money = new Decimal(1e10);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Blink of an eye";}))) player.money = new Decimal(1e25);
 
     if (player.resets >= 10) {
         giveAchievement("Boosting to the max");
@@ -1933,7 +1933,7 @@ function getTickSpeedMultiplier() {
         if (player.infinityUpgrades.includes("galaxyBoost")) perGalaxy *= 2;
         if (player.infinityUpgrades.includes("postGalaxy")) perGalaxy *= 1.5;
         if (player.challenges.includes("postc5")) perGalaxy *= 1.1;
-        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Do you even bend time bro?";})) perGalaxy *= 1.01
+        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Do you even bend time bro?";}))) perGalaxy *= 1.01
 
         return baseMultiplier-(player.galaxies*perGalaxy);
     } else {
@@ -1945,7 +1945,7 @@ function getTickSpeedMultiplier() {
         if (player.infinityUpgrades.includes("galaxyBoost")) galaxies *= 2;
         if (player.infinityUpgrades.includes("postGalaxy")) galaxies *= 1.5;
         if (player.challenges.includes("postc5")) galaxies *= 1.1;
-        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Do you even bend time bro?";})) galaxies *= 1.01
+        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Do you even bend time bro?";}))) galaxies *= 1.01
 
         return baseMultiplier * (Math.pow(perGalaxy, (galaxies-2)))
     }
@@ -2192,7 +2192,7 @@ function getDimensionPowerMultiplier(tier) {
     if (player.currentChallenge == "challenge9" || player.currentChallenge == "postc1") dimMult = Decimal.pow(10/0.30,Decimal.random())*0.30
 
     if (player.infinityUpgrades.includes('dimMult')) dimMult *= 1.1;
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Is this hell?";})) dimMult *= 1.01;
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Is this hell?";}))) dimMult *= 1.01;
 
     return dimMult;
 }
@@ -2202,7 +2202,7 @@ function clearDimensions(amount) {
 	var tiers = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
 
     for (i = 1; i <= amount; i++) {
-        player[tiers[i]d + "Amount"] = new Decimal(0)
+        player[tiers[i] + "Amount"] = new Decimal(0)
     }
 }
 
@@ -2621,109 +2621,109 @@ document.getElementById("infiMult").onclick = function() {
 
 function updateAchPow() {
     var amount = 0
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "You gotta start somewhere";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "100 antimatter is a lot";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Half life 3 confirmed";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "L4D: Left 4 Dimensions";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "5 Dimension Antimatter Punch";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "We couldn't afford 9";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Not a luck related achievement";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "90 degrees to infinity";})) {
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "You gotta start somewhere";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "100 antimatter is a lot";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Half life 3 confirmed";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "L4D: Left 4 Dimensions";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "5 Dimension Antimatter Punch";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "We couldn't afford 9";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Not a luck related achievement";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "90 degrees to infinity";}))) {
         amount += 1;
         document.getElementById("achRow1").className = "completedrow"
     }
 
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "To infinity!";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Don't you dare to sleep";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "The 9th Dimension is a lie";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Antimatter Apocalypse";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Boosting to the max";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "You got past The Big Wall";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Double Galaxy";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "There's no point in doing that";})) {
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "To infinity!";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Don't you dare to sleep";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "The 9th Dimension is a lie";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Antimatter Apocalypse";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Boosting to the max";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "You got past The Big Wall";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Double Galaxy";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "There's no point in doing that";}))) {
         amount += 1;
         document.getElementById("achRow2").className = "completedrow"
     }
 
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "I forgot to nerf that";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "The Gods are pleased";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's a lot of infinites";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "You didn't need it anyway";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "One for each dimension";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Claustrophobic";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's fast!";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "I don't believe in Gods";})) {
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "I forgot to nerf that";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "The Gods are pleased";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's a lot of infinites";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "You didn't need it anyway";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "One for each dimension";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Claustrophobic";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's fast!";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "I don't believe in Gods";}))) {
         amount += 1;
         document.getElementById("achRow3").className = "completedrow"
     }
 
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Fake News";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Supersanic";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Zero Deaths";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Over in 30 seconds";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Faster than a potato";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Multidimensional";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Daredevil";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "AntiChallenged";})) {
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Fake News";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Supersanic";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Zero Deaths";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Over in 30 seconds";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Faster than a potato";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Multidimensional";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Daredevil";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "AntiChallenged";}))) {
         amount += 1;
         document.getElementById("achRow4").className = "completedrow"
     }
 
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Limit Break";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Age of Automation";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Definitely not worth it";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's faster!";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Forever isn't that long";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Many Deaths";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Gift from the Gods";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Is this hell?";})) {
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Limit Break";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Age of Automation";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Definitely not worth it";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's faster!";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Forever isn't that long";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Many Deaths";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Gift from the Gods";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Is this hell?";}))) {
         amount += 1;
         document.getElementById("achRow5").className = "completedrow"
     }
 
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "61";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "62";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "63";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "64";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "65";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "66";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "67";]) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "68";])) {
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "61";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "62";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "63";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "64";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "65";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "66";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "67";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "68";}))) { 
         amount += 1;
         document.getElementById("achRow6").className = "completedrow"
     }
 
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "ERROR 909: Dimension not found";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Can't hold all these infinities";]) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "This achievement doesn't exist";]) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "End me";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "NEW DIMENSIONS???";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Spreading Cancer";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "How the antitables have turned";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Blink of an eye";})) {
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "ERROR 909: Dimension not found";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Can't hold all these infinities";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "This achievement doesn't exist";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "End me";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "NEW DIMENSIONS???";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Spreading Cancer";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "How the antitables have turned";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Blink of an eye";}))) {
         amount += 1;
         document.getElementById("achRow7").className = "completedrow"
     }
 
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Hevipelle did nothing wrong";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Anti-antichallenged";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "YOU CAN GET 50 GALAXIES!??";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "I got a few to spare";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "All your IP are belong to us";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Do you even bend time bro?";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "2 Million Infinities";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Yet another infinity reference";})) {
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Hevipelle did nothing wrong";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Anti-antichallenged";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "YOU CAN GET 50 GALAXIES!??";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "I got a few to spare";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "All your IP are belong to us";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Do you even bend time bro?";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "2 Million Infinities";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Yet another infinity reference";}))) {
         amount += 1;
         document.getElementById("achRow8").className = "completedrow"
     }
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "91";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "92";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "93";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "94";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "95";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "96";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "97";}) &&
-        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "To Eternity!";})) {
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "91";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "92";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "93";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "94";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "95";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "96";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "97";})) &&
+        player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "To Eternity!";}))) {
         amount++;
         document.getElementById("achRow9").className = "completedrow"
     }
@@ -2739,7 +2739,7 @@ function timeMult() {
     var mult = new Decimal(1)
     if (player.infinityUpgrades.includes("timeMult")) mult = mult.times(Math.pow(player.totalTimePlayed / 1200, 0.15));
     if (player.infinityUpgrades.includes("timeMult2")) mult = mult.times(Decimal.max(Math.pow(player.thisInfinityTime / 2400, 0.25), 1));
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "One for each dimension";})) mult = mult.times(Math.pow(player.totalTimePlayed / (600*60*48), 0.05));
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "One for each dimension";}))) mult = mult.times(Math.pow(player.totalTimePlayed / (600*60*48), 0.05));
     return mult;
 }
 
@@ -3254,9 +3254,9 @@ function galaxyReset() {
     }
     if (player.options.notation == "Emojis") player.spreadingCancer+=1;
     if (player.spreadingCancer >= 10) giveAchievement("Spreading Cancer")
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Claustrophobic";})) player.tickspeed = player.tickspeed.times(0.98);
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Faster than a potato";})) player.tickspeed = player.tickspeed.times(0.98);
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "YOU CAN GET 50 GALAXIES!??";})) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Claustrophobic";}))) player.tickspeed = player.tickspeed.times(0.98);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Faster than a potato";}))) player.tickspeed = player.tickspeed.times(0.98);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "YOU CAN GET 50 GALAXIES!??";}))) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
     clearInterval(player.interval);
     //updateInterval();
     document.getElementById("secondRow").style.display = "none";
@@ -3275,13 +3275,13 @@ function galaxyReset() {
     if (player.galaxies >= 2) giveAchievement("Double Galaxy");
     if (player.galaxies >= 1) giveAchievement("You got past The Big Wall");
     if (player.challenges.includes("challenge1")) player.money = new Decimal(100)
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's fast!";})) player.money = new Decimal(1000);
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's faster!";})) player.money = new Decimal(2e5);
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Forever isn't that long";})) player.money = new Decimal(1e10);
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Blink of an eye";})) player.money = new Decimal(1e25);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's fast!";}))) player.money = new Decimal(1000);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's faster!";}))) player.money = new Decimal(2e5);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Forever isn't that long";}))) player.money = new Decimal(1e10);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Blink of an eye";}))) player.money = new Decimal(1e25);
     player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
     updateTickSpeed()
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "66";})) player.tickspeed = player.tickspeed.times(0.98);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "66";}))) player.tickspeed = player.tickspeed.times(0.98);
 
 
 };
@@ -3477,14 +3477,14 @@ function resetDimensions() {
 function calcSacrificeBoost() {
     if (player.firstAmount == 0) return new Decimal(1);
     if (player.challenges.includes("postc2")) {
-        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "97";})) return Decimal.max(Decimal.pow(player.firstAmount, 0.012).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.012), 1)), 1)
-        else if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Yet another infinity reference";})) return Decimal.max(Decimal.pow(player.firstAmount, 0.011).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.011), 1)), 1)
+        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "97";}))) return Decimal.max(Decimal.pow(player.firstAmount, 0.012).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.012), 1)), 1)
+        else if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Yet another infinity reference";}))) return Decimal.max(Decimal.pow(player.firstAmount, 0.011).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.011), 1)), 1)
         else return Decimal.max(Decimal.pow(player.firstAmount, 0.01).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.01), 1)), 1)
     }
     if (player.currentChallenge != "challenge11") {
         var sacrificePow=2;
-        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "The Gods are pleased";})) sacrificePow += 0.2;
-        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Gift from the Gods";})) sacrificePow += 0.3;
+        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "The Gods are pleased";}))) sacrificePow += 0.2;
+        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Gift from the Gods";}))) sacrificePow += 0.3;
         return Decimal.max(Decimal.pow((player.firstAmount.e/10.0), sacrificePow).dividedBy(Decimal.max(Decimal.pow(((Decimal.max(player.sacrificed.e, 1)).dividedBy(10.0)), sacrificePow), 1), 1), 1);
     } else {
         if (player.firstAmount != 0) return Decimal.max(Decimal.pow(player.firstAmount, 0.05).dividedBy(Decimal.max(Decimal.pow(player.sacrificed, 0.04), 1)), 1)
@@ -3899,9 +3899,9 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.thisInfinityTime <= 6000) giveAchievement("That's faster!")
         if (player.thisInfinityTime <= 600) giveAchievement("Forever isn't that long")
         if (player.thisInfinityTime <= 2) giveAchievement("Blink of an eye")
-        if (!player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "You didn't need it anyway";}) && player.eightAmount == 0) giveAchievement("You didn't need it anyway");
-        if (!player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Claustrophobic";}) && player.galaxies == 1) giveAchievement("Claustrophobic");
-        if (!player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Zero Deaths";}) && player.galaxies == 0 && player.resets == 0) giveAchievement("Zero Deaths")
+        if (!player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "You didn't need it anyway";})) && player.eightAmount == 0) giveAchievement("You didn't need it anyway");
+        if (!player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Claustrophobic";})) && player.galaxies == 1) giveAchievement("Claustrophobic");
+        if (!player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Zero Deaths";})) && player.galaxies == 0 && player.resets == 0) giveAchievement("Zero Deaths")
         if (player.currentChallenge == "challenge2" && player.thisInfinityTime <= 1800) giveAchievement("Many Deaths")
         if (player.currentChallenge == "challenge11" && player.thisInfinityTime <= 1800) giveAchievement("Gift from the Gods")
         if (player.currentChallenge == "challenge5" && player.thisInfinityTime <= 1800) giveAchievement("Is this hell?")
@@ -3935,7 +3935,7 @@ document.getElementById("bigcrunch").onclick = function () {
             if (gainedInfinityPoints().gte(1e200) && player.thisInfinityTime <= 20) giveAchievement("91")
             if (gainedInfinityPoints().gte(1e250) && player.thisInfinityTime <= 200) giveAchievement("92")
         }
-        if (player.thisInfinityTime > 50 && player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "2 Million Infinities";})) player.timestudy.studies.includes(32) ? player.infinitied += 250*player.resets-1 : player.infinitied += 249;
+        if (player.thisInfinityTime > 50 && player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "2 Million Infinities";}))) player.timestudy.studies.includes(32) ? player.infinitied += 250*player.resets-1 : player.infinitied += 249;
         if (autoS && auto) {
           if (gainedInfinityPoints().dividedBy(player.thisInfinityTime).gt(player.autoIP)) player.autoIP = gainedInfinityPoints().dividedBy(player.thisInfinityTime);
           if (player.thisInfinityTime<player.autoTime) player.autoTime = player.thisInfinityTime;
@@ -4095,10 +4095,10 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.timestudy.studies.includes(32)) player.infinitied += player.resets
         document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
 
-        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Claustrophobic";})) player.tickspeed = player.tickspeed.times(0.98);
-        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Faster than a potato";})) player.tickspeed = player.tickspeed.times(0.98);
-        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "66";})) player.tickspeed = player.tickspeed.times(0.98);
-        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "YOU CAN GET 50 GALAXIES!??";})) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
+        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Claustrophobic";}))) player.tickspeed = player.tickspeed.times(0.98);
+        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Faster than a potato";}))) player.tickspeed = player.tickspeed.times(0.98);
+        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "66";}))) player.tickspeed = player.tickspeed.times(0.98);
+        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "YOU CAN GET 50 GALAXIES!??";}))) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
         clearInterval(player.interval);
         //updateInterval();
         document.getElementById("secondRow").style.display = "none";
@@ -4122,19 +4122,19 @@ document.getElementById("bigcrunch").onclick = function () {
             kongregate.stats.submit('Fastest Infinity time (ms)', Math.floor(player.bestInfinityTime * 100))
 
         } catch (err) {console.log("Couldn't load Kongregate API")}
-        if (!player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "To infinity!";})) giveAchievement("To infinity!");
-        if (!player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's a lot of infinites";}) && player.infinitied >= 10) giveAchievement("That's a lot of infinites");
+        if (!player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "To infinity!";}))) giveAchievement("To infinity!");
+        if (!player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's a lot of infinites";})) && player.infinitied >= 10) giveAchievement("That's a lot of infinites");
         if (player.infinitied >= 1 && !player.challenges.includes("challenge1")) player.challenges.push("challenge1");
 
 
         updateAutobuyers();
         if (player.challenges.includes("challenge1")) player.money = new Decimal(100)
-        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's fast!";})) player.money = new Decimal(1000);
-        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's faster!";})) player.money = new Decimal(2e5);
-        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Forever isn't that long";})) player.money = new Decimal(1e10);
-        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Blink of an eye";})) player.money = new Decimal(1e25);
-        if (player.challenges.length >= 2 && !player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Daredevil";})) giveAchievement("Daredevil");
-        if (player.challenges.length == 12 && !player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "AntiChallenged";})) giveAchievement("AntiChallenged");
+        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's fast!";}))) player.money = new Decimal(1000);
+        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's faster!";}))) player.money = new Decimal(2e5);
+        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Forever isn't that long";}))) player.money = new Decimal(1e10);
+        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Blink of an eye";}))) player.money = new Decimal(1e25);
+        if (player.challenges.length >= 2 && !player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Daredevil";}))) giveAchievement("Daredevil");
+        if (player.challenges.length == 12 && !player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "AntiChallenged";}))) giveAchievement("AntiChallenged");
         resetInfDimensions();
         player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
         updateTickSpeed();
@@ -4345,8 +4345,8 @@ function eternity() {
         if (player.replicanti.unl) player.replicanti.amount = 1
         player.replicanti.galaxies = 0
 
-        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Claustrophobic";})) player.tickspeed = player.tickspeed.times(0.98);
-        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Faster than a potato";})) player.tickspeed = player.tickspeed.times(0.98);
+        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Claustrophobic";}))) player.tickspeed = player.tickspeed.times(0.98);
+        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Faster than a potato";}))) player.tickspeed = player.tickspeed.times(0.98);
         clearInterval(player.interval);
         //updateInterval();
         document.getElementById("secondRow").style.display = "none";
@@ -4362,16 +4362,16 @@ function eternity() {
         document.getElementById("eightRow").style.display = "none";
         document.getElementById("matter").style.display = "none";
         document.getElementById("quickReset").style.display = "none";
-        if (!player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "To infinity!";})) giveAchievement("To infinity!");
-        if (!player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's a lot of infinites";}) && player.infinitied >= 10) giveAchievement("That's a lot of infinites");
+        if (!player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "To infinity!";}))) giveAchievement("To infinity!");
+        if (!player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's a lot of infinites";})) && player.infinitied >= 10) giveAchievement("That's a lot of infinites");
         if (player.infinitied >= 1 && !player.challenges.includes("challenge1")) player.challenges.push("challenge1");
         updateAutobuyers();
-        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's fast!";})) player.money = new Decimal(1000);
-        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's faster!";})) player.money = new Decimal(2e5);
-        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Forever isn't that long";})) player.money = new Decimal(1e10);
-        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Blink of an eye";})) player.money = new Decimal(1e25);
-        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "All your IP are belong to us";})) player.infMult.times(4)
-        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "93";})) player.infMult = player.infMult.times(4)
+        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's fast!";}))) player.money = new Decimal(1000);
+        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's faster!";}))) player.money = new Decimal(2e5);
+        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Forever isn't that long";}))) player.money = new Decimal(1e10);
+        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Blink of an eye";}))) player.money = new Decimal(1e25);
+        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "All your IP are belong to us";}))) player.infMult.times(4)
+        if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "93";}))) player.infMult = player.infMult.times(4)
         resetInfDimensions();
         updateTickSpeed();
         updateChallenges();
@@ -4531,10 +4531,10 @@ function startChallenge(name, target) {
 
     IPminpeak = new Decimal(0)
     if (player.currentChallenge.includes("post")) player.break = true
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Claustrophobic";})) player.tickspeed = player.tickspeed.times(0.98);
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Faster than a potato";})) player.tickspeed = player.tickspeed.times(0.98);
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "66";})) player.tickspeed = player.tickspeed.times(0.98);
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "YOU CAN GET 50 GALAXIES!??";})) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Claustrophobic";}))) player.tickspeed = player.tickspeed.times(0.98);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Faster than a potato";}))) player.tickspeed = player.tickspeed.times(0.98);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "66";}))) player.tickspeed = player.tickspeed.times(0.98);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "YOU CAN GET 50 GALAXIES!??";}))) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
     clearInterval(player.interval);
     //updateInterval();
     document.getElementById("secondRow").style.display= "none";
@@ -4557,10 +4557,10 @@ function startChallenge(name, target) {
     showTab('dimensions');
     updateChallenges();
     if (player.challenges.includes("challenge1")) player.money = new Decimal(100)
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's fast!";})) player.money = new Decimal(1000);
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's faster!";})) player.money = new Decimal(2e5);
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Forever isn't that long";})) player.money = new Decimal(1e10);
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Blink of an eye";})) player.money = new Decimal(1e25);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's fast!";}))) player.money = new Decimal(1000);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "That's faster!";}))) player.money = new Decimal(2e5);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Forever isn't that long";}))) player.money = new Decimal(1e10);
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Blink of an eye";}))) player.money = new Decimal(1e25);
     showTab("dimensions")
     try {
         kongregate.stats.submit('Infinitied', player.infinitied);
@@ -4726,7 +4726,7 @@ setInterval(function() {
     if (player.infinitied == 0) document.getElementById("infinityPoints2").style.display = "none"
     else document.getElementById("infinityPoints2").style.display = "inline-block"
 
-    if (blink && !player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Blink of an eye";})) {
+    if (blink && !player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Blink of an eye";}))) {
         document.getElementById("Blink of an eye").style.display = "none"
         blink = false
     }
@@ -4975,10 +4975,10 @@ setInterval(function () {
     updateTimeDimensions()
     updateTimeShards()
     if (calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).gt(player.money)) {
-	if(player.money.gt(Math.pow(10,63)) && !player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Supersanic";})) giveAchievement("Supersanic");
+	if(player.money.gt(Math.pow(10,63)) && !player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Supersanic";}))) giveAchievement("Supersanic");
     Marathon++;
 
-	if (Marathon >= 300 && !player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Over in 30 seconds";})) giveAchievement("Over in 30 seconds");
+	if (Marathon >= 300 && !player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Over in 30 seconds";}))) giveAchievement("Over in 30 seconds");
     } else {
 	Marathon = 0; }
 
@@ -5526,10 +5526,10 @@ function scrollNextMessage() {
 
     if (!player.options.newsHidden) {
         if (!player.newsArray.includes(msg.index)) player.newsArray.push(msg.index);
-        if (player.newsArray.length>=50 && !player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Fake News";})) giveAchievement("Fake News")
+        if (player.newsArray.length>=50 && !player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Fake News";}))) giveAchievement("Fake News")
     }
 
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Fake News";})) player.newsArray = []
+    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === "Fake News";}))) player.newsArray = []
 
 
     //set the transition duration
