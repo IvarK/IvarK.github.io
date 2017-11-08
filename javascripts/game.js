@@ -194,6 +194,7 @@ var player = {
     autoIP: new Decimal(0),
     autoTime: 1e300,
     infMultBuyer: false,
+    autoCrunchMode: false,
     options: {
         newsHidden: false,
         notation: "Standard",
@@ -419,6 +420,7 @@ function onLoad() {
     if (player.autoSacrifice === undefined) player.autoSacrifice = 1
     if (player.postChallUnlocked === undefined) player.postChallUnlocked = 0
     if (player.infMultBuyer === undefined) player.infMultBuyer = false
+    if (player.autoCrunchMode === undefined) player.autoCrunchMode = false
     if (player.challengeTarget === undefined) {
         player.challengeTarget = 0
         if (player.currentChallenge != "") player.challengeTarget = Number.MAX_VALUE
@@ -1808,6 +1810,7 @@ function softReset(bulk) {
         autoIP: player.autoIP,
         autoTime: player.autoTime,
         infMultBuyer: player.infMultBuyer,
+        autoCrunchMode: player.autoCrunchMode,
         options: player.options
     };
     if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -2918,6 +2921,17 @@ function infMultAutoToggle() {
 }
 
 
+function toggleCrunchMode() {
+    if (player.autoCrunchMode) {
+        player.autoCrunchMode = false
+        document.getElementById("togglecrunchmode").innerHTML = "Auto crunch mode: amount"
+    } else {
+        player.autoCrunchMode = true
+        document.getElementById("togglecrunchmode").innerHTML = "Auto crunch mode: time"
+    }
+}
+
+
 
 
 
@@ -3181,6 +3195,7 @@ function galaxyReset() {
         autoIP: player.autoIP,
         autoTime: player.autoTime,
         infMultBuyer: player.infMultBuyer,
+        autoCrunchMode: player.autoCrunchMode,
         options: player.options
     };
 
@@ -4027,6 +4042,7 @@ document.getElementById("bigcrunch").onclick = function () {
         autoIP: player.autoIP,
         autoTime: player.autoTime,
         infMultBuyer: player.infMultBuyer,
+        autoCrunchMode: player.autoCrunchMode,
         options: player.options
         };
 
@@ -4303,6 +4319,7 @@ function eternity() {
             autoIP: new Decimal(0),
             autoTime: 1e300,
             infMultBuyer: player.infMultBuyer,
+            autoCrunchMode: player.autoCrunchMode,
             options: player.options
         };
 
@@ -4477,6 +4494,7 @@ function startChallenge(name, target) {
       autoIP: player.autoIP,
       autoTime: player.autoTime,
       infMultBuyer: player.infMultBuyer,
+      autoCrunchMode: player.autoCrunchMode,
       options: player.options
     };
 	if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -4738,6 +4756,7 @@ setInterval(function() {
     if (player.replicanti.galaxybuyer !== undefined) document.getElementById("replicantiresettoggle").style.display = "inline-block"
 
     if (player.eternities > 0) document.getElementById("infmultbuyer").style.display = "inline-block"
+    if (player.eternities > 4) document.getElementById("togglecrunchmode").style.display = "inline-block"
 
     document.getElementById("replicantichance").className = (player.infinityPoints.gte(player.replicanti.chanceCost)) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantiinterval").className = (player.infinityPoints.gte(player.replicanti.intervalCost) && player.replicanti.interval !== 50) ? "storebtn" : "unavailablebtn"
@@ -5292,9 +5311,16 @@ function autoBuyerTick() {
     if (player.autobuyers[11]%1 !== 0) {
     if (player.autobuyers[11].ticks*100 >= player.autobuyers[11].interval && player.money.gte(Number.MAX_VALUE)) {
         if (player.autobuyers[11].isOn) {
-            if (!player.break || player.currentChallenge != "" || player.autobuyers[11].priority.lt(gainedInfinityPoints())) {
-                autoS = false;
-                document.getElementById("bigcrunch").click()
+            if (!player.autoCrunchMode) {
+                if (!player.break || player.currentChallenge != "" || player.autobuyers[11].priority.lt(gainedInfinityPoints())) {
+                    autoS = false;
+                    document.getElementById("bigcrunch").click()
+                }
+            } else {
+                if (!player.break || player.currentChallenge != "" || player.autobuyers[11].priority.lt(player.thisInfinityTime/10)) {
+                    autoS = false;
+                    document.getElementById("bigcrunch").click()
+                }
             }
             player.autobuyers[11].ticks = 1;
         } 
