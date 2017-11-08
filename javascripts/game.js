@@ -1516,7 +1516,7 @@ function getTimeDimensionProduction(tier) {
     var dim = player["timeDimension"+tier]
     var ret = dim.amount.times(dim.power)
     if (player.timestudy.studies.includes(11)) {
-        mult = Decimal.pow(player.tickspeed.dividedBy(1000), 0.005).times(0.95).plus(Decimal.pow(player.tickspeed.dividedBy(1000), 0.0005).times(0.05))
+        mult = Decimal.pow(player.tickspeed.dividedBy(1000), 0.005).times(0.95).plus(Decimal.pow(player.tickspeed.dividedBy(1000), 0.0003).times(0.05))
         ret = ret.dividedBy(mult)
     }
     return ret
@@ -2553,7 +2553,7 @@ document.getElementById("infiMult").onclick = function() {
         player.autoIP = player.autoIP.times(2);
         if (player.autobuyers[11].priority !== undefined && player.autobuyers[11].priority !== null) player.autobuyers[11].priority = player.autobuyers[11].priority.times(2)
         player.infMultCost = player.infMultCost.times(10)
-        document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult * kongIPMult) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
+        document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
     }
 }
 
@@ -3472,7 +3472,7 @@ function sacrifice() {
         var name = TIER_NAMES[tier];
         document.getElementById(name + "D").innerHTML = DISPLAY_NAMES[tier] + " Dimension x" + formatValue(player.options.notation, getDimensionFinalMultiplier(tier), 1, 1);
         document.getElementById(name + "Amount").innerHTML = getDimensionDescription(tier);
-        if (player.timestudy.includes(71) && tier !== 8) player[name+"Pow"] = player[name+"Pow"].times(calcSacrificeBoost())
+        if (player.timestudy.studies.includes(71) && tier !== 8) player[name+"Pow"] = player[name+"Pow"].times(calcSacrificeBoost())
     }
 
 }
@@ -4332,7 +4332,7 @@ function eternity() {
         document.getElementById("eternityPoints").style.display = "inline-block"
         document.getElementById("eternitystorebtn").style.display = "inline-block"
 
-        document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult * kongIPMult) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
+        document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
     }
 }
 
@@ -5650,6 +5650,7 @@ function init() {
     showStatsTab('stats')
     showDimTab('antimatterdimensions')
     showChallengesTab('challenges')
+    showEternityTab('timestudies')
     load_game();
     updateTickSpeed();
     updateAutobuyers();
