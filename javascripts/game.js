@@ -366,6 +366,7 @@ function onLoad() {
             animationOn: true
         }
     }
+    if (player.options.invert === true) player.options.theme = "Inverted"
     if (player.options.notation === undefined) player.options.notation = "Standard"
     if (player.options.challConf === undefined) player.options.challConf = false
 	if (player.options.notation === undefined) player.options.notation = "Standard";
