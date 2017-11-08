@@ -4934,7 +4934,7 @@ setInterval(function () {
 
 
     if (player.infMultBuyer) {
-        var diff = player.infinityPoints.e - player.infMultCost.e
+        var diff = player.infinityPoints.e - player.infMultCost.e +1
 
         if (diff > 0) {
             player.infMult = player.infMult.times(Decimal.pow(2, diff))
