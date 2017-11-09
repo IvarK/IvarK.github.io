@@ -5091,7 +5091,7 @@ setInterval(function () {
     document.getElementById("replicantiapprox").innerHTML ="Approximately "+ timeDisplay(estimate*10) + " Until Infinite Replicanti"
 
     document.getElementById("replicantiamount").innerHTML = shortenDimensions(player.replicanti.amount)
-    document.getElementById("replicandtimult").innerHTML = shorten(Math.pow(Math.log2(player.replicanti.amount), 2))
+    document.getElementById("replicantimult").innerHTML = shorten(Math.pow(Math.log2(player.replicanti.amount), 2))
     if (player.timestudy.studies.includes(21)) document.getElementById("replicantimult").innerHTML = shorten(Math.pow(player.replicanti.amount, 0.035))
 
 
