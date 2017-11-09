@@ -3489,7 +3489,7 @@ function breakInfinity() {
 function gainedInfinityPoints() {
     var ret = Decimal.floor(Decimal.pow(10, player.money.e/308 -0.75).times(player.infMult.times(kongIPMult)))
     if (player.timestudy.studies.includes(41)) ret = ret.times(Decimal.pow(1.2, player.galaxies + player.replicanti.galaxies))
-    if (player.timestudy.studies.includes(51)) ret = ret.times(1e30)
+    if (player.timestudy.studies.includes(51)) ret = ret.times(1e15)
     return ret
 }
 
@@ -4030,7 +4030,7 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.challenges.length == 20) giveAchievement("Anti-antichallenged");
         if (!player.break || player.currentChallenge != "") {
             var add = new Decimal(player.infMult.times(kongIPMult))
-            if (player.timestudy.studies.includes(51)) add = add.times(1e30)
+            if (player.timestudy.studies.includes(51)) add = add.times(1e15)
             player.infinityPoints = player.infinityPoints.plus(add);
             addTime(player.thisInfinityTime, add)
         }
