@@ -3493,7 +3493,7 @@ function gainedInfinityPoints() {
 
 function gainedEternityPoints() {
     if (player.timestudy.studies.includes(61)) return Decimal.floor(Decimal.pow(10, player.infinityPoints.e/308 -1)).times(10)
-    else return Decimal.floor(Decimal.pow(10, player.infinityPoints.e/308 -1))
+    else return Decimal.floor(Decimal.pow(5, player.infinityPoints.e/308 -0.7))
 }
 
 
@@ -5090,7 +5090,7 @@ setInterval(function () {
     var estimate = (1024 - current) / est
     document.getElementById("replicantiapprox").innerHTML ="Approximately "+ timeDisplay(estimate*10) + " Until Infinite Replicanti"
 
-    document.getElementById("replicantiamount").innerHTML = shortenDimendsions(player.replicanti.amount)
+    document.getElementById("replicantiamount").innerHTML = shortenDimensions(player.replicanti.amount)
     document.getElementById("replicandtimult").innerHTML = shorten(Math.pow(Math.log2(player.replicanti.amount), 2))
     if (player.timestudy.studies.includes(21)) document.getElementById("replicantimult").innerHTML = shorten(Math.pow(player.replicanti.amount, 0.035))
 
