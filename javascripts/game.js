@@ -72,7 +72,7 @@ var player = {
     dimensionMultDecrease: 10,
     dimensionMultDecreaseCost: 1e8,
     overXGalaxies: 10,
-    version: 1,
+    version: 5.01,
     infDimensionsUnlocked: [false, false, false, false],
     infinityPower: new Decimal(1),
     spreadingCancer: 0,
@@ -452,7 +452,7 @@ function onLoad() {
 		player.newsArray = []
 		player.version = 5
 	}
-
+	player.version = 5.01
 
     
     
