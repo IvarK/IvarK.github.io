@@ -4296,7 +4296,7 @@ function eternity() {
             timeDimension4: player.timeDimension4,
             eternityPoints: player.eternityPoints.plus(gainedEternityPoints()),
             eternities: player.eternities+1,
-            thisEternity: player.thisEternity,
+            thisEternity: 0,
             bestEternity: player.bestEternity,
             totalTickGained: 0,
             offlineProd: 0,
