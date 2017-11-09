@@ -2934,8 +2934,9 @@ document.getElementById("offlineProd").onclick = function() {
 
 
 function updateInfCosts() {
+    var places = Math.floor(Math.log10(player.replicanti.interval/1000)) * (-1)
     document.getElementById("replicantichance").innerHTML = "Replicate chance: "+Math.round(player.replicanti.chance*100)+"%<br>+"+1+"% Costs: "+shortenCosts(player.replicanti.chanceCost)+" IP"
-    document.getElementById("replicantiinterval").innerHTML = "Interval: "+Math.round(player.replicanti.interval)+"ms<br>-> "+Math.round(player.replicanti.interval*0.9)+" Costs: "+shortenCosts(player.replicanti.intervalCost)+" IP"
+    document.getElementById("replicantiinterval").innerHTML = "Interval: "+(player.replicanti.interval).toFixed(places)+"ms<br>-> "+(player.replicanti.interval*0.9).toFixed(places)+" Costs: "+shortenCosts(player.replicanti.intervalCost)+" IP"
     document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP"
     document.getElementById("replicantiunlock").innerHTML = "Unlock Replicantis<br>Cost: "+shortenCosts(1e140)+" IP"
     document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
@@ -2980,7 +2981,8 @@ function upgradeReplicantiInterval() {
         player.replicanti.intervalCost = player.replicanti.intervalCost.times(1e10)
         player.replicanti.interval *= 0.9
         if (!player.timestudy.studies.includes(22) && player.replicanti.interval < 50) player.replicanti.interval = 50
-        document.getElementById("replicantiinterval").innerHTML = "Interval: "+Math.round(player.replicanti.interval)+"ms<br>-> "+Math.round(player.replicanti.interval*0.9)+" Costs: "+shortenCosts(player.replicanti.intervalCost)+" IP"
+        var places = Math.floor(Math.log10(player.replicanti.interval/1000)) * (-1)
+        document.getElementById("replicantiinterval").innerHTML = "Interval: "+(player.replicanti.interval).toFixed(places)+"ms<br>-> "+(player.replicanti.interval*0.9).toFixed(places)+" Costs: "+shortenCosts(player.replicanti.intervalCost)+" IP"
     }
 }
 
