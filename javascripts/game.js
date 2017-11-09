@@ -1132,7 +1132,7 @@ function getShiftRequirement(bulk) {
 
 function getGalaxyRequirement() {
     let amount = 80 + (player.galaxies * 60);
-    if (player.timestudy.studies.includes(21)) amount = 80 + (player.galaxies * 58)
+    if (player.timestudy.studies.includes(42)) amount = 80 + (player.galaxies * 58)
     if (player.currentChallenge == "challenge4") amount = 99 + (player.galaxies * 90)
     if (player.infinityUpgrades.includes("resetBoost")) {
         amount -= 9;
@@ -1437,8 +1437,8 @@ function getInfinityDimensionPower(tier) {
     var mult = dim.power.times(infDimPow)
     if (player.achievements.includes("r94") && tier == 1) mult = mult.times(2);
     if (player.replicanti.unl && player.replicanti.amount > 1) {
-        if (!player.timestudy.studies.includes(41)) mult = mult.times(Math.pow(Math.log2(player.replicanti.amount), 2))
-        else mult = mult.times(Math.pow(player.replicanti.amount, 0.05))
+        if (!player.timestudy.studies.includes(21)) mult = mult.times(Math.pow(Math.log2(player.replicanti.amount), 2))
+        else mult = mult.times(Math.pow(player.replicanti.amount, 0.035))
     }
 
     return mult
@@ -1683,7 +1683,7 @@ function canBuyStudy(name) {
     }
 }
 var all = [11, 21, 22, 31, 32, 41, 42, 51, 61, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 131, 132, 141, 142, 151, 152, 161, 171]
-var studyCosts = [1, 7, 5, 4, 2, 3, 2, 7, 2, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 131, 132, 141, 142, 151, 152, 161, 171]
+var studyCosts = [1, 3, 2, 4, 2, 5, 7, 7, 2, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 131, 132, 141, 142, 151, 152, 161, 171]
 function updateTimeStudyButtons() {
     for (var i=0; i<all.length; i++) {
         if (!player.timestudy.studies.includes(all[i])) {
@@ -2942,7 +2942,7 @@ function updateInfCosts() {
 
 
     document.getElementById("replicantichance").className = (player.infinityPoints.gte(player.replicanti.chanceCost)) ? "storebtn" : "unavailablebtn"
-    document.getElementById("replicantiinterval").className = (player.infinityPoints.gte(player.replicanti.intervalCost) && (player.replicanti.interval !== 50) || player.timestudy.studies.includes(42)) ? "storebtn" : "unavailablebtn"
+    document.getElementById("replicantiinterval").className = (player.infinityPoints.gte(player.replicanti.intervalCost) && (player.replicanti.interval !== 50) || player.timestudy.studies.includes(22)) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantimax").className = (player.infinityPoints.gte(player.replicanti.galCost)) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantireset").className = (player.replicanti.galaxies < player.replicanti.gal && player.replicanti.amount == Number.MAX_VALUE) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantiunlock").className = (player.infinityPoints.gte(1e140)) ? "storebtn" : "unavailablebtn"
@@ -2975,11 +2975,11 @@ function upgradeReplicantiChance() {
 
 
 function upgradeReplicantiInterval() {
-    if (player.infinityPoints.gte(player.replicanti.intervalCost) && (player.replicanti.interval > 50 || player.timestudy.studies.includes(42))) {
+    if (player.infinityPoints.gte(player.replicanti.intervalCost) && (player.replicanti.interval > 50 || player.timestudy.studies.includes(22))) {
         player.infinityPoints = player.infinityPoints.minus(player.replicanti.intervalCost)
         player.replicanti.intervalCost = player.replicanti.intervalCost.times(1e10)
         player.replicanti.interval *= 0.9
-        if (!player.timestudy.studies.includes(42) && player.replicanti.interval < 50) player.replicanti.interval = 50
+        if (!player.timestudy.studies.includes(22) && player.replicanti.interval < 50) player.replicanti.interval = 50
         document.getElementById("replicantiinterval").innerHTML = "Interval: "+Math.round(player.replicanti.interval)+"ms<br>-> "+Math.round(player.replicanti.interval*0.9)+" Costs: "+shortenCosts(player.replicanti.intervalCost)+" IP"
     }
 }
@@ -3486,7 +3486,7 @@ function breakInfinity() {
 
 function gainedInfinityPoints() {
     var ret = Decimal.floor(Decimal.pow(10, player.money.e/308 -0.75).times(player.infMult.times(kongIPMult)))
-    if (player.timestudy.studies.includes(22)) ret = ret.times(Decimal.pow(1.2, player.galaxies + player.replicanti.galaxies))
+    if (player.timestudy.studies.includes(41)) ret = ret.times(Decimal.pow(1.2, player.galaxies + player.replicanti.galaxies))
     if (player.timestudy.studies.includes(51)) ret = ret.times(1e30)
     return ret
 }
@@ -5090,9 +5090,9 @@ setInterval(function () {
     var estimate = (1024 - current) / est
     document.getElementById("replicantiapprox").innerHTML ="Approximately "+ timeDisplay(estimate*10) + " Until Infinite Replicanti"
 
-    document.getElementById("replicantiamount").innerHTML = shortenDimensions(player.replicanti.amount)
-    document.getElementById("replicantimult").innerHTML = shorten(Math.pow(Math.log2(player.replicanti.amount), 2))
-    if (player.timestudy.studies.includes(41)) document.getElementById("replicantimult").innerHTML = shorten(Math.pow(player.replicanti.amount, 0.05))
+    document.getElementById("replicantiamount").innerHTML = shortenDimendsions(player.replicanti.amount)
+    document.getElementById("replicandtimult").innerHTML = shorten(Math.pow(Math.log2(player.replicanti.amount), 2))
+    if (player.timestudy.studies.includes(21)) document.getElementById("replicantimult").innerHTML = shorten(Math.pow(player.replicanti.amount, 0.035))
 
 
     document.getElementById("eternitybtn").innerHTML = (player.eternities == 0) ? "Other times await.. I need to become Eternal" : "I need to become Eternal.<br>"+"Gain "+shortenDimensions(gainedEternityPoints())+" Eternity points."
