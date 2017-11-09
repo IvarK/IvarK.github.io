@@ -155,26 +155,35 @@ input {
 
 .infinistorebtn1 {
     color: #000 !important;
-    background: #F5F5F5 !important
+    background: #F5F5F5 !important;
+    border: 1px solid black !important;
 }
 
 .infinistorebtn2 {
     color: #000 !important;
-    background: #F5F5F5 !important
+    background: #F5F5F5 !important;
+    border: 1px solid black !important;
 }
 
 .infinistorebtn3 {
     color: #000 !important;
-    background: #F5F5F5 !important
+    background: #F5F5F5 !important;
+    border: 1px solid black !important;
 }
 
 .infinistorebtn4 {
     color: #000 !important;
-    background: #F5F5F5 !important
+    background: #F5F5F5 !important;
+    border: 1px solid black !important;
+}
+
+.infinistorebtnlocked {
+    background: #616161 !important;
+    border: 1px solid black !important;
 }
 
 .infinistorebtnlocked:hover {
-    background: #546E7A !important;
+    background: #757575 !important;
 }
 
 .infinistorebtn2:hover {
@@ -200,6 +209,7 @@ input {
 .infinistorebtnbought {
     color: black;
     background: #43A047 !important;
+    border: 1px solid black !important;
 }
 
 .autobuyerbtn {
