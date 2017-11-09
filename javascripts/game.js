@@ -1525,7 +1525,7 @@ var infDimPow = 1
 function getTimeDimensionProduction(tier) {
     var dim = player["timeDimension"+tier]
     var ret = dim.amount.times(dim.power)
-    if (player.timestudy.studies.includes(11)) {
+    if (player.timestudy.studies.includes(11) && tier == 1) {
         mult = Decimal.pow(player.tickspeed.dividedBy(1000), 0.005).times(0.95).plus(Decimal.pow(player.tickspeed.dividedBy(1000), 0.0003).times(0.05))
         ret = ret.dividedBy(mult)
     }
