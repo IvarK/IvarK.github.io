@@ -2127,11 +2127,36 @@ const allAchievements = {
   r96 : "96",
   r97 : "97",
   r98 : "To Eternity!",
-
 };
 // to retrieve by value: Object.keys(allAchievements).find(key => allAchievements[key] === "L4D: Left 4 Dimensions");
 
+function clearOldAchieves(){
+  console.log("clearOldAchieves running")
+    var toRemove = [];
+    var achieveKey;
+    for (var i = 0; i < player.achievements.length; i++) {
+      if (Object.values(allAchievements).indexOf(player.achievements[i]) !== -1 ) {  // does index[i] exist in allAchievements as a value?
+        console.log("removing index: " +i+ ", value: " + player.achievements[i] )
+        toRemove.push(i); // mark it for removal
+        achieveKey = Object.keys(allAchievements).find(function(key){ return allAchievements[key] === player.achievements[i];});
+        console.log("achievekey: "+ achieveKey);
+        console.log("achievekey exists: " + player.achievements.includes(achieveKey));
+        if (!player.achievements.includes(achieveKey)) { // check if new key already exists as well
+            player.achievements.push(achieveKey); // if not... add it
+        }
+      }
+    }
+
+    toRemove.reverse();
+    for (var i = 0; i < toRemove.length; i++) {
+      player.achievements.splice(toRemove[i], 1);
+    }
+}
+
 function giveAchievement(name) {
+
+    if (player.achievements.includes(name)){ clearOldAchieves(); }
+
     if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === name;}))) {
         return
     }
