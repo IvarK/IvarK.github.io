@@ -1438,7 +1438,7 @@ function getInfinityDimensionPower(tier) {
     if (player.achievements.includes("r94") && tier == 1) mult = mult.times(2);
     if (player.replicanti.unl && player.replicanti.amount > 1) {
         if (!player.timestudy.studies.includes(21)) mult = mult.times(Math.pow(Math.log2(player.replicanti.amount), 2))
-        else mult = mult.times(Math.pow(player.replicanti.amount, 0.035))
+        else mult = mult.times(Math.pow(player.replicanti.amount, 0.035) +(Math.pow(Math.log2(player.replicanti.amount), 2)))
     }
 
     return mult
@@ -5092,7 +5092,7 @@ setInterval(function () {
 
     document.getElementById("replicantiamount").innerHTML = shortenDimensions(player.replicanti.amount)
     document.getElementById("replicantimult").innerHTML = shorten(Math.pow(Math.log2(player.replicanti.amount), 2))
-    if (player.timestudy.studies.includes(21)) document.getElementById("replicantimult").innerHTML = shorten(Math.pow(player.replicanti.amount, 0.035))
+    if (player.timestudy.studies.includes(21)) document.getElementById("replicantimult").innerHTML = shorten(Math.pow(player.replicanti.amount, 0.035) +(Math.pow(Math.log2(player.replicanti.amount), 2)))
 
 
     document.getElementById("eternitybtn").innerHTML = (player.eternities == 0) ? "Other times await.. I need to become Eternal" : "I need to become Eternal.<br>"+"Gain "+shortenDimensions(gainedEternityPoints())+" Eternity points."
