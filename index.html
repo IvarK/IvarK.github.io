@@ -95,6 +95,7 @@
                 <tr>
                     <td><button class="secondarytabbtn" onclick="showEternityTab('timestudies')">Time studies</button><td>
                     <td><button class="secondarytabbtn" onclick="showEternityTab('eternityupgrades')">Eternity upgrades</button><td>
+                        <td><button class="secondarytabbtn" onclick="showEternityTab('milestones')">Eternity milestones</button><td>
                 </tr>
             </table>
             <div class="eternitytab" id="timestudies">
@@ -105,14 +106,14 @@
                 <p id="timetheorems">You have 0 Time Theorems.</p>
                 <table class="table" id="studytable">
                     <tr style="width: 100%; text-align: center">
-                        <td style="margin: auto;"><button class="timestudylocked" id="11" onclick="buyTimeStudy(11, 1)">Tickspeed affects Time Dimensions (With reduced effect)<p>Cost: 1 Time Theorem</button></td>
+                        <td style="margin: auto;"><button class="timestudylocked" id="11" onclick="buyTimeStudy(11, 1)">Tickspeed affects First Time Dimension (With reduced effect)<p>Cost: 1 Time Theorem</button></td>
                     </tr>
                 </table>
                 <br>
                 <table class="table" id="studytable">
                     <tr>
-                        <td style="margin: auto;"><button class="timestudy" id="21" onclick="buyTimeStudy(21, 3)">Each galaxy gives a 1.2x multiplier on IP gained. <p>Cost: 3 Time Theorems</button></td>
-                        <td style="margin: auto;"><button class="timestudy" id="22" onclick="buyTimeStudy(22, 5)">Galaxy requirement goes up 55 8ths instead of 60.<p>Cost: 5 Time Theorems</button></td>
+                        <td style="margin: auto;"><button class="timestudy" id="21" onclick="buyTimeStudy(21, 7)">Galaxy requirement goes up 58 8ths instead of 60.<p>Cost: 7 Time Theorems</button></td>
+                        <td style="margin: auto;"><button class="timestudy" id="22" onclick="buyTimeStudy(22, 5)">Each galaxy gives a 1.2x multiplier on IP gained. <p>Cost: 5 Time Theorems</button></td>
                     </tr>
                     <tr>
                         <td style="margin: auto; width: 50%;"><button class="timestudy" id="31" onclick="buyTimeStudy(31, 4)">Powers up existing upgrades based on infinitied stat (to the power of 3)<p>Cost: 4 Time Theorems</button></td>
@@ -120,7 +121,7 @@
                     </tr>
                     <tr>
                         <td style="margin: auto; width: 50%;"><button class="timestudy" id="41" onclick="buyTimeStudy(41, 3)">Replicanti multiplier formula is better (log2(x)^2 -> x^0.05)<p>Cost: 3 Time Theorems</button></td>
-                        <td style="margin: auto; width: 50%;"><button class="timestudy" id="42" onclick="buyTimeStudy(42, 2)">Replicanti galaxies counts as 2<p>Cost: 2 Time Theorems</button></td>
+                        <td style="margin: auto; width: 50%;"><button class="timestudy" id="42" onclick="buyTimeStudy(42, 2)">You can upgrade replicanti interval further than 50ms<p>Cost: 2 Time Theorems</button></td>
                     </tr>
                 </table>
                 <br>
@@ -192,6 +193,30 @@
             </div>
             <div  class="eternitytab" id="eternityupgrades">
 
+            </div>
+            <div class="eternitytab" id="milestones">
+                <table class="table" align="center" style="margin: auto" id="milestones">
+                    <tr>
+                        <td class="milestoneText">1 Eternity - </td>
+                        <td><button class="milestonerewardlocked" id="reward1">IP multiplier autobuyer</button></td>
+                    </tr>
+                    <tr>
+                        <td class="milestoneText">2 Eternities - </td>
+                        <td><button class="milestonerewardlocked" id="reward2">You don't lose your autobuyers on Eternity</button></td>
+                    </tr>
+                    <tr>
+                        <td class="milestoneText">3 Eternities - </td>
+                        <td><button class="milestonerewardlocked" id="reward3">Unlock replicanti galaxy autobuyer</button></td>
+                    </tr>
+                    <tr>
+                        <td class="milestoneText">5 Eternities - </td>
+                        <td><button class="milestonerewardlocked" id="reward4" style="font-size: 10px">You can switch big crunch autobuyer to crunch on set time rather than set Infinity Point amount</button></td>
+                    </tr>
+                    <tr>
+                        <td class="milestoneText">9 Eternities - </td>
+                        <td><button class="milestonerewardlocked" id="reward5">You lose</button></td>
+                    </tr>
+                </table>
             </div>
         </div>
         <div id="dimensions" class="tab">
@@ -1195,7 +1220,7 @@
                                     <br>
                                     <br>
                                     <div class="outer">
-                                        <button id="postc7" class="challengesbtn" onclick="startChallenge('postc7', new Decimal('1e12000'))">Start</button>
+                                        <button id="postc7" class="challengesbtn" onclick="startChallenge('postc7', new Decimal('1e10000'))">Start</button>
                                         <br>
                                         <span id="postc7goal" >Goal: 1e10000</span><br>
                                         <span>Reward: Dimensional boost multiplier 2.5x -> 4x</span>
@@ -1311,6 +1336,8 @@
             </table>
             <br>
             <div><button id="infiMult" class="infinimultbtn">Multiply infinity points from all sources by 2 <br>currently: <br>Cost: 100 IP</button></div>
+            <br>
+            <div><button id="infmultbuyer" class="storebtn" onclick="infMultAutoToggle()" style="display:none; height: 40px; width: 130px; font-size:10px">Autobuy IP mult ON</button></div>
             <div>
                 <table id="footer">
                     <tr>
@@ -1334,6 +1361,7 @@
             <table class="table" style="margin: 0 auto">
                 <button class="storebtn" id="toggleautobuyers" style="font-size: 100%; width: 150px; height: 40px; margin: 3px" onclick="toggleAutoBuyers()">Enable/disable autobuyers</button>
                 <button class="storebtn" id="togglebulk" style="font-size: 100%; width: 150px; height: 40px;margin: 3px" onclick="toggleBulk()">Disable bulk buy                     </button>
+                <button class="storebtn" id="togglecrunchmode" style="font-size: 100%; width: 150px; height: 40px;margin: 3px; display: none" onclick="toggleCrunchMode()">Auto crunch mode: amount</button>
                 <tr>
                         <td>
                             <div class="autoBuyerDiv" id="autoBuyerDimBoost" style="font-size: 11px;">
@@ -1707,6 +1735,8 @@
                 <p id="replicantiapprox"></p>
                 <br>
                 <button class="storebtn" id="replicantireset" onclick="replicantiGalaxy()" style="width: 200px; height: 70px; font-size: 12px">Reset replicanti amount, but get a free galaxy</button>
+                <br>
+                <button class="storebtn" id="replicantiresettoggle" onclick="replicantiGalaxyAutoToggle()" style="width: 150px; height: 30px; font-size: 12px; display: none">Auto galaxy OFF</button>
             </div>
             <div id="footercontainer">
                     <table id="footer">
