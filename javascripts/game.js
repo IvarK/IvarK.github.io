@@ -1694,6 +1694,18 @@ function updateTimeStudyButtons() {
 }
 
 
+function respecTimeStudies() {
+    for (var i=0; i<all.length; i++) {
+        if (player.timestudy.studies.includes(all[i])) {
+            player.timestudy.theorem += studyCosts[i]
+        }
+    }
+    player.timestudy.studies = []
+    updateTimeStudyButtons()
+    updateTheoremButtons()
+}
+
+
 
 
 
@@ -4246,6 +4258,9 @@ function eternity() {
     if (player.infinityPoints.gte(Number.MAX_VALUE) && (player.eternities !== 0 || confirm("Eternity will reset everything except achievements and challenge records. You will also gain an Eternity point and unlock various upgrades. This is the only time you will see this message"))) {
         if (player.thisEternity<player.bestEternity) player.bestEternity = player.thisEternity
         temp = []
+        if (player.eternities !== 0) {
+            if (confirm("Do you want to respec your time studies for free?")) respecTimeStudies()
+        }
         for (var i=0; i<player.challenges.length; i++) {
 
             if (!player.challenges[i].includes("post") && player.eternities > 1) temp.push(player.challenges[i])
