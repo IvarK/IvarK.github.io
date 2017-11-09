@@ -5083,7 +5083,7 @@ setInterval(function () {
         if (player.infinityPoints.gte(1e7)) document.getElementById("postinfi32").className = "infinistorebtn1"
         else document.getElementById("postinfi32").className = "infinistorebtnlocked"
 
-        if (player.infinityPoints.gte(player.dimensionMultDecreaseCost)) document.getElementById("postinfi42").className = "infinistorebtn1"
+        if (player.infinityPoints.gte(player.dimensionMultDecreaseCost)) document.getElementById("postinfi42").className = "infinimultbtn"
         else document.getElementById("postinfi42").className = "infinistorebtnlocked"
 
         if (player.infinityPoints.gte(20e6)) document.getElementById("postinfi13").className = "infinistorebtn1"
