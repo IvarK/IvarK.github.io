@@ -111,6 +111,11 @@ input {
 .autobuyerbtn {
     color: black !important;
     box-shadow: none !important;
+    border: 1px solid black !important;
+}
+
+.autobuyerbtn:hover {
+    background: #FF9800 !important;
 }
 
 #infinityPoints1 {
@@ -178,12 +183,12 @@ input {
 }
 
 .infinistorebtnlocked {
-    background: #616161 !important;
+    background: #263238 !important;
     border: 1px solid black !important;
 }
 
 .infinistorebtnlocked:hover {
-    background: #757575 !important;
+    background: #37474F !important;
 }
 
 .infinistorebtn2:hover {
@@ -210,15 +215,6 @@ input {
     color: black;
     background: #43A047 !important;
     border: 1px solid black !important;
-}
-
-.autobuyerbtn {
-    border: 1px solid #F48FB1 !important;
-}
-
-.autobuyerbtn:hover {
-    background: #FF9800 !important;
-    border: 2px solid #FF9800 !important;
 }
 
 .storebtn:hover {
@@ -300,6 +296,7 @@ input {
 .timestudy {
     color: #b341e0 !important;
     background: black !important;
+    animation: timeStudyGlowIn 7s infinite;
 }
 
 .timestudy:hover {
@@ -321,12 +318,12 @@ input {
 
 .timestudylocked:hover {
     color: #1D1D1D !important;
-    background: #660000 !important;
+    background: #B84B5F !important;
 }
 
 .timestudybought {
     color: #1e0830 !important;
-    background: #43A047 !important;
+    background: #8D48C3 !important;
 }
 
 .milestonereward {
@@ -347,4 +344,9 @@ input {
     33% {color: #673AB7;}
     66%  {color: #00BCD4;}
     100%  {color: #2196F3;}
+}
+@keyframes timeStudyGlowIn {
+    0%  {box-shadow: inset 0px 0px 3px 0px #b341e0;}
+    50% {box-shadow: inset 0px 0px 15px 0px #b341e0;}
+    100%  {box-shadow: inset 0px 0px 3px 0px #b341e0;}
 }
