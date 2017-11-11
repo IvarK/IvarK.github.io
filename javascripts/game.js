@@ -1438,7 +1438,7 @@ function getInfinityDimensionPower(tier) {
     if (player.achievements.includes("r94") && tier == 1) mult = mult.times(2);
     if (player.replicanti.unl && player.replicanti.amount > 1) {
         if (!player.timestudy.studies.includes(21)) mult = mult.times(Math.pow(Math.log2(player.replicanti.amount), 2))
-        else mult = mult.times(Math.pow(player.replicanti.amount, 0.04) +(Math.pow(Math.log2(player.replicanti.amount), 2)))
+        else mult = mult.times(Math.pow(player.replicanti.amount, 0.032) +(Math.pow(Math.log2(player.replicanti.amount), 2)))
     }
 
     return mult
@@ -2936,14 +2936,15 @@ document.getElementById("offlineProd").onclick = function() {
 function updateInfCosts() {
     var places = Math.floor(Math.log10(player.replicanti.interval/1000)) * (-1)
     document.getElementById("replicantichance").innerHTML = "Replicate chance: "+Math.round(player.replicanti.chance*100)+"%<br>+"+1+"% Costs: "+shortenCosts(player.replicanti.chanceCost)+" IP"
-    document.getElementById("replicantiinterval").innerHTML = "Interval: "+(player.replicanti.interval).toFixed(places)+"ms<br>-> "+(player.replicanti.interval*0.9).toFixed(places)+" Costs: "+shortenCosts(player.replicanti.intervalCost)+" IP"
+    if (player.replicanti.interval ==! 1)document.getElementById("replicantiinterval").innerHTML = "Interval: "+(player.replicanti.interval).toFixed(places)+"ms<br>-> "+(player.replicanti.interval*0.9).toFixed(places)+" Costs: "+shortenCosts(player.replicanti.intervalCost)+" IP"
+    else document.getElementById("replicantiinterval").innerHTML = "Interval: "+(player.replicanti.interval).toFixed(places)+"ms"
     document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP"
     document.getElementById("replicantiunlock").innerHTML = "Unlock Replicantis<br>Cost: "+shortenCosts(1e140)+" IP"
     document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
 
 
     document.getElementById("replicantichance").className = (player.infinityPoints.gte(player.replicanti.chanceCost)) ? "storebtn" : "unavailablebtn"
-    document.getElementById("replicantiinterval").className = (player.infinityPoints.gte(player.replicanti.intervalCost) && (player.replicanti.interval !== 50) || player.timestudy.studies.includes(22)) ? "storebtn" : "unavailablebtn"
+    document.getElementById("replicantiinterval").className = (player.infinityPoints.gte(player.replicanti.intervalCost) && (player.replicanti.interval !== 50) || player.timestudy.studies.includes(22) && player.replicanti.interval ==! 1) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantimax").className = (player.infinityPoints.gte(player.replicanti.galCost)) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantireset").className = (player.replicanti.galaxies < player.replicanti.gal && player.replicanti.amount == Number.MAX_VALUE) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantiunlock").className = (player.infinityPoints.gte(1e140)) ? "storebtn" : "unavailablebtn"
@@ -2976,20 +2977,22 @@ function upgradeReplicantiChance() {
 
 
 function upgradeReplicantiInterval() {
-    if (player.infinityPoints.gte(player.replicanti.intervalCost) && (player.replicanti.interval > 50 || player.timestudy.studies.includes(22))) {
+    if (player.infinityPoints.gte(player.replicanti.intervalCost) && (player.replicanti.interval > 50 || player.timestudy.studies.includes(22)) && player.replicanti.interval ==! 1) {
         player.infinityPoints = player.infinityPoints.minus(player.replicanti.intervalCost)
         player.replicanti.intervalCost = player.replicanti.intervalCost.times(1e10)
         player.replicanti.interval *= 0.9
         if (!player.timestudy.studies.includes(22) && player.replicanti.interval < 50) player.replicanti.interval = 50
+        if (player.timestudy.studies.includes(22) && player.replicanti.interval < 1) player.replicanti.interval = 1
         var places = Math.floor(Math.log10(player.replicanti.interval/1000)) * (-1)
-        document.getElementById("replicantiinterval").innerHTML = "Interval: "+(player.replicanti.interval).toFixed(places)+"ms<br>-> "+(player.replicanti.interval*0.9).toFixed(places)+" Costs: "+shortenCosts(player.replicanti.intervalCost)+" IP"
+        if (player.replicanti.interval ==! 1)document.getElementById("replicantiinterval").innerHTML = "Interval: "+(player.replicanti.interval).toFixed(places)+"ms<br>-> "+(player.replicanti.interval*0.9).toFixed(places)+" Costs: "+shortenCosts(player.replicanti.intervalCost)+" IP"
+        else document.getElementById("replicantiinterval").innerHTML = "Interval: "+(player.replicanti.interval).toFixed(places)+"ms"
     }
 }
 
 function upgradeReplicantiGalaxy() {
     if (player.infinityPoints.gte(player.replicanti.galCost)) {
         player.infinityPoints = player.infinityPoints.minus(player.replicanti.galCost)
-        player.replicanti.galCost = player.replicanti.galCost.times(1e35)
+        player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(1e5, player.replicanti.gal).times(1e25))
         player.replicanti.gal += 1
         document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP"
     }
@@ -5094,7 +5097,7 @@ setInterval(function () {
 
     document.getElementById("replicantiamount").innerHTML = shortenDimensions(player.replicanti.amount)
     document.getElementById("replicantimult").innerHTML = shorten(Math.pow(Math.log2(player.replicanti.amount), 2))
-    if (player.timestudy.studies.includes(21)) document.getElementById("replicantimult").innerHTML = shorten(Math.pow(player.replicanti.amount, 0.04) +(Math.pow(Math.log2(player.replicanti.amount), 2)))
+    if (player.timestudy.studies.includes(21)) document.getElementById("replicantimult").innerHTML = shorten(Math.pow(player.replicanti.amount, 0.032) +(Math.pow(Math.log2(player.replicanti.amount), 2)))
 
 
     document.getElementById("eternitybtn").innerHTML = (player.eternities == 0) ? "Other times await.. I need to become Eternal" : "I need to become Eternal.<br>"+"Gain "+shortenDimensions(gainedEternityPoints())+" Eternity points."
