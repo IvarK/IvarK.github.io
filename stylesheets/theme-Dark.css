@@ -24,6 +24,10 @@ button {
     background: #1B5E20 !important;
 }
 
+.newdimlocked {
+    background: #37474F !important;
+}
+
 .newdimlocked:hover {
     background: #B84B5F !important;
 }
@@ -285,18 +289,19 @@ input {
 
 .timetheorembtn {
     color: #3AACD6 !important;
-    background: #232028 !important;
+    background: #161616 !important;
+    border: 1px solid #3AACD6 !important;
 }
 
 .timetheorembtn:hover {
-    color: #232028 !important;
+    color: #161616 !important;
     background: #3AACD6 !important;
 }
 
 .timestudy {
     color: #b341e0 !important;
     background: black !important;
-    animation: timeStudyGlowIn 7s infinite;
+    animation: studyGlowIn 7s infinite;
 }
 
 .timestudy:hover {
@@ -305,20 +310,23 @@ input {
 }
 
 .timetheorembtnlocked {
-    background: #37474F !important;
+    background: #263238 !important;
+    border: 1px solid #3AACD6 !important;
 }
 
 .timetheorembtnlocked:hover {
-    background: #652F2F !important;
+    background: #B84B5F !important;
+    border: 1px solid #B84B5F !important;
 }
 
 .timestudylocked {
-    background: #37474F !important;
+    background: #263238 !important;
+    color: black !important;
 }
 
 .timestudylocked:hover {
-    color: #1D1D1D !important;
     background: #B84B5F !important;
+    border: 1px solid #B84B5F !important;
 }
 
 .timestudybought {
@@ -345,7 +353,7 @@ input {
     66%  {color: #00BCD4;}
     100%  {color: #2196F3;}
 }
-@keyframes timeStudyGlowIn {
+@keyframes studyGlowIn {
     0%  {box-shadow: inset 0px 0px 3px 0px #b341e0;}
     50% {box-shadow: inset 0px 0px 15px 0px #b341e0;}
     100%  {box-shadow: inset 0px 0px 3px 0px #b341e0;}
