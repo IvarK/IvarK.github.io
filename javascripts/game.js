@@ -2936,7 +2936,7 @@ document.getElementById("offlineProd").onclick = function() {
 function updateInfCosts() {
     var places = Math.floor(Math.log10(player.replicanti.interval/1000)) * (-1)
     document.getElementById("replicantichance").innerHTML = "Replicate chance: "+Math.round(player.replicanti.chance*100)+"%<br>+"+1+"% Costs: "+shortenCosts(player.replicanti.chanceCost)+" IP"
-    if (player.replicanti.interval ==! 1)document.getElementById("replicantiinterval").innerHTML = "Interval: "+(player.replicanti.interval).toFixed(places)+"ms<br>-> "+(player.replicanti.interval*0.9).toFixed(places)+" Costs: "+shortenCosts(player.replicanti.intervalCost)+" IP"
+    if (player.replicanti.interval !== 1) document.getElementById("replicantiinterval").innerHTML = "Interval: "+(player.replicanti.interval).toFixed(places)+"ms<br>-> "+Math.max(player.replicanti.interval*0.9, 1).toFixed(places)+" Costs: "+shortenCosts(player.replicanti.intervalCost)+" IP"
     else document.getElementById("replicantiinterval").innerHTML = "Interval: "+(player.replicanti.interval).toFixed(places)+"ms"
     document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP"
     document.getElementById("replicantiunlock").innerHTML = "Unlock Replicantis<br>Cost: "+shortenCosts(1e140)+" IP"
@@ -2944,7 +2944,7 @@ function updateInfCosts() {
 
 
     document.getElementById("replicantichance").className = (player.infinityPoints.gte(player.replicanti.chanceCost)) ? "storebtn" : "unavailablebtn"
-    document.getElementById("replicantiinterval").className = (player.infinityPoints.gte(player.replicanti.intervalCost) && (player.replicanti.interval !== 50) || player.timestudy.studies.includes(22) && player.replicanti.interval ==! 1) ? "storebtn" : "unavailablebtn"
+    document.getElementById("replicantiinterval").className = (player.infinityPoints.gte(player.replicanti.intervalCost) && ((player.replicanti.interval !== 50) || player.timestudy.studies.includes(22)) && (player.replicanti.interval !== 1)) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantimax").className = (player.infinityPoints.gte(player.replicanti.galCost)) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantireset").className = (player.replicanti.galaxies < player.replicanti.gal && player.replicanti.amount == Number.MAX_VALUE) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantiunlock").className = (player.infinityPoints.gte(1e140)) ? "storebtn" : "unavailablebtn"
@@ -2977,14 +2977,14 @@ function upgradeReplicantiChance() {
 
 
 function upgradeReplicantiInterval() {
-    if (player.infinityPoints.gte(player.replicanti.intervalCost) && (player.replicanti.interval > 50 || player.timestudy.studies.includes(22)) && player.replicanti.interval ==! 1) {
+    if (player.infinityPoints.gte(player.replicanti.intervalCost) && (player.replicanti.interval > 50 || player.timestudy.studies.includes(22)) && player.replicanti.interval !== 1) {
         player.infinityPoints = player.infinityPoints.minus(player.replicanti.intervalCost)
         player.replicanti.intervalCost = player.replicanti.intervalCost.times(1e10)
         player.replicanti.interval *= 0.9
         if (!player.timestudy.studies.includes(22) && player.replicanti.interval < 50) player.replicanti.interval = 50
         if (player.timestudy.studies.includes(22) && player.replicanti.interval < 1) player.replicanti.interval = 1
         var places = Math.floor(Math.log10(player.replicanti.interval/1000)) * (-1)
-        if (player.replicanti.interval ==! 1)document.getElementById("replicantiinterval").innerHTML = "Interval: "+(player.replicanti.interval).toFixed(places)+"ms<br>-> "+(player.replicanti.interval*0.9).toFixed(places)+" Costs: "+shortenCosts(player.replicanti.intervalCost)+" IP"
+        if (player.replicanti.interval !== 1)document.getElementById("replicantiinterval").innerHTML = "Interval: "+(player.replicanti.interval).toFixed(places)+"ms<br>-> "+Math.max(player.replicanti.interval*0.9, 1).toFixed(places)+" Costs: "+shortenCosts(player.replicanti.intervalCost)+" IP"
         else document.getElementById("replicantiinterval").innerHTML = "Interval: "+(player.replicanti.interval).toFixed(places)+"ms"
     }
 }
@@ -3016,6 +3016,7 @@ function updateMilestones() {
     if (player.eternities > 0) document.getElementById("reward1").className = "milestonereward"
     if (player.eternities > 1) document.getElementById("reward2").className = "milestonereward"
     if (player.eternities > 2) document.getElementById("reward3").className = "milestonereward"
+    if (player.eternities > 4) document.getElementById("reward4").className = "milestonereward"
 }
 
 function replicantiGalaxyAutoToggle() {
@@ -4483,7 +4484,7 @@ function eternity() {
         IPminpeak = new Decimal(0)
         updateMilestones()
         resetTimeDimensions()
-
+        player.autobuyers[9].bulk = 1
         if (player.replicanti.unl == true) {
             document.getElementById("replicantidiv").style.display="inline-block"
             document.getElementById("replicantiunlock").style.display="none"
@@ -4887,7 +4888,7 @@ setInterval(function() {
     if (player.eternities > 4) document.getElementById("togglecrunchmode").style.display = "inline-block"
 
     document.getElementById("replicantichance").className = (player.infinityPoints.gte(player.replicanti.chanceCost)) ? "storebtn" : "unavailablebtn"
-    document.getElementById("replicantiinterval").className = (player.infinityPoints.gte(player.replicanti.intervalCost) && player.replicanti.interval !== 50) ? "storebtn" : "unavailablebtn"
+    document.getElementById("replicantiinterval").className = (player.infinityPoints.gte(player.replicanti.intervalCost) && ((player.replicanti.interval !== 50) || player.timestudy.studies.includes(22)) && (player.replicanti.interval !== 1)) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantimax").className = (player.infinityPoints.gte(player.replicanti.galCost)) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantireset").className = (player.replicanti.galaxies < player.replicanti.gal && player.replicanti.amount == Number.MAX_VALUE) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantiunlock").className = (player.infinityPoints.gte(1e140)) ? "storebtn" : "unavailablebtn"
