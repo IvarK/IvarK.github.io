@@ -4338,7 +4338,7 @@ function eternity() {
             chall11Pow: 1,
             challengeTimes: player.challengeTimes,
             infchallengeTimes: player.infchallengeTimes,
-            lastTenRuns: player.lastTenRuns,
+            lastTenRuns: [[600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1]],
             infMult: new Decimal(1),
             infMultCost: new Decimal(100),
             tickSpeedMultDecrease: 10,
