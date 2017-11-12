@@ -23,9 +23,9 @@
     overflow: hidden;
     margin: auto;
     text-align: left
-  }
+}
   
-  #news {
+#news {
     color: #000000;
     /*transition: transform 1s;*/
     position: relative;
@@ -34,7 +34,7 @@
     font-size: 15px;
     white-space: nowrap;
     font-weight: bold
-  }
+}
 
 
 .logo {
@@ -78,9 +78,9 @@
     right: 0;
     left: 0;
     bottom: 5px;
-  }
+}
   
-  .challengediv {
+.challengediv {
     display:table;
     text-align:center;
     width:350px;
@@ -97,9 +97,9 @@
     margin: 3px 8px;
     position: relative;
     border-radius: 5px;
-  }
+}
 
-  .infchallengediv {
+.infchallengediv {
     display:table;
     text-align:center;
     width:350px;
@@ -116,7 +116,7 @@
     margin: 3px 8px;
     position: relative;
     border-radius: 5px;
-  }
+}
   
 
 .completedchallengesbtn {
@@ -646,6 +646,7 @@
     color: black;
     font-size: 13px;
     border-radius: 5px;
+    transition-duration: 0.1s;
 }
 
 .greedbtn {
