@@ -1305,7 +1305,7 @@ function updateDimensions() {
     if (player.offlineProd == 50) document.getElementById("offlineProd").innerHTML = "Generates "+player.offlineProd+"% of your best IP/min from last 10 infinities, works offline<br>Currently: "+shortenMoney(bestRunIppm.times(player.offlineProd/100)) +" IP/min"
 
 
-    document.getElementById("32").innerHTML = "You gain x"+player.resets+" more infinitied stat (based on soft resets)<p>Cost: 2 Time Theorems"
+    document.getElementById("32").innerHTML = "You gain x"+Math.max(player.resets, 1)+" more infinitied stat (based on soft resets)<p>Cost: 2 Time Theorems"
 }
 
 function updateCosts() {
