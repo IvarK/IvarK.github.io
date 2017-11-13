@@ -716,6 +716,10 @@ function onLoad() {
         infMultAutoToggle()
         infMultAutoToggle()
     }
+    clearOldAchieves()
+    for (var i=0; i<player.achievements.length; i++) {
+        document.getElementById(allAchievements[player.achievements[i]]).className = "achievementunlocked"
+    }
 
 
     for (var i=0; i<player.timestudy.studies.length; i++) {
@@ -2158,13 +2162,20 @@ function clearOldAchieves(){
         if (!player.achievements.includes(achieveKey)) { // check if new key already exists as well
             player.achievements.push(achieveKey); // if not... add it
         }
+      } else if (allAchievements[player.achievements[i]] === undefined){
+        toRemove.push(i);
       }
     }
+
 
     toRemove.reverse();
     for (var i = 0; i < toRemove.length; i++) {
       player.achievements.splice(toRemove[i], 1);
     }
+
+    
+
+    
 }
 
 function giveAchievement(name) {
@@ -2972,7 +2983,7 @@ function upgradeReplicantiChance() {
         player.infinityPoints = player.infinityPoints.minus(player.replicanti.chanceCost)
         player.replicanti.chanceCost = player.replicanti.chanceCost.times(1e15)
         player.replicanti.chance += 0.01
-        document.getElementById("replicantichance").innerHTML = "Replicate chance: "+Math.round(player.replicanti.chance*100)+"%<br>+1% Costs: "+shortenCosts(player.replicanti.chanceCost)+" IP"
+        updateInfCosts()
     }
 }
 
@@ -2986,8 +2997,7 @@ function upgradeReplicantiInterval() {
         if (!player.timestudy.studies.includes(22) && player.replicanti.interval < 50) player.replicanti.interval = 50
         if (player.timestudy.studies.includes(22) && player.replicanti.interval < 1) player.replicanti.interval = 1
         var places = Math.floor(Math.log10(player.replicanti.interval/1000)) * (-1)
-        if (player.replicanti.interval !== 1)document.getElementById("replicantiinterval").innerHTML = "Interval: "+(player.replicanti.interval).toFixed(places)+"ms<br>-> "+Math.max(player.replicanti.interval*0.9, 1).toFixed(places)+" Costs: "+shortenCosts(player.replicanti.intervalCost)+" IP"
-        else document.getElementById("replicantiinterval").innerHTML = "Interval: "+(player.replicanti.interval).toFixed(places)+"ms"
+        updateInfCosts()
     }
 }
 
@@ -2996,7 +3006,7 @@ function upgradeReplicantiGalaxy() {
         player.infinityPoints = player.infinityPoints.minus(player.replicanti.galCost)
         player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(1e5, player.replicanti.gal).times(1e25))
         player.replicanti.gal += 1
-        document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP"
+        updateInfCosts()
     }
 }
 
@@ -3007,8 +3017,7 @@ function replicantiGalaxy() {
         player.replicanti.galaxies += 1
         player.galaxies-=1
         galaxyReset()
-        document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
-        document.getElementById("replicantireset").className = "unavailablebtn"
+        updateInfCosts()
     }
 }
 
