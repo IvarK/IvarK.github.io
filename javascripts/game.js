@@ -695,16 +695,6 @@ function onLoad() {
     if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") document.getElementById("matter").style.display = "inline-block";
     else document.getElementById("matter").style.display = "none";
 
-    var achievements = document.getElementsByClassName('achievement');
-    var achievement;
-    for (var i = 0; i < achievements.length; i++) {
-        achievement = achievements.item(i);
-        if (player.achievements.includes(achievement.id)) {
-            achievement.className = 'achievement achievementunlocked';
-        } else {
-            achievement.className = 'achievement achievementlocked';
-        }
-    }
 
 
     if (player.replicanti.galaxybuyer !== undefined) {
@@ -2113,7 +2103,7 @@ const allAchievements = {
   r56 : "Many Deaths",
   r57 : "Gift from the Gods",
   r58 : "Is this hell?",
-  r61 : "61",
+  r61 : "fuck bitches",
   r62 : "62",
   r63 : "63",
   r64 : "64",
@@ -2137,8 +2127,8 @@ const allAchievements = {
   r86 : "Do you even bend time bro?",
   r87 : "2 Million Infinities",
   r88 : "Yet another infinity reference",
-  r91 : "91",
-  r92 : "92",
+  r91 : "Marco",
+  r92 : "Polo",
   r93 : "93",
   r94 : "94",
   r95 : "95",
