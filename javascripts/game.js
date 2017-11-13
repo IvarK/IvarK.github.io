@@ -1138,6 +1138,7 @@ function getGalaxyRequirement() {
     if (player.infinityUpgrades.includes("resetBoost")) {
         amount -= 9;
     }
+    if (player.galaxies >= 100) amount += (player.galaxies-99)*2
 
 
 
@@ -4206,6 +4207,7 @@ document.getElementById("bigcrunch").onclick = function () {
         }
 
         if (player.timestudy.studies.includes(32)) player.infinitied += player.resets
+        
         document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
 
         if (player.achievements.includes("r36")) player.tickspeed = player.tickspeed.times(0.98);
@@ -4436,7 +4438,7 @@ function eternity() {
                 gal: 0,
                 galaxies: 0,
                 galCost: new Decimal(1e170),
-                galaxybuyer: (player.eternities > 1 && player.replicanti.galaxybuyer !== undefined) ? player.replicanti.galaxybuyer : undefined
+                galaxybuyer: (player.eternities > 1) ? player.replicanti.galaxybuyer : undefined
             },
             timestudy: player.timestudy,
             autoIP: new Decimal(0),
