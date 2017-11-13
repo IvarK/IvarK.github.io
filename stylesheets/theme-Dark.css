@@ -301,7 +301,7 @@ input {
 .timestudy {
     color: #b341e0 !important;
     background: black !important;
-    animation: studyGlowIn 7s infinite;
+    animation: glowIn 7s infinite;
 }
 
 .timestudy:hover {
@@ -320,7 +320,7 @@ input {
 }
 
 .timestudylocked {
-    background: #263238 !important;
+    background: #23292a !important;
     color: black !important;
 }
 
@@ -338,6 +338,13 @@ input {
     background: #8D48C3 !important;
 }
 
+.milestonerewardlocked {
+    color: #b341e0 !important;
+    background: black !important;
+    border: 1px solid #b341e0 !important;
+    animation: glowIn 7s infinite;
+}
+
 .greedbtn {
     background-color: #f2d729 !important;
     color: black !important;
@@ -353,7 +360,8 @@ input {
     66%  {color: #00BCD4;}
     100%  {color: #2196F3;}
 }
-@keyframes studyGlowIn {
+
+@keyframes glowIn {
     0%  {box-shadow: inset 0px 0px 3px 0px #b341e0;}
     50% {box-shadow: inset 0px 0px 15px 0px #b341e0;}
     100%  {box-shadow: inset 0px 0px 3px 0px #b341e0;}

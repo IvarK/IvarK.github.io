@@ -36,7 +36,6 @@
     font-weight: bold
 }
 
-
 .logo {
     position: relative;
     top: 0;
@@ -50,7 +49,6 @@
     left: calc(50% - 100px);
     z-index: 1;
 }
-
 
 .challengesbtn {
     
@@ -117,7 +115,6 @@
     position: relative;
     border-radius: 5px;
 }
-  
 
 .completedchallengesbtn {
   width:150px;
@@ -541,7 +538,6 @@
     font-size: 70%;
 }
 
-
 .autoBuyerDiv {
     border: solid 1px grey;
     width:230px;
@@ -551,9 +547,9 @@
     padding:10px;
     display: none;
     border-radius: 4px;
-  }
-  
-  .autobuyerbtn {
+}
+
+.autobuyerbtn {
       color: white;
       background: #1F1F1F;
       font-weight: bold;
@@ -565,17 +561,15 @@
       cursor: pointer;
       border-radius: 4px;
       font-family: Typewriter;
-      
-  }
+}
 
-  .autobuyerbtn:hover {
+.autobuyerbtn:hover {
     color: #000000;
     background: #B67F33;
     font-weight: bold;
     border: 2px solid #B67F33;
     border-radius: 4px;
 }
-
 
 .crunchbtn {
     background: #E0E0E0;
@@ -598,7 +592,6 @@
     border-radius: 4px;
 
 }
-
 
 .popup {
     position: absolute;
@@ -631,7 +624,6 @@
     font-size: 15px;
     font-family: Typewriter;
 }
-
 
 #progress {
     width: 100%;
@@ -784,7 +776,6 @@
     vertical-align: top;
     font-size: 12px;
 }
-
 
 .milestonerewardlocked {
     width: 250px;
