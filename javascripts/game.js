@@ -346,6 +346,8 @@ document.getElementById("theme").onclick = function () {
     } else if (player.options.theme === "Dark") {
         player.options.theme = "Inverted";
     } else if (player.options.theme === "Inverted") {
+        player.options.theme = "Metro";
+    } else if (player.options.theme === "Metro") {
         player.options.theme = undefined;
     }
 
