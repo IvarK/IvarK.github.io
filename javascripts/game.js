@@ -4918,7 +4918,7 @@ function startInterval() {
         var thisUpdate = new Date().getTime();
         if (thisUpdate - player.lastUpdate >= 21600000) giveAchievement("Don't you dare to sleep")
         var diff = Math.min(thisUpdate - player.lastUpdate, 21600000);
-        diff = diff / 100;
+        diff = diff / 10000;
         if (diff < 0) diff = 1;
         if (player.thisInfinityTime < -10) player.thisInfinityTime = Infinity
         if (player.bestInfinityTime < -10) player.bestInfinityTime = Infinity
