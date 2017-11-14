@@ -1134,7 +1134,13 @@ function getGalaxyRequirement() {
     if (player.infinityUpgrades.includes("resetBoost")) {
         amount -= 9;
     }
-    if (player.galaxies >= 100) amount += (player.galaxies-99)*4
+    if (player.galaxies >= 100) {
+        var inc = 2
+        for (var i=0; i<player.galaxies-99; i++) {
+            amount += inc
+            inc += 2
+        }
+    }
 
 
 
