@@ -1040,6 +1040,7 @@ function formatValue(notation, value, places, placesUnder1000) {
             var power = Math.floor(Math.log10(value));
         }
         if (power > 100000  && player.options.commas) pow = power.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        if (notation.includes("engineering") ) pow = power - (power % 3)
         else pow = power
         if ((notation === "Standard")) {
             if (power <= 303) return (matissa * Decimal.pow(10, power % 3)).toFixed(places) + " " + FormatList[(power - (power % 3)) / 3];
