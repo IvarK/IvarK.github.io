@@ -1,3 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+
+
 @font-face {
     font-family: 'Open Sans Condensed';
     font-style: normal;
@@ -767,7 +773,7 @@
     height: 80px;
     transition-duration: 0.2s;
     border-radius: 4px;
-    font-size: 13px;
+    font-size: 11px;
     vertical-align: top;
     margin:7px;
     font-size:11px;
@@ -788,7 +794,7 @@
     height: 80px;
     transition-duration: 0.2s;
     border-radius: 4px;
-    font-size: 13px;
+    font-size: 11px;
     vertical-align: top;
     margin:7px;
     font-size:11px;
@@ -805,7 +811,7 @@
     transition-duration: 0.2s;
     cursor: pointer;
     border-radius: 4px;
-    font-size: 13px;
+    font-size: 11px;
     vertical-align: top;
     margin:7px;
 }
@@ -825,7 +831,7 @@
     height: 70px;
     transition-duration: 0.2s;
     border-radius: 4px;
-    font-size: 13px;
+    font-size: 11px;
     vertical-align: top;
     margin:7px;
 }
@@ -1206,20 +1212,19 @@ footer {
 }
 
 br {
-    content: " ";
-    display: block;
-    margin: 3px;
-    line-height: 5px;
+    margin: 0;
     pointer-events:none;
 }
 
 #timestudies br {
     content: " ";
     display: block;
-    margin: 20px;
-    line-height: 5px;
+    margin: 0;
+    margin-top: 20px;
     pointer-events:none;
 }
+
+
 
 #timestudies span {
     display:block;
