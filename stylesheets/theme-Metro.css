@@ -1,0 +1,413 @@
+* {
+    border-radius: 0px !important;
+}
+
+.tabbtn {
+    background: #EEEEEE !important;
+    border: 1px solid #2196F3 !important;
+    box-shadow: 1px 1px 1px 0px #9E9E9E;
+}
+
+.tabbtn:hover {
+    background: #2196F3 !important;
+    border: 1px solid #2196F3 !important;
+}
+
+.secondarytabbtn {
+    background: #EEEEEE !important;
+    border: 1px solid #2196F3 !important;
+    box-shadow: 1px 1px 1px 0px #9E9E9E;
+}
+
+.secondarytabbtn:hover {
+    background: #2196F3 !important;
+    border: 1px solid #2196F3 !important;
+}
+
+.storebtn {
+    background: #EEEEEE !important;
+    border: 1px solid #66BB6A !important;
+    box-shadow: 1px 1px 1px 0px #9E9E9E;
+}
+
+.storebtn:hover {
+    background: #66BB6A !important;
+}
+
+.unavailablebtn {
+    background: #9E9E9E !important;
+    border: 1px solid #EF5350 !important;
+    box-shadow: 1px 1px 1px 0px #9E9E9E;
+}
+
+.unavailablebtn:hover {
+    background: #EF5350 !important;
+}
+
+.newdim {
+    color: black !important;
+    background: #EEEEEE !important;
+    border: 1px solid #66BB6A !important;
+    box-shadow: 1px 1px 1px 0px #9E9E9E;
+}
+
+.newdim:hover {
+    background: #66BB6A !important;
+}
+
+.newdimlocked {
+    background: #9E9E9E !important;
+    border: 1px solid #EF5350 !important;
+    box-shadow: 1px 1px 1px 0px #9E9E9E;
+}
+
+.newdimlocked:hover {
+    background: #EF5350 !important;
+}
+
+.infinitybtn {
+    border: 1px solid #FF9800 !important;
+    box-shadow: 1px 1px 1px 0px #9E9E9E;
+}
+
+.infinitybtn:hover {
+    background: #FF9800 !important;
+}
+
+.eternitybtn {
+    color: #673AB7 !important;
+    border: 2px solid #673AB7 !important;
+}
+
+.eternitybtn:hover {
+    background: white !important;
+}
+
+.eternitytabbtn {
+    color: #673AB7 !important;
+    border: 1px solid #673AB7 !important;
+    box-shadow: 1px 1px 1px 0px #9E9E9E;
+}
+
+.completedrow {
+    background: #1B5E20 !important;
+}
+
+.achievementunlocked {
+    background-color: #66BB6A !important;
+    border: 1px solid #43A047 !important;
+}
+
+.achievementlocked {
+    background-color: #9E9E9E !important;
+    border: 1px solid #EF5350 !important;
+}
+
+.infinistorebtn1 {
+    border: 1px solid black !important;
+}
+
+.infinistorebtn2 {
+    border: 1px solid black !important;
+}
+
+.infinistorebtn3 {
+    border: 1px solid black !important;
+}
+
+.infinistorebtn4 {
+    border: 1px solid black !important;
+}
+
+.infinistorebtn1:hover {
+    background: #9C27B0 !important;
+}
+
+.infinistorebtn2:hover {
+    background: #F44336 !important;
+}
+
+.infinistorebtn3:hover {
+    background: #FFEB3B !important;
+}
+
+.infinistorebtn4:hover {
+    background: #00BCD4 !important;
+}
+
+.infinistorebtnbought {
+    background: #66BB6A !important;
+    border: 1px solid black !important;
+}
+
+.infinimultbtn {
+    color: #EF5350 !important;
+    border: 1px solid #00BCD4 !important;
+}
+
+.infinimultbtn:hover {
+    color: black !important;
+    background: #00BCD4 !important;
+    border: 1px solid black !important;
+}
+
+.infinistorebtnlocked {
+    border: 1px solid #616161 !important;
+    background: #9E9E9E !important;
+}
+
+.infinistorebtnlocked:hover {
+    background: #BDBDBD !important;
+}
+
+.autobuyerbtn {
+    border: 1px solid #E91E63 !important;
+    margin-bottom: -1px;
+}
+
+.autobuyerbtn:hover {
+    background: #FF9800 !important;
+    border: #FF9800 !important;
+}
+
+.postinfcrunch {
+    background: #EEEEEE !important;
+    border: 1px solid #2196F3 !important;
+    box-shadow: 1px 1px 1px 0px #9E9E9E;
+}
+
+.postinfcrunch:hover {
+    background: #2196F3 !important;
+    border: 1px solid #2196F3 !important;
+}
+
+.EPAmount1 {
+    color: #673AB7;
+}
+
+.EPAmount2 {
+    color: #673AB7;
+}
+
+.IPAmount1 {
+    color: #FF9800;
+}
+
+.IPAmount2 {
+    color: #FF9800;
+}
+
+.timetheorembtn {
+    background: #212121 !important;
+    color: #00BCD4 !important;
+    border: 1px solid #00BCD4 !important;
+}
+
+.timetheorembtn:hover {
+    color: #212121 !important;
+    background: #00BCD4 !important;
+}
+
+.timetheorembtnlocked {
+    background: #9E9E9E !important;
+    border: none !important;
+    box-shadow: 1px 1px 1px 0px #000;
+}
+
+.timetheorembtnlocked:hover {
+    background: #EF5350 !important;
+}
+
+.timestudy {
+    color: #673AB7 !important;
+    border: 1px solid #4527A0 !important;
+    animation: metroStudyGlowIn 5s infinite !important;
+}
+
+.timestudy.normaldimstudy {
+    animation: normalDimStudyGlowIn 5s infinite !important;
+}
+
+.timestudy.infdimstudy {
+    animation: infDimStudyGlowIn 5s infinite !important;
+}
+
+.timestudy.timedimstudy {
+    animation: timeDimStudyGlowIn 5s infinite !important;
+}
+
+.timestudy.activestudy {
+    animation: activeStudyGlowIn 5s infinite !important;
+}
+
+.timestudy.passivestudy {
+    animation: passiveStudyGlowIn 5s infinite !important;
+}
+
+.timestudy.idlestudy {
+    animation: idleStudyGlowIn 5s infinite !important;
+}
+
+.timestudy:hover {
+    color: #EEEEEE !important;
+    background: #512DA8 !important;
+}
+
+.timestudy.normaldimstudy:hover {
+    color: #EEEEEE !important;
+    background: #22aa48 !important;
+}
+
+.timestudy.infdimstudy:hover {
+    color: #EEEEEE !important;
+    background: #B67F33 !important;
+}
+
+.timestudy.timedimstudy:hover {
+    color: #EEEEEE !important;
+    background: #B241E3 !important;
+}
+
+.timestudy.activestudy:hover {
+    color: #EEEEEE !important;
+    background: #FF0100 !important;
+}
+
+.timestudy.idlestudy:hover {
+    color: #EEEEEE !important;
+    background: #0080ff !important;
+}
+
+.timestudybought {
+    color: black !important;
+    background: #673AB7 !important;
+    border: 1px solid black !important;
+}
+
+.timestudybought.normaldimstudy {
+    background: #22aa48 !important;
+}
+
+.timestudybought.infdimstudy {
+    background: #B67F33 !important;
+}
+
+.timestudybought.timedimstudy {
+    background: #B241E3 !important;
+}
+
+.timestudybought.activestudy {
+    background: #FF0100 !important;
+}
+
+.timestudybought.passivestudy {
+    background: #5E33B6 !important;
+}
+
+.timestudybought.idlestudy {
+    background: #0080ff !important;
+}
+
+.timestudylocked {
+    color: black !important;
+    background: #9E9E9E !important;
+    box-shadow: 1px 1px 1px 0px #000;
+    border: none !important;
+}
+
+.timestudylocked.normaldimstudylocked {
+    background: #94a89a !important;
+}
+
+.timestudylocked.infdimstudylocked {
+    background: #a8a094 !important;
+}
+
+.timestudylocked.timedimstudylocked {
+    background: #a294a8 !important;
+}
+
+.timestudylocked.activestudylocked {
+    background: #a89494 !important;
+}
+
+.timestudylocked.passivestudylocked {
+    background: #9b94a8 !important;
+}
+
+.timestudylocked.idlestudylocked {
+    background: #949ea8 !important;
+}
+
+.timestudylocked:hover {
+    background: #EF5350 !important;
+}
+
+.eternityupbtn {
+    color: #673AB7 !important;
+    border: 1px solid #673AB7 !important;
+    box-shadow: 1px 1px 1px 0px #9E9E9E;
+}
+
+.eternityupbtn:hover {
+    color: #511568;
+    background: white;
+}
+
+.eternityupbtnlocked {
+    background: #9E9E9E !important;
+    border: 1px solid black !important;
+
+}
+
+.eternityupbtnlocked:hover {
+    background: #BDBDBD !important;
+}
+
+.eternityupbtnbought {
+    color: black !important;
+    background: #673AB7 !important;
+    border: 1px solid black !important;
+}
+
+.challengediv {
+    border: 1px solid black !important;
+}
+
+.infchallengediv {
+    border: 1px solid black !important;
+}
+
+.challengesbtn {
+    border: 3px solid #43A047 !important;
+    border-bottom-color: #388E3C !important;
+    border-right-color: #388E3C !important;
+}
+
+.challengesbtn:hover {
+    background: #66BB6A !important;
+}
+
+.completedchallengesbtn {
+    background: #66BB6A !important;
+    border: 3px solid #43A047 !important;
+    border-bottom-color: #388E3C !important;
+    border-right-color: #388E3C !important;
+}
+
+.milestonereward {
+    background: #673AB7 !important;
+    border: 1px solid #512DA8 !important;
+}
+
+.milestonerewardlocked {
+    background: #9E9E9E !important;
+    box-shadow: 1px 1px 1px 0px #000;
+    border: none !important;
+}
+
+@keyframes metroStudyGlowIn {
+    0%  {box-shadow: inset 0px 0px 3px 0px #673AB7;}
+    50% {box-shadow: inset 0px 0px 20px 0px #673AB7;}
+    100%  {box-shadow: inset 0px 0px 3px 0px #673AB7;}
+}

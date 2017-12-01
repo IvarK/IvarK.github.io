@@ -11,6 +11,10 @@
     src: url('MonospaceTypewriter.ttf');
 }
 
+*:focus {
+    outline: none;
+}
+
 #game {
     border: 2px solid black;
     border-radius: 4px;
@@ -19,9 +23,9 @@
     overflow: hidden;
     margin: auto;
     text-align: left
-  }
+}
   
-  #news {
+#news {
     color: #000000;
     /*transition: transform 1s;*/
     position: relative;
@@ -30,8 +34,7 @@
     font-size: 15px;
     white-space: nowrap;
     font-weight: bold
-  }
-
+}
 
 .logo {
     position: relative;
@@ -46,7 +49,6 @@
     left: calc(50% - 100px);
     z-index: 1;
 }
-
 
 .challengesbtn {
     
@@ -74,9 +76,9 @@
     right: 0;
     left: 0;
     bottom: 5px;
-  }
+}
   
-  .challengediv {
+.challengediv {
     display:table;
     text-align:center;
     width:350px;
@@ -93,9 +95,9 @@
     margin: 3px 8px;
     position: relative;
     border-radius: 5px;
-  }
+}
 
-  .infchallengediv {
+.infchallengediv {
     display:table;
     text-align:center;
     width:350px;
@@ -112,8 +114,7 @@
     margin: 3px 8px;
     position: relative;
     border-radius: 5px;
-  }
-  
+}
 
 .completedchallengesbtn {
   width:150px;
@@ -143,15 +144,9 @@
   transition-duration: 0.2s;
 }
 
-
-.invert {
-    filter: invert(100%);
-    background-color: black;
-}
-
 .completedrow {
     background: #007308;
-    border: 2px solid #127A20;
+    border: 4px solid #127A20;
     border-radius: 10px;
 }
 
@@ -361,7 +356,6 @@
 
 .postinfcrunch {
     background: #E0E0E0;
-    font-weight: bold;
     border: 2px solid #4980CC;
     border-radius: 4px;
     transition-duration: 0.2s;
@@ -369,16 +363,30 @@
     position: absolute;
     left: 80%;
     width: 200px;
-    height: 60px;
+    height: 70px;
     font-family: Typewriter;
+    font-size: 11px
+}
+
+.postinfcrunch br {
+    pointer-events: none;
+}
+
+.postinfcrunch b {
+    pointer-events: none;
 }
 
 .postinfcrunch:hover {
     color: #FFFFFF;
     background: #4980CC;
-    font-weight: bold;
     border: 2px solid #4980CC;
     border-radius: 4px;
+}
+
+#IPmin {
+    left: 81.5%;
+    position: absolute;
+    width: 150px
 }
 
 .IP {
@@ -386,6 +394,21 @@
     position: absolute;
     font-size: 12px;
     width: 150px;
+}
+
+.IPAmount2 {
+    font-weight: bold;
+}
+
+.EP {
+    right:81.5%;
+    position: absolute;
+    font-size: 12px;
+    width: 150px;
+} 
+
+.EPAmount2 {
+    font-weight: bold;
 }
 
 .newdim {
@@ -402,12 +425,16 @@
     background: #F2F2F2;
     border: 1px solid #127A20;
     cursor: pointer;
+    z-index: 1;
 }
+
+
 
 .newdim:hover {
     color: #FFF;
     background: #5AC467;
 }
+
 
 .newdimlocked {
     border-radius: 4px;
@@ -424,11 +451,36 @@
     font-weight: bold;
     font-family: Typewriter;
     border: 1px solid #B84B5F;
+    z-index: 1;
 }
 
 .newdimlocked:hover {
     color: #000000;
     background: #B84B5F;
+}
+
+.eternitybtn {
+    font-weight: bold;
+    border-radius: 4px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    position: absolute;
+    right: 80%;
+    width: 200px;
+    height: 70px;
+    font-family: Typewriter;
+    color: #b341e0;
+    background: black;
+    border: 2px solid #b341e0;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+
+
+.eternitybtn:hover {
+    color: #511568;
+    background: white;
 }
 
 
@@ -449,6 +501,21 @@
     font-weight: bold;
     border: 2px solid #B67F33;
     border-radius: 4px;
+}
+
+.eternitytabbtn {
+    color: #b341e0;
+    background: black;
+    border: 2px solid #b341e0;
+    font-weight: bold;
+    border-radius: 4px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+
+.eternitytabbtn:hover {
+    color: #511568;
+    background: white;
 }
 
 .achievementlocked {
@@ -478,7 +545,6 @@
     font-size: 70%;
 }
 
-
 .autoBuyerDiv {
     border: solid 1px grey;
     width:230px;
@@ -488,9 +554,9 @@
     padding:10px;
     display: none;
     border-radius: 4px;
-  }
-  
-  .autobuyerbtn {
+}
+
+.autobuyerbtn {
       color: white;
       background: #1F1F1F;
       font-weight: bold;
@@ -502,17 +568,15 @@
       cursor: pointer;
       border-radius: 4px;
       font-family: Typewriter;
-      
-  }
+}
 
-  .autobuyerbtn:hover {
+.autobuyerbtn:hover {
     color: #000000;
     background: #B67F33;
     font-weight: bold;
     border: 2px solid #B67F33;
     border-radius: 4px;
 }
-
 
 .crunchbtn {
     background: #E0E0E0;
@@ -535,7 +599,6 @@
     border-radius: 4px;
 
 }
-
 
 .popup {
     position: absolute;
@@ -561,6 +624,7 @@
     z-index: -1
 }
 
+
 #footer {
     height: 50px;
     margin: auto;
@@ -569,20 +633,23 @@
     font-family: Typewriter;
 }
 
-
 #progress {
-    width: 100%;
+    width: 98%;
     background-color: #A3A3A3;
     border-radius: 5px;
+    bottom: 35px;
+    position: fixed;
+    z-index: -1
 }
 
 #progressbar {
     width: 0%;
-    height: 17px;
+    height: 23px;
     background-color: #127A20;
     color: black;
-    font-size: 13px;
+    font-size: 16px;
     border-radius: 5px;
+    transition-duration: 0.1s;
 }
 
 .greedbtn {
@@ -601,7 +668,269 @@
 
 }
 
+.timestudy {
+    color: #b341e0;
+    background: black;
+    border: 1px solid #b341e0;
+    font-weight: bold;
+    font-family: Typewriter;
+    width: 170px;
+    height: 80px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 13px;
+    vertical-align: top;
+    margin:7px;
+    font-size:11px;
+    animation: studyGlowIn 7s infinite;
+}
 
+.timestudy.normaldimstudy {
+    color: #22aa48 !important;
+    border: 1px solid #198036 !important;
+    animation: normalDimStudyGlowIn 7s infinite;
+}
+
+.timestudy.infdimstudy {
+    color: #B67F33 !important;
+    border: 1px solid #8b6227 !important;
+    animation: infDimStudyGlowIn 7s infinite;
+}
+
+.timestudy.timedimstudy {
+    color: #B241E3 !important;
+    border: 1px solid #951ec8 !important;
+    animation: timeDimStudyGlowIn 7s infinite;
+}
+
+.timestudy.activestudy {
+    color: #FF0100 !important;
+    border: 1px solid #cc0000 !important;
+    animation: activeStudyGlowIn 7s infinite;
+}
+
+.timestudy.passivestudy {
+    color: #5E33B6 !important;
+    border: 1px solid #4b288f !important;
+    animation: passiveStudyGlowIn 7s infinite;
+}
+
+.timestudy.idlestudy {
+    color: #0080ff !important;
+    border: 1px solid #0066cc !important;
+    animation: idleStudyGlowIn 7s infinite;
+}
+
+.timestudy:hover {
+    color: #DADADA;
+    background: #3A0A57;
+}
+
+.timestudy.normaldimstudy:hover {
+    color: #EEEEEE !important;
+    background: #22aa48 !important;
+}
+
+.timestudy.infdimstudy:hover {
+    color: #EEEEEE !important;
+    background: #B67F33 !important;
+}
+
+.timestudy.timedimstudy:hover {
+    color: #EEEEEE !important;
+    background: #B241E3 !important;
+}
+
+.timestudy.activestudy:hover {
+    color: #EEEEEE !important;
+    background: #FF0100 !important;
+}
+
+.timestudy.passivestudy:hover {
+    color: #EEEEEE !important;
+    background: #5E33B6 !important;
+}
+
+.timestudy.idlestudy:hover {
+    color: #EEEEEE !important;
+    background: #0080ff !important;
+}
+
+.timestudylocked {
+    color: #181818;
+    background: #5F5F5F;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 1px solid #691fa5;
+    width: 170px;
+    height: 80px;
+    transition-duration: 0.2s;
+    border-radius: 4px;
+    font-size: 13px;
+    vertical-align: top;
+    margin:7px;
+    font-size:11px;
+}
+
+.timestudylocked:hover {
+    color: #1D1D1D;
+    background: #660000;
+}
+
+.timestudybought {
+    color: #1e0830;
+    background: #0BD251;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 1px solid #691fa5;
+    width: 170px;
+    height: 80px;
+    transition-duration: 0.2s;
+    border-radius: 4px;
+    font-size: 13px;
+    vertical-align: top;
+    margin:7px;
+    font-size:11px;
+}
+
+.timetheorembtn {
+    color: #3AACD6;
+    background: #232028;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 1px solid #691fa5;
+    width: 170px;
+    height: 70px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 13px;
+    vertical-align: top;
+    margin:7px;
+}
+
+.timetheorembtn:hover {
+    color: #232028;
+    background: #3AACD6;
+}
+
+.timetheorembtnlocked {
+    color: black;
+    background: #4A4A4A;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 1px solid #691fa5;
+    width: 170px;
+    height: 70px;
+    transition-duration: 0.2s;
+    border-radius: 4px;
+    font-size: 13px;
+    vertical-align: top;
+    margin:7px;
+}
+
+.timetheorembtnlocked:hover {
+    background: #652F2F;
+}
+
+#treeimage {
+    padding-top: 160px;
+    position: absolute;
+    padding-left: 70px;
+    z-index: -999;
+}
+
+#loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1050px;
+    height:800px;
+    margin-top: -400px;
+    margin-left: -525px;
+}
+
+.eternityupbtn {
+    color: #b341e0;
+    background: black;
+    font-weight: bold;
+    font-size: 10px;
+    border: 1px solid #b341e0;
+    width: 190px;
+    height: 90px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: Typewriter;
+}
+
+.eternityupbtn:hover {
+    color: #511568;
+    background: white;
+}
+
+.eternityupbtnlocked {
+    color: #181818;
+    background: #5F5F5F;
+    font-weight: bold;
+    font-size: 10px;
+    border: 1px solid #b341e0;
+    width: 190px;
+    height: 90px;
+    transition-duration: 0.2s;
+    border-radius: 4px;
+    font-family: Typewriter;
+}
+
+.eternityupbtnlocked:hover {
+    background: #737373;
+}
+
+.eternityupbtnbought {
+    color: #511568;
+    background: #5AC467;
+    font-weight: bold;
+    font-size: 10px;
+    border: 1px solid #b341e0;
+    width: 190px;
+    height: 90px;
+    transition-duration: 0.2s;
+    border-radius: 4px;
+    font-family: Typewriter;
+}
+
+.milestonereward {
+    width: 250px;
+    height: 60px;
+    color: black;
+    background: #8D48C3;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 1px solid #691fa5;
+    transition-duration: 0.2s;
+    border-radius: 4px;
+    vertical-align: top;
+    font-size: 12px;
+}
+
+.milestonerewardlocked {
+    width: 250px;
+    height: 60px;
+    color: black;
+    background: #696969;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 1px solid #691fa5;
+    transition-duration: 0.2s;
+    border-radius: 4px;
+    vertical-align: top;
+    font-size: 12px;
+}
+
+.milestoneText {
+    font-size: 20px;
+}
 
 @keyframes glow {
     20% { text-shadow: 0 0 10px green; }
@@ -763,14 +1092,13 @@ pre {
 }
 
 table {
-    border-collapse: collapse;
+    border-spacing: 0
 }
 
 th,
 td {
     text-align: left;
     padding: 5px 10px;
-    border-bottom: 1px solid #e5e5e5;
 }
 
 dt {
@@ -881,8 +1209,25 @@ br {
     content: " ";
     display: block;
     margin: 3px;
-    line-height: 10px;
+    line-height: 5px;
+    pointer-events:none;
 }
+
+#timestudies br {
+    content: " ";
+    display: block;
+    margin: 20px;
+    line-height: 5px;
+    pointer-events:none;
+}
+
+#timestudies span {
+    display:block;
+    pointer-events:none;
+}
+
+
+
 
 @media print,
 screen and (max-width: 960px) {
@@ -956,4 +1301,44 @@ screen and (max-width: 480px) {
     }
 }
 
+@keyframes studyGlowIn {
+    0%  {box-shadow: inset 0px 0px 3px 0px #b341e0;}
+    50% {box-shadow: inset 0px 0px 15px 0px #b341e0;}
+    100%  {box-shadow: inset 0px 0px 3px 0px #b341e0;}
+}
 
+@keyframes normalDimStudyGlowIn {
+    0%  {box-shadow: inset 0px 0px 3px 0px #22aa48;}
+    50% {box-shadow: inset 0px 0px 20px 0px #22aa48;}
+    100%  {box-shadow: inset 0px 0px 3px 0px #22aa48;}
+}
+
+@keyframes infDimStudyGlowIn {
+    0%  {box-shadow: inset 0px 0px 3px 0px #B67F33;}
+    50% {box-shadow: inset 0px 0px 20px 0px #B67F33;}
+    100%  {box-shadow: inset 0px 0px 3px 0px #B67F33;}
+}
+
+@keyframes timeDimStudyGlowIn {
+    0%  {box-shadow: inset 0px 0px 3px 0px #B241E3;}
+    50% {box-shadow: inset 0px 0px 20px 0px #B241E3;}
+    100%  {box-shadow: inset 0px 0px 3px 0px #B241E3;}
+}
+
+@keyframes activeStudyGlowIn {
+    0%  {box-shadow: inset 0px 0px 3px 0px #FF0100;}
+    50% {box-shadow: inset 0px 0px 20px 0px #FF0100;}
+    100%  {box-shadow: inset 0px 0px 3px 0px #FF0100;}
+}
+
+@keyframes passiveStudyGlowIn {
+    0%  {box-shadow: inset 0px 0px 3px 0px #5E33B6;}
+    50% {box-shadow: inset 0px 0px 20px 0px #5E33B6;}
+    100%  {box-shadow: inset 0px 0px 3px 0px #5E33B6;}
+}
+
+@keyframes idleStudyGlowIn {
+    0%  {box-shadow: inset 0px 0px 3px 0px #0080ff;}
+    50% {box-shadow: inset 0px 0px 20px 0px #0080ff;}
+    100%  {box-shadow: inset 0px 0px 3px 0px #0080ff;}
+}

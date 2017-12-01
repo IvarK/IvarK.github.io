@@ -1,0 +1,56 @@
+body {
+  font-family: Arial;
+}
+
+#container {
+  margin: auto;
+  text-align: center;
+}
+
+#depression {
+  text-align:center;
+  padding: 4%;
+  font-size: 25px
+}
+
+
+#amount {
+  font-size: 45px;
+  font-weight: bold;
+}
+
+.btn {
+  margin: 10px auto;
+  width: 130px;
+  height: 50px;
+  border: 2px solid green;
+  border-radius: 10px;
+  background-color: grey;
+  color: white;
+  vertical-align: top;
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+
+.btn:hover {
+  background-color: rgb(125, 151, 118);
+}
+
+.prestigebtn {
+  margin: 10px auto;
+  width: 130px;
+  height: 50px;
+  border: 2px solid green;
+  border-radius: 10px;
+  background-color: rgb(221, 221, 221);
+  color: rgb(0, 0, 0);
+  vertical-align: top;
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+
+.prestigebtn:hover {
+  background-color: rgb(141, 177, 221);
+}
+
+

@@ -1,0 +1,4 @@
+body {
+    filter: invert(100%);
+    background-color: black !important;
+}
