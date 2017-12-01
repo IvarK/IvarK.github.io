@@ -989,7 +989,46 @@ var letterList2 = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', '
 var emojiList1 = ['', '😠', '🎂', '🎄', '💀', '🍆', '👪', '🌈', '💯', '🍦', '🎃', '💋', '😂', '🌙', '⛔', '🐙', '💩', '❓', '☢️', '🙈', '👍', '☂️', '✌️', '⚠️', '❌', '😋', '⚡'];
 var emojiList2 = ['😠', '🎂', '🎄', '💀', '🍆', '👪', '🌈', '💯', '🍦', '🎃', '💋', '😂', '🌙', '⛔', '🐙', '💩', '❓', '☢️', '🙈', '👍', '☂️', '✌️', '⚠️', '❌', '😋', '⚡'];
 
+function letter(power) {
+    var letterList = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+    var len = letterList.length; //26
+   
+    function letterNumber(n) {
+        var result = 1;
+        for (var i = 0; i < n; ++i) {
+            result = len*(result)+1;
+        }
+        return result;
+    }
 
+    if (power <= 5) return 'a';
+    var power_modified = Math.floor(power / 3);
+    if (power_modified < letterNumber(1))
+    {
+        return letterList[power_modified-1];
+    }
+    else if (power_modified < letterNumber(2))
+    {
+        power_modified = power_modified - letterNumber(1);
+        return letterList[Math.floor(power_modified / len)] + letterList[power_modified % len];
+    }
+    else if (power_modified < letterNumber(3))
+    {
+        power_modified = power_modified - letterNumber(2);
+        return letterList[Math.floor(power_modified / (len*len))] + letterList[Math.floor(power_modified / len) % len] + letterList[power_modified % len];
+    }
+    else if (power_modified < letterNumber(4))
+    {
+        power_modified = power_modified - letterNumber(3);
+        return letterList[Math.floor(power_modified / (len*len*len))] + letterList[Math.floor(power_modified / (len*len)) % len] + letterList[Math.floor(power_modified / len) % len] + letterList[power_modified % len];
+    }
+    else if (power_modified < letterNumber(5))
+    {
+        power_modified = power_modified - letterNumber(4);
+        return letterList[Math.floor(power_modified / (len*len*len*len))] + letterList[Math.floor(power_modified / (len*len*len)) % len] + letterList[Math.floor(power_modified / (len*len)) % len] + letterList[Math.floor(power_modified / len) % len] + letterList[power_modified % len];
+    }
+    //continue adding cases as needed
+}
 
 function isDecimal(value) {
     return value instanceof Decimal
@@ -1039,9 +1078,10 @@ function formatValue(notation, value, places, placesUnder1000) {
             var matissa = value / Math.pow(10, Math.floor(Math.log10(value)));
             var power = Math.floor(Math.log10(value));
         }
-        if (power > 100000  && player.options.commas) pow = power.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         if (notation.includes("engineering") || notation.includes("Engineering")) pow = power - (power % 3)
         else pow = power
+        if (power > 100000  && player.options.commas) pow = power.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        
         if ((notation === "Standard")) {
             if (power <= 303) return (matissa * Decimal.pow(10, power % 3)).toFixed(places) + " " + FormatList[(power - (power % 3)) / 3];
             else return (matissa * Decimal.pow(10, power % 3)).toFixed(places) + " " + getAbbreviation(power)
@@ -1057,8 +1097,7 @@ function formatValue(notation, value, places, placesUnder1000) {
             return ((matissa * Decimal.pow(10, power % 3)).toFixed(places) + "ᴇ" + pow);
         } else if (notation === "Letters") {
             power -= 3;
-            return ((matissa * Decimal.pow(10, power % 3)).toFixed(places) +
-            letterList1[Decimal.floor(((power - (power % 3)) / 3) / (letterList1.length*letterList1.length*letterList1.length*letterList2.length))  % letterList1.length] + letterList1[Decimal.floor(((power - (power % 3)) / 3) / (letterList1.length*letterList1.length*letterList2.length))  % letterList1.length] + letterList1[Decimal.floor(((power - (power % 3)) / 3) / (letterList1.length*letterList2.length))  % letterList1.length] +letterList1[Decimal.floor(((power - (power % 3)) / 3) / letterList2.length) % letterList1.length] + letterList2[((power - (power % 3)) / 3) % letterList2.length]);
+            return ((matissa * Decimal.pow(10, power % 3)).toFixed(places)) + letter(power)
         } else if (notation === "Emojis") {
             power -= 3;
             return ((matissa * Decimal.pow(10, power % 3)).toFixed(places) +
