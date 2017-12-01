@@ -5495,6 +5495,7 @@ setInterval(function() {
 setInterval(function() {
     try {
         kongregate.stats.submit('Log10 of total antimatter', player.totalmoney.e);
+        kongregate.stats.submit('Log10 of Infinity Points', player.infinityPoints.e);
     } catch (err) {console.log("Couldn't load Kongregate API")}
 }, 10000)
 
