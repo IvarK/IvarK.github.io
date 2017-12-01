@@ -685,7 +685,7 @@
     transition-duration: 0.2s;
     cursor: pointer;
     border-radius: 4px;
-    font-size: 13px;
+    font-size: 0.65rem;
     vertical-align: top;
     margin:7px;
     font-size:11px;
@@ -773,7 +773,7 @@
     height: 80px;
     transition-duration: 0.2s;
     border-radius: 4px;
-    font-size: 11px;
+    font-size: 0.65rem;
     vertical-align: top;
     margin:7px;
     font-size:11px;
@@ -794,7 +794,7 @@
     height: 80px;
     transition-duration: 0.2s;
     border-radius: 4px;
-    font-size: 11px;
+    font-size: 0.65rem;
     vertical-align: top;
     margin:7px;
     font-size:11px;
@@ -811,7 +811,7 @@
     transition-duration: 0.2s;
     cursor: pointer;
     border-radius: 4px;
-    font-size: 11px;
+    font-size: 0.65rem;
     vertical-align: top;
     margin:7px;
 }
@@ -831,7 +831,7 @@
     height: 70px;
     transition-duration: 0.2s;
     border-radius: 4px;
-    font-size: 11px;
+    font-size: 0.65rem;
     vertical-align: top;
     margin:7px;
 }
