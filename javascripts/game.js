@@ -6846,7 +6846,8 @@ function saveToPlayFab(){
         PlayFabId: playFabId,
         Data: {
             save: LZString.compressToEncodedURIComponent(JSON.stringify(player)),
-            infinitied: player.infinitied
+            infinitied: player.infinitied,
+            eternities: player.eternities
         }
     }
     try{
@@ -6926,10 +6927,11 @@ function playFabLoadCheckCallback(data, error) {
 		return;
 	}
 	if (data){
-		var playFabInfinitied = (data.data.Data.infinitied) ? parseInt(data.data.Data.infinitied.Value) : 0;
-		if (playFabInfinitied <= player.infinitied){
+        var playFabInfinitied = (data.data.Data.infinitied) ? parseInt(data.data.Data.infinitied.Value) : 0;
+        var playFabEternities = (data.data.Data.eternities) ? parseInt(data.data.Data.eternities.Value) : 0;
+		if (playFabInfinitied <= player.infinitied && player.eternities <= playFabEternities){
             document.getElementById("loadCloud").style.display = "block";
-            document.getElementById("loadPopup").innerHTML = "You have a cloud save with "+playFabInfinitied+ " infinities and your local save has "+player.infinitied+". Do you want to load the cloud save?"
+            document.getElementById("loadPopup").innerHTML = "You have a cloud save with "+playFabInfinitied+ " Infinities and "+playFabEternities+" Eternities your local save has "+player.infinitied+" Infinities and "+player.eternities+" Eternities. Do you want to load the cloud save?"
 			return;
 		}
 		else loadFromPlayFab();
