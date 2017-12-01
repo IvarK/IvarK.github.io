@@ -6929,7 +6929,7 @@ function playFabLoadCheckCallback(data, error) {
 	if (data){
         var playFabInfinitied = (data.data.Data.infinitied) ? parseInt(data.data.Data.infinitied.Value) : 0;
         var playFabEternities = (data.data.Data.eternities) ? parseInt(data.data.Data.eternities.Value) : 0;
-		if (playFabInfinitied <= player.infinitied && player.eternities <= playFabEternities){
+		if (playFabInfinitied <= player.infinitied && playFabEternities <= player.eternities){
             document.getElementById("loadCloud").style.display = "block";
             document.getElementById("loadPopup").innerHTML = "You have a cloud save with "+playFabInfinitied+ " Infinities and "+playFabEternities+" Eternities your local save has "+player.infinitied+" Infinities and "+player.eternities+" Eternities. Do you want to load the cloud save?"
 			return;
