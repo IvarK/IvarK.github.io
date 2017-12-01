@@ -642,7 +642,7 @@
     border-radius: 5px;
     bottom: 35px;
     position: fixed;
-    z-index: -1
+    z-index: 1
 }
 
 #progressbar {
