@@ -685,7 +685,6 @@
     font-size: 0.65rem;
     vertical-align: top;
     margin:7px;
-    font-size:11px;
     animation: studyGlowIn 7s infinite;
 }
 
@@ -773,7 +772,6 @@
     font-size: 0.65rem;
     vertical-align: top;
     margin:7px;
-    font-size:11px;
 }
 
 .timestudylocked:hover {
@@ -794,7 +792,6 @@
     font-size: 0.65rem;
     vertical-align: top;
     margin:7px;
-    font-size:11px;
 }
 
 .timetheorembtn {

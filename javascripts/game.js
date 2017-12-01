@@ -332,7 +332,7 @@ function get_save(name) {
 
 
 function setTheme(name) {
-    document.querySelectorAll("link").forEach(e => {
+    document.querySelectorAll("link").forEach( function(e) {
         if (e.href.includes("theme")) e.remove();
     });
 
