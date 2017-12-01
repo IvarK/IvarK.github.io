@@ -582,7 +582,7 @@ function onLoad() {
     }
 
     if (player.options.sacrificeConfirmation == false) document.getElementById("confirmation").checked = "true"
-
+    transformSaveToDecimal();
     if (player.version === undefined) { // value will need to be adjusted when update goes live
         for (var i = 0; i < player.autobuyers.length; i++) {
             if (player.autobuyers[i]%1 !== 0) player.infinityPoints = player.infinityPoints.plus(player.autobuyers[i].cost - 1)
@@ -2188,7 +2188,6 @@ function softReset(bulk) {
 
 
     player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
-    updateTickSpeed();
     if (player.challenges.includes("challenge1")) player.money = new Decimal(100)
     if (player.achievements.includes("r37")) player.money = new Decimal(1000);
     if (player.achievements.includes("r54")) player.money = new Decimal(2e5);
@@ -2331,7 +2330,6 @@ function buyMaxTickSpeed() {
     }
 
 
-    updateTickSpeed();
 }
 
 function timeDisplay(time) {
@@ -3952,7 +3950,6 @@ function galaxyReset() {
     if (player.achievements.includes("r55")) player.money = new Decimal(1e10);
     if (player.achievements.includes("r78")) player.money = new Decimal(1e25);
     player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
-    updateTickSpeed()
     if (player.achievements.includes("r66")) player.tickspeed = player.tickspeed.times(0.98);
     
 
@@ -4886,7 +4883,6 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.challenges.length == 12 && !player.achievements.includes("r48")) giveAchievement("AntiChallenged");
         resetInfDimensions();
         player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
-        updateTickSpeed();
         if (player.challenges.length == 20) giveAchievement("Anti-antichallenged");
         IPminpeak = new Decimal(0)
         updateInfCosts()
@@ -5170,7 +5166,6 @@ function eternity() {
         if (player.achievements.includes("r93")) player.infMult = player.infMult.times(4);
         if (player.achievements.includes("r104")) player.infinityPoints = new Decimal(2e25);
         resetInfDimensions();
-        updateTickSpeed();
         updateChallenges();
         updateChallengeTimes()
         updateLastTenRuns()
@@ -5392,7 +5387,6 @@ function startChallenge(name, target) {
   }
   resetInfDimensions();
   player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
-  updateTickSpeed();
 
   if (player.resets == 0 && player.currentChallenge == "") {
     if (player.infinityUpgrades.includes("skipReset1")) player.resets++;
@@ -5765,8 +5759,9 @@ function startInterval() {
             player.totalTickGained++;
             if (player.totalTickGained >= 308) giveAchievement("Infinite time");
             document.getElementById("totaltickgained").innerHTML = "You've gained "+shortenDimensions(player.totalTickGained)+" tickspeed upgrades."
-            updateTickSpeed();
+            
         }
+        updateTickSpeed();
 
         if (player.eternities == 0) {
             document.getElementById("eternityPoints2").style.display = "none"
