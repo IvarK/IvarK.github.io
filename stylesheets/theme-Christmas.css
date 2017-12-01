@@ -35,6 +35,28 @@ body {
     background: black !important;
 }
 
+.newdim {
+    color: black !important;
+    background: #dbd242 !important;
+    border-color: black !important;
+}
+
+.newdim:hover {
+    background-color: #4baf4e !important;
+    border-color: black !important;
+}
+
+.newdimlocked {
+    color: black !important;
+    background: #9a921d !important;
+    border-color: black !important;
+}
+
+.newdimlocked:hover {
+    background: #d72621 !important;
+    border: 1px solid black !important;
+}
+
 .storebtn {
     background: #dbd242 !important;
     border-color: black !important;
@@ -182,7 +204,12 @@ body {
 .infinimultbtn {
     background: black !important;
     color: #d72621 !important;
-    border-color: 1px solid #dbd242 !important;
+    border-color: #dbd242 !important;
+}
+
+.infinimultbtn:hover {
+    background: white !important;
+    color: black !important;
 }
 
 .infinistorebtnbought {
@@ -239,12 +266,13 @@ input {
 }
 
 .eternityupbtnlocked {
-    background: #9a921d !important;
-    border-color: black !important;
+    color: black !important;
+    background: #4A4A4A !important;
+    border-color: #639565 !important;
 }
 
 .eternityupbtnlocked:hover {
-    background: #c5ba26 !important;
+    background: #636363 !important;
 }
 
 .timetheorembtn {
@@ -267,14 +295,38 @@ input {
 }
 
 .timestudy {
-    color: #673AB7 !important;
-    border: 1px solid #4527A0 !important;
+    color: #639565 !important;
+    border: 1px solid #639565 !important;
     animation: christmasStudyGlowIn 7s infinite !important;
+}
+
+.timestudy.normaldimstudy {
+    animation: normalDimStudyGlowIn 7s infinite !important;
+}
+
+.timestudy.infdimstudy {
+    animation: infDimStudyGlowIn 7s infinite !important;
+}
+
+.timestudy.timedimstudy {
+    animation: timeDimStudyGlowIn 7s infinite !important;
+}
+
+.timestudy.activestudy {
+    animation: activeStudyGlowIn 7s infinite !important;
+}
+
+.timestudy.passivestudy {
+    animation: passiveStudyGlowIn 7s infinite !important;
+}
+
+.timestudy.idlestudy {
+    animation: idleStudyGlowIn 7s infinite !important;
 }
 
 .timestudy:hover {
     color: #EEEEEE !important;
-    background: #512DA8 !important;
+    background: #639565 !important;
 }
 
 .timestudy.normaldimstudy:hover {

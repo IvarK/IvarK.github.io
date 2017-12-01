@@ -642,7 +642,7 @@
     border-radius: 5px;
     bottom: 35px;
     position: fixed;
-    z-index: -1
+    z-index: 1
 }
 
 #progressbar {
@@ -805,9 +805,9 @@
     transition-duration: 0.2s;
     cursor: pointer;
     border-radius: 4px;
-    font-size: 0.65rem;
+    font-size: 0.85rem;
     vertical-align: top;
-    margin:7px;
+    margin: 7px;
 }
 
 .timetheorembtn:hover {
@@ -825,9 +825,9 @@
     height: 70px;
     transition-duration: 0.2s;
     border-radius: 4px;
-    font-size: 0.65rem;
+    font-size: 0.85rem;
     vertical-align: top;
-    margin:7px;
+    margin: 7px;
 }
 
 .timetheorembtnlocked:hover {

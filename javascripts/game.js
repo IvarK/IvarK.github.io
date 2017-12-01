@@ -2563,7 +2563,7 @@ function onBuyDimension(tier) {
         }
     }
 
-    if (tier == 8 && player.eightAmount.mantissa.toFixed(1) == 9.9 && player.eightAmount.exponent == 1) {
+    if (player.eightAmount.round() == 99) {
         giveAchievement("The 9th Dimension is a lie");
     }
 
@@ -5524,7 +5524,7 @@ setInterval(function() {
     document.getElementById("kongdim").innerHTML = "Double all your dimension multipliers (dimensions 1-8) (multiplicative). Forever. Currently: x"+kongDimMult+", next: "+(kongDimMult*2)+"x"
     document.getElementById("eternityPoints2").innerHTML = "You have <span class=\"EPAmount2\">"+shortenDimensions(player.eternityPoints)+"</span> Eternity points."
 
-    document.getElementById("eternitybtn").style.display = player.infinityPoints.gte(Number.MAX_VALUE) ? "inline-block" : "none"
+    document.getElementById("eternitybtn").style.display = (player.infinityPoints.gte(Number.MAX_VALUE) && player.infDimensionsUnlocked[7]) ? "inline-block" : "none"
 
     
     if (player.eternities !== 0)document.getElementById("eternitystorebtn").style.display = "inline-block"
@@ -5809,7 +5809,7 @@ function startInterval() {
         document.getElementById("replicantiamount").innerHTML = shortenDimensions(player.replicanti.amount)
         var replmult = Decimal.pow(Math.log2(Math.max(player.replicanti.amount, 1)), 2)
         if (player.timestudy.studies.includes(21)) replmult = replmult.plus(Math.pow(player.replicanti.amount, 0.032))
-        if (player.timestudy.studies.includes(102))replmult = replmmult.times(Decimal.pow(5, player.replicanti.galaxies))
+        if (player.timestudy.studies.includes(102))replmult = replmult.times(Decimal.pow(5, player.replicanti.galaxies))
         document.getElementById("replicantimult").innerHTML = shorten(replmult)
 
         document.getElementById("eternitybtn").innerHTML = (player.eternities == 0) ? "Other times await.. I need to become Eternal" : "I need to become Eternal.<br>"+"Gain "+shortenDimensions(gainedEternityPoints())+" Eternity points."
