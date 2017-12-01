@@ -2297,7 +2297,7 @@ function getTickSpeedMultiplier() {
         let perGalaxy = 0.965
         let galaxies = player.galaxies-2+player.replicanti.galaxies
         if (player.timestudy.studies.includes(133)) galaxies += player.replicanti.galaxies/2
-        if (player.timestudy.studies.includes(132)) galaxies += player.replicanti.galaxies*0.2
+        if (player.timestudy.studies.includes(132)) galaxies += player.replicanti.galaxies*0.3
         if (player.infinityUpgrades.includes("galaxyBoost")) galaxies *= 2;
         if (player.infinityUpgrades.includes("postGalaxy")) galaxies *= 1.5;
         if (player.challenges.includes("postc5")) galaxies *= 1.1;
@@ -4102,7 +4102,7 @@ function gainedInfinityPoints() {
     if (player.timestudy.studies.includes(41)) ret = ret.times(Decimal.pow(1.2, player.galaxies + player.replicanti.galaxies))
     if (player.timestudy.studies.includes(51)) ret = ret.times(1e15)
     if (player.timestudy.studies.includes(141)) ret = ret.times(new Decimal(1e45).dividedBy(Decimal.pow(15, Math.log(player.thisInfinityTime)*Math.pow(player.thisInfinityTime, 0.125))).max(1))
-    if (player.timestudy.studies.includes(142)) ret = ret.times(1e20)
+    if (player.timestudy.studies.includes(142)) ret = ret.times(1e25)
     if (player.timestudy.studies.includes(143)) ret = ret.times(Decimal.pow(15, Math.log(player.thisInfinityTime)*Math.pow(player.thisInfinityTime, 0.125)))
     return ret
 }
@@ -4113,7 +4113,7 @@ function gainedEternityPoints() {
     if (player.timestudy.studies.includes(121)) {
         ret = ret.times((253 - averageEp.dividedBy(player.epmult).dividedBy(10).min(248).max(3))/5)
     } else if (player.timestudy.studies.includes(122)) {
-        ret = ret.times(30)
+        ret = ret.times(35)
     } else if (player.timestudy.studies.includes(123)) {
         ret = ret.times(Math.sqrt(1.39*player.thisEternity/10))
     }
