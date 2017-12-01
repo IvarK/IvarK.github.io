@@ -5797,7 +5797,7 @@ function startInterval() {
         document.getElementById("replicantiapprox").innerHTML ="Approximately "+ timeDisplay(estimate*10) + " Until Infinite Replicanti"
 
         document.getElementById("replicantiamount").innerHTML = shortenDimensions(player.replicanti.amount)
-        var replmult = Decimal.pow(Math.log2(Math.max(player.replicanti.amount, 1), 2))
+        var replmult = Decimal.pow(Math.log2(Math.max(player.replicanti.amount, 1)), 2)
         if (player.timestudy.studies.includes(21)) replmult = replmult.plus(Math.pow(player.replicanti.amount, 0.032))
         if (player.timestudy.studies.includes(102))replmult = replmmult.times(Decimal.pow(5, player.replicanti.galaxies))
         document.getElementById("replicantimult").innerHTML = shorten(replmult)
