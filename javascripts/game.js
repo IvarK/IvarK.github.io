@@ -2311,7 +2311,7 @@ function buyMaxTickSpeed() {
             postc8Mult = new Decimal(1)
         }
     } else {
-        let currentidx = tickCosts.indexOf(player.tickSpeedCost.toString())
+
         var a = Math.log10(Math.sqrt(2))
         var b = player.tickspeedMultiplier.dividedBy(Math.sqrt(2)).log10()
         var c = player.tickSpeedCost.dividedBy(player.money).log10()
@@ -2319,12 +2319,15 @@ function buyMaxTickSpeed() {
         if (discriminant < 0) return false
         var buying = Math.floor((Math.sqrt(Math.pow(b, 2) - (c *a *4))-b)/(2 * a))+1
         if (buying <= 0) return false
-        var newCostidx = currentidx+buying
-        player.money = player.money.minus(new Decimal(tickCosts[newCostidx-1]))
-        player.tickSpeedCost = new Decimal(tickCosts[newCostidx])
         player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), buying));
-        if (player.tickSpeedCost.gte(Number.MAX_VALUE)) player.tickspeedMultiplier = player.tickspeedMultiplier.times(Decimal.pow(2, buying))
         if (player.challenges.includes("postc3") || player.currentChallenge == "postc3") player.postC3Reward = player.postC3Reward.times(Decimal.pow(1.05+(player.galaxies*0.005), buying))
+        for (var i = 0; i<buying-1; i++) {
+            player.tickSpeedCost = player.tickSpeedCost.times(player.tickspeedMultiplier)
+            player.tickspeedMultiplier = player.tickspeedMultiplier.times(2)
+        }
+        player.money = player.money.minus(player.tickSpeedCost)
+        player.tickSpeedCost = player.tickSpeedCost.times(player.tickspeedMultiplier)
+        player.tickspeedMultiplier = player.tickspeedMultiplier.times(2)
     }
 
 
@@ -2772,8 +2775,6 @@ function buyManyDimensionAutobuyer(tier, bulk) {
                     x--;
             }
         } else {
-
-            let currentidx = dimCosts[tier].indexOf(player[name+"Cost"].toString())
             var a = Math.log10(Math.sqrt(player.dimensionMultDecrease))
             var b = player.costMultipliers[tier-1].dividedBy(Math.sqrt(player.dimensionMultDecrease)).log10()
             var c = player[name + "Cost"].dividedBy(player.money).log10()
@@ -2782,12 +2783,15 @@ function buyManyDimensionAutobuyer(tier, bulk) {
             var buying = Math.floor((Math.sqrt(Math.pow(b, 2) - (c *a *4))-b)/(2 * a))+1
             if (buying <= 0) return false
             if (buying > bulk) buying = bulk
-            var newCostidx = currentidx+buying
-            player.money = player.money.minus(new Decimal(dimCosts[tier][newCostidx-1]))
-            player[name + "Cost"] = new Decimal(dimCosts[tier][newCostidx])
             player[name+"Amount"] = Decimal.round(player[name+"Amount"].plus(10*buying))
             player[name + "Pow"] = player[name + "Pow"].times(Decimal.pow(getDimensionPowerMultiplier(tier), buying))
-            if (player[name + "Cost"].gte(Number.MAX_VALUE)) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(Decimal.pow(player.dimensionMultDecrease, buying))
+            for (var i = 0; i<buying-1; i++) {
+                player[name + "Cost"] = player[name + "Cost"].times(player.costMultipliers[tier-1])
+                player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
+            }
+            player.money = player.money.minus(player[name + "Cost"])
+            player[name + "Cost"] = player[name + "Cost"].times(player.costMultipliers[tier-1])
+            player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
         }
 
 
@@ -3013,7 +3017,6 @@ document.getElementById("maxall").onclick = function () {
             }
         } else {
 
-            let currentidx = dimCosts[tier].indexOf(player[name+"Cost"].toString())
             var a = Math.log10(Math.sqrt(player.dimensionMultDecrease))
             var b = player.costMultipliers[tier-1].dividedBy(Math.sqrt(player.dimensionMultDecrease)).log10()
             var c = player[name + "Cost"].dividedBy(player.money).log10()
@@ -3021,12 +3024,15 @@ document.getElementById("maxall").onclick = function () {
             if (discriminant < 0) continue
             var buying = Math.floor((Math.sqrt(Math.pow(b, 2) - (c *a *4))-b)/(2 * a))+1
             if (buying <= 0) continue
-            var newCostidx = currentidx+buying
-            player.money = player.money.minus(new Decimal(dimCosts[tier][newCostidx-1]))
-            player[name + "Cost"] = new Decimal(dimCosts[tier][newCostidx])
             player[name+"Amount"] = Decimal.round(player[name+"Amount"].plus(10*buying))
             player[name + "Pow"] = player[name + "Pow"].times(Decimal.pow(getDimensionPowerMultiplier(tier), buying))
-            if (player[name + "Cost"].gte(Number.MAX_VALUE)) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(Decimal.pow(player.dimensionMultDecrease, buying))
+            for (var i = 0; i<buying-1; i++) {
+                player[name + "Cost"] = player[name + "Cost"].times(player.costMultipliers[tier-1])
+                player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
+            }
+            player.money = player.money.minus(player[name + "Cost"])
+            player[name + "Cost"] = player[name + "Cost"].times(player.costMultipliers[tier-1])
+            player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
         }
 
 
