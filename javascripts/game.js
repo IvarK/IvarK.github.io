@@ -2,6 +2,7 @@
 var Marathon = 0;
 var auto = false;
 var autoS = true;
+var controlDown = false;
 var player = {
     money: new Decimal(10),
     tickSpeedCost: new Decimal(1000),
@@ -1830,7 +1831,7 @@ function updateTheoremButtons() {
     document.getElementById("theoremam").className = player.money.gte(player.timestudy.amcost) ? "timetheorembtn" : "timetheorembtnlocked"
     document.getElementById("theoremip").className = player.infinityPoints.gte(player.timestudy.ipcost) ? "timetheorembtn" : "timetheorembtnlocked"
     document.getElementById("theoremep").className = player.eternityPoints.gte(player.timestudy.epcost) ? "timetheorembtn" : "timetheorembtnlocked"
-    document.getElementById("theoremep").innerHTML = "Buy Time Theorems <br>Cost: "+shortenCosts(player.timestudy.epcost)+" EP"
+    document.getElementById("theoremep").innerHTML = "Buy Time Theorems <br>Cost: "+shortenDimensions(player.timestudy.epcost)+" EP"
     document.getElementById("theoremip").innerHTML = "Buy Time Theorems <br>Cost: "+shortenCosts(player.timestudy.ipcost)+" IP"
     document.getElementById("theoremam").innerHTML = "Buy Time Theorems <br>Cost: "+shortenCosts(player.timestudy.amcost)
     document.getElementById("timetheorems").innerHTML = "You have <span style='display:inline' class=\"TheoremAmount\">"+player.timestudy.theorem+"</span> Time "+ (player.timestudy.theorem == 1 ? "Theorem." : "Theorems.")
@@ -4558,7 +4559,7 @@ function updateLastTenEternities() {
     var tempstring = shorten(eppm) + " IP/min"
     averageEp = tempEP
     if (eppm<1) tempstring = shorten(eppm*60) + " IP/hour"
-    document.getElementById("averageEternityRun").innerHTML = "Last 10 eternities average time: "+ timeDisplayShort(tempTime)+" Average EP gain: "+shortenDimensions(tempEP)+" IP. "+tempstring
+    document.getElementById("averageEternityRun").innerHTML = "Last 10 eternities average time: "+ timeDisplayShort(tempTime)+" Average EP gain: "+shortenDimensions(tempEP)+" EP. "+tempstring
 }
 
 function addEternityTime(time, ep) {
@@ -6938,7 +6939,19 @@ window.onload = function() {
 }
 
 window.addEventListener('keydown', function(event) {
-    if (!player.options.hotkeys) return false
+    if (event.keyCode == 17) {
+        controlDown = true;
+    }
+}, false);
+
+window.addEventListener('keyup', function(event) {
+    if (event.keyCode == 17) {
+        controlDown = false;
+    }
+}, false);
+
+window.addEventListener('keydown', function(event) {
+    if (!player.options.hotkeys || controlDown === true) return false
     switch (event.keyCode) {
         case 65: // A
             toggleAutoBuyers();
@@ -7002,7 +7015,7 @@ window.addEventListener('keydown', function(event) {
   }, false);
 
   window.addEventListener('keyup', function(event) {
-    if (!player.options.hotkeys) return false
+    if (!player.options.hotkeys || controlDown === true) return false
     switch (event.keyCode) {
         case 67: // C
             document.getElementById("bigcrunch").onclick()
