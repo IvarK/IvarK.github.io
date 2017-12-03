@@ -4971,7 +4971,7 @@ function eternity() {
             player.bestEternity = player.thisEternity
             if (player.bestEternity < 300) giveAchievement("That wasn't an eternity");
         }
-        if (player.infinitied < 10) giveAchievement("[name needed]");
+        if (player.infinitied < 10) giveAchievement("Do you really need a guide for this?");
         if (Math.round(player.replicanti.amount) == 9) giveAchievement("We could afford 9");
         temp = []
         player.eternityPoints = player.eternityPoints.plus(gainedEternityPoints())
