@@ -1042,7 +1042,7 @@ function cancer(power) {
         return result;
     }
 
-    if (power <= 5) return 'a';
+    if (power <= 5) return '😠';
     var power_modified = Math.floor(power / 3);
     if (power_modified < letterNumber(1))
     {
@@ -1136,10 +1136,8 @@ function formatValue(notation, value, places, placesUnder1000) {
         } else if (notation === "Engineering") {
             return ((matissa * Decimal.pow(10, power % 3)).toFixed(places) + "ᴇ" + pow);
         } else if (notation === "Letters") {
-            power -= 3;
             return ((matissa * Decimal.pow(10, power % 3)).toFixed(places)) + letter(power)
         } else if (notation === "Emojis") {
-            power -= 3;
             return ((matissa * Decimal.pow(10, power % 3)).toFixed(places)) + cancer(power)
 
         }else if (notation === "Logarithm") {
