@@ -49,13 +49,13 @@ function buyStuff(id) {
     if (next == null) {
     const btn = document.createElement("button")
     const br = document.createElement("br")
-    btn.innerHTML = "Amount: 0<br>Cost:"+formatValue(game.costs[i]*100, 2)
+    btn.innerHTML = "Amount: 0<br>Cost:"+formatValue(game.costs[i].times(100), 2)
     btn.id = id+1
     btn.className = "btn"
     btn.onclick = function() {buyStuff(id+1);}
     insertAfter(br, elem)
     insertAfter(btn, br)
-    game.costs.push(new Decimal(game.costs[i]*100))
+    game.costs.push(game.costs[i].times(100))
     game.amounts.push(new Decimal(0))
     if (game.prestige[id] === undefined) game.prestige[id] = 1
     
