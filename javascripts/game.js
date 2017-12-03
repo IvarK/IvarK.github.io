@@ -5830,10 +5830,10 @@ function startInterval() {
 
 
         var est = player.replicanti.chance * 1000 / player.replicanti.interval
-        var current = Math.log2(player.replicanti.amount)
+        var current = Math.log(player.replicanti.amount)
         if (player.timestudy.studies.includes(133)) est /= 10
         if (diff > 5 || player.replicanti.interval < 50) {
-            var gained = Math.pow(2, current+diff*est/10)
+            var gained = Math.pow(Math.E, current+diff*est/10)
             player.replicanti.amount = Math.min(Number.MAX_VALUE, gained)
         } else {
             if (player.replicanti.interval <= replicantiTicks && player.replicanti.unl) {
@@ -5848,17 +5848,17 @@ function startInterval() {
                     for (var i=0; i<100; i++) {
                         if (player.replicanti.chance > Math.random()) {
                             if (player.replicanti.interval > 50) player.replicanti.amount = Math.min(Number.MAX_VALUE, temp+player.replicanti.amount)
-                            else player.replicanti.amount = Math.min(Number.MAX_VALUE, (Math.pow(2, 50/player.replicanti.interval)-1)*temp+player.replicanti.amount)
+                            else player.replicanti.amount = Math.min(Number.MAX_VALUE, (Math.pow(Math.E, 50/player.replicanti.interval)-1)*temp+player.replicanti.amount)
                         }
                     }
                 }
-                replicantiTicks = 0
+                replicantiTicks = -player.replicanti.interval
             }
         }
         replicantiTicks += 50
 
 
-        if (current == 1024 && player.thisInfinityTime < 600*30) giveAchievement("Is this safe?");
+        if (current == Math.log(Number.MAX_VALUE) && player.thisInfinityTime < 600*30) giveAchievement("Is this safe?");
         if (player.replicanti.galaxies >= 10 && player.thisInfinityTime < 150) giveAchievement("The swarm");
 
         if (player.replicanti.galaxybuyer && player.replicanti.amount == Number.MAX_VALUE && !player.timestudy.studies.includes(131)) {
@@ -5880,7 +5880,7 @@ function startInterval() {
         }
 
 
-        var estimate = (1024 - current) / est
+        var estimate = (Math.log(Number.MAX_VALUE) - current) / est
         document.getElementById("replicantiapprox").innerHTML ="Approximately "+ timeDisplay(estimate*10) + " Until Infinite Replicanti"
 
         document.getElementById("replicantiamount").innerHTML = shortenDimensions(player.replicanti.amount)
