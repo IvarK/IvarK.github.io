@@ -5852,7 +5852,7 @@ function startInterval() {
                         }
                     }
                 }
-                replicantiTicks = -player.replicanti.interval
+                replicantiTicks -= player.replicanti.interval
             }
         }
         replicantiTicks += 50
