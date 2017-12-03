@@ -57,7 +57,7 @@ function buyStuff(id) {
       pbtn.className = "prestigebtn"
       pbtn.onclick = function() {prestige(parseInt(this.id));}
       insertAfter(pbtn, otherbtn)
-      for (var i=1; i<game.costs.length-5; i++) document.getElementById(i+"prestige").innerHTML = "Reset for "+Math.max(Math.pow(2, game.costs.length-i-5)/game.prestige[i-1],1)+"x boost."
+      for (var i=1; i<game.costs.length-5; i++) document.getElementById(i+"prestige").innerHTML = "Reset to increase bonus to "+Math.max(game.costs.length-id-5, game.prestige[id-1])+"x boost."
     }
     
 
@@ -82,7 +82,7 @@ function hardreset() {
 
 function prestige(id) {
   console.log(id)
-  game.prestige[id-1] = Math.max(Math.pow(2, game.costs.length-id-5)/game.prestige[id-1], 1)
+  game.prestige[id-1] = Math.max(game.costs.length-id-5, game.prestige[id-1])
   for (var i=2; i<=game.costs.length; i++) {
     var btn = document.getElementById(i)
     btn.parentNode.removeChild(btn)
@@ -97,7 +97,7 @@ function prestige(id) {
     depression: 1.0,
     prestige: game.prestige
   }
-  for (var i=1; i<game.costs.length-5; i++) document.getElementById(i+"prestige").innerHTML = "Reset for "+Math.max(Math.pow(2, game.costs.length-id-5)/game.prestige[id-1], 1)+"x boost."
+  for (var i=1; i<game.costs.length-5; i++) document.getElementById(i+"prestige").innerHTML = "Reset to increase bonus to "+Math.max(game.costs.length-id-5, game.prestige[id-1])+"x boost."
 }
 
 
@@ -123,7 +123,7 @@ function load() {
   for (var i=1; i<game.costs.length-5; i++) {
     var pbtn = document.createElement("button")
     var otherbtn = document.getElementById(i)
-    pbtn.innerHTML = "Reset for "+Math.max(Math.pow(2, game.costs.length-i-5)/game.prestige[i-1], 1)+"x boost."
+    pbtn.innerHTML = "Reset to increase bonus to "+Math.max(game.costs.length-id-5, game.prestige[id-1])+"x boost."
     pbtn.id = i+"prestige"
     pbtn.className = "prestigebtn"
     pbtn.onclick = function() {prestige(parseInt(this.id));}
@@ -133,7 +133,7 @@ function load() {
 
 
 
-
+var cheat = false;
 
 
 setInterval(function() {
@@ -144,8 +144,9 @@ setInterval(function() {
     game.amounts[i-2] += game.amounts[i-1]*game.prestige[i-1]/33
   }
   
-  /*if (game.amounts[game.amounts.length-2] < 5) document.getElementById(game.amounts.length-1).click()
-  else document.getElementById(game.amounts.length).click()*/
+  if (cheat) {
+  if (game.amounts[game.amounts.length-2] < 5) document.getElementById(game.amounts.length-1).click()
+  document.getElementById(game.amounts.length).click()}
   
   document.getElementById("amount").innerHTML = formatValue(Math.floor(game.depression), 2)
 }, 33)
