@@ -6194,7 +6194,7 @@ function startInterval() {
         document.getElementById("chall3Pow").innerHTML = shorten(player.chall3Pow*100) + "%"
 
 
-        if (player.infDimensionsUnlocked.includes(false) && player.break) {
+        if (player.infDimensionsUnlocked[7] == false && player.break) {
             document.getElementById("newDimensionButton").style.display = "inline-block"
         } else document.getElementById("newDimensionButton").style.display = "none"
 
