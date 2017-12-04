@@ -3,6 +3,7 @@ var Marathon = 0;
 var auto = false;
 var autoS = true;
 var controlDown = false;
+var secretThemeKey = 0;
 var player = {
     money: new Decimal(10),
     tickSpeedCost: new Decimal(1000),
@@ -348,6 +349,10 @@ function setTheme(name) {
 
     if(name === undefined) {
         document.getElementById("theme").innerHTML="Current theme: Normal";
+    } else if(name === "S1") {
+        document.getElementById("theme").innerHTML="Current theme: " + secretThemeKey;
+    } else if(name === "S2") {
+        document.getElementById("theme").innerHTML="Current theme: " + secretThemeKey;
     } else {
         document.getElementById("theme").innerHTML="Current theme: " + name;
     }
@@ -4029,11 +4034,12 @@ function verify_save(obj) {
 
 document.getElementById("importbtn").onclick = function () {
     var save_data = prompt("Input your save.");
-    if (save_data.toUpperCase() == "CHRISTMAS") {
-        player.options.theme = "Christmas";
+    secretThemeKey = save_data;
+    if (sha512(save_data) === "66be83be02cf09be1f7dea806fdb75ce6910fe429ddec0a20cef950dcf15342b7a4f60eb9c988185de7083c84977fe2f8f8904c052a01faa2d81696dcf06f5b5") {
+        player.options.theme = "S1";
         setTheme(player.options.theme);
-    } else if (save_data.toUpperCase() == "FINLAND") {
-        player.options.theme = "Finnish";
+    } else if (sha512(save_data) === "9e0a7546abf8f9853b80268740813d1a572b5028ace5da457be9066f50e1f770948ac81ded7facf77fe1ce154585fe86bf351684b93bf032dc5edfd9ccbd35f6") {
+        player.options.theme = "S2";
         setTheme(player.options.theme);
     } else {
         save_data = JSON.parse(atob(save_data), function(k, v) { return (v === Infinity) ? "Infinity" : v; });
