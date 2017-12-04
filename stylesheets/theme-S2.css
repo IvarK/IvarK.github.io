@@ -1,0 +1,23 @@
+html {
+    background: url('../images/s2-bg.svg') no-repeat;
+    background-size: contain;
+    background-position-x: 50%;
+    background-position-y: 50%;
+    background-size: 50%;
+    background-color: white;
+    color: black !important;
+}
+
+body {
+    background: none !important;
+    filter: sepia(100%) hue-rotate(180deg) saturate(250%);
+}
+
+.dimtab {
+    color: black !important;
+    text-shadow: 0.5px 0.5px 0px white, -0.5px -0.5px 0px white;
+}
+
+.achievementlocked {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
