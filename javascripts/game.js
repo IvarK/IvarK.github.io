@@ -6873,10 +6873,16 @@ function playFabSaveCheckCallback(data, error){
 		return;
 	}
 	if (data){
-		var playFabInfinitied = (data.data.Data.infinitied) ? parseInt(data.data.Data.infinitied.Value) : 0;
-		if (playFabInfinitied > player.infinitied){
+        var playFabInfinitied = (data.data.Data.infinitied) ? parseInt(data.data.Data.infinitied.Value) : 0;
+        var playFabEternities = (data.data.Data.eternities) ? parseInt(data.data.Data.eternities.Value) : 0;
+        if (playFabEternities > player.eternities){
             document.getElementById("saveCloud").style.display = "block";
-            document.getElementById("savePopup").innerHTML = "You have a cloud save with "+playFabInfinitied+" infinities and you have "+player.infinitied+". Do you want to overwrite the cloud save?"
+            document.getElementById("savePopup").innerHTML = "You have a cloud save with "+playFabInfinitied+ " Infinities and "+playFabEternities+" Eternities your local save has "+player.infinitied+" Infinities and "+player.eternities+" Eternities. Do you want to overwrite the cloud save?"
+			return;
+        }
+		else if (playFabInfinitied > player.infinitied){
+            document.getElementById("saveCloud").style.display = "block";
+            document.getElementById("savePopup").innerHTML = "You have a cloud save with "+playFabInfinitied+ " Infinities and "+playFabEternities+" Eternities your local save has "+player.infinitied+" Infinities and "+player.eternities+" Eternities. Do you want to overwrite the cloud save?"
 			return;
 		}
 		else saveToPlayFab();
@@ -6953,7 +6959,7 @@ function playFabLoadCheck() {
          return false;
     }
     var requestData = {
-        Keys: ["infinitied"],
+        Keys: ["infinitied", "eternities"],
         PlayFabId: playFabId
     }
     try{
