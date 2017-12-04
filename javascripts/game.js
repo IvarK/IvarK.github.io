@@ -5049,7 +5049,7 @@ function eternity() {
             lastTenRuns: [[600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)]],
             lastTenEternities: player.lastTenEternities,
             infMult: new Decimal(1),
-            infMultCost: new Decimal(100),
+            infMultCost: new Decimal(10),
             tickSpeedMultDecrease: player.eternities > 18 ? player.tickSpeedMultDecrease : 10,
             tickSpeedMultDecreaseCost: player.eternities > 18 ? player.tickSpeedMultDecreaseCost : 3e6,
             dimensionMultDecrease: player.eternities > 18 ? player.dimensionMultDecrease : 10,
