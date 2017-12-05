@@ -3066,7 +3066,6 @@ document.getElementById("maxall").onclick = function () {
                         player[name + "Pow"] = player[name + "Pow"].times(getDimensionPowerMultiplier(tier))
                         if (player[name + 'Cost'].gte(Number.MAX_VALUE)) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
                         if (player.currentChallenge == "challenge8") clearDimensions(tier-1)
-                        x--;
                 }
             } else {
                 if (player[name + "Cost"].lt(Number.MAX_VALUE)) {
@@ -3079,7 +3078,6 @@ document.getElementById("maxall").onclick = function () {
                         player[name + "Pow"] = player[name + "Pow"].times(getDimensionPowerMultiplier(tier))
                         if (player[name + 'Cost'].gte(Number.MAX_VALUE)) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
                         if (player.currentChallenge == "challenge8") clearDimensions(tier-1)
-                        x--;
                 }
                 }
 
