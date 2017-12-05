@@ -2801,8 +2801,8 @@ function buyManyDimensionAutobuyer(tier, bulk) {
             if (player.money.lt(player[name + "Cost"].times(10))) return false
             var x = bulk
 
-        if (player[name + "Cost"].lt(Number.MAX_VALUE) || (player.dimensionMultDecrease !== 3 || player.currentChallenge == "postc5" || player.currentChallenge == "challenge5")) {
-            while (player.money.gte(player[name + "Cost"].times(10)) && x > 0 && player[name + "Cost"].lte(Number.MAX_VALUE)) {
+        if ((player.dimensionMultDecrease !== 3 || player.currentChallenge == "postc5" || player.currentChallenge == "challenge5")) {
+            while (player.money.gte(player[name + "Cost"].times(10)) && x > 0) {
                     player.money = player.money.minus(player[name + "Cost"].times(10))
                     if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5") player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
                     else if (player.currentChallenge == "postc5") multiplyPC5Costs(player[name + 'Cost'], tier)
@@ -2814,6 +2814,19 @@ function buyManyDimensionAutobuyer(tier, bulk) {
                     x--;
             }
         } else {
+            if (player[name + "Cost"].lt(Number.MAX_VALUE)) {
+                while (player.money.gte(player[name + "Cost"].times(10)) && x > 0 && player[name + "Cost"].lte(Number.MAX_VALUE)) {
+                    player.money = player.money.minus(player[name + "Cost"].times(10))
+                    if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5") player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
+                    else if (player.currentChallenge == "postc5") multiplyPC5Costs(player[name + 'Cost'], tier)
+                    else multiplySameCosts(player[name + 'Cost'])
+                    player[name + "Amount"] = Decimal.round(player[name + "Amount"].plus(10))
+                    player[name + "Pow"] = player[name + "Pow"].times(getDimensionPowerMultiplier(tier))
+                    if (player[name + 'Cost'].gte(Number.MAX_VALUE)) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
+                    if (player.currentChallenge == "challenge8") clearDimensions(tier-1)
+                    x--;
+            }
+            }
             var a = Math.log10(Math.sqrt(player.dimensionMultDecrease))
             var b = player.costMultipliers[tier-1].dividedBy(Math.sqrt(player.dimensionMultDecrease)).log10()
             var c = player[name + "Cost"].dividedBy(player.money).log10()
@@ -3043,18 +3056,32 @@ document.getElementById("maxall").onclick = function () {
             }
             if (player.money.lt(player[name + "Cost"].times(10))) continue
 
-        if (player.dimensionMultDecrease !== 3 || player.currentChallenge == "postc5" || player.currentChallenge == "challenge5" || player[name + "Cost"].lt(Number.MAX_VALUE)) {
-            while (player.money.gte(player[name + "Cost"].times(10)) && player[name + "Cost"].lte(Number.MAX_VALUE)) {
-                    player.money = player.money.minus(player[name + "Cost"].times(10))
-                    if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5") player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
-                    else if (player.currentChallenge == "postc5") multiplyPC5Costs(player[name + 'Cost'], tier)
-                    else multiplySameCosts(player[name + 'Cost'])
-                    player[name + "Amount"] = Decimal.round(player[name + "Amount"].plus(10))
-                    player[name + "Pow"] = player[name + "Pow"].times(getDimensionPowerMultiplier(tier))
-                    if (player[name + 'Cost'].gte(Number.MAX_VALUE)) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
-                    if (player.currentChallenge == "challenge8") clearDimensions(tier-1)
-            }
-        } else {
+            if ((player.dimensionMultDecrease !== 3 || player.currentChallenge == "postc5" || player.currentChallenge == "challenge5")) {
+                while (player.money.gte(player[name + "Cost"].times(10))) {
+                        player.money = player.money.minus(player[name + "Cost"].times(10))
+                        if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5") player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
+                        else if (player.currentChallenge == "postc5") multiplyPC5Costs(player[name + 'Cost'], tier)
+                        else multiplySameCosts(player[name + 'Cost'])
+                        player[name + "Amount"] = Decimal.round(player[name + "Amount"].plus(10))
+                        player[name + "Pow"] = player[name + "Pow"].times(getDimensionPowerMultiplier(tier))
+                        if (player[name + 'Cost'].gte(Number.MAX_VALUE)) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
+                        if (player.currentChallenge == "challenge8") clearDimensions(tier-1)
+                        x--;
+                }
+            } else {
+                if (player[name + "Cost"].lt(Number.MAX_VALUE)) {
+                    while (player.money.gte(player[name + "Cost"].times(10)) && player[name + "Cost"].lte(Number.MAX_VALUE)) {
+                        player.money = player.money.minus(player[name + "Cost"].times(10))
+                        if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5") player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
+                        else if (player.currentChallenge == "postc5") multiplyPC5Costs(player[name + 'Cost'], tier)
+                        else multiplySameCosts(player[name + 'Cost'])
+                        player[name + "Amount"] = Decimal.round(player[name + "Amount"].plus(10))
+                        player[name + "Pow"] = player[name + "Pow"].times(getDimensionPowerMultiplier(tier))
+                        if (player[name + 'Cost'].gte(Number.MAX_VALUE)) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
+                        if (player.currentChallenge == "challenge8") clearDimensions(tier-1)
+                        x--;
+                }
+                }
 
             var a = Math.log10(Math.sqrt(player.dimensionMultDecrease))
             var b = player.costMultipliers[tier-1].dividedBy(Math.sqrt(player.dimensionMultDecrease)).log10()
