@@ -2487,34 +2487,25 @@ const allAchievements = {
 // to retrieve by value: Object.keys(allAchievements).find(key => allAchievements[key] === "L4D: Left 4 Dimensions");
 
 function clearOldAchieves(){
-  console.log("clearOldAchieves running")
-    var toRemove = [];
-    var achieveKey;
-    for (var i = 0; i < player.achievements.length; i++) {
-      if (Object.values(allAchievements).indexOf(player.achievements[i]) !== -1 ) {  // does index[i] exist in allAchievements as a value?
-        console.log("removing index: " +i+ ", value: " + player.achievements[i] )
-        toRemove.push(i); // mark it for removal
-        achieveKey = Object.keys(allAchievements).find(function(key){ return allAchievements[key] === player.achievements[i];});
-        console.log("achievekey: "+ achieveKey);
-        console.log("achievekey exists: " + player.achievements.includes(achieveKey));
-        if (!player.achievements.includes(achieveKey)) { // check if new key already exists as well
-            player.achievements.push(achieveKey); // if not... add it
+    console.log("clearOldAchieves running")
+      var toRemove = [];
+      var achieveKey;
+      var values = Object.keys(allAchievements).map(function(e) { return obj[e] });
+      for (var i = 0; i < player.achievements.length; i++) {
+        if (values.indexOf(player.achievements[i]) !== -1 ) {  // does index[i] exist in allAchievements as a value?
+          console.log("removing index: " +i+ ", value: " + player.achievements[i] )
+          toRemove.push(i); // mark it for removal
+          achieveKey = Object.keys(allAchievements).find(function(key){ return allAchievements[key] === player.achievements[i];});
+          console.log("achievekey: "+ achieveKey);
+          console.log("achievekey exists: " + player.achievements.includes(achieveKey));
+          if (!player.achievements.includes(achieveKey)) { // check if new key already exists as well
+              player.achievements.push(achieveKey); // if not... add it
+          }
+        } else if (allAchievements[player.achievements[i]] === undefined){
+          toRemove.push(i);
         }
-      } else if (allAchievements[player.achievements[i]] === undefined){
-        toRemove.push(i);
       }
     }
-
-
-    toRemove.reverse();
-    for (var i = 0; i < toRemove.length; i++) {
-      player.achievements.splice(toRemove[i], 1);
-    }
-
-    
-
-    
-}
 
 function giveAchievement(name) {
 
