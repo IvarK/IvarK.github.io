@@ -2802,7 +2802,7 @@ function buyManyDimensionAutobuyer(tier, bulk) {
             var x = bulk
 
         if (player[name + "Cost"].lt(Number.MAX_VALUE) || (player.dimensionMultDecrease !== 3 || player.currentChallenge == "postc5" || player.currentChallenge == "challenge5")) {
-            while (player.money.gte(player[name + "Cost"].times(10)) && x > 0) {
+            while (player.money.gte(player[name + "Cost"].times(10)) && x > 0 && player[name + "Cost"].lte(Number.MAX_VALUE)) {
                     player.money = player.money.minus(player[name + "Cost"].times(10))
                     if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5") player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
                     else if (player.currentChallenge == "postc5") multiplyPC5Costs(player[name + 'Cost'], tier)
@@ -3044,7 +3044,7 @@ document.getElementById("maxall").onclick = function () {
             if (player.money.lt(player[name + "Cost"].times(10))) continue
 
         if (player.dimensionMultDecrease !== 3 || player.currentChallenge == "postc5" || player.currentChallenge == "challenge5" || player[name + "Cost"].lt(Number.MAX_VALUE)) {
-            while (player.money.gte(player[name + "Cost"].times(10))) {
+            while (player.money.gte(player[name + "Cost"].times(10)) && player[name + "Cost"].lte(Number.MAX_VALUE)) {
                     player.money = player.money.minus(player[name + "Cost"].times(10))
                     if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5") player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
                     else if (player.currentChallenge == "postc5") multiplyPC5Costs(player[name + 'Cost'], tier)
