@@ -1861,7 +1861,7 @@ function buyTimeDimension(tier) {
     dim.bought += 1
     dim.cost *= timeDimCostMults[tier]
     dim.power *= 2
-
+    updateEternityUpgrades()
 
 }
 
@@ -1903,6 +1903,7 @@ function buyWithEP() {
         player.timestudy.theorem += 1
         updateTheoremButtons()
         updateTimeStudyButtons()
+        updateEternityUpgrades()
     }
 }
 
@@ -3207,6 +3208,7 @@ function buyEPMult() {
         let count = Math.log(player.epmult)/Math.log(5)
         player.epmultCost = new Decimal(500).times(Decimal.pow(50, count))
         document.getElementById("epmult").innerHTML = "You gain 5 times more EP<p>Currently: "+shortenDimensions(player.epmult)+"x<p>Cost: "+shortenDimensions(player.epmultCost)+" EP"
+        updateEternityUpgrades()
     }
 }
 
