@@ -1086,26 +1086,29 @@ function getAbbreviation(e) {
     var prefixes2 = ['', 'Dc', 'Vg', 'Tg', 'Qa', 'Qi', 'Se', 'St', 'Og', 'Nn']
     var prefixes3 = ['', 'Ce', 'Dn', 'Tc', 'Qe', 'Qu', 'Sc', 'Si', 'Oe', 'Ne']
     var prefixes4 = ['', 'U', 'D', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'O', 'N']
-    var index = Decimal.floor(e/3)-1
-    var index2 = Decimal.floor(index/10)
-    var index3 = Decimal.floor(index2/10)
-    var index4 = Decimal.floor(index3/10)
+    var index = Math.floor(e/3)-1
+    var index2 = Math.floor(index/10)
+    var index3 = Math.floor(index2/10)
+    var index4 = Math.floor(index3/10)
     var prefix = prefixes[index%10]
     var prefix2 = prefixes2[index2%10]
     var prefix3 = prefixes3[index3%10]
     if (e <= 3002) {
         return prefix + prefix2 + prefix3
-    } else {
-        var secondIndex = Decimal.floor(index/1000)-1
-        var secondIndex2 = Decimal.floor(secondIndex/10)
-        var secondIndex3 = Decimal.floor(secondIndex2/10)
-        var secondIndex4 = Decimal.floor(secondIndex3/10)
+    } else if(e>=6003) {
+        var secondIndex = Math.floor(index/1000)
+        var secondIndex2 = Math.floor(secondIndex/10)
+        var secondIndex3 = Math.floor(secondIndex2/10)
+        var secondIndex4 = Math.floor(secondIndex3/10)
         var secondPrefix = prefixes4[secondIndex%10]
         var secondPrefix2 = prefixes2[secondIndex2%10]
         var secondPrefix3 = prefixes3[secondIndex3%10]
         var x = "MI"
         if ((index)%1000 !== 0) x += "-"
         return secondPrefix + secondPrefix2 + secondPrefix3 + x + prefix + prefix2 + prefix3
+    } else if (3003 <= e <= 6002) {
+        if(index==1000) return "MI";
+        return "MI-" + prefix + prefix2 + prefix3
     }
 }
 
