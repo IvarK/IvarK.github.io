@@ -1492,7 +1492,7 @@ function updateDimensions() {
 
     document.getElementById("eter1").innerHTML = "Infinity Dimensions multiplier based on unspent EP (x+1)^3<br>Currently: "+shortenMoney(player.eternityPoints.plus(1).pow(3))+"x<br>Cost: 5 EP"
     document.getElementById("eter2").innerHTML = "Infinity Dimension multiplier based on eternities (x^log4(2x))<br>Currently: "+shortenMoney(Decimal.pow(player.eternities, Math.log(player.eternities*2)/Math.log(4)))+"x<br>Cost: 10 EP"
-    document.getElementById("eter3").innerHTML = "Infinity Dimensions multiplier based on sum of Infinity Challenge times<br>Currently: "+shortenMoney(Decimal.pow(2,300/infchallengeTimes))+"x<br>Cost: "+shortenCosts(50e3)+" EP"
+    document.getElementById("eter3").innerHTML = "Infinity Dimensions multiplier based on sum of Infinity Challenge times<br>Currently: "+shortenMoney(Decimal.pow(2,300/Math.max(infchallengeTimes, 0.75)))+"x<br>Cost: "+shortenCosts(50e3)+" EP"
    
     document.getElementById("82").innerHTML = "Dimensional boosts affect Infinity Dimensions <span>Currently "+shortenMoney(Decimal.pow(1.0000109, Decimal.pow(player.resets, 2)))+"x<span>Cost: 6 Time Theorems"
     document.getElementById("91").innerHTML = "Normal dimensions gain a multiplier based on time spent this eternity<span>Currently: "+shortenMoney(Decimal.pow(10, Math.min(player.thisEternity, 18000)/60))+"x<span>Cost: 4 Time Theorems"
@@ -1668,7 +1668,7 @@ function DimensionPower(tier) {
 
     if (player.eternityUpgrades.includes(2)) mult = mult.times(Decimal.pow(player.eternities, Math.log(player.eternities*2+1)/Math.log(4)))
 
-    if (player.eternityUpgrades.includes(3)) mult = mult.times(Decimal.pow(2,300/infchallengeTimes))
+    if (player.eternityUpgrades.includes(3)) mult = mult.times(Decimal.pow(2,300/Math.max(infchallengeTimes, 0.75)))
 
     if (player.timestudy.studies.includes(92)) mult = mult.times(Decimal.pow(2, 600/Math.max(player.bestEternity, 20)))
     if (player.timestudy.studies.includes(162)) mult = mult.times(1e11)
