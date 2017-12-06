@@ -4057,11 +4057,12 @@ function verify_save(obj) {
 
 document.getElementById("importbtn").onclick = function () {
     var save_data = prompt("Input your save.");
+    save_data = save_data.constructor !== String ? save_data = "":
     secretThemeKey = save_data;
-    if (sha512(save_data) === "66be83be02cf09be1f7dea806fdb75ce6910fe429ddec0a20cef950dcf15342b7a4f60eb9c988185de7083c84977fe2f8f8904c052a01faa2d81696dcf06f5b5") {
+    if (sha512_256(save_data) === "de24687ee7ba1acd8f5dc8f71d41a3d4b7f14432fff53a4d4166e7eea48a88c0") {
         player.options.theme = "S1";
         setTheme(player.options.theme);
-    } else if (sha512(save_data) === "9e0a7546abf8f9853b80268740813d1a572b5028ace5da457be9066f50e1f770948ac81ded7facf77fe1ce154585fe86bf351684b93bf032dc5edfd9ccbd35f6") {
+    } else if (sha512_256(save_data) === "76269d18c05c9ebec8a990a096cee046dea042a0421f8ab81d17f34dd1cdbdbf") {
         player.options.theme = "S2";
         setTheme(player.options.theme);
     } else {
