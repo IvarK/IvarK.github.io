@@ -5048,7 +5048,7 @@ function eternity() {
             eightPow: new Decimal(1),
             sacrificed: new Decimal(0),
             achievements: player.achievements,
-            challenges: player.challenges,
+            challenges: (player.eternities > 0) ? ["challenge1", "challenge2", "challenge3", "challenge4", "challenge5", "challenge6", "challenge7", "challenge8", "challenge9", "challenge10", "challenge11", "challenge12"] : player.challenges,
             currentChallenge: "",
             infinityUpgrades: player.infinityUpgrades,
             infinityPoints: new Decimal(0),

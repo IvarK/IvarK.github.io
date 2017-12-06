@@ -13,6 +13,10 @@ body {
     background: none !important;
 }
 
+.popup {
+    background-color: #dbd242 !important;
+}
+
 .tabbtn {
     color: black !important;
     background: #dbd242 !important;
