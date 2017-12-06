@@ -611,6 +611,7 @@
     color: black;
     font-family: Typewriter;
     padding: 10px;
+    padding-bottom: 15px;
     display: none;
 }
 
