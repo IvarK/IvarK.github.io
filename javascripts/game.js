@@ -2501,6 +2501,12 @@ function clearOldAchieves(){
         toRemove.push(i);
       }
     }
+
+
+    toRemove.reverse();
+    for (var i = 0; i < toRemove.length; i++) {
+      player.achievements.splice(toRemove[i], 1);
+    }
 }
 
 function giveAchievement(name) {
