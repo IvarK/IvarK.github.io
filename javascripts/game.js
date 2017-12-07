@@ -6905,7 +6905,7 @@ function playFabSaveCheckCallback(data, error){
             document.getElementById("savePopup").innerHTML = "You have a cloud save with "+playFabInfinitied+ " Infinities and "+playFabEternities+" Eternities your local save has "+player.infinitied+" Infinities and "+player.eternities+" Eternities. Do you want to overwrite the cloud save?"
 			return;
         }
-		else if (playFabInfinitied > player.infinitied){
+		else if (playFabEternities == player.eternities && playFabInfinitied > player.infinitied){
             document.getElementById("saveCloud").style.display = "block";
             document.getElementById("savePopup").innerHTML = "You have a cloud save with "+playFabInfinitied+ " Infinities and "+playFabEternities+" Eternities your local save has "+player.infinitied+" Infinities and "+player.eternities+" Eternities. Do you want to overwrite the cloud save?"
 			return;
