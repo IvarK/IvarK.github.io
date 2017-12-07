@@ -6881,7 +6881,7 @@ function playFabSaveCheck(){
 		return;
 	}
 	var requestData = {
-		Keys: ["infinitied"],
+		Keys: ["infinitied", "eternities"],
 		PlayFabId: playFabId
 	}
 	try {
