@@ -666,6 +666,22 @@
 
 }
 
+#replauto1 {
+    margin-top: 3px;
+}
+
+#replauto2 {
+    margin-top: 3px;
+}
+
+#replauto3 {
+    margin-top: 3px;
+}
+
+#replicantiresettoggle {
+    margin-top: 3px;
+}
+
 .timestudy {
     color: #b341e0;
     background: black;
@@ -1093,7 +1109,7 @@ table {
 th,
 td {
     text-align: left;
-    padding: 5px 10px;
+    padding: 5px 8px;
 }
 
 dt {
