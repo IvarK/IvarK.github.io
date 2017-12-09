@@ -4237,7 +4237,6 @@ function resetDimensions() {
 function calcSacrificeBoost() {
     if (player.firstAmount == 0) return new Decimal(1);
     if (player.challenges.includes("postc2")) {
-        if (player.achievements.includes("r97")) return player.firstAmount.pow(0.012).dividedBy(player.sacrificed.pow(0.012).max(1)).max(1)
         if (player.achievements.includes("r88")) return player.firstAmount.pow(0.011).dividedBy(player.sacrificed.pow(0.011).max(1)).max(1)
         return player.firstAmount.pow(0.01).dividedBy(player.sacrificed.pow(0.01).max(1)).max(1)
     }
@@ -4254,8 +4253,7 @@ function calcSacrificeBoost() {
 function calcTotalSacrificeBoost() {
     if (player.sacrificed == 0) return new Decimal(1);
     if (player.challenges.includes("postc2")) {
-        if (player.achievements.includes("r97")) return player.sacrificed.pow(0.012)
-        else if (player.achievements.includes("r88")) return player.sacrificed.pow(0.011)
+        if (player.achievements.includes("r88")) return player.sacrificed.pow(0.011)
         else return player.sacrificed.pow(0.01)
     }
     if (player.currentChallenge != "challenge11") {
@@ -4274,7 +4272,6 @@ function sacrifice() {
     if (player.resets < 5) return false
 
     if (calcSacrificeBoost().gte(Number.MAX_VALUE)) giveAchievement("Yet another infinity reference");
-    if (calcSacrificeBoost().gte(Number.MAX_VALUE) && player.currentChallenge == "postc2" && player.sacrificed > 0) giveAchievement("97");
     player.eightPow = player.eightPow.times(calcSacrificeBoost())
     player.sacrificed = player.sacrificed.plus(player.firstAmount);
     if (player.currentChallenge != "challenge11") {
@@ -5248,7 +5245,9 @@ function eternity() {
             document.getElementById("replicantidiv").style.display="none"
             document.getElementById("replicantiunlock").style.display="inline-block"
         }
-        kongregate.stats.submit('Eternities', player.eternities);
+        try {
+            kongregate.stats.submit('Eternities', player.eternities);
+        } catch (err) {console.log("Couldn't load Kongregate API")}
         if (player.eternities > 2 && player.replicanti.galaxybuyer === undefined) player.replicanti.galaxybuyer = false
         document.getElementById("infinityPoints1").innerHTML = "You have <span class=\"IPAmount1\">"+shortenDimensions(player.infinityPoints)+"</span> Infinity points."
         document.getElementById("infinityPoints2").innerHTML = "You have <span class=\"IPAmount2\">"+shortenDimensions(player.infinityPoints)+"</span> Infinity points."
