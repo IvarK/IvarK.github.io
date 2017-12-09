@@ -371,12 +371,16 @@ function setTheme(name) {
 
 document.getElementById("theme").onclick = function () {
     if (player.options.theme === undefined) {
-        player.options.theme = "Dark";
-    } else if (player.options.theme === "Dark") {
-        player.options.theme = "Inverted";
-    } else if (player.options.theme === "Inverted") {
         player.options.theme = "Metro";
     } else if (player.options.theme === "Metro") {
+        player.options.theme = "Dark";
+    } else if (player.options.theme === "Dark") {
+        player.options.theme = "Dark Metro";
+    } else if (player.options.theme === "Dark Metro") {
+        player.options.theme = "Inverted";
+    } else if (player.options.theme === "Inverted") {
+        player.options.theme = "Inverted Metro";
+    } else if (player.options.theme === "Inverted Metro") {
         player.options.theme = undefined;
     } else {
         player.options.theme = undefined;
