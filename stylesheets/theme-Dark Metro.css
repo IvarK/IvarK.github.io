@@ -1,77 +1,92 @@
+body {
+    background-image: url('../images/dark-bg.png');
+    background-position: center; 
+}
+
 * {
     border-radius: 0px !important;
 }
 
-.popup {
-    border: 1px solid black !important;
+.container {
+    color: #757575 !important;
+}
+
+.statstab {
+    color: #757575 !important;
+}
+
+#coinAmount {
+    color: #E0E0E0 !important;
 }
 
 .tabbtn {
-    background: #EEEEEE !important;
-    border: 1px solid #2196F3 !important;
-    box-shadow: 1px 1px 1px 0px #9E9E9E;
+    color: #E0E0E0 !important;
+    background: #455A64 !important;
+    border: 1px solid #1E88E5 !important;
+    box-shadow: 1px 1px 1px 0px black;
 }
 
 .tabbtn:hover {
-    background: #2196F3 !important;
-    border: 1px solid #2196F3 !important;
+    background: #1E88E5 !important;
 }
 
 .secondarytabbtn {
-    background: #EEEEEE !important;
-    border: 1px solid #2196F3 !important;
-    box-shadow: 1px 1px 1px 0px #9E9E9E;
+    color: #E0E0E0 !important;
+    background: #455A64 !important;
+    border: 1px solid #1E88E5 !important;
+    box-shadow: 1px 1px 1px 0px black;
 }
 
 .secondarytabbtn:hover {
-    background: #2196F3 !important;
-    border: 1px solid #2196F3 !important;
+    background: #1E88E5 !important;
 }
 
 .storebtn {
-    background: #EEEEEE !important;
-    border: 1px solid #66BB6A !important;
-    box-shadow: 1px 1px 1px 0px #9E9E9E;
+    background: #455A64 !important;
+    border: 1px solid #43A047 !important;
+    box-shadow: 1px 1px 1px 0px black;
 }
 
 .storebtn:hover {
-    background: #66BB6A !important;
+    background: #43A047 !important;
 }
 
 .unavailablebtn {
-    background: #9E9E9E !important;
-    border: 1px solid #EF5350 !important;
-    box-shadow: 1px 1px 1px 0px #9E9E9E;
+    background: #37474F !important;
+    border: 1px solid #E53935 !important;
+    box-shadow: 1px 1px 1px 0px black;
 }
 
 .unavailablebtn:hover {
-    background: #EF5350 !important;
+    background: #E53935 !important;
 }
 
 .newdim {
     color: black !important;
-    background: #EEEEEE !important;
-    border: 1px solid #66BB6A !important;
-    box-shadow: 1px 1px 1px 0px #9E9E9E;
+    background: #455A64 !important;
+    border: 1px solid #43A047 !important;
+    box-shadow: 1px 1px 1px 0px black;
 }
 
 .newdim:hover {
-    background: #66BB6A !important;
+    background: #43A047 !important;
 }
 
 .newdimlocked {
-    background: #9E9E9E !important;
-    border: 1px solid #EF5350 !important;
-    box-shadow: 1px 1px 1px 0px #9E9E9E;
+    background: #37474F !important;
+    border: 1px solid #E53935 !important;
+    box-shadow: 1px 1px 1px 0px black;
 }
 
 .newdimlocked:hover {
-    background: #EF5350 !important;
+    background: #E53935 !important;
 }
 
 .infinitybtn {
+    color: black !important;
+    background: white !important;
     border: 1px solid #FF9800 !important;
-    box-shadow: 1px 1px 1px 0px #9E9E9E;
+    box-shadow: 1px 1px 1px 0px black;
 }
 
 .infinitybtn:hover {
@@ -90,7 +105,7 @@
 .eternitytabbtn {
     color: #673AB7 !important;
     border: 1px solid #673AB7 !important;
-    box-shadow: 1px 1px 1px 0px #9E9E9E;
+    box-shadow: 1px 1px 1px 0px black;
 }
 
 .completedrow {
@@ -98,13 +113,33 @@
 }
 
 .achievementunlocked {
-    background-color: #66BB6A !important;
-    border: 1px solid #43A047 !important;
+    background-color: #4CAF50 !important;
+    border: 1px solid #388E3C !important;
 }
 
 .achievementlocked {
     background-color: #9E9E9E !important;
-    border: 1px solid #EF5350 !important;
+    border: 1px solid #E53935 !important;
+}
+
+#infinityPoints1 {
+    color: #757575 !important;
+}
+
+#infPowAmount {
+    color: #FF9800 !important;
+}
+
+#infDimMultAmount {
+    color: #FF9800 !important;
+}
+
+#timeShardAmount {
+    color: #673AB7 !important;
+}
+
+#tickThreshold {
+    color: #673AB7 !important;
 }
 
 .infinistorebtn1 {
@@ -140,12 +175,12 @@
 }
 
 .infinistorebtnbought {
-    background: #66BB6A !important;
+    background: #43A047 !important;
     border: 1px solid black !important;
 }
 
 .infinimultbtn {
-    color: #EF5350 !important;
+    color: #E53935 !important;
     border: 1px solid #00BCD4 !important;
 }
 
@@ -165,7 +200,7 @@
 }
 
 .autobuyerbtn {
-    border: 1px solid #E91E63 !important;
+    border: 1px solid #FF9800 !important;
     margin-bottom: -1px;
 }
 
@@ -175,14 +210,15 @@
 }
 
 .postinfcrunch {
-    background: #EEEEEE !important;
-    border: 1px solid #2196F3 !important;
-    box-shadow: 1px 1px 1px 0px #9E9E9E;
+    color: black !important;
+    background: #455A64 !important;
+    border: 1px solid #1E88E5 !important;
+    box-shadow: 1px 1px 1px 0px black;
 }
 
 .postinfcrunch:hover {
-    background: #2196F3 !important;
-    border: 1px solid #2196F3 !important;
+    background: #1E88E5 !important;
+    border: 1px solid #1E88E5 !important;
 }
 
 .EPAmount1 {
@@ -219,7 +255,7 @@
 }
 
 .timetheorembtnlocked:hover {
-    background: #EF5350 !important;
+    background: #E53935 !important;
 }
 
 .timestudy {
@@ -344,7 +380,7 @@
 }
 
 .timestudylocked:hover {
-    background: #EF5350 !important;
+    background: #E53935 !important;
 }
 
 .eternityupbtn {
@@ -375,6 +411,7 @@
 }
 
 .challengediv {
+    background-color: #455A64 !important;
     border: 1px solid black !important;
 }
 
@@ -389,11 +426,11 @@
 }
 
 .challengesbtn:hover {
-    background: #66BB6A !important;
+    background: #43A047 !important;
 }
 
 .completedchallengesbtn {
-    background: #66BB6A !important;
+    background: #43A047 !important;
     border: 3px solid #43A047 !important;
     border-bottom-color: #388E3C !important;
     border-right-color: #388E3C !important;

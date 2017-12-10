@@ -231,7 +231,19 @@
                         </td>
                     </tr>
                 </table>
-                <button id="epmult" class="eternityupbtn" onclick="buyEPMult()">You gain 5 times more EP<p>Cost: 500 EP</button>
+                <table class="table" style="margin: 0 auto">
+                    <tr>
+                        <td>
+                            <div class="eternityupbtnbought" style="opacity: 0"></div>
+                        </td>
+                        <td>
+                            <button id="epmult" class="eternityupbtn" onclick="buyEPMult()">You gain 5 times more EP<p>Cost: 500 EP</button>
+                        </td>
+                        <td>
+                            <div class="eternityupbtnbought" style="opacity: 0"></div>
+                        </td>
+                    </tr>
+                </table>
                 <div>
                     <table id="footer">
                         <tr>
@@ -1455,7 +1467,7 @@
                                     <div class="outer">
                                         <button id="postc8" class="challengesbtn" onclick="startChallenge('postc8', new Decimal('1e27000'))">Start</button>
                                         <br>
-                                        <span id="postc8goal" >Goal: 1e30000</span><br>
+                                        <span id="postc8goal" >Goal: 1e27000</span><br>
                                         <span>Reward: You get a multiplier to dimensions 2-7 based on 1st and 8th dimension multipliers.</span>
                                     </div>
                                 </div>
@@ -2022,9 +2034,9 @@
 <script type="text/javascript" src="javascripts/autobuyer.js"></script>
 <!-- script type="text/javascript" src="javascripts/decimal.js"></script> -->
 <script type="text/javascript" src="javascripts/breakinfinity.js"></script>
-<script type="text/javascript" src="javascripts/game.js?82"></script>
-<script type="text/javascript" src="javascripts/dimcostlookuptable.js"></script>
+<script type="text/javascript" src="javascripts/game.js?85"></script>
 <script type="text/javascript" src="javascripts/lz-string.js"></script>
+<script type="text/javascript" src="javascripts/sha512.js"></script>
 
 
 

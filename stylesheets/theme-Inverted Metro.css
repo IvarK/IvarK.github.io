@@ -2,6 +2,11 @@
     border-radius: 0px !important;
 }
 
+body {
+    filter: invert(100%);
+    background-color: black !important;
+}
+
 .popup {
     border: 1px solid black !important;
 }
