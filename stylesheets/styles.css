@@ -674,6 +674,23 @@
     margin-top: 3px;
 }
 
+.eternitychallengestudy {
+    color: #490066;
+    background: white;
+    border: 1px solid black;
+    font-weight: bold;
+    font-family: Typewriter;
+    width: 170px;
+    height: 80px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    vertical-align: top;
+    margin:7px;
+    animation: eternityChallengeGlowIn 7s infinite;
+}
+
 .timestudy {
     color: #b341e0;
     background: black;
@@ -1344,4 +1361,10 @@ screen and (max-width: 480px) {
     0%  {box-shadow: inset 0px 0px 3px 0px #0080ff;}
     50% {box-shadow: inset 0px 0px 20px 0px #0080ff;}
     100%  {box-shadow: inset 0px 0px 3px 0px #0080ff;}
+}
+
+@keyframes eternityChallengeGlowIn {
+    0%  {box-shadow: inset 0px 0px 3px 0px #490066;}
+    50% {box-shadow: inset 0px 0px 20px 0px #490066;}
+    100%  {box-shadow: inset 0px 0px 3px 0px #490066;}
 }
