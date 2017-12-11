@@ -199,6 +199,11 @@
                         <td style="margin: auto; width: 100%;text-align:center;"><button class="timestudy" id="171" onclick="buyTimeStudy(171, 15)">Time shard requirement for the next tickspeed upgrade goes up slower<span>Cost: 15 Time Theorems</button></td>
                     </tr>
                 </table>
+                <table class="table" id="studytable">
+                    <tr>
+                        <td style="margin: auto; width: 100%;text-align:center;"><button class="eternitychallengestudy" id="ec1unl" onclick="unlockEChall(1)">Time shard requirement for the next tickspeed upgrade goes up slower<span>Cost: 15 Time Theorems</button></td>
+                    </tr>
+                </table>
                 <div>
                     <table id="footer">
                         <tr>
@@ -1173,6 +1178,7 @@
                 <tr>
                     <td><button class="secondarytabbtn" onclick="showChallengesTab('challenges')">Challenges</button><td>
                     <td><button class="secondarytabbtn" onclick="showChallengesTab('breakchallenges')">Infinity Challenges</button><td>
+                    <td><button class="secondarytabbtn" onclick="showChallengesTab('eternitychallenges')">Eternity Challenges</button><td>
                 </tr>
             </table>
             <div id="nextchall"></div>
@@ -1475,6 +1481,38 @@
                         </tr>
                 </table>
 
+            </div>
+            <div id="eternitychallenges" class="challengetab">
+                <table  class="table" style="margin: 0 auto">
+                    <tr>
+                        <td>
+                            <div class="eterchallengediv" id="eterc1div" style="height: 140px; display: none">
+                                <span>Time dimensions are disabled.</span>
+                                <br>
+                                <br>
+                                <div class="outer">
+                                    <button id="eterc1" class="challengesbtn" onclick="startEternityChallenge('eterc1', new Decimal('1e850'))">Start</button>
+                                    <br>
+                                    <span id="eterc1goal" >Goal: 1e850 IP</span><br>
+                                    <span>Reward: 1.3x on all Infinity Dimensions for each Infinity Challenge completed</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="eterchallengediv" id="eterc2div" style="height: 140px; display: none">
+                                <span>Automatically sacrifice every 8 ticks once you have 8th Dimension.</span>
+                                <br>
+                                <br>
+                                <div class="outer">
+                                    <button id="eterc2" class="challengesbtn" onclick="startEternityChallenge('eterc2', new Decimal('1e10500'))">Start</button>
+                                    <br>
+                                    <span id="eterc2goal" >Goal: 1e10500</span><br>
+                                    <span>Reward: Sacrifice autobuyer and more powerful sacrifice</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
             </div>
             <table id="footer">
                 <tr>
