@@ -880,6 +880,7 @@ function onLoad() {
         replicantiGalaxyAutoToggle()
     }
 
+    if (player.eternityChallUnlocked !== 0) document.getElementById("eterc"+player.eternityChallUnlocked+"div").style.display = "inline-block"
     
 
     if (player.infMultBuyer !== undefined) {
@@ -1940,6 +1941,7 @@ function getTimeDimensionProduction(tier) {
     var dim = player["timeDimension"+tier]
     var ret = dim.amount.times(dim.power)
     ret = ret.times(getTimeDimensionPower(tier))
+    if (player.currentEternityChall == "eterc1") return new Decimal(0)
     return ret
 }
 
@@ -2154,10 +2156,17 @@ function respecTimeStudies() {
         }
     }
     player.timestudy.studies = []
+    switch(player.eternityChallUnlocked) {
+        case 1:
+        player.timestudy.theorem += 10
+        break;
+    }
     player.eternityChallUnlocked = 0
     updateTimeStudyButtons()
     updateTheoremButtons()
     drawStudyTree()
+
+    
 }
 
 
@@ -5147,7 +5156,11 @@ function eternity() {
         temp = []
         player.eternityPoints = player.eternityPoints.plus(gainedEternityPoints())
         addEternityTime(player.thisEternity, gainedEternityPoints())
-        
+        if (player.currentEternityChall !== "") {
+            if (player.eternityChalls[player.currentEternityChall] === undefined) {
+                player.eternityChalls[player.currentEternityChall] = 1
+            } else player.eternityChalls[player.currentEternityChall] += 1
+        }
         for (var i=0; i<player.challenges.length; i++) {
 
             if (!player.challenges[i].includes("post") && player.eternities > 1) temp.push(player.challenges[i])
@@ -5402,7 +5415,7 @@ function eternity() {
         document.getElementById("infinityPoints2").innerHTML = "You have <span class=\"IPAmount2\">"+shortenDimensions(player.infinityPoints)+"</span> Infinity points."
         if (player.eternities < 2) document.getElementById("break").innerHTML = "BREAK INFINITY"
         document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
-        document.getElementById("eternitybtn").style.display = player.infinityPoints.gte(Number.MAX_VALUE) ? "inline-block" : "none"
+        document.getElementById("eternitybtn").style.display = player.infinityPoints.gte(player.eternityChallGoal) ? "inline-block" : "none"
         document.getElementById("eternityPoints2").style.display = "inline-block"
         document.getElementById("eternitystorebtn").style.display = "inline-block"
         document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
@@ -5410,6 +5423,7 @@ function eternity() {
         
         playerInfinityUpgradesOnEternity()
         document.getElementById("eternityPoints2").innerHTML = "You have <span class=\"EPAmount2\">"+shortenDimensions(player.eternityPoints)+"</span> Eternity points."
+
     }
 }
 
@@ -5626,14 +5640,21 @@ function startChallenge(name, target) {
 function unlockEChall(idx) {
     if (player.eternityChallUnlocked == 0) {
         player.eternityChallUnlocked = idx
+        document.getElementById("eterc"+player.eternityChallUnlocked+"div").style.display = "inline-block"
     }
 }
 
 function ECTimesCompleted(name) {
-
+    if (player.eternityChalls[name] === undefined) return 0
+    else return player.eternityChalls[name]
 }
 
-document.getElementById("")
+document.getElementById("ec1unl").onclick = function() {
+    if (player.eternities >= 25000+(ECTimesCompleted("eterc1")*25000) && player.timestudy.theorem >= 10 && player.eternityChallUnlocked == 0) {
+        unlockEChall(1)
+        player.timestudy.theorem -= 10
+    }
+}
 
 function startEternityChallenge(name, startgoal, goalIncrease) {
     if(player.options.challConf || name == "" ? true : confirm("You will start over with just your time studies, eternity upgrades and achievements. You need to reach a set IP with special conditions.")) {
@@ -5810,8 +5831,8 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
             },
             timestudy: player.timestudy,
             eternityChalls: player.eternityChalls,
-            eternityChallGoal: new Decimal(Number.MAX_VALUE),
-            currentEternityChall: [name, ],
+            eternityChallGoal: startgoal.plus(goalIncrease.times(ECTimesCompleted(name))),
+            currentEternityChall: name,
             autoIP: new Decimal(0),
             autoTime: 1e300,
             infMultBuyer: player.infMultBuyer,
@@ -5879,7 +5900,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
         document.getElementById("infinityPoints2").innerHTML = "You have <span class=\"IPAmount2\">"+shortenDimensions(player.infinityPoints)+"</span> Infinity points."
         if (player.eternities < 2) document.getElementById("break").innerHTML = "BREAK INFINITY"
         document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
-        document.getElementById("eternitybtn").style.display = player.infinityPoints.gte(Number.MAX_VALUE) ? "inline-block" : "none"
+        document.getElementById("eternitybtn").style.display = player.infinityPoints.gte(player.eternityChallGoal) ? "inline-block" : "none"
         document.getElementById("eternityPoints2").style.display = "inline-block"
         document.getElementById("eternitystorebtn").style.display = "inline-block"
         document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
@@ -6051,7 +6072,7 @@ setInterval(function() {
     document.getElementById("kongdim").innerHTML = "Double all your dimension multipliers (dimensions 1-8) (multiplicative). Forever. Currently: x"+kongDimMult+", next: "+(kongDimMult*2)+"x"
     document.getElementById("eternityPoints2").innerHTML = "You have <span class=\"EPAmount2\">"+shortenDimensions(player.eternityPoints)+"</span> Eternity points."
 
-    document.getElementById("eternitybtn").style.display = (player.infinityPoints.gte(Number.MAX_VALUE) && player.infDimensionsUnlocked[7]) ? "inline-block" : "none"
+    document.getElementById("eternitybtn").style.display = (player.infinityPoints.gte(player.eternityChallGoal) && player.infDimensionsUnlocked[7]) ? "inline-block" : "none"
 
     
     if (player.eternities !== 0)document.getElementById("eternitystorebtn").style.display = "inline-block"
@@ -6341,7 +6362,7 @@ function startInterval() {
         document.getElementById("replicantimult").innerHTML = shorten(replmult)
 
         document.getElementById("eternitybtn").innerHTML = (player.eternities == 0) ? "Other times await.. I need to become Eternal" : "I need to become Eternal.<br>"+"Gain "+shortenDimensions(gainedEternityPoints())+" Eternity points."
-
+        if (player.currentEternityChall !== "") document.getElementById("eternitybtn").innerHTML = "Other challenges await.. I need to become Eternal"
         updateMoney();
         updateCoinPerSec();
         updateInfCosts()
