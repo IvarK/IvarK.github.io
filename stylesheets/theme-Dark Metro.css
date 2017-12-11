@@ -156,6 +156,14 @@ body {
     color: #673AB7 !important;
 }
 
+#replicantiamount {
+    color: #03A9F4 !important;
+}
+
+#replicantimult {
+    color: #03A9F4 !important;
+}
+
 .infinistorebtn1 {
     border: 1px solid black !important;
 }

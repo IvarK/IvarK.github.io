@@ -36,20 +36,6 @@
     font-weight: bold
 }
 
-.logo {
-    position: relative;
-    top: 0;
-    left: 0;
-}
-
-#logoanimation {
-    position: absolute;
-    height: 200px;
-    top: 2%;
-    left: calc(50% - 100px);
-    z-index: 1;
-}
-
 .challengesbtn {
     
     width:150px;
@@ -846,10 +832,10 @@
     background: #652F2F;
 }
 
-#treeimage {
-    padding-top: 160px;
+#studyTreeCanvas {
+    top: 0;
+    left: 0;
     position: absolute;
-    padding-left: 70px;
     z-index: -999;
 }
 
