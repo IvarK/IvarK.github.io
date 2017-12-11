@@ -6800,6 +6800,8 @@ function showEternityTab(tabName) {
             tab.style.display = 'none';
         }
     }
+    resizeCanvas()
+    drawStudyTree()
 }
 
 
