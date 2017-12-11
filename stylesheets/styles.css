@@ -102,6 +102,24 @@
     border-radius: 5px;
 }
 
+.eterchallengediv {
+    display:table;
+    text-align:center;
+    width: 350px;
+    height: 105px;
+    color: #b341e0;
+    background: black;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 3px solid #b341e0;
+    border-radius: 10px;
+    font-size: 80%;
+    transition-duration: 0.2s;
+    padding: 2px;
+    margin: 3px 8px;
+    position: relative;
+}
+
 .completedchallengesbtn {
   width:150px;
   height: 30px;
