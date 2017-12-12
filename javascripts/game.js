@@ -4659,6 +4659,50 @@ function priorityOrder() {
     priority = tempArray;
 }
 
+function fromValue(value) {
+  if (value.includes(" ")) {
+    let FormatList = [' K',' M',' B']
+    for (var i=0;i<3;i++) {
+        if (value.includes(FormatList[i])) return Decimal.fromMantissaExponent(parseFloat(value), i*3+3)
+        //return parseFloat(value) + "e" + (i*3+3)
+    }
+    const prefixes = [['', 'U', 'D', 'T', 'd', 't', 'x', 'p', 'O', 'N'],
+    ['', 'Dc', 'Vg', 'Tg', 'Qa', 'Qi', 'Se', 'St', 'Og', 'Nn'],
+    ['', 'Ce', 'Dn', 'Tc', 'Qe', 'Qu', 'Sc', 'Si', 'Oe', 'Ne']]
+    let e = 0;
+    let m = value;
+    if (m.includes("MI")) {
+        m=m.split("MI")[1];
+        if (value.replace(parseFloat(value).toString(),"")[1] == "M") e += 1000;
+    }
+    for (let j=0;j<6;j++) {
+        for (i=1;i<10;i++) {
+            if (m.includes(prefixes[j%3][i])) break;
+        }
+        if (i != 10) e += Math.pow(10,j)*i;
+        if (j==2) {
+            if (!value.includes("MI")) break;
+            m = value.split("MI")[0];
+        }
+    }
+    return Decimal.fromMantissaExponent(parseFloat(value), i*3+3)
+    //return parseFloat(value) + "e" + (e*3+3)
+  }
+  if (!isFinite(parseFloat(value[value.length-1]))) {
+    const l = " abcdefghijklmnopqrstuvwxyz"
+    const v = value.replace(parseFloat(value),"")
+    let e = 0;
+    for (let i=0;i<v.length;i++) {
+        for (let j=1;j<27;j++) {
+            if (v[i] == l[j]) e += Math.pow(26,i)*j
+        }
+    }
+    return Decimal.fromMantissaExponent(parseFloat(value), e*3)
+    //return parseFloat(value) + "e" + (e*3)
+  }
+  if (value.includes("e")) return Decimal.fromMantissaExponent(parseFloat(value.split("e")[0]),parseInt(value.split("e")[1]));
+  return Decimal.fromString(value)
+}
 
 function updatePriorities() {
     for (var x=0 ; x < autoBuyerArray().length; x++) {
@@ -4666,22 +4710,14 @@ function updatePriorities() {
     }
     player.autobuyers[9].priority = parseInt(document.getElementById("priority10").value)
     player.autobuyers[10].priority = parseInt(document.getElementById("priority11").value)
-    var infvalue = document.getElementById("priority12").value
-    if (infvalue !== undefined && infvalue !== "undefined") infvalue = new Decimal(infvalue)
-    else infvalue = new Decimal(Infinity)
-    player.autobuyers[11].priority = infvalue
-    var bulk = Math.max(parseFloat(document.getElementById("bulkDimboost").value), 0.05)
-    if (isNaN(bulk)) bulk = 1
-    player.autobuyers[9].bulk = bulk
+    player.autobuyers[11].priority = fromValue(document.getElementById("priority12").value)
+    const bulk = Math.max(parseFloat(document.getElementById("bulkDimboost").value), 0.05)
+    player.autobuyers[9].bulk = (isNaN(bulk)) ? 1 : bulk
     player.overXGalaxies = parseInt(document.getElementById("overGalaxies").value)
-    var sacValue = document.getElementById("prioritySac").value
-    if (sacValue.includes("e")) sacValue = parseFloat(sacValue.split("e")[0]) * Math.pow(10, parseInt(sacValue.split("e")[1]))
-    else sacValue = parseFloat(sacValue)
-    player.autoSacrifice.priority = isNaN(sacValue) ? 10 : sacValue
-    if (player.autoSacrifice.priority === null) player.autoSacrifice.priority = 10
-    if (player.autoSacrifice.priority == 1) player.autoSacrifice.priority = 1.5
+    player.autoSacrifice.priority = fromValue(document.getElementById("prioritySac").value)
+    if (isNaN(player.autoSacrifice.priority) || player.autoSacrifice.priority === null || player.autoSacrifice.priority === undefined || player.autoSacrifice.priority <= 1) player.autoSacrifice.priority = Decimal.fromNumber(Number.EPSILON)
     player.autobuyers[10].bulk = parseFloat(document.getElementById("bulkgalaxy").value)
-    var eterValue = new Decimal(document.getElementById("priority13").value)
+    const eterValue = fromValue(document.getElementById("priority13").value)
     if (!isNaN(eterValue)) player.eternityBuyer.limit = eterValue
 
     priorityOrder()
