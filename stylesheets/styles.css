@@ -57,6 +57,22 @@
     background: #5AC467;
 }
 
+.lockedchallengesbtn {
+    
+    width:150px;
+    height: 30px;
+    color: black;
+    background: rgb(92, 92, 92);
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 3px solid rgb(136, 29, 29);
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 140%;
+    transition-duration: 0.2s;
+    margin: auto;
+}
+
 .outer {
     position: absolute;
     right: 0;
