@@ -6559,6 +6559,8 @@ function startInterval() {
             if (player.infinitied > 0) {
                 document.getElementById("infinitybtn").style.display = "inline-block";
                 document.getElementById("challengesbtn").style.display = "inline-block";
+            } else if (player.eternityChallUnlocked !== 0) {
+                document.getElementById("challengesbtn").style.display = "inline-block";
             }
 
         }
