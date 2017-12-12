@@ -851,6 +851,9 @@ function onLoad() {
     if (player.replicanti.unl == true) {
         document.getElementById("replicantidiv").style.display="inline-block"
         document.getElementById("replicantiunlock").style.display="none"
+    } else {
+        document.getElementById("replicantidiv").style.display="none"
+        document.getElementById("replicantiunlock").style.display="inline-block"
     }
 
     if (player.version < 7) {
