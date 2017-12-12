@@ -1200,34 +1200,24 @@ function isDecimal(value) {
 
 
 function getAbbreviation(e) {
-    var prefixes = ['', 'U', 'D', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'O', 'N']
-    var prefixes2 = ['', 'Dc', 'Vg', 'Tg', 'Qa', 'Qi', 'Se', 'St', 'Og', 'Nn']
-    var prefixes3 = ['', 'Ce', 'Dn', 'Tc', 'Qe', 'Qu', 'Sc', 'Si', 'Oe', 'Ne']
-    var prefixes4 = ['', 'U', 'D', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'O', 'N']
-    var index = Math.floor(e/3)-1
-    var index2 = Math.floor(index/10)
-    var index3 = Math.floor(index2/10)
-    var index4 = Math.floor(index3/10)
-    var prefix = prefixes[index%10]
-    var prefix2 = prefixes2[index2%10]
-    var prefix3 = prefixes3[index3%10]
-    if (e <= 3002) {
-        return prefix + prefix2 + prefix3
-    } else if(e>=6003) {
-        var secondIndex = Math.floor(index/1000)
-        var secondIndex2 = Math.floor(secondIndex/10)
-        var secondIndex3 = Math.floor(secondIndex2/10)
-        var secondIndex4 = Math.floor(secondIndex3/10)
-        var secondPrefix = prefixes4[secondIndex%10]
-        var secondPrefix2 = prefixes2[secondIndex2%10]
-        var secondPrefix3 = prefixes3[secondIndex3%10]
-        var x = "MI"
-        if ((index)%1000 !== 0) x += "-"
-        return secondPrefix + secondPrefix2 + secondPrefix3 + x + prefix + prefix2 + prefix3
-    } else if (3003 <= e <= 6002) {
-        if(index==1000) return "MI";
-        return "MI-" + prefix + prefix2 + prefix3
+    const prefixes = [
+    ['', 'U', 'D', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'O', 'N'],
+    ['', 'Dc', 'Vg', 'Tg', 'Qa', 'Qi', 'Se', 'St', 'Og', 'Nn'],
+    ['', 'Ce', 'Dn', 'Tc', 'Qe', 'Qu', 'Sc', 'Si', 'Oe', 'Ne']]
+    const prefixes2 = ['', 'MI-', 'MC-', 'NA-', 'PC-', 'FM-']
+    e = Math.floor(e/3)-1;
+    let index2 = 0;
+    let prefix = [prefixes[0][e%10]];
+    while (e >= 10) {
+        e = Math.floor(e/10);
+        prefix.push(prefixes[(++index2)%3][e%10])
     }
+    index2 = Math.floor(index2/3)
+    while (prefix.length%3 != 0) prefix.push("");
+    let ret = "";
+    while (index2 >= 0) ret += prefix[index2*3] + prefix[index2*3+1] + prefix[index2*3+2] + prefixes2[index2--];
+    if (ret.endsWith("-")) ret = ret.slice(0,ret.length-1)
+    return ret.replace("UM","M").replace("UNA","NA").replace("UPC","PC").replace("UFM","FM")
 }
 
 
@@ -2172,7 +2162,7 @@ function respecTimeStudies() {
 
 
 function getDimensionBoostPower() {
-    if (player.currentChallenge == "challenge11" || player.currentChallenge == "postc1") return 1;
+    if (player.currentChallenge == "challenge11" || player.currentChallenge == "postc1") return Decimal.fromNumber(1);
     
     var ret = 2
     if (player.infinityUpgrades.includes("resetMult")) ret = 2.5
@@ -2182,7 +2172,7 @@ function getDimensionBoostPower() {
     if (player.achievements.includes("r101")) ret = ret*1.01
     if (player.timestudy.studies.includes(83)) ret = Decimal.pow(1.0001, player.totalTickGained).times(ret);
     
-    return ret
+    return Decimal.fromValue(ret)
 }
 
 
@@ -2190,7 +2180,7 @@ function getDimensionBoostPower() {
 
 
 function softReset(bulk) {
-    if (bulk < 1) bulk = 1
+    //if (bulk < 1) bulk = 1 (fixing issue 184)
     player.resets+=bulk;
     if (bulk >= 750) giveAchievement("Costco sells Dimboosts now");
     player = {
@@ -2231,14 +2221,14 @@ function softReset(bulk) {
         totalTimePlayed: player.totalTimePlayed,
         bestInfinityTime: player.bestInfinityTime,
         thisInfinityTime: player.thisInfinityTime,
-        firstPow: Decimal.pow(getDimensionBoostPower(), player.resets),
-        secondPow: Decimal.pow(getDimensionBoostPower(), player.resets-1),
-        thirdPow: Decimal.pow(getDimensionBoostPower(), player.resets - 2).max(1),
-        fourthPow: Decimal.pow(getDimensionBoostPower(), player.resets - 3).max(1),
-        fifthPow: Decimal.pow(getDimensionBoostPower(), player.resets - 4).max(1),
-        sixthPow: Decimal.pow(getDimensionBoostPower(), player.resets - 5).max(1),
-        seventhPow: Decimal.pow(getDimensionBoostPower(), player.resets - 6).max(1),
-        eightPow: Decimal.pow(getDimensionBoostPower(), player.resets - 7).max(1),
+        firstPow: getDimensionBoostPower().pow(player.resets),
+        secondPow: getDimensionBoostPower().pow(player.resets-1),
+        thirdPow: getDimensionBoostPower().pow(player.resets- 2).max(1),
+        fourthPow: getDimensionBoostPower().pow(player.resets- 3).max(1),
+        fifthPow: getDimensionBoostPower().pow(player.resets- 4).max(1),
+        sixthPow: getDimensionBoostPower().pow(player.resets- 5).max(1),
+        seventhPow: getDimensionBoostPower().pow(player.resets- 6).max(1),
+        eightPow: getDimensionBoostPower().pow(player.resets- 7).max(1),
         resets: player.resets,
         galaxies: player.galaxies,
         tickDecrease: player.tickDecrease,
@@ -4113,14 +4103,14 @@ function galaxyReset() {
         player.eightBought = 1;
         player.resets = 4;
     }
-    player.firstPow = Decimal.pow(getDimensionBoostPower(), player.resets + 1)
-    player.secondPow = Decimal.pow(getDimensionBoostPower(), player.resets)
-    player.thirdPow = Decimal.pow(getDimensionBoostPower(), player.resets - 1).max(1)
-    player.fourthPow = Decimal.pow(getDimensionBoostPower(), player.resets - 2).max(1)
-    player.fifthPow = Decimal.pow(getDimensionBoostPower(), player.resets - 3).max(1)
-    player.sixthPow = Decimal.pow(getDimensionBoostPower(), player.resets - 4).max(1)
-    player.seventhPow = Decimal.pow(getDimensionBoostPower(), player.resets - 5).max(1)
-    player.eightPow = Decimal.pow(getDimensionBoostPower(), player.resets - 6).max(1)
+    player.firstPow = getDimensionBoostPower().pow(player.resets+ 1)
+    player.secondPow = getDimensionBoostPower().pow(player.resets)
+    player.thirdPow = getDimensionBoostPower().pow(player.resets - 1).max(1)
+    player.fourthPow = getDimensionBoostPower().pow(player.resets - 2).max(1)
+    player.fifthPow = getDimensionBoostPower().pow(player.resets - 3).max(1)
+    player.sixthPow = getDimensionBoostPower().pow(player.resets - 4).max(1)
+    player.seventhPow = getDimensionBoostPower().pow(player.resets - 5).max(1)
+    player.eightPow = getDimensionBoostPower().pow(player.resets - 6).max(1)
 
 
     if (player.options.notation == "Emojis") player.spreadingCancer+=1;
@@ -5078,14 +5068,14 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.replicanti.unl && !player.achievements.includes("r95")) player.replicanti.amount = 1
         player.replicanti.galaxies = 0
 
-        player.firstPow = Decimal.pow(getDimensionBoostPower(), player.resets + 1)
-        player.secondPow = Decimal.pow(getDimensionBoostPower(), player.resets)
-        player.thirdPow = Decimal.pow(getDimensionBoostPower(), player.resets - 1).max(1)
-        player.fourthPow = Decimal.pow(getDimensionBoostPower(), player.resets - 2).max(1)
-        player.fifthPow = Decimal.pow(getDimensionBoostPower(), player.resets - 3).max(1)
-        player.sixthPow = Decimal.pow(getDimensionBoostPower(), player.resets - 4).max(1)
-        player.seventhPow = Decimal.pow(getDimensionBoostPower(), player.resets - 5).max(1)
-        player.eightPow = Decimal.pow(getDimensionBoostPower(), player.resets - 6).max(1)
+        player.firstPow = getDimensionBoostPower().pow(player.resets + 1)
+        player.secondPow = getDimensionBoostPower().pow(player.resets)
+        player.thirdPow = getDimensionBoostPower().pow(player.resets - 1).max(1)
+        player.fourthPow = getDimensionBoostPower().pow(player.resets - 2).max(1)
+        player.fifthPow = getDimensionBoostPower().pow(player.resets - 3).max(1)
+        player.sixthPow = getDimensionBoostPower().pow(player.resets - 4).max(1)
+        player.seventhPow = getDimensionBoostPower().pow(player.resets - 5).max(1)
+        player.eightPow = getDimensionBoostPower().pow(player.resets - 6).max(1)
 
 
         if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") document.getElementById("matter").style.display = "block";
@@ -6594,6 +6584,8 @@ function startInterval() {
             document.getElementById("achievementsbtn").style.display = "inline-block";
             if (player.infinitied > 0) {
                 document.getElementById("infinitybtn").style.display = "inline-block";
+                document.getElementById("challengesbtn").style.display = "inline-block";
+            } else if (player.eternityChallUnlocked !== 0) {
                 document.getElementById("challengesbtn").style.display = "inline-block";
             }
 

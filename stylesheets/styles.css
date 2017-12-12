@@ -762,6 +762,11 @@
     animation: idleStudyGlowIn 7s infinite;
 }
 
+.eternitychallengestudy:hover {
+    color: white;
+    background: #490066;
+}
+
 .timestudy:hover {
     color: #DADADA;
     background: #3A0A57;
