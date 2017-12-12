@@ -5898,7 +5898,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
             },
             timestudy: player.timestudy,
             eternityChalls: player.eternityChalls,
-            eternityChallGoal: startgoal.plus(goalIncrease.times(ECTimesCompleted(name))),
+            eternityChallGoal: startgoal.times(goalIncrease.times(ECTimesCompleted(name))),
             currentEternityChall: name,
             eternityChallUnlocked: player.eternityChallUnlocked,
             autoIP: new Decimal(0),
