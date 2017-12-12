@@ -3705,29 +3705,15 @@ function replicantiGalaxy() {
 
 
 function updateMilestones() {
-    player.eternities > 0 ? document.getElementById("reward1").className = "milestonereward" : document.getElementById("reward1").className = "milestonerewardlocked"
-    player.eternities > 1 ? document.getElementById("reward2").className = "milestonereward" : document.getElementById("reward2").className = "milestonerewardlocked"
-    player.eternities > 2 ? document.getElementById("reward3").className = "milestonereward" : document.getElementById("reward3").className = "milestonerewardlocked"
-    player.eternities > 3 ? document.getElementById("reward3.5").className = "milestonereward" : document.getElementById("reward3.5").className = "milestonerewardlocked"
-    player.eternities > 4 ? document.getElementById("reward4").className = "milestonereward" : document.getElementById("reward4").className = "milestonerewardlocked"
-    player.eternities > 6 ? document.getElementById("reward5").className = "milestonereward" : document.getElementById("reward5").className = "milestonerewardlocked"
-    player.eternities > 8 ? document.getElementById("reward6").className = "milestonereward" : document.getElementById("reward6").className = "milestonerewardlocked"
-    player.eternities > 9 ? document.getElementById("reward7").className = "milestonereward" : document.getElementById("reward7").className = "milestonerewardlocked"
-    player.eternities > 10 ? document.getElementById("reward8").className = "milestonereward" : document.getElementById("reward8").className = "milestonerewardlocked"
-    player.eternities > 11 ? document.getElementById("reward9").className = "milestonereward" : document.getElementById("reward9").className = "milestonerewardlocked"
-    player.eternities > 12 ? document.getElementById("reward10").className = "milestonereward" : document.getElementById("reward10").className = "milestonerewardlocked"
-    player.eternities > 13 ? document.getElementById("reward11").className = "milestonereward" : document.getElementById("reward11").className = "milestonerewardlocked"
-    player.eternities > 14 ? document.getElementById("reward12").className = "milestonereward" : document.getElementById("reward12").className = "milestonerewardlocked"
-    player.eternities > 15 ? document.getElementById("reward13").className = "milestonereward" : document.getElementById("reward13").className = "milestonerewardlocked"
-    player.eternities > 16 ? document.getElementById("reward14").className = "milestonereward" : document.getElementById("reward14").className = "milestonerewardlocked"
-    player.eternities > 17 ? document.getElementById("reward15").className = "milestonereward" : document.getElementById("reward15").className = "milestonerewardlocked"
-    player.eternities > 19 ? document.getElementById("reward16").className = "milestonereward" : document.getElementById("reward16").className = "milestonerewardlocked"
-    player.eternities > 24 ? document.getElementById("reward17").className = "milestonereward" : document.getElementById("reward17").className = "milestonerewardlocked"
-    player.eternities >= 40 ? document.getElementById("reward18").className = "milestonereward" : document.getElementById("reward18").className = "milestonerewardlocked"
-    player.eternities >= 50 ? document.getElementById("reward19").className = "milestonereward" : document.getElementById("reward19").className = "milestonerewardlocked"
-    player.eternities >= 60 ? document.getElementById("reward20").className = "milestonereward" : document.getElementById("reward20").className = "milestonerewardlocked"
-    player.eternities >= 80 ? document.getElementById("reward21").className = "milestonereward" : document.getElementById("reward21").className = "milestonerewardlocked"
-    player.eternities >= 100 ? document.getElementById("reward22").className = "milestonereward" : document.getElementById("reward22").className = "milestonerewardlocked"
+    var milestoneRequirements = [1, 2, 3, 4, 5, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 25, 40, 50, 60, 80, 100]
+    for (i=0; i<milestoneRequirements.length; i++) {
+        var name = "reward" + i;
+        if (player.eternities >= milestoneRequirements[i]) {
+            document.getElementById(name).className = "milestonereward"
+        } else {
+            document.getElementById(name).className = "milestonerewardlocked"
+        }
+    }
 }
 
 function replicantiGalaxyAutoToggle() {
