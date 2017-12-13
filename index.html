@@ -201,7 +201,9 @@
                 </table>
                 <table class="table" id="studytable">
                     <tr>
-                        <td style="margin: auto; width: 100%;text-align:center;"><button class="eternitychallengestudy" id="ec1unl">Eternity Challenge 1<span>Requirement: 25,000 Eternities<span>Cost: 10 Time Theorems</button></td>
+                        <td style="margin: auto; width: 33%;text-align:center;"><button class="eternitychallengestudy" id="ec1unl">Eternity Challenge 1<span>Requirement: 25,000 Eternities<span>Cost: 20 Time Theorems</button></td>
+                        <td style="margin: auto; width: 33%;text-align:center;"><button class="eternitychallengestudy" id="ec2unl">Eternity Challenge 2<span>Requirement: 1,300 Time upgrades gained from time dimensions<span>Cost: 25 Time Theorems</button></td>
+                        <td style="margin: auto; width: 33%;text-align:center;"><button class="eternitychallengestudy" id="ec3unl">Eternity Challenge 3<span>Requirement: 30 dicks in your ass<span>Cost: 30 Time Theorems</button></td>
                     </tr>
                 </table>
                 <div>
@@ -384,6 +386,7 @@
                     <td><button class="secondarytabbtn" onclick="showDimTab('antimatterdimensions')">Dimensions</button><td>
                     <td><button class="secondarytabbtn" onclick="showDimTab('infinitydimensions')">Infinity Dimensions</button><td>
                     <td><button id="tdtabbtn"class="secondarytabbtn"  style="display: none" onclick="showDimTab('timedimensions')">Time Dimensions</button><td>
+                    <td><button class="secondarytabbtn" onclick="showDimTab('production')">Production</button><td>
                 </tr>
             </table>
             <div id="antimatterdimensions" class="dimtab">
@@ -703,6 +706,13 @@
                                 </td>
                             </tr>
                         </table>
+            </div>
+            <div id="production" class="dimtab">
+                seconds of history
+                <input type="number" value="10" onchange="updateChartValues()" id="chartDurationInput"></input>
+                update rate (in ms)
+                <input type="number" value="1000" onchange="updateChartValues()" id="chartUpdateRateInput"></input>
+                <canvas id="normalDimChart" width="800" height="500"></canvas>
             </div>
             <div id="progress" ach-tooltip="Percentage until Infinity">
                 <div id="progressbar"></div>
@@ -1482,16 +1492,16 @@
                 </table>
 
             </div>
-            <div id="eternitychallenges" class="challengetab">
+            <div id="eternitychallenges" class="challengeTab">
                 <table  class="table" style="margin: 0 auto">
                     <tr>
                         <td>
                             <div class="eterchallengediv" id="eterc1div" style="height: 140px; display: none">
-                                <span>Time dimensions are disabled.</span>
+                                <span>Time Dimensions are disabled.</span>
                                 <br>
                                 <br>
                                 <div class="outer">
-                                    <button id="eterc1" class="challengesbtn" onclick="startEternityChallenge('eterc1', new Decimal('1e2000'), new Decimal('1e300'))">Start</button>
+                                    <button id="eterc1" class="challengesbtn" onclick="startEternityChallenge('eterc1', new Decimal('1e2300'), new Decimal('1e300'))">Start</button>
                                     <br>
                                     <span id="eterc1completed">Completed 0 Times.</span><br>
                                     <span id="eterc1goal" >Goal: 1e2000 IP</span><br>
@@ -1501,14 +1511,45 @@
                         </td>
                         <td>
                             <div class="eterchallengediv" id="eterc2div" style="height: 140px; display: none">
-                                <span>Automatically sacrifice every 8 ticks once you have 8th Dimension.</span>
+                                <span>Infinity Dimensions are disabled.</span>
                                 <br>
                                 <br>
                                 <div class="outer">
-                                    <button id="eterc2" class="challengesbtn" onclick="startEternityChallenge('eterc2', new Decimal('1e10500'))">Start</button>
+                                    <button id="eterc2" class="challengesbtn" onclick="startEternityChallenge('eterc2', new Decimal('1e1000'), new Decimal('1e150'))">Start</button>
                                     <br>
+                                    <span id="eterc2completed">Completed 0 Times.</span><br>
                                     <span id="eterc2goal" >Goal: 1e10500</span><br>
-                                    <span>Reward: Sacrifice autobuyer and more powerful sacrifice</span>
+                                    <span>Reward: idk lol</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="eterchallengediv" id="eterc3div" style="height: 140px; display: none">
+                                <span>Normal dimensions are disabled, First Infinity Dimension produces antimatter</span>
+                                <br>
+                                <br>
+                                <div class="outer">
+                                    <button id="eterc3" class="challengesbtn" onclick="startEternityChallenge('eterc3', new Decimal('1e1000'), new Decimal('1e150'))">Start</button>
+                                    <br>
+                                    <span id="eterc3completed">Completed 0 Times.</span><br>
+                                    <span id="eterc3goal" >Goal: 1e2000 IP</span><br>
+                                    <span id="ec3reward">Reward: idk lol</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="eterchallengediv" id="eterc4div" style="height: 140px; display: none">
+                                <span>Infinity Dimensions are disabled.</span>
+                                <br>
+                                <br>
+                                <div class="outer">
+                                    <button id="eterc4" class="challengesbtn" onclick="startEternityChallenge('eterc4', new Decimal('1e1000'), new Decimal('1e150'))">Start</button>
+                                    <br>
+                                    <span id="eterc4completed">Completed 0 Times.</span><br>
+                                    <span id="eterc4goal" >Goal: 1e10500</span><br>
+                                    <span>Reward: idk lol</span>
                                 </div>
                             </div>
                         </td>
@@ -2073,10 +2114,75 @@
 <script type="text/javascript" src="javascripts/autobuyer.js"></script>
 <!-- script type="text/javascript" src="javascripts/decimal.js"></script> -->
 <script type="text/javascript" src="javascripts/breakinfinity.js"></script>
+<script type="text/javascript" src="javascripts/chart.js"></script>
 <script type="text/javascript" src="javascripts/game.js?85"></script>
 <script type="text/javascript" src="javascripts/lz-string.js"></script>
 <script type="text/javascript" src="javascripts/sha512.js"></script>
-
+<script>
+        var ctx2 = document.getElementById("normalDimChart").getContext('2d');
+        var normalDimChart = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: [],
+                    data: [],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(0,0,0,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    fill: false,
+                    lineTension: 0.1,
+                    borderWidth: 3,
+                    pointRadius: 0,
+                    pointBorderWidth: 0,
+                    pointHoverRadius: 0
+                }]
+            },
+            options: {
+                tooltips: {enabled: false},
+                hover: {mode: null},
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            max: 1000000,
+                            min: 0
+                        }
+                    }],
+                    xAxes: [{
+                        gridLines: {
+                            display: false,
+                            drawTicks: false
+                        },
+                        ticks: {
+                            fontSize: 0
+                        }
+                    }]
+                },
+                layout: {
+                    padding: {
+                    top: 10
+                    }
+                }
+            }
+        });
+        updateChart();
+        </script>
 
 
 

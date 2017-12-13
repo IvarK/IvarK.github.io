@@ -4,6 +4,8 @@ var auto = false;
 var autoS = true;
 var controlDown = false;
 var secretThemeKey = 0;
+var chartDuration = 10;
+var chartUpdateRate = 1000;
 var player = {
     money: new Decimal(10),
     tickSpeedCost: new Decimal(1000),
@@ -355,6 +357,59 @@ function resizeCanvas() {
     drawStudyTree()
 }
 
+Array.max = function( array ){
+    return Math.max.apply( Math, array );
+};
+
+Array.min = function( array ){
+    return Math.min.apply( Math, array );
+};
+
+function updateChartValues() {
+    chartDuration = parseInt(document.getElementById("chartDurationInput").value);
+    chartUpdateRate = parseInt(document.getElementById("chartUpdateRateInput").value);
+}
+
+function addData(chart, label, data) {
+    if (chart.data.datasets[0].data.length >= chartDuration / chartUpdateRate * 1000) {
+        chart.data.labels.shift();
+        chart.data.datasets[0].data.shift();
+    }
+    if (player.options.notation === "Logarithm") {
+        data = Math.max(data.log(10), 1);
+    } else {
+        data = data.exponent + (data.mantissa / 10);
+    }
+    comp1 = Array.max(chart.data.datasets[0].data);
+    comp2 = Array.min(chart.data.datasets[0].data);
+    if (data > comp1) {
+        chart.options.scales.yAxes[0].ticks.max = data;
+    }
+    if (chart.options.scales.yAxes[0].ticks.min < comp2) {
+        chart.options.scales.yAxes[0].ticks.min = comp2;
+    }
+    if (data < chart.options.scales.yAxes[0].ticks.min) {
+        chart.options.scales.yAxes[0].ticks.min = data;
+    }
+    while (chart.data.datasets[0].data.length < chartDuration / chartUpdateRate * 1000) {
+        chart.data.labels.push(label);
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.push(data);
+        });
+    }
+    while (chart.data.datasets[0].data.length > chartDuration / chartUpdateRate * 1000) {
+        chart.data.labels.pop(label);
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.pop(data);
+        });
+    }
+    chart.data.labels.push(label);
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(data);
+    });
+    chart.update();
+}
+
 function drawTreeBranch(num1, num2) {
     var name1 = parseInt(num1)
     var name2 = parseInt(num2)
@@ -448,6 +503,8 @@ function drawStudyTree() {
     drawTreeBranch("161", "171");
     drawTreeBranch("162", "171");
     drawTreeBranch("171", "ec1unl")
+    drawTreeBranch("171", "ec2unl")
+    drawTreeBranch("171", "ec3unl")
 }
 
 function setTheme(name) {
@@ -1306,6 +1363,7 @@ function hasInfinityMult(tier) {
 
 
 function getDimensionFinalMultiplier(tier) {
+    if (player.currentEternityChall == "eterc3") return new Decimal(0)
     var name = TIER_NAMES[tier];
 
     let multiplier = new Decimal(player[name + 'Pow']);
@@ -1810,7 +1868,7 @@ function DimensionPower(tier) {
 
     if (player.timestudy.studies.includes(92)) mult = mult.times(Decimal.pow(2, 600/Math.max(player.bestEternity, 20)))
     if (player.timestudy.studies.includes(162)) mult = mult.times(1e11)
-
+    if (player.currentEternityChall == "eterc2") mult = mult.times(0)
     return mult
 }
 
@@ -1951,7 +2009,7 @@ function getTimeDimensionPower(tier) {
     if (player.timestudy.studies.includes(151)) ret = ret.times(1e4)
     //if (player.achievements.includes("r103")) ret = ret.times(Decimal.pow(player.totalTickGained,0.02).max(1))
     if (player.achievements.includes("r105")) ret = ret.div(player.tickspeed.div(1000).pow(0.000005))
-    if (ECTimesCompleted("eterc1") !== 0) ret = ret.times(Math.pow(Math.max(player.thisEternity/600, 1), 0.6+(ECTimesCompleted("eterc1")*0.02)))
+    if (ECTimesCompleted("eterc1") !== 0) ret = ret.times(Math.pow(Math.max(player.thisEternity*10, 1), 0.3+(ECTimesCompleted("eterc1")*0.02)))
 
     return ret
 
@@ -1988,7 +2046,7 @@ function getTimeDimensionDescription(tier) {
 
 function updateTimeDimensions() {
     for (let tier = 1; tier <= 4; ++tier) {
-        document.getElementById("timeD"+tier).innerHTML = DISPLAY_NAMES[tier] + " Dimension x" + shortenMoney(getTimeDimensionPower(tier));
+        document.getElementById("timeD"+tier).innerHTML = DISPLAY_NAMES[tier] + " Time Dimension x" + shortenMoney(getTimeDimensionPower(tier));
         document.getElementById("timeAmount"+tier).innerHTML = getTimeDimensionDescription(tier);
     }
 }
@@ -2179,7 +2237,15 @@ function respecTimeStudies() {
     player.timestudy.studies = []
     switch(player.eternityChallUnlocked) {
         case 1:
-        player.timestudy.theorem += 10
+        player.timestudy.theorem += 20
+        break;
+
+        case 2:
+        player.timestudy.theorem += 25
+        break;
+
+        case 3:
+        player.timestudy.theorem += 30
         break;
     }
     player.eternityChallUnlocked = 0
@@ -3664,7 +3730,9 @@ function updateInfCosts() {
 
 
     document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
-    document.getElementById("ec1unl").innerHTML = "Eternity Challenge 1<span>Requirement: "+(ECTimesCompleted("eterc1")+1)*25000+" Eternities<span>Cost: 10 Time Theorems"
+    document.getElementById("ec1unl").innerHTML = "Eternity Challenge 1<span>Requirement: "+(ECTimesCompleted("eterc1")+1)*25000+" Eternities<span>Cost: 15 Time Theorems"
+    document.getElementById("ec2unl").innerHTML = "Eternity Challenge 2<span>Requirement: "+(1300+(ECTimesCompleted("eterc2")*150))+" Tickspeed upgrades gained from time dimensions<span>Cost: 20 Time Theorems"
+    document.getElementById("ec3unl").innerHTML = "Eternity Challenge 3<span>Requirement: "+(30+(ECTimesCompleted("eterc3")*150))+" dicks in your ass<span>Cost: 30 Time Theorems"
 }
 
 
@@ -5720,9 +5788,23 @@ function ECTimesCompleted(name) {
 }
 
 document.getElementById("ec1unl").onclick = function() {
-    if (player.eternities >= 25000+(ECTimesCompleted("eterc1")*25000) && player.timestudy.theorem >= 10 && player.eternityChallUnlocked == 0 && player.timestudy.studies.includes(171)) {
+    if (player.eternities >= 25000+(ECTimesCompleted("eterc1")*25000) && player.timestudy.theorem >= 20 && player.eternityChallUnlocked == 0 && player.timestudy.studies.includes(171)) {
         unlockEChall(1)
-        player.timestudy.theorem -= 10
+        player.timestudy.theorem -= 20
+    }
+}
+
+document.getElementById("ec2unl").onclick = function() {
+    if (player.totalTickGained >= 1300+(ECTimesCompleted("eterc2")*150) && player.timestudy.theorem >= 25 && player.eternityChallUnlocked == 0 && player.timestudy.studies.includes(171)) {
+        unlockEChall(2)
+        player.timestudy.theorem -= 25
+    }
+}
+
+document.getElementById("ec3unl").onclick = function() {
+    if (player.timestudy.theorem >= 30 && player.eternityChallUnlocked == 0 && player.timestudy.studies.includes(171)) {
+        unlockEChall(3)
+        player.timestudy.theorem -= 30
     }
 }
 
@@ -5980,6 +6062,12 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
         playerInfinityUpgradesOnEternity()
         document.getElementById("eternityPoints2").innerHTML = "You have <span class=\"EPAmount2\">"+shortenDimensions(player.eternityPoints)+"</span> Eternity points."
         updateEternityChallenges()
+
+        if (player.currentEternityChall == "eterc3") {
+            player.money = new Decimal("1e1101")
+            newDimension()
+            buyManyInfinityDimension(1)
+        }
     }
 }
 
@@ -6208,8 +6296,14 @@ setInterval(function() {
         while (player.infinityPoints.gte(player.replicanti.galCost)) upgradeReplicantiGalaxy()
     }
 
-    document.getElementById("eterc1goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2000").times(new Decimal("1e300").times(ECTimesCompleted("eterc1"))))
+    document.getElementById("eterc1goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2300").times(new Decimal("1e300").times(ECTimesCompleted("eterc1"))).max(new Decimal("1e2300"))) + " IP"
     document.getElementById("eterc1completed").innerHTML = "Completed "+ECTimesCompleted("eterc1")+" times."
+
+    document.getElementById("eterc2goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e1000").times(new Decimal("1e150").times(ECTimesCompleted("eterc2"))).max(new Decimal("1e1000"))) + " IP"
+    document.getElementById("eterc2completed").innerHTML = "Completed "+ECTimesCompleted("eterc2")+" times."
+
+    document.getElementById("eterc3goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e1000").times(new Decimal("1e100").times(ECTimesCompleted("eterc3"))).max(new Decimal("1e1000"))) + " IP"
+    document.getElementById("eterc3completed").innerHTML = "Completed "+ECTimesCompleted("eterc3")+" times."
     
 
 }, 1000)
@@ -6328,7 +6422,8 @@ function startInterval() {
         if (player.money.gte("9.9999e9999")) giveAchievement("This achievement doesn't exist")
         if (player.money.gte("1e35000")) giveAchievement("I got a few to spare")
 
-        player.infinityPower = player.infinityPower.plus(DimensionProduction(1).times(diff/10))
+        if (player.currentEternityChall !== "eterc3") player.infinityPower = player.infinityPower.plus(DimensionProduction(1).times(diff/10))
+        else player.money = player.money.plus(DimensionProduction(1).times(diff/10))
 
         if (player.infinityPower.gt(1)) giveAchievement("A new beginning.");
         if (player.infinityPower.gt(1e6)) giveAchievement("1 million is a lot"); //TBD
@@ -6697,7 +6792,7 @@ function startInterval() {
             document.getElementById("challengesbtn").style.display = "inline-block";
         }
 
-        document.getElementById("ec1reward").innerHTML = "Reward: "+shortenMoney(Math.pow(Math.max(player.thisEternity/600, 1), 0.6+(ECTimesCompleted("eterc1")*0.02)))+"x on all Time Dimensions (based on time spent this Eternity)"
+        document.getElementById("ec1reward").innerHTML = "Reward: "+shortenMoney(Math.pow(Math.max(player.thisEternity*10, 1), 0.3+(ECTimesCompleted("eterc1")*0.02)))+"x on all Time Dimensions (based on time spent this Eternity)"
 
         var scale1 = [2.82e-45,1e-42,7.23e-30,5e-21,9e-17,6.2e-11,5e-8,3.555e-6,7.5e-4,1,2.5e3,2.6006e6,3.3e8,5e12,4.5e17,1.08e21,1.53e24,1.41e27,5e32,8e36,1.7e45,1.7e48,3.3e55,3.3e61,5e68,1e73,3.4e80,1e113,Number.MAX_VALUE];
         var scale2 = [" protons."," nucleuses."," Hydrogen atoms."," viruses."," red blood cells."," grains of sand."," grains of rice."," teaspoons."," wine bottles."," fridge-freezers."," Olympic-sized swimming pools."," Great Pyramids of Giza."," Great Walls of China."," large asteroids.",
@@ -6770,6 +6865,10 @@ function startInterval() {
     }, 50);
 }
 
+function updateChart() {
+    addData(normalDimChart, "0", getDimensionProductionPerSecond(1));
+    setTimeout(updateChart, chartUpdateRate);
+}
 
 function dimBoolean() {
     var name = TIER_NAMES[getShiftRequirement(0).tier]
