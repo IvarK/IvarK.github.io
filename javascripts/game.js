@@ -366,8 +366,13 @@ Array.min = function( array ){
 };
 
 function updateChartValues() {
-    chartDuration = parseInt(document.getElementById("chartDurationInput").value);
-    chartUpdateRate = parseInt(document.getElementById("chartUpdateRateInput").value);
+    chartDuration = Math.min(Math.max(parseInt(document.getElementById("chartDurationInput").value), 1), 3600);
+    document.getElementById("chartDurationInput").value = chartDuration;
+    chartUpdateRate = Math.min(Math.max(parseInt(document.getElementById("chartUpdateRateInput").value), 50), 10000);
+    document.getElementById("chartUpdateRateInput").value = chartUpdateRate;
+    if (Number.isInteger(chartUpdateRate) === false) {
+        chartUpdateRate = 1000
+    }
 }
 
 function addData(chart, label, data) {
