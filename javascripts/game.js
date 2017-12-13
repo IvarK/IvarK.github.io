@@ -4,6 +4,8 @@ var auto = false;
 var autoS = true;
 var controlDown = false;
 var secretThemeKey = 0;
+var chartDuration = 10;
+var chartUpdateRate = 1000;
 var player = {
     money: new Decimal(10),
     tickSpeedCost: new Decimal(1000),
@@ -353,6 +355,59 @@ function resizeCanvas() {
     canvas.width = document.body.scrollWidth;
     canvas.height = document.body.scrollHeight;
     drawStudyTree()
+}
+
+Array.max = function( array ){
+    return Math.max.apply( Math, array );
+};
+
+Array.min = function( array ){
+    return Math.min.apply( Math, array );
+};
+
+function updateChartValues() {
+    chartDuration = parseInt(document.getElementById("chartDurationInput").value);
+    chartUpdateRate = parseInt(document.getElementById("chartUpdateRateInput").value);
+}
+
+function addData(chart, label, data) {
+    if (chart.data.datasets[0].data.length >= chartDuration / chartUpdateRate * 1000) {
+        chart.data.labels.shift();
+        chart.data.datasets[0].data.shift();
+    }
+    if (player.options.notation === "Logarithm") {
+        data = Math.max(data.log(10), 1);
+    } else {
+        data = data.exponent + (data.mantissa / 10);
+    }
+    comp1 = Array.max(chart.data.datasets[0].data);
+    comp2 = Array.min(chart.data.datasets[0].data);
+    if (data > comp1) {
+        chart.options.scales.yAxes[0].ticks.max = data;
+    }
+    if (chart.options.scales.yAxes[0].ticks.min < comp2) {
+        chart.options.scales.yAxes[0].ticks.min = comp2;
+    }
+    if (data < chart.options.scales.yAxes[0].ticks.min) {
+        chart.options.scales.yAxes[0].ticks.min = data;
+    }
+    while (chart.data.datasets[0].data.length < chartDuration / chartUpdateRate * 1000) {
+        chart.data.labels.push(label);
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.push(data);
+        });
+    }
+    while (chart.data.datasets[0].data.length > chartDuration / chartUpdateRate * 1000) {
+        chart.data.labels.pop(label);
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.pop(data);
+        });
+    }
+    chart.data.labels.push(label);
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(data);
+    });
+    chart.update();
 }
 
 function drawTreeBranch(num1, num2) {
@@ -6813,6 +6868,10 @@ function startInterval() {
     }, 50);
 }
 
+function updateChart() {
+    addData(normalDimChart, "0", getDimensionProductionPerSecond(1));
+    setTimeout(updateChart, chartUpdateRate);
+}
 
 function dimBoolean() {
     var name = TIER_NAMES[getShiftRequirement(0).tier]
