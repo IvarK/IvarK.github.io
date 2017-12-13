@@ -1653,7 +1653,7 @@ function updateTickSpeed() {
         document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + player.tickspeed.times(new Decimal(100).dividedBy(Decimal.pow(10, exp))).toFixed(0) + ' / ' + shorten(new Decimal(100).dividedBy(Decimal.pow(10, exp)));
     }
     if (player.tickspeed.lt(1e-26)) giveAchievement("Faster than a potato");
-    if (player.tickspeed.lt(1e-52)) giveAchievement("Faster than a squared potato");
+    if (player.tickspeed.lt(1e-55)) giveAchievement("Faster than a squared potato");
 
     /*	else if (player.tickspeed > 10) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Decimal.round(player.tickspeed*10)  + ' / 10';
     	else if (player.tickspeed > 1) document.getElementById("tickSpeedAmount").innerHTML = 'Tickspeed: ' + Decimal.round(player.tickspeed*100) + ' / 100';
@@ -4301,18 +4301,34 @@ function setAchieveTooltip() {
     var sanic = document.getElementById("Supersanic")
     var forgotAchieve = document.getElementById("I forgot to nerf that")
     var potato = document.getElementById("Faster than a potato")
+    let potato2 = document.getElementById("Faster than a squared potato")
     var dimensional = document.getElementById("Multidimensional")
     var IPBelongs = document.getElementById("All your IP are belong to us")
     var reference = document.getElementById("Yet another infinity reference")
+    let blink = document.getElementById("Blink of an eye")
+    let exist = document.getElementById("This achievement doesn't exist")
+    let exist2 = document.getElementById("I got a few to spare")
+    let speed = document.getElementById("Ludicrous Speed")
+    let speed2 = document.getElementById("I brake for nobody")
+    let overdrive = document.getElementById("MAXIMUM OVERDRIVE")
+    let minute = document.getElementById("Minute of infinity")
 
     apocAchieve.setAttribute('ach-tooltip', "Get over " + formatValue(player.options.notation, 1e80, 0, 0) + " antimatter");
     noPointAchieve.setAttribute('ach-tooltip', "Buy a single First Dimension when you have over " + formatValue(player.options.notation, 1e150, 0, 0) + " of them. Reward: First Dimensions are 10% stronger");
     forgotAchieve.setAttribute('ach-tooltip', "Get any Dimension multiplier over " + formatValue(player.options.notation, 1e31, 0, 0)) + ". Reward: First Dimensions are 5% stronger";
     sanic.setAttribute('ach-tooltip', "Have antimatter/sec exceed your current antimatter above " + formatValue(player.options.notation, 1e63, 0, 0));
-    potato.setAttribute('ach-tooltip', "Get more than " + formatValue(player.options.notation, 1e26, 0, 0) + " ticks per second. Reward: Reduces starting tick interval by 2%");
+    potato.setAttribute('ach-tooltip', "Get more than " + formatValue(player.options.notation, 1e29, 0, 0) + " ticks per second. Reward: Reduces starting tick interval by 2%");
+    potato2.setAttribute('ach-tooltip', "Get more than " + formatValue(player.options.notation, 1e58, 0, 0) + " ticks per second. Reward: Reduces starting tick interval by 2%");    
     dimensional.setAttribute('ach-tooltip', "Reach " + formatValue(player.options.notation, 1e12, 0, 0) + " of all dimensions except 8th");
     IPBelongs.setAttribute('ach-tooltip', "Big Crunch for "+shortenCosts(1e150)+" IP. Reward: Additional 4x multiplier to IP")
     reference.setAttribute('ach-tooltip', "Get a x"+shortenDimensions(Number.MAX_VALUE)+" multiplier in a single sacrifice. Reward: Sacrifices are stronger.")
+    blink.setAttribute('ach-tooltip', "Get to Infinity in under 200 milliseconds. Reward: Start with " + formatValue(player.options.notation, 1e25, 0, 0) + " antimatter and all dimensions are stronger in first 300ms of infinity");
+    //exist.setAttribute('ach-tooltip', "Reach " + formatValue(player.options.notation, 9.9999e9999, 0, 0) + " antimatter. Reward: Dimensions are more powerful the more unspent antimatter you have."); (i like the 9 9s thing and no one will see it with a formatted value)
+    //exist2.setAttribute('ach-tooltip', "Reach " + formatValue(player.options.notation, 1e35000, 0, 0) + " antimatter. Reward: Dimensions are more powerful the more unspent antimatter you have.")
+    speed.setAttribute('ach-tooltip', "Big Crunch for "+shortenCosts(1e200)+" IP in 2 seconds or less. Reward: All dimensions are significantly stronger in first 5 seconds of infinity.")
+    speed.setAttribute('ach-tooltip', "Big Crunch for "+shortenCosts(1e250)+" IP in 20 seconds or less. Reward: All dimensions are significantly stronger in first 60 seconds of infinity.")
+    overdrive.setAttribute('ach-tooltip', "Reach " + shortenCosts(1e300) + " IP/min. Reward: Additional 4x multiplier to IP.")
+    minute.setAttribute('ach-tooltip', "Reach " + shortenCosts(1e260) + " infinity power. Reward: Double infinity power gain.")
 }
 
 document.getElementById("notation").onclick = function () {
@@ -4381,13 +4397,13 @@ function resetDimensions() {
 function calcSacrificeBoost() {
     if (player.firstAmount == 0) return new Decimal(1);
     if (player.challenges.includes("postc2")) {
-        if (player.achievements.includes("r88")) return player.firstAmount.pow(0.011).dividedBy(player.sacrificed.pow(0.011).max(1)).max(1)
-        return player.firstAmount.pow(0.01).dividedBy(player.sacrificed.pow(0.01).max(1)).max(1)
+        if (player.achievements.includes("r88")) return player.firstAmount.dividedBy(player.sacrificed.max(1)).pow(0.011).max(1)
+        return player.firstAmount.dividedBy(player.sacrificed.max(1)).pow(0.01).max(1)
     }
     if (player.currentChallenge != "challenge11") {
         var sacrificePow=2;
         if (player.achievements.includes("r32")) sacrificePow += 0.2;
-        if (player.achievements.includes("r57")) sacrificePow += 0.3;
+        if (player.achievements.includes("r57")) sacrificePow += 0.2; //this upgrade was too OP lol
         return Decimal.pow((player.firstAmount.e/10.0), sacrificePow).dividedBy(((Decimal.max(player.sacrificed.e, 1)).dividedBy(10.0)).pow(sacrificePow).max(1)).max(1);
     } else {
         return player.firstAmount.pow(0.05).dividedBy(player.sacrificed.pow(0.04).max(1)).max(1);
@@ -4403,10 +4419,10 @@ function calcTotalSacrificeBoost() {
     if (player.currentChallenge != "challenge11") {
         var sacrificePow=2;
         if (player.achievements.includes("r32")) sacrificePow += 0.2;
-        if (player.achievements.includes("r57")) sacrificePow += 0.3;
+        if (player.achievements.includes("r57")) sacrificePow += 0.2;
         return Decimal.pow((player.sacrificed.e/10.0), sacrificePow);
     } else {
-        return player.sacrificed.pow(0.05)
+        return player.sacrificed.pow(0.05) //this is actually off but like im not sure how youd make it good. not that it matters.
     }
 }
 
@@ -4681,27 +4697,45 @@ function priorityOrder() {
 function fromValue(value) {
   if (value.includes(" ")) {
     let FormatList = [' K',' M',' B']
-    for (var i=0;i<3;i++) {
+    for (let i=0;i<3;i++) {
         if (value.includes(FormatList[i])) return Decimal.fromMantissaExponent(parseFloat(value), i*3+3)
         //return parseFloat(value) + "e" + (i*3+3)
     }
-    const prefixes = [['', 'U', 'D', 'T', 'd', 't', 'x', 'p', 'O', 'N'],
+    const prefixes = [['', 'U', 'D', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'O', 'N'],
     ['', 'Dc', 'Vg', 'Tg', 'Qa', 'Qi', 'Se', 'St', 'Og', 'Nn'],
     ['', 'Ce', 'Dn', 'Tc', 'Qe', 'Qu', 'Sc', 'Si', 'Oe', 'Ne']]
+    const prefixes2 = ['', 'MI', 'MC', 'NA', 'PC', 'FM', ' ']
     let e = 0;
-    let m = value;
-    if (m.includes("MI")) {
-        m=m.split("MI")[1];
-        if (value.replace(parseFloat(value).toString(),"")[1] == "M") e += 1000;
-    }
-    for (let j=0;j<6;j++) {
-        for (i=1;i<10;i++) {
-            if (m.includes(prefixes[j%3][i])) break;
+    let m,k,l;
+    for (let i=1;i<5;i++) {
+        if (value.includes(prefixes2[i])) {
+            m = value.split(prefixes2[i])[1]
+            for (k=0;k<3;k++) {
+                for (l=1;l<10;l++) {
+                    if (m.includes(prefixes[k][l])) break;
+                }   
+                if (l != 10) e += Math.pow(10,k)*l;
+            }
+            break;
         }
-        if (i != 10) e += Math.pow(10,j)*i;
-        if (j==2) {
-            if (!value.includes("MI")) break;
-            m = value.split("MI")[0];
+    }
+    for (let i=1;i<=5;i++) {
+        if (value.includes(prefixes2[i])) {
+            for (let j=1;j+i<6;j++) {
+                if (value.includes(prefixes2[i+j])) {
+                    m=value.split(prefixes2[i+j])[1].split(prefixes2[i])[0]
+                    if (m == "") e += Math.pow(1000,i);
+                    else {
+                        for (k=0;k<3;k++) {
+                            for (l=1;l<10;l++) {
+                                if (m.includes(prefixes[k][l])) break;
+                            }   
+                            if (l != 10) e += Math.pow(10,k+i*3)*l;
+                        }
+                    }
+                    break;
+                }
+            }
         }
     }
     return Decimal.fromMantissaExponent(parseFloat(value), i*3+3)
@@ -4719,7 +4753,7 @@ function fromValue(value) {
     return Decimal.fromMantissaExponent(parseFloat(value), e*3)
     //return parseFloat(value) + "e" + (e*3)
   }
-  if (value.includes("e")) return Decimal.fromMantissaExponent(parseFloat(value.split("e")[0]),parseInt(value.split("e")[1]));
+  if (value[0]='e') return Decimal.fromMantissaExponent(Math.pow(10,parseFloat(value)%1),parseInt(value))
   return Decimal.fromString(value)
 }
 
