@@ -1363,7 +1363,7 @@ function hasInfinityMult(tier) {
 
 
 function getDimensionFinalMultiplier(tier) {
-    if (player.currentEternityChall == "eterc3") return new Decimal(0)
+    if (player.currentEternityChall == "eterc3" && tier > 4) return new Decimal(0)
     var name = TIER_NAMES[tier];
 
     let multiplier = new Decimal(player[name + 'Pow']);
@@ -1868,7 +1868,7 @@ function DimensionPower(tier) {
 
     if (player.timestudy.studies.includes(92)) mult = mult.times(Decimal.pow(2, 600/Math.max(player.bestEternity, 20)))
     if (player.timestudy.studies.includes(162)) mult = mult.times(1e11)
-    if (ECTimesCompleted("eterc2") !== 0) mult = mult.times(player.infinityPower.pow(1/(80 - ECTimesCompleted("eterc2")*10)))
+    //if (ECTimesCompleted("eterc2") !== 0 && tier == 1) mult = mult.times(player.infinityPower.pow(1/(50-ECTimesCompleted("eterc2")*0.1)).plus(1))
     if (player.currentEternityChall == "eterc2") mult = mult.times(0)
     return mult
 }
@@ -6171,7 +6171,7 @@ setInterval(function() {
 
 setInterval(function() {
     updateDimensions()
-}, 50)
+}, 100)
 
 var nextAt = [new Decimal("1e2000"), new Decimal("1e5000"), new Decimal("1e12000"), new Decimal("1e14000"), new Decimal("1e18000"), new Decimal("1e20000"), new Decimal("1e23000"), new Decimal("1e28000")]
 
@@ -6423,7 +6423,6 @@ function startInterval() {
         if (player.money.gte("9.9999e9999")) giveAchievement("This achievement doesn't exist")
         if (player.money.gte("1e35000")) giveAchievement("I got a few to spare")
 
-        if (player.currentEternityChall == "eterc3") player.money = player.money.plus(DimensionProduction(1).times(diff/10))
         player.infinityPower = player.infinityPower.plus(DimensionProduction(1).times(diff/10))
         
 
@@ -6795,7 +6794,7 @@ function startInterval() {
         }
 
         document.getElementById("ec1reward").innerHTML = "Reward: "+shortenMoney(Math.pow(Math.max(player.thisEternity*10, 1), 0.3+(ECTimesCompleted("eterc1")*0.02)))+"x on all Time Dimensions (based on time spent this Eternity)"
-        document.getElementById("ec2reward").innerHTML = "Reward: Infinity power affects Infinity Dimensions with reduced effect, Currently: "+shortenMoney(player.infinityPower.pow(1/(80 - ECTimesCompleted("eterc2")*10)))+"x"
+        document.getElementById("ec2reward").innerHTML = "Reward: Infinity power affects Infinity Dimensions with reduced effect, Currently: "+shortenMoney(player.infinityPower.pow(1/(800 - ECTimesCompleted("eterc2")*100)))+"x"
 
         var scale1 = [2.82e-45,1e-42,7.23e-30,5e-21,9e-17,6.2e-11,5e-8,3.555e-6,7.5e-4,1,2.5e3,2.6006e6,3.3e8,5e12,4.5e17,1.08e21,1.53e24,1.41e27,5e32,8e36,1.7e45,1.7e48,3.3e55,3.3e61,5e68,1e73,3.4e80,1e113,Number.MAX_VALUE];
         var scale2 = [" protons."," nucleuses."," Hydrogen atoms."," viruses."," red blood cells."," grains of sand."," grains of rice."," teaspoons."," wine bottles."," fridge-freezers."," Olympic-sized swimming pools."," Great Pyramids of Giza."," Great Walls of China."," large asteroids.",
@@ -7811,7 +7810,8 @@ setInterval( function() {
     achievementMult = Math.max(Math.pow((player.achievements.length-30), 3)/40,1)
     challengeMult = Decimal.max(10*3000/worstChallengeTime, 1)
     unspentBonus = player.infinityPoints.dividedBy(2).pow(1.5).plus(1)
-    mult18 = getDimensionFinalMultiplier(1).times(getDimensionFinalMultiplier(8)).pow(0.02)
+    if (player.currentEternityChall == "eterc3") mult18 = getDimensionFinalMultiplier(1).pow(0.02)
+    else mult18 = getDimensionFinalMultiplier(1).times(getDimensionFinalMultiplier(8)).pow(0.02)
 }, 500)
 
 
