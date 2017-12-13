@@ -386,6 +386,7 @@
                     <td><button class="secondarytabbtn" onclick="showDimTab('antimatterdimensions')">Dimensions</button><td>
                     <td><button class="secondarytabbtn" onclick="showDimTab('infinitydimensions')">Infinity Dimensions</button><td>
                     <td><button id="tdtabbtn"class="secondarytabbtn"  style="display: none" onclick="showDimTab('timedimensions')">Time Dimensions</button><td>
+                    <td><button class="secondarytabbtn" onclick="showDimTab('production')">Production</button><td>
                 </tr>
             </table>
             <div id="antimatterdimensions" class="dimtab">
@@ -705,6 +706,13 @@
                                 </td>
                             </tr>
                         </table>
+            </div>
+            <div id="production" class="dimtab">
+                seconds of history
+                <input type="number" value="10" onchange="updateChartValues()" id="chartDurationInput"></input>
+                update rate (in ms)
+                <input type="number" value="1000" onchange="updateChartValues()" id="chartUpdateRateInput"></input>
+                <canvas id="normalDimChart" width="800" height="500"></canvas>
             </div>
             <div id="progress" ach-tooltip="Percentage until Infinity">
                 <div id="progressbar"></div>
@@ -2106,10 +2114,75 @@
 <script type="text/javascript" src="javascripts/autobuyer.js"></script>
 <!-- script type="text/javascript" src="javascripts/decimal.js"></script> -->
 <script type="text/javascript" src="javascripts/breakinfinity.js"></script>
+<script type="text/javascript" src="javascripts/chart.js"></script>
 <script type="text/javascript" src="javascripts/game.js?85"></script>
 <script type="text/javascript" src="javascripts/lz-string.js"></script>
 <script type="text/javascript" src="javascripts/sha512.js"></script>
-
+<script>
+        var ctx2 = document.getElementById("normalDimChart").getContext('2d');
+        var normalDimChart = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: [],
+                    data: [],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(0,0,0,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    fill: false,
+                    lineTension: 0.1,
+                    borderWidth: 3,
+                    pointRadius: 0,
+                    pointBorderWidth: 0,
+                    pointHoverRadius: 0
+                }]
+            },
+            options: {
+                tooltips: {enabled: false},
+                hover: {mode: null},
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            max: 1000000,
+                            min: 0
+                        }
+                    }],
+                    xAxes: [{
+                        gridLines: {
+                            display: false,
+                            drawTicks: false
+                        },
+                        ticks: {
+                            fontSize: 0
+                        }
+                    }]
+                },
+                layout: {
+                    padding: {
+                    top: 10
+                    }
+                }
+            }
+        });
+        updateChart();
+        </script>
 
 
 
