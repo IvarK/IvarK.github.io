@@ -818,7 +818,7 @@
     background: #0080ff !important;
 }
 
-.timestudylocked {
+.timestudylocked, .eternitychallengestudylocked {
     color: #181818;
     background: #5F5F5F;
     font-weight: bold;
@@ -833,7 +833,7 @@
     margin:7px;
 }
 
-.timestudylocked:hover {
+.timestudylocked:hover, .eternitychallengestudylocked:hover {
     color: #1D1D1D;
     background: #660000;
 }
@@ -844,6 +844,21 @@
     font-weight: bold;
     font-family: Typewriter;
     border: 1px solid #691fa5;
+    width: 170px;
+    height: 80px;
+    transition-duration: 0.2s;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    vertical-align: top;
+    margin:7px;
+}
+
+.eternitychallengestudybought {
+    color: black;
+    background: #490066;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 1px solid black;
     width: 170px;
     height: 80px;
     transition-duration: 0.2s;
