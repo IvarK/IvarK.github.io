@@ -366,8 +366,13 @@ Array.min = function( array ){
 };
 
 function updateChartValues() {
-    chartDuration = parseInt(document.getElementById("chartDurationInput").value);
-    chartUpdateRate = parseInt(document.getElementById("chartUpdateRateInput").value);
+    chartDuration = Math.min(Math.max(parseInt(document.getElementById("chartDurationInput").value), 1), 600);
+    document.getElementById("chartDurationInput").value = chartDuration;
+    chartUpdateRate = Math.min(Math.max(parseInt(document.getElementById("chartUpdateRateInput").value), 50), 10000);
+    document.getElementById("chartUpdateRateInput").value = chartUpdateRate;
+    if (Number.isInteger(chartUpdateRate) === false) {
+        chartUpdateRate = 1000
+    }
 }
 
 function addData(chart, label, data) {
@@ -3721,7 +3726,7 @@ function updateInfCosts() {
     document.getElementById("replicantichance").className = (player.infinityPoints.gte(player.replicanti.chanceCost) && player.replicanti.chance < 1) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantiinterval").className = (player.infinityPoints.gte(player.replicanti.intervalCost) && ((player.replicanti.interval !== 50) || player.timestudy.studies.includes(22)) && (player.replicanti.interval !== 1)) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantimax").className = (player.infinityPoints.gte(player.replicanti.galCost)) ? "storebtn" : "unavailablebtn"
-    document.getElementById("replicantireset").className = (player.replicanti.galaxies < player.replicanti.gal && player.replicanti.amount == Number.MAX_VALUE) ? "storebtn" : "unavailablebtn"
+    document.getElementById("replicantireset").className = ((player.replicanti.galaxies < player.replicanti.gal && player.replicanti.amount == Number.MAX_VALUE) || (player.replicanti.galaxies < Math.floor(player.replicanti.gal * 1.5) && player.replicanti.amount == Number.MAX_VALUE && player.timestudy.studies.includes(131))) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantiunlock").className = (player.infinityPoints.gte(1e140)) ? "storebtn" : "unavailablebtn"
 
     document.getElementById("142").innerHTML = "You gain "+shortenCosts(1e25)+"x more IP<span>Cost: 4 Time Theorems"
