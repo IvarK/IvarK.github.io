@@ -366,7 +366,7 @@ Array.min = function( array ){
 };
 
 function updateChartValues() {
-    chartDuration = Math.min(Math.max(parseInt(document.getElementById("chartDurationInput").value), 1), 3600);
+    chartDuration = Math.min(Math.max(parseInt(document.getElementById("chartDurationInput").value), 1), 600);
     document.getElementById("chartDurationInput").value = chartDuration;
     chartUpdateRate = Math.min(Math.max(parseInt(document.getElementById("chartUpdateRateInput").value), 50), 10000);
     document.getElementById("chartUpdateRateInput").value = chartUpdateRate;
