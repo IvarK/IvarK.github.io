@@ -6399,8 +6399,8 @@ function startInterval() {
     
             while (player.timeShards.gte(player.tickThreshold)) {
                 player.tickspeed = player.tickspeed.times(getTickSpeedMultiplier())
-                if (player.timestudy.studies.includes(171)) player.tickThreshold = player.tickThreshold.times(1.25)
-                else player.tickThreshold = player.tickThreshold.times(1.33)
+                if (player.timestudy.studies.includes(171)) player.tickThreshold = new Decimal(1).times(1.25).pow(player.totalTickGained)
+                else player.tickThreshold = new Decimal(1).times(1.33).pow(player.totalTickGained)
                 player.totalTickGained++;
                 if (player.totalTickGained >= 308) giveAchievement("Infinite time");
                 document.getElementById("totaltickgained").innerHTML = "You've gained "+shortenDimensions(player.totalTickGained)+" tickspeed upgrades."
