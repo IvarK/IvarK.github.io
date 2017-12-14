@@ -1112,92 +1112,41 @@ var letterList2 = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', '
 var emojiList1 = ['', '😠', '🎂', '🎄', '💀', '🍆', '👪', '🌈', '💯', '🍦', '🎃', '💋', '😂', '🌙', '⛔', '🐙', '💩', '❓', '☢️', '🙈', '👍', '☂️', '✌️', '⚠️', '❌', '😋', '⚡'];
 var emojiList2 = ['😠', '🎂', '🎄', '💀', '🍆', '👪', '🌈', '💯', '🍦', '🎃', '💋', '😂', '🌙', '⛔', '🐙', '💩', '❓', '☢️', '🙈', '👍', '☂️', '✌️', '⚠️', '❌', '😋', '⚡'];
 
-function letter(power) {
-    var letterList = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-    var len = letterList.length; //26
-   
-    function letterNumber(n) {
-        var result = 1;
-        for (var i = 0; i < n; ++i) {
-            result = len*(result)+1;
-        }
+function letter(power,b) {
+    function lN(n) {
+        let result = 1;
+        for (var j = 0; j < n; ++j) result = 26*result+1;
         return result;
     }
-
     if (power <= 5) return 'a';
-    var power_modified = Math.floor(power / 3);
-    if (power_modified < letterNumber(1))
-    {
-        return letterList[power_modified-1];
-    }
-    else if (power_modified < letterNumber(2))
-    {
-        power_modified = power_modified - letterNumber(1);
-        return letterList[Math.floor(power_modified / len)] + letterList[power_modified % len];
-    }
-    else if (power_modified < letterNumber(3))
-    {
-        power_modified = power_modified - letterNumber(2);
-        return letterList[Math.floor(power_modified / (len*len))] + letterList[Math.floor(power_modified / len) % len] + letterList[power_modified % len];
-    }
-    else if (power_modified < letterNumber(4))
-    {
-        power_modified = power_modified - letterNumber(3);
-        return letterList[Math.floor(power_modified / (len*len*len))] + letterList[Math.floor(power_modified / (len*len)) % len] + letterList[Math.floor(power_modified / len) % len] + letterList[power_modified % len];
-    }
-    else if (power_modified < letterNumber(5))
-    {
-        power_modified = power_modified - letterNumber(4);
-        return letterList[Math.floor(power_modified / (len*len*len*len))] + letterList[Math.floor(power_modified / (len*len*len)) % len] + letterList[Math.floor(power_modified / (len*len)) % len] + letterList[Math.floor(power_modified / len) % len] + letterList[power_modified % len];
-    }
-    //continue adding cases as needed
+    power = Math.floor(power / 3);
+    let i=0;
+    while (power >= lN(++i));
+    const l="abcdefghijklmnopqrstuvwxyz"
+    if (i==1) return l[power-1];
+    power -= lN(i-1);
+    let ret = '';
+    while (i>0) ret += l[Math.floor(power/Math.pow(26,--i))%26]
+    return ret;
 }
 
 function cancer(power) {
-    var letterList = ['😠', '🎂', '🎄', '💀', '🍆', '👪', '🌈', '💯', '🍦', '🎃', '💋', '😂', '🌙', '⛔', '🐙', '💩', '❓', '☢️', '🙈', '👍', '☂️', '✌️', '⚠️', '❌', '😋', '⚡'];
-    var len = letterList.length; //26
-   
-    function letterNumber(n) {
-        var result = 1;
-        for (var i = 0; i < n; ++i) {
-            result = len*(result)+1;
-        }
+    var l = ['😠', '🎂', '🎄', '💀', '🍆', '👪', '🌈', '💯', '🍦', '🎃', '💋', '😂', '🌙', '⛔', '🐙', '💩', '❓', '☢️', '🙈', '👍', '☂️', '✌️', '⚠️', '❌', '😋', '⚡'];
+    function lN(n) {
+        let result = 1;
+        for (var j = 0; j < n; ++j) result = 26*result+1;
         return result;
     }
-
     if (power <= 5) return '😠';
-    var power_modified = Math.floor(power / 3);
-    if (power_modified < letterNumber(1))
-    {
-        return letterList[power_modified-1];
-    }
-    else if (power_modified < letterNumber(2))
-    {
-        power_modified = power_modified - letterNumber(1);
-        return letterList[Math.floor(power_modified / len)] + letterList[power_modified % len];
-    }
-    else if (power_modified < letterNumber(3))
-    {
-        power_modified = power_modified - letterNumber(2);
-        return letterList[Math.floor(power_modified / (len*len))] + letterList[Math.floor(power_modified / len) % len] + letterList[power_modified % len];
-    }
-    else if (power_modified < letterNumber(4))
-    {
-        power_modified = power_modified - letterNumber(3);
-        return letterList[Math.floor(power_modified / (len*len*len))] + letterList[Math.floor(power_modified / (len*len)) % len] + letterList[Math.floor(power_modified / len) % len] + letterList[power_modified % len];
-    }
-    else if (power_modified < letterNumber(5))
-    {
-        power_modified = power_modified - letterNumber(4);
-        return letterList[Math.floor(power_modified / (len*len*len*len))] + letterList[Math.floor(power_modified / (len*len*len)) % len] + letterList[Math.floor(power_modified / (len*len)) % len] + letterList[Math.floor(power_modified / len) % len] + letterList[power_modified % len];
-    }
+    power = Math.floor(power / 3);
+    let i=0;
+    while (power >= lN(++i));
+    if (i==1) return l[power-1];
+    power -= lN(i-1);
+    let ret = '';
+    while (i>0) ret += l[Math.floor(power/Math.pow(26,--i))%26]
+    return ret;
 }
-
-function isDecimal(value) {
-    return value instanceof Decimal
-}
-
-
 
 function getAbbreviation(e) {
     const prefixes = [
@@ -1225,7 +1174,7 @@ function getAbbreviation(e) {
 function formatValue(notation, value, places, placesUnder1000) {
 
     if ((value <= Number.MAX_VALUE || (player.break && (player.currentChallenge == "" || !new Decimal(Number.MAX_VALUE).equals(player.challengeTarget)) )) && (value >= 1000)) {
-        if (isDecimal(value)) {
+        if (value instanceof Decimal) {
            var power = value.e
            var temp = value.toExponential(4).split("e")
            var matissa = parseFloat(temp[0])
@@ -2203,12 +2152,9 @@ function getDimensionBoostPower() {
     return Decimal.fromValue(ret)
 }
 
-
-
-
-
 function softReset(bulk) {
     //if (bulk < 1) bulk = 1 (fixing issue 184)
+    if (!player.break && player.money.gt(Number.MAX_VALUE)) return;
     player.resets+=bulk;
     if (bulk >= 750) giveAchievement("Costco sells Dimboosts now");
     player = {
@@ -2779,7 +2725,7 @@ function getDimensionCostMultiplier(tier) {
 }
 
 function onBuyDimension(tier) {
-    if (player.achievements.length < 20) {
+    if (!player.break) {
         switch (tier) {
             case 1: giveAchievement("You gotta start somewhere"); break;
             case 2: giveAchievement("100 antimatter is a lot"); break;
@@ -2792,7 +2738,7 @@ function onBuyDimension(tier) {
         }
     }
 
-    if (player.eightAmount.round() == 99) {
+    if (player.eightAmount.round().eq(99)) {
         giveAchievement("The 9th Dimension is a lie");
     }
 
@@ -2805,6 +2751,7 @@ function onBuyDimension(tier) {
 function buyOneDimension(tier) {
     var name = TIER_NAMES[tier];
     var cost = player[name + 'Cost'];
+    if (!player.break && player.money.gt(Number.MAX_VALUE)) return false;
     auto = false;
 
     if (player.currentChallenge != "challenge10" && player.currentChallenge != "postc1") {
@@ -2861,6 +2808,8 @@ function buyOneDimension(tier) {
 function buyManyDimension(tier) {
     var name = TIER_NAMES[tier];
     var cost = player[name + 'Cost'].times(10 - player[name + 'Bought']);
+    if (!player.break && player.money.gt(Number.MAX_VALUE)) return false;
+    
     auto = false;
 
     if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") && player.matter.equals(0)) player.matter = new Decimal(1);
@@ -3246,59 +3195,12 @@ document.getElementById("maxall").onclick = function () {
             player[name + "Cost"] = player[name + "Cost"].times(player.costMultipliers[tier-1])
             player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
         }
-
-
-
-
-
-
-
-        /*
-            // this part is if cost is less than 1e308
-            if (player[name+"Cost"].times(10).lt(Number.MAX_VALUE)) {
-                var toBuy = Math.ceil((Math.min(308.1, player.money.e-player[name+"Cost"].e) - player[name+"Cost"].e+1) / getDimensionCostMultiplier(tier).e)
-                if (bulk < toBuy) toBuy = bulk
-                player[name+"Amount"] = player[name+"Amount"].plus(10*toBuy)
-                player[name + "Pow"] = player[name + "Pow"].times(Decimal.pow(getDimensionPowerMultiplier(tier), toBuy))
-                player[name + "Cost"] = player[name + "Cost"].times(Decimal.pow(getDimensionCostMultiplier(tier), toBuy-1))
-                player.money = player.money.minus(player[name + "Cost"].times(10))
-                player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
-                if (toBuy > 0 && player.currentChallenge == "challenge8") clearDimensions(tier-1)
-            }
-
-            // quadratic formula
-            var a = Math.log10(Math.sqrt(player.dimensionMultDecrease))
-            var b = player.costMultipliers[tier-1].dividedBy(Math.sqrt(player.dimensionMultDecrease)).log10()
-            var c = player[name + "Cost"].dividedBy(player.money).log10()
-            var discriminant = Math.pow(b, 2) - (c *a* 4)
-            if (discriminant < 0) return false
-            var buying = Math.floor((Math.sqrt(Math.pow(b, 2) - (c *a *4))-b)/(2 * a))
-            if (buying <= 0) return false
-            //console.log("buying = "+buying)
-            if (bulk < buying) buying = bulk
-            //console.log("CM = "+player.costMultipliers[tier-1].toString() + " Clog = "+player[name + "Cost"].log10())
-            var costAfter = Decimal.pow(10, (new Decimal(player.costMultipliers[tier-1].log10()).times(buying).plus((Math.log10(player.dimensionMultDecrease) * (buying) * (buying) + buying)/2).minus(player[name + "Cost"].log10())))
-            if (costAfter < 1) return false
-            //console.log("costafter = "+costAfter.toString())
-            player[name + "Cost"] = costAfter
-            player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(Decimal.pow(player.dimensionMultDecrease, buying))
-            //console.log("Player money "+player.money.toString()+" minus "+ costAfter.toString())
-            if (buying !== 0) player.money = player.money.minus(player[name + "Cost"].times(10))
-            player[name+"Amount"] = player[name+"Amount"].plus(10*buying)
-            player[name + "Pow"] = player[name + "Pow"].times(Decimal.pow(getDimensionPowerMultiplier(tier), buying))
-            if (buying > 0 && player.currentChallenge == "challenge8") clearDimensions(tier-1)
-
-            buyManyDimension(tier)
-            */
-                
-            
-
-
         }
         if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") && player.matter.equals(0)) player.matter = new Decimal(1);
         if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0;
         if (player.currentChallenge == "postc1") clearDimensions(tier-1);
         player.postC4Tier = tier;
+        onBuyDimension(tier)
     }
 }
 
@@ -3963,7 +3865,7 @@ document.getElementById("toggleBtnTickSpeed").onclick = function () {
 
 
 document.getElementById("secondSoftReset").onclick = function() {
-    var bool = player.currentChallenge != "challenge11" && player.currentChallenge != "postc1" && player.currentChallenge != "postc7"
+    var bool = player.currentChallenge != "challenge11" && player.currentChallenge != "postc1" && player.currentChallenge != "postc7" && (player.break || player.money.lte(Number.MAX_VALUE))
     if (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() && bool : player.eightAmount >= getGalaxyRequirement() && bool) {
         galaxyReset()
     }
@@ -4758,6 +4660,7 @@ function fromValue(value) {
 }
 
 function updatePriorities() {
+    auto = false;
     for (var x=0 ; x < autoBuyerArray().length; x++) {
         if (x < 9) autoBuyerArray()[x].priority = parseInt(document.getElementById("priority" + (x+1)).value)
     }
@@ -4990,7 +4893,7 @@ document.getElementById("bigcrunch").onclick = function () {
           if (gainedInfinityPoints().dividedBy(player.thisInfinityTime).gt(player.autoIP)) player.autoIP = gainedInfinityPoints().dividedBy(player.thisInfinityTime);
           if (player.thisInfinityTime<player.autoTime) player.autoTime = player.thisInfinityTime;
         }
-        auto = !autoS; //only allow autoing if prev crunch was autoed
+        auto = autoS; //only allow autoing if prev crunch was autoed
         autoS = true;
         player = {
         money: new Decimal(10),
@@ -7055,8 +6958,8 @@ var newsArray = [//always true
 ["How many times can we use \"Anti\" in a row before people stop listening?", player.newsArray.length >= 100, "n5"],
 ["Need more quotes! -hevipelle", player.newsArray.length >= 130, "n2"], 
 ["You're almost there!", player.newsArray.length >= 155, "n11"],
-["You can stop now", player.newsArray.length >= 160, "n9"],
-["fucking hacker", player.newsArray.length >= 165, "n10"],
+["You can stop now", player.newsArray.length >= 162, "n9"],
+["fucking hacker", player.newsArray.length >= 170, "n10"],
 ["Asian man trys to steal the trophy of fastest infinty of -1 seconds, AND HE DOES IT!", player.newsArray.includes("c1"), "n4"],
 ["I broke the 8th wall, there is only chaos, Slabdrill is ritually sacrificing antimatter to the 9th dimension. This will be my last entry, may Hevipelle have mercy on our souls, we didn't listen, We should have listened.", player.newsArray.includes("b17"), "n6"],
 ["I thought the update was 5 hours away... -new players after more than 5 hours of gameplay", player.newsArray.includes("a91") && player.totalTimePlayed >= 600*300, "n7"],
@@ -7064,13 +6967,15 @@ var newsArray = [//always true
 //hard
 ["You do know that you won't reach Infinity in -1 seconds, right?", player.bestInfinityTime == 0.1, "c1"],
 ["Where does Antimatter Nemo live? In a NNnNeMI-NNnNe.", player.totalmoney.e >= 3e6, "c2"],  //might not be poss?
-["Emoji Movie MMMCMXCIX is a major hit!", player.spreadingCancer >= 1e6, "c3"],
+["Anti Emoji Movie MMMCMXCIX is a major hit!", player.spreadingCancer >= 3999, "c3"],
 ["Achievement Unlocked!", player.achievements.length == 80, "c4"],
 ["Did you use an autoclicker for that?", player.timestudy.studies.includes(131) && player.thisInfinityTime <= 600 && player.replicanti.galaxies >= 50, "c5"],
 ["Timing is key.", player.thisEternity < 1, "c6"],
-["If you want to farm infinitied, why don't you just get the time study?", player.timestudy.studies.includes(32) && player.infinitied > 72000 * 168, "c7"],
+["If you want to farm infinitied, why don't you just get the time study?", !player.timestudy.studies.includes(32) && player.infinitied > 72000 * 168, "c7"],
 ["The achievement is for two million, not two billion...", player.infinitied > 2e9, "c8"],
 ["Keep up the quick pace!", Marathon > 1200, "c9"],
+["One day you will stop your incessant grind.", player.eternities > 50000, "c10"],
+["Are you serious?", worstChallengeTime <= 0.1, "c11"]
 //luck
 ["This news message is 100x rarer than all the others.", Math.random() < 0.01, "l1"],
 ["You just won a small prize in the lottery.", Math.random() < 1e-4, "l2"],
