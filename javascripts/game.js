@@ -4,8 +4,6 @@ var auto = false;
 var autoS = true;
 var controlDown = false;
 var secretThemeKey = 0;
-var chartDuration = 10;
-var chartUpdateRate = 1000;
 var player = {
     money: new Decimal(10),
     tickSpeedCost: new Decimal(1000),
@@ -366,22 +364,26 @@ Array.min = function( array ){
 };
 
 function updateChartValues() {
-    chartDuration = Math.min(Math.max(parseInt(document.getElementById("chartDurationInput").value), 1), 600);
-    document.getElementById("chartDurationInput").value = chartDuration;
-    chartUpdateRate = Math.min(Math.max(parseInt(document.getElementById("chartUpdateRateInput").value), 50), 10000);
-    document.getElementById("chartUpdateRateInput").value = chartUpdateRate;
-    if (Number.isInteger(chartUpdateRate) === false) {
-        chartUpdateRate = 1000
+    player.options.chart.duration = Math.min(Math.max(parseInt(document.getElementById("chartDurationInput").value), 1), 300);
+    document.getElementById("chartDurationInput").value = player.options.chart.duration;
+    player.options.chart.updateRate = Math.min(Math.max(parseInt(document.getElementById("chartUpdateRateInput").value), 50), 10000);
+    document.getElementById("chartUpdateRateInput").value = player.options.chart.updateRate;
+    if (Number.isInteger(player.options.chart.updateRate) === false) {
+        player.options.chart.updateRate = 1000
+    }
+    if (player.options.chart.updateRate <= 200 && player.options.chart.duration >= 30 && player.options.chart.warning === 0) {
+        alert("Warning: setting the duration and update rate too high can cause performance issues.")
+        player.options.chart.warning = 1;
     }
 }
 
 function addData(chart, label, data) {
-    if (chart.data.datasets[0].data.length >= chartDuration / chartUpdateRate * 1000) {
+    if (chart.data.datasets[0].data.length >= player.options.chart.duration / player.options.chart.updateRate * 1000) {
         chart.data.labels.shift();
         chart.data.datasets[0].data.shift();
     }
     if (player.options.notation === "Logarithm") {
-        data = Math.max(data.log(10), 1);
+        data = Math.max(data.log(10), 0.1);
     } else {
         data = data.exponent + (data.mantissa / 10);
     }
@@ -396,13 +398,13 @@ function addData(chart, label, data) {
     if (data < chart.options.scales.yAxes[0].ticks.min) {
         chart.options.scales.yAxes[0].ticks.min = data;
     }
-    while (chart.data.datasets[0].data.length < chartDuration / chartUpdateRate * 1000) {
+    while (chart.data.datasets[0].data.length < player.options.chart.duration / player.options.chart.updateRate * 1000) {
         chart.data.labels.push(label);
         chart.data.datasets.forEach((dataset) => {
             dataset.data.push(data);
         });
     }
-    while (chart.data.datasets[0].data.length > chartDuration / chartUpdateRate * 1000) {
+    while (chart.data.datasets[0].data.length > player.options.chart.duration / player.options.chart.updateRate * 1000) {
         chart.data.labels.pop(label);
         chart.data.datasets.forEach((dataset) => {
             dataset.data.pop(data);
@@ -641,6 +643,11 @@ function onLoad() {
     if (player.eternityChallGoal === undefined) player.eternityChallGoal = new Decimal(Number.MAX_VALUE)
     if (player.currentEternityChall === undefined) player.currentEternityChall = ""
     if (player.eternityChallUnlocked === undefined) player.eternityChallUnlocked = 0
+    if (player.options.chart === undefined) player.options.chart = {}
+    if (player.options.chart.updateRate === undefined) player.options.chart.updateRate = 1000
+    if (player.options.chart.duration === undefined) player.options.chart.updateRate = 10
+    if (player.options.chart.warning === undefined) player.options.chart.warning = 0
+    updateChartValues();
     setTheme(player.options.theme);
 
     if (player.secondAmount !== 0) {
@@ -4327,6 +4334,7 @@ document.getElementById("reset").onclick = function () {
         document.getElementById("sixthRow").style.display = "none";
         document.getElementById("seventhRow").style.display = "none";
         document.getElementById("eightRow").style.display = "none";
+        showDimTab('antimatterdimensions')
         updateTickSpeed();
         updateDimensions();
         updateChallenges();
@@ -6452,12 +6460,18 @@ function startInterval() {
                 if (player.infDimensionsUnlocked[tier-1]) {
                     document.getElementById("infRow"+tier).style.display = "inline-block"
                     document.getElementById("dimTabButtons").style.display = "inline-block"
+                    document.getElementById("idtabbtn").style.display = "inline-block"
                 }
                 else document.getElementById("infRow"+tier).style.display = "none"
     
                 if (tier <4) player["timeDimension"+tier].amount = player["timeDimension"+tier].amount.plus(getTimeDimensionProduction(tier+1).times(diff/100))
             }
-    
+
+            if (player.infinitied > 0 && player.eternities < 1) {
+                document.getElementById("dimTabButtons").style.display = "inline-block"
+                document.getElementById("dtabbtn").style.display = "inline-block"
+                document.getElementById("prodtabbtn").style.display = "inline-block"
+            }
             if (player.eternities > 0) document.getElementById("dimTabButtons").style.display = "inline-block"
     
     
@@ -6911,7 +6925,7 @@ function startInterval() {
 
 function updateChart() {
     addData(normalDimChart, "0", getDimensionProductionPerSecond(1));
-    setTimeout(updateChart, chartUpdateRate);
+    setTimeout(updateChart, player.options.chart.updateRate);
 }
 
 function dimBoolean() {

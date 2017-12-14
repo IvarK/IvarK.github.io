@@ -1007,6 +1007,10 @@
     font-size: 20px;
 }
 
+#production {
+    font-size: 12px;
+}
+
 @keyframes glow {
     20% { text-shadow: 0 0 10px green; }
     100% { text-shadow: 0 0 10px white; }
