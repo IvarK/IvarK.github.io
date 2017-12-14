@@ -1458,9 +1458,12 @@ function updateDimensions() {
 
     if (canBuyTickSpeed()) {
         var tickmult = getTickSpeedMultiplier()
-        var places = 0
-        if (tickmult < 0.2) places = Math.floor(Math.log10(Math.round(1/tickmult)))
-        document.getElementById("tickLabel").innerHTML = 'Reduce the tick interval by ' + ((1 - tickmult) * 100).toFixed(places) + '%.';
+        if (tickmult < 1e-9) document.getElementById("tickLabel").innerHTML = "Divide the tick interval by " + 1 / tickmult.toFixed(0) + '.'
+        else {
+            var places = 0
+            if (tickmult < 0.2) places = Math.floor(Math.log10(Math.round(1/tickmult)))
+            document.getElementById("tickLabel").innerHTML = 'Reduce the tick interval by ' + ((1 - tickmult) * 100).toFixed(places) + '%.';
+        }
 
         document.getElementById("tickSpeed").style.visibility = "visible";
         document.getElementById("tickSpeedMax").style.visibility = "visible";
