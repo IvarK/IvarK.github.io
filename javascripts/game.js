@@ -1668,7 +1668,7 @@ function updateCosts() {
 
     for (var i=1; i<=4; i++) {
 
-        document.getElementById("timeMax"+i).innerHTML = "Cost: " + shortenCosts(player["timeDimension"+i].cost) + " EP"
+        document.getElementById("timeMax"+i).innerHTML = "Cost: " + shortenDimensions(player["timeDimension"+i].cost) + " EP"
     }
 }
 
