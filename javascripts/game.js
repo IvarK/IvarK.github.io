@@ -6978,7 +6978,7 @@ var newsArray = [//always true
 ["The achievement is for two million, not two billion...", player.infinitied > 2e9, "c8"],
 ["Keep up the quick pace!", Marathon > 1200, "c9"],
 ["One day you will stop your incessant grind.", player.eternities > 50000, "c10"],
-["Are you serious?", worstChallengeTime <= 0.1, "c11"]
+["Are you serious?", worstChallengeTime <= 0.1, "c11"],
 //luck
 ["This news message is 100x rarer than all the others.", Math.random() < 0.01, "l1"],
 ["You just won a small prize in the lottery.", Math.random() < 1e-4, "l2"],
