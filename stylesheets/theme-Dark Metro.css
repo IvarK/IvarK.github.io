@@ -33,6 +33,11 @@ body {
     background-color: #455A64;
 }
 
+input {
+    background-color: #455A64 !important;
+    border: 1px solid black !important;
+}
+
 .tabbtn {
     color: #E0E0E0 !important;
     background: #455A64 !important;
