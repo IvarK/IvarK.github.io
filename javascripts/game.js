@@ -3758,7 +3758,7 @@ function toggleCrunchMode() {
     } else if (player.autoCrunchMode == "time"){
         player.autoCrunchMode = "relative"
         document.getElementById("togglecrunchmode").innerHTML = "Auto crunch mode: X times last crunch"
-        document.getElementById("limittext").innerHTML = "X times since last crunch:"
+        document.getElementById("limittext").innerHTML = "X times last crunch:"
     } else {
         player.autoCrunchMode = "amount"
         document.getElementById("togglecrunchmode").innerHTML = "Auto crunch mode: amount"
