@@ -2770,17 +2770,10 @@ function canBuyDimension(tier) {
         else return true
     }
 
-    if (tier > player.resets + 4) {
-        return false;
-    }
-
-    if (tier > 1 && player[TIER_NAMES[tier - 1] + 'Amount'] == 0) {
-        return false;
-    }
-
-    if (player.currentChallenge == "challenge4" || player.currentChallenge == "postc1") {
-        if (tier == 7 || tier == 8) return false
-    }
+    if (!player.break && player.money.gt(Number.MAX_VALUE)) return false;
+    if (tier > player.resets + 4) return false;
+    if (tier > 1 && player[TIER_NAMES[tier - 1] + 'Amount'] == 0 && player.eternities < 30) return false;
+    if ((player.currentChallenge == "challenge4" || player.currentChallenge == "postc1") && tier >= 7) return false
 
     return true;
 }
@@ -2898,7 +2891,6 @@ function buyOneDimension(tier) {
 function buyManyDimension(tier) {
     var name = TIER_NAMES[tier];
     var cost = player[name + 'Cost'].times(10 - player[name + 'Bought']);
-    if (!player.break && player.money.gt(Number.MAX_VALUE)) return false;
     
     auto = false;
 
@@ -2952,6 +2944,8 @@ function buyManyDimensionAutobuyer(tier, bulk) {
 
         var name = TIER_NAMES[tier];
         var cost = player[name + 'Cost'].times(10 - player[name + 'Bought'])
+        if (!player.break && player.money.gt(Number.MAX_VALUE)) return false;
+        
         if (tier >= 3 && (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1")) {
             if (!canBuyDimension(tier)) return false
             if (player[TIER_NAMES[tier-2] + 'Amount'].lt(cost)) return false
@@ -3718,7 +3712,7 @@ function replicantiGalaxy() {
 
 
 function updateMilestones() {
-    var milestoneRequirements = [1, 2, 3, 4, 5, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 25, 40, 50, 60, 80, 100]
+    var milestoneRequirements = [1, 2, 3, 4, 5, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 25, 30, 40, 50, 60, 80, 100]
     for (i=0; i<milestoneRequirements.length; i++) {
         var name = "reward" + i;
         if (player.eternities >= milestoneRequirements[i]) {
@@ -7003,9 +6997,10 @@ function chall7cheat() {
 
 
 
+let newsArray;
 
-
-var newsArray = [//always true
+function updateNewsArray() {
+newsArray = [//always true
 ["The cookie is a lie.", true, "a1"], ["Antimatter cookies have been confirmed to not exist, whoever claims that, stop.", true, "a4"], ["Antimatter ghosts do not exist. Just like matter ghosts. They don't have any matter, for that matter.", true, "a2"],
 ["Nuclear power plants have been abandoned in favor of antimatter power.", true, "a3"], 
 ["Antimatter prices have drastically dropped due to newfound abundance.", true, "a5"], ["In the news today, humans make a antimatter animal sacrifice to the antimatter god.", true, "a6"], ["You made one antimatter! Whatever that means.", true, "a7"],
@@ -7124,13 +7119,14 @@ var newsArray = [//always true
 ["Whale is bad at making smart purchases.", kongIPMult > 500 && kongDimMult < 5e307, "s4"],
 ["Whale complains that the game broke.", kongDimMult > 5e307, "s5"],
 ["Whale complains that their buying isn't doing anything.", kongIPMult > 1.8e16, "s6"]
-];
+];}
 
 var s = document.getElementById('news');
 document.addEventListener("visibilitychange", function() {if (!document.hidden) {scrollNextMessage();}}, false);
 var scrollTimeouts = [];
 
 function scrollNextMessage() {
+  updateNewsArray();
   //select a message at random
   let index;
   do {index = Math.floor(Math.random() * newsArray.length)} while (!newsArray[index][1])
