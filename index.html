@@ -712,7 +712,7 @@
                 <input type="number" value="10" onchange="updateChartValues()" id="chartDurationInput"></input>
                 <b>update rate (in ms):</b>
                 <input type="number" value="1000" onchange="updateChartValues()" id="chartUpdateRateInput"></input>
-                <canvas id="normalDimChart" width="800" height="500"></canvas>
+                <canvas id="normalDimChart" width="1500" height="500"></canvas>
             </div>
             <div id="progress" ach-tooltip="Percentage until Infinity">
                 <div id="progressbar"></div>
@@ -2125,23 +2125,13 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: [],
+                    label: ['Exponents of antimatter per second'],
                     data: [],
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
+                        'rgba(0,0,0,1)'
                     ],
                     borderColor: [
-                        'rgba(0,0,0,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
+                        'rgba(0,0,0,1)'
                     ],
                     fill: false,
                     lineTension: 0.1,
@@ -2155,7 +2145,10 @@
                 tooltips: {enabled: false},
                 hover: {mode: null},
                 legend: {
-                    display: false
+                    position: 'bottom',
+                    labels: {
+                        boxWidth: 0
+                    }
                 },
                 scales: {
                     yAxes: [{
