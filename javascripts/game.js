@@ -756,14 +756,14 @@ function onLoad() {
     }
     if (player.autobuyers[8].tier == 10) player.autobuyers[8].tier = 9
 
-    if (player.thirdAmount !== 0) document.getElementById("fourthRow").style.display = "table-row";
-    if (player.fourthAmount !== 0)
+    if (player.thirdAmount !== 0 || player.eternities >= 30) document.getElementById("fourthRow").style.display = "table-row";
+    if (player.fourthAmount !== 0|| player.eternities >= 30)
     if (player.resets > 0) document.getElementById("fifthRow").style.display = "table-row";
-    if (player.fifthAmount !== 0)
+    if (player.fifthAmount !== 0|| player.eternities >= 30)
     if (player.resets > 1) document.getElementById("sixthRow").style.display = "table-row";
-    if (player.sixthAmount !== 0)
+    if (player.sixthAmount !== 0|| player.eternities >= 30)
     if (player.resets > 2 && player.currentChallenge !== "challenge4" && player.currentChallenge !== "postc1") document.getElementById("seventhRow").style.display = "table-row";
-    if (player.seventhAmount !== 0)
+    if (player.seventhAmount !== 0|| player.eternities >= 30)
     if (player.resets > 3 && player.currentChallenge !== "challenge4") document.getElementById("eightRow").style.display = "table-row";
 
     document.getElementById("totaltickgained").innerHTML = "You've gained "+shortenDimensions(player.totalTickGained)+" tickspeed upgrades."
@@ -2405,17 +2405,19 @@ function softReset(bulk) {
 
     clearInterval(player.interval);
     //updateInterval();
-    document.getElementById("secondRow").style.display = "none";
-    document.getElementById("thirdRow").style.display = "none";
-    document.getElementById("tickSpeed").style.visibility = "hidden";
-    document.getElementById("tickSpeedMax").style.visibility = "hidden";
-    document.getElementById("tickLabel").style.visibility = "hidden";
-    document.getElementById("tickSpeedAmount").style.visibility = "hidden";
-    document.getElementById("fourthRow").style.display = "none";
-    document.getElementById("fifthRow").style.display = "none";
-    document.getElementById("sixthRow").style.display = "none";
-    document.getElementById("seventhRow").style.display = "none";
-    document.getElementById("eightRow").style.display = "none";
+    if (player.eternities < 30) {
+        document.getElementById("secondRow").style.display = "none";
+        document.getElementById("thirdRow").style.display = "none";
+        document.getElementById("tickSpeed").style.visibility = "hidden";
+        document.getElementById("tickSpeedMax").style.visibility = "hidden";
+        document.getElementById("tickLabel").style.visibility = "hidden";
+        document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+        document.getElementById("fourthRow").style.display = "none";
+        document.getElementById("fifthRow").style.display = "none";
+        document.getElementById("sixthRow").style.display = "none";
+        document.getElementById("seventhRow").style.display = "none";
+        document.getElementById("eightRow").style.display = "none";
+    }
 
 
     player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
@@ -4126,17 +4128,20 @@ function galaxyReset() {
     if (player.achievements.includes("r83")) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
     clearInterval(player.interval);
     //updateInterval();
-    document.getElementById("secondRow").style.display = "none";
-    document.getElementById("thirdRow").style.display = "none";
-    document.getElementById("tickSpeed").style.visibility = "hidden";
-    document.getElementById("tickSpeedMax").style.visibility = "hidden";
-    document.getElementById("tickLabel").style.visibility = "hidden";
-    document.getElementById("tickSpeedAmount").style.visibility = "hidden";
-    document.getElementById("fourthRow").style.display = "none";
-    document.getElementById("fifthRow").style.display = "none";
-    document.getElementById("sixthRow").style.display = "none";
-    document.getElementById("seventhRow").style.display = "none";
-    document.getElementById("eightRow").style.display = "none";
+
+    if (player.eternities < 30) {
+        document.getElementById("secondRow").style.display = "none";
+        document.getElementById("thirdRow").style.display = "none";
+        document.getElementById("tickSpeed").style.visibility = "hidden";
+        document.getElementById("tickSpeedMax").style.visibility = "hidden";
+        document.getElementById("tickLabel").style.visibility = "hidden";
+        document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+        document.getElementById("fourthRow").style.display = "none";
+        document.getElementById("fifthRow").style.display = "none";
+        document.getElementById("sixthRow").style.display = "none";
+        document.getElementById("seventhRow").style.display = "none";
+        document.getElementById("eightRow").style.display = "none";
+    }
 
     if (player.galaxies >= 50) giveAchievement("YOU CAN GET 50 GALAXIES!??")
     if (player.galaxies >= 2) giveAchievement("Double Galaxy");
@@ -5144,17 +5149,19 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.achievements.includes("r83")) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
         clearInterval(player.interval);
         //updateInterval();
-        document.getElementById("secondRow").style.display = "none";
-        document.getElementById("thirdRow").style.display = "none";
-        document.getElementById("tickSpeed").style.visibility = "hidden";
-        document.getElementById("tickSpeedMax").style.visibility = "hidden";
-        document.getElementById("tickLabel").style.visibility = "hidden";
-        document.getElementById("tickSpeedAmount").style.visibility = "hidden";
-        document.getElementById("fourthRow").style.display = "none";
-        document.getElementById("fifthRow").style.display = "none";
-        document.getElementById("sixthRow").style.display = "none";
-        document.getElementById("seventhRow").style.display = "none";
-        document.getElementById("eightRow").style.display = "none";
+        if (player.eternities < 30) {
+            document.getElementById("secondRow").style.display = "none";
+            document.getElementById("thirdRow").style.display = "none";
+            document.getElementById("tickSpeed").style.visibility = "hidden";
+            document.getElementById("tickSpeedMax").style.visibility = "hidden";
+            document.getElementById("tickLabel").style.visibility = "hidden";
+            document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+            document.getElementById("fourthRow").style.display = "none";
+            document.getElementById("fifthRow").style.display = "none";
+            document.getElementById("sixthRow").style.display = "none";
+            document.getElementById("seventhRow").style.display = "none";
+            document.getElementById("eightRow").style.display = "none";
+        }
         document.getElementById("matter").style.display = "none";
         document.getElementById("quickReset").style.display = "none";
 
@@ -5441,13 +5448,15 @@ function eternity() {
         if (player.achievements.includes("r45")) player.tickspeed = player.tickspeed.times(0.98);
         clearInterval(player.interval);
         //updateInterval();
-        document.getElementById("secondRow").style.display = "none";
-        document.getElementById("thirdRow").style.display = "none";
-        document.getElementById("tickSpeed").style.visibility = "hidden";
-        document.getElementById("tickSpeedMax").style.visibility = "hidden";
-        document.getElementById("tickLabel").style.visibility = "hidden";
-        document.getElementById("tickSpeedAmount").style.visibility = "hidden";
-        document.getElementById("fourthRow").style.display = "none";
+        if (player.eternities <= 30) {
+            document.getElementById("secondRow").style.display = "none";
+            document.getElementById("thirdRow").style.display = "none";
+            document.getElementById("tickSpeed").style.visibility = "hidden";
+            document.getElementById("tickSpeedMax").style.visibility = "hidden";
+            document.getElementById("tickLabel").style.visibility = "hidden";
+            document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+            document.getElementById("fourthRow").style.display = "none";
+        }
         document.getElementById("fifthRow").style.display = "none";
         document.getElementById("sixthRow").style.display = "none";
         document.getElementById("seventhRow").style.display = "none";
@@ -5672,13 +5681,15 @@ function startChallenge(name, target) {
     if (player.achievements.includes("r83")) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
     clearInterval(player.interval);
     //updateInterval();
-    document.getElementById("secondRow").style.display= "none";
-    document.getElementById("thirdRow").style.display= "none";
-    document.getElementById("tickSpeed").style.visibility = "hidden";
-    document.getElementById("tickSpeedMax").style.visibility = "hidden";
-    document.getElementById("tickLabel").style.visibility = "hidden";
-    document.getElementById("tickSpeedAmount").style.visibility = "hidden";
-    document.getElementById("fourthRow").style.display= "none";
+    if (player.eternities < 30) {
+        document.getElementById("secondRow").style.display = "none";
+        document.getElementById("thirdRow").style.display = "none";
+        document.getElementById("tickSpeed").style.visibility = "hidden";
+        document.getElementById("tickSpeedMax").style.visibility = "hidden";
+        document.getElementById("tickLabel").style.visibility = "hidden";
+        document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+        document.getElementById("fourthRow").style.display = "none";
+    }
     document.getElementById("fifthRow").style.display= "none";
     document.getElementById("sixthRow").style.display= "none";
     document.getElementById("seventhRow").style.display= "none";
@@ -5953,13 +5964,15 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
         if (player.achievements.includes("r36")) player.tickspeed = player.tickspeed.times(0.98);
         if (player.achievements.includes("r45")) player.tickspeed = player.tickspeed.times(0.98);
         clearInterval(player.interval);
-        document.getElementById("secondRow").style.display = "none";
-        document.getElementById("thirdRow").style.display = "none";
-        document.getElementById("tickSpeed").style.visibility = "hidden";
-        document.getElementById("tickSpeedMax").style.visibility = "hidden";
-        document.getElementById("tickLabel").style.visibility = "hidden";
-        document.getElementById("tickSpeedAmount").style.visibility = "hidden";
-        document.getElementById("fourthRow").style.display = "none";
+        if (player.eternities < 30) {
+            document.getElementById("secondRow").style.display = "none";
+            document.getElementById("thirdRow").style.display = "none";
+            document.getElementById("tickSpeed").style.visibility = "hidden";
+            document.getElementById("tickSpeedMax").style.visibility = "hidden";
+            document.getElementById("tickLabel").style.visibility = "hidden";
+            document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+            document.getElementById("fourthRow").style.display = "none";
+        }
         document.getElementById("fifthRow").style.display = "none";
         document.getElementById("sixthRow").style.display = "none";
         document.getElementById("seventhRow").style.display = "none";
