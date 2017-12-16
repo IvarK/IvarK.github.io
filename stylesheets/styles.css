@@ -880,8 +880,10 @@
     cursor: pointer;
     border-radius: 4px;
     font-size: 0.85rem;
-    vertical-align: top;
-    margin: 7px;
+    position: fixed;
+    left: 50%;
+    bottom: 5px;
+    z-index: 1;
 }
 
 .timetheorembtn:hover {
@@ -900,12 +902,36 @@
     transition-duration: 0.2s;
     border-radius: 4px;
     font-size: 0.85rem;
-    vertical-align: top;
-    margin: 7px;
+    position: fixed;
+    left: 50%;
+    bottom: 5px;
+    z-index: 1;
 }
 
 .timetheorembtnlocked:hover {
     background: #652F2F;
+}
+
+#timetheorems {
+    color: black;
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    margin-left: -114px;
+}
+
+#theorembuybackground {
+    background: #E0E0E0;
+    width: 550px;
+    height: 110px;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    margin-left: -277px;
+    border: 2px solid black;
+    border-bottom: none;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
 }
 
 #studyTreeCanvas {
