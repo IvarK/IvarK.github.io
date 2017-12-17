@@ -3,6 +3,7 @@ var Marathon = 0;
 var auto = false;
 var autoS = true;
 var controlDown = false;
+var shiftDown = false;
 var secretThemeKey = 0;
 var player = {
     money: new Decimal(10),
@@ -1179,45 +1180,21 @@ function showTab(tabName) {
 
 var FormatList = ['', 'K', 'M', 'B', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QdDc', 'QtDc', 'SxDc', 'SpDc', 'ODc', 'NDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QdVg', 'QtVg', 'SxVg', 'SpVg', 'OVg', 'NVg', 'Tg', 'UTg', 'DTg', 'TTg', 'QdTg', 'QtTg', 'SxTg', 'SpTg', 'OTg', 'NTg', 'Qa', 'UQa', 'DQa', 'TQa', 'QdQa', 'QtQa', 'SxQa', 'SpQa', 'OQa', 'NQa', 'Qi', 'UQi', 'DQi', 'TQi', 'QaQi', 'QtQi', 'SxQi', 'SpQi', 'OQi', 'NQi', 'Se', 'USe', 'DSe', 'TSe', 'QaSe', 'QtSe', 'SxSe', 'SpSe', 'OSe', 'NSe', 'St', 'USt', 'DSt', 'TSt', 'QaSt', 'QtSt', 'SxSt', 'SpSt', 'OSt', 'NSt', 'Og', 'UOg', 'DOg', 'TOg', 'QdOg', 'QtOg', 'SxOg', 'SpOg', 'OOg', 'NOg', 'Nn', 'UNn', 'DNn', 'TNn', 'QdNn', 'QtNn', 'SxNn', 'SpNn', 'ONn', 'NNn', 'Ce',];
 
-var letterList1 = ['', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-var letterList2 = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-
-var emojiList1 = ['', '😠', '🎂', '🎄', '💀', '🍆', '👪', '🌈', '💯', '🍦', '🎃', '💋', '😂', '🌙', '⛔', '🐙', '💩', '❓', '☢️', '🙈', '👍', '☂️', '✌️', '⚠️', '❌', '😋', '⚡'];
-var emojiList2 = ['😠', '🎂', '🎄', '💀', '🍆', '👪', '🌈', '💯', '🍦', '🎃', '💋', '😂', '🌙', '⛔', '🐙', '💩', '❓', '☢️', '🙈', '👍', '☂️', '✌️', '⚠️', '❌', '😋', '⚡'];
-
-function letter(power,b) {
+function letter(power,str) {
+    const len = str.length;
     function lN(n) {
         let result = 1;
-        for (var j = 0; j < n; ++j) result = 26*result+1;
+        for (var j = 0; j < n; ++j) result = len*result+1;
         return result;
     }
-    if (power <= 5) return 'a';
+    if (power <= 5) return str[0];
     power = Math.floor(power / 3);
     let i=0;
     while (power >= lN(++i));
-    const l="abcdefghijklmnopqrstuvwxyz"
-    if (i==1) return l[power-1];
+    if (i==1) return str[power-1];
     power -= lN(i-1);
     let ret = '';
-    while (i>0) ret += l[Math.floor(power/Math.pow(26,--i))%26]
-    return ret;
-}
-
-function cancer(power) {
-    var l = ['😠', '🎂', '🎄', '💀', '🍆', '👪', '🌈', '💯', '🍦', '🎃', '💋', '😂', '🌙', '⛔', '🐙', '💩', '❓', '☢️', '🙈', '👍', '☂️', '✌️', '⚠️', '❌', '😋', '⚡'];
-    function lN(n) {
-        let result = 1;
-        for (var j = 0; j < n; ++j) result = 26*result+1;
-        return result;
-    }
-    if (power <= 5) return '😠';
-    power = Math.floor(power / 3);
-    let i=0;
-    while (power >= lN(++i));
-    if (i==1) return l[power-1];
-    power -= lN(i-1);
-    let ret = '';
-    while (i>0) ret += l[Math.floor(power/Math.pow(26,--i))%26]
+    while (i>0) ret += str[Math.floor(power/Math.pow(len,--i))%len]
     return ret;
 }
 
@@ -1256,31 +1233,40 @@ function formatValue(notation, value, places, placesUnder1000) {
             var matissa = value / Math.pow(10, Math.floor(Math.log10(value)));
             var power = Math.floor(Math.log10(value));
         }
+        if ((notation === "Mixed scientific" && power >= 33) || notation === "Scientific") {
+            matissa = matissa.toFixed(places)
+            if (matissa >= 10) {
+                matissa /= 10;
+                power++;
+            }
+            return (matissa + "e" + power);
+        }
         if (notation.includes("engineering") || notation.includes("Engineering")) pow = power - (power % 3)
         else pow = power
         if (power > 100000  && player.options.commas) pow = pow.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        
-        if ((notation === "Standard")) {
-            if (power <= 303) return (matissa * Decimal.pow(10, power % 3)).toFixed(places) + " " + FormatList[(power - (power % 3)) / 3];
-            else return (matissa * Decimal.pow(10, power % 3)).toFixed(places) + " " + getAbbreviation(power)
-        } else if (notation === "Mixed scientific") {
-            if (power < 33) return (matissa * Decimal.pow(10, power % 3)).toFixed(places) + " " + FormatList[(power - (power % 3)) / 3];
-            else return ((matissa).toFixed(places) + "e" + pow);
-        } else if (notation === "Mixed engineering") {
-            if (power < 33) return (matissa * Decimal.pow(10, power % 3)).toFixed(places) + " " + FormatList[(power - (power % 3)) / 3];
-            else return ((matissa * Decimal.pow(10, power % 3)).toFixed(places) + "ᴇ" + pow);
-        } else if (notation === "Scientific") {
-            return ((matissa).toFixed(places) + "e" + pow);
-        } else if (notation === "Engineering") {
-            return ((matissa * Decimal.pow(10, power % 3)).toFixed(places) + "ᴇ" + pow);
-        } else if (notation === "Letters") {
-            return ((matissa * Decimal.pow(10, power % 3)).toFixed(places)) + letter(power)
-        } else if (notation === "Emojis") {
-            return ((matissa * Decimal.pow(10, power % 3)).toFixed(places)) + cancer(power)
 
-        }else if (notation === "Logarithm") {
+        if (notation === "Logarithm") {
             if (power > 100000  && player.options.commas) return "e"+Decimal.log10(value).toFixed(places).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             else return "e"+Decimal.log10(value).toFixed(places)
+        }
+
+        matissa = (matissa * Decimal.pow(10, power % 3)).toFixed(places)
+        if (matissa >= 1000) {
+            matissa /= 1000;
+            power++;
+        }
+
+        if (notation === "Standard" || notation === "Mixed scientific") {
+            if (power <= 303) return matissa + " " + FormatList[(power - (power % 3)) / 3];
+            else return matissa + " " + getAbbreviation(power)
+        } else if (notation === "Mixed engineering") {
+            return matissa + " " + FormatList[(power - (power % 3)) / 3];
+        } else if (notation === "Engineering") {
+            return (matissa + "ᴇ" + pow);
+        } else if (notation === "Letters") {
+            return matissa + letter(power,'abcdefghijklmnopqrstuvwxyz')
+        } else if (notation === "Emojis") {
+            return matissa + letter(power,'😠🎂🎄💀🍆👪🌈💯🍦🎃💋😂🌙⛔🐙💩❓☢️🙈👍☂️✌️⚠️❌😋⚡')
 
         } else {
             if (power > 100000  && player.options.commas) power = power.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -1547,18 +1533,18 @@ function updateDimensions() {
 
     var shiftRequirement = getShiftRequirement(0);
     if (player.currentChallenge == "challenge4" ? shiftRequirement.tier < 6 : shiftRequirement.tier < 8) {
-        document.getElementById("resetLabel").innerHTML = 'Dimension Shift: requires ' + shiftRequirement.amount + " " + DISPLAY_NAMES[shiftRequirement.tier] + " Dimensions";
+        document.getElementById("resetLabel").innerHTML = 'Dimension Shift ('+ player.resets +'): requires ' + shiftRequirement.amount + " " + DISPLAY_NAMES[shiftRequirement.tier] + " Dimensions";
     }
-    else document.getElementById("resetLabel").innerHTML = 'Dimension Boost: requires ' + shiftRequirement.amount + " " + DISPLAY_NAMES[shiftRequirement.tier] + " Dimensions";
+    else document.getElementById("resetLabel").innerHTML = 'Dimension Boost ('+ player.resets +'): requires ' + shiftRequirement.amount + " " + DISPLAY_NAMES[shiftRequirement.tier] + " Dimensions";
 
     if (player.currentChallenge == "challenge4" ? player.resets > 2 : player.resets > 3) {
         document.getElementById("softReset").innerHTML = "Reset the game for a Boost";
     } else {
         document.getElementById("softReset").innerHTML = "Reset the game for a new Dimension";
     }
-
-    if (player.currentChallenge != "challenge4") document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + getGalaxyRequirement() + ' Eighth Dimensions';
-    else document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies: requires ' + getGalaxyRequirement() + ' Sixth Dimensions';
+    if (player.replicanti.galaxies > 0) document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies ('+ player.galaxies +' + '+ player.replicanti.galaxies +'): requires ' + getGalaxyRequirement() + ' Eighth Dimensions';
+    else if (player.currentChallenge != "challenge4") document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies ('+ player.galaxies +'): requires ' + getGalaxyRequirement() + ' Eighth Dimensions';
+    else document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies ('+ player.galaxies +'): requires ' + getGalaxyRequirement() + ' Sixth Dimensions';
     document.getElementById("totalmoney").innerHTML = 'You have made a total of ' + shortenMoney(player.totalmoney) + ' antimatter.';
     document.getElementById("totalresets").innerHTML = 'You have done ' + player.resets + ' soft resets.';
     document.getElementById("galaxies").innerHTML = 'You have ' + Math.round(player.galaxies) + ' Antimatter Galaxies.';
@@ -3201,6 +3187,7 @@ document.getElementById("softReset").onclick = function () {
 };
 
 document.getElementById("maxall").onclick = function () {
+    if (!player.break && player.money.gt(Number.MAX_VALUE)) return false;
     buyMaxTickSpeed();
 
     for (var tier=1; tier<9;tier++) {
@@ -4735,7 +4722,7 @@ function fromValue(value) {
     return Decimal.fromMantissaExponent(parseFloat(value), i*3+3)
     //return parseFloat(value) + "e" + (e*3+3)
   }
-  if (!isFinite(parseFloat(value[value.length-1]))) {
+  if (!isFinite(parseFloat(value[value.length-1]))) { //needs testing
     const l = " abcdefghijklmnopqrstuvwxyz"
     const v = value.replace(parseFloat(value),"")
     let e = 0;
@@ -4747,6 +4734,7 @@ function fromValue(value) {
     return Decimal.fromMantissaExponent(parseFloat(value), e*3)
     //return parseFloat(value) + "e" + (e*3)
   }
+  value = value.replace(',','')
   if (value[0]='e') return Decimal.fromMantissaExponent(Math.pow(10,parseFloat(value)%1),parseInt(value))
   return Decimal.fromString(value)
 }
@@ -7679,15 +7667,13 @@ window.onload = function() {
 }
 
 window.addEventListener('keydown', function(event) {
-    if (event.keyCode == 17) {
-        controlDown = true;
-    }
+    if (event.keyCode == 17) controlDown = true;
+    if (event.keyCode == 16) shiftDown = true;
 }, false);
 
 window.addEventListener('keyup', function(event) {
-    if (event.keyCode == 17) {
-        controlDown = false;
-    }
+    if (event.keyCode == 17) controlDown = false;
+    if (event.keyCode == 16) shiftDown = false;
 }, false);
 
 window.addEventListener('keydown', function(event) {
@@ -7717,39 +7703,48 @@ window.addEventListener('keydown', function(event) {
         break;
 
         case 84: // T
-            buyMaxTickSpeed()
+            if (shiftDown) buyTickSpeed()
+            else buyMaxTickSpeed()
         break;
 
         case 49: // 1
-            buyManyDimension(1)
+            if (shiftDown) buyOneDimension(1)
+            else buyManyDimension(1)
         break;
 
         case 50: // 2
-            buyManyDimension(2)
+            if (shiftDown) buyOneDimension(2)
+            else buyManyDimension(2)
         break;
 
         case 51: // 3
-            buyManyDimension(3)
+            if (shiftDown) buyOneDimension(3)
+            else buyManyDimension(3)
         break;
 
         case 52: // 4
-            buyManyDimension(4)
+            if (shiftDown) buyOneDimension(4)
+            else buyManyDimension(4)
         break;
 
         case 53: // 5
-            buyManyDimension(5)
+            if (shiftDown) buyOneDimension(5)
+            else buyManyDimension(5)
         break;
 
         case 54: // 6
-            buyManyDimension(6)
+            if (shiftDown) buyOneDimension(6)
+            else buyManyDimension(6)
         break;
 
         case 55: // 7
-            buyManyDimension(7)
+            if (shiftDown) buyOneDimension(7)
+            else buyManyDimension(7)
         break;
 
         case 56: // 8
-            buyManyDimension(8)
+            if (shiftDown) buyOneDimension(8)
+            else buyManyDimension(8)
         break;
     }
   }, false);
