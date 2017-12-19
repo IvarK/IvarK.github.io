@@ -2233,7 +2233,7 @@ function softReset(bulk) {
     //if (bulk < 1) bulk = 1 (fixing issue 184)
     if (!player.break && player.money.gt(Number.MAX_VALUE)) return;
     player.resets+=bulk;
-    if (bulk >= 750) giveAchievement("Costco sells Dimboosts now");
+    if (bulk >= 750) giveAchievement("Costco sells dimboosts now");
     player = {
         money: new Decimal(10),
         tickSpeedCost: new Decimal(1000),
@@ -2820,10 +2820,13 @@ function onBuyDimension(tier) {
 
 }
 
+function dimBought(tier) {
+    return TIER_NAMES[tier].bought % 10;
+}
+
 function buyOneDimension(tier) {
     var name = TIER_NAMES[tier];
     var cost = player[name + 'Cost'];
-    if (!player.break && player.money.gt(Number.MAX_VALUE)) return false;
     auto = false;
 
     if (player.currentChallenge != "challenge10" && player.currentChallenge != "postc1") {
@@ -2859,8 +2862,7 @@ function buyOneDimension(tier) {
     player[name + 'Amount'] = player[name + 'Amount'].plus(1);
     player[name + 'Bought']++;
 
-    if (player[name + 'Bought'] === 10) {
-        player[name + 'Bought'] = 0;
+    if (dimBought(tier) === 10) {
         player[name + 'Pow']  = player[name + 'Pow'].times(getDimensionPowerMultiplier(tier));
         if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5") player[name + 'Cost'] = player[name + 'Cost'].times((getDimensionCostMultiplier(tier)));
         else if (player.currentChallenge == "postc5") multiplyPC5Costs(player[name + 'Cost'], tier)
@@ -2879,7 +2881,7 @@ function buyOneDimension(tier) {
 
 function buyManyDimension(tier) {
     var name = TIER_NAMES[tier];
-    var cost = player[name + 'Cost'].times(10 - player[name + 'Bought']);
+    var cost = player[name + 'Cost'].times(10 - dimBought(tier));
     
     auto = false;
 
@@ -2914,8 +2916,7 @@ function buyManyDimension(tier) {
         player[TIER_NAMES[tier-2] + 'Amount'] = player[TIER_NAMES[tier-2] + 'Amount'].minus(cost)
     }
 
-    player[name + 'Amount'] = player[name + 'Amount'].plus(10 - player[name + 'Bought']);
-    player[name + 'Bought']  = 0;
+    player[name + 'Amount'] = player[name + 'Amount'].plus(10 - dimBought(tier));
     player[name + 'Pow']  = player[name + 'Pow'].times(getDimensionPowerMultiplier(tier));
     if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5" ) player[name + 'Cost'] = player[name + 'Cost'].times((getDimensionCostMultiplier(tier)));
     else if (player.currentChallenge == "postc5") multiplyPC5Costs(player[name + 'Cost'], tier)
@@ -2932,19 +2933,18 @@ function buyManyDimension(tier) {
 function buyManyDimensionAutobuyer(tier, bulk) {
 
         var name = TIER_NAMES[tier];
-        var cost = player[name + 'Cost'].times(10 - player[name + 'Bought'])
+        var cost = player[name + 'Cost'].times(10 - dimBought(tier))
         if (!player.break && player.money.gt(Number.MAX_VALUE)) return false;
         
         if (tier >= 3 && (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1")) {
             if (!canBuyDimension(tier)) return false
             if (player[TIER_NAMES[tier-2] + 'Amount'].lt(cost)) return false
                 if (canBuyDimension(tier)) {
-                    if (cost.lt(player[TIER_NAMES[tier-2]+"Amount"]) && player[name + 'Bought'] != 0) {
+                    if (cost.lt(player[TIER_NAMES[tier-2]+"Amount"]) && dimBought(tier) != 0) {
                         player[TIER_NAMES[tier-2]+"Amount"] = player[TIER_NAMES[tier-2]+"Amount"].minus(cost)
-                        player[name + "Amount"] = Decimal.round(player[name + "Amount"].plus(10 - player[name + 'Bought']))
+                        player[name + "Amount"] = Decimal.round(player[name + "Amount"].plus(10 - dimBought(tier)))
                         player[name + 'Pow']  = player[name + 'Pow'].times(getDimensionPowerMultiplier(tier))
                         player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
-                        player[name + 'Bought'] = 0
                     }
                     var x = bulk
                     while (player[TIER_NAMES[tier-2]+"Amount"].gt(player[name + "Cost"].times(10)) && x > 0) {
@@ -2961,12 +2961,11 @@ function buyManyDimensionAutobuyer(tier, bulk) {
                 }
         } else {
         if (!canBuyDimension(tier)) return false
-            if (cost.lt(player.money) && player[name + 'Bought'] != 0) {
+            if (cost.lt(player.money) && dimBought(tier) != 0) {
                 player.money = player.money.minus(cost)
-                player[name + "Amount"] = Decimal.round(player[name + "Amount"].plus(10 - player[name + 'Bought']))
+                player[name + "Amount"] = Decimal.round(player[name + "Amount"].plus(10 - dimBought(tier)))
                 player[name + 'Pow']  = player[name + 'Pow'].times(getDimensionPowerMultiplier(tier))
                 player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
-                player[name + 'Bought'] = 0
             }
             if (player.money.lt(player[name + "Cost"].times(10))) return false
             var x = bulk
@@ -3193,17 +3192,16 @@ document.getElementById("maxall").onclick = function () {
 
     for (var tier=1; tier<9;tier++) {
         var name = TIER_NAMES[tier];
-        var cost = player[name + 'Cost'].times(10 - player[name + 'Bought'])
+        var cost = player[name + 'Cost'].times(10 - dimBought(tier))
         if (tier >= 3 && (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1")) {
             if (!canBuyDimension(tier)) continue
             if (player[TIER_NAMES[tier-2] + 'Amount'].lt(cost)) continue
                 if (canBuyDimension(tier)) {
-                    if (cost.lt(player[TIER_NAMES[tier-2]+"Amount"]) && player[name + 'Bought'] != 0) {
+                    if (cost.lt(player[TIER_NAMES[tier-2]+"Amount"]) && dimBought(tier) != 0) {
                         player[TIER_NAMES[tier-2]+"Amount"] = player[TIER_NAMES[tier-2]+"Amount"].minus(cost)
-                        player[name + "Amount"] = Decimal.round(player[name + "Amount"].plus(10 - player[name + 'Bought']))
+                        player[name + "Amount"] = Decimal.round(player[name + "Amount"].plus(10 - dimBought(tier)))
                         player[name + 'Pow']  = player[name + 'Pow'].times(getDimensionPowerMultiplier(tier))
                         player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
-                        player[name + 'Bought'] = 0
                     }
                     while (player[TIER_NAMES[tier-2]+"Amount"].gt(player[name + "Cost"].times(10))) {
                         player[TIER_NAMES[tier-2]+"Amount"] = player[TIER_NAMES[tier-2]+"Amount"].minus(player[name + "Cost"].times(10))
@@ -3218,12 +3216,11 @@ document.getElementById("maxall").onclick = function () {
                 }
         } else {
         if (!canBuyDimension(tier)) continue
-            if (cost.lt(player.money) && player[name + 'Bought'] != 0) {
+            if (cost.lt(player.money) && dimBought(tier) != 0) {
                 player.money = player.money.minus(cost)
-                player[name + "Amount"] = Decimal.round(player[name + "Amount"].plus(10 - player[name + 'Bought']))
+                player[name + "Amount"] = Decimal.round(player[name + "Amount"].plus(10 - dimBought(tier)))
                 player[name + 'Pow']  = player[name + 'Pow'].times(getDimensionPowerMultiplier(tier))
                 player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
-                player[name + 'Bought'] = 0
             }
             if (player.money.lt(player[name + "Cost"].times(10))) continue
 
@@ -3334,9 +3331,10 @@ function buyEternityUpgrade(name, cost) {
 function buyEPMult() {
     if (player.eternityPoints.gte(player.epmultCost)) {
         player.epmult *= 5
+        player.eternityBuyer.limit = player.eternityBuyer.limit.times(5)
         player.eternityPoints = player.eternityPoints.minus(player.epmultCost)
         let count = Math.log(player.epmult)/Math.log(5)
-        player.epmultCost = new Decimal(500).times(Decimal.pow(50, count))
+        player.epmultCost = Decimal.pow(50, count).times(500)
         document.getElementById("epmult").innerHTML = "You gain 5 times more EP<p>Currently: "+shortenDimensions(player.epmult)+"x<p>Cost: "+shortenDimensions(player.epmultCost)+" EP"
         updateEternityUpgrades()
     }
@@ -6263,7 +6261,11 @@ setInterval(function() {
 
 }, 1000)
 
-
+function fact(v) {
+    let ret=1;
+    do {ret *= v} while (--v > 1)
+    return ret;
+}
 
 
 var postC2Count = 0;
@@ -6294,11 +6296,12 @@ function startInterval() {
             if (player.currentChallenge == "challenge3" || player.matter.gte(1)) player.chall3Pow = player.chall3Pow.times(Decimal.pow(1.00038, diff));
             player.chall2Pow = Math.min(player.chall2Pow + diff/1800, 1);
             if (player.currentChallenge == "postc2") {
-            postC2Count++;
-            if (postC2Count >= 8 || diff > 300) {
-                sacrifice();
-                postC2Count = 0;
-            }}
+                postC2Count++;
+                if (postC2Count >= 8 || diff > 80) {
+                    sacrifice();
+                    postC2Count = 0;
+                }
+            }
             if (player.infinityUpgrades.includes("passiveGen")) player.partInfinityPoint += diff / player.bestInfinityTime;
             if (player.partInfinityPoint >= 100) {
                 player.infinityPoints = player.infinityPoints.plus(player.infMult.times(kongIPMult * (player.partInfinityPoint/10)));
@@ -6327,13 +6330,14 @@ function startInterval() {
     
             if (player.currentChallenge != "challenge7") {
                 for (let tier = 7; tier >= 1; --tier) {
-                    var name = TIER_NAMES[tier];
-    
-                    player[name + 'Amount'] = player[name + 'Amount'].plus(getDimensionProductionPerSecond(tier + 1).times(diff / 100));
-            }
+                    const name = TIER_NAMES[tier];
+                    for (let tier2 = 1; tier2 <= 8-tier; tier--) {
+                        player[name + 'Amount'] = player[name + 'Amount'].plus(getDimensionProductionPerSecond(tier + tier2).times(Math.pow(diff / 100,tier2)).div(fact(tier2)));
+                    }
+                }
             } else {
                 for (let tier = 6; tier >= 1; --tier) {
-                    var name = TIER_NAMES[tier];
+                    const name = TIER_NAMES[tier];
     
                     player[name + 'Amount'] = player[name + 'Amount'].plus(getDimensionProductionPerSecond(tier + 2).times(diff / 100));
                 }
@@ -6516,14 +6520,14 @@ function startInterval() {
                 var name = TIER_NAMES[tier];
                 if (player.currentChallenge != "challenge10" && player.currentChallenge != "postc1") {
                     document.getElementById(name).className = canAfford(player[name + 'Cost']) ? 'storebtn' : 'unavailablebtn';
-                    document.getElementById(name + 'Max').className = canAfford(player[name + 'Cost'].times(10 - player[name + 'Bought'])) ? 'storebtn' : 'unavailablebtn';
+                    document.getElementById(name + 'Max').className = canAfford(player[name + 'Cost'].times(10 - dimBought(tier))) ? 'storebtn' : 'unavailablebtn';
                 } else {
                     if (tier >= 3) {
                         document.getElementById(name).className = player[TIER_NAMES[tier-2] + 'Amount'].gte(player[name + 'Cost']) ? 'storebtn' : 'unavailablebtn';
-                        document.getElementById(name + 'Max').className = player[TIER_NAMES[tier-2] + 'Amount'].gte(player[name + 'Cost'].times(10 - player[name + 'Bought'])) ? 'storebtn' : 'unavailablebtn';
+                        document.getElementById(name + 'Max').className = player[TIER_NAMES[tier-2] + 'Amount'].gte(player[name + 'Cost'].times(10 - dimBought(tier))) ? 'storebtn' : 'unavailablebtn';
                     } else {
                         document.getElementById(name).className = canAfford(player[name + 'Cost']) ? 'storebtn' : 'unavailablebtn';
-                        document.getElementById(name + 'Max').className = canAfford(player[name + 'Cost'].times(10 - player[name + 'Bought'])) ? 'storebtn' : 'unavailablebtn';
+                        document.getElementById(name + 'Max').className = canAfford(player[name + 'Cost'].times(10 - dimBought(tier))) ? 'storebtn' : 'unavailablebtn';
                     }
                 }
             }
