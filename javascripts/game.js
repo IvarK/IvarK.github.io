@@ -877,6 +877,7 @@ function onLoad() {
     if (player.eternities == 0) {
         document.getElementById("eternityPoints2").style.display = "none";
         document.getElementById("eternitystorebtn").style.display = "none";
+        document.getElementById("tdtabbtn").style.display = "none";
     }
 
     if (player.eternityUpgrades === undefined) player.eternityUpgrades = []
@@ -6366,8 +6367,10 @@ function startInterval() {
                     document.getElementById("infRow"+tier).style.display = "inline-block"
                     document.getElementById("dimTabButtons").style.display = "inline-block"
                     document.getElementById("idtabbtn").style.display = "inline-block"
+                } else {
+                    document.getElementById("infRow"+tier).style.display = "none"
+                    document.getElementById("idtabbtn").style.display = "none"
                 }
-                else document.getElementById("infRow"+tier).style.display = "none"
     
                 if (tier <4) player["timeDimension"+tier].amount = player["timeDimension"+tier].amount.plus(getTimeDimensionProduction(tier+1).times(diff/100))
             }
