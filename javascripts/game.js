@@ -3800,11 +3800,12 @@ buyAutobuyer = function(id) {
     if (player.infinityPoints.lt(player.autobuyers[id].cost)) return false;
     player.infinityPoints = player.infinityPoints.minus(player.autobuyers[id].cost);
     if (player.autobuyers[id].interval <= 100) {
-        if(player.autobuyers[id].cost<Number.MAX_VALUE)
-        {
-        player.autobuyers[id].bulk = Math.min(player.autobuyers[id].bulk * 2, Number.MAX_VALUE);
-        player.autobuyers[id].cost = Math.ceil(2.4*player.autobuyers[id].cost);   
-         }
+        if (player.autobuyers[id].cost < Number.MAX_VALUE) {
+            player.autobuyers[id].bulk = Math.min(player.autobuyers[id].bulk * 2, Number.MAX_VALUE);
+            player.autobuyers[id].cost = Math.ceil(2.4 * player.autobuyers[id].cost);
+        } else {
+            autobuyers[id].cost = Number.MAX_VALUE;
+        }
         var b1 = true;
 	    for (let i=0;i<8;i++) {
             if (player.autobuyers[i].bulk < 512) b1 = false;
