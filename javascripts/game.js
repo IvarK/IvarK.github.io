@@ -1620,7 +1620,7 @@ function updateDimensions() {
     document.getElementById("92").innerHTML = "Infinity dimensions gain a multiplier based on fastest eternity time<span>Currently: "+shortenMoney(Decimal.pow(2, 600/Math.max(player.bestEternity, 20)))+"x<span>Cost: 5 Time Theorems"
 
     document.getElementById("93").innerHTML = "Time dimensions gain a multiplier based on tick upgrades gained<span>Currently: "+shortenMoney(Decimal.pow(player.totalTickGained, 0.25))+"x<span>Cost: 7 Time Theorems"
-    document.getElementById("121").innerHTML = "The worse your average EP/min is, the more EP you get.<span>Currently: "+((253 - averageEp.dividedBy(player.epmult).dividedBy(10).min(248).max(3))/5).toFixed(1)+"x<span>Cost: 9 Time Theorems"
+    document.getElementById("121").innerHTML = "The worse your average EP/min is, the more EP you get.<span>Currently: "+(player.epmult.div(averageEp).add(3).times(1200)).toFixed(1)+"x<span>Cost: 9 Time Theorems"
     document.getElementById("123").innerHTML = "You gain more EP based on time spent this eternity.<span>Currently: "+Math.sqrt(1.39*player.thisEternity/10).toFixed(1)+"x<span>Cost: 9 Time Theorems"
     document.getElementById("141").innerHTML = "Multiplier to IP, decaying over this infinity<span>Currently "+shortenMoney(new Decimal(1e45).dividedBy(Decimal.pow(15, Math.log(player.thisInfinityTime)*Math.pow(player.thisInfinityTime, 0.125))).max(1))+"x<span>Cost: 4 Time Theorems"
     document.getElementById("143").innerHTML = "Multiplier to IP, increasing over this infinity<span>Currently "+shortenMoney(Decimal.pow(15, Math.log(player.thisInfinityTime)*Math.pow(player.thisInfinityTime, 0.125)))+"x<span>Cost: 4 Time Theorems"
@@ -2592,7 +2592,7 @@ const allAchievements = {
   r17 : "Not a luck related achievement",
   r18 : "90 degrees to infinity",
   r21 : "To infinity!",
-  r22 : "Don't you dare to sleep",
+  r22 : "Fake News",
   r23 : "The 9th Dimension is a lie",
   r24 : "Antimatter Apocalypse",
   r25 : "Boosting to the max",
@@ -2603,11 +2603,11 @@ const allAchievements = {
   r32 : "The Gods are pleased",
   r33 : "That's a lot of infinites",
   r34 : "You didn't need it anyway",
-  r35 : "One for each dimension",
+  r35 : "Don't you dare to sleep",
   r36 : "Claustrophobic",
   r37 : "That's fast!",
   r38 : "I don't believe in Gods",
-  r41 : "Fake News",
+  r41 : "Spreading Cancer",
   r42 : "Supersanic",
   r43 : "Zero Deaths",
   r44 : "Over in 30 seconds",
@@ -2636,7 +2636,7 @@ const allAchievements = {
   r73 : "This achievement doesn't exist",
   r74 : "End me",
   r75 : "NEW DIMENSIONS???",
-  r76 : "Spreading Cancer",
+  r76 : "One for each dimension",
   r77 : "How the antitables have turned",
   r78 : "Blink of an eye",
   r81 : "Hevipelle did nothing wrong",
@@ -2862,7 +2862,7 @@ function buyOneDimension(tier) {
     player[name + 'Amount'] = player[name + 'Amount'].plus(1);
     player[name + 'Bought']++;
 
-    if (dimBought(tier) === 10) {
+    if (dimBought(tier) === 0) {
         player[name + 'Pow']  = player[name + 'Pow'].times(getDimensionPowerMultiplier(tier));
         if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5") player[name + 'Cost'] = player[name + 'Cost'].times((getDimensionCostMultiplier(tier)));
         else if (player.currentChallenge == "postc5") multiplyPC5Costs(player[name + 'Cost'], tier)
@@ -4250,28 +4250,26 @@ function breakInfinity() {
 }
 
 function gainedInfinityPoints() {
-    var ret = Decimal.floor(Decimal.pow(10, player.money.e/308 -0.75).times(player.infMult.times(kongIPMult)))
-    if (player.achievements.includes("r103")) ret = Decimal.floor(Decimal.pow(10, player.money.e/307.8 -0.75).times(player.infMult.times(kongIPMult)))
-    if (player.timestudy.studies.includes(111)) ret = Decimal.floor(Decimal.pow(10, player.money.e/290 -0.75).times(player.infMult.times(kongIPMult)))
+    let div = 308;
+    if (player.timestudy.studies.includes(111)) div = 290;
+    else if (player.achievements.includes("r103")) div = 307.8;
+    var ret = Decimal.pow(10, player.money.e/div -0.75).times(player.infMult).times(kongIPMult)
     if (player.timestudy.studies.includes(41)) ret = ret.times(Decimal.pow(1.2, player.galaxies + player.replicanti.galaxies))
     if (player.timestudy.studies.includes(51)) ret = ret.times(1e15)
     if (player.timestudy.studies.includes(141)) ret = ret.times(new Decimal(1e45).dividedBy(Decimal.pow(15, Math.log(player.thisInfinityTime)*Math.pow(player.thisInfinityTime, 0.125))).max(1))
     if (player.timestudy.studies.includes(142)) ret = ret.times(1e25)
     if (player.timestudy.studies.includes(143)) ret = ret.times(Decimal.pow(15, Math.log(player.thisInfinityTime)*Math.pow(player.thisInfinityTime, 0.125)))
-    return ret
+    return ret.floor()
 }
 
 function gainedEternityPoints() {
-    var ret = Decimal.floor(Decimal.pow(5, player.infinityPoints.e/308 -0.7).times(player.epmult))
-    if (player.timestudy.studies.includes(61)) ret = Decimal.floor(Decimal.pow(5, player.infinityPoints.e/308 -0.7).times(10).times(player.epmult))
-    if (player.timestudy.studies.includes(121)) {
-        ret = ret.times((253 - averageEp.dividedBy(player.epmult).dividedBy(10).min(248).max(3))/5)
-    } else if (player.timestudy.studies.includes(122)) {
-        ret = ret.times(35)
-    } else if (player.timestudy.studies.includes(123)) {
-        ret = ret.times(Math.sqrt(1.39*player.thisEternity/10))
-    }
-    return ret
+    var ret = Decimal.pow(5, player.infinityPoints.plus(gainedInfinityPoints()).e/308 -0.7).times(player.epmult)
+    if (player.timestudy.studies.includes(61)) ret = ret.times(10)
+    if (player.timestudy.studies.includes(121)) ret = ret.times(1200).times(player.epmult.div(averageEp).add(3)) //x300 if tryhard, ~x60 if not
+    else if (player.timestudy.studies.includes(122)) ret = ret.times(35)
+    else if (player.timestudy.studies.includes(123)) ret = ret.times(Math.sqrt(1.39*player.thisEternity/10))
+
+    return ret.floor()
 }
 
 
@@ -4967,7 +4965,9 @@ document.getElementById("bigcrunch").onclick = function () {
             if (gainedInfinityPoints().gte(1e200) && player.thisInfinityTime <= 20) giveAchievement("Ludicrous Speed")
             if (gainedInfinityPoints().gte(1e250) && player.thisInfinityTime <= 200) giveAchievement("I brake for nobody")
         }
-        if (player.thisInfinityTime > 50 && player.achievements.includes("r87")) player.timestudy.studies.includes(32) ? player.infinitied += 250*player.resets-1 : player.infinitied += 249;
+        let infGain = 1;
+        if (player.thisInfinityTime > 50 && player.achievements.includes("r87")) infGain = 250;
+        if (player.timestudy.studies.includes(32)) infGain *= Math.max(player.resets,1);
         if (autoS && auto) {
           if (gainedInfinityPoints().dividedBy(player.thisInfinityTime).gt(player.autoIP)) player.autoIP = gainedInfinityPoints().dividedBy(player.thisInfinityTime);
           if (player.thisInfinityTime<player.autoTime) player.autoTime = player.thisInfinityTime;
@@ -5016,7 +5016,7 @@ document.getElementById("bigcrunch").onclick = function () {
         currentChallenge: player.currentChallenge,
         infinityUpgrades: player.infinityUpgrades,
         infinityPoints: player.infinityPoints,
-        infinitied: player.infinitied + 1,
+        infinitied: player.infinitied + infGain,
         totalTimePlayed: player.totalTimePlayed,
         bestInfinityTime: Math.min(player.bestInfinityTime, player.thisInfinityTime),
         thisInfinityTime: 0,
@@ -5125,8 +5125,6 @@ document.getElementById("bigcrunch").onclick = function () {
 
         if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") document.getElementById("matter").style.display = "block";
         else document.getElementById("matter").style.display = "none";
-
-        if (player.timestudy.studies.includes(32)) player.infinitied += player.resets-1
         
         document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
 
@@ -7089,10 +7087,10 @@ newsArray = [//always true
 ["Does Hevi just pick quotes to put into the game?", player.newsArray.length >= 30, "n3"],
 ["New news company has become rivals with us. They are made entirely of antimatter.", player.newsArray.length >= 80, "n1"], 
 ["How many times can we use \"Anti\" in a row before people stop listening?", player.newsArray.length >= 100, "n5"],
-["Need more quotes! -hevipelle", player.newsArray.length >= 130, "n2"], 
-["You're almost there!", player.newsArray.length >= 155, "n11"],
-["You can stop now", player.newsArray.length >= 162, "n9"],
-["fucking hacker", player.newsArray.length >= 170, "n10"],
+["Need more quotes! -hevipelle", player.newsArray.length >= 135, "n2"], 
+["You're almost there!", player.newsArray.length >= 160, "n11"],
+["You can stop now", player.newsArray.length >= 165, "n9"],
+["fucking hacker", player.newsArray.length >= 175, "n10"],
 ["Asian man trys to steal the trophy of fastest infinty of -1 seconds, AND HE DOES IT!", player.newsArray.includes("c1"), "n4"],
 ["I broke the 8th wall, there is only chaos, Slabdrill is ritually sacrificing antimatter to the 9th dimension. This will be my last entry, may Hevipelle have mercy on our souls, we didn't listen, We should have listened.", player.newsArray.includes("b17"), "n6"],
 ["I thought the update was 5 hours away... -new players after more than 5 hours of gameplay", player.newsArray.includes("a91") && player.totalTimePlayed >= 600*300, "n7"],
@@ -7109,8 +7107,9 @@ newsArray = [//always true
 ["Keep up the quick pace!", Marathon > 1200, "c9"],
 ["One day you will stop your incessant grind.", player.eternities > 50000, "c10"],
 ["Are you serious?", worstChallengeTime <= 0.1, "c11"],
+["The amazing speedster", infchallengeTimes <= 0.8, "c12"],
 //luck
-["This news message is 100x rarer than all the others.", Math.random() < 0.01, "l1"],
+["This news message is 1000x rarer than all the others.", Math.random() < 0.001, "l1"],
 ["You just won a small prize in the lottery.", Math.random() < 1e-4, "l2"],
 ["You just won a moderate prize in the lottery.", Math.random() < 1e-5, "l3"],
 ["You just won a large prize in the lottery.", Math.random() < 1e-6, "l4"],
@@ -7685,6 +7684,16 @@ window.addEventListener('keyup', function(event) {
 
 window.addEventListener('keydown', function(event) {
     if (!player.options.hotkeys || controlDown === true) return false
+    const tmp = event.keycode;
+    if (tmp >= 49 && tmp <= 56) {
+        if (shiftDown) buyOneDimension(tmp-48)
+        else buyManyDimension(tmp-48)
+        return false;
+    } else if (tmp >= 97 && tmp <= 104) {
+        if (shiftDown) buyOneDimension(tmp-96)
+        else buyManyDimension(tmp-96)
+        return false;
+    }
     switch (event.keyCode) {
         case 65: // A
             toggleAutoBuyers();
@@ -7712,46 +7721,6 @@ window.addEventListener('keydown', function(event) {
         case 84: // T
             if (shiftDown) buyTickSpeed()
             else buyMaxTickSpeed()
-        break;
-
-        case 49: // 1
-            if (shiftDown) buyOneDimension(1)
-            else buyManyDimension(1)
-        break;
-
-        case 50: // 2
-            if (shiftDown) buyOneDimension(2)
-            else buyManyDimension(2)
-        break;
-
-        case 51: // 3
-            if (shiftDown) buyOneDimension(3)
-            else buyManyDimension(3)
-        break;
-
-        case 52: // 4
-            if (shiftDown) buyOneDimension(4)
-            else buyManyDimension(4)
-        break;
-
-        case 53: // 5
-            if (shiftDown) buyOneDimension(5)
-            else buyManyDimension(5)
-        break;
-
-        case 54: // 6
-            if (shiftDown) buyOneDimension(6)
-            else buyManyDimension(6)
-        break;
-
-        case 55: // 7
-            if (shiftDown) buyOneDimension(7)
-            else buyManyDimension(7)
-        break;
-
-        case 56: // 8
-            if (shiftDown) buyOneDimension(8)
-            else buyManyDimension(8)
         break;
     }
   }, false);
