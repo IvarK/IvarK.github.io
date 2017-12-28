@@ -1620,7 +1620,7 @@ function updateDimensions() {
     document.getElementById("92").innerHTML = "Infinity dimensions gain a multiplier based on fastest eternity time<span>Currently: "+shortenMoney(Decimal.pow(2, 600/Math.max(player.bestEternity, 20)))+"x<span>Cost: 5 Time Theorems"
 
     document.getElementById("93").innerHTML = "Time dimensions gain a multiplier based on tick upgrades gained<span>Currently: "+shortenMoney(Decimal.pow(player.totalTickGained, 0.25))+"x<span>Cost: 7 Time Theorems"
-    document.getElementById("121").innerHTML = "The worse your average EP/min is, the more EP you get.<span>Currently: "+(player.epmult.div(averageEp).add(3).times(1200)).toFixed(1)+"x<span>Cost: 9 Time Theorems"
+    document.getElementById("121").innerHTML = "The worse your average EP/min is, the more EP you get.<span>Currently: "+(new Decimal(player.epmult).div(averageEp).add(3).times(1200)).toFixed(1)+"x<span>Cost: 9 Time Theorems"
     document.getElementById("123").innerHTML = "You gain more EP based on time spent this eternity.<span>Currently: "+Math.sqrt(1.39*player.thisEternity/10).toFixed(1)+"x<span>Cost: 9 Time Theorems"
     document.getElementById("141").innerHTML = "Multiplier to IP, decaying over this infinity<span>Currently "+shortenMoney(new Decimal(1e45).dividedBy(Decimal.pow(15, Math.log(player.thisInfinityTime)*Math.pow(player.thisInfinityTime, 0.125))).max(1))+"x<span>Cost: 4 Time Theorems"
     document.getElementById("143").innerHTML = "Multiplier to IP, increasing over this infinity<span>Currently "+shortenMoney(Decimal.pow(15, Math.log(player.thisInfinityTime)*Math.pow(player.thisInfinityTime, 0.125)))+"x<span>Cost: 4 Time Theorems"
@@ -4265,7 +4265,7 @@ function gainedInfinityPoints() {
 function gainedEternityPoints() {
     var ret = Decimal.pow(5, player.infinityPoints.plus(gainedInfinityPoints()).e/308 -0.7).times(player.epmult)
     if (player.timestudy.studies.includes(61)) ret = ret.times(10)
-    if (player.timestudy.studies.includes(121)) ret = ret.times(1200).times(player.epmult.div(averageEp).add(3)) //x300 if tryhard, ~x60 if not
+    if (player.timestudy.studies.includes(121)) ret = ret.times(1200).times(new Decimal(player.epmult).div(averageEp).add(3)) //x300 if tryhard, ~x60 if not
     else if (player.timestudy.studies.includes(122)) ret = ret.times(35)
     else if (player.timestudy.studies.includes(123)) ret = ret.times(Math.sqrt(1.39*player.thisEternity/10))
 
