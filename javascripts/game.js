@@ -769,8 +769,8 @@ function onLoad() {
 
     document.getElementById("totaltickgained").innerHTML = "You've gained "+shortenDimensions(player.totalTickGained)+" tickspeed upgrades."
 
-    if (player.autobuyers[9]%1 !== 0) {
-        if (player.autobuyers[9].bulk === null || player.autobuyers[9].bulk === undefined) player.autobuyers[9].bulk = 1
+    if (typeof player.autobuyers[9].bulk !== "number") {
+        player.autobuyers[9].bulk = 1
     }
 
     if (player.options.sacrificeConfirmation == false) document.getElementById("confirmation").checked = "true"
@@ -2287,7 +2287,7 @@ function softReset(bulk) {
         interval: null,
         lastUpdate: player.lastUpdate,
         achPow: player.achPow,
-	      newsArray: player.newsArray,
+	    newsArray: player.newsArray,
         autobuyers: player.autobuyers,
         costMultipliers: [new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15)],
         tickspeedMultiplier: new Decimal(10),
@@ -3182,7 +3182,8 @@ document.getElementById("softReset").onclick = function () {
   auto = false;
   var name = TIER_NAMES[getShiftRequirement(0).tier]
   if (player[name + "Amount"] >= getShiftRequirement(0).amount) {
-      softReset(1)
+      if (player.infinityUpgrades.includes("bulkBoost")) maxBuyDimBoosts();
+      else softReset(1)
   }
 };
 
@@ -6851,22 +6852,18 @@ function dimBoolean() {
 
 
 function maxBuyGalaxies() {
-    while(player.eightAmount >= getGalaxyRequirement()) {
-        player.galaxies+=1
-    }
-    player.galaxies-=1
+    while(player.eightAmount >= getGalaxyRequirement()) player.galaxies++
+    player.galaxies--
     galaxyReset()
 
 }
 
 function maxBuyDimBoosts() {
     var r = 0;
-    while(player[TIER_NAMES[getShiftRequirement(0).tier]+"Amount"] >= getShiftRequirement(0).amount) {
-        player.resets++;
-        r++;
-    }
+    while(player[TIER_NAMES[getShiftRequirement(r).tier]+"Amount"] >= getShiftRequirement(r++).amount);
+    
     if (r >= 750) giveAchievement("Costco sells dimboosts now")
-    softReset(0)
+    softReset(r)
 }
 
 var timer = 0
