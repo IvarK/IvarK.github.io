@@ -6158,17 +6158,7 @@ setInterval(function() {
         document.getElementById("Blink of an eye").style.display = "block"
         blink = true
     }
-    if (nextAt[player.postChallUnlocked] === undefined) {
-        document.getElementById("nextchall").innerHTML = ""
-    }
-    else {
-        document.getElementById("nextchall").innerHTML = "Next challenge unlocks at "+ shortenCosts(nextAt[player.postChallUnlocked]) + " antimatter."
-        if (player.money.gte(nextAt[player.postChallUnlocked])) {
-            player.postChallUnlocked += 1
-            if (player.eternities > 6) player.challenges.push("postc"+player.postChallUnlocked)
-            updateChallenges()
-        }
-    }
+
     let temp = 1
     for (var i=0; i < player.challenges.length; i++) {
         if (player.challenges[i].includes("post")) {
@@ -6436,7 +6426,15 @@ function startInterval() {
             document.getElementById("postInfinityButton").innerHTML = "<b>Big Crunch for "+shortenDimensions(gainedInfinityPoints())+" Infinity Points</b><br>"+shortenDimensions(currentIPmin) + " IP/min"+
                                                                         "<br>Peaked at "+shortenDimensions(IPminpeak)+" IP/min"
     
-    
+            if (nextAt[player.postChallUnlocked] === undefined) document.getElementById("nextchall").innerHTML = ""
+            else {
+                document.getElementById("nextchall").innerHTML = "Next challenge unlocks at "+ shortenCosts(nextAt[player.postChallUnlocked]) + " antimatter."
+                while (player.money.gte(nextAt[player.postChallUnlocked])) {
+                    player.postChallUnlocked += 1
+                    if (player.eternities > 6) player.challenges.push("postc"+player.postChallUnlocked)
+                    updateChallenges()
+                }
+            }
     
             var est = player.replicanti.chance * 1000 / player.replicanti.interval
             var current = Math.log(player.replicanti.amount)
@@ -6815,7 +6813,7 @@ function startInterval() {
             if (player.money.gte(getNewInfReq())) document.getElementById("newDimensionButton").className = "newdim"
             else document.getElementById("newDimensionButton").className = "newdimlocked"
     
-            if (player.eternities > 24 && getNewInfReq().lt(player.money)) newDimension()
+            while (player.eternities > 24 && getNewInfReq().lt(player.money)) newDimension()
     
             document.getElementById("newDimensionButton").innerHTML = "Get " + shortenCosts(getNewInfReq()) + " antimatter to unlock a new Dimension."
     
