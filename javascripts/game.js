@@ -1696,8 +1696,8 @@ function updateChallenges() {
 
 
         for (var i=0; i < player.challenges.length; i++) {
-            //document.getElementById(player.challenges[i]).className = "completedchallengesbtn";
-            //document.getElementById(player.challenges[i]).innerHTML = "Completed"
+            document.getElementById(player.challenges[i]).className = "completedchallengesbtn";
+            document.getElementById(player.challenges[i]).innerHTML = "Completed"
         }
 
         if (player.currentChallenge != "") {
@@ -1705,7 +1705,7 @@ function updateChallenges() {
             document.getElementById(player.currentChallenge).innerHTML = "Running"
         }
 
-        for (var i=1; i<=player.postChallUnlocked; i++) document.getElementById("postc"+i+"div").style.display = "inline-block"
+        //for (var i=1; i<=player.postChallUnlocked; i++) document.getElementById("postc"+i+"div").style.display = "inline-block"
 
 
 
@@ -6434,9 +6434,9 @@ function startInterval() {
             if (nextAt[player.postChallUnlocked] === undefined) document.getElementById("nextchall").innerHTML = ""
             else {
                 document.getElementById("nextchall").innerHTML = "Next challenge unlocks at "+ shortenCosts(nextAt[player.postChallUnlocked]) + " antimatter."
-                while (player.money.gte(nextAt[player.postChallUnlocked])) {
+                while (player.money.gte(nextAt[player.postChallUnlocked]) && player.challenges.includes("postc8") === false) {
                     player.postChallUnlocked += 1
-                    if (player.eternities > 6 && player.challenges.includes("postc8") === false) player.challenges.push("postc"+player.postChallUnlocked)
+                    if (player.eternities > 6) player.challenges.push("postc"+player.postChallUnlocked)
                     updateChallenges()
                 }
             }
