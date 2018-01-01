@@ -4733,7 +4733,7 @@ function fromValue(value) {
     //return parseFloat(value) + "e" + (e*3)
   }
   value = value.replace(',','')
-  if (value.split("e")[0] === "") return Decimal.fromMantissaExponent(Math.pow(10,parseFloat(value)%1),parseInt(value))
+  if (value.split("e")[0] === "") return Decimal.fromMantissaExponent(Math.pow(10,parseFloat(value.split("e")[1])%1), parseInt(value.split("e")[1]))
   return Decimal.fromString(value)
 }
 
