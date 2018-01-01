@@ -1,4 +1,5 @@
 //test
+debugger;
 var Marathon = 0;
 var auto = false;
 var autoS = true;
@@ -1695,8 +1696,8 @@ function updateChallenges() {
 
 
         for (var i=0; i < player.challenges.length; i++) {
-            document.getElementById(player.challenges[i]).className = "completedchallengesbtn";
-            document.getElementById(player.challenges[i]).innerHTML = "Completed"
+            //document.getElementById(player.challenges[i]).className = "completedchallengesbtn";
+            //document.getElementById(player.challenges[i]).innerHTML = "Completed"
         }
 
         if (player.currentChallenge != "") {
@@ -6435,7 +6436,7 @@ function startInterval() {
                 document.getElementById("nextchall").innerHTML = "Next challenge unlocks at "+ shortenCosts(nextAt[player.postChallUnlocked]) + " antimatter."
                 while (player.money.gte(nextAt[player.postChallUnlocked])) {
                     player.postChallUnlocked += 1
-                    if (player.eternities > 6) player.challenges.push("postc"+player.postChallUnlocked)
+                    if (player.eternities > 6 && player.challenges.includes("postc8") === false) player.challenges.push("postc"+player.postChallUnlocked)
                     updateChallenges()
                 }
             }
@@ -6817,7 +6818,7 @@ function startInterval() {
             if (player.money.gte(getNewInfReq())) document.getElementById("newDimensionButton").className = "newdim"
             else document.getElementById("newDimensionButton").className = "newdimlocked"
     
-            while (player.eternities > 24 && getNewInfReq().lt(player.money) && player.infDimensionsUnlocked != 8) newDimension()
+            while (player.eternities > 24 && getNewInfReq().lt(player.money) && player.infDimensionsUnlocked < 8) newDimension()
     
             document.getElementById("newDimensionButton").innerHTML = "Get " + shortenCosts(getNewInfReq()) + " antimatter to unlock a new Dimension."
     
