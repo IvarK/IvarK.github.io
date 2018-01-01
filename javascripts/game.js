@@ -1,5 +1,4 @@
 //test
-debugger;
 var Marathon = 0;
 var auto = false;
 var autoS = true;
@@ -647,7 +646,7 @@ function onLoad() {
     if (player.eternityChallUnlocked === undefined) player.eternityChallUnlocked = 0
     if (player.options.chart === undefined) player.options.chart = {}
     if (player.options.chart.updateRate === undefined) player.options.chart.updateRate = 1000
-    if (player.options.chart.duration === undefined) player.options.chart.updateRate = 10
+    if (player.options.chart.duration === undefined) player.options.chart.duration = 10
     if (player.options.chart.warning === undefined) player.options.chart.warning = 0
     updateChartValues();
     setTheme(player.options.theme);
