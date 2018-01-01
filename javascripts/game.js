@@ -1312,7 +1312,7 @@ function hasInfinityMult(tier) {
 
 
 function getDimensionFinalMultiplier(tier) {
-    if (player.currentEternityChall == "eterc3" && tier > 4) return new Decimal(0)
+    //if (player.currentEternityChall == "eterc3" && tier > 4) return new Decimal(0)
     var name = TIER_NAMES[tier];
 
     let multiplier = new Decimal(player[name + 'Pow']);
@@ -6016,9 +6016,9 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
         updateEternityChallenges()
 
         if (player.currentEternityChall == "eterc3") {
-            player.money = new Decimal("1e1101")
-            newDimension()
-            buyManyInfinityDimension(1)
+            //player.money = new Decimal("1e1101")
+            //newDimension()
+            //buyManyInfinityDimension(1)
         }
     }
 }
@@ -6317,17 +6317,23 @@ function startInterval() {
             if (player.infinitied > 2e6) giveAchievement("2 Million Infinities")
             player.infinityPoints = player.infinityPoints.plus(bestRunIppm.times(player.offlineProd/100).times(diff/600))
     
-            if (player.currentChallenge != "challenge7") {
+            if (player.currentChallenge != "challenge7" && player.currentEternityChall != "eterc3") {
                 for (let tier = 7; tier >= 1; --tier) {
                     var name = TIER_NAMES[tier];
     
                     player[name + 'Amount'] = player[name + 'Amount'].plus(getDimensionProductionPerSecond(tier + 1).times(diff / 100));
                 }
-            } else {
+            } else if (player.currentEternityChall != "eterc3") {
                 for (let tier = 6; tier >= 1; --tier) {
                     var name = TIER_NAMES[tier];
     
                     player[name + 'Amount'] = player[name + 'Amount'].plus(getDimensionProductionPerSecond(tier + 2).times(diff / 100));
+                }
+            } else {
+                for (let tier = 7; tier >= 1; --tier) {
+                    var name = TIER_NAMES[tier];
+    
+                    player.firstAmount = player[name + 'Amount'].plus(getDimensionProductionPerSecond(tier + 2).times(diff / 100));
                 }
             }
                 if (player.money.lte(Number.MAX_VALUE) || (player.break && player.currentChallenge == "") || (player.currentChallenge != "" && player.money.lte(player.challengeTarget))) {
@@ -6811,7 +6817,7 @@ function startInterval() {
             if (player.money.gte(getNewInfReq())) document.getElementById("newDimensionButton").className = "newdim"
             else document.getElementById("newDimensionButton").className = "newdimlocked"
     
-            while (player.eternities > 24 && getNewInfReq().lt(player.money)) newDimension()
+            while (player.eternities > 24 && getNewInfReq().lt(player.money) && player.infDimensionsUnlocked != 8) newDimension()
     
             document.getElementById("newDimensionButton").innerHTML = "Get " + shortenCosts(getNewInfReq()) + " antimatter to unlock a new Dimension."
     
@@ -7751,8 +7757,7 @@ setInterval( function() {
     achievementMult = Math.max(Math.pow((player.achievements.length-30), 3)/40,1)
     challengeMult = Decimal.max(10*3000/worstChallengeTime, 1)
     unspentBonus = player.infinityPoints.dividedBy(2).pow(1.5).plus(1)
-    if (player.currentEternityChall == "eterc3") mult18 = getDimensionFinalMultiplier(1).pow(0.02)
-    else mult18 = getDimensionFinalMultiplier(1).times(getDimensionFinalMultiplier(8)).pow(0.02)
+    mult18 = getDimensionFinalMultiplier(1).times(getDimensionFinalMultiplier(8)).pow(0.02)
 }, 500)
 
 
