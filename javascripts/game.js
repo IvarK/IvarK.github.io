@@ -646,7 +646,7 @@ function onLoad() {
     if (player.eternityChallUnlocked === undefined) player.eternityChallUnlocked = 0
     if (player.options.chart === undefined) player.options.chart = {}
     if (player.options.chart.updateRate === undefined) player.options.chart.updateRate = 1000
-    if (player.options.chart.duration === undefined) player.options.chart.updateRate = 10
+    if (player.options.chart.duration === undefined) player.options.chart.duration = 10
     if (player.options.chart.warning === undefined) player.options.chart.warning = 0
     updateChartValues();
     setTheme(player.options.theme);
@@ -1704,7 +1704,7 @@ function updateChallenges() {
             document.getElementById(player.currentChallenge).innerHTML = "Running"
         }
 
-        //for (var i=1; i<=player.postChallUnlocked; i++) document.getElementById("postc"+i+"div").style.display = "inline-block"
+        for (var i=1; i<=player.postChallUnlocked; i++) document.getElementById("postc"+i+"div").style.display = "inline-block"
 
 
 
@@ -4733,7 +4733,7 @@ function fromValue(value) {
     //return parseFloat(value) + "e" + (e*3)
   }
   value = value.replace(',','')
-  if (value[0]='e') return Decimal.fromMantissaExponent(Math.pow(10,parseFloat(value)%1),parseInt(value))
+  if (value.split("e")[0] === "") return Decimal.fromMantissaExponent(Math.pow(10,parseFloat(value)%1),parseInt(value))
   return Decimal.fromString(value)
 }
 
