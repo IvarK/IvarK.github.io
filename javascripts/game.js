@@ -6818,7 +6818,7 @@ function startInterval() {
             if (player.money.gte(getNewInfReq())) document.getElementById("newDimensionButton").className = "newdim"
             else document.getElementById("newDimensionButton").className = "newdimlocked"
     
-            while (player.eternities > 24 && getNewInfReq().lt(player.money) && player.infDimensionsUnlocked < 8) newDimension()
+            while (player.eternities > 24 && getNewInfReq().lt(player.money) && player.infDimensionsUnlocked[7] === false) newDimension()
     
             document.getElementById("newDimensionButton").innerHTML = "Get " + shortenCosts(getNewInfReq()) + " antimatter to unlock a new Dimension."
     
