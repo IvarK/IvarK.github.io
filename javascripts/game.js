@@ -2993,7 +2993,7 @@ function buyManyDimensionAutobuyer(tier, bulk) {
             }
         } else {
             if (player[name + "Cost"].lt(Number.MAX_VALUE)) {
-                while (player.money.gte(player[name + "Cost"].times(10)) && x > 0 && player[name + "Cost"].lte(Number.MAX_VALUE)) {
+                while (player.money.gt(player[name + "Cost"].times(10)) && x > 0 && player[name + "Cost"].lte(Number.MAX_VALUE)) {
                     player.money = player.money.minus(player[name + "Cost"].times(10))
                     if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5") player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
                     else if (player.currentChallenge == "postc5") multiplyPC5Costs(player[name + 'Cost'], tier)
@@ -3003,7 +3003,7 @@ function buyManyDimensionAutobuyer(tier, bulk) {
                     if (player[name + 'Cost'].gte(Number.MAX_VALUE)) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
                     if (player.currentChallenge == "challenge8") clearDimensions(tier-1)
                     x--;
-            }
+                }
             }
             var a = Math.log10(Math.sqrt(player.dimensionMultDecrease))
             var b = player.costMultipliers[tier-1].dividedBy(Math.sqrt(player.dimensionMultDecrease)).log10()
@@ -6476,7 +6476,7 @@ function startInterval() {
             else {
                 document.getElementById("nextchall").innerHTML = "Next challenge unlocks at "+ shortenCosts(nextAt[player.postChallUnlocked]) + " antimatter."
                 while (player.money.gte(nextAt[player.postChallUnlocked]) && player.challenges.includes("postc8") === false) {
-                    if (player.player.postChallUnlocked != 8) player.postChallUnlocked += 1
+                    if (player.postChallUnlocked != 8) player.postChallUnlocked += 1
                     if (player.eternities > 6) player.challenges.push("postc"+player.postChallUnlocked)
                     updateChallenges()
                 }
