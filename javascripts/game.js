@@ -372,9 +372,13 @@ function updateChartValues() {
     if (Number.isInteger(player.options.chart.updateRate) === false) {
         player.options.chart.updateRate = 1000
     }
-    if (player.options.chart.updateRate <= 200 && player.options.chart.duration >= 30 && player.options.chart.warning === 0) {
+    if ((player.options.chart.updateRate <= 200 && player.options.chart.duration >= 30) && player.options.chart.warning === 0) {
         alert("Warning: setting the duration and update rate too high can cause performance issues.")
         player.options.chart.warning = 1;
+    }
+    if (player.options.chart.duration / player.options.chart.updateRate * 1000 >= 1000 && player.options.chart.warning !== 2) {
+        alert("Warning: you have set the duration and update rate quite high, make sure you know what you're doing or have a good computer")
+        player.options.chart.warning = 2;
     }
 }
 
@@ -6871,7 +6875,7 @@ function startInterval() {
 }
 
 function updateChart(first) {
-    if (first !== true) {
+    if (first !== true && (player.infinitied >= 1 || player.eternities >= 1)) {
         addData(normalDimChart, "0", getDimensionProductionPerSecond(1));
     }
     setTimeout(updateChart, player.options.chart.updateRate);
