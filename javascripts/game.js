@@ -5597,7 +5597,7 @@ function startChallenge(name, target) {
       dimensionMultDecrease: player.dimensionMultDecrease,
       dimensionMultDecreaseCost: player.dimensionMultDecreaseCost,
       version: player.version,
-      postChallUnlocked: 0,
+      postChallUnlocked: player.postChallUnlocked,
       postC4Tier: 1,
       postC3Reward: new Decimal(1),
       overXGalaxies: player.overXGalaxies,
@@ -6393,9 +6393,13 @@ function startInterval() {
                     document.getElementById("infRow"+tier).style.display = "inline-block"
                     document.getElementById("dimTabButtons").style.display = "inline-block"
                     document.getElementById("idtabbtn").style.display = "inline-block"
+                    var idtabshown = true;
                 } else {
                     document.getElementById("infRow"+tier).style.display = "none"
                     document.getElementById("idtabbtn").style.display = "none"
+                }
+                if (idtabshown === true) {
+                    document.getElementById("idtabbtn").style.display = "inline-block"
                 }
     
                 if (tier <4) player["timeDimension"+tier].amount = player["timeDimension"+tier].amount.plus(getTimeDimensionProduction(tier+1).times(diff/100))
