@@ -6476,7 +6476,7 @@ function startInterval() {
             else {
                 document.getElementById("nextchall").innerHTML = "Next challenge unlocks at "+ shortenCosts(nextAt[player.postChallUnlocked]) + " antimatter."
                 while (player.money.gte(nextAt[player.postChallUnlocked]) && player.challenges.includes("postc8") === false) {
-                    player.postChallUnlocked += 1
+                    if (player.player.postChallUnlocked != 8) player.postChallUnlocked += 1
                     if (player.eternities > 6) player.challenges.push("postc"+player.postChallUnlocked)
                     updateChallenges()
                 }
