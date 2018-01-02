@@ -2194,15 +2194,15 @@ function respecTimeStudies() {
     player.timestudy.studies = []
     switch(player.eternityChallUnlocked) {
         case 1:
-        player.timestudy.theorem += 20
+        player.timestudy.theorem += 30
         break;
 
         case 2:
-        player.timestudy.theorem += 25
+        player.timestudy.theorem += 35
         break;
 
         case 3:
-        player.timestudy.theorem += 30
+        player.timestudy.theorem += 40
         break;
     }
     player.eternityChallUnlocked = 0
@@ -3636,9 +3636,9 @@ function updateInfCosts() {
 
 
     document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
-    document.getElementById("ec1unl").innerHTML = "Eternity Challenge 1<span>Requirement: "+(ECTimesCompleted("eterc1")+1)*25000+" Eternities<span>Cost: 15 Time Theorems"
-    document.getElementById("ec2unl").innerHTML = "Eternity Challenge 2<span>Requirement: "+(1300+(ECTimesCompleted("eterc2")*150))+" Tickspeed upgrades gained from time dimensions<span>Cost: 20 Time Theorems"
-    document.getElementById("ec3unl").innerHTML = "Eternity Challenge 3<span>Requirement: "+(18400+(ECTimesCompleted("eterc3")*500))+" 8th dimensions<span>Cost: 30 Time Theorems"
+    document.getElementById("ec1unl").innerHTML = "Eternity Challenge 1<span>Requirement: "+(ECTimesCompleted("eterc1")+1)*25000+" Eternities<span>Cost: 30 Time Theorems"
+    document.getElementById("ec2unl").innerHTML = "Eternity Challenge 2<span>Requirement: "+(1300+(ECTimesCompleted("eterc2")*150))+" Tickspeed upgrades gained from time dimensions<span>Cost: 35 Time Theorems"
+    document.getElementById("ec3unl").innerHTML = "Eternity Challenge 3<span>Requirement: "+(18400+(ECTimesCompleted("eterc3")*500))+" 8th dimensions<span>Cost: 40 Time Theorems"
 }
 
 
@@ -5742,19 +5742,19 @@ function ECTimesCompleted(name) {
 }
 
 function updateECUnlockButtons() {
-    if (player.eternities >= 25000+(ECTimesCompleted("eterc1")*25000) && player.timestudy.theorem >= 20 && player.eternityChallUnlocked == 0 && player.timestudy.studies.includes(171)) {
+    if (player.eternities >= 25000+(ECTimesCompleted("eterc1")*25000) && player.timestudy.theorem >= 30 && player.eternityChallUnlocked == 0 && player.timestudy.studies.includes(171)) {
         document.getElementById("ec1unl").className = "eternitychallengestudy"
     } else {
         document.getElementById("ec1unl").className = "eternitychallengestudylocked"
     }
 
-    if (player.totalTickGained >= 1300+(ECTimesCompleted("eterc2")*150) && player.timestudy.theorem >= 25 && player.eternityChallUnlocked == 0 && player.timestudy.studies.includes(171)) {
+    if (player.totalTickGained >= 1300+(ECTimesCompleted("eterc2")*150) && player.timestudy.theorem >= 35 && player.eternityChallUnlocked == 0 && player.timestudy.studies.includes(171)) {
         document.getElementById("ec2unl").className = "eternitychallengestudy"
     } else {
         document.getElementById("ec2unl").className = "eternitychallengestudylocked"
     }
 
-    if (player.eightAmount.gte(18400+(ECTimesCompleted("eterc3")*500)) && player.timestudy.theorem >= 30 && player.eternityChallUnlocked == 0 && player.timestudy.studies.includes(171)) {
+    if (player.eightAmount.gte(18400+(ECTimesCompleted("eterc3")*500)) && player.timestudy.theorem >= 40 && player.eternityChallUnlocked == 0 && player.timestudy.studies.includes(171)) {
         document.getElementById("ec3unl").className = "eternitychallengestudy"
     } else {
         document.getElementById("ec3unl").className = "eternitychallengestudylocked"
@@ -5764,21 +5764,21 @@ function updateECUnlockButtons() {
 }
 
 document.getElementById("ec1unl").onclick = function() {
-    if (player.eternities >= 25000+(ECTimesCompleted("eterc1")*25000) && player.timestudy.theorem >= 20 && player.eternityChallUnlocked == 0 && player.timestudy.studies.includes(171)) {
+    if (player.eternities >= 25000+(ECTimesCompleted("eterc1")*25000) && player.timestudy.theorem >= 30 && player.eternityChallUnlocked == 0 && player.timestudy.studies.includes(171)) {
         unlockEChall(1)
         player.timestudy.theorem -= 20
     }
 }
 
 document.getElementById("ec2unl").onclick = function() {
-    if (player.totalTickGained >= 1300+(ECTimesCompleted("eterc2")*150) && player.timestudy.theorem >= 25 && player.eternityChallUnlocked == 0 && player.timestudy.studies.includes(171)) {
+    if (player.totalTickGained >= 1300+(ECTimesCompleted("eterc2")*150) && player.timestudy.theorem >= 35 && player.eternityChallUnlocked == 0 && player.timestudy.studies.includes(171)) {
         unlockEChall(2)
         player.timestudy.theorem -= 25
     }
 }
 
 document.getElementById("ec3unl").onclick = function() {
-    if (player.eightAmount.gte(18400+(ECTimesCompleted("eterc3")*500)) && player.timestudy.theorem >= 30 && player.eternityChallUnlocked == 0 && player.timestudy.studies.includes(171)) {
+    if (player.eightAmount.gte(18400+(ECTimesCompleted("eterc3")*500)) && player.timestudy.theorem >= 40 && player.eternityChallUnlocked == 0 && player.timestudy.studies.includes(171)) {
         unlockEChall(3)
         player.timestudy.theorem -= 30
     }
