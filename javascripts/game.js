@@ -6840,8 +6840,10 @@ function startInterval() {
     }
 }
 
-function updateChart() {
-    addData(normalDimChart, "0", getDimensionProductionPerSecond(1));
+function updateChart(first) {
+    if (first !== true) {
+        addData(normalDimChart, "0", getDimensionProductionPerSecond(1));
+    }
     setTimeout(updateChart, player.options.chart.updateRate);
 }
 
