@@ -5880,32 +5880,35 @@ function startInterval() {
         if (player.infinitied > 2e6) giveAchievement("2 Million Infinities")
         player.infinityPoints = player.infinityPoints.plus(bestRunIppm.times(player.offlineProd/100).times(diff/600))
 
-        if (player.currentChallenge != "challenge7") {
-            for (let tier = 7; tier >= 1; --tier) {
-                var name = TIER_NAMES[tier];
+       
 
-                player[name + 'Amount'] = player[name + 'Amount'].plus(getDimensionProductionPerSecond(tier + 1).times(diff / 100));
-        }
-        } else {
-            for (let tier = 6; tier >= 1; --tier) {
-                var name = TIER_NAMES[tier];
+        if (player.money.lte(Number.MAX_VALUE) || (player.break && player.currentChallenge == "") || (player.currentChallenge != "" && player.money.lte(player.challengeTarget))) {
 
-                player[name + 'Amount'] = player[name + 'Amount'].plus(getDimensionProductionPerSecond(tier + 2).times(diff / 100));
+            if (player.currentChallenge != "challenge7") {
+                for (let tier = 7; tier >= 1; --tier) {
+                    var name = TIER_NAMES[tier];
+    
+                    player[name + 'Amount'] = player[name + 'Amount'].plus(getDimensionProductionPerSecond(tier + 1).times(diff / 100));
             }
-        }
-
-            if (player.money.lte(Number.MAX_VALUE) || (player.break && player.currentChallenge == "") || (player.currentChallenge != "" && player.money.lte(player.challengeTarget))) {
-        if (player.currentChallenge == "challenge3" || player.currentChallenge == "postc1") {
-            player.money = player.money.plus(getDimensionProductionPerSecond(1).times(diff/10).times(player.chall3Pow));
-            player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(1).times(diff/10).times(player.chall3Pow));
-        } else {
-            player.money = player.money.plus(getDimensionProductionPerSecond(1).times(diff/10));
-            player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(1).times(diff/10));
-        }
-        if (player.currentChallenge == "challenge7") {
-            player.money = player.money.plus(getDimensionProductionPerSecond(2).times(diff/10));
-            player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(2).times(diff/10))
-        }
+            } else {
+                for (let tier = 6; tier >= 1; --tier) {
+                    var name = TIER_NAMES[tier];
+    
+                    player[name + 'Amount'] = player[name + 'Amount'].plus(getDimensionProductionPerSecond(tier + 2).times(diff / 100));
+                }
+            }
+            
+            if (player.currentChallenge == "challenge3" || player.currentChallenge == "postc1") {
+                player.money = player.money.plus(getDimensionProductionPerSecond(1).times(diff/10).times(player.chall3Pow));
+                player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(1).times(diff/10).times(player.chall3Pow));
+            } else {
+                player.money = player.money.plus(getDimensionProductionPerSecond(1).times(diff/10));
+                player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(1).times(diff/10));
+            }
+            if (player.currentChallenge == "challenge7") {
+                player.money = player.money.plus(getDimensionProductionPerSecond(2).times(diff/10));
+                player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(2).times(diff/10))
+            }
         }
 
         document.getElementById("dimTabButtons").style.display = "none"
