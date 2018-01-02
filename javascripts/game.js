@@ -6883,7 +6883,11 @@ function updateChart(first) {
     if (first !== true && (player.infinitied >= 1 || player.eternities >= 1)) {
         addData(normalDimChart, "0", getDimensionProductionPerSecond(1));
     }
-    setTimeout(updateChart, player.options.chart.updateRate);
+    if (player.options.chart.updateRate) {
+        setTimeout(updateChart, player.options.chart.updateRate);
+    } else {
+        setTimeout(updateChart, 1000);
+    }
 }
 
 function dimBoolean() {
