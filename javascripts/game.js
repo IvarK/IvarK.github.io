@@ -923,6 +923,7 @@ function onLoad() {
     updateLastTenEternities()
 
     updateInfCosts()
+    
 
     if (player.replicanti.unl == true) {
         document.getElementById("replicantidiv").style.display="inline-block"
@@ -1013,9 +1014,9 @@ function onLoad() {
     if (!player.options.hotkeys) document.getElementById("hotkeys").innerHTML = "Enable hotkeys"
     updateAutobuyers();
     setAchieveTooltip();
-    updatePriorities()
-    updateTheoremButtons()
-    updateTimeStudyButtons()
+    updatePriorities();
+    updateTheoremButtons();
+    updateTimeStudyButtons();
     totalMult = Math.pow(player.totalmoney.e+1, 0.5)
     currentMult = Math.pow(player.money.e+1, 0.5)
     infinitiedMult = 1+Math.log10(player.infinitied+1)*10
@@ -1023,12 +1024,13 @@ function onLoad() {
     challengeMult = Decimal.max(10*3000/worstChallengeTime, 1)
     unspentBonus = player.infinityPoints.dividedBy(2).pow(1.5).plus(1)
     transformSaveToDecimal();
+    updateChallengeTimes();
     updateMilestones();
-    updateEternityUpgrades()
-    loadInfAutoBuyers()
-    resizeCanvas()
-    checkForEndMe()
-    updateEternityChallenges()
+    updateEternityUpgrades();
+    loadInfAutoBuyers();
+    resizeCanvas();
+    checkForEndMe();
+    updateEternityChallenges();
 
     
 
@@ -4922,7 +4924,7 @@ function checkForEndMe() {
         temp2 += player.infchallengeTimes[i]
     }
     infchallengeTimes = temp2
-    if (temp2 <= 50) giveAchievement("Yes. This is hell.")
+    if (temp2 <= 66.6) giveAchievement("Yes. This is hell.")
 }
 
 
