@@ -2821,7 +2821,7 @@ function onBuyDimension(tier) {
 }
 
 function dimBought(tier) {
-    return TIER_NAMES[tier].bought % 10;
+    return player[TIER_NAMES[tier]+"Bought"] % 10;
 }
 
 function buyOneDimension(tier) {
