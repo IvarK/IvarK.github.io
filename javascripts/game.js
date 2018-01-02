@@ -5775,21 +5775,21 @@ function updateECUnlockButtons() {
 document.getElementById("ec1unl").onclick = function() {
     if (player.eternities >= 25000+(ECTimesCompleted("eterc1")*25000) && player.timestudy.theorem >= 30 && player.eternityChallUnlocked == 0 && player.timestudy.studies.includes(171)) {
         unlockEChall(1)
-        player.timestudy.theorem -= 20
+        player.timestudy.theorem -= 30
     }
 }
 
 document.getElementById("ec2unl").onclick = function() {
     if (player.totalTickGained >= 1300+(ECTimesCompleted("eterc2")*150) && player.timestudy.theorem >= 35 && player.eternityChallUnlocked == 0 && player.timestudy.studies.includes(171)) {
         unlockEChall(2)
-        player.timestudy.theorem -= 25
+        player.timestudy.theorem -= 35
     }
 }
 
 document.getElementById("ec3unl").onclick = function() {
     if (player.eightAmount.gte(18400+(ECTimesCompleted("eterc3")*500)) && player.timestudy.theorem >= 40 && player.eternityChallUnlocked == 0 && player.timestudy.studies.includes(171)) {
         unlockEChall(3)
-        player.timestudy.theorem -= 30
+        player.timestudy.theorem -= 40
     }
 }
 
@@ -6476,7 +6476,7 @@ function startInterval() {
             else {
                 document.getElementById("nextchall").innerHTML = "Next challenge unlocks at "+ shortenCosts(nextAt[player.postChallUnlocked]) + " antimatter."
                 while (player.money.gte(nextAt[player.postChallUnlocked]) && player.challenges.includes("postc8") === false) {
-                    player.postChallUnlocked += 1
+                    if (player.player.postChallUnlocked != 8) player.postChallUnlocked += 1
                     if (player.eternities > 6) player.challenges.push("postc"+player.postChallUnlocked)
                     updateChallenges()
                 }
