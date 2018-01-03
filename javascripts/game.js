@@ -6465,13 +6465,12 @@ function startInterval() {
                 if (player.infDimensionsUnlocked[tier-1]) {
                     document.getElementById("infRow"+tier).style.display = "inline-block"
                     document.getElementById("dimTabButtons").style.display = "inline-block"
-                    document.getElementById("idtabbtn").style.display = "inline-block"
                     var idtabshown = true;
                 } else {
                     document.getElementById("infRow"+tier).style.display = "none"
                     document.getElementById("idtabbtn").style.display = "none"
                 }
-                if (idtabshown === true) {
+                if (idtabshown === true || player.eternities >= 1) {
                     document.getElementById("idtabbtn").style.display = "inline-block"
                 }
     
