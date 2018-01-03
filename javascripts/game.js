@@ -7817,7 +7817,7 @@ window.onfocus = function() {
 
 window.addEventListener('keydown', function(event) {
     if (!player.options.hotkeys || controlDown === true) return false
-    const tmp = event.keycode;
+    const tmp = event.keyCode;
     if (tmp >= 49 && tmp <= 56) {
         if (shiftDown) buyOneDimension(tmp-48)
         else buyManyDimension(tmp-48)
