@@ -430,7 +430,12 @@ function addData(chart, label, data) {
 
 function drawTreeBranch(num1, num2) {
     var name1 = parseInt(num1)
-    var name2 = parseInt(num2)
+    if (isNaN(parseInt(num2))) {
+        var a = num2.split("c")[1]
+        var name2 = parseInt(a.split("u")[0])
+    } else {
+        var name2 = parseInt(num2)
+    }
     var start = document.getElementById(num1).getBoundingClientRect()
     var end = document.getElementById(num2).getBoundingClientRect()
     var x1 = start.left + (start.width / 2) + document.documentElement.scrollLeft;
@@ -439,10 +444,10 @@ function drawTreeBranch(num1, num2) {
     var y2 = end.top + (start.height / 2) + document.documentElement.scrollTop;
     ctx.lineWidth=15;
     ctx.beginPath();
-    if (isNaN(name2)) {
-        ctx.strokeStyle="#490066"
-    } else if (player.timestudy.studies.includes(name1) && player.timestudy.studies.includes(name2)) {
-        if (name2 == 71 || name2 == 81 || name2 == 91 || name2 == 101 || name1 == 101) {
+    if ((player.timestudy.studies.includes(name1) && player.timestudy.studies.includes(name2)) || player.eternityChallUnlocked === name2) {
+        if (name2 < 20) {
+            ctx.strokeStyle="#490066";
+        } else if (name2 == 71 || name2 == 81 || name2 == 91 || name2 == 101 || name1 == 101) {
             ctx.strokeStyle="#22aa48";
         } else if (name2 == 72 || name2 == 82 || name2 == 92 || name2 == 102 || name1 == 102) {
             ctx.strokeStyle="#B67F33";
@@ -458,7 +463,9 @@ function drawTreeBranch(num1, num2) {
             ctx.strokeStyle="#000000";
         }
     } else {
-        if (name2 == 71 || name2 == 81 || name2 == 91 || name2 == 101 || name1 == 101) {
+        if (name2 < 20) {
+            ctx.strokeStyle="#4b3753";
+        } else if (name2 == 71 || name2 == 81 || name2 == 91 || name2 == 101 || name1 == 101) {
             ctx.strokeStyle="#37533f";
         } else if (name2 == 72 || name2 == 82 || name2 == 92 || name2 == 102 || name1 == 102) {
             ctx.strokeStyle="#534737";
@@ -6783,10 +6790,8 @@ function startInterval() {
     
             if (player.autobuyers[11]%1 !== 0 && player.autobuyers[11].interval == 100) {
                 document.getElementById("postinftable").style.display = "inline-block"
-                document.getElementById("postinftable2").style.display = "inline-block"
             } else {
                 document.getElementById("postinftable").style.display = "none"
-                document.getElementById("postinftable2").style.display = "none"
             }
     
             if (player.autobuyers[11].interval == 100) document.getElementById("abletobreak").style.display = "none"
