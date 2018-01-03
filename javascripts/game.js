@@ -2216,6 +2216,10 @@ function respecTimeStudies() {
         case 3:
         player.timestudy.theorem += 40
         break;
+
+        case 4:
+        player.timestudy.theorem += 85
+        break;
     }
     player.eternityChallUnlocked = 0
     updateTimeStudyButtons()
