@@ -83,6 +83,11 @@ input {
     background: #43A047 !important;
 }
 
+.lockedchallengesbtn {
+    background: #23292a !important;
+    border-color: #B84B5F !important;
+}
+
 .onchallengebtn {
     background: #263238 !important;
 }
@@ -320,9 +325,21 @@ input {
     border: 1px solid #B84B5F !important;
 }
 
+#theorembuybackground {
+    background: #455A64 !important;
+}
+
+.eternitychallengestudy {
+    background: white !important;
+}
+
 .timestudy {
     color: #b341e0 !important;
     background: black !important;
+}
+
+.eternitychallengestudy:hover {
+    background: #490066 !important;
 }
 
 .timestudy:hover {
@@ -390,7 +407,7 @@ input {
     border: 1px solid #0066cc !important;
 }
 
-.timestudylocked {
+.timestudylocked, .eternitychallengestudylocked {
     background: #23292a !important;
     color: black !important;
 }
@@ -419,7 +436,7 @@ input {
     background: #2d3239 !important;
 }
 
-.timestudylocked:hover {
+.timestudylocked:hover, .eternitychallengestudylocked:hover {
     background: #B84B5F !important;
     border: 1px solid #B84B5F !important;
 }
