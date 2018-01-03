@@ -1261,6 +1261,7 @@ function formatValue(notation, value, places, placesUnder1000) {
                 matissa /= 10;
                 power++;
             }
+            if (power > 100000  && player.options.commas) return (matissa + "e" + power.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
             return (matissa + "e" + power);
         }
         if (notation.includes("engineering") || notation.includes("Engineering")) pow = power - (power % 3)
