@@ -205,6 +205,7 @@ var player = {
     eternityChallGoal: new Decimal(Number.MAX_VALUE),
     currentEternityChall: "",
     eternityChallUnlocked: 0,
+    etercreq: 0,
     autoIP: new Decimal(0),
     autoTime: 1e300,
     infMultBuyer: false,
@@ -517,6 +518,7 @@ function drawStudyTree() {
     drawTreeBranch("171", "ec1unl")
     drawTreeBranch("171", "ec2unl")
     drawTreeBranch("171", "ec3unl")
+    drawTreeBranch("143", "ec4unl")
 }
 
 function setTheme(name) {
@@ -652,6 +654,7 @@ function onLoad() {
     if (player.options.chart.updateRate === undefined) player.options.chart.updateRate = 1000
     if (player.options.chart.duration === undefined) player.options.chart.duration = 10
     if (player.options.chart.warning === undefined) player.options.chart.warning = 0
+    if (player.etercreq === undefined) player.etercreq = 0
     updateChartValues();
     setTheme(player.options.theme);
 
@@ -1576,7 +1579,7 @@ function updateDimensions() {
             document.getElementById("infinityPoints2").innerHTML = "You have <span class=\"IPAmount2\">"+shortenDimensions(player.infinityPoints)+"</span> Infinity points."
         }
         if (player.infinitied == 1) document.getElementById("infinitied").innerHTML = "You have infinitied 1 time."
-        else document.getElementById("infinitied").innerHTML = "You have infinitied " + player.infinitied + " times."
+        else document.getElementById("infinitied").innerHTML = "You have infinitied " + player.infinitied.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " times."
 
     }
 
@@ -2358,6 +2361,7 @@ function softReset(bulk) {
         eternityChallGoal: player.eternityChallGoal,
         currentEternityChall: player.currentEternityChall,
         eternityChallUnlocked: player.eternityChallUnlocked,
+        etercreq: player.etercreq,
         autoIP: player.autoIP,
         autoTime: player.autoTime,
         infMultBuyer: player.infMultBuyer,
@@ -3645,9 +3649,14 @@ function updateInfCosts() {
 
 
     document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
-    document.getElementById("ec1unl").innerHTML = "Eternity Challenge 1<span>Requirement: "+(ECTimesCompleted("eterc1")+1)*25000+" Eternities<span>Cost: 30 Time Theorems"
-    document.getElementById("ec2unl").innerHTML = "Eternity Challenge 2<span>Requirement: "+(1300+(ECTimesCompleted("eterc2")*150))+" Tickspeed upgrades gained from time dimensions<span>Cost: 35 Time Theorems"
-    document.getElementById("ec3unl").innerHTML = "Eternity Challenge 3<span>Requirement: "+(18400+(ECTimesCompleted("eterc3")*500))+" 8th dimensions<span>Cost: 40 Time Theorems"
+    if (player.etercreq !== 1) document.getElementById("ec1unl").innerHTML = "Eternity Challenge 1<span>Requirement: "+(ECTimesCompleted("eterc1")+1)*25000+" Eternities<span>Cost: 30 Time Theorems"
+    else document.getElementById("ec1unl").innerHTML = "Eternity Challenge 1<span>Cost: 30 Time Theorems"
+    if (player.etercreq !== 2) document.getElementById("ec2unl").innerHTML = "Eternity Challenge 2<span>Requirement: "+(1300+(ECTimesCompleted("eterc2")*150))+" Tickspeed upgrades gained from time dimensions<span>Cost: 35 Time Theorems"
+    else document.getElementById("ec2unl").innerHTML = "Eternity Challenge 2<span>Cost: 35 Time Theorems"
+    if (player.etercreq !== 3) document.getElementById("ec3unl").innerHTML = "Eternity Challenge 3<span>Requirement: "+(18400+(ECTimesCompleted("eterc3")*500))+" 8th dimensions<span>Cost: 40 Time Theorems"
+    else document.getElementById("ec3unl").innerHTML = "Eternity Challenge 3<span>Cost: 40 Time Theorems"
+    if (player.etercreq !== 4) document.getElementById("ec4unl").innerHTML = "Eternity Challenge 4<span>Requirement: "+(1e8 + (ECTimesCompleted("eterc4")*1e8)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" infinities<span>Cost: 85 Time Theorems"
+    else document.getElementById("ec4unl").innerHTML = "Eternity Challenge 4<span>Cost: 85 Time Theorems"
 }
 
 
@@ -4075,6 +4084,7 @@ function galaxyReset() {
         eternityChallGoal: player.eternityChallGoal,
         currentEternityChall: player.currentEternityChall,
         eternityChallUnlocked: player.eternityChallUnlocked,
+        etercreq: player.etercreq,
         autoIP: player.autoIP,
         autoTime: player.autoTime,
         infMultBuyer: player.infMultBuyer,
@@ -4978,6 +4988,13 @@ document.getElementById("bigcrunch").onclick = function () {
         let infGain = 1;
         if (player.thisInfinityTime > 50 && player.achievements.includes("r87")) infGain = 250;
         if (player.timestudy.studies.includes(32)) infGain *= Math.max(player.resets,1);
+        if (player.currentEternityChall == "eterc4") {
+            infGain = 1
+            if (player.infinitied >= 20) {
+                document.getElementById("challfail").style.display = "block"
+                exitChallenge()
+            }
+        }
         if (autoS && auto) {
           if (gainedInfinityPoints().dividedBy(player.thisInfinityTime).gt(player.autoIP)) player.autoIP = gainedInfinityPoints().dividedBy(player.thisInfinityTime);
           if (player.thisInfinityTime<player.autoTime) player.autoTime = player.thisInfinityTime;
@@ -5099,6 +5116,7 @@ document.getElementById("bigcrunch").onclick = function () {
         eternityChallGoal: player.eternityChallGoal,
         currentEternityChall: player.currentEternityChall,
         eternityChallUnlocked: player.eternityChallUnlocked,
+        etercreq: player.etercreq,
         autoIP: player.autoIP,
         autoTime: player.autoTime,
         infMultBuyer: player.infMultBuyer,
@@ -5241,6 +5259,7 @@ function eternity() {
             if (player.eternityChalls[player.currentEternityChall] === undefined) {
                 player.eternityChalls[player.currentEternityChall] = 1
             } else player.eternityChalls[player.currentEternityChall] += 1
+            player.etercreq = 0
             respecTimeStudies()
         }
         for (var i=0; i<player.challenges.length; i++) {
@@ -5424,6 +5443,7 @@ function eternity() {
             eternityChallGoal: new Decimal(Number.MAX_VALUE),
             currentEternityChall: "",
             eternityChallUnlocked: player.eternityChallUnlocked,
+            etercreq: player.etercreq,
             autoIP: new Decimal(0),
             autoTime: 1e300,
             infMultBuyer: player.infMultBuyer,
@@ -5646,6 +5666,7 @@ function startChallenge(name, target) {
       eternityChallGoal: player.eternityChallGoal,
       currentEternityChall: player.currentEternityChall,
       eternityChallUnlocked: player.eternityChallUnlocked,
+      etercreq: player.etercreq,
       autoIP: player.autoIP,
       autoTime: player.autoTime,
       infMultBuyer: player.infMultBuyer,
@@ -5740,6 +5761,7 @@ function unlockEChall(idx) {
         document.getElementById("eterc"+player.eternityChallUnlocked+"div").style.display = "inline-block"
         showTab("challenges")
         showChallengesTab("eternitychallenges")
+        player.etercreq = idx
     }
     updateEternityChallenges()
     
@@ -5750,51 +5772,89 @@ function ECTimesCompleted(name) {
     else return player.eternityChalls[name]
 }
 
+function canUnlockEC(idx, cost, study) {
+    if (player.eternityChallUnlocked !== 0) return false
+    if (!player.timestudy.studies.includes(study)) return false
+    if (player.timestudy.theorem < cost) return false
+    if (player.etercreq == idx) return true
+
+    switch(idx) {
+        case 1:
+        if (player.eternities >= 25000+(ECTimesCompleted("eterc1")*25000)) return true
+        break;
+
+        case 2:
+        if (player.totalTickGained >= 1300+(ECTimesCompleted("eterc2")*150)) return true
+        break;
+
+        case 3:
+        if (player.eightAmount.gte(18400+(ECTimesCompleted("eterc3")*500))) return true
+        break;
+
+        case 4:
+        if (1e8 + (ECTimesCompleted("eterc4")*1e8) < player.infinitied) return true
+        break;
+    }
+}
+
 function updateECUnlockButtons() {
-    if (player.eternities >= 25000+(ECTimesCompleted("eterc1")*25000) && player.timestudy.theorem >= 30 && player.eternityChallUnlocked == 0 && player.timestudy.studies.includes(171)) {
+    if (canUnlockEC(1, 30, 171)) {
         document.getElementById("ec1unl").className = "eternitychallengestudy"
     } else {
         document.getElementById("ec1unl").className = "eternitychallengestudylocked"
     }
 
-    if (player.totalTickGained >= 1300+(ECTimesCompleted("eterc2")*150) && player.timestudy.theorem >= 35 && player.eternityChallUnlocked == 0 && player.timestudy.studies.includes(171)) {
+    if (canUnlockEC(2, 35, 171)) {
         document.getElementById("ec2unl").className = "eternitychallengestudy"
     } else {
         document.getElementById("ec2unl").className = "eternitychallengestudylocked"
     }
 
-    if (player.eightAmount.gte(18400+(ECTimesCompleted("eterc3")*500)) && player.timestudy.theorem >= 40 && player.eternityChallUnlocked == 0 && player.timestudy.studies.includes(171)) {
+    if (canUnlockEC(3, 40, 171)) {
         document.getElementById("ec3unl").className = "eternitychallengestudy"
     } else {
         document.getElementById("ec3unl").className = "eternitychallengestudylocked"
+    }
+
+    if (canUnlockEC(4, 85, 143)) {
+        document.getElementById("ec4unl").className = "eternitychallengestudy"
+    } else {
+        document.getElementById("ec4unl").className = "eternitychallengestudylocked"
     }
 
     if (player.eternityChallUnlocked !== 0 )document.getElementById("ec"+player.eternityChallUnlocked+"unl").className = "eternitychallengestudybought"
 }
 
 document.getElementById("ec1unl").onclick = function() {
-    if (player.eternities >= 25000+(ECTimesCompleted("eterc1")*25000) && player.timestudy.theorem >= 30 && player.eternityChallUnlocked == 0 && player.timestudy.studies.includes(171)) {
+    if (canUnlockEC(1, 30, 171)) {
         unlockEChall(1)
         player.timestudy.theorem -= 30
     }
 }
 
 document.getElementById("ec2unl").onclick = function() {
-    if (player.totalTickGained >= 1300+(ECTimesCompleted("eterc2")*150) && player.timestudy.theorem >= 35 && player.eternityChallUnlocked == 0 && player.timestudy.studies.includes(171)) {
+    if (canUnlockEC(2, 35, 171)) {
         unlockEChall(2)
         player.timestudy.theorem -= 35
     }
 }
 
 document.getElementById("ec3unl").onclick = function() {
-    if (player.eightAmount.gte(18400+(ECTimesCompleted("eterc3")*500)) && player.timestudy.theorem >= 40 && player.eternityChallUnlocked == 0 && player.timestudy.studies.includes(171)) {
+    if (canUnlockEC(3, 40, 171)) {
         unlockEChall(3)
         player.timestudy.theorem -= 40
     }
 }
 
+document.getElementById("ec4unl").onclick = function() {
+    if (canUnlockEC(4, 85, 143)) {
+        unlockEChall(4)
+        player.timestudy.theorem -= 85
+    }
+}
+
 function startEternityChallenge(name, startgoal, goalIncrease) {
-    if(player.options.challConf || name == "" ? true : confirm("You will start over with just your time studies, eternity upgrades and achievements. You need to reach a set IP with special conditions.")) {
+    if((player.options.challConf && name.includes(player.eternityChallUnlocked)) || name == "" ? true : confirm("You will start over with just your time studies, eternity upgrades and achievements. You need to reach a set IP with special conditions.")) {
         player = {
             money: new Decimal(10),
             tickSpeedCost: new Decimal(1000),
@@ -5971,6 +6031,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
             eternityChallGoal: startgoal.times(goalIncrease.times(ECTimesCompleted(name))).max(startgoal),
             currentEternityChall: name,
             eternityChallUnlocked: player.eternityChallUnlocked,
+            etercreq: player.etercreq,
             autoIP: new Decimal(0),
             autoTime: 1e300,
             infMultBuyer: player.infMultBuyer,
@@ -6279,8 +6340,11 @@ setInterval(function() {
     document.getElementById("eterc2goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e1000").times(new Decimal("1e150").times(ECTimesCompleted("eterc2"))).max(new Decimal("1e1000"))) + " IP"
     document.getElementById("eterc2completed").innerHTML = "Completed "+ECTimesCompleted("eterc2")+" times."
 
-    document.getElementById("eterc3goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e750").times(new Decimal("1e100").times(ECTimesCompleted("eterc3"))).max(new Decimal("1e1000"))) + " IP"
+    document.getElementById("eterc3goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e750").times(new Decimal("1e100").times(ECTimesCompleted("eterc3"))).max(new Decimal("1e750"))) + " IP"
     document.getElementById("eterc3completed").innerHTML = "Completed "+ECTimesCompleted("eterc3")+" times."
+
+    document.getElementById("eterc4goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e4000").times(new Decimal("1e250").times(ECTimesCompleted("eterc4"))).max(new Decimal("1e4000"))) + " IP in less than 20 infinities."
+    document.getElementById("eterc4completed").innerHTML = "Completed "+ECTimesCompleted("eterc4")+" times."
     updateECUnlockButtons()
     
 

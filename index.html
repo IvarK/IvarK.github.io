@@ -186,7 +186,9 @@
                 <br>
                 <table class="table" id="studytable">
                     <tr>
-                        <td style="margin: auto; width: 100%;text-align:center;"><button class="timestudy" id="151" onclick="buyTimeStudy(151, 8)">1e4x multiplier on all Time Dimensions<span>Cost: 8 Time Theorems</button></td>
+                        <td style="opacity: 0; width: 33%"></td>
+                        <td style="margin: auto; width: 33%;text-align:center;"><button class="timestudy" id="151" onclick="buyTimeStudy(151, 8)">1e4x multiplier on all Time Dimensions<span>Cost: 8 Time Theorems</button></td>
+                        <td style="margin: auto; width: 33%;text-align:center;"><button class="eternitychallengestudy" id="ec4unl">Eternity Challenge 4<span>Requirement: 100,000,000 infinities<span>Cost: 85 Time Theorems</button></td>
                     </tr>
                 </table>
                 <table class="table" id="studytable">
@@ -1548,15 +1550,15 @@
                         </td>
                         <td>
                             <div class="eterchallengediv" id="eterc4div" style="height: 140px; display: none">
-                                <span>Infinity Dimensions are disabled.</span>
+                                <span>All infinitied stat multipliers are disabled.</span>
                                 <br>
                                 <br>
                                 <div class="outer">
-                                    <button id="eterc4" class="challengesbtn" onclick="startEternityChallenge('eterc4', new Decimal('1e1000'), new Decimal('1e150'))">Start</button>
+                                    <button id="eterc4" class="challengesbtn" onclick="startEternityChallenge('eterc4', new Decimal('1e4000'), new Decimal('1e250'))">Start</button>
                                     <br>
                                     <span id="eterc4completed">Completed 0 Times.</span><br>
-                                    <span id="eterc4goal" >Goal: 1e10500</span><br>
-                                    <span id="ec4reward">Reward: idk lol</span>
+                                    <span id="eterc4goal" >Goal: 1e4000 IP in 20 infinities</span><br>
+                                    <span id="ec4reward">Reward: Infinity Dimension multiplier from unspent IP</span>
                                 </div>
                             </div>
                         </td>
@@ -2111,6 +2113,10 @@
     </div>
     <div class="popup" id="update">
         <div id="updatePopup">The last test.</div>
+        <button class="storebtn" style="font-size: 15px" onclick="closeToolTip()" style="display: inline">Okay</button>
+    </div>
+    <div class="popup" id="challfail">
+        <div id="updatePopup">You failed the challenge, you will now exit it.</div>
         <button class="storebtn" style="font-size: 15px" onclick="closeToolTip()" style="display: inline">Okay</button>
     </div>
 </body>
