@@ -7804,6 +7804,11 @@ window.addEventListener('keyup', function(event) {
     if (event.keyCode == 16) shiftDown = false;
 }, false);
 
+window.onfocus = function() {
+    controlDown = false;
+    shiftDown = false;
+}
+
 window.addEventListener('keydown', function(event) {
     if (!player.options.hotkeys || controlDown === true) return false
     const tmp = event.keycode;
