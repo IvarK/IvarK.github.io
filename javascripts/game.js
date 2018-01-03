@@ -4437,6 +4437,7 @@ function calcTotalSacrificeBoost() {
 function sacrifice() {
     if (player.eightAmount == 0) return false;
     if (player.resets < 5) return false
+    if (player.currentEternityChall == "eterc3") return false
 
     if (calcSacrificeBoost().gte(Number.MAX_VALUE)) giveAchievement("Yet another infinity reference");
     player.eightPow = player.eightPow.times(calcSacrificeBoost())
@@ -6777,7 +6778,7 @@ function startInterval() {
     
             if (player.infinitied > 0) document.getElementById("sacrifice").style.display = "inline-block";
     
-            if (player.eightAmount > 0 && player.resets > 4) document.getElementById("sacrifice").className = "storebtn"
+            if (player.eightAmount > 0 && player.resets > 4 && player.currentEternityChall !== "eterc3") document.getElementById("sacrifice").className = "storebtn"
             else document.getElementById("sacrifice").className = "unavailablebtn"
     
             if (player.autobuyers[11]%1 !== 0 && player.autobuyers[11].interval == 100) {
