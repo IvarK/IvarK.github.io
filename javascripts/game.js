@@ -228,7 +228,12 @@ var player = {
         hotkeys: true,
         theme: undefined,
         eternityconfirm: true,
-        commas: true
+        commas: true,
+        chart: {
+            updateRate: 1000,
+            duration: 10,
+            warning: 0,
+        }
     }
 
 };
@@ -4996,6 +5001,7 @@ document.getElementById("bigcrunch").onclick = function () {
             infGain = 1
             if (player.infinitied >= 20) {
                 document.getElementById("challfail").style.display = "block"
+                player.thisInfinityTime = 10
                 exitChallenge()
             }
         }
@@ -6366,7 +6372,7 @@ var IPminpeak = new Decimal(0)
 var replicantiTicks = 0
 
 function startInterval() {
-    if (sha512_256(player.options.themes) === "0b4d2986d955f7f0a5be3e560b0c2008a6a046269ffe6704bfacf55e8f292339") {
+    if (player.options.themes !== undefined && sha512_256(player.options.themes) === "0b4d2986d955f7f0a5be3e560b0c2008a6a046269ffe6704bfacf55e8f292339") {
         setInterval(function () {
             var thisUpdate = new Date().getTime();
             if (thisUpdate - player.lastUpdate >= 21600000) giveAchievement("Don't you dare to sleep")
@@ -7250,7 +7256,7 @@ var scrollTimeouts = [];
 function scrollNextMessage() {
   updateNewsArray();
   //select a message at random
-  let index;
+  var index;
   do {index = Math.floor(Math.random() * newsArray.length)} while (!newsArray[index][1])
 
   scrollTimeouts.forEach(function(v) {clearTimeout(v);});
