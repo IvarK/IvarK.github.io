@@ -6425,7 +6425,7 @@ function startInterval() {
     
             if (player.infinityPoints.gte('9.99999e999')) giveAchievement("This achievement doesn't exist II");
     
-            if (player.infinityUpgrades.includes("infinitiedGeneration")) player.partInfinitied += diff / player.bestInfinityTime;
+            if (player.infinityUpgrades.includes("infinitiedGeneration") && player.currentEternityChall !== "eterc4") player.partInfinitied += diff / player.bestInfinityTime;
             if (player.partInfinitied >= 50) {
                 player.infinitied += Math.floor(player.partInfinitied/5)
                 player.partInfinitied = 0;
