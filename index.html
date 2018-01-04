@@ -2135,63 +2135,65 @@
 <script type="text/javascript" src="javascripts/lz-string.js"></script>
 <script type="text/javascript" src="javascripts/sha512.js"></script>
 <script>
-        var ctx2 = document.getElementById("normalDimChart").getContext('2d');
-        var normalDimChart = new Chart(ctx2, {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: ['Exponents of antimatter per second'],
-                    data: [],
-                    backgroundColor: [
-                        'rgba(0,0,0,1)'
-                    ],
-                    borderColor: [
-                        'rgba(0,0,0,1)'
-                    ],
-                    fill: false,
-                    lineTension: 0.1,
-                    borderWidth: 3,
-                    pointRadius: 0,
-                    pointBorderWidth: 0,
-                    pointHoverRadius: 0
+    Chart.defaults.global.defaultFontColor = 'black';
+    Chart.defaults.global.defaultFontFamily = 'Typewriter';
+    var ctx2 = document.getElementById("normalDimChart").getContext('2d');
+    var normalDimChart = new Chart(ctx2, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: ['Exponents of antimatter per second'],
+                data: [],
+                backgroundColor: [
+                    'rgba(0,0,0,1)'
+                ],
+                borderColor: [
+                    'rgba(0,0,0,1)'
+                ],
+                fill: false,
+                lineTension: 0.1,
+                borderWidth: 3,
+                pointRadius: 0,
+                pointBorderWidth: 0,
+                pointHoverRadius: 0
+            }]
+        },
+        options: {
+            tooltips: {enabled: false},
+            hover: {mode: null},
+            legend: {
+                position: 'bottom',
+                labels: {
+                    boxWidth: 0
+                }
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        max: 1000000,
+                        min: 0
+                    }
+                }],
+                xAxes: [{
+                    gridLines: {
+                        display: false,
+                        drawTicks: false
+                    },
+                    ticks: {
+                        fontSize: 0
+                    }
                 }]
             },
-            options: {
-                tooltips: {enabled: false},
-                hover: {mode: null},
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                        boxWidth: 0
-                    }
-                },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            max: 1000000,
-                            min: 0
-                        }
-                    }],
-                    xAxes: [{
-                        gridLines: {
-                            display: false,
-                            drawTicks: false
-                        },
-                        ticks: {
-                            fontSize: 0
-                        }
-                    }]
-                },
-                layout: {
-                    padding: {
-                    top: 10
-                    }
+            layout: {
+                padding: {
+                top: 10
                 }
             }
-        });
-        updateChart(true);
-        </script>
+        }
+    });
+    updateChart(true);
+</script>
 
 
 

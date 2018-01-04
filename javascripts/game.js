@@ -4,7 +4,6 @@ var auto = false;
 var autoS = true;
 var controlDown = false;
 var shiftDown = false;
-var secretThemeKey = 0;
 var player = {
     money: new Decimal(10),
     tickSpeedCost: new Decimal(1000),
@@ -227,6 +226,7 @@ var player = {
         cloud: true,
         hotkeys: true,
         theme: undefined,
+        secretThemeKey: 0,
         eternityconfirm: true,
         commas: true,
         chart: {
@@ -541,9 +541,13 @@ function setTheme(name) {
     if(name === undefined) {
         document.getElementById("theme").innerHTML="Current theme: Normal";
     } else if(name === "S1") {
-        document.getElementById("theme").innerHTML="Current theme: " + secretThemeKey;
+        document.getElementById("theme").innerHTML="Current theme: " + player.options.secretThemeKey;
+        Chart.defaults.global.defaultFontColor = 'black';
+        normalDimChart.data.datasets[0].borderColor = '#000'
     } else if(name === "S2") {
-        document.getElementById("theme").innerHTML="Current theme: " + secretThemeKey;
+        document.getElementById("theme").innerHTML="Current theme: " + player.options.secretThemeKey;
+        Chart.defaults.global.defaultFontColor = 'black';
+        normalDimChart.data.datasets[0].borderColor = '#000'
     } else {
         document.getElementById("theme").innerHTML="Current theme: " + name;
     }
@@ -565,16 +569,20 @@ document.getElementById("theme").onclick = function () {
         player.options.theme = "Metro";
     } else if (player.options.theme === "Metro") {
         player.options.theme = "Dark";
+        Chart.defaults.global.defaultFontColor = '#888';
+        normalDimChart.data.datasets[0].borderColor = '#888'
     } else if (player.options.theme === "Dark") {
         player.options.theme = "Dark Metro";
     } else if (player.options.theme === "Dark Metro") {
         player.options.theme = "Inverted";
+        Chart.defaults.global.defaultFontColor = 'black';
+        normalDimChart.data.datasets[0].borderColor = '#000'
     } else if (player.options.theme === "Inverted") {
         player.options.theme = "Inverted Metro";
-    } else if (player.options.theme === "Inverted Metro") {
-        player.options.theme = undefined;
     } else {
         player.options.theme = undefined;
+        Chart.defaults.global.defaultFontColor = 'black';
+        normalDimChart.data.datasets[0].borderColor = '#000'
     }
 
     setTheme(player.options.theme);
@@ -608,6 +616,7 @@ function onLoad() {
     if (player.options.hotkeys === undefined) player.options.hotkeys = true
     if (player.options.eternityconfirm === undefined) player.options.eternityconfirm = true
     if (player.options.themes === undefined) player.options.themes = "Normal"
+    if (player.options.secretThemeKey === undefined) player.options.secretThemeKey = 0
     if (player.achievements === undefined) player.achievements = [];
     if (player.sacrificed === undefined) player.sacrificed = new Decimal(0);
     if (player.infinityUpgrades === undefined) player.infinityUpgrades = [];
@@ -4219,7 +4228,7 @@ function verify_save(obj) {
 document.getElementById("importbtn").onclick = function () {
     var save_data = prompt("Input your save.");
     save_data = save_data.constructor !== String ? save_data = "":
-    secretThemeKey = save_data;
+    player.options.secretThemeKey = save_data;
     if (sha512_256(save_data) === "de24687ee7ba1acd8f5dc8f71d41a3d4b7f14432fff53a4d4166e7eea48a88c0") {
         player.options.theme = "S1";
         setTheme(player.options.theme);
