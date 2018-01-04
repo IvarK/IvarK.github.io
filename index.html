@@ -241,8 +241,6 @@
                             <button id="eter3" class="eternityupbtnbought" onclick="buyEternityUpgrade(3, 50e3)">Infinity Dimensions multiplier based on sum of Infinity Challenge times<br>Currently: Xx<br>Cost: 50 K EP</button>
                         </td>
                     </tr>
-                </table>
-                <table class="table" style="margin: 0 auto">
                     <tr>
                         <td>
                             <div class="eternityupbtnbought" style="opacity: 0"></div>
@@ -1990,9 +1988,19 @@
         <div id="postinf" class="inftab" align="center">
             <br>
             <div id="abletobreak">You need to get Automated Big Crunch interval to 0.1 to be able to break infinity</div>
-                <button  id="break" class="infinistorebtn2" onclick="breakInfinity()" ach-tooltip="Cost multipliers post-infinity will begin increasing faster, but so will the Infinity Point gain">BREAK INFINITY</button>
                 <br>
                 <table id="postinftable" class="table" style="margin: 0 auto">
+                    <tr>
+                        <td>
+                            <button class="infinistorebtnbought" style="opacity: 0"></button>
+                        </td>
+                        <td>
+                            <button id="break" class="infinistorebtn2" onclick="breakInfinity()" ach-tooltip="Cost multipliers post-infinity will begin increasing faster, but so will the Infinity Point gain">BREAK INFINITY</button>
+                        </td>
+                        <td>
+                            <button class="infinistorebtnbought" style="opacity: 0"></button>
+                        </td>
+                    </tr>
                     <tr>
                         <td>
                             <button id="postinfi11" class="infinistorebtn1">Production based on total antimatter produced <br>Currently:<br>Cost: 10 K IP</button>
@@ -2005,16 +2013,15 @@
                         </td>
                     </tr>
                     <tr>
-                            <td>
-                                <button id="postinfi12" class="infinistorebtn1">Increase the production of all dimensions by amount infinitied <br>Currently:<br>Cost: 100 K IP</button>
-                            </td>
-                            <td>
-                                <button id="postinfi22" class="infinistorebtn1">achievemult</button>
-                            </td>
-                            <td>
-                                <button id="postinfi32" class="infinistorebtn1">Increase the production of all dimensions based on slowest challenge run<br>Cost: 3 M IP</button>
-                            </td>
-                            
+                        <td>
+                            <button id="postinfi12" class="infinistorebtn1">Increase the production of all dimensions by amount infinitied <br>Currently:<br>Cost: 100 K IP</button>
+                        </td>
+                        <td>
+                            <button id="postinfi22" class="infinistorebtn1">achievemult</button>
+                        </td>
+                        <td>
+                            <button id="postinfi32" class="infinistorebtn1">Increase the production of all dimensions based on slowest challenge run<br>Cost: 3 M IP</button>
+                        </td>
                     </tr>
                     <tr>
                         <td>
@@ -2028,10 +2035,6 @@
                         </td>
                         
                     </tr>
-
-                </table>
-                <br>
-                <table id="postinftable2">
                     <tr>
                         <td>
                             <button id="postinfi31" class="infinimultbtn">Tickspeed cost multiplier increase <br>10x -> 9x<br>Cost: 300 K IP</button>
