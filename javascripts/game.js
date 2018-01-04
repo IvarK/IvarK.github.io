@@ -1856,6 +1856,8 @@ function DimensionPower(tier) {
     if (player.timestudy.studies.includes(162)) mult = mult.times(1e11)
     //if (ECTimesCompleted("eterc2") !== 0 && tier == 1) mult = mult.times(player.infinityPower.pow(1/(50-ECTimesCompleted("eterc2")*0.1)).plus(1))
     if (player.currentEternityChall == "eterc2") mult = mult.times(0)
+
+    if (ECTimesCompleted("eterc4") !== 0) mult = mult.times(player.infinityPoints.pow(0.003 + ECTimesCompleted("eterc4")*0.002))
     return mult
 }
 
@@ -5017,7 +5019,7 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.timestudy.studies.includes(32)) infGain *= Math.max(player.resets,1);
         if (player.currentEternityChall == "eterc4") {
             infGain = 1
-            if (player.infinitied >= 20) {
+            if (player.infinitied >= 20 - (ECTimesCompleted("eterc4")*2)) {
                 document.getElementById("challfail").style.display = "block"
                 player.thisInfinityTime = 10
                 exitChallenge()
@@ -5882,7 +5884,7 @@ document.getElementById("ec4unl").onclick = function() {
 }
 
 function startEternityChallenge(name, startgoal, goalIncrease) {
-    if((player.options.challConf && name.includes(player.eternityChallUnlocked)) || name == "" ? true : confirm("You will start over with just your time studies, eternity upgrades and achievements. You need to reach a set IP with special conditions.")) {
+    if((player.options.challConf) || name == "" ? true :  (name.includes(player.eternityChallUnlocked) && confirm("You will start over with just your time studies, eternity upgrades and achievements. You need to reach a set IP with special conditions."))) {
         player = {
             money: new Decimal(10),
             tickSpeedCost: new Decimal(1000),
@@ -6362,7 +6364,7 @@ setInterval(function() {
         while (player.infinityPoints.gte(player.replicanti.galCost)) upgradeReplicantiGalaxy()
     }
 
-    document.getElementById("eterc1goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2300").times(new Decimal("1e300").times(ECTimesCompleted("eterc1"))).max(new Decimal("1e2300"))) + " IP"
+    document.getElementById("eterc1goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2400").times(new Decimal("1e300").times(ECTimesCompleted("eterc1"))).max(new Decimal("1e2400"))) + " IP"
     document.getElementById("eterc1completed").innerHTML = "Completed "+ECTimesCompleted("eterc1")+" times."
 
     document.getElementById("eterc2goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e1000").times(new Decimal("1e150").times(ECTimesCompleted("eterc2"))).max(new Decimal("1e1000"))) + " IP"
@@ -6371,7 +6373,7 @@ setInterval(function() {
     document.getElementById("eterc3goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e750").times(new Decimal("1e100").times(ECTimesCompleted("eterc3"))).max(new Decimal("1e750"))) + " IP"
     document.getElementById("eterc3completed").innerHTML = "Completed "+ECTimesCompleted("eterc3")+" times."
 
-    document.getElementById("eterc4goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e4000").times(new Decimal("1e250").times(ECTimesCompleted("eterc4"))).max(new Decimal("1e4000"))) + " IP in less than 20 infinities."
+    document.getElementById("eterc4goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e4250").times(new Decimal("1e250").times(ECTimesCompleted("eterc4"))).max(new Decimal("1e4250"))) + " IP in less than "+(20 - (ECTimesCompleted("eterc4")*2))+" infinities."
     document.getElementById("eterc4completed").innerHTML = "Completed "+ECTimesCompleted("eterc4")+" times."
     updateECUnlockButtons()
     
@@ -6432,7 +6434,7 @@ function startInterval() {
     
             if (player.infinityPoints.gte('9.99999e999')) giveAchievement("This achievement doesn't exist II");
     
-            if (player.infinityUpgrades.includes("infinitiedGeneration")) player.partInfinitied += diff / player.bestInfinityTime;
+            if (player.infinityUpgrades.includes("infinitiedGeneration") && player.currentEternityChall !== "eterc4") player.partInfinitied += diff / player.bestInfinityTime;
             if (player.partInfinitied >= 50) {
                 player.infinitied += Math.floor(player.partInfinitied/5)
                 player.partInfinitied = 0;
@@ -6895,6 +6897,7 @@ function startInterval() {
             document.getElementById("ec1reward").innerHTML = "Reward: "+shortenMoney(Math.pow(Math.max(player.thisEternity*10, 1), 0.3+(ECTimesCompleted("eterc1")*0.02)))+"x on all Time Dimensions (based on time spent this Eternity)"
             document.getElementById("ec2reward").innerHTML = "Reward: Infinity power affects Infinity Dimensions with reduced effect, Currently: "+shortenMoney(player.infinityPower.pow(1/(800 - ECTimesCompleted("eterc2")*100)))+"x"
             document.getElementById("ec3reward").innerHTML = "Reward: Multiplier for 10 dimensions boost, Currently: "+getDimensionPowerMultiplier().toFixed(2)+"x"
+            document.getElementById("ec4reward").innerHTML = "Reward: Infinity Dimension multiplier from unspent IP, Currently: "+shortenMoney(player.infinityPoints.pow(0.003 + ECTimesCompleted("eterc4")*0.002))+"x"
     
             var scale1 = [2.82e-45,1e-42,7.23e-30,5e-21,9e-17,6.2e-11,5e-8,3.555e-6,7.5e-4,1,2.5e3,2.6006e6,3.3e8,5e12,4.5e17,1.08e21,1.53e24,1.41e27,5e32,8e36,1.7e45,1.7e48,3.3e55,3.3e61,5e68,1e73,3.4e80,1e113,Number.MAX_VALUE];
             var scale2 = [" protons."," nucleuses."," Hydrogen atoms."," viruses."," red blood cells."," grains of sand."," grains of rice."," teaspoons."," wine bottles."," fridge-freezers."," Olympic-sized swimming pools."," Great Pyramids of Giza."," Great Walls of China."," large asteroids.",
