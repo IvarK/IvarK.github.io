@@ -6355,16 +6355,16 @@ setInterval(function() {
         while (player.infinityPoints.gte(player.replicanti.galCost)) upgradeReplicantiGalaxy()
     }
 
-    document.getElementById("eterc1goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2400").times(new Decimal("1e300").times(ECTimesCompleted("eterc1"))).max(new Decimal("1e2400"))) + " IP"
+    document.getElementById("eterc1goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2400").times(new Decimal("1e250").times(ECTimesCompleted("eterc1"))).max(new Decimal("1e2400"))) + " IP"
     document.getElementById("eterc1completed").innerHTML = "Completed "+ECTimesCompleted("eterc1")+" times."
 
     document.getElementById("eterc2goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e1000").times(new Decimal("1e150").times(ECTimesCompleted("eterc2"))).max(new Decimal("1e1000"))) + " IP"
     document.getElementById("eterc2completed").innerHTML = "Completed "+ECTimesCompleted("eterc2")+" times."
 
-    document.getElementById("eterc3goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e750").times(new Decimal("1e100").times(ECTimesCompleted("eterc3"))).max(new Decimal("1e750"))) + " IP"
+    document.getElementById("eterc3goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e750").times(new Decimal("1e150").times(ECTimesCompleted("eterc3"))).max(new Decimal("1e750"))) + " IP"
     document.getElementById("eterc3completed").innerHTML = "Completed "+ECTimesCompleted("eterc3")+" times."
 
-    document.getElementById("eterc4goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e4250").times(new Decimal("1e250").times(ECTimesCompleted("eterc4"))).max(new Decimal("1e4250"))) + " IP in less than "+(20 - (ECTimesCompleted("eterc4")*2))+" infinities."
+    document.getElementById("eterc4goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e4250").times(new Decimal("1e350").times(ECTimesCompleted("eterc4"))).max(new Decimal("1e4250"))) + " IP in less than "+(20 - (ECTimesCompleted("eterc4")*2))+" infinities."
     document.getElementById("eterc4completed").innerHTML = "Completed "+ECTimesCompleted("eterc4")+" times."
     updateECUnlockButtons()
     
