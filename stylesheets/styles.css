@@ -939,6 +939,11 @@
     z-index: -999;
 }
 
+#studytable {
+    display: flex !important;
+    justify-content: center;
+}
+
 #loading {
     position: absolute;
     top: 50%;
