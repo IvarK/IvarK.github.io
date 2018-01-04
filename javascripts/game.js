@@ -531,6 +531,7 @@ function drawStudyTree() {
     drawTreeBranch("171", "ec2unl")
     drawTreeBranch("171", "ec3unl")
     drawTreeBranch("143", "ec4unl")
+    drawTreeBranch("42", "ec5unl")
 }
 
 function setTheme(name) {
@@ -1442,6 +1443,9 @@ function getShiftRequirement(bulk) {
     }
 
     if (tier == 8) amount += (player.resets+bulk - 4) * 15;
+    if (player.currentEternityChall == "eterc5") {
+        amount += Math.pow(player.resets, 3) + player.resets
+    }
 
     if (player.infinityUpgrades.includes("resetBoost")) amount -= 9;
     if (player.challenges.includes("postc5")) amount -= 1
@@ -1454,8 +1458,11 @@ function getGalaxyRequirement() {
     if (player.timestudy.studies.includes(42)) amount = 80 + (player.galaxies * 52)
     if (player.currentChallenge == "challenge4") amount = 99 + (player.galaxies * 90)
 
-    if (player.galaxies >= 100) {
-        amount += Math.pow(player.galaxies-99,2)+player.galaxies-99
+    if (player.currentEternityChall == "eterc5") {
+        amount += Math.pow(player.galaxies, 2) + player.galaxies
+    }
+    else if (player.galaxies >= 100 + ECTimesCompleted("eterc5")*5) {
+        amount += Math.pow(player.galaxies-(99 + ECTimesCompleted("eterc5")*5),2)+player.galaxies-(99 + ECTimesCompleted("eterc5")*5)
     }
 
 
@@ -2234,6 +2241,10 @@ function respecTimeStudies() {
 
         case 4:
         player.timestudy.theorem += 85
+        break;
+
+        case 5:
+        player.timestudy.theorem += 100
         break;
     }
     player.eternityChallUnlocked = 0
@@ -3676,6 +3687,8 @@ function updateInfCosts() {
     else document.getElementById("ec3unl").innerHTML = "Eternity Challenge 3<span>Cost: 40 Time Theorems"
     if (player.etercreq !== 4) document.getElementById("ec4unl").innerHTML = "Eternity Challenge 4<span>Requirement: "+(1e8 + (ECTimesCompleted("eterc4")*1e8)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" infinities<span>Cost: 85 Time Theorems"
     else document.getElementById("ec4unl").innerHTML = "Eternity Challenge 4<span>Cost: 85 Time Theorems"
+    if (player.etercreq !== 5) document.getElementById("ec5unl").innerHTML = "Eternity Challenge 5<span>Requirement: "+(200+(ECTimesCompleted("eterc4")*20))+" galaxies<span>Cost: 100 Time Theorems"
+    else document.getElementById("ec5unl").innerHTML = "Eternity Challenge 5<span>Cost: 100 Time Theorems"
 }
 
 
@@ -5815,6 +5828,10 @@ function canUnlockEC(idx, cost, study) {
         case 4:
         if (1e8 + (ECTimesCompleted("eterc4")*1e8) < player.infinitied) return true
         break;
+
+        case 5:
+        if (200 + (ECTimesCompleted("eterc4")*20) < player.galaxies) return true
+        break;
     }
 }
 
@@ -5841,6 +5858,12 @@ function updateECUnlockButtons() {
         document.getElementById("ec4unl").className = "eternitychallengestudy"
     } else {
         document.getElementById("ec4unl").className = "eternitychallengestudylocked"
+    }
+
+    if (canUnlockEC(5, 100, 42)) {
+        document.getElementById("ec5unl").className = "eternitychallengestudy"
+    } else {
+        document.getElementById("ec5unl").className = "eternitychallengestudylocked"
     }
 
     if (player.eternityChallUnlocked !== 0 )document.getElementById("ec"+player.eternityChallUnlocked+"unl").className = "eternitychallengestudybought"
@@ -5871,6 +5894,13 @@ document.getElementById("ec4unl").onclick = function() {
     if (canUnlockEC(4, 85, 143)) {
         unlockEChall(4)
         player.timestudy.theorem -= 85
+    }
+}
+
+document.getElementById("ec5unl").onclick = function() {
+    if (canUnlockEC(5, 100, 42)) {
+        unlockEChall(5)
+        player.timestudy.theorem -= 100
     }
 }
 
@@ -6366,6 +6396,9 @@ setInterval(function() {
 
     document.getElementById("eterc4goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e4250").times(new Decimal("1e350").times(ECTimesCompleted("eterc4"))).max(new Decimal("1e4250"))) + " IP in less than "+(20 - (ECTimesCompleted("eterc4")*2))+" infinities."
     document.getElementById("eterc4completed").innerHTML = "Completed "+ECTimesCompleted("eterc4")+" times."
+
+    document.getElementById("eterc5goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e3000").times(new Decimal("1e300").times(ECTimesCompleted("eterc5"))).max(new Decimal("1e3000"))) + " IP"
+    document.getElementById("eterc5completed").innerHTML = "Completed "+ECTimesCompleted("eterc5")+" times."
     updateECUnlockButtons()
     
 
@@ -6889,6 +6922,7 @@ function startInterval() {
             document.getElementById("ec2reward").innerHTML = "Reward: Infinity power affects Infinity Dimensions with reduced effect, Currently: "+shortenMoney(player.infinityPower.pow(1/(800 - ECTimesCompleted("eterc2")*100)))+"x"
             document.getElementById("ec3reward").innerHTML = "Reward: Multiplier for 10 dimensions boost, Currently: "+getDimensionPowerMultiplier().toFixed(2)+"x"
             document.getElementById("ec4reward").innerHTML = "Reward: Infinity Dimension multiplier from unspent IP, Currently: "+shortenMoney(player.infinityPoints.pow(0.003 + ECTimesCompleted("eterc4")*0.002))+"x"
+            document.getElementById("ec5reward").innerHTML = "Reward: Galaxy cost scaling starts "+((ECTimesCompleted("eterc5")*5))+" galaxies later."
     
             var scale1 = [2.82e-45,1e-42,7.23e-30,5e-21,9e-17,6.2e-11,5e-8,3.555e-6,7.5e-4,1,2.5e3,2.6006e6,3.3e8,5e12,4.5e17,1.08e21,1.53e24,1.41e27,5e32,8e36,1.7e45,1.7e48,3.3e55,3.3e61,5e68,1e73,3.4e80,1e113,Number.MAX_VALUE];
             var scale2 = [" protons."," nucleuses."," Hydrogen atoms."," viruses."," red blood cells."," grains of sand."," grains of rice."," teaspoons."," wine bottles."," fridge-freezers."," Olympic-sized swimming pools."," Great Pyramids of Giza."," Great Walls of China."," large asteroids.",

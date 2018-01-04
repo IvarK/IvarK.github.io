@@ -130,8 +130,12 @@
                 <br>
                 <table class="table" id="studytable">
                     <tr>
-                        <td style="margin: auto; width: 100%;text-align:center;"><button class="timestudy" id="51" onclick="buyTimeStudy(51, 3)">You gain 1e15 times more IP<span>Cost: 3 Time Theorems</button></td>
+                        <td style="opacity: 0; width: 33%"></td>
+                        <td style="margin: auto; width: 33%;text-align:center;"><button class="timestudy" id="51" onclick="buyTimeStudy(51, 3)">You gain 1e15 times more IP<span>Cost: 3 Time Theorems</button></td>
+                        <td style="margin: auto; width: 33%;text-align:center;"><button class="eternitychallengestudy" id="ec5unl">Eternity Challenge 5<span>Requirement: 200 galaxies<span>Cost: 100 Time Theorems</button></td>
                     </tr>
+                </table>
+                <table class="table" id="studytable">
                     <tr>
                         <td style="margin: auto; width: 100%;text-align:center;"><button class="timestudy" id="61" onclick="buyTimeStudy(61, 3)">You gain 10x more EP<span>Cost: 3 Time Theorems</button></td>
                     </tr>
@@ -1557,6 +1561,36 @@
                                     <span id="eterc4completed">Completed 0 Times.</span><br>
                                     <span id="eterc4goal" >Goal: 1e4000 IP in 20 infinities</span><br>
                                     <span id="ec4reward">Reward: Infinity Dimension multiplier from unspent IP</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="eterchallengediv" id="eterc5div" style="height: 140px; display: none">
+                                <span>Galaxy cost increase scaling starts instantly (Normally at 100 galaxies). Dimensional boost costs scale harder.</span>
+                                <br>
+                                <br>
+                                <div class="outer">
+                                    <button id="eterc5" class="challengesbtn" onclick="startEternityChallenge('eterc5', new Decimal('1e3000'), new Decimal('1e300'))">Start</button>
+                                    <br>
+                                    <span id="eterc5completed">Completed 0 Times.</span><br>
+                                    <span id="eterc5goal" >Goal: 1e750 IP</span><br>
+                                    <span id="ec5reward">Reward: Galaxy cost scaling starts 10 galaxies later</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="eterchallengediv" id="eterc6div" style="height: 140px; display: none">
+                                <span>All infinitied stat multipliers are disabled.</span>
+                                <br>
+                                <br>
+                                <div class="outer">
+                                    <button id="eterc6" class="challengesbtn" onclick="startEternityChallenge('eterc6', new Decimal('1e4250'), new Decimal('1e350'))">Start</button>
+                                    <br>
+                                    <span id="eterc6completed">Completed 0 Times.</span><br>
+                                    <span id="eterc6goal" >Goal: 1e4000 IP in 20 infinities</span><br>
+                                    <span id="ec6reward">Reward: Infinity Dimension multiplier from unspent IP</span>
                                 </div>
                             </div>
                         </td>
