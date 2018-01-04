@@ -5875,7 +5875,7 @@ document.getElementById("ec4unl").onclick = function() {
 }
 
 function startEternityChallenge(name, startgoal, goalIncrease) {
-    if((player.options.challConf && name.includes(player.eternityChallUnlocked)) || name == "" ? true : confirm("You will start over with just your time studies, eternity upgrades and achievements. You need to reach a set IP with special conditions.")) {
+    if((player.options.challConf) || name == "" ? true :  (name.includes(player.eternityChallUnlocked) && confirm("You will start over with just your time studies, eternity upgrades and achievements. You need to reach a set IP with special conditions."))) {
         player = {
             money: new Decimal(10),
             tickSpeedCost: new Decimal(1000),

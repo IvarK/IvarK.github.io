@@ -65,7 +65,6 @@
     font-weight: bold;
     font-family: Typewriter;
     border: 3px solid rgb(136, 29, 29);
-    cursor: pointer;
     border-radius: 10px;
     font-size: 140%;
     transition-duration: 0.2s;
