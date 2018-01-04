@@ -1582,8 +1582,8 @@ function updateDimensions() {
     } else {
         document.getElementById("softReset").innerHTML = "Reset the game for a new Dimension";
     }
-    if (player.replicanti.galaxies > 0 && player.galaxies >= 100) document.getElementById("secondResetLabel").innerHTML = 'Distant Antimatter Galaxies ('+ player.galaxies +' + '+ player.replicanti.galaxies +'): requires ' + getGalaxyRequirement() + ' Eighth Dimensions';
-    else if (player.galaxies >= 100) document.getElementById("secondResetLabel").innerHTML = 'Distant Antimatter Galaxies ('+ player.galaxies +'): requires ' + getGalaxyRequirement() + ' Eighth Dimensions';
+    if (player.replicanti.galaxies > 0 && (player.galaxies >= 100 || player.currentEternityChall === "eterc5")) document.getElementById("secondResetLabel").innerHTML = 'Distant Antimatter Galaxies ('+ player.galaxies +' + '+ player.replicanti.galaxies +'): requires ' + getGalaxyRequirement() + ' Eighth Dimensions';
+    else if (player.galaxies >= 100 || player.currentEternityChall === "eterc5") document.getElementById("secondResetLabel").innerHTML = 'Distant Antimatter Galaxies ('+ player.galaxies +'): requires ' + getGalaxyRequirement() + ' Eighth Dimensions';
     else if (player.replicanti.galaxies > 0) document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies ('+ player.galaxies +' + '+ player.replicanti.galaxies +'): requires ' + getGalaxyRequirement() + ' Eighth Dimensions';
     else if (player.currentChallenge != "challenge4") document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies ('+ player.galaxies +'): requires ' + getGalaxyRequirement() + ' Eighth Dimensions';
     else if (player.replicanti.galaxies > 0) document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies ('+ player.galaxies +' + '+ player.replicanti.galaxies +'): requires ' + getGalaxyRequirement() + ' Sixth Dimensions';
