@@ -1847,6 +1847,8 @@ function DimensionPower(tier) {
     if (player.timestudy.studies.includes(162)) mult = mult.times(1e11)
     //if (ECTimesCompleted("eterc2") !== 0 && tier == 1) mult = mult.times(player.infinityPower.pow(1/(50-ECTimesCompleted("eterc2")*0.1)).plus(1))
     if (player.currentEternityChall == "eterc2") mult = mult.times(0)
+
+    if (ECTimesCompleted("eterc4") !== 0) mult = mult.times(player.infinityPoints.pow(0.003 + ECTimesCompleted("eterc4")*0.002))
     return mult
 }
 
@@ -6886,6 +6888,7 @@ function startInterval() {
             document.getElementById("ec1reward").innerHTML = "Reward: "+shortenMoney(Math.pow(Math.max(player.thisEternity*10, 1), 0.3+(ECTimesCompleted("eterc1")*0.02)))+"x on all Time Dimensions (based on time spent this Eternity)"
             document.getElementById("ec2reward").innerHTML = "Reward: Infinity power affects Infinity Dimensions with reduced effect, Currently: "+shortenMoney(player.infinityPower.pow(1/(800 - ECTimesCompleted("eterc2")*100)))+"x"
             document.getElementById("ec3reward").innerHTML = "Reward: Multiplier for 10 dimensions boost, Currently: "+getDimensionPowerMultiplier().toFixed(2)+"x"
+            document.getElementById("ec4reward").innerHTML = "Reward: Infinity Dimension multiplier from unspent IP, Currently: "+shortenMoney(player.infinityPoints.pow(0.003 + ECTimesCompleted("eterc4")*0.002))+"x"
     
             var scale1 = [2.82e-45,1e-42,7.23e-30,5e-21,9e-17,6.2e-11,5e-8,3.555e-6,7.5e-4,1,2.5e3,2.6006e6,3.3e8,5e12,4.5e17,1.08e21,1.53e24,1.41e27,5e32,8e36,1.7e45,1.7e48,3.3e55,3.3e61,5e68,1e73,3.4e80,1e113,Number.MAX_VALUE];
             var scale2 = [" protons."," nucleuses."," Hydrogen atoms."," viruses."," red blood cells."," grains of sand."," grains of rice."," teaspoons."," wine bottles."," fridge-freezers."," Olympic-sized swimming pools."," Great Pyramids of Giza."," Great Walls of China."," large asteroids.",
