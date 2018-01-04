@@ -532,6 +532,7 @@ function drawStudyTree() {
     drawTreeBranch("171", "ec3unl")
     drawTreeBranch("143", "ec4unl")
     drawTreeBranch("42", "ec5unl")
+    drawTreeBranch("121", "ec6unl")
 }
 
 function setTheme(name) {
@@ -3696,8 +3697,10 @@ function updateInfCosts() {
     else document.getElementById("ec3unl").innerHTML = "Eternity Challenge 3<span>Cost: 40 Time Theorems"
     if (player.etercreq !== 4) document.getElementById("ec4unl").innerHTML = "Eternity Challenge 4<span>Requirement: "+(1e8 + (ECTimesCompleted("eterc4")*1e8)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" infinities<span>Cost: 85 Time Theorems"
     else document.getElementById("ec4unl").innerHTML = "Eternity Challenge 4<span>Cost: 85 Time Theorems"
-    if (player.etercreq !== 5) document.getElementById("ec5unl").innerHTML = "Eternity Challenge 5<span>Requirement: "+(200+(ECTimesCompleted("eterc4")*20))+" galaxies<span>Cost: 255 Time Theorems"
+    if (player.etercreq !== 5) document.getElementById("ec5unl").innerHTML = "Eternity Challenge 5<span>Requirement: "+(200+(ECTimesCompleted("eterc5")*20))+" galaxies<span>Cost: 255 Time Theorems"
     else document.getElementById("ec5unl").innerHTML = "Eternity Challenge 5<span>Cost: 255 Time Theorems"
+    if (player.etercreq !== 6) document.getElementById("ec6unl").innerHTML = "Eternity Challenge 6<span>Requirement: "+(40+(ECTimesCompleted("eterc6")*5))+" replicanti galaxies<span>Cost: 100 Time Theorems"
+    else document.getElementById("ec6unl").innerHTML = "Eternity Challenge 6<span>Cost: 100 Time Theorems"
 }
 
 
@@ -3741,6 +3744,7 @@ function upgradeReplicantiGalaxy() {
     if (player.infinityPoints.gte(player.replicanti.galCost)) {
         player.infinityPoints = player.infinityPoints.minus(player.replicanti.galCost)
         player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(1e5, player.replicanti.gal)).times(1e25)
+        if (player.currentEternityChall == "eterc6") player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(1e2, player.replicanti.gal)).times(1e25)
         player.replicanti.gal += 1
         
     }
@@ -4000,6 +4004,7 @@ document.getElementById("toggleBtnTickSpeed").onclick = function () {
 
 document.getElementById("secondSoftReset").onclick = function() {
     var bool = player.currentChallenge != "challenge11" && player.currentChallenge != "postc1" && player.currentChallenge != "postc7" && (player.break || player.money.lte(Number.MAX_VALUE))
+    if (player.currentEternityChall == "eterc6") return
     if (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() && bool : player.eightAmount >= getGalaxyRequirement() && bool) {
         galaxyReset()
     }
@@ -5840,7 +5845,11 @@ function canUnlockEC(idx, cost, study) {
         break;
 
         case 5:
-        if (200 + (ECTimesCompleted("eterc4")*20) < player.galaxies) return true
+        if (200 + (ECTimesCompleted("eterc5")*20) < player.galaxies) return true
+        break;
+
+        case 6:
+        if (40 + (ECTimesCompleted("eterc6")*5) < player.replicanti.galaxies) return true
         break;
     }
 }
@@ -5874,6 +5883,12 @@ function updateECUnlockButtons() {
         document.getElementById("ec5unl").className = "eternitychallengestudy"
     } else {
         document.getElementById("ec5unl").className = "eternitychallengestudylocked"
+    }
+
+    if (canUnlockEC(6, 100, 121)) {
+        document.getElementById("ec6unl").className = "eternitychallengestudy"
+    } else {
+        document.getElementById("ec6unl").className = "eternitychallengestudylocked"
     }
 
     if (player.eternityChallUnlocked !== 0 )document.getElementById("ec"+player.eternityChallUnlocked+"unl").className = "eternitychallengestudybought"
@@ -5910,6 +5925,13 @@ document.getElementById("ec4unl").onclick = function() {
 document.getElementById("ec5unl").onclick = function() {
     if (canUnlockEC(5, 255, 42)) {
         unlockEChall(5)
+        player.timestudy.theorem -= 255
+    }
+}
+
+document.getElementById("ec5unl").onclick = function() {
+    if (canUnlockEC(6, 100, 121)) {
+        unlockEChall(6)
         player.timestudy.theorem -= 100
     }
 }
@@ -6409,6 +6431,9 @@ setInterval(function() {
 
     document.getElementById("eterc5goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e3000").times(new Decimal("1e300").times(ECTimesCompleted("eterc5"))).max(new Decimal("1e3000"))) + " IP"
     document.getElementById("eterc5completed").innerHTML = "Completed "+ECTimesCompleted("eterc5")+" times."
+
+    document.getElementById("eterc6goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e1500").times(new Decimal("1e200").times(ECTimesCompleted("eterc6"))).max(new Decimal("1e1500"))) + " IP"
+    document.getElementById("eterc6completed").innerHTML = "Completed "+ECTimesCompleted("eterc6")+" times."
     updateECUnlockButtons()
     
 
