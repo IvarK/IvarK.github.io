@@ -2253,7 +2253,7 @@ function respecTimeStudies() {
         break;
 
         case 5:
-        player.timestudy.theorem += 100
+        player.timestudy.theorem += 255
         break;
     }
     player.eternityChallUnlocked = 0
@@ -3696,8 +3696,8 @@ function updateInfCosts() {
     else document.getElementById("ec3unl").innerHTML = "Eternity Challenge 3<span>Cost: 40 Time Theorems"
     if (player.etercreq !== 4) document.getElementById("ec4unl").innerHTML = "Eternity Challenge 4<span>Requirement: "+(1e8 + (ECTimesCompleted("eterc4")*1e8)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" infinities<span>Cost: 85 Time Theorems"
     else document.getElementById("ec4unl").innerHTML = "Eternity Challenge 4<span>Cost: 85 Time Theorems"
-    if (player.etercreq !== 5) document.getElementById("ec5unl").innerHTML = "Eternity Challenge 5<span>Requirement: "+(200+(ECTimesCompleted("eterc4")*20))+" galaxies<span>Cost: 100 Time Theorems"
-    else document.getElementById("ec5unl").innerHTML = "Eternity Challenge 5<span>Cost: 100 Time Theorems"
+    if (player.etercreq !== 5) document.getElementById("ec5unl").innerHTML = "Eternity Challenge 5<span>Requirement: "+(200+(ECTimesCompleted("eterc4")*20))+" galaxies<span>Cost: 255 Time Theorems"
+    else document.getElementById("ec5unl").innerHTML = "Eternity Challenge 5<span>Cost: 255 Time Theorems"
 }
 
 
@@ -5034,8 +5034,7 @@ document.getElementById("bigcrunch").onclick = function () {
             infGain = 1
             if (player.infinitied >= 20 - (ECTimesCompleted("eterc4")*2)) {
                 document.getElementById("challfail").style.display = "block"
-                player.thisInfinityTime = 10
-                exitChallenge()
+                setTimeout(exitChallenge, 500)
             }
         }
         if (autoS && auto) {
@@ -5289,6 +5288,7 @@ function respecToggle() {
 
 function eternity() {
     if (player.infinityPoints.gte(Number.MAX_VALUE) && (!player.options.eternityconfirm || confirm("Eternity will reset everything except achievements and challenge records. You will also gain an Eternity point and unlock various upgrades."))) {
+        if (player.currentEternityChall !== "" && player.infinityPoints.lt(player.eternityChallGoal)) return false
         if (player.thisEternity<player.bestEternity) {
             player.bestEternity = player.thisEternity
             if (player.bestEternity < 300) giveAchievement("That wasn't an eternity");
@@ -5807,6 +5807,7 @@ function unlockEChall(idx) {
         player.etercreq = idx
     }
     updateEternityChallenges()
+    updateTimeStudyButtons()
     
 }
 
@@ -5869,7 +5870,7 @@ function updateECUnlockButtons() {
         document.getElementById("ec4unl").className = "eternitychallengestudylocked"
     }
 
-    if (canUnlockEC(5, 100, 42)) {
+    if (canUnlockEC(5, 255, 42)) {
         document.getElementById("ec5unl").className = "eternitychallengestudy"
     } else {
         document.getElementById("ec5unl").className = "eternitychallengestudylocked"
@@ -5907,7 +5908,7 @@ document.getElementById("ec4unl").onclick = function() {
 }
 
 document.getElementById("ec5unl").onclick = function() {
-    if (canUnlockEC(5, 100, 42)) {
+    if (canUnlockEC(5, 255, 42)) {
         unlockEChall(5)
         player.timestudy.theorem -= 100
     }
