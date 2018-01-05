@@ -2271,7 +2271,7 @@ function respecTimeStudies() {
         break;
 
         case 5:
-        player.timestudy.theorem += 255
+        player.timestudy.theorem += 155
         break;
 
         case 6:
@@ -3718,8 +3718,8 @@ function updateInfCosts() {
     else document.getElementById("ec3unl").innerHTML = "Eternity Challenge 3<span>Cost: 40 Time Theorems"
     if (player.etercreq !== 4) document.getElementById("ec4unl").innerHTML = "Eternity Challenge 4<span>Requirement: "+(1e8 + (ECTimesCompleted("eterc4")*1e8)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" infinities<span>Cost: 85 Time Theorems"
     else document.getElementById("ec4unl").innerHTML = "Eternity Challenge 4<span>Cost: 85 Time Theorems"
-    if (player.etercreq !== 5) document.getElementById("ec5unl").innerHTML = "Eternity Challenge 5<span>Requirement: "+(200+(ECTimesCompleted("eterc5")*20))+" galaxies<span>Cost: 255 Time Theorems"
-    else document.getElementById("ec5unl").innerHTML = "Eternity Challenge 5<span>Cost: 255 Time Theorems"
+    if (player.etercreq !== 5) document.getElementById("ec5unl").innerHTML = "Eternity Challenge 5<span>Requirement: "+(200+(ECTimesCompleted("eterc5")*20))+" galaxies<span>Cost: 155 Time Theorems"
+    else document.getElementById("ec5unl").innerHTML = "Eternity Challenge 5<span>Cost: 155 Time Theorems"
     if (player.etercreq !== 6) document.getElementById("ec6unl").innerHTML = "Eternity Challenge 6<span>Requirement: "+(40+(ECTimesCompleted("eterc6")*5))+" replicanti galaxies<span>Cost: 100 Time Theorems"
     else document.getElementById("ec6unl").innerHTML = "Eternity Challenge 6<span>Cost: 100 Time Theorems"
 }
@@ -5897,7 +5897,7 @@ function updateECUnlockButtons() {
         document.getElementById("ec4unl").className = "eternitychallengestudylocked"
     }
 
-    if (canUnlockEC(5, 255, 42)) {
+    if (canUnlockEC(5, 155, 42)) {
         document.getElementById("ec5unl").className = "eternitychallengestudy"
     } else {
         document.getElementById("ec5unl").className = "eternitychallengestudylocked"
@@ -5941,9 +5941,9 @@ document.getElementById("ec4unl").onclick = function() {
 }
 
 document.getElementById("ec5unl").onclick = function() {
-    if (canUnlockEC(5, 255, 42)) {
+    if (canUnlockEC(5, 155, 42)) {
         unlockEChall(5)
-        player.timestudy.theorem -= 255
+        player.timestudy.theorem -= 155
     }
 }
 
