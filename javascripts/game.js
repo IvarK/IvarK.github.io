@@ -6021,7 +6021,7 @@ function startInterval() {
                 replicantiTicks -= player.replicanti.interval
             }
         }
-        replicantiTicks += 50
+        if (player.replicanti.amount !== 0) replicantiTicks += 50
 
 
         if (current == Math.log(Number.MAX_VALUE) && player.thisInfinityTime < 600*30) giveAchievement("Is this safe?");
