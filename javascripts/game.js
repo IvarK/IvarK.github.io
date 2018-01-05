@@ -6445,7 +6445,7 @@ setInterval(function() {
     document.getElementById("eterc3goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e750").times(new Decimal("1e150").times(ECTimesCompleted("eterc3"))).max(new Decimal("1e750"))) + " IP"
     document.getElementById("eterc3completed").innerHTML = "Completed "+ECTimesCompleted("eterc3")+" times."
 
-    document.getElementById("eterc4goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e4250").times(new Decimal("1e350").times(ECTimesCompleted("eterc4"))).max(new Decimal("1e4250"))) + " IP in less than "+(20 - (ECTimesCompleted("eterc4")*2))+" infinities."
+    document.getElementById("eterc4goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e3600").times(new Decimal("1e200").times(ECTimesCompleted("eterc4"))).max(new Decimal("1e3600"))) + " IP in less than "+(20 - (ECTimesCompleted("eterc4")*2))+" infinities."
     document.getElementById("eterc4completed").innerHTML = "Completed "+ECTimesCompleted("eterc4")+" times."
 
     document.getElementById("eterc5goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e3000").times(new Decimal("1e300").times(ECTimesCompleted("eterc5"))).max(new Decimal("1e3000"))) + " IP"
