@@ -5955,7 +5955,8 @@ document.getElementById("ec6unl").onclick = function() {
 }
 
 function startEternityChallenge(name, startgoal, goalIncrease) {
-    if((player.options.challConf) || name == "" ? true :  (name.includes(player.eternityChallUnlocked) && confirm("You will start over with just your time studies, eternity upgrades and achievements. You need to reach a set IP with special conditions."))) {
+    if((player.options.challConf) || name == "" ? true :  (confirm("You will start over with just your time studies, eternity upgrades and achievements. You need to reach a set IP with special conditions."))) {
+        if (!name.includes(player.eternityChallUnlocked)) return
         player = {
             money: new Decimal(10),
             tickSpeedCost: new Decimal(1000),
@@ -6436,7 +6437,7 @@ setInterval(function() {
         while (player.infinityPoints.gte(player.replicanti.galCost)) upgradeReplicantiGalaxy()
     }
 
-    document.getElementById("eterc1goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2400").times(new Decimal("1e250").times(ECTimesCompleted("eterc1"))).max(new Decimal("1e2400"))) + " IP"
+    document.getElementById("eterc1goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2400").times(new Decimal("1e200").times(ECTimesCompleted("eterc1"))).max(new Decimal("1e2400"))) + " IP"
     document.getElementById("eterc1completed").innerHTML = "Completed "+ECTimesCompleted("eterc1")+" times."
 
     document.getElementById("eterc2goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e1000").times(new Decimal("1e150").times(ECTimesCompleted("eterc2"))).max(new Decimal("1e1000"))) + " IP"
