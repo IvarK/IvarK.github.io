@@ -6451,7 +6451,7 @@ setInterval(function() {
     document.getElementById("eterc5goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e3000").times(new Decimal("1e300").times(ECTimesCompleted("eterc5"))).max(new Decimal("1e3000"))) + " IP"
     document.getElementById("eterc5completed").innerHTML = "Completed "+ECTimesCompleted("eterc5")+" times."
 
-    document.getElementById("eterc6goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e1500").times(new Decimal("1e200").times(ECTimesCompleted("eterc6"))).max(new Decimal("1e1500"))) + " IP"
+    document.getElementById("eterc6goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e3000").times(new Decimal("1e300").times(ECTimesCompleted("eterc6"))).max(new Decimal("1e3000"))) + " IP"
     document.getElementById("eterc6completed").innerHTML = "Completed "+ECTimesCompleted("eterc6")+" times."
     updateECUnlockButtons()
     
