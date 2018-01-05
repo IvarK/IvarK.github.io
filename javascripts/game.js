@@ -3718,7 +3718,7 @@ function updateInfCosts() {
     else document.getElementById("ec3unl").innerHTML = "Eternity Challenge 3<span>Cost: 40 Time Theorems"
     if (player.etercreq !== 4) document.getElementById("ec4unl").innerHTML = "Eternity Challenge 4<span>Requirement: "+(1e8 + (ECTimesCompleted("eterc4")*1e8)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" infinities<span>Cost: 85 Time Theorems"
     else document.getElementById("ec4unl").innerHTML = "Eternity Challenge 4<span>Cost: 85 Time Theorems"
-    if (player.etercreq !== 5) document.getElementById("ec5unl").innerHTML = "Eternity Challenge 5<span>Requirement: "+(190+(ECTimesCompleted("eterc5")*20))+" galaxies<span>Cost: 155 Time Theorems"
+    if (player.etercreq !== 5) document.getElementById("ec5unl").innerHTML = "Eternity Challenge 5<span>Requirement: "+(168+(ECTimesCompleted("eterc5")*18))+" galaxies<span>Cost: 155 Time Theorems"
     else document.getElementById("ec5unl").innerHTML = "Eternity Challenge 5<span>Cost: 155 Time Theorems"
     if (player.etercreq !== 6) document.getElementById("ec6unl").innerHTML = "Eternity Challenge 6<span>Requirement: "+(40+(ECTimesCompleted("eterc6")*5))+" replicanti galaxies<span>Cost: 100 Time Theorems"
     else document.getElementById("ec6unl").innerHTML = "Eternity Challenge 6<span>Cost: 100 Time Theorems"
@@ -5863,7 +5863,7 @@ function canUnlockEC(idx, cost, study) {
         break;
 
         case 5:
-        if (190 + (ECTimesCompleted("eterc5")*20) < player.galaxies) return true
+        if (168 + (ECTimesCompleted("eterc5")*18) < player.galaxies) return true
         break;
 
         case 6:
