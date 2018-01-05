@@ -6351,15 +6351,16 @@ setInterval(function() {
         document.getElementById("Blink of an eye").style.display = "block"
         blink = true
     }
-
-    let temp = 1
-    for (var i=0; i < player.challenges.length; i++) {
-        if (player.challenges[i].includes("post")) {
-            temp *= 1.3
-            document.getElementById("infchallengesbtn").style.display = "inline-block"
+    if (player.challenges.includes("postc1")) {
+        let temp = 1
+        for (var i=0; i < player.challenges.length; i++) {
+            if (player.challenges[i].includes("post")) {
+                temp *= 1.3
+                document.getElementById("infchallengesbtn").style.display = "inline-block"
+            }
         }
+        infDimPow = temp
     }
-    infDimPow = temp
 
     if (player.money.gte(new Decimal("1e2000"))) document.getElementById("challTabButtons").style.display = "table"
 
