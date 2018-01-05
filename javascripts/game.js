@@ -6975,7 +6975,7 @@ function startInterval() {
     
             document.getElementById("ec1reward").innerHTML = "Reward: "+shortenMoney(Math.pow(Math.max(player.thisEternity*10, 1), 0.3+(ECTimesCompleted("eterc1")*0.02)))+"x on all Time Dimensions (based on time spent this Eternity)"
             document.getElementById("ec2reward").innerHTML = "Reward: Infinity power affects Infinity Dimensions with reduced effect, Currently: "+shortenMoney(player.infinityPower.pow(1/(800 - ECTimesCompleted("eterc2")*100)))+"x"
-            document.getElementById("ec3reward").innerHTML = "Reward: Multiplier for 10 dimensions boost, Currently: "+getDimensionPowerMultiplier().toFixed(2)+"x"
+            document.getElementById("ec3reward").innerHTML = "Reward: Increase the multiplier for buying 10 dimensions, Currently: "+getDimensionPowerMultiplier().toFixed(2)+"x"
             document.getElementById("ec4reward").innerHTML = "Reward: Infinity Dimension multiplier from unspent IP, Currently: "+shortenMoney(player.infinityPoints.pow(0.003 + ECTimesCompleted("eterc4")*0.002))+"x"
             document.getElementById("ec5reward").innerHTML = "Reward: Galaxy cost scaling starts "+((ECTimesCompleted("eterc5")*5))+" galaxies later."
     
