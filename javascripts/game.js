@@ -1471,7 +1471,7 @@ function getShiftRequirement(bulk) {
 
     if (tier == 8) amount += (player.resets+bulk - 4) * 15;
     if (player.currentEternityChall == "eterc5") {
-        amount += Math.pow(player.resets, 3) + player.resets
+        amount += Math.pow(player.resets+bulk, 3) + player.resets+bulk
     }
 
     if (player.infinityUpgrades.includes("resetBoost")) amount -= 9;
@@ -7083,7 +7083,7 @@ function maxBuyGalaxies() {
 
 function maxBuyDimBoosts() {
     var r = 0;
-    while(player[TIER_NAMES[getShiftRequirement(r).tier]+"Amount"] >= getShiftRequirement(r++).amount);
+    while(player[TIER_NAMES[getShiftRequirement(r).tier]+"Amount"] >= getShiftRequirement(r).amount) r+=1;
     
     if (r >= 750) giveAchievement("Costco sells dimboosts now")
     softReset(r)
