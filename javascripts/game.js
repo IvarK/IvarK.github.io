@@ -409,13 +409,28 @@ function addData(chart, label, data) {
     if (data < chart.options.scales.yAxes[0].ticks.min) {
         chart.options.scales.yAxes[0].ticks.min = data;
     }
-    while (chart.data.datasets[0].data.length < player.options.chart.duration / player.options.chart.updateRate * 1000) {
-        chart.data.labels.push(label);
-        chart.data.datasets.forEach((dataset) => {
+    var preservedChartValues = false;
+    while (chart.data.datasets[0].data.length < player.options.chart.duration / player.options.chart.updateRate * 1000 - 1) {
+        if (preservedChartValues) {
+            chart.data.labels.push(label);
+            chart.data.datasets.forEach((dataset) => {
             dataset.data.push(data);
-        });
+            });
+        } else {
+            var temp = chart.data.datasets[0].data.slice()
+            var tempData = data;
+            preservedChartValues = true;
+        }
+        if (chart.data.datasets[0].data.length >= player.options.chart.duration / player.options.chart.updateRate * 1000 - 1) {
+            var temp2 = chart.data.datasets[0].data.slice()
+            for (i=0; i<temp.length; i++) {
+                temp2[chart.data.datasets[0].data.length - temp.length + i] = temp[i];
+                temp2[i] = data;
+            }
+            chart.data.datasets[0].data = temp2;
+        }
     }
-    while (chart.data.datasets[0].data.length > player.options.chart.duration / player.options.chart.updateRate * 1000) {
+    while (chart.data.datasets[0].data.length > player.options.chart.duration / player.options.chart.updateRate * 1000 - 1) {
         chart.data.labels.pop(label);
         chart.data.datasets.forEach((dataset) => {
             dataset.data.pop(data);
