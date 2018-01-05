@@ -5799,7 +5799,7 @@ function startChallenge(name, target) {
     if (player.infinitied >= 10) giveAchievement("That's a lot of infinites");
 
     document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
-    }
+
     resetInfDimensions();
     player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
 
@@ -5811,11 +5811,8 @@ function startChallenge(name, target) {
             player.resets++;
             if (player.galaxies == 0) player.galaxies = 1
         }
-
-
-
     }
-
+}
 }
 
 function unlockEChall(idx) {
