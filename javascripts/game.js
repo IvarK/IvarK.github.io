@@ -5929,7 +5929,7 @@ document.getElementById("ec5unl").onclick = function() {
     }
 }
 
-document.getElementById("ec5unl").onclick = function() {
+document.getElementById("ec6unl").onclick = function() {
     if (canUnlockEC(6, 100, 121)) {
         unlockEChall(6)
         player.timestudy.theorem -= 100
