@@ -693,7 +693,6 @@ function onLoad() {
     if (player.options.chart.duration === undefined) player.options.chart.duration = 10
     if (player.options.chart.warning === undefined) player.options.chart.warning = 0
     if (player.etercreq === undefined) player.etercreq = 0
-    updateChartValues();
     setTheme(player.options.theme);
 
     if (player.secondAmount !== 0) {
@@ -1051,6 +1050,9 @@ function onLoad() {
     } else {
         document.getElementById("challengeconfirmation").innerHTML = "Challenge confirmation on"
     }
+
+    document.getElementById("chartDurationInput").value = player.options.chart.duration;
+    document.getElementById("chartUpdateRateInput").value = player.options.chart.updateRate;
 
     if (!player.options.hotkeys) document.getElementById("hotkeys").innerHTML = "Enable hotkeys"
     updateAutobuyers();
