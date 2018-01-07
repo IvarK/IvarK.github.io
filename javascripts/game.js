@@ -5916,6 +5916,9 @@ document.getElementById("ec1unl").onclick = function() {
     if (canUnlockEC(1, 30, 171)) {
         unlockEChall(1)
         player.timestudy.theorem -= 30
+        updateTheoremButtons()
+        updateTimeStudyButtons()
+        drawStudyTree()
     }
 }
 
@@ -5923,6 +5926,9 @@ document.getElementById("ec2unl").onclick = function() {
     if (canUnlockEC(2, 35, 171)) {
         unlockEChall(2)
         player.timestudy.theorem -= 35
+        updateTheoremButtons()
+        updateTimeStudyButtons()
+        drawStudyTree()
     }
 }
 
@@ -5930,6 +5936,9 @@ document.getElementById("ec3unl").onclick = function() {
     if (canUnlockEC(3, 40, 171)) {
         unlockEChall(3)
         player.timestudy.theorem -= 40
+        updateTheoremButtons()
+        updateTimeStudyButtons()
+        drawStudyTree()
     }
 }
 
@@ -5937,6 +5946,9 @@ document.getElementById("ec4unl").onclick = function() {
     if (canUnlockEC(4, 85, 143)) {
         unlockEChall(4)
         player.timestudy.theorem -= 85
+        updateTheoremButtons()
+        updateTimeStudyButtons()
+        drawStudyTree()
     }
 }
 
@@ -5944,6 +5956,9 @@ document.getElementById("ec5unl").onclick = function() {
     if (canUnlockEC(5, 155, 42)) {
         unlockEChall(5)
         player.timestudy.theorem -= 155
+        updateTheoremButtons()
+        updateTimeStudyButtons()
+        drawStudyTree()
     }
 }
 
@@ -5951,6 +5966,9 @@ document.getElementById("ec6unl").onclick = function() {
     if (canUnlockEC(6, 100, 121)) {
         unlockEChall(6)
         player.timestudy.theorem -= 100
+        updateTheoremButtons()
+        updateTimeStudyButtons()
+        drawStudyTree()
     }
 }
 
