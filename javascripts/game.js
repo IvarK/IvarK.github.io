@@ -3889,13 +3889,11 @@ function toggleCommas() {
 
 buyAutobuyer = function(id) {
     if (player.infinityPoints.lt(player.autobuyers[id].cost)) return false;
+    if (player.autobuyers[id].bulk >= 1e100) return false;
     player.infinityPoints = player.infinityPoints.minus(player.autobuyers[id].cost);
     if (player.autobuyers[id].interval <= 100) {
-        if(player.autobuyers[id].cost<Number.MAX_VALUE)
-        {
-        player.autobuyers[id].bulk = Math.min(player.autobuyers[id].bulk * 2, Number.MAX_VALUE);
+        player.autobuyers[id].bulk = Math.min(player.autobuyers[id].bulk * 2, 1e100);
         player.autobuyers[id].cost = Math.ceil(2.4*player.autobuyers[id].cost);   
-         }
         var b1 = true;
 	    for (let i=0;i<8;i++) {
             if (player.autobuyers[i].bulk < 512) b1 = false;
@@ -4659,17 +4657,22 @@ function updateAutobuyers() {
     var maxedAutobuy = 0;
     for (let tier = 1; tier <= 8; ++tier) {
     document.getElementById("toggleBtn" + tier).style.display = "inline-block";
-            if(player.autobuyers[tier-1].cost*2.4>=Number.MAX_VALUE)
-        {
-        document.getElementById("buyerBtn" + tier).innerHTML = shortenDimensions(player.autobuyers[tier-1].bulk*2)+"x bulk purchase";
-        }else
-        {
+        if (player.autobuyers[tier-1].bulk >= 1e100) {
+        player.autobuyers[tier-1].bulk = 1e100;
+        document.getElementById("buyerBtn" + tier).innerHTML = shortenDimensions(player.autobuyers[tier-1].bulk)+"x bulk purchase";
+        }
+        else {
         if (player.autobuyers[tier-1].interval <= 100) {
-            document.getElementById("buyerBtn" + tier).innerHTML = shortenDimensions(player.autobuyers[tier-1].bulk*2)+"x bulk purchase<br>Cost: " + shortenDimensions(player.autobuyers[tier-1].cost) + " IP"
+            if (player.autobuyers[tier-1].bulk * 2 >= 1e100) {
+                document.getElementById("buyerBtn" + tier).innerHTML = shortenDimensions(1e100)+"x bulk purchase<br>Cost: " + shortenDimensions(player.autobuyers[tier-1].cost) + " IP";
+            }
+            else {
+                document.getElementById("buyerBtn" + tier).innerHTML = shortenDimensions(player.autobuyers[tier-1].bulk*2)+"x bulk purchase<br>Cost: " + shortenDimensions(player.autobuyers[tier-1].cost) + " IP";
+            }
             maxedAutobuy++;
         }
         else document.getElementById("buyerBtn" + tier).innerHTML = "40% smaller interval <br>Cost: " + shortenDimensions(player.autobuyers[tier-1].cost) + " IP"
-}
+        }
     }
 
     if (player.autobuyers[8].interval <= 100) {
