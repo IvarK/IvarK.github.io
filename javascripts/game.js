@@ -7111,18 +7111,22 @@ function dimBoolean() {
 
 
 function maxBuyGalaxies() {
-    while(player.eightAmount >= getGalaxyRequirement()) player.galaxies++
-    player.galaxies--
-    galaxyReset()
-
+    if (player.autobuyers[10].priority > player.galaxies) {
+        while(player.eightAmount >= getGalaxyRequirement() && player.autobuyers[10].priority > player.galaxies) player.galaxies++
+        player.galaxies--
+        galaxyReset()
+    }
 }
 
 function maxBuyDimBoosts() {
-    var r = 0;
-    while(player[TIER_NAMES[getShiftRequirement(r).tier]+"Amount"] >= getShiftRequirement(r).amount) r+=1;
+    if ((player.autobuyers[9].priority > player.resets || player.overXGalaxies <= player.galaxies)) {
+        var r = 0;
+        while(player[TIER_NAMES[getShiftRequirement(r).tier]+"Amount"] >= getShiftRequirement(r).amount && (player.autobuyers[9].priority > player.resets+r || player.overXGalaxies <= player.galaxies)) r+=1;
+        
+        if (r >= 750) giveAchievement("Costco sells dimboosts now")
+        softReset(r)
+    }
     
-    if (r >= 750) giveAchievement("Costco sells dimboosts now")
-    softReset(r)
 }
 
 var timer = 0
