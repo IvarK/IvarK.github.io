@@ -3411,6 +3411,7 @@ function buyEPMult() {
     if (player.eternityPoints.gte(player.epmultCost)) {
         player.epmult *= 5
         player.eternityBuyer.limit = player.eternityBuyer.limit.times(5)
+        document.getElementById("priority13").value = player.eternityBuyer.limit
         player.eternityPoints = player.eternityPoints.minus(player.epmultCost)
         let count = Math.log(player.epmult)/Math.log(5)
         player.epmultCost = Decimal.pow(50, count).times(500)
