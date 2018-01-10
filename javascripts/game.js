@@ -4839,7 +4839,11 @@ function updatePriorities() {
     player.autobuyers[9].priority = parseInt(document.getElementById("priority10").value)
     player.autobuyers[10].priority = parseInt(document.getElementById("priority11").value)
     player.autobuyers[11].priority = fromValue(document.getElementById("priority12").value)
-    const bulk = Math.max(parseFloat(document.getElementById("bulkDimboost").value), 0.05)
+    if (player.eternities < 10) {
+        var bulk = Math.floor(Math.max(parseFloat(document.getElementById("bulkDimboost").value), 1))
+    } else {
+        var bulk = Math.max(parseFloat(document.getElementById("bulkDimboost").value), 0.05)
+    }
     player.autobuyers[9].bulk = (isNaN(bulk)) ? 1 : bulk
     player.overXGalaxies = parseInt(document.getElementById("overGalaxies").value)
     player.autoSacrifice.priority = fromValue(document.getElementById("prioritySac").value)
@@ -5582,7 +5586,7 @@ function eternity() {
         updateMilestones()
         resetTimeDimensions()
         if (player.eternities < 20) player.autobuyers[9].bulk = 1
-        document.getElementById("bulkDimboost").value = player.autobuyers[9].bulk
+        if (player.eternities < 20) document.getElementById("bulkDimboost").value = player.autobuyers[9].bulk
         if (player.eternities < 50) {
             document.getElementById("replicantidiv").style.display="none"
             document.getElementById("replicantiunlock").style.display="inline-block"
@@ -6215,7 +6219,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
         updateMilestones()
         resetTimeDimensions()
         if (player.eternities < 20) player.autobuyers[9].bulk = 1
-        document.getElementById("bulkDimboost").value = player.autobuyers[9].bulk
+        if (player.eternities < 20) document.getElementById("bulkDimboost").value = player.autobuyers[9].bulk
         if (player.eternities < 50) {
             document.getElementById("replicantidiv").style.display="none"
             document.getElementById("replicantiunlock").style.display="inline-block"
@@ -6417,7 +6421,7 @@ setInterval(function() {
 
     if (getTickSpeedMultiplier() < 0.001) giveAchievement("Do you even bend time bro?")
 
-    if (player.eternities > 9) document.getElementById("bulklabel").innerHTML="Max dimboost interval:"
+    if (player.eternities > 9) document.getElementById("bulklabel").innerHTML="Buy max dimboosts every X seconds:"
 
     if (player.eternities > 10) {
         for (var i=1;i<player.eternities-9 && i < 9; i++) {
