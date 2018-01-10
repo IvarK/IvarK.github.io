@@ -2316,7 +2316,7 @@ function getDimensionBoostPower() {
     if (player.currentChallenge == "postc7" || player.timestudy.studies.includes(81) || player.currentEternityChall == "eterc7") ret = 10
 
     if (player.achievements.includes("r101")) ret = ret*1.01
-    if (player.timestudy.studies.includes(83)) ret = Decimal.pow(1.0001, player.totalTickGained).times(ret);
+    if (player.timestudy.studies.includes(83)) ret = Decimal.pow(1.0004, player.totalTickGained).times(ret);
     
     return Decimal.fromValue(ret)
 }
