@@ -166,7 +166,9 @@
                 <br>
                 <table class="table" id="studytable">
                     <tr>
+                        <td><button class="eternitychallengestudy" id="ec7unl">Eternity Challenge 7<span>Requirement: Some amount of antimatter in IC4<span>Cost: 140 Time Theorems</button></td>
                         <td><button class="timestudy" id="111" onclick="buyTimeStudy(111, 12)">Make the IP formula better<span>Cost: 12 Time Theorems</button></td>
+                        <td style="opacity: 0;"><button class="timestudylocked"></button></td>
                     </tr>
                 </table>
                 <br>
@@ -183,7 +185,7 @@
                         <td><button class="timestudy activestudy" id="131" onclick="buyTimeStudy(131, 5)">Automatic replicanti galaxies are disabled, but you can get 50% more<span>Cost: 5 Time Theorems</button></td>
                         <td><button class="timestudy passivestudy" id="132" onclick="buyTimeStudy(132, 5)">Replicanti galaxies are 30% more effective<span>Cost: 5 Time Theorems</button></td>
                         <td><button class="timestudy idlestudy" id="133" onclick="buyTimeStudy(133, 5)">You gain replicantis 10 times slower but each galaxy is 50% more effective<span>Cost: 5 Time Theorems</button></td>
-                        <td style="opacity: 0;"><button class="timestudylocked"></button></td>
+                        <td><button class="eternitychallengestudy" id="ec8unl">Eternity Challenge 8<span>Cost: 100 Time Theorems</button></td>
                     </tr>
                 </table>
                 <table class="table" id="studytable">
@@ -668,6 +670,7 @@
                                 </td>
                             </tr>
                 </table>
+                <div id="eterc8ids" style="display: none;"></div>
                 <button id="toggleallinfdims"style="width:140px; height: 30px; font-size: 12px; visibility: hidden" onclick="toggleAllInfDims()" class="storebtn">Toggle all ON/OFF</button>
             </div>
             <div id="timedimensions" class="dimtab">
@@ -1577,7 +1580,7 @@
                                 <br>
                                 <br>
                                 <div class="outer">
-                                    <button id="eterc5" class="challengesbtn" onclick="startEternityChallenge('eterc5', new Decimal('1e3000'), new Decimal('1e300'))">Start</button>
+                                    <button id="eterc5" class="challengesbtn" onclick="startEternityChallenge('eterc5', new Decimal('1e1100'), new Decimal('1e110'))">Start</button>
                                     <br>
                                     <span id="eterc5completed">Completed 0 Times.</span><br>
                                     <span id="eterc5goal" >Goal: 1e3000 IP</span><br>
@@ -1586,12 +1589,8 @@
                             </div>
                         </td>
                         <td>
-                            <div class="eterchallengediv" id="eterc6div" style="height: 140px; display: block">
-                                <span>You lose if: 
-                                    1.You have more than 10 replicanti galaxies. 
-                                    2.You have more than 100 galaxies.
-                                    3.You have more than 1e1000 Infinity Power
-                                    4.You have more than 1000 Dimensional Boosts
+                            <div class="eterchallengediv" id="eterc6div" style="height: 140px; display: none">
+                                <span>You can't gain galaxies normally, but replicanti galaxy cost is reduced.
                                 </span>
                                 <br>
                                 <br>
@@ -1600,7 +1599,38 @@
                                     <br>
                                     <span id="eterc6completed">Completed 0 Times.</span><br>
                                     <span id="eterc6goal" >Goal: 1e1500</span><br>
-                                    <span id="ec6reward">Reward: undecided</span>
+                                    <span id="ec6reward">Reward: Further reduction dimension cost multiplier increase, Current: 3x</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="eterchallengediv" id="eterc7div" style="height: 140px; display: none">
+                                <span>All infinity challenges (except 1 and 5) at the same time because fuck you.</span>
+                                <br>
+                                <br>
+                                <div class="outer">
+                                    <button id="eterc7" class="challengesbtn" onclick="startEternityChallenge('eterc7', new Decimal('1e1100'), new Decimal('1e110'))">Start</button>
+                                    <br>
+                                    <span id="eterc7completed">Completed 0 Times.</span><br>
+                                    <span id="eterc7goal" >Goal: 1e3000 IP</span><br>
+                                    <span id="ec7reward">Reward: dunno</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="eterchallengediv" id="eterc8div" style="height: 140px; display: none">
+                                <span>You can only Infinity Dimensions 50 times, and Replicanti upgrades only 30 times.
+                                </span>
+                                <br>
+                                <br>
+                                <div class="outer">
+                                    <button id="eterc8" class="challengesbtn" onclick="startEternityChallenge('eterc8', new Decimal('1e3000'), new Decimal('1e300'))">Start</button>
+                                    <br>
+                                    <span id="eterc8completed">Completed 0 Times.</span><br>
+                                    <span id="eterc8goal" >Goal: 1e1500</span><br>
+                                    <span id="ec8reward">Reward: dunno</span>
                                 </div>
                             </div>
                         </td>
@@ -2112,6 +2142,7 @@
             <br>
             <button class="storebtn" id="replicantiunlock" onclick="unlockReplicantis()" style="width:200px; height: 80px">Unlock Replicantis<br>Cost: 1e140 IP</button>
             <div id="replicantidiv" style="display: none">
+                <div id="eterc8repl" style="display: none;"></div>
                 <p style="font-size: 15px">You have <span id="replicantiamount" style="font-size:23px; color: black">0</span> replicanti. Translated to <span id="replicantimult" style="font-size:23px; color: black">0</span>x multiplier on all infinity dimensions</p>
                 <br>
                 <button class="storebtn" id="replicantichance" onclick="upgradeReplicantiChance()" style="width:180px; height: 50px; font-size: 10px">Replicate chance: 1%<br>+1% Costs: 1e6969 IP</button>
