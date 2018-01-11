@@ -6467,6 +6467,8 @@ setInterval(function() {
             }
         }
         infDimPow = temp
+    } else {
+        document.getElementById("infchallengesbtn").style.display = "none"
     }
 
     if (player.money.gte(new Decimal("1e2000"))) document.getElementById("challTabButtons").style.display = "table"
@@ -6516,7 +6518,9 @@ setInterval(function() {
     if (player.eternities == 0) document.getElementById("pasteternities").style.display = "none"
     else document.getElementById("pasteternities").style.display = "inline-block"
     if (player.challenges.length > 1) document.getElementById("challengetimesbtn").style.display = "inline-block"
+    else document.getElementById("challengetimesbtn").style.display = "none"
     if (player.infinitied > 0) document.getElementById("pastinfs").style.display = "inline-block"
+    else document.getElementById("pastinfs").style.display = "none"
 
     if (player.eternities > 10) {
         for (var i=1;i<player.eternities-9 && i < 9; i++) {
