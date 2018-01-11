@@ -6766,7 +6766,7 @@ function gameLoop() {
     if (nextAt[player.postChallUnlocked] === undefined) document.getElementById("nextchall").innerHTML = ""
     else {
         document.getElementById("nextchall").innerHTML = "Next challenge unlocks at "+ shortenCosts(nextAt[player.postChallUnlocked]) + " antimatter."
-        while (player.money.gte(nextAt[player.postChallUnlocked]) && player.challenges.includes("postc8") === false) {
+        while (player.money.gte(nextAt[player.postChallUnlocked]) && player.challenges.includes("postc8") === false && player.postChallUnlocked != 8) {
             if (player.postChallUnlocked != 8) player.postChallUnlocked += 1
             if (player.eternities > 6) player.challenges.push("postc"+player.postChallUnlocked)
             updateChallenges()
