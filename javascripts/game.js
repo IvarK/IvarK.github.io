@@ -7179,7 +7179,11 @@ function startInterval() {
 
 function updateChart(first) {
     if (first !== true && (player.infinitied >= 1 || player.eternities >= 1)) {
-        addData(normalDimChart, "0", getDimensionProductionPerSecond(1));
+        if (player.currentChallenge == "challenge3" || player.currentChallenge == "postc1") {
+            addData(normalDimChart, "0", getDimensionProductionPerSecond(1).times(player.chall3Pow));
+        } else {
+            addData(normalDimChart, "0", getDimensionProductionPerSecond(1));
+        }
     }
     if (player.options.chart.updateRate) {
         setTimeout(updateChart, player.options.chart.updateRate);
