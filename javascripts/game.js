@@ -1803,6 +1803,11 @@ function updateEternityChallenges() {
     if (player.eternityChallUnlocked !== 0) {
         document.getElementById("eterc"+player.eternityChallUnlocked).innerHTML = "Start"
         document.getElementById("eterc"+player.eternityChallUnlocked).className = "challengesbtn"
+    } else {
+        document.getElementById("eterctabbtn").style.display = "none"
+        for (i=1; i<8; i++) {
+            document.getElementById("eterc"+i+"div").style.display = "none"
+        }
     }
 
     if (player.currentEternityChall !== "") {
