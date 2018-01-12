@@ -8076,7 +8076,8 @@ window.addEventListener('keydown', function(event) {
         case 68: // D
             var name = TIER_NAMES[getShiftRequirement(0).tier]
             if (player[name + "Amount"] >= getShiftRequirement(0).amount) {
-                softReset(1)
+                if (player.infinityUpgrades.includes("bulkBoost")) maxBuyDimBoosts();
+                else softReset(1)
             }
         break;
 
