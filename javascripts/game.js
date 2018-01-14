@@ -356,10 +356,10 @@ function drawTreeBranch(num1, num2) {
     var name2 = parseInt(num2)
     var start = document.getElementById(num1).getBoundingClientRect()
     var end = document.getElementById(num2).getBoundingClientRect()
-    var x1 = start.left + (start.width / 2) + document.documentElement.scrollLeft;
-    var y1 = start.top + (start.height / 2) + document.documentElement.scrollTop;
-    var x2 = end.left + (start.width / 2) + document.documentElement.scrollLeft;
-    var y2 = end.top + (start.height / 2) + document.documentElement.scrollTop;
+    var x1 = start.left + (start.width / 2) + (document.documentElement.scrollLeft || document.body.scrollLeft);
+    var y1 = start.top + (start.height / 2) + (document.documentElement.scrollTop || document.body.scrollTop);
+    var x2 = end.left + (start.width / 2) + (document.documentElement.scrollLeft || document.body.scrollLeft);
+    var y2 = end.top + (start.height / 2) + (document.documentElement.scrollTop || document.body.scrollTop);
     ctx.lineWidth=15;
     ctx.beginPath();
     if (player.timestudy.studies.includes(name1) && player.timestudy.studies.includes(name2)) {
