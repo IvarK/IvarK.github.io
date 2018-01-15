@@ -1789,6 +1789,18 @@ function updateChallenges() {
 }
 
 function updateEternityChallenges() {
+
+    if (player.eternityChallUnlocked !== 0) {
+        document.getElementById("eterc"+player.eternityChallUnlocked).innerHTML = "Start"
+        document.getElementById("eterc"+player.eternityChallUnlocked).className = "challengesbtn"
+        document.getElementById("eterctabbtn").style.display = "block"
+    } else {
+        document.getElementById("eterctabbtn").style.display = "none"
+        for (i=1; i<8; i++) {
+            document.getElementById("eterc"+i+"div").style.display = "none"
+        }
+    }
+
     for (var property in player.eternityChalls) {
         document.getElementById(property+"div").style.display = "inline-block"
         if (player.eternityChalls[property] < 5) {
@@ -1800,16 +1812,9 @@ function updateEternityChallenges() {
             document.getElementById(property).className = "completedchallengesbtn"
         }
     }
-    if (player.eternityChallUnlocked !== 0) {
-        document.getElementById("eterc"+player.eternityChallUnlocked).innerHTML = "Start"
-        document.getElementById("eterc"+player.eternityChallUnlocked).className = "challengesbtn"
-        document.getElementById("eterctabbtn").style.display = "block"
-    } else {
-        document.getElementById("eterctabbtn").style.display = "none"
-        for (i=1; i<8; i++) {
-            document.getElementById("eterc"+i+"div").style.display = "none"
-        }
-    }
+    
+
+    if (player.eternityChalls.eterc1 !== undefined) document.getElementById("eterctabbtn").style.display = "block"
 
     if (player.currentEternityChall !== "") {
         document.getElementById(player.currentEternityChall).innerHTML = "Running"
@@ -1895,7 +1900,7 @@ function DimensionPower(tier) {
 
     if (player.timestudy.studies.includes(92)) mult = mult.times(Decimal.pow(2, 600/Math.max(player.bestEternity, 20)))
     if (player.timestudy.studies.includes(162)) mult = mult.times(1e11)
-    //if (ECTimesCompleted("eterc2") !== 0 && tier == 1) mult = mult.times(player.infinityPower.pow(1/(50-ECTimesCompleted("eterc2")*0.1)).plus(1))
+    if (ECTimesCompleted("eterc2") !== 0 && tier == 1) mult = mult.times(player.infinityPower.pow(1/(50-ECTimesCompleted("eterc2")*0.1)).plus(1))
     if (player.currentEternityChall == "eterc2") mult = mult.times(0)
 
     if (ECTimesCompleted("eterc4") !== 0) mult = mult.times(player.infinityPoints.pow(0.003 + ECTimesCompleted("eterc4")*0.002))
@@ -6549,10 +6554,10 @@ setInterval(function() {
         while (player.infinityPoints.gte(player.replicanti.galCost)) upgradeReplicantiGalaxy()
     }
 
-    document.getElementById("eterc1goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2400").times(new Decimal("1e200").times(ECTimesCompleted("eterc1"))).max(new Decimal("1e2400"))) + " IP"
+    document.getElementById("eterc1goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e1800").times(new Decimal("1e200").times(ECTimesCompleted("eterc1"))).max(new Decimal("1e1800"))) + " IP"
     document.getElementById("eterc1completed").innerHTML = "Completed "+ECTimesCompleted("eterc1")+" times."
 
-    document.getElementById("eterc2goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e1000").times(new Decimal("1e150").times(ECTimesCompleted("eterc2"))).max(new Decimal("1e1000"))) + " IP"
+    document.getElementById("eterc2goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e975").times(new Decimal("1e125").times(ECTimesCompleted("eterc2"))).max(new Decimal("1e975"))) + " IP"
     document.getElementById("eterc2completed").innerHTML = "Completed "+ECTimesCompleted("eterc2")+" times."
 
     document.getElementById("eterc3goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e750").times(new Decimal("1e150").times(ECTimesCompleted("eterc3"))).max(new Decimal("1e750"))) + " IP"
