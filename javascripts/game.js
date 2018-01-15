@@ -1803,6 +1803,12 @@ function updateEternityChallenges() {
     if (player.eternityChallUnlocked !== 0) {
         document.getElementById("eterc"+player.eternityChallUnlocked).innerHTML = "Start"
         document.getElementById("eterc"+player.eternityChallUnlocked).className = "challengesbtn"
+        document.getElementById("eterctabbtn").style.display = "block"
+    } else {
+        document.getElementById("eterctabbtn").style.display = "none"
+        for (i=1; i<8; i++) {
+            document.getElementById("eterc"+i+"div").style.display = "none"
+        }
     }
 
     if (player.currentEternityChall !== "") {
@@ -3690,7 +3696,7 @@ document.getElementById("postinfi32").onclick = function() {
 }
 
 document.getElementById("postinfi42").onclick = function() {
-    if (player.infinityPoints.gte(player.dimensionMultDecreaseCost) && player.dimensionMultDecrease >= 3) {
+    if (player.infinityPoints.gte(player.dimensionMultDecreaseCost) && player.dimensionMultDecrease > 3) {
         player.infinityPoints = player.infinityPoints.minus(player.dimensionMultDecreaseCost)
         player.dimensionMultDecreaseCost *= 5000
         player.dimensionMultDecrease--;
@@ -7179,7 +7185,11 @@ function startInterval() {
 
 function updateChart(first) {
     if (first !== true && (player.infinitied >= 1 || player.eternities >= 1)) {
-        addData(normalDimChart, "0", getDimensionProductionPerSecond(1));
+        if (player.currentChallenge == "challenge3" || player.currentChallenge == "postc1") {
+            addData(normalDimChart, "0", getDimensionProductionPerSecond(1).times(player.chall3Pow));
+        } else {
+            addData(normalDimChart, "0", getDimensionProductionPerSecond(1));
+        }
     }
     if (player.options.chart.updateRate) {
         setTimeout(updateChart, player.options.chart.updateRate);
@@ -8067,7 +8077,8 @@ window.addEventListener('keydown', function(event) {
         case 68: // D
             var name = TIER_NAMES[getShiftRequirement(0).tier]
             if (player[name + "Amount"] >= getShiftRequirement(0).amount) {
-                softReset(1)
+                if (player.infinityUpgrades.includes("bulkBoost")) maxBuyDimBoosts();
+                else softReset(1)
             }
         break;
 
