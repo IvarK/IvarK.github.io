@@ -6069,7 +6069,7 @@ function startInterval() {
         Marathon++;
 
         if (Marathon >= 300 && !player.achievements.includes("r44")) giveAchievement("Over in 30 seconds");
-        } else {
+        } else if (getDimensionProductionPerSecond(1).lt(player.money)){
         Marathon = 0; }
 
         for (let tier = 1; tier <= 8; ++tier) {
