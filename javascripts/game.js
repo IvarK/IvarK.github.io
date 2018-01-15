@@ -1900,7 +1900,7 @@ function DimensionPower(tier) {
 
     if (player.timestudy.studies.includes(92)) mult = mult.times(Decimal.pow(2, 600/Math.max(player.bestEternity, 20)))
     if (player.timestudy.studies.includes(162)) mult = mult.times(1e11)
-    if (ECTimesCompleted("eterc2") !== 0 && tier == 1) mult = mult.times(player.infinityPower.pow(1/(50-ECTimesCompleted("eterc2")*0.1)).plus(1))
+    if (ECTimesCompleted("eterc2") !== 0 && tier == 1) mult = mult.times(player.infinityPower.pow(1.5/(700-ECTimesCompleted("eterc2")*100)).plus(1))
     if (player.currentEternityChall == "eterc2") mult = mult.times(0)
 
     if (ECTimesCompleted("eterc4") !== 0) mult = mult.times(player.infinityPoints.pow(0.003 + ECTimesCompleted("eterc4")*0.002))
@@ -3748,7 +3748,7 @@ function updateInfCosts() {
     else document.getElementById("ec1unl").innerHTML = "Eternity Challenge 1<span>Cost: 30 Time Theorems"
     if (player.etercreq !== 2) document.getElementById("ec2unl").innerHTML = "Eternity Challenge 2<span>Requirement: "+(1300+(ECTimesCompleted("eterc2")*150))+" Tickspeed upgrades gained from time dimensions<span>Cost: 35 Time Theorems"
     else document.getElementById("ec2unl").innerHTML = "Eternity Challenge 2<span>Cost: 35 Time Theorems"
-    if (player.etercreq !== 3) document.getElementById("ec3unl").innerHTML = "Eternity Challenge 3<span>Requirement: "+(18400+(ECTimesCompleted("eterc3")*500))+" 8th dimensions<span>Cost: 40 Time Theorems"
+    if (player.etercreq !== 3) document.getElementById("ec3unl").innerHTML = "Eternity Challenge 3<span>Requirement: "+(17300+(ECTimesCompleted("eterc3")*500))+" 8th dimensions<span>Cost: 40 Time Theorems"
     else document.getElementById("ec3unl").innerHTML = "Eternity Challenge 3<span>Cost: 40 Time Theorems"
     if (player.etercreq !== 4) document.getElementById("ec4unl").innerHTML = "Eternity Challenge 4<span>Requirement: "+(1e8 + (ECTimesCompleted("eterc4")*1e8)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" infinities<span>Cost: 85 Time Theorems"
     else document.getElementById("ec4unl").innerHTML = "Eternity Challenge 4<span>Cost: 85 Time Theorems"
@@ -5912,7 +5912,7 @@ function canUnlockEC(idx, cost, study) {
         break;
 
         case 3:
-        if (player.eightAmount.gte(18400+(ECTimesCompleted("eterc3")*500))) return true
+        if (player.eightAmount.gte(17300+(ECTimesCompleted("eterc3")*500))) return true
         break;
 
         case 4:
@@ -6859,7 +6859,7 @@ function gameLoop() {
     Marathon++;
 
     if (Marathon >= 300 && !player.achievements.includes("r44")) giveAchievement("Over in 30 seconds");
-    } else {
+    } else if (getDimensionProductionPerSecond(1).lt(player.money)){
     Marathon = 0; }
 
     for (let tier = 1; tier <= 8; ++tier) {
@@ -7105,7 +7105,7 @@ function gameLoop() {
     }
 
     document.getElementById("ec1reward").innerHTML = "Reward: "+shortenMoney(Math.pow(Math.max(player.thisEternity*10, 1), 0.3+(ECTimesCompleted("eterc1")*0.02)))+"x on all Time Dimensions (based on time spent this Eternity)"
-    document.getElementById("ec2reward").innerHTML = "Reward: Infinity power affects Infinity Dimensions with reduced effect, Currently: "+shortenMoney(player.infinityPower.pow(1/(800 - ECTimesCompleted("eterc2")*100)))+"x"
+    document.getElementById("ec2reward").innerHTML = "Reward: Infinity power affects Infinity Dimensions with reduced effect, Currently: "+shortenMoney(player.infinityPower.pow(1.5/(700 - ECTimesCompleted("eterc2")*100)))+"x"
     document.getElementById("ec3reward").innerHTML = "Reward: Increase the multiplier for buying 10 dimensions, Currently: "+getDimensionPowerMultiplier().toFixed(2)+"x"
     document.getElementById("ec4reward").innerHTML = "Reward: Infinity Dimension multiplier from unspent IP, Currently: "+shortenMoney(player.infinityPoints.pow(0.003 + ECTimesCompleted("eterc4")*0.002))+"x"
     document.getElementById("ec5reward").innerHTML = "Reward: Galaxy cost scaling starts "+((ECTimesCompleted("eterc5")*5))+" galaxies later."
