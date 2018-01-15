@@ -5854,7 +5854,7 @@ function startInterval() {
             if (player.resets > 0) player.resets--;
             softReset(0);
         }
-
+        ;
         if (player.currentChallenge == "postc8") postc8Mult = postc8Mult.times(Math.pow(0.000000046416, diff))
 
         if (player.currentChallenge == "challenge3" || player.matter.gte(1)) player.chall3Pow = player.chall3Pow.times(Decimal.pow(1.00038, diff));
@@ -6033,14 +6033,14 @@ function startInterval() {
 
 
         if (player.infMultBuyer) {
-            var diff = player.infinityPoints.e - player.infMultCost.e +1
+            var dif = player.infinityPoints.e - player.infMultCost.e +1
 
-            if (diff > 0) {
-                player.infMult = player.infMult.times(Decimal.pow(2, diff))
-                player.infMultCost = player.infMultCost.times(Decimal.pow(10, diff))
+            if (dif > 0) {
+                player.infMult = player.infMult.times(Decimal.pow(2, dif))
+                player.infMultCost = player.infMultCost.times(Decimal.pow(10, dif))
                 document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
                 player.infinityPoints = player.infinityPoints.minus(player.infMultCost.dividedBy(10))
-                if (player.autobuyers[11].priority !== undefined && player.autobuyers[11].priority !== null && player.autoCrunchMode == "amount") player.autobuyers[11].priority = player.autobuyers[11].priority.times(Decimal.pow(2, diff));
+                if (player.autobuyers[11].priority !== undefined && player.autobuyers[11].priority !== null && player.autoCrunchMode == "amount") player.autobuyers[11].priority = player.autobuyers[11].priority.times(Decimal.pow(2, dif));
                 if (player.autoCrunchMode == "amount") document.getElementById("priority12").value = player.autobuyers[11].priority
             }
         }
@@ -6064,13 +6064,13 @@ function startInterval() {
         updateInfPower();
         updateTimeDimensions()
         updateTimeShards()
-        if (calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).gt(player.money)) {
-        if(player.money.gt(Math.pow(10,63)) && !player.achievements.includes("r42")) giveAchievement("Supersanic");
-        Marathon++;
-
-        if (Marathon >= 300 && !player.achievements.includes("r44")) giveAchievement("Over in 30 seconds");
-        } else if (getDimensionProductionPerSecond(1).lt(player.money)){
-        Marathon = 0; }
+        if (getDimensionProductionPerSecond(1).gt(player.money)) {
+            if(player.money.gt(Math.pow(10,63)) && !player.achievements.includes("r42")) giveAchievement("Supersanic");
+            if (Marathon >= 300 && !player.achievements.includes("r44")) giveAchievement("Over in 30 seconds");
+            Marathon+=diff/10
+        } else {
+            Marathon = 0; 
+        }
 
         for (let tier = 1; tier <= 8; ++tier) {
             var name = TIER_NAMES[tier];
