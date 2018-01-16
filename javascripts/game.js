@@ -6066,7 +6066,7 @@ function startInterval() {
         updateTimeShards()
         if (getDimensionProductionPerSecond(1).gt(player.money)) {
             if(player.money.gt(Math.pow(10,63)) && !player.achievements.includes("r42")) giveAchievement("Supersanic");
-            if (Marathon >= 300 && !player.achievements.includes("r44")) giveAchievement("Over in 30 seconds");
+            if (Marathon >= 30 && !player.achievements.includes("r44")) giveAchievement("Over in 30 seconds");
             Marathon+=diff/10
         } else {
             Marathon = 0; 
