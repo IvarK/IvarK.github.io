@@ -507,12 +507,14 @@ function drawStudyTree() {
     drawTreeBranch("11", "21");
     drawTreeBranch("11", "22");
     drawTreeBranch("21", "31");
+    drawTreeBranch("21", "33");
     drawTreeBranch("22", "32");
     drawTreeBranch("31", "41");
     drawTreeBranch("32", "42");
     drawTreeBranch("41", "51");
     drawTreeBranch("42", "51");
     drawTreeBranch("51", "61");
+    drawTreeBranch("ec5unl", "62")
     drawTreeBranch("61", "71");
     drawTreeBranch("61", "72");
     drawTreeBranch("61", "73");
@@ -2193,7 +2195,12 @@ function hasRow(row) {
 function canBuyStudy(name) {
     var row = Math.floor(name/10)
     var col = name%10
-
+    if (name == 33) {
+        if (player.timestudy.studies.includes(21)) return true; else return false
+    }
+    if (name == 62) {
+        if (player.eternityChalls.eterc5 !== undefined && player.timestudy.studies.includes(42)) return true; else return false
+    }
     switch(row) {
 
         case 1: return true
@@ -2219,15 +2226,18 @@ function canBuyStudy(name) {
         if (player.timestudy.studies.includes((row-1)*10 + col)) return true; else return false
         break;
 
-        case 7: 
         case 12:
         if (hasRow(row-1) && !hasRow(row)) return true; else return false
         break;
 
+        case 7:
+        if (player.timestudy.studies.includes(61) && !hasRow(row)) return true; else return false
+        break;
+
     }
 }
-var all =      [11, 21, 22, 31, 32, 41, 42, 51, 61, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171]
-var studyCosts = [1, 3, 2, 3, 2, 4, 6, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15]
+var all =      [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171]
+var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15]
 function updateTimeStudyButtons() {
     for (var i=0; i<all.length; i++) {
         if (!player.timestudy.studies.includes(all[i])) {
@@ -3807,7 +3817,7 @@ function upgradeReplicantiInterval() {
 function upgradeReplicantiGalaxy() {
     if (player.infinityPoints.gte(player.replicanti.galCost) && player.eterc8repl !== 0) {
         player.infinityPoints = player.infinityPoints.minus(player.replicanti.galCost)
-        if (player.currentEternityChall == "eterc6") player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(1e2, player.replicanti.gal)).times(1e5)
+        if (player.currentEternityChall == "eterc6") player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(1e2, player.replicanti.gal)).times(1e2)
         else player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(1e5, player.replicanti.gal)).times(1e25)
         player.replicanti.gal += 1
         if (player.currentEternityChall == "eterc8") player.eterc8repl-=1
@@ -5264,7 +5274,8 @@ document.getElementById("bigcrunch").onclick = function () {
         }
 
         if (player.replicanti.unl && !player.achievements.includes("r95")) player.replicanti.amount = 1
-        player.replicanti.galaxies = 0
+        
+        player.replicanti.galaxies = (player.timestudy.studies.includes(33)) ? Math.floor(player.replicanti.galaxies/2) :0
 
         player.firstPow = getDimensionBoostPower().pow(player.resets + 1)
         player.secondPow = getDimensionBoostPower().pow(player.resets)
@@ -6575,7 +6586,7 @@ setInterval(function() {
     document.getElementById("eterc5goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e675").times(new Decimal("1e125").pow(ECTimesCompleted("eterc5"))).max(new Decimal("1e675"))) + " IP"
     document.getElementById("eterc5completed").innerHTML = "Completed "+ECTimesCompleted("eterc5")+" times."
 
-    document.getElementById("eterc6goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e3000").times(new Decimal("1e300").pow(ECTimesCompleted("eterc6"))).max(new Decimal("1e3000"))) + " IP"
+    document.getElementById("eterc6goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e600").times(new Decimal("1e100").pow(ECTimesCompleted("eterc6"))).max(new Decimal("1e600"))) + " IP"
     document.getElementById("eterc6completed").innerHTML = "Completed "+ECTimesCompleted("eterc6")+" times."
 
     document.getElementById("eterc7goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e1100").times(new Decimal("1e110").pow(ECTimesCompleted("eterc7"))).max(new Decimal("1e1500"))) + " IP"
@@ -6789,11 +6800,13 @@ function gameLoop() {
             updateChallenges()
         }
     }
-
-    var est = player.replicanti.chance * 1000 / player.replicanti.interval
+    let interval = player.replicanti.interval
+    if (player.timestudy.studies.includes(62)) interval = interval/3
+    var est = player.replicanti.chance * 1000 / interval
+    
     var current = Math.log(player.replicanti.amount)
     if (player.timestudy.studies.includes(133)) est /= 10
-    if (diff > 5 || player.replicanti.interval < 50) {
+    if (diff > 5 || interval < 50) {
         var gained = Math.pow(Math.E, current+diff*est/10)
         player.replicanti.amount = Math.min(Number.MAX_VALUE, gained)
     } else {
@@ -6808,12 +6821,12 @@ function gameLoop() {
 
                 for (var i=0; i<100; i++) {
                     if (player.replicanti.chance > Math.random()) {
-                        if (player.replicanti.interval > 50) player.replicanti.amount = Math.min(Number.MAX_VALUE, temp+player.replicanti.amount)
-                        else player.replicanti.amount = Math.min(Number.MAX_VALUE, (Math.pow(Math.E, 50/player.replicanti.interval)-1)*temp+player.replicanti.amount)
+                        if (interval > 50) player.replicanti.amount = Math.min(Number.MAX_VALUE, temp+player.replicanti.amount)
+                        else player.replicanti.amount = Math.min(Number.MAX_VALUE, (Math.pow(Math.E, 50/interval)-1)*temp+player.replicanti.amount)
                     }
                 }
             }
-            replicantiTicks -= player.replicanti.interval
+            replicantiTicks -= interval
         }
     }
     if (player.replicanti.amount !== 0) replicantiTicks += 50

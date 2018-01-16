@@ -118,10 +118,16 @@
                         <td><button class="timestudy" id="21" onclick="buyTimeStudy(21, 3)">Replicanti multiplier formula is better (log2(x)^2 -> x^0.032)<span>Cost: 3 Time Theorems</button></td>
                         <td><button class="timestudy" id="22" onclick="buyTimeStudy(22, 2)">Replicanti interval limit 50ms -> 1ms<span>Cost: 2 Time Theorems</button></td>
                     </tr>
+                </table>
+                <table class="table" id="studytable">
                     <tr>
+                        <td><button class="timestudy" id="33" onclick="buyTimeStudy(33, 2)">You keep half of your replicanti galaxies on infinity<span>Cost: 2 Time Theorems</button></td>
                         <td><button class="timestudy" id="31" onclick="buyTimeStudy(31, 3)">Powers up existing upgrades based on infinitied stat (to the power of 4)<span>Cost: 3 Time Theorems</button></td>
                         <td><button class="timestudy" id="32" onclick="buyTimeStudy(32, 2)">You gain x1 more infinitied stat (based on soft resets)<span>Cost: 2 Time Theorems</button></td>
+                        <td style="opacity: 0;"><button class="timestudylocked"></button></td>
                     </tr>
+                </table>
+                <table class="table" id="studytable">
                     <tr>
                         <td><button class="timestudy" id="41" onclick="buyTimeStudy(41, 4)">Each galaxy gives a 1.2x multiplier on IP gained. <span>Cost: 4 Time Theorems</button></td>
                         <td><button class="timestudy" id="42" onclick="buyTimeStudy(42, 6)">Galaxy requirement goes up 52 8ths instead of 60.<span>Cost: 6 Time Theorems</button></td>
@@ -137,7 +143,9 @@
                 </table>
                 <table class="table" id="studytable">
                     <tr>
+                        <td style="opacity: 0;"><button class="timestudylocked"></button></td>
                         <td><button class="timestudy" id="61" onclick="buyTimeStudy(61, 3)">You gain 10x more EP<span>Cost: 3 Time Theorems</button></td>
+                        <td><button class="timestudy" id="62" onclick="buyTimeStudy(62, 3)">You gain replicanti 3 times faster<span>Cost: 3 Time Theorems</button></td>
                     </tr>
                 </table>
                 <br>
@@ -167,7 +175,9 @@
                 <table class="table" id="studytable">
                     <tr>
                         <td><button class="eternitychallengestudy" id="ec7unl">Eternity Challenge 7<span>Requirement: Some amount of antimatter in IC4<span>Cost: 140 Time Theorems</button></td>
+                        <td style="opacity: 0;"><button class="timestudylocked"></button></td>
                         <td><button class="timestudy" id="111" onclick="buyTimeStudy(111, 12)">Make the IP formula better<span>Cost: 12 Time Theorems</button></td>
+                        <td style="opacity: 0;"><button class="timestudylocked"></button></td>
                         <td style="opacity: 0;"><button class="timestudylocked"></button></td>
                     </tr>
                 </table>
@@ -199,7 +209,9 @@
                 <table class="table" id="studytable">
                     <tr>
                         <td style="opacity: 0;"><button class="timestudylocked"></button></td>
+                        <td style="opacity: 0;"><button class="timestudylocked"></button></td>
                         <td><button class="timestudy" id="151" onclick="buyTimeStudy(151, 8)">1e4x multiplier on all Time Dimensions<span>Cost: 8 Time Theorems</button></td>
+                        <td style="opacity: 0;"><button class="timestudylocked"></button></td>
                         <td><button class="eternitychallengestudy" id="ec4unl">Eternity Challenge 4<span>Requirement: 100,000,000 infinities<span>Cost: 85 Time Theorems</button></td>
                     </tr>
                 </table>
@@ -1595,7 +1607,7 @@
                                 <br>
                                 <br>
                                 <div class="outer">
-                                    <button id="eterc6" class="challengesbtn" onclick="startEternityChallenge('eterc6', new Decimal('1e3000'), new Decimal('1e300'))">Start</button>
+                                    <button id="eterc6" class="challengesbtn" onclick="startEternityChallenge('eterc6', new Decimal('1e600'), new Decimal('1e100'))">Start</button>
                                     <br>
                                     <span id="eterc6completed">Completed 0 Times.</span><br>
                                     <span id="eterc6goal" >Goal: 1e1500</span><br>
