@@ -3805,8 +3805,8 @@ function upgradeReplicantiInterval() {
 function upgradeReplicantiGalaxy() {
     if (player.infinityPoints.gte(player.replicanti.galCost) && player.eterc8repl !== 0) {
         player.infinityPoints = player.infinityPoints.minus(player.replicanti.galCost)
-        player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(1e5, player.replicanti.gal)).times(1e25)
         if (player.currentEternityChall == "eterc6") player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(1e2, player.replicanti.gal)).times(1e25)
+        else player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(1e5, player.replicanti.gal)).times(1e25)
         player.replicanti.gal += 1
         if (player.currentEternityChall == "eterc8") player.eterc8repl-=1
         document.getElementById("eterc8repl").innerHTML = "You have "+player.eterc8repl+" purchases left."
