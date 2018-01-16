@@ -6547,7 +6547,7 @@ setInterval(function() {
     else document.getElementById("pasteternities").style.display = "inline-block"
     if (player.challenges.length > 1) document.getElementById("challengetimesbtn").style.display = "inline-block"
     else document.getElementById("challengetimesbtn").style.display = "none"
-    if (player.infinitied > 0) document.getElementById("pastinfs").style.display = "inline-block"
+    if (player.infinitied > 0  || player.eternities > 0) document.getElementById("pastinfs").style.display = "inline-block"
     else document.getElementById("pastinfs").style.display = "none"
 
     if (player.eternities > 10) {
