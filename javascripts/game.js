@@ -2569,12 +2569,14 @@ function canBuyTickSpeed() {
 
 function getTickSpeedMultiplier() {
     if (player.currentChallenge == "postc3" || player.currentEternityChall == "eterc7") return 1;
-    if (player.galaxies < 3) {
+    if (player.galaxies + player.replicanti.galaxies < 3) {
         let baseMultiplier = 0.9;
         if (player.galaxies == 0) baseMultiplier = 0.89
         if (player.currentChallenge == "challenge6" || player.currentChallenge == "postc1") baseMultiplier = 0.93;
         let perGalaxy = 0.02;
-
+        let galaxies = player.galaxies+player.replicanti.galaxies
+        if (player.timestudy.studies.includes(133)) galaxies += player.replicanti.galaxies/2
+        if (player.timestudy.studies.includes(132)) galaxies += player.replicanti.galaxies*0.3
         if (player.infinityUpgrades.includes("galaxyBoost")) perGalaxy *= 2;
         if (player.infinityUpgrades.includes("postGalaxy")) perGalaxy *= 1.5;
         if (player.challenges.includes("postc5")) perGalaxy *= 1.1;
