@@ -1002,7 +1002,7 @@ function onLoad() {
 
     if (player.infinitied == 0) document.getElementById("infinityPoints2").style.display = "none"
 
-    if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6" || player.currentEternityChall == "eterc7") document.getElementById("matter").style.display = "inline-block";
+    if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") document.getElementById("matter").style.display = "inline-block";
     else document.getElementById("matter").style.display = "none";
     
 
@@ -1348,7 +1348,7 @@ function updateMoney() {
     element.innerHTML = formatValue(player.options.notation, player.money, 2, 1);
     var element2 = document.getElementById("matter");
     if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1") element2.innerHTML = "There is " + formatValue(player.options.notation, player.matter, 2, 1) + " matter.";
-    if (player.currentChallenge == "postc6" || player.currentEternityChall == "eterc7") element2.innerHTML = "There is " + formatValue(player.options.notation, Decimal.pow(player.matter,20), 2, 1) + " matter."; //TODO
+    if (player.currentChallenge == "postc6") element2.innerHTML = "There is " + formatValue(player.options.notation, Decimal.pow(player.matter,20), 2, 1) + " matter."; //TODO
 }
 
 function updateCoinPerSec() {
@@ -1429,10 +1429,10 @@ function getDimensionFinalMultiplier(tier) {
     multiplier = multiplier.times(player.postC3Reward)
     if (player.challenges.includes("postc8") && tier < 8 && tier > 1) multiplier = multiplier.times(mult18);
             
-    if (player.currentChallenge == "postc6" || player.currentEternityChall == "eterc7") multiplier = multiplier.dividedBy(player.matter.max(1))
-    if (player.currentChallenge == "postc8" || player.currentEternityChall == "eterc7") multiplier = multiplier.times(postc8Mult)
+    if (player.currentChallenge == "postc6") multiplier = multiplier.dividedBy(player.matter.max(1))
+    if (player.currentChallenge == "postc8") multiplier = multiplier.times(postc8Mult)
 
-    if (player.currentChallenge == "postc4" && player.postC4Tier != tier || player.currentEternityChall == "eterc7") multiplier = multiplier.pow(0.25)
+    if (player.currentChallenge == "postc4" && player.postC4Tier != tier) multiplier = multiplier.pow(0.25)
     if (player.challenges.includes("postc4")) multiplier = multiplier.pow(1.05);
         
     return multiplier;
@@ -2335,7 +2335,7 @@ function getDimensionBoostPower() {
     var ret = 2
     if (player.infinityUpgrades.includes("resetMult")) ret = 2.5
     if (player.challenges.includes("postc7")) ret = 4
-    if (player.currentChallenge == "postc7" || player.timestudy.studies.includes(81) || player.currentEternityChall == "eterc7") ret = 10
+    if (player.currentChallenge == "postc7" || player.timestudy.studies.includes(81)) ret = 10
 
     if (player.achievements.includes("r101")) ret = ret*1.01
     if (player.timestudy.studies.includes(83)) ret = Decimal.pow(1.0004, player.totalTickGained).times(ret);
@@ -2491,7 +2491,7 @@ function softReset(bulk) {
             if (player.galaxies == 0) player.galaxies = 1
         }
     }
-	if (player.currentChallenge == "postc2" || player.currentEternityChall == "eterc7") {
+	if (player.currentChallenge == "postc2") {
         player.eightAmount = new Decimal(1);
         player.eightBought = 1;
     }
@@ -2578,7 +2578,7 @@ function canBuyTickSpeed() {
 }
 
 function getTickSpeedMultiplier() {
-    if (player.currentChallenge == "postc3" || player.currentEternityChall == "eterc7") return 1;
+    if (player.currentChallenge == "postc3") return 1;
     if (player.galaxies + player.replicanti.galaxies < 3) {
         let baseMultiplier = 0.9;
         if (player.galaxies == 0) baseMultiplier = 0.89
@@ -3004,7 +3004,7 @@ function buyManyDimension(tier) {
     
     auto = false;
 
-    if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6" || player.currentEternityChall == "eterc7") && player.matter.equals(0)) player.matter = new Decimal(1);
+    if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") && player.matter.equals(0)) player.matter = new Decimal(1);
     if (player.currentChallenge != "challenge10" && player.currentChallenge != "postc1") {
         if (!canBuyDimension(tier)) {
             return false;
@@ -3183,7 +3183,7 @@ function buyManyDimensionAutobuyer(tier, bulk) {
 
 
         }
-        if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6" || player.currentEternityChall == "eterc7") && player.matter.equals(0)) player.matter = new Decimal(1);
+        if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") && player.matter.equals(0)) player.matter = new Decimal(1);
         if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0;
         if (player.currentChallenge == "postc1") clearDimensions(tier-1);
         player.postC4Tier = tier;
@@ -3235,17 +3235,17 @@ function glowText(id) {
 
 document.getElementById("second").onclick = function () {
     buyOneDimension(2);
-    if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6" || player.currentEternityChall == "eterc7") && player.matter.equals(0)) player.matter = new Decimal(1);
+    if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") && player.matter.equals(0)) player.matter = new Decimal(1);
 };
 
 document.getElementById("third").onclick = function () {
     buyOneDimension(3);
-    if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6" || player.currentEternityChall == "eterc7") && player.matter.equals(0))player.matter = new Decimal(1);
+    if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") && player.matter.equals(0))player.matter = new Decimal(1);
 };
 
 document.getElementById("fourth").onclick = function () {
     buyOneDimension(4);
-    if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6" || player.currentEternityChall == "eterc7") && player.matter.equals(0)) player.matter = new Decimal(1);
+    if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") && player.matter.equals(0)) player.matter = new Decimal(1);
 };
 
 document.getElementById("fifth").onclick = function () {
@@ -3388,7 +3388,7 @@ document.getElementById("maxall").onclick = function () {
             player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
         }
         }
-        if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6" || player.currentEternityChall == "eterc7") && player.matter.equals(0)) player.matter = new Decimal(1);
+        if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") && player.matter.equals(0)) player.matter = new Decimal(1);
         if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0;
         if (player.currentChallenge == "postc1") clearDimensions(tier-1);
         player.postC4Tier = tier;
@@ -3769,7 +3769,7 @@ function updateInfCosts() {
     else document.getElementById("ec5unl").innerHTML = "Eternity Challenge 5<span>Cost: 130 Time Theorems"
     if (player.etercreq !== 6) document.getElementById("ec6unl").innerHTML = "Eternity Challenge 6<span>Requirement: "+(40+(ECTimesCompleted("eterc6")*5))+" replicanti galaxies<span>Cost: 85 Time Theorems"
     else document.getElementById("ec6unl").innerHTML = "Eternity Challenge 6<span>Cost: 85 Time Theorems"
-    if (player.etercreq !== 7) document.getElementById("ec7unl").innerHTML = "Eternity Challenge 7<span>Requirement: "+shortenCosts(new Decimal("1e535000").times(new Decimal("1e35000").pow(ECTimesCompleted("eterc7"))))+" <span>Cost: 115 Time Theorems"
+    if (player.etercreq !== 7) document.getElementById("ec7unl").innerHTML = "Eternity Challenge 7<span>Requirement: "+shortenCosts(new Decimal("1e625000").times(new Decimal("1e35000").pow(ECTimesCompleted("eterc7"))))+" <span>Cost: 115 Time Theorems"
     else document.getElementById("ec7unl").innerHTML = "Eternity Challenge 7<span>Cost: 115 Time Theorems"
     if (player.etercreq !== 8) document.getElementById("ec8unl").innerHTML = "Eternity Challenge 8<span>Requirement: All ID costs over Y <span>Cost: 115 Time Theorems"
     else document.getElementById("ec8unl").innerHTML = "Eternity Challenge 7<span>Cost: 115 Time Theorems"
@@ -4077,7 +4077,7 @@ document.getElementById("toggleBtnTickSpeed").onclick = function () {
 
 document.getElementById("secondSoftReset").onclick = function() {
     if (player.currentEternityChall == "eterc6") return
-    var bool = player.currentChallenge != "challenge11" && player.currentChallenge != "postc1" && player.currentChallenge != "postc7" && player.currentEternityChall != "eterc7" && (player.break || player.money.lte(Number.MAX_VALUE))
+    var bool = player.currentChallenge != "challenge11" && player.currentChallenge != "postc1" && player.currentChallenge != "postc7" && (player.break || player.money.lte(Number.MAX_VALUE))
     if (player.currentEternityChall == "eterc6") return
     if (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() && bool : player.eightAmount >= getGalaxyRequirement() && bool) {
         galaxyReset()
@@ -4235,7 +4235,7 @@ function galaxyReset() {
             if (player.galaxies == 0) player.galaxies = 1
         }
     }
-    if (player.currentChallenge == "postc2" || player.currentEternityChall == "eterc7") {
+    if (player.currentChallenge == "postc2") {
         player.eightAmount = new Decimal(1);
         player.eightBought = 1;
         player.resets = 4;
@@ -5287,7 +5287,7 @@ document.getElementById("bigcrunch").onclick = function () {
         player.eightPow = getDimensionBoostPower().pow(player.resets - 6).max(1)
 
 
-        if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6" || player.currentEternityChall == "eterc7") document.getElementById("matter").style.display = "block";
+        if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") document.getElementById("matter").style.display = "block";
         else document.getElementById("matter").style.display = "none";
         
         document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
@@ -5827,7 +5827,7 @@ function startChallenge(name, target) {
         player.eightCost = new Decimal(4e6)
     }
     if (player.currentChallenge == "postc1") player.costMultipliers = [new Decimal(1e3),new Decimal(5e3),new Decimal(1e4),new Decimal(1.2e4),new Decimal(1.8e4),new Decimal(2.6e4),new Decimal(3.2e4),new Decimal(4.2e4)];
-    if (player.currentChallenge == "postc2" || player.currentEternityChall == "eterc7") {
+    if (player.currentChallenge == "postc2") {
         player.eightAmount = new Decimal(1);
         player.eightBought = 1;
         player.resets = 4;
@@ -5857,7 +5857,7 @@ function startChallenge(name, target) {
     document.getElementById("sixthRow").style.display= "none";
     document.getElementById("seventhRow").style.display= "none";
     document.getElementById("eightRow").style.display= "none";
-    if (name == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6" || player.currentEternityChall == "eterc7") document.getElementById("matter").style.display = "block";
+    if (name == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") document.getElementById("matter").style.display = "block";
     else document.getElementById("matter").style.display = "none";
 
     if (name == "challenge12" || name == "challenge9" || name == "challenge5" || player.currentChallenge == "postc1" || player.currentChallenge == "postc4" || player.currentChallenge == "postc5" || player.currentChallenge == "postc6" || player.currentChallenge == "postc8") document.getElementById("quickReset").style.display = "inline-block";
@@ -5945,7 +5945,7 @@ function canUnlockEC(idx, cost, study) {
         break;
 
         case 7:
-         if (player.money.gte(new Decimal("1e535000").times(new Decimal("1e35000").pow(ECTimesCompleted("eterc7"))))) return true
+         if (player.money.gte(new Decimal("1e625000").times(new Decimal("1e35000").pow(ECTimesCompleted("eterc7"))))) return true
         break;
 
         case 8:
@@ -6636,11 +6636,11 @@ function gameLoop() {
         softReset(0);
     }
 
-    if (player.currentChallenge == "postc8" || player.currentEternityChall == "eterc7") postc8Mult = postc8Mult.times(Math.pow(0.000000046416, diff))
+    if (player.currentChallenge == "postc8") postc8Mult = postc8Mult.times(Math.pow(0.000000046416, diff))
 
     if (player.currentChallenge == "challenge3" || player.matter.gte(1)) player.chall3Pow = player.chall3Pow.times(Decimal.pow(1.00038, diff));
     player.chall2Pow = Math.min(player.chall2Pow + diff/1800, 1);
-    if (player.currentChallenge == "postc2" || player.currentEternityChall == "eterc7") {
+    if (player.currentChallenge == "postc2") {
         postC2Count++;
         if (postC2Count >= 8 || diff > 80) {
             sacrifice();
@@ -6744,14 +6744,16 @@ function gameLoop() {
     if (player.money.gte("9.9999e9999")) giveAchievement("This achievement doesn't exist")
     if (player.money.gte("1e35000")) giveAchievement("I got a few to spare")
 
-    player.infinityPower = player.infinityPower.plus(DimensionProduction(1).times(diff/10))
+    if (player.currentEternityChall !== "eterc7") player.infinityPower = player.infinityPower.plus(DimensionProduction(1).times(diff/10))
+    else player.seventhAmount = player.seventhAmount.plus(DimensionProduction(1).times(diff/10))
     
 
     if (player.infinityPower.gt(1)) giveAchievement("A new beginning.");
     if (player.infinityPower.gt(1e6)) giveAchievement("1 million is a lot"); //TBD
     if (player.infinityPower.gt(1e260)) giveAchievement("Minute of infinity"); //TBD
 
-    player.timeShards = player.timeShards.plus(getTimeDimensionProduction(1).times(diff/10))
+    if (player.currentEternityChall !== "eterc7") player.timeShards = player.timeShards.plus(getTimeDimensionProduction(1).times(diff/10))
+    else player.infinityDimension8.amount = player.infinityDimension8.amount.plus(getTimeDimensionProduction(1).times(diff/10))
 
     while (player.timeShards.gte(player.tickThreshold)) {
         player.tickspeed = player.tickspeed.times(getTickSpeedMultiplier())
