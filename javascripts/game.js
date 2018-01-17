@@ -552,7 +552,7 @@ function drawStudyTree() {
     drawTreeBranch("143", "ec4unl")
     drawTreeBranch("42", "ec5unl")
     drawTreeBranch("121", "ec6unl")
-    drawTreeBranch("101", "ec7unl")
+    drawTreeBranch("111", "ec7unl")
     drawTreeBranch("123", "ec8unl")
 }
 
@@ -1868,8 +1868,10 @@ function updateInfinityDimensions() {
 
 function DimensionProduction(tier) {
     var dim = player["infinityDimension"+tier]
-    if (player.challenges.includes("postc6")) return dim.amount.times(DimensionPower(tier)).dividedBy(player.tickspeed.dividedBy(1000).pow(0.0005))
-    else return dim.amount.times(DimensionPower(tier))
+    var ret = dim.amount
+    if (player.currentEternityChall == "eterc7") ret = ret.dividedBy(player.tickspeed.dividedBy(1000))
+    if (player.challenges.includes("postc6")) return ret.times(DimensionPower(tier)).dividedBy(player.tickspeed.dividedBy(1000).pow(0.0005))
+    else return ret.times(DimensionPower(tier))
 }
 
 function DimensionPower(tier) {
@@ -2059,6 +2061,7 @@ function getTimeDimensionProduction(tier) {
     var dim = player["timeDimension"+tier]
     var ret = dim.amount.times(dim.power)
     ret = ret.times(getTimeDimensionPower(tier))
+    if (player.currentEternityChall == "eterc7") ret = ret.dividedBy(player.tickspeed.dividedBy(1000))
     if (player.currentEternityChall == "eterc1") return new Decimal(0)
     return ret
 }
@@ -5991,7 +5994,7 @@ function updateECUnlockButtons() {
         document.getElementById("ec6unl").className = "eternitychallengestudylocked"
     }
 
-    if (canUnlockEC(7, 115, 101)) {
+    if (canUnlockEC(7, 115, 111)) {
         document.getElementById("ec7unl").className = "eternitychallengestudy"
     } else {
         document.getElementById("ec7unl").className = "eternitychallengestudylocked"
@@ -6067,7 +6070,7 @@ document.getElementById("ec6unl").onclick = function() {
 }
 
 document.getElementById("ec7unl").onclick = function() {
-    if (canUnlockEC(7, 115, 101)) {
+    if (canUnlockEC(7, 115, 111)) {
         unlockEChall(7)
         player.timestudy.theorem -= 115
         updateTheoremButtons()
@@ -6589,7 +6592,7 @@ setInterval(function() {
     document.getElementById("eterc6goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e600").times(new Decimal("1e100").pow(ECTimesCompleted("eterc6"))).max(new Decimal("1e600"))) + " IP"
     document.getElementById("eterc6completed").innerHTML = "Completed "+ECTimesCompleted("eterc6")+" times."
 
-    document.getElementById("eterc7goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e1100").times(new Decimal("1e110").pow(ECTimesCompleted("eterc7"))).max(new Decimal("1e1500"))) + " IP"
+    document.getElementById("eterc7goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2700").times(new Decimal("1e300").pow(ECTimesCompleted("eterc7"))).max(new Decimal("1e2700"))) + " IP"
     document.getElementById("eterc7completed").innerHTML = "Completed "+ECTimesCompleted("eterc7")+" times."
 
     document.getElementById("eterc8goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e3000").times(new Decimal("1e300").pow(ECTimesCompleted("eterc8"))).max(new Decimal("1e3000"))) + " IP"
