@@ -1910,7 +1910,7 @@ function DimensionPower(tier) {
 
     if (ECTimesCompleted("eterc4") !== 0) mult = mult.times(player.infinityPoints.pow(0.003 + ECTimesCompleted("eterc4")*0.002))
 
-    if (ECTimesCompleted("eterc7") !== 0) mult = mult.times(player.timeShards.pow(ECTimesCompleted("eterc7")*0.1))
+    if (ECTimesCompleted("eterc7") !== 0) mult = mult.times(player.timeShards.pow(ECTimesCompleted("eterc7")*0.1).plus(1))
     return mult
 }
 
