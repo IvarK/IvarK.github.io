@@ -2312,7 +2312,7 @@ function respecTimeStudies() {
         break;
 
         case 7:
-        player.timestudy.theorem += 140
+        player.timestudy.theorem += 115
         break;
 
         case 8:
@@ -3765,12 +3765,12 @@ function updateInfCosts() {
     else document.getElementById("ec3unl").innerHTML = "Eternity Challenge 3<span>Cost: 40 Time Theorems"
     if (player.etercreq !== 4) document.getElementById("ec4unl").innerHTML = "Eternity Challenge 4<span>Requirement: "+(1e8 + (ECTimesCompleted("eterc4")*1e8)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" infinities<span>Cost: 70 Time Theorems"
     else document.getElementById("ec4unl").innerHTML = "Eternity Challenge 4<span>Cost: 70 Time Theorems"
-    if (player.etercreq !== 5) document.getElementById("ec5unl").innerHTML = "Eternity Challenge 5<span>Requirement: "+(160+(ECTimesCompleted("eterc5")*18))+" galaxies<span>Cost: 130 Time Theorems"
+    if (player.etercreq !== 5) document.getElementById("ec5unl").innerHTML = "Eternity Challenge 5<span>Requirement: "+(160+(ECTimesCompleted("eterc5")*14))+" galaxies<span>Cost: 130 Time Theorems"
     else document.getElementById("ec5unl").innerHTML = "Eternity Challenge 5<span>Cost: 130 Time Theorems"
     if (player.etercreq !== 6) document.getElementById("ec6unl").innerHTML = "Eternity Challenge 6<span>Requirement: "+(40+(ECTimesCompleted("eterc6")*5))+" replicanti galaxies<span>Cost: 85 Time Theorems"
     else document.getElementById("ec6unl").innerHTML = "Eternity Challenge 6<span>Cost: 85 Time Theorems"
-    if (player.etercreq !== 7) document.getElementById("ec7unl").innerHTML = "Eternity Challenge 7<span>Requirement: Some amount of antimatter in IC4 <span>Cost: 140 Time Theorems"
-    else document.getElementById("ec7unl").innerHTML = "Eternity Challenge 7<span>Cost: 140 Time Theorems"
+    if (player.etercreq !== 7) document.getElementById("ec7unl").innerHTML = "Eternity Challenge 7<span>Requirement: "+shortenCosts(new Decimal("1e535000").times(new Decimal("1e35000").pow(ECTimesCompleted("eterc7"))))+" <span>Cost: 115 Time Theorems"
+    else document.getElementById("ec7unl").innerHTML = "Eternity Challenge 7<span>Cost: 115 Time Theorems"
     if (player.etercreq !== 8) document.getElementById("ec8unl").innerHTML = "Eternity Challenge 8<span>Requirement: All ID costs over Y <span>Cost: 115 Time Theorems"
     else document.getElementById("ec8unl").innerHTML = "Eternity Challenge 7<span>Cost: 115 Time Theorems"
 }
@@ -5664,7 +5664,7 @@ function eternity() {
         document.getElementById("eternitystorebtn").style.display = "inline-block"
         document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
         updateEternityUpgrades()
-        
+        document.getElementById("totaltickgained").innerHTML = "You've gained "+shortenDimensions(player.totalTickGained)+" tickspeed upgrades."
         playerInfinityUpgradesOnEternity()
         document.getElementById("eternityPoints2").innerHTML = "You have <span class=\"EPAmount2\">"+shortenDimensions(player.eternityPoints)+"</span> Eternity points."
         updateEternityChallenges()
@@ -5672,7 +5672,7 @@ function eternity() {
             showTab("dimensions")
             showDimTab("timedimensions")
         }
-
+        
     }
 }
 
@@ -5937,7 +5937,7 @@ function canUnlockEC(idx, cost, study) {
         break;
 
         case 5:
-        if (160 + (ECTimesCompleted("eterc5")*18) <= player.galaxies) return true
+        if (160 + (ECTimesCompleted("eterc5")*14) <= player.galaxies) return true
         break;
 
         case 6:
@@ -5945,7 +5945,7 @@ function canUnlockEC(idx, cost, study) {
         break;
 
         case 7:
-         /*TODO */return true
+         if (player.money.gte(new Decimal("1e535000").times(new Decimal("1e35000").pow(ECTimesCompleted("eterc7"))))) return true
         break;
 
         case 8:
@@ -5991,7 +5991,7 @@ function updateECUnlockButtons() {
         document.getElementById("ec6unl").className = "eternitychallengestudylocked"
     }
 
-    if (canUnlockEC(7, 140, 101)) {
+    if (canUnlockEC(7, 115, 101)) {
         document.getElementById("ec7unl").className = "eternitychallengestudy"
     } else {
         document.getElementById("ec7unl").className = "eternitychallengestudylocked"
@@ -6067,9 +6067,9 @@ document.getElementById("ec6unl").onclick = function() {
 }
 
 document.getElementById("ec7unl").onclick = function() {
-    if (canUnlockEC(7, 140, 101)) {
+    if (canUnlockEC(7, 115, 101)) {
         unlockEChall(7)
-        player.timestudy.theorem -= 140
+        player.timestudy.theorem -= 115
         updateTheoremButtons()
         updateTimeStudyButtons()
         drawStudyTree()
@@ -6577,10 +6577,10 @@ setInterval(function() {
     document.getElementById("eterc2goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e975").times(new Decimal("1e125").pow(ECTimesCompleted("eterc2"))).max(new Decimal("1e975"))) + " IP"
     document.getElementById("eterc2completed").innerHTML = "Completed "+ECTimesCompleted("eterc2")+" times."
 
-    document.getElementById("eterc3goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e600").times(new Decimal("1e150").pow(ECTimesCompleted("eterc3"))).max(new Decimal("1e600"))) + " IP"
+    document.getElementById("eterc3goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e600").times(new Decimal("1e75").pow(ECTimesCompleted("eterc3"))).max(new Decimal("1e600"))) + " IP"
     document.getElementById("eterc3completed").innerHTML = "Completed "+ECTimesCompleted("eterc3")+" times."
 
-    document.getElementById("eterc4goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2750").times(new Decimal("1e200").pow(ECTimesCompleted("eterc4"))).max(new Decimal("1e2750"))) + " IP in less than "+(20 - (ECTimesCompleted("eterc4")*2))+" infinities."
+    document.getElementById("eterc4goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2750").times(new Decimal("1e550").pow(ECTimesCompleted("eterc4"))).max(new Decimal("1e2750"))) + " IP in less than "+(20 - (ECTimesCompleted("eterc4")*2))+" infinities."
     document.getElementById("eterc4completed").innerHTML = "Completed "+ECTimesCompleted("eterc4")+" times."
 
     document.getElementById("eterc5goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e675").times(new Decimal("1e125").pow(ECTimesCompleted("eterc5"))).max(new Decimal("1e675"))) + " IP"
