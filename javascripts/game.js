@@ -3131,6 +3131,8 @@ function buyManyDimensionAutobuyer(tier, bulk) {
             if (buying > bulk) buying = bulk
             player[name+"Amount"] = Decimal.round(player[name+"Amount"].plus(10*buying))
             player[name + "Pow"] = player[name + "Pow"].times(Decimal.pow(getDimensionPowerMultiplier(tier), buying))
+            //buying-=1;
+            //if (buying > 0 )player[name + "Cost"] = player.costMultipliers[tier-1].times(Decimal.pow(player.dimensionMultDecrease, (buying * buying - buying)/2)).times(player[name + "Cost"])
             for (var i = 0; i<buying-1; i++) {
                 player[name + "Cost"] = player[name + "Cost"].times(player.costMultipliers[tier-1])
                 player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
@@ -3139,9 +3141,6 @@ function buyManyDimensionAutobuyer(tier, bulk) {
             player[name + "Cost"] = player[name + "Cost"].times(player.costMultipliers[tier-1])
             player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
         }
-
-
-
 
 
 
