@@ -215,7 +215,7 @@ var player = {
         isOn: false
     },
     eterc8ids: 50,
-    eterc8repl: 50,
+    eterc8repl: 40,
     options: {
         newsHidden: false,
         notation: "Standard",
@@ -554,6 +554,7 @@ function drawStudyTree() {
     drawTreeBranch("121", "ec6unl")
     drawTreeBranch("111", "ec7unl")
     drawTreeBranch("123", "ec8unl")
+    drawTreeBranch("151", "ec9unl")
 }
 
 function setTheme(name) {
@@ -701,7 +702,7 @@ function onLoad() {
     if (player.etercreq === undefined) player.etercreq = 0
     if (player.options.updateRate === undefined) player.options.updateRate = 50
     if (player.eterc8ids === undefined) player.eterc8ids = 50
-    if (player.eterc8repl === undefined) player.eterc8repl = 30
+    if (player.eterc8repl === undefined) player.eterc8repl = 40
     setTheme(player.options.theme);
 
     sliderText.innerHTML = "Update rate: " + player.options.updateRate + "ms";
@@ -1387,7 +1388,8 @@ function getDimensionFinalMultiplier(tier) {
 
     multiplier = multiplier.times(kongDimMult)
 
-    multiplier = multiplier.times(player.infinityPower.pow(7).max(1))
+    if (player.currentEternityChall == "eterc9") multiplier = multiplier;
+    else multiplier = multiplier.times(player.infinityPower.pow(7).max(1))
 
     if (player.infinityUpgrades.includes("totalMult")) multiplier = multiplier.times(totalMult)
     if (player.infinityUpgrades.includes("currentMult")) multiplier = multiplier.times(currentMult)
@@ -1585,7 +1587,7 @@ function updateDimensions() {
 
     }
 
-    if (canBuyTickSpeed()) {
+    if (canBuyTickSpeed() || player.currentEternityChall == "eterc9") {
         var tickmult = getTickSpeedMultiplier()
         if (tickmult < 1e-9) document.getElementById("tickLabel").innerHTML = "Divide the tick interval by " + shortenDimensions(1 / tickmult) + '.'
         else {
@@ -2052,6 +2054,7 @@ function getTimeDimensionPower(tier) {
     if (player.timestudy.studies.includes(151)) ret = ret.times(1e4)
     //if (player.achievements.includes("r103")) ret = ret.times(Decimal.pow(player.totalTickGained,0.02).max(1))
     if (player.achievements.includes("r105")) ret = ret.div(player.tickspeed.div(1000).pow(0.000005))
+    if (player.currentEternityChall == "eterc9") ret = ret.times(Decimal.pow(player.infinityPower, 0.011).max(1))
     if (ECTimesCompleted("eterc1") !== 0) ret = ret.times(Math.pow(Math.max(player.thisEternity*10, 1), 0.3+(ECTimesCompleted("eterc1")*0.05)))
 
     return ret
@@ -2579,6 +2582,7 @@ shortenMoney = function (money) {
 };
 
 function canBuyTickSpeed() {
+    if (player.currentEternityChall == "eterc9") return false
     return canBuyDimension(3);
 }
 
@@ -3777,6 +3781,8 @@ function updateInfCosts() {
     else document.getElementById("ec7unl").innerHTML = "Eternity Challenge 7<span>Cost: 115 Time Theorems"
     if (player.etercreq !== 8) document.getElementById("ec8unl").innerHTML = "Eternity Challenge 8<span>Requirement: All ID costs over Y <span>Cost: 115 Time Theorems"
     else document.getElementById("ec8unl").innerHTML = "Eternity Challenge 7<span>Cost: 115 Time Theorems"
+    if (player.etercreq !== 9) document.getElementById("ec9unl").innerHTML = "Eternity Challenge 9<span>Requirement: "+shortenCosts(new Decimal("1e6000").times(new Decimal("1e500").pow(ECTimesCompleted("eterc9"))))+" infinity power<span>Cost: 100 Time Theorems"
+    else document.getElementById("ec9unl").innerHTML = "Eternity Challenge 9<span>Cost: 100 Time Theorems"
 }
 
 
@@ -5593,7 +5599,7 @@ function eternity() {
             respec: player.respec,
             eternityBuyer: player.eternityBuyer,
             eterc8ids: 50,
-            eterc8repl: 30,
+            eterc8repl: 40,
             options: player.options
         };
         if (player.respec) respecTimeStudies()
@@ -5909,7 +5915,6 @@ function unlockEChall(idx) {
     }
     updateEternityChallenges()
     updateTimeStudyButtons()
-    
 }
 
 function ECTimesCompleted(name) {
@@ -5949,12 +5954,16 @@ function canUnlockEC(idx, cost, study) {
         break;
 
         case 7:
-         if (player.money.gte(new Decimal("1e625000").times(new Decimal("1e35000").pow(ECTimesCompleted("eterc7"))))) return true
+        if (player.money.gte(new Decimal("1e625000").times(new Decimal("1e35000").pow(ECTimesCompleted("eterc7"))))) return true
         break;
 
         case 8:
         /*TODO */return true
-       break;
+        break;
+
+        case 9:
+        if (player.infinityPower.gte(new Decimal("1e6000").times(new Decimal("1e500").pow(ECTimesCompleted("eterc9"))))) return true
+        break;
     }
 }
 
@@ -6005,6 +6014,12 @@ function updateECUnlockButtons() {
         document.getElementById("ec8unl").className = "eternitychallengestudy"
     } else {
         document.getElementById("ec8unl").className = "eternitychallengestudylocked"
+    }
+
+    if (canUnlockEC(9, 100, 151)) {
+        document.getElementById("ec9unl").className = "eternitychallengestudy"
+    } else {
+        document.getElementById("ec9unl").className = "eternitychallengestudylocked"
     }
 
     if (player.eternityChallUnlocked !== 0 )document.getElementById("ec"+player.eternityChallUnlocked+"unl").className = "eternitychallengestudybought"
@@ -6084,6 +6099,16 @@ document.getElementById("ec8unl").onclick = function() {
     if (canUnlockEC(8, 115, 123)) {
         unlockEChall(8)
         player.timestudy.theorem -= 115
+        updateTheoremButtons()
+        updateTimeStudyButtons()
+        drawStudyTree()
+    }
+}
+
+document.getElementById("ec9unl").onclick = function() {
+    if (canUnlockEC(9, 100, 151)) {
+        unlockEChall(9)
+        player.timestudy.theorem -= 100
         updateTheoremButtons()
         updateTimeStudyButtons()
         drawStudyTree()
@@ -6277,7 +6302,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
             respec: player.respec,
             eternityBuyer: player.eternityBuyer,
             eterc8ids: 50,
-            eterc8repl: 30,
+            eterc8repl: 40,
             options: player.options
         };
         
@@ -6603,10 +6628,10 @@ setInterval(function() {
 
 
 
-    if (player.currentEternityChall == "eterc8") document.getElementById("eterc8ids").display = "block"
+    if (player.currentEternityChall == "eterc8") document.getElementById("eterc8ids").style.display = "block"
     document.getElementById("eterc8ids").innerHTML = "You have "+player.eterc8ids+" purchases left."
 
-    if (player.currentEternityChall == "eterc8") document.getElementById("eterc8repl").display = "block"
+    if (player.currentEternityChall == "eterc8") document.getElementById("eterc8repl").style.display = "block"
     document.getElementById("eterc8repl").innerHTML = "You have "+player.eterc8repl+" purchases left."
     
 
