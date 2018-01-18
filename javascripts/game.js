@@ -555,9 +555,10 @@ function drawStudyTree() {
     drawTreeBranch("111", "ec7unl")
     drawTreeBranch("123", "ec8unl")
     drawTreeBranch("151", "ec9unl")
-    drawTreeBranch("ec1unl", "ec10unl")
-    drawTreeBranch("ec2unl", "ec10unl")
-    drawTreeBranch("ec3unl", "ec10unl")
+    drawTreeBranch("ec1unl", "181")
+    drawTreeBranch("ec2unl", "181")
+    drawTreeBranch("ec3unl", "181")
+    drawTreeBranch("181", "ec10unl")
 }
 
 function setTheme(name) {
@@ -1818,7 +1819,7 @@ function updateEternityChallenges() {
 
     if (player.eternityChallUnlocked == 0 && player.eternityChalls.eterc1 === undefined) {
         document.getElementById("eterctabbtn").style.display = "none"
-        for (i=1; i<8; i++) {
+        for (i=1; i<11; i++) {
             document.getElementById("eterc"+i+"div").style.display = "none"
         }
     }
@@ -2215,6 +2216,10 @@ function canBuyStudy(name) {
     if (name == 62) {
         if (player.eternityChalls.eterc5 !== undefined && player.timestudy.studies.includes(42)) return true; else return false
     }
+
+    if (name == 181) {
+        if (player.eternityChalls.eterc1 !== undefined && player.eternityChalls.eterc2 !== undefined && player.eternityChalls.eterc3 !== undefined && player.timestudy.studies.includes(171)) return true; else return false;
+    }
     switch(row) {
 
         case 1: return true
@@ -2250,8 +2255,8 @@ function canBuyStudy(name) {
 
     }
 }
-var all =      [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171]
-var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15]
+var all =      [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181]
+var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 150]
 function updateTimeStudyButtons() {
     for (var i=0; i<all.length; i++) {
         if (!player.timestudy.studies.includes(all[i])) {
@@ -5979,7 +5984,7 @@ function canUnlockEC(idx, cost, study) {
         if (player.infinityPower.gte(new Decimal("1e6000").times(new Decimal("1e500").pow(ECTimesCompleted("eterc9"))))) return true
         break;
 
-        case 9:
+        case 10:
         /*TODO */return true
         break;
     }
@@ -6040,7 +6045,7 @@ function updateECUnlockButtons() {
         document.getElementById("ec9unl").className = "eternitychallengestudylocked"
     }
 
-    if (canUnlockEC(10, 200, 171)) {
+    if (canUnlockEC(10, 200, 181)) {
         document.getElementById("ec10unl").className = "eternitychallengestudy"
     } else {
         document.getElementById("ec10unl").className = "eternitychallengestudylocked"
@@ -6906,14 +6911,14 @@ function gameLoop() {
 
 
     if (player.infMultBuyer) {
-        var diff = player.infinityPoints.e - player.infMultCost.e +1
+        var dif = player.infinityPoints.e - player.infMultCost.e +1
 
-        if (diff > 0) {
-            player.infMult = player.infMult.times(Decimal.pow(2, diff))
-            player.infMultCost = player.infMultCost.times(Decimal.pow(10, diff))
+        if (dif > 0) {
+            player.infMult = player.infMult.times(Decimal.pow(2, dif))
+            player.infMultCost = player.infMultCost.times(Decimal.pow(10, dif))
             document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
             player.infinityPoints = player.infinityPoints.minus(player.infMultCost.dividedBy(10))
-            if (player.autobuyers[11].priority !== undefined && player.autobuyers[11].priority !== null && player.autoCrunchMode == "amount") player.autobuyers[11].priority = player.autobuyers[11].priority.times(Decimal.pow(2, diff));
+            if (player.autobuyers[11].priority !== undefined && player.autobuyers[11].priority !== null && player.autoCrunchMode == "amount") player.autobuyers[11].priority = player.autobuyers[11].priority.times(Decimal.pow(2, dif));
             if (player.autoCrunchMode == "amount") document.getElementById("priority12").value = player.autobuyers[11].priority
         }
     }
@@ -7261,7 +7266,10 @@ function gameLoop() {
     if (player.totalTimePlayed >= 10 * 60 * 60 * 24 * 8) giveAchievement("One for each dimension")
     if (player.seventhAmount > 1e12) giveAchievement("Multidimensional");
     if (isNaN(player.totalmoney)) player.totalmoney = new Decimal(10)
+    console.log(diff)
+    if (player.timestudy.studies.includes(181)) player.infinityPoints = player.infinityPoints.plus(gainedInfinityPoints().times(diff/1000))
 
+    
     player.lastUpdate = thisUpdate;
 }
 
