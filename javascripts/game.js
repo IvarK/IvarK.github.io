@@ -6450,7 +6450,8 @@ document.getElementById("quickReset").onclick = function () {
 
 function updateInfPower() {
     document.getElementById("infPowAmount").innerHTML = shortenMoney(player.infinityPower)
-    document.getElementById("infDimMultAmount").innerHTML = shortenMoney(player.infinityPower.pow(7))
+    if (player.currentEternityChall == "eterc9") document.getElementById("infDimMultAmount").innerHTML = shortenMoney(Decimal.pow(player.infinityPower, 0.011).max(1))
+    else document.getElementById("infDimMultAmount").innerHTML = shortenMoney(player.infinityPower.pow(7))
     document.getElementById("infPowPerSec").innerHTML = "You are getting " +shortenDimensions(DimensionProduction(1))+" Infinity Power per second."
 }
 
