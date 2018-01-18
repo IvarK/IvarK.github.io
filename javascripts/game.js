@@ -5152,7 +5152,7 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.timestudy.studies.includes(32)) infGain *= Math.max(player.resets,1);
         if (player.currentEternityChall == "eterc4") {
             infGain = 1
-            if (player.infinitied >= 20 - (ECTimesCompleted("eterc4")*4)) {
+            if (player.infinitied >= 16 - (ECTimesCompleted("eterc4")*4)) {
                 document.getElementById("challfail").style.display = "block"
                 setTimeout(exitChallenge, 500)
             }
@@ -6648,7 +6648,7 @@ setInterval(function() {
     document.getElementById("eterc3goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e600").times(new Decimal("1e75").pow(ECTimesCompleted("eterc3"))).max(new Decimal("1e600"))) + " IP"
     document.getElementById("eterc3completed").innerHTML = "Completed "+ECTimesCompleted("eterc3")+" times."
 
-    document.getElementById("eterc4goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2750").times(new Decimal("1e550").pow(ECTimesCompleted("eterc4"))).max(new Decimal("1e2750"))) + " IP in less than "+(20 - (ECTimesCompleted("eterc4")*4))+" infinities."
+    document.getElementById("eterc4goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2750").times(new Decimal("1e550").pow(ECTimesCompleted("eterc4"))).max(new Decimal("1e2750"))) + " IP in less than "+(16 - (ECTimesCompleted("eterc4")*4))+" infinities."
     document.getElementById("eterc4completed").innerHTML = "Completed "+ECTimesCompleted("eterc4")+" times."
 
     document.getElementById("eterc5goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e675").times(new Decimal("1e125").pow(ECTimesCompleted("eterc5"))).max(new Decimal("1e675"))) + " IP"
