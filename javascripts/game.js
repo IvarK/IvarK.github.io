@@ -2810,6 +2810,14 @@ const allAchievements = {
   r106 : "The swarm",
   r107 : "Do you really need a guide for this?",
   r108 : "We could afford 9",
+  r111 : "Can you get infinite IP?",
+  r112 : "Hey look, you did the thing again",
+  r113 : "Through the event horizon",
+  r114 : "IT'S OVER 9000!!!",
+  r115 : "115",
+  r116 : "116",
+  r117 : "117",
+  r118 : "118",
 };
 // to retrieve by value: Object.keys(allAchievements).find(key => allAchievements[key] === "L4D: Left 4 Dimensions");
 
@@ -4172,7 +4180,7 @@ function galaxyReset() {
         interval: null,
         lastUpdate: player.lastUpdate,
         achPow: player.achPow,
-    newsArray: player.newsArray,
+        newsArray: player.newsArray,
         autobuyers: player.autobuyers,
         costMultipliers: [new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15)],
         tickspeedMultiplier: new Decimal(10),
@@ -7220,9 +7228,9 @@ function gameLoop() {
     document.getElementById("ec5reward").innerHTML = "Reward: Galaxy cost scaling starts "+((ECTimesCompleted("eterc5")*5))+" galaxies later."
     document.getElementById("ec6reward").innerHTML = "Reward: Further reduction dimension cost multiplier increase, Currently: "+player.dimensionMultDecrease.toFixed(1)+"x "
     document.getElementById("ec7reward").innerHTML = "Reward: Infinity Dimension multiplier based on time shards, Currently: "+shortenMoney(player.timeShards.pow(ECTimesCompleted("eterc7")*0.1))+"x "
-    var scale1 = [2.82e-45,1e-42,7.23e-30,5e-21,9e-17,6.2e-11,5e-8,3.555e-6,7.5e-4,1,2.5e3,2.6006e6,3.3e8,5e12,4.5e17,1.08e21,1.53e24,1.41e27,5e32,8e36,1.7e45,1.7e48,3.3e55,3.3e61,5e68,1e73,3.4e80,1e113,Number.MAX_VALUE];
+    var scale1 = [2.82e-45,1e-42,7.23e-30,5e-21,9e-17,6.2e-11,5e-8,3.555e-6,7.5e-4,1,2.5e3,2.6006e6,3.3e8,5e12,4.5e17,1.08e21,1.53e24,1.41e27,5e32,8e36,1.7e45,1.7e48,3.3e55,3.3e61,5e68,1e73,3.4e80,1e113,Number.MAX_VALUE,new Decimal("1e65000")];
     var scale2 = [" protons."," nucleuses."," Hydrogen atoms."," viruses."," red blood cells."," grains of sand."," grains of rice."," teaspoons."," wine bottles."," fridge-freezers."," Olympic-sized swimming pools."," Great Pyramids of Giza."," Great Walls of China."," large asteroids.",
-                " dwarf planets."," Earths."," Jupiters."," Suns."," red giants."," hypergiant stars."," nebulas."," Oort clouds."," Local Bubbles."," galaxies."," Local Groups."," Sculptor Voids."," observable universes."," Dimensions.", " Infinity Dimensions."];
+                " dwarf planets."," Earths."," Jupiters."," Suns."," red giants."," hypergiant stars."," nebulas."," Oort clouds."," Local Bubbles."," galaxies."," Local Groups."," Sculptor Voids."," observable universes."," Dimensions.", " Infinity Dimensions.", " Time Dimensions."];
     var id = 0;
     if (player.money.times(4.22419e-105).gt(2.82e-45)) {
         if (player.money.times(4.22419e-105).gt(scale1[scale1.length - 1])) id = scale1.length - 1;
@@ -7589,15 +7597,16 @@ newsArray = [//always true
 ["You do know that you won't reach Infinity in -1 seconds, right?", player.bestInfinityTime == 0.1, "c1"],
 ["Where does Antimatter Nemo live? In a NNnNeMI-NNnNe.", player.totalmoney.e >= 3e6, "c2"],  //might not be poss?
 ["Anti Emoji Movie MMMCMXCIX is a major hit!", player.spreadingCancer >= 3999, "c3"],
-["Achievement Unlocked!", player.achievements.length == 80, "c4"],
+["Achievement Unlocked!", player.achievements.length == 88, "c4"],
 ["Did you use an autoclicker for that?", player.timestudy.studies.includes(131) && player.thisInfinityTime <= 600 && player.replicanti.galaxies >= 50, "c5"],
 ["Timing is key.", player.thisEternity < 1, "c6"],
 ["If you want to farm infinitied, why don't you just get the time study?", !player.timestudy.studies.includes(32) && player.infinitied > 72000 * 168, "c7"],
 ["The achievement is for two million, not two billion...", player.infinitied > 2e9, "c8"],
 ["Keep up the quick pace!", Marathon > 1200, "c9"],
 ["One day you will stop your incessant grind.", player.eternities > 50000, "c10"],
-["Are you serious?", worstChallengeTime <= 0.1, "c11"],
-["The amazing speedster", infchallengeTimes <= 0.8, "c12"],
+["You can probably stop farming for eternities now...", player.eternities > 2000000, "c11"],
+["Are you serious?", worstChallengeTime <= 0.1, "c12"],
+["The amazing speedster", infchallengeTimes <= 0.8, "c13"],
 //luck
 ["This news message is 1000x rarer than all the others.", Math.random() < 0.001, "l1"],
 ["You just won a small prize in the lottery.", Math.random() < 1e-4, "l2"],
@@ -7624,7 +7633,7 @@ var scrollTimeouts = [];
 
 function scrollNextMessage() {
   //don't run if hidden to save performance
-  if (player.options.newsHidden === 1) return false
+  if (player.options.newsHidden) return false
   updateNewsArray();
   //select a message at random
   var index;
