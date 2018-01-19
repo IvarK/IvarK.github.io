@@ -1981,7 +1981,7 @@ function resetInfDimensions() {
 var infCostMults = [null, 1e3, 1e6, 1e8, 1e10, 1e15, 1e20, 1e25, 1e30]
 var infPowerMults = [null, 50, 30, 10, 5, 5, 5, 5, 5]
 function buyManyInfinityDimension(tier) {
-
+    if (player.eterc8ids <= 0 && player.currentEternityChall == "eterc8") return false
     var dim = player["infinityDimension"+tier]
     if (player.infinityPoints.lt(dim.cost)) return false
     if (!player.infDimensionsUnlocked[tier-1]) return false
@@ -3809,7 +3809,7 @@ function updateInfCosts() {
     if (player.etercreq !== 7) document.getElementById("ec7unl").innerHTML = "Eternity Challenge 7<span>Requirement: "+shortenCosts(new Decimal("1e625000").times(new Decimal("1e35000").pow(ECTimesCompleted("eterc7"))))+" <span>Cost: 115 Time Theorems"
     else document.getElementById("ec7unl").innerHTML = "Eternity Challenge 7<span>Cost: 115 Time Theorems"
     if (player.etercreq !== 8) document.getElementById("ec8unl").innerHTML = "Eternity Challenge 8<span>Requirement: All ID costs over Y <span>Cost: 115 Time Theorems"
-    else document.getElementById("ec8unl").innerHTML = "Eternity Challenge 7<span>Cost: 115 Time Theorems"
+    else document.getElementById("ec8unl").innerHTML = "Eternity Challenge 8<span>Cost: 115 Time Theorems"
     if (player.etercreq !== 9) document.getElementById("ec9unl").innerHTML = "Eternity Challenge 9<span>Requirement: "+shortenCosts(new Decimal("1e6000").times(new Decimal("1e500").pow(ECTimesCompleted("eterc9"))))+" infinity power<span>Cost: 100 Time Theorems"
     else document.getElementById("ec9unl").innerHTML = "Eternity Challenge 9<span>Cost: 100 Time Theorems"
 }
@@ -5395,15 +5395,15 @@ document.getElementById("bigcrunch").onclick = function () {
             }
         }
 
-        if (player.eternities >= 40 && player.replicanti.auto[0]) {
+        if (player.eternities >= 40 && player.replicanti.auto[0] && player.currentEternityChall !== "eterc8") {
             while (player.infinityPoints.gte(player.replicanti.chanceCost) && player.replicanti.chance < 1) upgradeReplicantiChance()
         }
 
-        if (player.eternities >= 60 && player.replicanti.auto[1]) {
+        if (player.eternities >= 60 && player.replicanti.auto[1] && player.currentEternityChall !== "eterc8") {
             while (player.infinityPoints.gte(player.replicanti.intervalCost) && ((player.timestudy.studies.includes(22)) ? player.replicanti.interval > 1 : player.replicanti.interval > 50)) upgradeReplicantiInterval()
         }
 
-        if (player.eternities >= 80 && player.replicanti.auto[2]) {
+        if (player.eternities >= 80 && player.replicanti.auto[2] && player.currentEternityChall !== "eterc8") {
             while (player.infinityPoints.gte(player.replicanti.galCost)) upgradeReplicantiGalaxy()
         }
 
@@ -6645,7 +6645,7 @@ setInterval(function() {
     if (player.infinitied > 0  || player.eternities > 0) document.getElementById("pastinfs").style.display = "inline-block"
     else document.getElementById("pastinfs").style.display = "none"
 
-    if (player.eternities > 10) {
+    if (player.eternities > 10 && player.currentEternityChall !== "eterc8") {
         for (var i=1;i<player.eternities-9 && i < 9; i++) {
             if (player.infDimBuyers[i-1]) {
                 buyMaxInfDims(i)
@@ -6654,15 +6654,15 @@ setInterval(function() {
         }
     }
 
-    if (player.eternities >= 40 && player.replicanti.auto[0]) {
+    if (player.eternities >= 40 && player.replicanti.auto[0] && player.currentEternityChall !== "eterc8") {
         while (player.infinityPoints.gte(player.replicanti.chanceCost) && player.replicanti.chance < 1) upgradeReplicantiChance()
     }
 
-    if (player.eternities >= 60 && player.replicanti.auto[1]) {
+    if (player.eternities >= 60 && player.replicanti.auto[1] && player.currentEternityChall !== "eterc8") {
         while (player.infinityPoints.gte(player.replicanti.intervalCost) && ((player.timestudy.studies.includes(22)) ? player.replicanti.interval > 1 : player.replicanti.interval > 50)) upgradeReplicantiInterval()
     }
 
-    if (player.eternities >= 80 && player.replicanti.auto[2]) {
+    if (player.eternities >= 80 && player.replicanti.auto[2] && player.currentEternityChall !== "eterc8") {
         while (player.infinityPoints.gte(player.replicanti.galCost)) upgradeReplicantiGalaxy()
     }
 
