@@ -6712,10 +6712,10 @@ var postC2Count = 0;
 var IPminpeak = new Decimal(0)
 var replicantiTicks = 0
 
-function gameLoop() {
+function gameLoop(diff) {
     var thisUpdate = new Date().getTime();
     if (thisUpdate - player.lastUpdate >= 21600000) giveAchievement("Don't you dare to sleep")
-    var diff = Math.min(thisUpdate - player.lastUpdate, 21600000);
+    if (typeof diff === 'undefined') var diff = Math.min(thisUpdate - player.lastUpdate, 21600000);
     diff = diff / 100;
     if (diff < 0) diff = 1;
     if (player.thisInfinityTime < -10) player.thisInfinityTime = Infinity
@@ -7303,6 +7303,22 @@ function gameLoop() {
 }
 
 var gameLoopIntervalId;
+
+function simulateTime(seconds) {
+    //the game is simulated at a 50ms update rate, with a max of 1000 ticks
+    var ticks = seconds * 20;
+    var bonusDiff = 0;
+    var playerStart = Object.assign({}, player);
+    if (ticks > 1000) {
+        bonusDiff = (ticks - 1000) / 20;
+        ticks = 1000;
+    }
+    for (i=0; i<ticks; i++) {
+        gameLoop(50+bonusDiff)
+    }
+    document.getElementById("offlineprogress").style.display = "block"
+    if (player.timeDimension1.amount.gte(1)) document.getElementById("offlinePopup").innerHTML = "While you were away, you made "+shortenMoney(player.money.minus(playerStart.money))+" antimatter, "+shortenMoney(player.infinityPower.minus(playerStart.infinityPower))+" infinity power, and "+shortenMoney(player.timeShards.minus(playerStart.timeShards))+" time shards. You eternitied "+(player.eternities-playerStart.eternities)+" times."
+}
 
 function startInterval() {
     if (player.options.themes !== undefined && sha512_256(player.options.themes) === "0b4d2986d955f7f0a5be3e560b0c2008a6a046269ffe6704bfacf55e8f292339") {
