@@ -4457,6 +4457,9 @@ function setAchieveTooltip() {
     let speed2 = document.getElementById("I brake for nobody")
     let overdrive = document.getElementById("MAXIMUM OVERDRIVE")
     let minute = document.getElementById("Minute of infinity")
+    let infiniteIP = document.getElementById("Can you get infinite IP?")
+    let thething = document.getElementById("Hey look, you did the thing again")
+    let over9000 = document.getElementById("IT'S OVER 9000!!!")
 
     apocAchieve.setAttribute('ach-tooltip', "Get over " + formatValue(player.options.notation, 1e80, 0, 0) + " antimatter");
     noPointAchieve.setAttribute('ach-tooltip', "Buy a single First Dimension when you have over " + formatValue(player.options.notation, 1e150, 0, 0) + " of them. Reward: First Dimensions are 10% stronger");
@@ -4474,6 +4477,9 @@ function setAchieveTooltip() {
     speed2.setAttribute('ach-tooltip', "Big Crunch for "+shortenCosts(1e250)+" IP in 20 seconds or less. Reward: All dimensions are significantly stronger in first 60 seconds of infinity.")
     overdrive.setAttribute('ach-tooltip', "Big Crunch with " + shortenCosts(1e300) + " IP/min. Reward: Additional 4x multiplier to IP.")
     minute.setAttribute('ach-tooltip', "Reach " + shortenCosts(1e260) + " infinity power. Reward: Double infinity power gain.")
+    infiniteIP.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal("1e30008"))+" IP.")
+    thething.setAttribute('ach-tooltip', "Reach "+shortenDimensions(Number.MAX_VALUE)+" time shards.")
+    over9000.setAttribute('ach-tooltip', "Get a total sacrifice multiplier of "+shortenCosts(new Decimal("1e9000"))+".")
 }
 
 document.getElementById("notation").onclick = function () {
@@ -4590,6 +4596,7 @@ function sacrifice() {
 
     }
     if (calcTotalSacrificeBoost() >= 600) giveAchievement("The Gods are pleased");
+    if (calcTotalSacrificeBoost().gte("1e9000")) giveAchievement("IT'S OVER 9000!!!");
 }
 
 
@@ -5423,6 +5430,15 @@ function eternity() {
             } else player.eternityChalls[player.currentEternityChall] += 1
             player.etercreq = 0
             respecTimeStudies()
+            if (Object.keys(player.eternityChalls).length === 10) {
+                var eterchallscompletedtotal = 0;
+                for (i=1; i<11; i++) {
+                    eterchallscompletedtotal += player.eternityChalls["eterc"+i]
+                }
+                if (eterchallscompletedtotal === 50) {
+                    giveAchievement("Through the event horizon");
+                }
+            }
         }
         for (var i=0; i<player.challenges.length; i++) {
 
@@ -6723,6 +6739,7 @@ function gameLoop() {
     }
 
     if (player.infinityPoints.gte('9.99999e999')) giveAchievement("This achievement doesn't exist II");
+    if (player.infinityPoints.gte('1e30008')) giveAchievement("Can you get infinite IP?");
 
     if (player.infinityUpgrades.includes("infinitiedGeneration") && player.currentEternityChall !== "eterc4") player.partInfinitied += diff / player.bestInfinityTime;
     if (player.partInfinitied >= 50) {
@@ -6807,6 +6824,8 @@ function gameLoop() {
 
     if (player.money.gte("9.9999e9999")) giveAchievement("This achievement doesn't exist")
     if (player.money.gte("1e35000")) giveAchievement("I got a few to spare")
+
+    if (player.timeShards.gte(Number.MAX_VALUE)) giveAchievement("Hey look, you did the thing again")
 
     if (player.currentEternityChall !== "eterc7") player.infinityPower = player.infinityPower.plus(DimensionProduction(1).times(diff/10))
     else player.seventhAmount = player.seventhAmount.plus(DimensionProduction(1).times(diff/10))
@@ -7595,6 +7614,8 @@ document.addEventListener("visibilitychange", function() {if (!document.hidden) 
 var scrollTimeouts = [];
 
 function scrollNextMessage() {
+  //don't run if hidden to save performance
+  if (player.options.newsHidden === 1) return false
   updateNewsArray();
   //select a message at random
   var index;
