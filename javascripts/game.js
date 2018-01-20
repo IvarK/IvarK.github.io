@@ -1091,8 +1091,10 @@ function onLoad() {
     resizeCanvas();
     checkForEndMe();
     updateEternityChallenges();
-
-    
+    let diff = new Date().getTime() - player.lastUpdate
+    if (diff > 1000*1000) {
+        simulateTime(diff/1000)
+    }
 
 }
 
@@ -7316,6 +7318,7 @@ var gameLoopIntervalId;
 
 function simulateTime(seconds) {
     //the game is simulated at a 50ms update rate, with a max of 1000 ticks
+    document.getElementById("offlineprogress").style.display = "block"
     var ticks = seconds * 20;
     var bonusDiff = 0;
     var playerStart = Object.assign({}, player);
@@ -7323,11 +7326,20 @@ function simulateTime(seconds) {
         bonusDiff = (ticks - 1000) / 20;
         ticks = 1000;
     }
+    let ticksDone = 0
     for (i=0; i<ticks; i++) {
         gameLoop(50+bonusDiff)
+        ticksDone++;
     }
-    document.getElementById("offlineprogress").style.display = "block"
-    if (player.timeDimension1.amount.gte(1)) document.getElementById("offlinePopup").innerHTML = "While you were away, you made "+shortenMoney(player.money.minus(playerStart.money))+" antimatter, "+shortenMoney(player.infinityPower.minus(playerStart.infinityPower))+" infinity power, and "+shortenMoney(player.timeShards.minus(playerStart.timeShards))+" time shards. You eternitied "+(player.eternities-playerStart.eternities)+" times."
+    var popupString = "While you were away,<br> your antimatter increased "+shortenMoney(player.money.log10() - (playerStart.money).log10())+" orders of magnitude"
+    if (player.infinityPower.gt(playerStart.infinityPower)) popupString+= ",<br> infinity power increased "+shortenMoney(player.infinityPower.log10() - (playerStart.infinityPower).log10())+" orders of magnitude"
+    if (player.timeShards.gt(playerStart.timeShards)) popupString+= ",<br> time shards increased "+shortenMoney(player.timeShards.log10() - (playerStart.timeShards).log10())+" orders of magnitude"
+    popupString+= "."
+    if (player.infinitied > playerStart.infinitied) popupString+= "<br>You infinitied "+(player.infinitied-playerStart.infinitied)+" times"
+    if (player.eternities > playerStart.eternities) popupString+= " <br>and eternitied "+(player.eternities-playerStart.eternities)+" times"
+    if (popupString.includes("times")) popupString+= "."
+    
+    document.getElementById("offlinePopup").innerHTML = popupString
 }
 
 function startInterval() {
