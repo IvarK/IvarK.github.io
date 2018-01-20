@@ -1481,11 +1481,12 @@ function getDimensionRateOfChange(tier) {
 }
 
 function getShiftRequirement(bulk) {
-    let tier = Math.min(player.resets + 4, 8);
     let amount = 20;
     if (player.currentChallenge == "challenge4") {
         tier = Math.min(player.resets + 4, 6)
         if (tier == 6) amount += (player.resets+bulk - 2) * 20;
+    } else {
+        tier = Math.min(player.resets + bulk + 4, 8)
     }
 
     if (tier == 8) amount += (player.resets+bulk - 4) * 15;
@@ -1886,6 +1887,7 @@ function DimensionPower(tier) {
     var dim = player["infinityDimension"+tier]
     var mult = dim.power.times(infDimPow)
     if (player.achievements.includes("r94") && tier == 1) mult = mult.times(2);
+    if (player.achievements.includes("r75")) mult = mult.times(player.achPow);
     if (player.replicanti.unl && player.replicanti.amount > 1) {
         var replmult = Decimal.pow(Math.log2(player.replicanti.amount), 2)
 
@@ -2053,6 +2055,9 @@ function getTimeDimensionPower(tier) {
     var dim = player["timeDimension"+tier]
     var ret = new Decimal(dim.power)
 
+    if (player.eternityUpgrades.includes(4)) ret = ret.times(player.achPow)
+    if (player.eternityUpgrades.includes(5)) ret = ret.times(Math.max(player.timestudy.theorem, 1))
+    if (player.eternityUpgrades.includes(6)) ret = ret.times(player.totalTimePlayed / 10 / 60 / 60 / 24)
     if (player.timestudy.studies.includes(11) && tier == 1) ret = ret.dividedBy(player.tickspeed.dividedBy(1000).pow(0.005).times(0.95).plus(player.tickspeed.dividedBy(1000).pow(0.0003).times(0.05)))
     if (player.timestudy.studies.includes(73) && tier == 3) ret = ret.times(calcTotalSacrificeBoost().pow(0.005))
     if (player.timestudy.studies.includes(93)) ret = ret.times(Decimal.pow(player.totalTickGained, 0.25).max(1))
@@ -3337,7 +3342,7 @@ document.getElementById("softReset").onclick = function () {
   auto = false;
   var name = TIER_NAMES[getShiftRequirement(0).tier]
   if (player[name + "Amount"] >= getShiftRequirement(0).amount) {
-      if (player.infinityUpgrades.includes("bulkBoost")) maxBuyDimBoosts();
+      if (player.infinityUpgrades.includes("bulkBoost")) maxBuyDimBoosts(true);
       else softReset(1)
   }
 };
@@ -3472,6 +3477,9 @@ function updateEternityUpgrades() {
     document.getElementById("eter1").className = (player.eternityUpgrades.includes(1)) ? "eternityupbtnbought" : (player.eternityPoints.gte(5)) ? "eternityupbtn" : "eternityupbtnlocked"
     document.getElementById("eter2").className = (player.eternityUpgrades.includes(2)) ? "eternityupbtnbought" : (player.eternityPoints.gte(10)) ? "eternityupbtn" : "eternityupbtnlocked"
     document.getElementById("eter3").className = (player.eternityUpgrades.includes(3)) ? "eternityupbtnbought" : (player.eternityPoints.gte(50e3)) ? "eternityupbtn" : "eternityupbtnlocked"
+    document.getElementById("eter4").className = (player.eternityUpgrades.includes(4)) ? "eternityupbtnbought" : (player.eternityPoints.gte(1e30)) ? "eternityupbtn" : "eternityupbtnlocked"
+    document.getElementById("eter5").className = (player.eternityUpgrades.includes(5)) ? "eternityupbtnbought" : (player.eternityPoints.gte(1e40)) ? "eternityupbtn" : "eternityupbtnlocked"
+    document.getElementById("eter6").className = (player.eternityUpgrades.includes(6)) ? "eternityupbtnbought" : (player.eternityPoints.gte(1e50)) ? "eternityupbtn" : "eternityupbtnlocked"
 }
 
 
@@ -6476,13 +6484,15 @@ function updateInfPower() {
     document.getElementById("infPowAmount").innerHTML = shortenMoney(player.infinityPower)
     if (player.currentEternityChall == "eterc9") document.getElementById("infDimMultAmount").innerHTML = shortenMoney(Decimal.pow(player.infinityPower, 0.011).max(1))
     else document.getElementById("infDimMultAmount").innerHTML = shortenMoney(player.infinityPower.pow(7))
-    document.getElementById("infPowPerSec").innerHTML = "You are getting " +shortenDimensions(DimensionProduction(1))+" Infinity Power per second."
+    if (player.currentEternityChall == "eterc7") document.getElementById("infPowPerSec").innerHTML = "You are getting " +shortenDimensions(DimensionProduction(1))+" Seventh Dimensions per second."
+    else document.getElementById("infPowPerSec").innerHTML = "You are getting " +shortenDimensions(DimensionProduction(1))+" Infinity Power per second."
 }
 
 function updateTimeShards() {
     document.getElementById("timeShardAmount").innerHTML = shortenMoney(player.timeShards)
     document.getElementById("tickThreshold").innerHTML = shortenMoney(player.tickThreshold)
-    document.getElementById("timeShardsPerSec").innerHTML = "You are getting "+shortenDimensions(getTimeDimensionProduction(1))+" Timeshards per second."
+    if (player.currentEternityChall == "eterc7") document.getElementById("timeShardsPerSec").innerHTML = "You are getting "+shortenDimensions(getTimeDimensionProduction(1))+" Eighth Infinity Dimensions per second."
+    else document.getElementById("timeShardsPerSec").innerHTML = "You are getting "+shortenDimensions(getTimeDimensionProduction(1))+" Timeshards per second."
 }
 
 
@@ -7372,10 +7382,10 @@ function maxBuyGalaxies() {
     }
 }
 
-function maxBuyDimBoosts() {
-    if ((player.autobuyers[9].priority > player.resets || player.overXGalaxies <= player.galaxies)) {
+function maxBuyDimBoosts(manual) {
+    if (player.autobuyers[9].priority > player.resets || player.overXGalaxies <= player.galaxies || manual == true) {
         var r = 0;
-        while(player[TIER_NAMES[getShiftRequirement(r).tier]+"Amount"] >= getShiftRequirement(r).amount && (player.autobuyers[9].priority > player.resets+r || player.overXGalaxies <= player.galaxies)) r+=1;
+        while(player[TIER_NAMES[getShiftRequirement(r).tier]+"Amount"] >= getShiftRequirement(r).amount && (player.autobuyers[9].priority > player.resets+r || player.overXGalaxies <= player.galaxies || manual == true)) r+=1;
         
         if (r >= 750) giveAchievement("Costco sells dimboosts now")
         softReset(r)
@@ -8224,7 +8234,7 @@ window.addEventListener('keydown', function(event) {
         case 68: // D
             var name = TIER_NAMES[getShiftRequirement(0).tier]
             if (player[name + "Amount"] >= getShiftRequirement(0).amount) {
-                if (player.infinityUpgrades.includes("bulkBoost")) maxBuyDimBoosts();
+                if (player.infinityUpgrades.includes("bulkBoost")) maxBuyDimBoosts(true);
                 else softReset(1)
             }
         break;
