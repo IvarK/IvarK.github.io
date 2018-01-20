@@ -7400,7 +7400,7 @@ function maxBuyDimBoosts(manual) {
         while(player[TIER_NAMES[getShiftRequirement(r).tier]+"Amount"] >= getShiftRequirement(r).amount && (player.autobuyers[9].priority > player.resets+r || player.overXGalaxies <= player.galaxies || manual == true)) r+=1;
         
         if (r >= 750) giveAchievement("Costco sells dimboosts now")
-        softReset(r)
+        if (r > 0) softReset(r)
     }
     
 }
@@ -7453,7 +7453,7 @@ function autoBuyerTick() {
 
     if (player.autobuyers[9]%1 !== 0) {
         if (player.autobuyers[9].isOn && dimBoolean()) {
-            if (player.resets < 4) softReset(1)
+            if (player.resets < 4) maxBuyDimBoosts()
             else if (player.eternities < 10) softReset(player.autobuyers[9].bulk)
             else if ((Math.round(timer * 100))%(Math.round(player.autobuyers[9].bulk * 100)) == 0 && player.eightAmount >= getShiftRequirement(0).amount) maxBuyDimBoosts()
             player.autobuyers[9].ticks = 0
