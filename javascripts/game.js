@@ -5443,7 +5443,7 @@ function eternity() {
             player.bestEternity = player.thisEternity
             if (player.bestEternity < 300) giveAchievement("That wasn't an eternity");
         }
-        if (player.currentEternityChall == "eterc6") player.dimensionMultDecrease -= 0.2
+        if (player.currentEternityChall == "eterc6" && player.eternityChalls.eterc6 < 5) player.dimensionMultDecrease -= 0.2
         if (player.infinitied < 10) giveAchievement("Do you really need a guide for this?");
         if (Math.round(player.replicanti.amount) == 9) giveAchievement("We could afford 9");
         temp = []
@@ -5452,7 +5452,7 @@ function eternity() {
         if (player.currentEternityChall !== "") {
             if (player.eternityChalls[player.currentEternityChall] === undefined) {
                 player.eternityChalls[player.currentEternityChall] = 1
-            } else player.eternityChalls[player.currentEternityChall] += 1
+            } else if (player.eternityChalls[player.currentEternityChall] < 5) player.eternityChalls[player.currentEternityChall] += 1
             player.etercreq = 0
             respecTimeStudies()
             if (Object.keys(player.eternityChalls).length === 10) {
@@ -6191,8 +6191,8 @@ document.getElementById("ec10unl").onclick = function() {
 }
 
 function startEternityChallenge(name, startgoal, goalIncrease) {
+    if (!name.includes(player.eternityChallUnlocked)) return
     if((player.options.challConf) || name == "" ? true :  (confirm("You will start over with just your time studies, eternity upgrades and achievements. You need to reach a set IP with special conditions."))) {
-        if (!name.includes(player.eternityChallUnlocked)) return
         player = {
             money: new Decimal(10),
             tickSpeedCost: new Decimal(1000),
@@ -6452,11 +6452,6 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
         document.getElementById("eternityPoints2").innerHTML = "You have <span class=\"EPAmount2\">"+shortenDimensions(player.eternityPoints)+"</span> Eternity points."
         updateEternityChallenges()
 
-        if (player.currentEternityChall == "eterc3") {
-            //player.money = new Decimal("1e1101")
-            //newDimension()
-            //buyManyInfinityDimension(1)
-        }
     }
 }
 
