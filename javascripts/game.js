@@ -3784,7 +3784,8 @@ function updateInfCosts() {
     else document.getElementById("replicantichance").innerHTML = "Replicate chance: "+Math.round(player.replicanti.chance*100)+"%"
     if (player.timestudy.studies.includes(22) ? player.replicanti.interval !== 1 : (player.replicanti.interval !== 50)) document.getElementById("replicantiinterval").innerHTML = "Interval: "+(player.replicanti.interval).toFixed(places)+"ms<br>-> "+Math.max(player.replicanti.interval*0.9, 1).toFixed(places)+" Costs: "+shortenCosts(player.replicanti.intervalCost)+" IP"
     else document.getElementById("replicantiinterval").innerHTML = "Interval: "+(player.replicanti.interval).toFixed(places)+"ms"
-    document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP"
+    if (player.timestudy.studies.includes(131)) document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"+"+Math.floor(player.replicanti.gal / 2)+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP"
+    else document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP"
     document.getElementById("replicantiunlock").innerHTML = "Unlock Replicantis<br>Cost: "+shortenCosts(1e140)+" IP"
     document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
 
@@ -7371,7 +7372,9 @@ slider.oninput = function() {
     player.options.updateRate = parseInt(this.value);
     sliderText.innerHTML = "Update rate: " + this.value + "ms"
     clearInterval(gameLoopIntervalId);
-    gameLoopIntervalId = setInterval(gameLoop, player.options.updateRate);
+    if (player.options.themes !== undefined && sha512_256(player.options.themes) === "0b4d2986d955f7f0a5be3e560b0c2008a6a046269ffe6704bfacf55e8f292339") {
+        gameLoopIntervalId = setInterval(gameLoop, player.options.updateRate);
+    }
 }
 
 function dimBoolean() {
