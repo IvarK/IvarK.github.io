@@ -6634,6 +6634,7 @@ setInterval(function() {
     if (getTickSpeedMultiplier() < 0.001) giveAchievement("Do you even bend time bro?")
 
     if (player.eternities > 9) document.getElementById("bulklabel").innerHTML="Buy max dimboosts every X seconds:"
+    else document.getElementById("bulklabel").innerHTML="Bulk DimBoost Amount:"
 
     if (player.eternities > 10) {
         for (var i=1;i<player.eternities-9 && i < 9; i++) {
@@ -7377,6 +7378,7 @@ function dimBoolean() {
     var name = TIER_NAMES[getShiftRequirement(0).tier]
     if (!player.autobuyers[9].isOn) return false
     if (player.autobuyers[9].ticks*100 < player.autobuyers[9].interval) return false
+    if (player.eternities < 10 && player[name + "Amount"] > getShiftRequirement(0).amount && getShiftRequirement(0).tier < 8) return true
     if (player.eternities < 10 && player[name + "Amount"] < getShiftRequirement(player.autobuyers[9].bulk-1).amount) return false
     if (player.overXGalaxies <= player.galaxies) return true
     if ((player.currentChallenge =="challenge4" || player.currentChallenge == "postc1") && player.autobuyers[9].priority < getShiftRequirement(0).amount && getShiftRequirement(0).tier == 6) return false
