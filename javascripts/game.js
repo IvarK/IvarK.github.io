@@ -8308,7 +8308,7 @@ setInterval( function() {
     unspentBonus = player.infinityPoints.dividedBy(2).pow(1.5).plus(1)
     mult18 = getDimensionFinalMultiplier(1).times(getDimensionFinalMultiplier(8)).pow(0.02)
     if (player.currentEternityChall == "eterc10") {
-        ec10bonus = Decimal.pow(player.infinitied, 1000)
+        ec10bonus = Decimal.pow(player.infinitied, 1000).max(1)
         if (player.timestudy.studies.includes(31)) ec10bonus = ec10bonus.pow(4)
     } else {
         ec10bonus = new Decimal(1)
