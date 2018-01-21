@@ -1328,13 +1328,14 @@ function formatValue(notation, value, places, placesUnder1000) {
 
         if (notation === "Standard" || notation === "Mixed scientific") {
             if (power <= 303) return matissa + " " + FormatList[(power - (power % 3)) / 3];
-            else return matissa + " " + getAbbreviation(power)
+            else return matissa + " " + getAbbreviation(power);
         } else if (notation === "Mixed engineering") {
-            return matissa + " " + FormatList[(power - (power % 3)) / 3];
+            if (power <= 33) return matissa + " " + FormatList[(power - (power % 3)) / 3];
+            else return (matissa + "ᴇ" + pow);
         } else if (notation === "Engineering") {
             return (matissa + "ᴇ" + pow);
         } else if (notation === "Letters") {
-            return matissa + letter(power,'abcdefghijklmnopqrstuvwxyz')
+            return matissa + letter(power,'abcdefghijklmnopqrstuvwxyz');
         } else if (notation === "Emojis") {
             return matissa + letter(power,'😠🎂🎄💀🍆👪🌈💯🍦🎃💋😂🌙⛔🐙💩❓☢️🙈👍☂️✌️⚠️❌😋⚡')
 
