@@ -267,10 +267,21 @@
                             <button id="eter1" class="eternityupbtn" onclick="buyEternityUpgrade(1, 5)">Infinity Dimensions multiplier equal to unspent EP to the power of 5.<br>Currently: x<br>Cost: 5 EP</button>
                         </td>
                         <td>
-                            <button id="eter2" class="eternityupbtnlocked" onclick="buyEternityUpgrade(2, 10)">You gain Infinity Dimension multiplier based on eternities (x^log4(2x))<br>Currently: x<br>Cost: 10 EP</button>
+                            <button id="eter2" class="eternityupbtn" onclick="buyEternityUpgrade(2, 10)">You gain Infinity Dimension multiplier based on eternities (x^log4(2x))<br>Currently: x<br>Cost: 10 EP</button>
                         </td>
                         <td>
-                            <button id="eter3" class="eternityupbtnbought" onclick="buyEternityUpgrade(3, 50e3)">Infinity Dimensions multiplier based on sum of Infinity Challenge times<br>Currently: Xx<br>Cost: 50 K EP</button>
+                            <button id="eter3" class="eternityupbtn" onclick="buyEternityUpgrade(3, 50e3)">Infinity Dimensions multiplier based on sum of Infinity Challenge times<br>Currently: Xx<br>Cost: 50 K EP</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button id="eter4" class="eternityupbtn" onclick="buyEternityUpgrade(4, 1e30)">Your achievement bonus affects Time Dimensions<br>Cost: 1e30 EP</button>
+                        </td>
+                        <td>
+                            <button id="eter5" class="eternityupbtn" onclick="buyEternityUpgrade(5, 1e40)">Time Dimensions are multiplied by your unspent time theorems<br>Cost: 1e40 EP</button>
+                        </td>
+                        <td>
+                            <button id="eter6" class="eternityupbtn" onclick="buyEternityUpgrade(6, 1e50)">Time Dimensions are multiplied by days played<br>Cost: 1e50 EP</button>
                         </td>
                     </tr>
                     <tr>
@@ -1085,7 +1096,7 @@
                         <div id="Not-so-challenging" class="achievement achievementlocked" style="background-image: url(images/405.png)" ach-tooltip="Get the sum of all of your challenge times under 3 minutes. Reward: All dimensions are stronger in first 3 minutes of infinity, but only in challenges."><br></div>
                     </td>
                     <td>
-                        <div id="Faster than a squared potato" class="achievement achievementlocked" style="background-image: url(images/406.png)" ach-tooltip="Reach 1e52 ticks per second. Reward: -2% tickspeed"><br></div>
+                        <div id="Faster than a squared potato" class="achievement achievementlocked" style="background-image: url(images/406.png)" ach-tooltip="Reach 1e52 ticks per second. Reward: -2% tickspeed."><br></div>
                     </td>
                     <td>
                         <div id="Infinitely Challenging" class="achievement achievementlocked" style="background-image: url(images/407.png)" ach-tooltip="Complete an infinity challenge."><br></div>
@@ -1096,19 +1107,19 @@
                 </tr>
                 <tr id="achRow7">
                         <td>
-                            <div id="ERROR 909: Dimension not found" class="achievement achievementlocked" style="background-image: url(images/41.png)" ach-tooltip="Get to infinity with only a single first Dimension without Dimension Boosts, Shifts or Galaxies while in Automatic Galaxies Challenge. Reward: First Dimensions are 3 times stronger"><br></div>
+                            <div id="ERROR 909: Dimension not found" class="achievement achievementlocked" style="background-image: url(images/41.png)" ach-tooltip="Get to infinity with only a single first Dimension without Dimension Boosts, Shifts or Galaxies while in Automatic Galaxies Challenge. Reward: First Dimensions are 3 times stronger."><br></div>
                         </td>
                         <td>
-                            <div id="Can't hold all these infinities" class="achievement achievementlocked" style="background-image: url(images/42.png)" ach-tooltip="Get all Dimension multipliers over 1e308. Reward: All dimensions 10% stronger"><br></div>
+                            <div id="Can't hold all these infinities" class="achievement achievementlocked" style="background-image: url(images/42.png)" ach-tooltip="Get all Dimension multipliers over 1e308. Reward: All dimensions 10% stronger."><br></div>
                         </td>
                         <td>
                             <div id="This achievement doesn't exist" class="achievement achievementlocked" style="background-image: url(images/43.png)" ach-tooltip="Get 9.9999e9999 antimatter. Reward: Dimensions are more powerful the more unspent antimatter you have."><br></div>
                         </td>
                         <td>
-                            <div id="End me" class="achievement achievementlocked" style="background-image: url(images/44.png)" ach-tooltip="Get the sum of all best challenge times under 5 seconds. Reward: All dimensions 40% stronger, but only in challenges"><br></div>
+                            <div id="End me" class="achievement achievementlocked" style="background-image: url(images/44.png)" ach-tooltip="Get the sum of all best challenge times under 5 seconds. Reward: All dimensions 40% stronger, but only in challenges."><br></div>
                         </td>
                         <td>
-                            <div id="NEW DIMENSIONS???" class="achievement achievementlocked" style="background-image: url(images/45.png)" ach-tooltip="Unlock the 4th Infinity Dimension"><br></div>
+                            <div id="NEW DIMENSIONS???" class="achievement achievementlocked" style="background-image: url(images/45.png)" ach-tooltip="Unlock the 4th Infinity Dimension. Reward: Your achievement bonus affects Infinity Dimensions."><br></div>
                         </td>
                         <td>
                             <div id="One for each dimension" class="achievement achievementlocked" style="background-image: url(images/21.png)" ach-tooltip="Play for 8 days. Reward: Extremely small time multiplier."><br></div>                                
@@ -1117,7 +1128,7 @@
                             <div id="How the antitables have turned" class="achievement achievementlocked" style="background-image: url(images/47.png)" ach-tooltip="Get 8th Dimension multiplier to be highest, 7th Dimension multiplier second highest etc. Reward: Each dimension gains a boost proportional to tier (8th dimension gets 8%, 7th gets 7%, etc.)"><br></div>
                         </td>
                         <td>
-                            <div id="Blink of an eye" class="achievement achievementlocked" style="background-image: url(images/48.gif)" ach-tooltip="Get to Infinity in under 200 milliseconds. Reward: Start with 1e25 antimatter and all dimensions are stronger in first 300ms of infinity"><br></div>
+                            <div id="Blink of an eye" class="achievement achievementlocked" style="background-image: url(images/48.gif)" ach-tooltip="Get to Infinity in under 200 milliseconds. Reward: Start with 1e25 antimatter and all dimensions are stronger in first 300ms of infinity."><br></div>
                         </td>
                     </tr>
                     <tr id="achRow8">
@@ -1636,7 +1647,7 @@
                         </td>
                         <td>
                             <div class="eterchallengediv" id="eterc6div" style="height: 140px; display: none">
-                                <span>You can't gain galaxies normally, but replicanti galaxy cost is massively reduced.
+                                <span>You can't gain galaxies normally, but the cost of upgrading your max replicanti galaxies is massively reduced.
                                 </span>
                                 <br>
                                 <br>
