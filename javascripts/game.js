@@ -1981,7 +1981,7 @@ function DimensionPower(tier) {
 
     if (ECTimesCompleted("eterc4") !== 0) mult = mult.times(player.infinityPoints.pow(0.003 + ECTimesCompleted("eterc4")*0.002))
 
-    if (ECTimesCompleted("eterc7") !== 0) mult = mult.times(player.timeShards.pow(ECTimesCompleted("eterc7")*0.1).plus(1))
+    if (ECTimesCompleted("eterc9") !== 0) mult = mult.times(player.timeShards.pow(ECTimesCompleted("eterc9")*0.1).plus(1))
     return mult
 }
 
@@ -2128,6 +2128,7 @@ function getTimeDimensionPower(tier) {
     if (player.achievements.includes("r105")) ret = ret.div(player.tickspeed.div(1000).pow(0.000005))
     if (player.currentEternityChall == "eterc9") ret = ret.times(Decimal.pow(player.infinityPower, 0.011).max(1))
     if (ECTimesCompleted("eterc1") !== 0) ret = ret.times(Math.pow(Math.max(player.thisEternity*10, 1), 0.3+(ECTimesCompleted("eterc1")*0.05)))
+    if (ECTimesCompleted("eterc10") !== 0) ret = ret.times(player.infinitied * ECTimesCompleted("eterc10") * 0.2+1)
 
     return ret
 
@@ -2681,6 +2682,7 @@ function getTickSpeedMultiplier() {
         let galaxies = player.galaxies+player.replicanti.galaxies
         if (player.timestudy.studies.includes(133)) galaxies += player.replicanti.galaxies/2
         if (player.timestudy.studies.includes(132)) galaxies += player.replicanti.galaxies*0.3
+        galaxies += player.replicanti.galaxies * player.infinityPower.plus(1).log10()/50000 * ECTimesCompleted("eterc8")
         if (player.infinityUpgrades.includes("galaxyBoost")) perGalaxy *= 2;
         if (player.infinityUpgrades.includes("postGalaxy")) perGalaxy *= 1.5;
         if (player.challenges.includes("postc5")) perGalaxy *= 1.1;
@@ -2694,6 +2696,7 @@ function getTickSpeedMultiplier() {
         let galaxies = player.galaxies-2+player.replicanti.galaxies
         if (player.timestudy.studies.includes(133)) galaxies += player.replicanti.galaxies/2
         if (player.timestudy.studies.includes(132)) galaxies += player.replicanti.galaxies*0.3
+        galaxies += player.replicanti.galaxies * player.infinityPower.plus(1).log10()/50000 * ECTimesCompleted("eterc8")
         if (player.infinityUpgrades.includes("galaxyBoost")) galaxies *= 2;
         if (player.infinityUpgrades.includes("postGalaxy")) galaxies *= 1.5;
         if (player.challenges.includes("postc5")) galaxies *= 1.1;
@@ -3538,7 +3541,7 @@ function updateEternityUpgrades() {
     document.getElementById("eter1").className = (player.eternityUpgrades.includes(1)) ? "eternityupbtnbought" : (player.eternityPoints.gte(5)) ? "eternityupbtn" : "eternityupbtnlocked"
     document.getElementById("eter2").className = (player.eternityUpgrades.includes(2)) ? "eternityupbtnbought" : (player.eternityPoints.gte(10)) ? "eternityupbtn" : "eternityupbtnlocked"
     document.getElementById("eter3").className = (player.eternityUpgrades.includes(3)) ? "eternityupbtnbought" : (player.eternityPoints.gte(50e3)) ? "eternityupbtn" : "eternityupbtnlocked"
-    document.getElementById("eter4").className = (player.eternityUpgrades.includes(4)) ? "eternityupbtnbought" : (player.eternityPoints.gte(1e30)) ? "eternityupbtn" : "eternityupbtnlocked"
+    document.getElementById("eter4").className = (player.eternityUpgrades.includes(4)) ? "eternityupbtnbought" : (player.eternityPoints.gte(1e18)) ? "eternityupbtn" : "eternityupbtnlocked"
     document.getElementById("eter5").className = (player.eternityUpgrades.includes(5)) ? "eternityupbtnbought" : (player.eternityPoints.gte(1e40)) ? "eternityupbtn" : "eternityupbtnlocked"
     document.getElementById("eter6").className = (player.eternityUpgrades.includes(6)) ? "eternityupbtnbought" : (player.eternityPoints.gte(1e50)) ? "eternityupbtn" : "eternityupbtnlocked"
 }
@@ -3866,7 +3869,7 @@ function updateInfCosts() {
     else document.getElementById("ec1unl").innerHTML = "Eternity Challenge 1<span>Cost: 30 Time Theorems"
     if (player.etercreq !== 2) document.getElementById("ec2unl").innerHTML = "Eternity Challenge 2<span>Requirement: "+(1300+(ECTimesCompleted("eterc2")*150))+" Tickspeed upgrades gained from time dimensions<span>Cost: 35 Time Theorems"
     else document.getElementById("ec2unl").innerHTML = "Eternity Challenge 2<span>Cost: 35 Time Theorems"
-    if (player.etercreq !== 3) document.getElementById("ec3unl").innerHTML = "Eternity Challenge 3<span>Requirement: "+(17300+(ECTimesCompleted("eterc3")*450))+" 8th dimensions<span>Cost: 40 Time Theorems"
+    if (player.etercreq !== 3) document.getElementById("ec3unl").innerHTML = "Eternity Challenge 3<span>Requirement: "+(17300+(ECTimesCompleted("eterc3")*1250))+" 8th dimensions<span>Cost: 40 Time Theorems"
     else document.getElementById("ec3unl").innerHTML = "Eternity Challenge 3<span>Cost: 40 Time Theorems"
     if (player.etercreq !== 4) document.getElementById("ec4unl").innerHTML = "Eternity Challenge 4<span>Requirement: "+(1e8 + (ECTimesCompleted("eterc4")*5e7)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" infinities<span>Cost: 70 Time Theorems"
     else document.getElementById("ec4unl").innerHTML = "Eternity Challenge 4<span>Cost: 70 Time Theorems"
@@ -3874,7 +3877,7 @@ function updateInfCosts() {
     else document.getElementById("ec5unl").innerHTML = "Eternity Challenge 5<span>Cost: 130 Time Theorems"
     if (player.etercreq !== 6) document.getElementById("ec6unl").innerHTML = "Eternity Challenge 6<span>Requirement: "+(40+(ECTimesCompleted("eterc6")*5))+" replicanti galaxies<span>Cost: 85 Time Theorems"
     else document.getElementById("ec6unl").innerHTML = "Eternity Challenge 6<span>Cost: 85 Time Theorems"
-    if (player.etercreq !== 7) document.getElementById("ec7unl").innerHTML = "Eternity Challenge 7<span>Requirement: "+shortenCosts(new Decimal("1e625000").times(new Decimal("1e35000").pow(ECTimesCompleted("eterc7"))))+" <span>Cost: 115 Time Theorems"
+    if (player.etercreq !== 7) document.getElementById("ec7unl").innerHTML = "Eternity Challenge 7<span>Requirement: "+shortenCosts(new Decimal("1e500000").times(new Decimal("1e35000").pow(ECTimesCompleted("eterc7"))))+" <span>Cost: 115 Time Theorems"
     else document.getElementById("ec7unl").innerHTML = "Eternity Challenge 7<span>Cost: 115 Time Theorems"
     if (player.etercreq !== 8) document.getElementById("ec8unl").innerHTML = "Eternity Challenge 8<span>Requirement: All ID costs over Y <span>Cost: 115 Time Theorems"
     else document.getElementById("ec8unl").innerHTML = "Eternity Challenge 8<span>Cost: 115 Time Theorems"
@@ -5501,7 +5504,7 @@ function eternity() {
             player.bestEternity = player.thisEternity
             if (player.bestEternity < 300) giveAchievement("That wasn't an eternity");
         }
-        if (player.currentEternityChall == "eterc6" && player.eternityChalls.eterc6 < 5) player.dimensionMultDecrease -= 0.2
+        if (player.currentEternityChall == "eterc6" && ECTimesCompleted("eterc6") < 5) player.dimensionMultDecrease -= 0.2
         if (player.infinitied < 10) giveAchievement("Do you really need a guide for this?");
         if (Math.round(player.replicanti.amount) == 9) giveAchievement("We could afford 9");
         temp = []
@@ -6051,7 +6054,7 @@ function canUnlockEC(idx, cost, study) {
         break;
 
         case 3:
-        if (player.eightAmount.gte(17300+(ECTimesCompleted("eterc3")*450))) return true
+        if (player.eightAmount.gte(17300+(ECTimesCompleted("eterc3")*1250))) return true
         break;
 
         case 4:
@@ -6067,7 +6070,7 @@ function canUnlockEC(idx, cost, study) {
         break;
 
         case 7:
-        if (player.money.gte(new Decimal("1e625000").times(new Decimal("1e35000").pow(ECTimesCompleted("eterc7"))))) return true
+        if (player.money.gte(new Decimal("1e500000").times(new Decimal("1e35000").pow(ECTimesCompleted("eterc7"))))) return true
         break;
 
         case 8:
@@ -6736,10 +6739,10 @@ setInterval(function() {
     document.getElementById("eterc1goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e1800").times(new Decimal("1e200").pow(ECTimesCompleted("eterc1"))).max(new Decimal("1e1800"))) + " IP"
     document.getElementById("eterc1completed").innerHTML = "Completed "+ECTimesCompleted("eterc1")+" times."
 
-    document.getElementById("eterc2goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e975").times(new Decimal("1e225").pow(ECTimesCompleted("eterc2"))).max(new Decimal("1e975"))) + " IP"
+    document.getElementById("eterc2goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e975").times(new Decimal("1e175").pow(ECTimesCompleted("eterc2"))).max(new Decimal("1e975"))) + " IP"
     document.getElementById("eterc2completed").innerHTML = "Completed "+ECTimesCompleted("eterc2")+" times."
 
-    document.getElementById("eterc3goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e600").times(new Decimal("1e275").pow(ECTimesCompleted("eterc3"))).max(new Decimal("1e600"))) + " IP"
+    document.getElementById("eterc3goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e600").times(new Decimal("1e100").pow(ECTimesCompleted("eterc3"))).max(new Decimal("1e600"))) + " IP"
     document.getElementById("eterc3completed").innerHTML = "Completed "+ECTimesCompleted("eterc3")+" times."
 
     document.getElementById("eterc4goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2750").times(new Decimal("1e550").pow(ECTimesCompleted("eterc4"))).max(new Decimal("1e2750"))) + " IP in less than "+(16 - (ECTimesCompleted("eterc4")*4))+" infinities."
@@ -6751,10 +6754,10 @@ setInterval(function() {
     document.getElementById("eterc6goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e600").times(new Decimal("1e200").pow(ECTimesCompleted("eterc6"))).max(new Decimal("1e600"))) + " IP"
     document.getElementById("eterc6completed").innerHTML = "Completed "+ECTimesCompleted("eterc6")+" times."
 
-    document.getElementById("eterc7goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2700").times(new Decimal("1e450").pow(ECTimesCompleted("eterc7"))).max(new Decimal("1e2700"))) + " IP"
+    document.getElementById("eterc7goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2000").times(new Decimal("1e550").pow(ECTimesCompleted("eterc7"))).max(new Decimal("1e2700"))) + " IP"
     document.getElementById("eterc7completed").innerHTML = "Completed "+ECTimesCompleted("eterc7")+" times."
 
-    document.getElementById("eterc8goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e3000").times(new Decimal("1e300").pow(ECTimesCompleted("eterc8"))).max(new Decimal("1e3000"))) + " IP"
+    document.getElementById("eterc8goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e1300").times(new Decimal("1e300").pow(ECTimesCompleted("eterc8"))).max(new Decimal("1e3000"))) + " IP"
     document.getElementById("eterc8completed").innerHTML = "Completed "+ECTimesCompleted("eterc8")+" times."
     updateECUnlockButtons()
 
@@ -6919,6 +6922,8 @@ function gameLoop(diff) {
 
     if (player.currentEternityChall !== "eterc7") player.timeShards = player.timeShards.plus(getTimeDimensionProduction(1).times(diff/10))
     else player.infinityDimension8.amount = player.infinityDimension8.amount.plus(getTimeDimensionProduction(1).times(diff/10))
+
+    player.infinityDimension8.amount = player.infinityDimension8.amount.plus(getTimeDimensionProduction(1).pow(ECTimesCompleted("eterc7")*0.2).minus(1).times(diff/10))
 
     while (player.timeShards.gte(player.tickThreshold)) {
         player.tickspeed = player.tickspeed.times(getTickSpeedMultiplier())
@@ -7296,7 +7301,10 @@ function gameLoop(diff) {
     document.getElementById("ec4reward").innerHTML = "Reward: Infinity Dimension multiplier from unspent IP, Currently: "+shortenMoney(player.infinityPoints.pow(0.003 + ECTimesCompleted("eterc4")*0.002))+"x"
     document.getElementById("ec5reward").innerHTML = "Reward: Galaxy cost scaling starts "+((ECTimesCompleted("eterc5")*5))+" galaxies later."
     document.getElementById("ec6reward").innerHTML = "Reward: Further reduction dimension cost multiplier increase, Currently: "+player.dimensionMultDecrease.toFixed(1)+"x "
-    document.getElementById("ec7reward").innerHTML = "Reward: Infinity Dimension multiplier based on time shards, Currently: "+shortenMoney(player.timeShards.pow(ECTimesCompleted("eterc7")*0.1))+"x "
+    document.getElementById("ec7reward").innerHTML = "Reward: First Time dimension produces Eighth Infinity Dimensions, Currently: "+shortenMoney(getTimeDimensionProduction(1).pow(ECTimesCompleted("eterc7")*0.2).minus(1))+" per second. "
+    document.getElementById("ec8reward").innerHTML = "Reward: Infinity power powers up replicanti galaxies, Currently: " + (player.infinityPower.log10()/50000 * ECTimesCompleted("eterc8") * 100).toFixed(2) + " %"
+    document.getElementById("ec9reward").innerHTML = "Reward: Infinity Dimension multiplier based on time shards, Currently: "+shortenMoney(player.timeShards.pow(ECTimesCompleted("eterc9")*0.1))+"x "
+    document.getElementById("ec10reward").innerHTML = "Reward: Time dimensions gain a multiplier from infinitied stat, Currently: "+shortenMoney(player.infinitied * ECTimesCompleted("eterc10") * 0.2+1)+"x "
     var scale1 = [2.82e-45,1e-42,7.23e-30,5e-21,9e-17,6.2e-11,5e-8,3.555e-6,7.5e-4,1,2.5e3,2.6006e6,3.3e8,5e12,4.5e17,1.08e21,1.53e24,1.41e27,5e32,8e36,1.7e45,1.7e48,3.3e55,3.3e61,5e68,1e73,3.4e80,1e113,Number.MAX_VALUE,new Decimal("1e65000")];
     var scale2 = [" protons."," nucleuses."," Hydrogen atoms."," viruses."," red blood cells."," grains of sand."," grains of rice."," teaspoons."," wine bottles."," fridge-freezers."," Olympic-sized swimming pools."," Great Pyramids of Giza."," Great Walls of China."," large asteroids.",
                 " dwarf planets."," Earths."," Jupiters."," Suns."," red giants."," hypergiant stars."," nebulas."," Oort clouds."," Local Bubbles."," galaxies."," Local Groups."," Sculptor Voids."," observable universes."," Dimensions.", " Infinity Dimensions.", " Time Dimensions."];
