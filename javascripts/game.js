@@ -2682,7 +2682,7 @@ function getTickSpeedMultiplier() {
         let galaxies = player.galaxies+player.replicanti.galaxies
         if (player.timestudy.studies.includes(133)) galaxies += player.replicanti.galaxies/2
         if (player.timestudy.studies.includes(132)) galaxies += player.replicanti.galaxies*0.3
-        galaxies += player.replicanti.galaxies * player.infinityPower.plus(1).log10()/50000 * ECTimesCompleted("eterc8")
+        galaxies += player.replicanti.galaxies * player.infinityPower.plus(1).log10()/250000 * ECTimesCompleted("eterc8")
         if (player.infinityUpgrades.includes("galaxyBoost")) perGalaxy *= 2;
         if (player.infinityUpgrades.includes("postGalaxy")) perGalaxy *= 1.5;
         if (player.challenges.includes("postc5")) perGalaxy *= 1.1;
@@ -6769,7 +6769,7 @@ setInterval(function() {
     document.getElementById("eterc7goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2000").times(new Decimal("1e550").pow(ECTimesCompleted("eterc7"))).max(new Decimal("1e2700"))) + " IP"
     document.getElementById("eterc7completed").innerHTML = "Completed "+ECTimesCompleted("eterc7")+" times."
 
-    document.getElementById("eterc8goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e1300").times(new Decimal("1e300").pow(ECTimesCompleted("eterc8"))).max(new Decimal("1e3000"))) + " IP"
+    document.getElementById("eterc8goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e1300").times(new Decimal("1e300").pow(ECTimesCompleted("eterc8"))).max(new Decimal("1e1300"))) + " IP"
     document.getElementById("eterc8completed").innerHTML = "Completed "+ECTimesCompleted("eterc8")+" times."
     updateECUnlockButtons()
 
