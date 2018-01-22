@@ -6678,22 +6678,22 @@ setInterval(function() {
     document.getElementById("eterc1goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e1800").times(new Decimal("1e200").pow(ECTimesCompleted("eterc1"))).max(new Decimal("1e1800"))) + " IP"
     document.getElementById("eterc1completed").innerHTML = "Completed "+ECTimesCompleted("eterc1")+" times."
 
-    document.getElementById("eterc2goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e975").times(new Decimal("1e125").pow(ECTimesCompleted("eterc2"))).max(new Decimal("1e975"))) + " IP"
+    document.getElementById("eterc2goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e975").times(new Decimal("1e225").pow(ECTimesCompleted("eterc2"))).max(new Decimal("1e975"))) + " IP"
     document.getElementById("eterc2completed").innerHTML = "Completed "+ECTimesCompleted("eterc2")+" times."
 
-    document.getElementById("eterc3goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e600").times(new Decimal("1e75").pow(ECTimesCompleted("eterc3"))).max(new Decimal("1e600"))) + " IP"
+    document.getElementById("eterc3goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e600").times(new Decimal("1e275").pow(ECTimesCompleted("eterc3"))).max(new Decimal("1e600"))) + " IP"
     document.getElementById("eterc3completed").innerHTML = "Completed "+ECTimesCompleted("eterc3")+" times."
 
     document.getElementById("eterc4goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2750").times(new Decimal("1e550").pow(ECTimesCompleted("eterc4"))).max(new Decimal("1e2750"))) + " IP in less than "+(16 - (ECTimesCompleted("eterc4")*4))+" infinities."
     document.getElementById("eterc4completed").innerHTML = "Completed "+ECTimesCompleted("eterc4")+" times."
 
-    document.getElementById("eterc5goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e675").times(new Decimal("1e125").pow(ECTimesCompleted("eterc5"))).max(new Decimal("1e675"))) + " IP"
+    document.getElementById("eterc5goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e675").times(new Decimal("1e325").pow(ECTimesCompleted("eterc5"))).max(new Decimal("1e675"))) + " IP"
     document.getElementById("eterc5completed").innerHTML = "Completed "+ECTimesCompleted("eterc5")+" times."
 
-    document.getElementById("eterc6goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e600").times(new Decimal("1e100").pow(ECTimesCompleted("eterc6"))).max(new Decimal("1e600"))) + " IP"
+    document.getElementById("eterc6goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e600").times(new Decimal("1e200").pow(ECTimesCompleted("eterc6"))).max(new Decimal("1e600"))) + " IP"
     document.getElementById("eterc6completed").innerHTML = "Completed "+ECTimesCompleted("eterc6")+" times."
 
-    document.getElementById("eterc7goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2700").times(new Decimal("1e300").pow(ECTimesCompleted("eterc7"))).max(new Decimal("1e2700"))) + " IP"
+    document.getElementById("eterc7goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2700").times(new Decimal("1e450").pow(ECTimesCompleted("eterc7"))).max(new Decimal("1e2700"))) + " IP"
     document.getElementById("eterc7completed").innerHTML = "Completed "+ECTimesCompleted("eterc7")+" times."
 
     document.getElementById("eterc8goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e3000").times(new Decimal("1e300").pow(ECTimesCompleted("eterc8"))).max(new Decimal("1e3000"))) + " IP"
