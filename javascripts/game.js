@@ -372,6 +372,64 @@ Array.min = function( array ){
     return Math.min.apply( Math, array );
 };
 
+Chart.defaults.global.defaultFontColor = 'black';
+Chart.defaults.global.defaultFontFamily = 'Typewriter';
+var ctx2 = document.getElementById("normalDimChart").getContext('2d');
+var normalDimChart = new Chart(ctx2, {
+    type: 'line',
+    data: {
+        labels: [],
+        datasets: [{
+            label: ['Exponents of antimatter per second'],
+            data: [],
+            backgroundColor: [
+                'rgba(0,0,0,1)'
+            ],
+            borderColor: [
+                'rgba(0,0,0,1)'
+            ],
+            fill: false,
+            lineTension: 0.1,
+            borderWidth: 3,
+            pointRadius: 0,
+            pointBorderWidth: 0,
+            pointHoverRadius: 0
+        }]
+    },
+    options: {
+        tooltips: {enabled: false},
+        hover: {mode: null},
+        legend: {
+            position: 'bottom',
+            labels: {
+                boxWidth: 0
+            }
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    max: 1000000,
+                    min: 0
+                }
+            }],
+            xAxes: [{
+                gridLines: {
+                    display: false,
+                    drawTicks: false
+                },
+                ticks: {
+                    fontSize: 0
+                }
+            }]
+        },
+        layout: {
+            padding: {
+            top: 10
+            }
+        }
+    }
+});
+
 function updateChartValues() {
     player.options.chart.duration = Math.min(Math.max(parseInt(document.getElementById("chartDurationInput").value), 1), 300);
     document.getElementById("chartDurationInput").value = player.options.chart.duration;
@@ -7361,6 +7419,7 @@ function updateChart(first) {
         setTimeout(updateChart, 1000);
     }
 }
+updateChart(true);
 
 var slider = document.getElementById("updaterateslider");
 var sliderText = document.getElementById("updaterate");
