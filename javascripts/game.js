@@ -6777,11 +6777,15 @@ setInterval(function() {
 
 
 
-    if (player.currentEternityChall == "eterc8") document.getElementById("eterc8ids").style.display = "block"
-    document.getElementById("eterc8ids").innerHTML = "You have "+player.eterc8ids+" purchases left."
-
-    if (player.currentEternityChall == "eterc8") document.getElementById("eterc8repl").style.display = "block"
-    document.getElementById("eterc8repl").innerHTML = "You have "+player.eterc8repl+" purchases left."
+    if (player.currentEternityChall == "eterc8") {
+        document.getElementById("eterc8repl").style.display = "block"
+        document.getElementById("eterc8ids").style.display = "block"
+        document.getElementById("eterc8repl").innerHTML = "You have "+player.eterc8repl+" purchases left." 
+        document.getElementById("eterc8ids").innerHTML = "You have "+player.eterc8ids+" purchases left." 
+    } else {
+        document.getElementById("eterc8repl").style.display = "none"
+        document.getElementById("eterc8ids").style.display = "none"
+    }
     
 
 }, 1000)
