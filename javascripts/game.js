@@ -1887,6 +1887,7 @@ function updateEternityChallenges() {
     }
 
     if (player.eternityChalls.eterc1 !== undefined) document.getElementById("eterctabbtn").style.display = "block"
+    if (player.etercreq !== 0) document.getElementById("eterc"+player.etercreq+"div").style.display = "block"
 
     if (player.currentEternityChall !== "") {
         document.getElementById(player.currentEternityChall).innerHTML = "Running"
@@ -6760,13 +6761,13 @@ setInterval(function() {
     document.getElementById("eterc4goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2750").times(new Decimal("1e550").pow(ECTimesCompleted("eterc4"))).max(new Decimal("1e2750"))) + " IP in less than "+(16 - (ECTimesCompleted("eterc4")*4))+" infinities."
     document.getElementById("eterc4completed").innerHTML = "Completed "+ECTimesCompleted("eterc4")+" times."
 
-    document.getElementById("eterc5goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e675").times(new Decimal("1e325").pow(ECTimesCompleted("eterc5"))).max(new Decimal("1e675"))) + " IP"
+    document.getElementById("eterc5goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e675").times(new Decimal("1e375").pow(ECTimesCompleted("eterc5"))).max(new Decimal("1e675"))) + " IP"
     document.getElementById("eterc5completed").innerHTML = "Completed "+ECTimesCompleted("eterc5")+" times."
 
-    document.getElementById("eterc6goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e600").times(new Decimal("1e200").pow(ECTimesCompleted("eterc6"))).max(new Decimal("1e600"))) + " IP"
+    document.getElementById("eterc6goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e600").times(new Decimal("1e300").pow(ECTimesCompleted("eterc6"))).max(new Decimal("1e600"))) + " IP"
     document.getElementById("eterc6completed").innerHTML = "Completed "+ECTimesCompleted("eterc6")+" times."
 
-    document.getElementById("eterc7goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2000").times(new Decimal("1e550").pow(ECTimesCompleted("eterc7"))).max(new Decimal("1e2700"))) + " IP"
+    document.getElementById("eterc7goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2000").times(new Decimal("1e650").pow(ECTimesCompleted("eterc7"))).max(new Decimal("1e2700"))) + " IP"
     document.getElementById("eterc7completed").innerHTML = "Completed "+ECTimesCompleted("eterc7")+" times."
 
     document.getElementById("eterc8goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e1300").times(new Decimal("1e300").pow(ECTimesCompleted("eterc8"))).max(new Decimal("1e1300"))) + " IP"
@@ -6776,11 +6777,15 @@ setInterval(function() {
 
 
 
-    if (player.currentEternityChall == "eterc8") document.getElementById("eterc8ids").style.display = "block"
-    document.getElementById("eterc8ids").innerHTML = "You have "+player.eterc8ids+" purchases left."
-
-    if (player.currentEternityChall == "eterc8") document.getElementById("eterc8repl").style.display = "block"
-    document.getElementById("eterc8repl").innerHTML = "You have "+player.eterc8repl+" purchases left."
+    if (player.currentEternityChall == "eterc8") {
+        document.getElementById("eterc8repl").style.display = "block"
+        document.getElementById("eterc8ids").style.display = "block"
+        document.getElementById("eterc8repl").innerHTML = "You have "+player.eterc8repl+" purchases left." 
+        document.getElementById("eterc8ids").innerHTML = "You have "+player.eterc8ids+" purchases left." 
+    } else {
+        document.getElementById("eterc8repl").style.display = "none"
+        document.getElementById("eterc8ids").style.display = "none"
+    }
     
 
 }, 1000)
