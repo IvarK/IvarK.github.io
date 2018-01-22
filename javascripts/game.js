@@ -1887,6 +1887,7 @@ function updateEternityChallenges() {
     }
 
     if (player.eternityChalls.eterc1 !== undefined) document.getElementById("eterctabbtn").style.display = "block"
+    if (player.etercreq !== 0) document.getElementById("eterc"+player.etercreq+"div").style.display = "block"
 
     if (player.currentEternityChall !== "") {
         document.getElementById(player.currentEternityChall).innerHTML = "Running"
