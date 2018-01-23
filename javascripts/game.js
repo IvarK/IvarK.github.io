@@ -3169,6 +3169,9 @@ function buyManyDimension(tier) {
     return true;
 }
 
+
+const initCost = [null, new Decimal(10), new Decimal(1e2), new Decimal(1e4), new Decimal(1e6), new Decimal(1e9), new Decimal(1e12), new Decimal(1e18), new Decimal(1e24)]
+const costMults = [null, new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15)]
 function buyManyDimensionAutobuyer(tier, bulk) {
 
         var name = TIER_NAMES[tier];
@@ -3240,26 +3243,32 @@ function buyManyDimensionAutobuyer(tier, bulk) {
                     x--;
                 }
             }
-            var a = Math.log10(Math.sqrt(player.dimensionMultDecrease))
-            var b = player.costMultipliers[tier-1].dividedBy(Math.sqrt(player.dimensionMultDecrease)).log10()
-            var c = player[name + "Cost"].dividedBy(player.money).log10()
-            var discriminant = Math.pow(b, 2) - (c *a* 4)
-            if (discriminant < 0) return false
-            var buying = Math.floor((Math.sqrt(Math.pow(b, 2) - (c *a *4))-b)/(2 * a))+1
-            if (buying <= 0) return false
-            if (buying > bulk) buying = bulk
-            player[name+"Amount"] = Decimal.round(player[name+"Amount"].plus(10*buying))
-            player[name + 'Bought'] += 10*buying
-            player[name + "Pow"] = player[name + "Pow"].times(Decimal.pow(getDimensionPowerMultiplier(tier), buying))
-            //buying-=1;
-            //if (buying > 0 )player[name + "Cost"] = player.costMultipliers[tier-1].times(Decimal.pow(player.dimensionMultDecrease, (buying * buying - buying)/2)).times(player[name + "Cost"])
-            for (var i = 0; i<buying-1; i++) {
+            if (player[name + "Cost"].gte(Number.MAX_VALUE)) {
+                var a = Math.log10(Math.sqrt(player.dimensionMultDecrease))
+                var b = player.costMultipliers[tier-1].dividedBy(Math.sqrt(player.dimensionMultDecrease)).log10()
+                var c = player[name + "Cost"].dividedBy(player.money).log10()
+                var discriminant = Math.pow(b, 2) - (c *a* 4)
+                if (discriminant < 0) return false
+                var buying = Math.floor((Math.sqrt(Math.pow(b, 2) - (c *a *4))-b)/(2 * a))+1
+                if (buying <= 0) return false
+                if (buying > bulk) buying = bulk
+                player[name+"Amount"] = Decimal.round(player[name+"Amount"].plus(10*buying))
+                preInfBuy = Math.floor(1 + (308 - initCost[tier].log10()) / costMults[tier].log10())
+                postInfBuy = player[name + 'Bought']/10+buying - preInfBuy - 1
+                postInfInitCost = initCost[tier].times(Decimal.pow(costMults[tier], preInfBuy))
+                player[name + 'Bought'] += 10*buying
+                player[name + "Pow"] = player[name + "Pow"].times(Decimal.pow(getDimensionPowerMultiplier(tier), buying))
+                
+                newCost = postInfInitCost.times(Decimal.pow(costMults[tier], postInfBuy)).times(Decimal.pow(player.dimensionMultDecrease, postInfBuy * (postInfBuy+1)/2))
+                newMult = costMults[tier].times(Decimal.pow(player.dimensionMultDecrease, postInfBuy+1))
+                //if (buying > 0 )player[name + "Cost"] = player.costMultipliers[tier-1].times(Decimal.pow(player.dimensionMultDecrease, (buying * buying - buying)/2)).times(player[name + "Cost"])
+                
+                player[name + "Cost"] = newCost
+                player.costMultipliers[tier-1] = newMult
+                player.money = player.money.minus(player[name + "Cost"])
                 player[name + "Cost"] = player[name + "Cost"].times(player.costMultipliers[tier-1])
                 player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
             }
-            player.money = player.money.minus(player[name + "Cost"])
-            player[name + "Cost"] = player[name + "Cost"].times(player.costMultipliers[tier-1])
-            player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
         }
 
 
@@ -3499,23 +3508,33 @@ document.getElementById("maxall").onclick = function () {
                 }
                 }
 
-            var a = Math.log10(Math.sqrt(player.dimensionMultDecrease))
-            var b = player.costMultipliers[tier-1].dividedBy(Math.sqrt(player.dimensionMultDecrease)).log10()
-            var c = player[name + "Cost"].dividedBy(player.money).log10()
-            var discriminant = Math.pow(b, 2) - (c *a* 4)
-            if (discriminant < 0) continue
-            var buying = Math.floor((Math.sqrt(Math.pow(b, 2) - (c *a *4))-b)/(2 * a))+1
-            if (buying <= 0) continue
-            player[name+"Amount"] = Decimal.round(player[name+"Amount"].plus(10*buying))
-            player[name + 'Bought'] += 10*buying
-            player[name + "Pow"] = player[name + "Pow"].times(Decimal.pow(getDimensionPowerMultiplier(tier), buying))
-            for (var i = 0; i<buying-1; i++) {
-                player[name + "Cost"] = player[name + "Cost"].times(player.costMultipliers[tier-1])
-                player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
-            }
-            player.money = player.money.minus(player[name + "Cost"])
-            player[name + "Cost"] = player[name + "Cost"].times(player.costMultipliers[tier-1])
-            player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
+                if (player[name + "Cost"].gte(Number.MAX_VALUE)) {
+                    var a = Math.log10(Math.sqrt(player.dimensionMultDecrease))
+                    var b = player.costMultipliers[tier-1].dividedBy(Math.sqrt(player.dimensionMultDecrease)).log10()
+                    var c = player[name + "Cost"].dividedBy(player.money).log10()
+                    var discriminant = Math.pow(b, 2) - (c *a* 4)
+                    if (discriminant < 0) continue
+                    var buying = Math.floor((Math.sqrt(Math.pow(b, 2) - (c *a *4))-b)/(2 * a))+1
+                    if (buying <= 0) return false
+                    player[name+"Amount"] = Decimal.round(player[name+"Amount"].plus(10*buying))
+                    preInfBuy = Math.floor(1 + (308 - initCost[tier].log10()) / costMults[tier].log10())
+                    postInfBuy = player[name + 'Bought']/10+buying - preInfBuy - 1
+                    postInfInitCost = initCost[tier].times(Decimal.pow(costMults[tier], preInfBuy))
+                    player[name + 'Bought'] += 10*buying
+                    player[name + "Pow"] = player[name + "Pow"].times(Decimal.pow(getDimensionPowerMultiplier(tier), buying))
+                    
+                    newCost = postInfInitCost.times(Decimal.pow(costMults[tier], postInfBuy)).times(Decimal.pow(player.dimensionMultDecrease, postInfBuy * (postInfBuy+1)/2))
+                    newMult = costMults[tier].times(Decimal.pow(player.dimensionMultDecrease, postInfBuy+1))
+                    //if (buying > 0 )player[name + "Cost"] = player.costMultipliers[tier-1].times(Decimal.pow(player.dimensionMultDecrease, (buying * buying - buying)/2)).times(player[name + "Cost"])
+                    
+                    player[name + "Cost"] = newCost
+                    player.costMultipliers[tier-1] = newMult
+                    player.money = player.money.minus(player[name + "Cost"])
+                    player[name + "Cost"] = player[name + "Cost"].times(player.costMultipliers[tier-1])
+                    player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
+                }
+
+                
         }
         }
         if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") && player.matter.equals(0)) player.matter = new Decimal(1);
