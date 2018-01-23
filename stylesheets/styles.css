@@ -881,6 +881,7 @@
     font-size: 0.85rem;
     position: fixed;
     left: 50%;
+    
     bottom: 5px;
     z-index: 1;
 }
@@ -889,6 +890,7 @@
     color: #232028;
     background: #3AACD6;
 }
+
 
 .timetheorembtnlocked {
     color: black;
@@ -909,6 +911,30 @@
 
 .timetheorembtnlocked:hover {
     background: #652F2F;
+}
+
+.maxbuytheorembtn {
+    color: #3AACD6;
+    background: #232028;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 1px solid #691fa5;
+    width: 130px;
+    height: 30px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    position: fixed;
+    left: 50%;
+    margin-left: -86px;
+    bottom: 77px;
+    z-index: 1;
+}
+
+.maxbuytheorembtn:hover {
+    color: #232028;
+    background: #3AACD6;
 }
 
 #timetheorems {
