@@ -3892,7 +3892,7 @@ function updateInfCosts() {
     else document.getElementById("ec6unl").innerHTML = "Eternity Challenge 6<span>Cost: 85 Time Theorems"
     if (player.etercreq !== 7) document.getElementById("ec7unl").innerHTML = "Eternity Challenge 7<span>Requirement: "+shortenCosts(new Decimal("1e500000").times(new Decimal("1e35000").pow(ECTimesCompleted("eterc7"))))+" <span>Cost: 115 Time Theorems"
     else document.getElementById("ec7unl").innerHTML = "Eternity Challenge 7<span>Cost: 115 Time Theorems"
-    if (player.etercreq !== 8) document.getElementById("ec8unl").innerHTML = "Eternity Challenge 8<span>Requirement: All ID costs over Y <span>Cost: 115 Time Theorems"
+    if (player.etercreq !== 8) document.getElementById("ec8unl").innerHTML = "Eternity Challenge 8<span>Requirement: "+shortenCosts(new Decimal("1e4000").times(new Decimal("1e1000").pow(ECTimesCompleted("eterc8"))))+" IP <span>Cost: 115 Time Theorems"
     else document.getElementById("ec8unl").innerHTML = "Eternity Challenge 8<span>Cost: 115 Time Theorems"
     if (player.etercreq !== 9) document.getElementById("ec9unl").innerHTML = "Eternity Challenge 9<span>Requirement: "+shortenCosts(new Decimal("1e6000").times(new Decimal("1e500").pow(ECTimesCompleted("eterc9"))))+" infinity power<span>Cost: 100 Time Theorems"
     else document.getElementById("ec9unl").innerHTML = "Eternity Challenge 9<span>Cost: 100 Time Theorems"
@@ -6087,7 +6087,7 @@ function canUnlockEC(idx, cost, study) {
         break;
 
         case 8:
-        /*TODO */return true
+        if (player.infinityPoints.gte(new Decimal("1e4000").times(new Decimal("1e1000").pow(ECTimesCompleted("eterc8"))))) return true
         break;
 
         case 9:
@@ -6940,7 +6940,7 @@ function gameLoop(diff) {
     if (player.currentEternityChall !== "eterc7") player.timeShards = player.timeShards.plus(getTimeDimensionProduction(1).times(diff/10))
     else player.infinityDimension8.amount = player.infinityDimension8.amount.plus(getTimeDimensionProduction(1).times(diff/10))
 
-    player.infinityDimension8.amount = player.infinityDimension8.amount.plus(getTimeDimensionProduction(1).pow(ECTimesCompleted("eterc7")*0.2).minus(1).times(diff/10))
+    if (getTimeDimensionProduction(1).gt(0)) player.infinityDimension8.amount = player.infinityDimension8.amount.plus(getTimeDimensionProduction(1).pow(ECTimesCompleted("eterc7")*0.2).times(diff/10))
 
     while (player.timeShards.gte(player.tickThreshold)) {
         player.tickspeed = player.tickspeed.times(getTickSpeedMultiplier())
