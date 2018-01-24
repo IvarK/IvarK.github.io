@@ -2129,7 +2129,7 @@ function getTimeDimensionPower(tier) {
     if (player.achievements.includes("r105")) ret = ret.div(player.tickspeed.div(1000).pow(0.000005))
     if (player.currentEternityChall == "eterc9") ret = ret.times((Decimal.pow(Math.max(player.infinityPower.log2(), 1), 4)).max(1))
     if (ECTimesCompleted("eterc1") !== 0) ret = ret.times(Math.pow(Math.max(player.thisEternity*10, 1), 0.3+(ECTimesCompleted("eterc1")*0.05)))
-    ec10bonus = new Decimal(1)
+    let ec10bonus = new Decimal(1)
     if (ECTimesCompleted("eterc10") !== 0) ec10bonus = new Decimal(player.infinitied * ECTimesCompleted("eterc10") * 0.2+1)
     if (player.timestudy.studies.includes(31)) ec10bonus = ec10bonus.pow(4)
     ret = ret.times(ec10bonus)
@@ -2426,7 +2426,7 @@ function respecTimeStudies() {
         break;
 
         case 10:
-        player.timestudy.theorem += 200
+        player.timestudy.theorem += 550
         break;
     }
     player.eternityChallUnlocked = 0
@@ -3930,6 +3930,8 @@ function updateInfCosts() {
     else document.getElementById("ec8unl").innerHTML = "Eternity Challenge 8<span>Cost: 115 Time Theorems"
     if (player.etercreq !== 9) document.getElementById("ec9unl").innerHTML = "Eternity Challenge 9<span>Requirement: "+shortenCosts(new Decimal("1e22000").times(new Decimal("1e2000").pow(ECTimesCompleted("eterc9"))))+" infinity power<span>Cost: 415 Time Theorems"
     else document.getElementById("ec9unl").innerHTML = "Eternity Challenge 9<span>Cost: 415 Time Theorems"
+    if (player.etercreq !== 10) document.getElementById("ec10unl").innerHTML = "Eternity Challenge 10<span>Requirement: "+shortenCosts(new Decimal("1e100").times(new Decimal("1e20").pow(ECTimesCompleted("eterc10"))))+" EP<span>Cost: 550 Time Theorems"
+    else document.getElementById("ec10unl").innerHTML = "Eternity Challenge 10<span>Cost: 550 Time Theorems"
 }
 
 
@@ -6129,7 +6131,7 @@ function canUnlockEC(idx, cost, study) {
         break;
 
         case 10:
-        /*TODO */return true
+        if (player.eternityPoints.gte(new Decimal("1e100").times(new Decimal("1e20").pow(ECTimesCompleted("eterc10"))))) return true
         break;
     }
 }
@@ -6189,7 +6191,7 @@ function updateECUnlockButtons() {
         document.getElementById("ec9unl").className = "eternitychallengestudylocked"
     }
 
-    if (canUnlockEC(10, 200, 181)) {
+    if (canUnlockEC(10, 550, 181)) {
         document.getElementById("ec10unl").className = "eternitychallengestudy"
     } else {
         document.getElementById("ec10unl").className = "eternitychallengestudylocked"
@@ -6289,9 +6291,9 @@ document.getElementById("ec9unl").onclick = function() {
 }
 
 document.getElementById("ec10unl").onclick = function() {
-    if (canUnlockEC(10, 200, 171)) {
+    if (canUnlockEC(10, 550, 171)) {
         unlockEChall(10)
-        player.timestudy.theorem -= 200
+        player.timestudy.theorem -= 550
         updateTheoremButtons()
         updateTimeStudyButtons()
         drawStudyTree()
@@ -7362,6 +7364,7 @@ function gameLoop(diff) {
     document.getElementById("ec8reward").innerHTML = "Reward: Infinity power powers up replicanti galaxies, Currently: " + (Math.max(Math.pow(Math.log10(player.infinityPower.plus(1).log10()+1), 0.03 * ECTimesCompleted("eterc8"))-1, 0) * 100).toFixed(2) + " %"
     document.getElementById("ec9reward").innerHTML = "Reward: Infinity Dimension multiplier based on time shards, Currently: "+shortenMoney(player.timeShards.pow(ECTimesCompleted("eterc9")*0.1).min(new Decimal("1e400")))+"x "
     document.getElementById("ec10reward").innerHTML = "Reward: Time dimensions gain a multiplier from infinitied stat, Currently: "+shortenMoney(player.infinitied * ECTimesCompleted("eterc10") * 0.2+1)+"x "
+    document.getElementById("ec10span").innerHTML = shortenMoney(ec10bonus) + "x"
     var scale1 = [2.82e-45,1e-42,7.23e-30,5e-21,9e-17,6.2e-11,5e-8,3.555e-6,7.5e-4,1,2.5e3,2.6006e6,3.3e8,5e12,4.5e17,1.08e21,1.53e24,1.41e27,5e32,8e36,1.7e45,1.7e48,3.3e55,3.3e61,5e68,1e73,3.4e80,1e113,Number.MAX_VALUE,new Decimal("1e65000")];
     var scale2 = [" protons."," nucleuses."," Hydrogen atoms."," viruses."," red blood cells."," grains of sand."," grains of rice."," teaspoons."," wine bottles."," fridge-freezers."," Olympic-sized swimming pools."," Great Pyramids of Giza."," Great Walls of China."," large asteroids.",
                 " dwarf planets."," Earths."," Jupiters."," Suns."," red giants."," hypergiant stars."," nebulas."," Oort clouds."," Local Bubbles."," galaxies."," Local Groups."," Sculptor Voids."," observable universes."," Dimensions.", " Infinity Dimensions.", " Time Dimensions."];
