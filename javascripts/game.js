@@ -2130,7 +2130,7 @@ function getTimeDimensionPower(tier) {
     if (player.currentEternityChall == "eterc9") ret = ret.times((Decimal.pow(Math.max(player.infinityPower.log2(), 1), 4)).max(1))
     if (ECTimesCompleted("eterc1") !== 0) ret = ret.times(Math.pow(Math.max(player.thisEternity*10, 1), 0.3+(ECTimesCompleted("eterc1")*0.05)))
     let ec10bonus = new Decimal(1)
-    if (ECTimesCompleted("eterc10") !== 0) ec10bonus = new Decimal(player.infinitied * ECTimesCompleted("eterc10") * 0.2+1)
+    if (ECTimesCompleted("eterc10") !== 0) ec10bonus = new Decimal(player.infinitied * ECTimesCompleted("eterc10") * 0.0002+1)
     if (player.timestudy.studies.includes(31)) ec10bonus = ec10bonus.pow(4)
     ret = ret.times(ec10bonus)
     return ret
@@ -3978,6 +3978,7 @@ function upgradeReplicantiGalaxy() {
         player.infinityPoints = player.infinityPoints.minus(player.replicanti.galCost)
         if (player.currentEternityChall == "eterc6") player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(1e2, player.replicanti.gal)).times(1e2)
         else player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(1e5, player.replicanti.gal)).times(1e25)
+        if (player.replicanti.gal >= 100) player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(1e50, player.replicanti.gal - 95))
         player.replicanti.gal += 1
         if (player.currentEternityChall == "eterc8") player.eterc8repl-=1
         document.getElementById("eterc8repl").innerHTML = "You have "+player.eterc8repl+" purchases left."
@@ -6812,7 +6813,7 @@ setInterval(function() {
     document.getElementById("eterc9goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2350").times(new Decimal("1e150").pow(ECTimesCompleted("eterc9"))).max(new Decimal("1e2450"))) + " IP"
     document.getElementById("eterc9completed").innerHTML = "Completed "+ECTimesCompleted("eterc9")+" times."
 
-    document.getElementById("eterc10goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e3000").times(new Decimal("1e300").pow(ECTimesCompleted("eterc8"))).max(new Decimal("1e1300"))) + " IP"
+    document.getElementById("eterc10goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e3100").times(new Decimal("1e300").pow(ECTimesCompleted("eterc10"))).max(new Decimal("1e3100"))) + " IP"
     document.getElementById("eterc10completed").innerHTML = "Completed "+ECTimesCompleted("eterc10")+" times."
     updateECUnlockButtons()
 
@@ -7363,7 +7364,8 @@ function gameLoop(diff) {
     document.getElementById("ec7reward").innerHTML = "Reward: First Time dimension produces Eighth Infinity Dimensions, Currently: "+shortenMoney(getTimeDimensionProduction(1).pow(ECTimesCompleted("eterc7")*0.2).minus(1))+" per second. "
     document.getElementById("ec8reward").innerHTML = "Reward: Infinity power powers up replicanti galaxies, Currently: " + (Math.max(Math.pow(Math.log10(player.infinityPower.plus(1).log10()+1), 0.03 * ECTimesCompleted("eterc8"))-1, 0) * 100).toFixed(2) + " %"
     document.getElementById("ec9reward").innerHTML = "Reward: Infinity Dimension multiplier based on time shards, Currently: "+shortenMoney(player.timeShards.pow(ECTimesCompleted("eterc9")*0.1).min(new Decimal("1e400")))+"x "
-    document.getElementById("ec10reward").innerHTML = "Reward: Time dimensions gain a multiplier from infinitied stat, Currently: "+shortenMoney(player.infinitied * ECTimesCompleted("eterc10") * 0.2+1)+"x "
+    document.getElementById("ec10reward").innerHTML = "Reward: Time dimensions gain a multiplier from infinitied stat, Currently: "+shortenMoney(player.infinitied * ECTimesCompleted("eterc10") * 0.0002+1)+"x "
+    if (player.timestudy.studies.includes(31)) document.getElementById("ec10reward").innerHTML = "Reward: Time dimensions gain a multiplier from infinitied stat, Currently: "+shortenMoney(Decimal.pow(player.infinitied * ECTimesCompleted("eterc10") * 0.0002+1, 4))+"x "
     document.getElementById("ec10span").innerHTML = shortenMoney(ec10bonus) + "x"
     var scale1 = [2.82e-45,1e-42,7.23e-30,5e-21,9e-17,6.2e-11,5e-8,3.555e-6,7.5e-4,1,2.5e3,2.6006e6,3.3e8,5e12,4.5e17,1.08e21,1.53e24,1.41e27,5e32,8e36,1.7e45,1.7e48,3.3e55,3.3e61,5e68,1e73,3.4e80,1e113,Number.MAX_VALUE,new Decimal("1e65000")];
     var scale2 = [" protons."," nucleuses."," Hydrogen atoms."," viruses."," red blood cells."," grains of sand."," grains of rice."," teaspoons."," wine bottles."," fridge-freezers."," Olympic-sized swimming pools."," Great Pyramids of Giza."," Great Walls of China."," large asteroids.",
