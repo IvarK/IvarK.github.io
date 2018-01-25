@@ -2008,6 +2008,16 @@ function resetInfDimensions() {
     if (player.infDimensionsUnlocked[0]) {
         player.infinityPower = new Decimal(0)
     }
+    if (player.infDimensionsUnlocked[7] && player.infinityDimension6.amount != 0 && ECTimesCompleted("eterc7") > 0){
+        player.infinityDimension8.amount = new Decimal(player.infinityDimension8.baseAmount)
+        player.infinityDimension7.amount = new Decimal(player.infinityDimension7.baseAmount)
+        player.infinityDimension6.amount = new Decimal(player.infinityDimension6.baseAmount)
+        player.infinityDimension5.amount = new Decimal(player.infinityDimension5.baseAmount)
+        player.infinityDimension4.amount = new Decimal(player.infinityDimension4.baseAmount)
+        player.infinityDimension3.amount = new Decimal(player.infinityDimension3.baseAmount)
+        player.infinityDimension2.amount = new Decimal(player.infinityDimension2.baseAmount)
+        player.infinityDimension1.amount = new Decimal(player.infinityDimension1.baseAmount)
+    }
     if (player.infDimensionsUnlocked[7] && player.infinityDimension6.amount != 0){
         player.infinityDimension7.amount = new Decimal(player.infinityDimension7.baseAmount)
         player.infinityDimension6.amount = new Decimal(player.infinityDimension6.baseAmount)
