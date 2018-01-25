@@ -761,6 +761,7 @@ function onLoad() {
     if (player.options.chart.updateRate === undefined) player.options.chart.updateRate = 1000
     if (player.options.chart.duration === undefined) player.options.chart.duration = 10
     if (player.options.chart.warning === undefined) player.options.chart.warning = 0
+    if (player.options.chart.on === undefined) player.options.chart.on = false
     if (player.etercreq === undefined) player.etercreq = 0
     if (player.options.updateRate === undefined) player.options.updateRate = 50
     if (player.eterc8ids === undefined) player.eterc8ids = 50
@@ -1128,6 +1129,8 @@ function onLoad() {
 
     document.getElementById("chartDurationInput").value = player.options.chart.duration;
     document.getElementById("chartUpdateRateInput").value = player.options.chart.updateRate;
+    if (player.options.chart.on) document.getElementById("chartOnOff").checked = true
+    else document.getElementById("chartOnOff").checked = false
 
     if (!player.options.hotkeys) document.getElementById("hotkeys").innerHTML = "Enable hotkeys"
     updateAutobuyers();
@@ -7475,8 +7478,17 @@ function startInterval() {
     }
 }
 
+function enableChart() {
+    if (document.getElementById("chartOnOff").checked) {
+        player.options.chart.on = true;
+        alert("Warning: the chart can cause performance issues. Please disable it if you're experiencing lag.")
+    } else {
+        player.options.chart.on = false;
+    }
+}
+
 function updateChart(first) {
-    if (first !== true && (player.infinitied >= 1 || player.eternities >= 1)) {
+    if (first !== true && (player.infinitied >= 1 || player.eternities >= 1) && player.options.chart.on === true) {
         if (player.currentChallenge == "challenge3" || player.currentChallenge == "postc1") {
             addData(normalDimChart, "0", getDimensionProductionPerSecond(1).times(player.chall3Pow));
         } else {
