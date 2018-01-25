@@ -450,7 +450,7 @@ function updateChartValues() {
 }
 
 function addData(chart, label, data) {
-    if (chart.data.datasets[0].data.length >= player.options.chart.duration / player.options.chart.updateRate * 1000) {
+    if (chart.data.datasets[0].data.length >= Math.ceil(player.options.chart.duration / player.options.chart.updateRate * 1000)) {
         chart.data.labels.shift();
         chart.data.datasets[0].data.shift();
     }
@@ -471,7 +471,7 @@ function addData(chart, label, data) {
         chart.options.scales.yAxes[0].ticks.min = data;
     }
     var preservedChartValues = false;
-    while (chart.data.datasets[0].data.length < player.options.chart.duration / player.options.chart.updateRate * 1000 - 1) {
+    while (chart.data.datasets[0].data.length < Math.ceil(player.options.chart.duration / player.options.chart.updateRate * 1000 - 1)) {
         if (preservedChartValues) {
             chart.data.labels.push(label);
             chart.data.datasets.forEach((dataset) => {
@@ -482,7 +482,7 @@ function addData(chart, label, data) {
             var tempData = data;
             preservedChartValues = true;
         }
-        if (chart.data.datasets[0].data.length >= player.options.chart.duration / player.options.chart.updateRate * 1000 - 1) {
+        if (chart.data.datasets[0].data.length >= Math.ceil(player.options.chart.duration / player.options.chart.updateRate * 1000 - 1)) {
             var temp2 = chart.data.datasets[0].data.slice()
             for (i=0; i<temp.length; i++) {
                 temp2[chart.data.datasets[0].data.length - temp.length + i] = temp[i];
@@ -491,7 +491,7 @@ function addData(chart, label, data) {
             chart.data.datasets[0].data = temp2;
         }
     }
-    while (chart.data.datasets[0].data.length > player.options.chart.duration / player.options.chart.updateRate * 1000 - 1) {
+    while (chart.data.datasets[0].data.length > Math.ceil(player.options.chart.duration / player.options.chart.updateRate * 1000 - 1)) {
         chart.data.labels.pop(label);
         chart.data.datasets.forEach((dataset) => {
             dataset.data.pop(data);
@@ -501,7 +501,7 @@ function addData(chart, label, data) {
     chart.data.datasets.forEach((dataset) => {
         dataset.data.push(data);
     });
-    chart.update();
+    chart.update(300);
 }
 
 function drawTreeBranch(num1, num2) {
@@ -765,6 +765,7 @@ function onLoad() {
     if (player.options.chart.updateRate === undefined) player.options.chart.updateRate = 1000
     if (player.options.chart.duration === undefined) player.options.chart.duration = 10
     if (player.options.chart.warning === undefined) player.options.chart.warning = 0
+    if (player.options.chart.on === undefined) player.options.chart.on = false
     if (player.etercreq === undefined) player.etercreq = 0
     if (player.options.updateRate === undefined) player.options.updateRate = 50
     if (player.eterc8ids === undefined) player.eterc8ids = 50
@@ -1133,6 +1134,8 @@ function onLoad() {
 
     document.getElementById("chartDurationInput").value = player.options.chart.duration;
     document.getElementById("chartUpdateRateInput").value = player.options.chart.updateRate;
+    if (player.options.chart.on) document.getElementById("chartOnOff").checked = true
+    else document.getElementById("chartOnOff").checked = false
 
     if (!player.options.hotkeys) document.getElementById("hotkeys").innerHTML = "Enable hotkeys"
     updateAutobuyers();
@@ -2004,6 +2007,16 @@ function resetInfDimensions() {
 
     if (player.infDimensionsUnlocked[0]) {
         player.infinityPower = new Decimal(0)
+    }
+    if (player.infDimensionsUnlocked[7] && player.infinityDimension6.amount != 0 && ECTimesCompleted("eterc7") > 0){
+        player.infinityDimension8.amount = new Decimal(player.infinityDimension8.baseAmount)
+        player.infinityDimension7.amount = new Decimal(player.infinityDimension7.baseAmount)
+        player.infinityDimension6.amount = new Decimal(player.infinityDimension6.baseAmount)
+        player.infinityDimension5.amount = new Decimal(player.infinityDimension5.baseAmount)
+        player.infinityDimension4.amount = new Decimal(player.infinityDimension4.baseAmount)
+        player.infinityDimension3.amount = new Decimal(player.infinityDimension3.baseAmount)
+        player.infinityDimension2.amount = new Decimal(player.infinityDimension2.baseAmount)
+        player.infinityDimension1.amount = new Decimal(player.infinityDimension1.baseAmount)
     }
     if (player.infDimensionsUnlocked[7] && player.infinityDimension6.amount != 0){
         player.infinityDimension7.amount = new Decimal(player.infinityDimension7.baseAmount)
@@ -7514,8 +7527,17 @@ function startInterval() {
     }
 }
 
+function enableChart() {
+    if (document.getElementById("chartOnOff").checked) {
+        player.options.chart.on = true;
+        if (player.options.chart.warning < 1) alert("Warning: the chart can cause performance issues. Please disable it if you're experiencing lag.")
+    } else {
+        player.options.chart.on = false;
+    }
+}
+
 function updateChart(first) {
-    if (first !== true && (player.infinitied >= 1 || player.eternities >= 1)) {
+    if (first !== true && (player.infinitied >= 1 || player.eternities >= 1) && player.options.chart.on === true) {
         if (player.currentChallenge == "challenge3" || player.currentChallenge == "postc1") {
             addData(normalDimChart, "0", getDimensionProductionPerSecond(1).times(player.chall3Pow));
         } else {
