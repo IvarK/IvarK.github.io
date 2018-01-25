@@ -7067,7 +7067,7 @@ function gameLoop(diff) {
     if (diff > 5 || interval < 50) {
         var gained = Decimal.pow(Math.E, current +(diff*est/10))
         player.replicanti.amount = Decimal.min(Number.MAX_VALUE, gained)
-        if (player.timestudy.studies.includes(191)) player.replicanti.amount = gained
+        if (player.timestudy.studies.includes(192)) player.replicanti.amount = gained
         replicantiTicks = 0
     } else {
         if (player.replicanti.interval <= replicantiTicks && player.replicanti.unl) {
@@ -7086,10 +7086,10 @@ function gameLoop(diff) {
                         }
                     }
                     player.replicanti.amount = Decimal.min(Number.MAX_VALUE, temp.times(counter).plus(player.replicanti.amount))
-                    if (player.timestudy.studies.includes(191)) player.replicanti.amount = temp.times(counter).plus(player.replicanti.amount)
+                    if (player.timestudy.studies.includes(192)) player.replicanti.amount = temp.times(counter).plus(player.replicanti.amount)
                     counter = 0
                 } else {
-                    if (player.timestudy.studies.includes(191)) player.replicanti.amount = player.replicanti.amount.times(2)
+                    if (player.timestudy.studies.includes(192)) player.replicanti.amount = player.replicanti.amount.times(2)
                     else player.replicanti.amount = Decimal.min(Number.MAX_VALUE, player.replicanti.amount.times(2))
                     
                 }
