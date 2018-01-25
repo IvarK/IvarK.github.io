@@ -450,7 +450,7 @@ function updateChartValues() {
 }
 
 function addData(chart, label, data) {
-    if (chart.data.datasets[0].data.length >= player.options.chart.duration / player.options.chart.updateRate * 1000) {
+    if (chart.data.datasets[0].data.length >= Math.ceil(player.options.chart.duration / player.options.chart.updateRate * 1000)) {
         chart.data.labels.shift();
         chart.data.datasets[0].data.shift();
     }
@@ -471,7 +471,7 @@ function addData(chart, label, data) {
         chart.options.scales.yAxes[0].ticks.min = data;
     }
     var preservedChartValues = false;
-    while (chart.data.datasets[0].data.length < player.options.chart.duration / player.options.chart.updateRate * 1000 - 1) {
+    while (chart.data.datasets[0].data.length < Math.ceil(player.options.chart.duration / player.options.chart.updateRate * 1000 - 1)) {
         if (preservedChartValues) {
             chart.data.labels.push(label);
             chart.data.datasets.forEach((dataset) => {
@@ -482,7 +482,7 @@ function addData(chart, label, data) {
             var tempData = data;
             preservedChartValues = true;
         }
-        if (chart.data.datasets[0].data.length >= player.options.chart.duration / player.options.chart.updateRate * 1000 - 1) {
+        if (chart.data.datasets[0].data.length >= Math.ceil(player.options.chart.duration / player.options.chart.updateRate * 1000 - 1)) {
             var temp2 = chart.data.datasets[0].data.slice()
             for (i=0; i<temp.length; i++) {
                 temp2[chart.data.datasets[0].data.length - temp.length + i] = temp[i];
@@ -491,7 +491,7 @@ function addData(chart, label, data) {
             chart.data.datasets[0].data = temp2;
         }
     }
-    while (chart.data.datasets[0].data.length > player.options.chart.duration / player.options.chart.updateRate * 1000 - 1) {
+    while (chart.data.datasets[0].data.length > Math.ceil(player.options.chart.duration / player.options.chart.updateRate * 1000 - 1)) {
         chart.data.labels.pop(label);
         chart.data.datasets.forEach((dataset) => {
             dataset.data.pop(data);
@@ -501,7 +501,7 @@ function addData(chart, label, data) {
     chart.data.datasets.forEach((dataset) => {
         dataset.data.push(data);
     });
-    chart.update();
+    chart.update(300);
 }
 
 function drawTreeBranch(num1, num2) {
@@ -7530,7 +7530,7 @@ function startInterval() {
 function enableChart() {
     if (document.getElementById("chartOnOff").checked) {
         player.options.chart.on = true;
-        alert("Warning: the chart can cause performance issues. Please disable it if you're experiencing lag.")
+        if (player.options.chart.warning < 1) alert("Warning: the chart can cause performance issues. Please disable it if you're experiencing lag.")
     } else {
         player.options.chart.on = false;
     }
