@@ -622,6 +622,7 @@ function drawStudyTree() {
     drawTreeBranch("ec10unl", "192")
     drawTreeBranch("ec10unl", "193")
     drawTreeBranch("193", "214")
+    drawTreeBranch("191", "211")
 }
 
 function setTheme(name) {
@@ -1568,7 +1569,7 @@ function getShiftRequirement(bulk) {
         tier = Math.min(player.resets + bulk + 4, 8)
     }
 
-    if (tier == 8) amount += (player.resets+bulk - 4) * 15;
+    if (tier == 8) amount += player.timestudy.studies.includes(211) ?  (player.resets+bulk - 4) * 10 : (player.resets+bulk - 4) * 15;
     if (player.currentEternityChall == "eterc5") {
         amount += Math.pow(player.resets+bulk, 3) + player.resets+bulk
     }
@@ -2334,6 +2335,7 @@ function canBuyStudy(name) {
         if (player.eternityChalls.eterc1 !== undefined && player.eternityChalls.eterc2 !== undefined && player.eternityChalls.eterc3 !== undefined && player.timestudy.studies.includes(171)) return true; else return false;
     }
     if (name == 214) if(player.timestudy.studies.includes(193)) return true; else return false
+    if (name == 211) if(player.timestudy.studies.includes(191)) return true; else return false
     switch(row) {
 
         case 1: return true
@@ -2373,8 +2375,8 @@ function canBuyStudy(name) {
 
     }
 }
-var all =      [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 214]
-var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 500, 730, 300, 120]
+var all =      [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 211, 214]
+var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 500, 730, 300, 120, 120]
 function updateTimeStudyButtons() {
     for (var i=0; i<all.length; i++) {
         if (!player.timestudy.studies.includes(all[i])) {
