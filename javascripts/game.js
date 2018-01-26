@@ -1425,8 +1425,8 @@ function formatValue(notation, value, places, placesUnder1000) {
             while (formatColor2.length < 6) {
                 formatColor2 = "0" + formatColor2
             }
-            if (parseInt(formatColor2) != 0) return matissa + ' <span class="moneyBox" style="border-color: #' + formatColor2 + ';"> </span><span class="moneyBox" style="border-color: #' + formatColor1 + ';"></span>';
-            else return matissa + ' <span class="moneyBox" style="border-color: #' + formatColor1 + ';"></span>';
+            if (parseInt(formatColor2) != 0) return matissa + ' <span class="moneyBox" style="background-color: #' + formatColor2 + ';"> </span><span class="moneyBox" style="border-color: #' + formatColor1 + ';"></span>';
+            else return matissa + ' <span class="moneyBox" style="background-color: #' + formatColor1 + ';"></span>';
         } else {
             if (power > 100000  && player.options.commas) power = power.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             return "1337 H4CK3R"
