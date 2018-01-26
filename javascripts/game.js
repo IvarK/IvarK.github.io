@@ -1783,7 +1783,7 @@ function updateDimensions() {
     document.getElementById("141").innerHTML = "Multiplier to IP, decaying over this infinity<span>Currently "+shortenMoney(new Decimal(1e45).dividedBy(Decimal.pow(15, Math.log(player.thisInfinityTime)*Math.pow(player.thisInfinityTime, 0.125))).max(1))+"x<span>Cost: 4 Time Theorems"
     document.getElementById("143").innerHTML = "Multiplier to IP, increasing over this infinity<span>Currently "+shortenMoney(Decimal.pow(15, Math.log(player.thisInfinityTime)*Math.pow(player.thisInfinityTime, 0.125)))+"x<span>Cost: 4 Time Theorems"
     document.getElementById("193").innerHTML = "Normal dimension boost based on eternities.<span>Currently "+shortenMoney(Decimal.pow(1.02, player.eternities))+"<span>Cost: 300 Time Theorems"
-    document.getElementById("214").innerHTML = "Sacrifice power boosts sacrifice power.<span>Currently "+shortenMoney(Decimal.pow(player.sacrificed.pow(0.011), (1 + (player.sacrificed.pow(0.011)).log10() / 1450)).div(player.sacrificed.pow(0.011)))+"x<span>Cost: 120 Time Theorems"
+    document.getElementById("214").innerHTML = "Sacrifice power boosts sacrifice power.<span>Currently "+shortenMoney(Decimal.pow(player.sacrificed.pow(0.011), (1 + (player.sacrificed.pow(0.011)).log10() / 1450)).div(player.sacrificed.pow(0.011)).max(1))+"x<span>Cost: 120 Time Theorems"
 }
 
 function updateCosts() {
