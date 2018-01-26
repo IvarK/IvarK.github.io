@@ -1794,6 +1794,7 @@ function updateDimensions() {
     document.getElementById("121").innerHTML = "The worse your average EP/min is, the more EP you get.<span>Currently: "+((253 - averageEp.dividedBy(player.epmult).dividedBy(10).min(248).max(3))/5).toFixed(1)+"x<span>Cost: 9 Time Theorems"
     document.getElementById("123").innerHTML = "You gain more EP based on time spent this eternity.<span>Currently: "+Math.sqrt(1.39*player.thisEternity/10).toFixed(1)+"x<span>Cost: 9 Time Theorems"
     document.getElementById("141").innerHTML = "Multiplier to IP, decaying over this infinity<span>Currently "+shortenMoney(new Decimal(1e45).dividedBy(Decimal.pow(15, Math.log(player.thisInfinityTime)*Math.pow(player.thisInfinityTime, 0.125))).max(1))+"x<span>Cost: 4 Time Theorems"
+    document.getElementById("143").innerHTML = "Multiplier to IP, increasing over this infinity<span>Currently "+shortenMoney(Decimal.pow(15, Math.log(player.thisInfinityTime)*Math.pow(player.thisInfinityTime, 0.125)))+"x<span>Cost: 4 Time Theorems"
     document.getElementById("193").innerHTML = "Normal dimension boost based on eternities.<span>Currently "+shortenMoney(Decimal.pow(1.02, player.eternities).min(new Decimal("1e30000")))+"<span>Cost: 300 Time Theorems"
     document.getElementById("214").innerHTML = "Sacrifice boosts the 8th dimension even more.<span>Currently "+shortenMoney(((calcTotalSacrificeBoost().pow(8)).min("1e46000").times(calcTotalSacrificeBoost().pow(1.1))).max(1))+"x<span>Cost: 120 Time Theorems"
 }
@@ -2218,6 +2219,7 @@ function updateTimeDimensions() {
 }
 
 var timeDimCostMults = [null, 3, 9, 27, 81]
+var timeDimStartCosts = [null, 1, 5, 100, 1000]
 function buyTimeDimension(tier) {
 
     var dim = player["timeDimension"+tier]
@@ -2226,7 +2228,10 @@ function buyTimeDimension(tier) {
     player.eternityPoints = player.eternityPoints.minus(dim.cost)
     dim.amount = dim.amount.plus(1);
     dim.bought += 1
-    dim.cost = dim.cost.times(timeDimCostMults[tier])
+    dim.cost = Decimal.pow(timeDimCostMults[tier], dim.bought).times(timeDimStartCosts[tier])
+    if (dim.cost.gte(Number.MAX_VALUE)) {
+        dim.cost = Decimal.pow(timeDimCostMults[tier]*1.5, dim.bought).times(timeDimStartCosts[tier])
+    }
     dim.power = dim.power.times(2)
     updateEternityUpgrades()
     return true
@@ -3667,6 +3672,7 @@ function buyEPMult() {
         let count = Math.log(player.epmult)/Math.log(5)
         player.epmultCost = Decimal.pow(50, count).times(500)
         if (player.epmultCost.gte(new Decimal("1e100"))) player.epmultCost = Decimal.pow(100, count).times(500)
+        if (player.epmultCost.gte(Number.MAX_VALUE)) player.epmultCost = Decimal.pow(500, count).times(500)
         document.getElementById("epmult").innerHTML = "You gain 5 times more EP<p>Currently: "+shortenDimensions(player.epmult)+"x<p>Cost: "+shortenDimensions(player.epmultCost)+" EP"
         updateEternityUpgrades()
     }
