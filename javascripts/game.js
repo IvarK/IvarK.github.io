@@ -621,8 +621,11 @@ function drawStudyTree() {
     drawTreeBranch("ec10unl", "191")
     drawTreeBranch("ec10unl", "192")
     drawTreeBranch("ec10unl", "193")
-    drawTreeBranch("193", "214")
+    drawTreeBranch("192", "201")
     drawTreeBranch("191", "211")
+    drawTreeBranch("193", "213")
+    drawTreeBranch("193", "214")
+    
 }
 
 function setTheme(name) {
@@ -2334,6 +2337,8 @@ function canBuyStudy(name) {
     if (name == 181) {
         if (player.eternityChalls.eterc1 !== undefined && player.eternityChalls.eterc2 !== undefined && player.eternityChalls.eterc3 !== undefined && player.timestudy.studies.includes(171)) return true; else return false;
     }
+    if (name == 201) if(player.timestudy.studies.includes(192)) return true; else return false
+    if (name == 213) if(player.timestudy.studies.includes(193)) return true; else return false
     if (name == 214) if(player.timestudy.studies.includes(193)) return true; else return false
     if (name == 211) if(player.timestudy.studies.includes(191)) return true; else return false
     switch(row) {
@@ -2366,7 +2371,11 @@ function canBuyStudy(name) {
         break;
 
         case 7:
-        if (player.timestudy.studies.includes(61) && !hasRow(row)) return true; else return false
+        if (!player.timestudy.studies.includes(201)) {
+            if (player.timestudy.studies.includes(61) && !hasRow(row)) return true; else return false
+        } else {
+            if (player.timestudy.studies.filter(function(x) {return Math.floor(x / 10) == 7}).length < 2) return true; else return false
+        }
         break;
     
         case 19:
@@ -2375,8 +2384,8 @@ function canBuyStudy(name) {
 
     }
 }
-var all =      [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 211, 214]
-var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 500, 730, 300, 120, 120]
+var all =      [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 201, 211, 213, 214]
+var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 500, 730, 300, 500, 120, 200, 120]
 function updateTimeStudyButtons() {
     for (var i=0; i<all.length; i++) {
         if (!player.timestudy.studies.includes(all[i])) {
@@ -7084,6 +7093,7 @@ function gameLoop(diff) {
     let interval = player.replicanti.interval
     if (player.timestudy.studies.includes(62)) interval = interval/3
     if (player.timestudy.studies.includes(133)) interval *= 10
+    if (player.timestudy.studies.includes(193)) interval /= 20
     if (player.replicanti.amount.gt(Number.MAX_VALUE)) interval = interval * Math.pow(1.2, (player.replicanti.amount.log10() - 308)/308)
     var est = player.replicanti.chance * 1000 / interval
     
