@@ -2370,7 +2370,7 @@ function canBuyStudy(name) {
         break;
     
         case 19:
-        if (player.eternityChalls.eterc10 !== undefined) return true; else return false
+        if (player.eternityChalls.eterc10 !== undefined && player.timestudy.studies.includes(181)) return true; else return false
         break;
 
     }
