@@ -621,6 +621,7 @@ function drawStudyTree() {
     drawTreeBranch("ec10unl", "191")
     drawTreeBranch("ec10unl", "192")
     drawTreeBranch("ec10unl", "193")
+    drawTreeBranch("193", "214")
 }
 
 function setTheme(name) {
@@ -635,6 +636,10 @@ function setTheme(name) {
         Chart.defaults.global.defaultFontColor = 'black';
         normalDimChart.data.datasets[0].borderColor = '#000'
     } else if(name === "S2") {
+        document.getElementById("theme").innerHTML="Current theme: " + player.options.secretThemeKey;
+        Chart.defaults.global.defaultFontColor = 'black';
+        normalDimChart.data.datasets[0].borderColor = '#000'
+    } else if(name === "S3") {
         document.getElementById("theme").innerHTML="Current theme: " + player.options.secretThemeKey;
         Chart.defaults.global.defaultFontColor = 'black';
         normalDimChart.data.datasets[0].borderColor = '#000'
@@ -1778,6 +1783,7 @@ function updateDimensions() {
     document.getElementById("141").innerHTML = "Multiplier to IP, decaying over this infinity<span>Currently "+shortenMoney(new Decimal(1e45).dividedBy(Decimal.pow(15, Math.log(player.thisInfinityTime)*Math.pow(player.thisInfinityTime, 0.125))).max(1))+"x<span>Cost: 4 Time Theorems"
     document.getElementById("143").innerHTML = "Multiplier to IP, increasing over this infinity<span>Currently "+shortenMoney(Decimal.pow(15, Math.log(player.thisInfinityTime)*Math.pow(player.thisInfinityTime, 0.125)))+"x<span>Cost: 4 Time Theorems"
     document.getElementById("193").innerHTML = "Normal dimension boost based on eternities.<span>Currently "+shortenMoney(Decimal.pow(1.02, player.eternities))+"<span>Cost: 300 Time Theorems"
+    document.getElementById("214").innerHTML = "Sacrifice power boosts sacrifice power.<span>Currently "+shortenMoney(Decimal.pow(player.sacrificed.pow(0.011), (1 + (player.sacrificed.pow(0.011)).log10() / 1450)).div(player.sacrificed.pow(0.011)))+"x<span>Cost: 120 Time Theorems"
 }
 
 function updateCosts() {
@@ -4521,6 +4527,9 @@ document.getElementById("importbtn").onclick = function () {
     } else if (sha512_256(save_data) === "76269d18c05c9ebec8a990a096cee046dea042a0421f8ab81d17f34dd1cdbdbf") {
         player.options.theme = "S2";
         setTheme(player.options.theme);
+    } else if (sha512_256(save_data) === "d764e9a1d1e18081be19f3483b537ae1159ab40d10e096df1d9e857d68d6ba7a") {
+        player.options.theme = "S3";
+        setTheme(player.options.theme);
     } else {
         save_data = JSON.parse(atob(save_data), function(k, v) { return (v === Infinity) ? "Infinity" : v; });
         if (!save_data || !verify_save(save_data)) {
@@ -4729,6 +4738,7 @@ function calcSacrificeBoost() {
 function calcTotalSacrificeBoost() {
     if (player.sacrificed == 0) return new Decimal(1);
     if (player.challenges.includes("postc2")) {
+        if (player.timestudy.studies.includes(214)) return Decimal.pow(player.sacrificed.pow(0.011), (1 + (player.sacrificed.pow(0.011)).log10() / 1450))
         if (player.achievements.includes("r88")) return player.sacrificed.pow(0.011)
         else return player.sacrificed.pow(0.01)
     }
