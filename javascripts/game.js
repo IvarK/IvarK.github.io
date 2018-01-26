@@ -1518,7 +1518,7 @@ function getDimensionFinalMultiplier(tier) {
     if (player.currentChallenge == "postc4" && player.postC4Tier != tier) multiplier = multiplier.pow(0.25)
     if (player.challenges.includes("postc4")) multiplier = multiplier.pow(1.05);
     if (player.currentEternityChall == "eterc10") multiplier = multiplier.times(ec10bonus)
-    if (player.timestudy.studies.includes(193)) multiplier = multiplier.times(Decimal.pow(1.02, player.eternities))
+    if (player.timestudy.studies.includes(193)) multiplier = multiplier.times(Decimal.pow(1.02, player.eternities).min(new Decimal("1e30000")))
      
     return multiplier;
 }
@@ -1781,9 +1781,14 @@ function updateDimensions() {
     document.getElementById("121").innerHTML = "The worse your average EP/min is, the more EP you get.<span>Currently: "+((253 - averageEp.dividedBy(player.epmult).dividedBy(10).min(248).max(3))/5).toFixed(1)+"x<span>Cost: 9 Time Theorems"
     document.getElementById("123").innerHTML = "You gain more EP based on time spent this eternity.<span>Currently: "+Math.sqrt(1.39*player.thisEternity/10).toFixed(1)+"x<span>Cost: 9 Time Theorems"
     document.getElementById("141").innerHTML = "Multiplier to IP, decaying over this infinity<span>Currently "+shortenMoney(new Decimal(1e45).dividedBy(Decimal.pow(15, Math.log(player.thisInfinityTime)*Math.pow(player.thisInfinityTime, 0.125))).max(1))+"x<span>Cost: 4 Time Theorems"
+<<<<<<< HEAD
     document.getElementById("143").innerHTML = "Multiplier to IP, increasing over this infinity<span>Currently "+shortenMoney(Decimal.pow(15, Math.log(player.thisInfinityTime)*Math.pow(player.thisInfinityTime, 0.125)))+"x<span>Cost: 4 Time Theorems"
     document.getElementById("193").innerHTML = "Normal dimension boost based on eternities.<span>Currently "+shortenMoney(Decimal.pow(1.02, player.eternities))+"<span>Cost: 300 Time Theorems"
     document.getElementById("214").innerHTML = "Sacrifice power boosts sacrifice power.<span>Currently "+shortenMoney(Decimal.pow(player.sacrificed.pow(0.011), (1 + (player.sacrificed.pow(0.011)).log10() / 1450)).div(player.sacrificed.pow(0.011)).max(1))+"x<span>Cost: 120 Time Theorems"
+=======
+    document.getElementById("193").innerHTML = "Normal dimension boost based on eternities.<span>Currently "+shortenMoney(Decimal.pow(1.02, player.eternities).min(new Decimal("1e30000")))+"<span>Cost: 300 Time Theorems"
+    document.getElementById("214").innerHTML = "Sacrifice power boosts sacrifice power.<span>Currently "+shortenMoney(Decimal.pow(player.sacrificed.pow(0.011), (1 + (player.sacrificed.pow(0.011)).log10() / 1450)).div(player.sacrificed.pow(0.011)))+"x<span>Cost: 120 Time Theorems"
+>>>>>>> 44278810b5801ac728416061bc24a35b56c933a3
 }
 
 function updateCosts() {
@@ -2333,6 +2338,7 @@ function canBuyStudy(name) {
     if (name == 181) {
         if (player.eternityChalls.eterc1 !== undefined && player.eternityChalls.eterc2 !== undefined && player.eternityChalls.eterc3 !== undefined && player.timestudy.studies.includes(171)) return true; else return false;
     }
+    if (name = 214) if(player.timestudy.studies.includes(193)) return true; else return false
     switch(row) {
 
         case 1: return true
@@ -2372,8 +2378,8 @@ function canBuyStudy(name) {
 
     }
 }
-var all =      [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193]
-var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 500, 730, 300]
+var all =      [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 214]
+var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 500, 730, 300, 120]
 function updateTimeStudyButtons() {
     for (var i=0; i<all.length; i++) {
         if (!player.timestudy.studies.includes(all[i])) {
