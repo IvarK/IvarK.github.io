@@ -1078,7 +1078,7 @@ function onLoad() {
 
     document.getElementById("notation").innerHTML = "Notation: " + player.options.notation
 
-    if (player.infinitied == 0) document.getElementById("infinityPoints2").style.display = "none"
+    if (player.infinitied == 0 && player.eternities == 0) document.getElementById("infinityPoints2").style.display = "none"
 
     if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") document.getElementById("matter").style.display = "inline-block";
     else document.getElementById("matter").style.display = "none";
@@ -6753,7 +6753,7 @@ setInterval(function() {
 
 
 
-    if (player.infinitied == 0 && player.infinityPoints.lt(new Decimal(1e50))) document.getElementById("infinityPoints2").style.display = "none"
+    if (player.infinitied == 0 && player.infinityPoints.lt(new Decimal(1e50)) && player.eternities == 0) document.getElementById("infinityPoints2").style.display = "none"
     else document.getElementById("infinityPoints2").style.display = "inline-block"
 
     if (blink && !player.achievements.includes("r78")) {
