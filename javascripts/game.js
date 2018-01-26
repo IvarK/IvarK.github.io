@@ -2332,7 +2332,7 @@ function canBuyStudy(name) {
     if (name == 181) {
         if (player.eternityChalls.eterc1 !== undefined && player.eternityChalls.eterc2 !== undefined && player.eternityChalls.eterc3 !== undefined && player.timestudy.studies.includes(171)) return true; else return false;
     }
-    if (name = 214) if(player.timestudy.studies.includes(193)) return true; else return false
+    if (name == 214) if(player.timestudy.studies.includes(193)) return true; else return false
     switch(row) {
 
         case 1: return true
