@@ -155,27 +155,27 @@ var player = {
     tickThreshold: new Decimal(1),
     totalTickGained: 0,
     timeDimension1: {
-        cost: 1,
+        cost: new Decimal(1),
         amount: new Decimal(0),
-        power: 1,
+        power: new Decimal(1),
         bought: 0
     },
     timeDimension2: {
-        cost: 5,
+        cost: new Decimal(5),
         amount: new Decimal(0),
-        power: 1,
+        power: new Decimal(1),
         bought: 0
     },
     timeDimension3: {
-        cost: 100,
+        cost: new Decimal(100),
         amount: new Decimal(0),
-        power: 1,
+        power: new Decimal(1),
         bought: 0
     },
     timeDimension4: {
-        cost: 1000,
+        cost: new Decimal(1000),
         amount: new Decimal(0),
-        power: 1,
+        power: new Decimal(1),
         bought: 0
     },
     offlineProd: 0,
@@ -834,27 +834,27 @@ function onLoad() {
         player.totalTickGained = 0
         player.eternities = 0
         player.timeDimension1 = {
-            cost: 1,
+            cost: new Decimal(1),
             amount: new Decimal(0),
-            power: 1,
+            power: new Decimal(1),
             bought: 0
         }
         player.timeDimension2 = {
-            cost: 5,
+            cost: new Decimal(5),
             amount: new Decimal(0),
-            power: 1,
+            power: new Decimal(1),
             bought: 0
         }
         player.timeDimension3 = {
-            cost: 100,
+            cost: new Decimal(100),
             amount: new Decimal(0),
-            power: 1,
+            power: new Decimal(1),
             bought: 0
         }
         player.timeDimension4 = {
-            cost: 1000,
+            cost: new Decimal(1000),
             amount: new Decimal(0),
-            power: 1,
+            power: new Decimal(1),
             bought: 0
         }
     }
@@ -1250,6 +1250,14 @@ function transformSaveToDecimal() {
     player.timeDimension2.amount = new Decimal(player.timeDimension2.amount)
     player.timeDimension3.amount = new Decimal(player.timeDimension3.amount)
     player.timeDimension4.amount = new Decimal(player.timeDimension4.amount)
+    player.timeDimension1.cost = new Decimal(player.timeDimension1.cost)
+    player.timeDimension2.cost = new Decimal(player.timeDimension2.cost)
+    player.timeDimension3.cost = new Decimal(player.timeDimension3.cost)
+    player.timeDimension4.cost = new Decimal(player.timeDimension4.cost)
+    player.timeDimension1.power = new Decimal(player.timeDimension1.power)
+    player.timeDimension2.power = new Decimal(player.timeDimension2.power)
+    player.timeDimension3.power = new Decimal(player.timeDimension3.power)
+    player.timeDimension4.power = new Decimal(player.timeDimension4.power)
     player.timeShards = new Decimal(player.timeShards)
     player.eternityPoints = new Decimal(player.eternityPoints)
     player.tickThreshold = new Decimal(player.tickThreshold)
@@ -2218,8 +2226,8 @@ function buyTimeDimension(tier) {
     player.eternityPoints = player.eternityPoints.minus(dim.cost)
     dim.amount = dim.amount.plus(1);
     dim.bought += 1
-    dim.cost *= timeDimCostMults[tier]
-    dim.power *= 2
+    dim.cost = dim.cost.times(timeDimCostMults[tier])
+    dim.power = dim.power.times(2)
     updateEternityUpgrades()
     return true
 }
@@ -2385,7 +2393,7 @@ function canBuyStudy(name) {
     }
 }
 var all =      [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 201, 211, 213, 214]
-var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 500, 730, 300, 500, 120, 200, 120]
+var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 500, 730, 300, 1000, 120, 200, 120]
 function updateTimeStudyButtons() {
     for (var i=0; i<all.length; i++) {
         if (!player.timestudy.studies.includes(all[i])) {
