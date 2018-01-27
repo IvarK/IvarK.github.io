@@ -1105,9 +1105,8 @@ function onLoad() {
     }
 
     clearOldAchieves()
-    for (var i=0; i<player.achievements.length; i++) {
-        document.getElementById(allAchievements[player.achievements[i]]).className = "achievementunlocked"
-    }
+    updateAchievements()
+
     document.getElementById("epmult").innerHTML = "You gain 5 times more EP<p>Currently: "+shortenDimensions(player.epmult)+"x<p>Cost: "+shortenDimensions(player.epmultCost)+" EP"
     
     for (var i=0; i<player.timestudy.studies.length; i++) {
@@ -2958,14 +2957,22 @@ const allAchievements = {
   r106 : "The swarm",
   r107 : "Do you really need a guide for this?",
   r108 : "We could afford 9",
-  r111 : "Can you get infinite IP?",
-  r112 : "Hey look, you did the thing again",
-  r113 : "Through the event horizon",
-  r114 : "IT'S OVER 9000!!!",
+  r111 : "111",
+  r112 : "112",
+  r113 : "113",
+  r114 : "114",
   r115 : "115",
   r116 : "116",
   r117 : "117",
   r118 : "118",
+  r121 : "Can you get infinite IP?",
+  r122 : "Hey look, you did the thing again",
+  r123 : "Through the event horizon",
+  r124 : "IT'S OVER 9000!!!",
+  r125 : "125",
+  r126 : "126",
+  r127 : "127",
+  r128 : "128",
 };
 // to retrieve by value: Object.keys(allAchievements).find(key => allAchievements[key] === "L4D: Left 4 Dimensions");
 
@@ -3012,6 +3019,7 @@ function giveAchievement(name) {
         if (player.autoCrunchMode == "amount") player.autobuyers[11].priority = player.autobuyers[11].priority.times(4);
     }
     updateAchPow();
+    updateAchievements();
 }
 
 var TIER_NAMES = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
@@ -3682,6 +3690,17 @@ function buyEPMult() {
 }
 
 
+function updateAchievements() {
+    for (var i=1; i<12; i++) {
+        var achnum = i * 10
+        for (var l=0; l<8; l++) {
+            achnum += 1;
+            var name = allAchievements["r"+achnum]
+            if (player.achievements.includes("r"+achnum)) document.getElementById(name).className = "achievementunlocked"
+            else document.getElementById(name).className = "achievementlocked"
+        }
+    }
+}
 
 
 function updateAchPow() {
@@ -3696,6 +3715,8 @@ function updateAchPow() {
         player.achievements.includes("r18")) {
         amount++;
         document.getElementById("achRow1").className = "completedrow"
+    } else {
+        document.getElementById("achRow1").className = ""
     }
 
     if (player.achievements.includes("r21") &&
@@ -3708,6 +3729,8 @@ function updateAchPow() {
         player.achievements.includes("r28")) {
         amount++;
         document.getElementById("achRow2").className = "completedrow"
+    } else {
+        document.getElementById("achRow2").className = ""
     }
 
     if (player.achievements.includes("r31") &&
@@ -3720,6 +3743,8 @@ function updateAchPow() {
         player.achievements.includes("r38")) {
         amount++;
         document.getElementById("achRow3").className = "completedrow"
+    } else {
+        document.getElementById("achRow3").className = ""
     }
 
     if (player.achievements.includes("r41") &&
@@ -3732,6 +3757,8 @@ function updateAchPow() {
         player.achievements.includes("r48")) {
         amount++;
         document.getElementById("achRow4").className = "completedrow"
+    } else {
+        document.getElementById("achRow4").className = ""
     }
 
     if (player.achievements.includes("r51") &&
@@ -3744,6 +3771,8 @@ function updateAchPow() {
         player.achievements.includes("r58")) {
         amount++;
         document.getElementById("achRow5").className = "completedrow"
+    } else {
+        document.getElementById("achRow5").className = ""
     }
 
     if (player.achievements.includes("r61") &&
@@ -3756,6 +3785,8 @@ function updateAchPow() {
         player.achievements.includes("r68")) {
         amount++;
         document.getElementById("achRow6").className = "completedrow"
+    } else {
+        document.getElementById("achRow6").className = ""
     }
 
     if (player.achievements.includes("r71") &&
@@ -3768,6 +3799,8 @@ function updateAchPow() {
         player.achievements.includes("r78")) {
         amount++;
         document.getElementById("achRow7").className = "completedrow"
+    } else {
+        document.getElementById("achRow7").className = ""
     }
 
     if (player.achievements.includes("r81") &&
@@ -3780,6 +3813,8 @@ function updateAchPow() {
         player.achievements.includes("r88")) {
         amount++;
         document.getElementById("achRow8").className = "completedrow"
+    } else {
+        document.getElementById("achRow8").className = ""
     }
 
     if (player.achievements.includes("r91") &&
@@ -3792,6 +3827,8 @@ function updateAchPow() {
         player.achievements.includes("r98")) {
         amount++;
         document.getElementById("achRow9").className = "completedrow"
+    } else {
+        document.getElementById("achRow9").className = ""
     }
     
     if (player.achievements.includes("r101") &&
@@ -3804,6 +3841,35 @@ function updateAchPow() {
         player.achievements.includes("r108")) {
         amount++;
         document.getElementById("achRow10").className = "completedrow"
+    } else {
+        document.getElementById("achRow10").className = ""
+    }
+
+    if (player.achievements.includes("r111") &&
+        player.achievements.includes("r112") &&
+        player.achievements.includes("r113") &&
+        player.achievements.includes("r114") &&
+        player.achievements.includes("r115") &&
+        player.achievements.includes("r116") &&
+        player.achievements.includes("r117") &&
+        player.achievements.includes("r118")) {
+        amount++;
+        document.getElementById("achRow11").className = "completedrow"
+    } else {
+        document.getElementById("achRow11").className = ""
+    }
+    if (player.achievements.includes("r121") &&
+        player.achievements.includes("r122") &&
+        player.achievements.includes("r123") &&
+        player.achievements.includes("r124") &&
+        player.achievements.includes("r125") &&
+        player.achievements.includes("r126") &&
+        player.achievements.includes("r127") &&
+        player.achievements.includes("r128")) {
+        amount++;
+        document.getElementById("achRow12").className = "completedrow"
+    } else {
+        document.getElementById("achRow12").className = ""
     }
 
     player.achPow = Decimal.pow(1.5, amount)
