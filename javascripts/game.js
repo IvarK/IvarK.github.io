@@ -1422,22 +1422,6 @@ function formatValue(notation, value, places, placesUnder1000) {
             return matissa + letter(power,'abcdefghijklmnopqrstuvwxyz');
         } else if (notation === "Emojis") {
             return matissa + letter(power,'😠🎂🎄💀🍆👪🌈💯🍦🎃💋😂🌙⛔🐙💩❓☢️🙈👍☂️✌️⚠️❌😋⚡')
-        } else if (notation === "Color") {
-            var formatColor2 = 0;
-            while (power > 16777215) {
-                formatColor2 += 1;
-                power -= 16777215;
-            }
-            var formatColor1 = power.toString(16);
-            var formatColor2 = formatColor2.toString(16);
-            while (formatColor1.length < 6) {
-                formatColor1 = "0" + formatColor1;
-            }
-            while (formatColor2.length < 6) {
-                formatColor2 = "0" + formatColor2
-            }
-            if (parseInt(formatColor2) != 0) return matissa + ' <span class="moneyBox" style="background-color: #' + formatColor2 + ';"> </span><span class="moneyBox" style="border-color: #' + formatColor1 + ';"></span>';
-            else return matissa + ' <span class="moneyBox" style="background-color: #' + formatColor1 + ';"></span>';
         } else {
             if (power > 100000  && player.options.commas) power = power.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             return "1337 H4CK3R"

@@ -1067,13 +1067,6 @@
     font-size: 12px;
 }
 
-span.moneyBox {
-    width: 10px;
-    height: 10px;
-    border: 1px solid black;
-    display: inline-block;
-}
-
 @keyframes glow {
     20% { text-shadow: 0 0 10px green; }
     100% { text-shadow: 0 0 10px white; }
