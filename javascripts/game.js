@@ -1530,7 +1530,7 @@ function getDimensionFinalMultiplier(tier) {
     if (player.challenges.includes("postc4")) multiplier = multiplier.pow(1.05);
     if (player.currentEternityChall == "eterc10") multiplier = multiplier.times(ec10bonus)
     if (player.timestudy.studies.includes(193)) multiplier = multiplier.times(Decimal.pow(1.02, player.eternities).min(new Decimal("1e30000")))
-    if (tier == 8 && player.timestudy.studies.includes(214)) multiplier = multiplier.times((calcTotalSacrificeBoost().pow(8)).min("1e46000").times(calcTotalSacrificeBoost().pow(1.1)))
+    if (tier == 8 && player.timestudy.studies.includes(214)) multiplier = multiplier.times((calcTotalSacrificeBoost().pow(8)).min("1e46000").times(calcTotalSacrificeBoost().pow(1.1).min(new Decimal("1e125000"))))
      
     return multiplier;
 }
@@ -1795,7 +1795,8 @@ function updateDimensions() {
     document.getElementById("141").innerHTML = "Multiplier to IP, decaying over this infinity<span>Currently "+shortenMoney(new Decimal(1e45).dividedBy(Decimal.pow(15, Math.log(player.thisInfinityTime)*Math.pow(player.thisInfinityTime, 0.125))).max(1))+"x<span>Cost: 4 Time Theorems"
     document.getElementById("143").innerHTML = "Multiplier to IP, increasing over this infinity<span>Currently "+shortenMoney(Decimal.pow(15, Math.log(player.thisInfinityTime)*Math.pow(player.thisInfinityTime, 0.125)))+"x<span>Cost: 4 Time Theorems"
     document.getElementById("193").innerHTML = "Normal dimension boost based on eternities.<span>Currently "+shortenMoney(Decimal.pow(1.02, player.eternities).min(new Decimal("1e30000")))+"<span>Cost: 300 Time Theorems"
-    document.getElementById("214").innerHTML = "Sacrifice boosts the 8th dimension even more.<span>Currently "+shortenMoney(((calcTotalSacrificeBoost().pow(8)).min("1e46000").times(calcTotalSacrificeBoost().pow(1.1)).div(calcTotalSacrificeBoost())).max(1))+"x<span>Cost: 120 Time Theorems"
+
+    document.getElementById("214").innerHTML = "Sacrifice boosts the 8th dimension even more.<span>Currently "+shortenMoney(((calcTotalSacrificeBoost().pow(8)).min("1e46000").times(calcTotalSacrificeBoost().pow(1.1)).div(calcTotalSacrificeBoost())).max(1).min(new Decimal("1e125000")))+"x<span>Cost: 120 Time Theorems"
 }
 
 function updateCosts() {
@@ -2218,6 +2219,7 @@ function updateTimeDimensions() {
 }
 
 var timeDimCostMults = [null, 3, 9, 27, 81]
+var timeDimStartCosts = [null, 1, 5, 100, 1000]
 function buyTimeDimension(tier) {
 
     var dim = player["timeDimension"+tier]
@@ -2226,7 +2228,10 @@ function buyTimeDimension(tier) {
     player.eternityPoints = player.eternityPoints.minus(dim.cost)
     dim.amount = dim.amount.plus(1);
     dim.bought += 1
-    dim.cost = dim.cost.times(timeDimCostMults[tier])
+    dim.cost = Decimal.pow(timeDimCostMults[tier], dim.bought).times(timeDimStartCosts[tier])
+    if (dim.cost.gte(Number.MAX_VALUE)) {
+        dim.cost = Decimal.pow(timeDimCostMults[tier]*1.5, dim.bought).times(timeDimStartCosts[tier])
+    }
     dim.power = dim.power.times(2)
     updateEternityUpgrades()
     return true
@@ -2393,7 +2398,7 @@ function canBuyStudy(name) {
     }
 }
 var all =      [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 201, 211, 213, 214]
-var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 500, 730, 300, 1000, 120, 200, 120]
+var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 500, 730, 300, 900, 120, 200, 120]
 function updateTimeStudyButtons() {
     for (var i=0; i<all.length; i++) {
         if (!player.timestudy.studies.includes(all[i])) {
@@ -3667,6 +3672,7 @@ function buyEPMult() {
         let count = Math.log(player.epmult)/Math.log(5)
         player.epmultCost = Decimal.pow(50, count).times(500)
         if (player.epmultCost.gte(new Decimal("1e100"))) player.epmultCost = Decimal.pow(100, count).times(500)
+        if (player.epmultCost.gte(Number.MAX_VALUE)) player.epmultCost = Decimal.pow(500, count).times(500)
         document.getElementById("epmult").innerHTML = "You gain 5 times more EP<p>Currently: "+shortenDimensions(player.epmult)+"x<p>Cost: "+shortenDimensions(player.epmultCost)+" EP"
         updateEternityUpgrades()
     }
