@@ -2956,7 +2956,7 @@ const allAchievements = {
   r106 : "The swarm",
   r107 : "Do you really need a guide for this?",
   r108 : "We could afford 9",
-  r111 : "111",
+  r111 : "Linear exponentiality",
   r112 : "112",
   r113 : "113",
   r114 : "114",
@@ -3691,11 +3691,11 @@ function updateAchievements() {
     var amount = 0
     for (var i=1; i<13; i++) {
         var n = 0
-        var achnum = i * 10
+        var achNum = i * 10
         for (var l=0; l<8; l++) {
-            achnum += 1;
-            var name = allAchievements["r"+achnum]
-            if (player.achievements.includes("r"+achnum)) {
+            achNum += 1;
+            var name = allAchievements["r"+achNum]
+            if (player.achievements.includes("r"+achNum)) {
                 n++
                 document.getElementById(name).className = "achievementunlocked"
             } else {
@@ -5258,6 +5258,13 @@ document.getElementById("bigcrunch").onclick = function () {
             if (gainedInfinityPoints().gte(1e150)) giveAchievement("All your IP are belong to us")
             if (gainedInfinityPoints().gte(1e200) && player.thisInfinityTime <= 20) giveAchievement("Ludicrous Speed")
             if (gainedInfinityPoints().gte(1e250) && player.thisInfinityTime <= 200) giveAchievement("I brake for nobody")
+        }
+        if (!player.achievements.includes("r111") && player.lastTenRuns[9][1] != 1) {
+            var n = 0;
+            for (i=0; i<9; i++) {
+                if (player.lastTenRuns[0][1].gte(player.lastTenRuns[0+1][1].times(1e200))) n++;
+            }
+            if (n == 9) giveAchievement("Linear exponentiality")
         }
         let infGain = 1;
         if (player.thisInfinityTime > 50 && player.achievements.includes("r87")) infGain = 250;
