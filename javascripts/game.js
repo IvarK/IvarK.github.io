@@ -401,7 +401,7 @@ var normalDimChart = new Chart(ctx2, {
         tooltips: {enabled: false},
         hover: {mode: null},
         legend: {
-            position: 'bottom',
+            display: false,
             labels: {
                 boxWidth: 0
             }
