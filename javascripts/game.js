@@ -218,6 +218,7 @@ var player = {
     },
     eterc8ids: 50,
     eterc8repl: 40,
+    dimlife: true,
     options: {
         newsHidden: false,
         notation: "Standard",
@@ -782,6 +783,7 @@ function onLoad() {
     if (player.eterc8ids === undefined) player.eterc8ids = 50
     if (player.eterc8repl === undefined) player.eterc8repl = 40
     if (player.infinitiedBank === undefined) player.infinitiedBank = 0
+    if (player.dimlife === undefined) player.dimlife = false
     setTheme(player.options.theme);
 
     sliderText.innerHTML = "Update rate: " + player.options.updateRate + "ms";
@@ -2642,6 +2644,7 @@ function softReset(bulk) {
         eternityBuyer: player.eternityBuyer,
         eterc8ids: player.eterc8ids,
         eterc8repl: player.eterc8repl,
+        dimlife: player.dimlife,
         options: player.options
     };
     if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -2957,22 +2960,22 @@ const allAchievements = {
   r106 : "The swarm",
   r107 : "Do you really need a guide for this?",
   r108 : "We could afford 9",
-  r111 : "Linear exponentiality",
+  r111 : "Dawg I heard you liked infinities...",
   r112 : "Never again",
   r113 : "Long lasting relationship",
   r114 : "You're a mistake",
-  r115 : "115",
-  r116 : "116",
-  r117 : "117",
-  r118 : "118",
+  r115 : "I wish I had gotten 7 eternities",
+  r116 : "Do I really need to infinity",
+  r117 : "8 nobody got time for that",
+  r118 : "Eternities are the new infinity",
   r121 : "Can you get infinite IP?",
   r122 : "Hey look, you did the thing again",
-  r123 : "Through the event horizon",
-  r124 : "IT'S OVER 9000!!!",
-  r125 : "Great, now actually go study",
+  r123 : "5 more eternities until update",
+  r124 : "IT'S OVER 9000",
+  r125 : "Like feasting on a behind",
   r126 : "Popular music",
   r127 : "But I wanted another prestige layer...",
-  r128 : "I think you should buy something",
+  r128 : "What do I have to do to get rid of you",
 };
 // to retrieve by value: Object.keys(allAchievements).find(key => allAchievements[key] === "L4D: Left 4 Dimensions");
 
@@ -3126,6 +3129,7 @@ function onBuyDimension(tier) {
 
     player.postC4Tier = tier;
     postc8Mult = new Decimal(1)
+    if (tier != 8) player.dimlife = false
 
 
 }
@@ -3185,6 +3189,7 @@ function buyOneDimension(tier) {
     if (player.currentChallenge == "challenge8" || player.currentChallenge == "postc1") clearDimensions(tier-1);
 
     onBuyDimension(tier);
+
 
     return true;
 }
@@ -3392,6 +3397,7 @@ function buyManyDimensionAutobuyer(tier, bulk) {
         if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0;
         if (player.currentChallenge == "postc1") clearDimensions(tier-1);
         player.postC4Tier = tier;
+        if (tier != 8) player.dimlife = false
 }
 
 
@@ -3843,7 +3849,7 @@ document.getElementById("postinfi42").onclick = function() {
         player.dimensionMultDecreaseCost *= 5000
         player.dimensionMultDecrease--;
         document.getElementById("postinfi42").innerHTML = "Dimension cost multiplier increase <br>"+player.dimensionMultDecrease+"x -> "+(player.dimensionMultDecrease-1)+"x<br>Cost: "+shortenCosts(player.dimensionMultDecreaseCost) +" IP"
-        if (player.dimensionMultDecrease <= 3) document.getElementById("postinfi42").innerHTML = "Dimension cost multiplier increase <br>"+player.dimensionMultDecrease+"x"
+        if (player.dimensionMultDecrease <= 3) document.getElementById("postinfi42").innerHTML = "Dimension cost multiplier increase <br>"+player.dimensionMultDecrease.toFixed(1)+"x"
     }
 }
 
@@ -4343,6 +4349,7 @@ function galaxyReset() {
         eternityBuyer: player.eternityBuyer,
         eterc8ids: player.eterc8ids,
         eterc8repl: player.eterc8repl,
+        dimlife: player.dimlife,
         options: player.options
     };
 
@@ -4567,8 +4574,8 @@ function setAchieveTooltip() {
     let minute = document.getElementById("Minute of infinity")
     let infiniteIP = document.getElementById("Can you get infinite IP?")
     let thething = document.getElementById("Hey look, you did the thing again")
-    let over9000 = document.getElementById("IT'S OVER 9000!!!")
-    let linear = document.getElementById("Linear exponentiality")
+    let over9000 = document.getElementById("IT'S OVER 9000")
+    let linear = document.getElementById("Dawg I heard you liked infinities...")
 
     apocAchieve.setAttribute('ach-tooltip', "Get over " + formatValue(player.options.notation, 1e80, 0, 0) + " antimatter.");
     noPointAchieve.setAttribute('ach-tooltip', "Buy a single First Dimension when you have over " + formatValue(player.options.notation, 1e150, 0, 0) + " of them. Reward: First Dimensions are 10% stronger.");
@@ -4706,7 +4713,7 @@ function sacrifice() {
 
     }
     if (calcTotalSacrificeBoost() >= 600) giveAchievement("The Gods are pleased");
-    if (calcTotalSacrificeBoost().gte("1e9000")) giveAchievement("IT'S OVER 9000!!!");
+    if (calcTotalSacrificeBoost().gte("1e9000")) giveAchievement("IT'S OVER 9000");
 }
 
 
@@ -5264,7 +5271,7 @@ document.getElementById("bigcrunch").onclick = function () {
             for (i=0; i<9; i++) {
                 if (player.lastTenRuns[0][1].gte(player.lastTenRuns[0+1][1].times(1e300))) n++;
             }
-            if (n == 9) giveAchievement("Linear exponentiality")
+            if (n == 9) giveAchievement("Dawg I heard you liked infinities...")
         }
         let infGain = 1;
         if (player.thisInfinityTime > 50 && player.achievements.includes("r87")) infGain = 250;
@@ -5408,6 +5415,7 @@ document.getElementById("bigcrunch").onclick = function () {
         eternityBuyer: player.eternityBuyer,
         eterc8ids: player.eterc8ids,
         eterc8repl: player.eterc8repl,
+        dimlife: player.dimlife,
         options: player.options
         };
 
@@ -5537,9 +5545,12 @@ function eternity() {
             player.bestEternity = player.thisEternity
             if (player.bestEternity < 300) giveAchievement("That wasn't an eternity");
         }
+        if (player.thisEternity > 2) giveAchievement("Eternities are the new infinity")
         if (player.currentEternityChall == "eterc6" && ECTimesCompleted("eterc6") < 5) player.dimensionMultDecrease -= 0.2
         if (player.infinitied < 10) giveAchievement("Do you really need a guide for this?");
         if (Decimal.round(player.replicanti.amount) == 9) giveAchievement("We could afford 9");
+        if (player.dimlife) giveAchievement("8 nobody got time for that")
+        if (player.infinitied <= 1) giveAchievement("Do I really need to infinity")
         temp = []
         player.eternityPoints = player.eternityPoints.plus(gainedEternityPoints())
         addEternityTime(player.thisEternity, gainedEternityPoints())
@@ -5555,7 +5566,7 @@ function eternity() {
                     eterchallscompletedtotal += player.eternityChalls["eterc"+i]
                 }
                 if (eterchallscompletedtotal === 50) {
-                    giveAchievement("Through the event horizon");
+                    giveAchievement("5 more eternities until update");
                 }
             }
         }
@@ -5751,6 +5762,7 @@ function eternity() {
             eternityBuyer: player.eternityBuyer,
             eterc8ids: 50,
             eterc8repl: 40,
+            dimlife: true,
             options: player.options
         };
         if (player.respec) respecTimeStudies()
@@ -5979,6 +5991,7 @@ function startChallenge(name, target) {
       eternityBuyer: player.eternityBuyer,
       eterc8ids: player.eterc8ids,
       eterc8repl: player.eterc8repl,
+      dimlife: player.dimlife,
       options: player.options
     };
 	if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -6046,7 +6059,7 @@ function startChallenge(name, target) {
     resetInfDimensions();
     player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
 
-    if (player.resets == 0 && player.currentChallenge == "") {
+    if (player.resets == 0 && player.currentChallenge == "I wish I had gotten 7 eternities") {
         if (player.infinityUpgrades.includes("skipReset1")) player.resets++;
         if (player.infinityUpgrades.includes("skipReset2")) player.resets++;
         if (player.infinityUpgrades.includes("skipReset3")) player.resets++;
@@ -6055,6 +6068,7 @@ function startChallenge(name, target) {
             if (player.galaxies == 0) player.galaxies = 1
         }
     }
+    if (player.currentChallenge.includes("post") && player.currentEternityChall !== "") return 
 }
 }
 
@@ -6477,6 +6491,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
             eternityBuyer: player.eternityBuyer,
             eterc8ids: 50,
             eterc8repl: 40,
+            dimlife: true,
             options: player.options
         };
         
@@ -6823,10 +6838,11 @@ setInterval(function() {
     document.getElementById("infinitiedBank").innerHTML = "You have " + player.infinitiedBank.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " banked infinities."
 
     if (infchallengeTimes < 7.5) giveAchievement("Never again")
-    if (player.infinityPoints.gte(new Decimal("1e22000")) && player.timestudy.studies.length == 0) giveAchievement("I think you should buy something")
-    if (player.timestudy.theorem >= 1000) giveAchievement("Great, now actually go study")
+    if (player.infinityPoints.gte(new Decimal("1e22000")) && player.timestudy.studies.length == 0) giveAchievement("What do I have to do to get rid of you")
+    if (player.timestudy.theorem >= 1000) giveAchievement("Like feasting on a behind")
     if (player.replicanti.galaxies >= 180*player.galaxies) giveAchievement("Popular music")
     if (player.eternityPoints.gte(Number.MAX_VALUE)) giveAchievement("But I wanted another prestige layer...")
+    if (player.infinityPoints.gte(1e100) && player.firstAmount.equals(0) && player.infinitied == 0) giveAchievement("Like feasting on a behind")
 
 }, 1000)
 
