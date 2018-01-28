@@ -1,5 +1,6 @@
 //test
 var Marathon = 0;
+var Marathon2 = 0;
 var auto = false;
 var autoS = true;
 var controlDown = false;
@@ -2957,8 +2958,8 @@ const allAchievements = {
   r107 : "Do you really need a guide for this?",
   r108 : "We could afford 9",
   r111 : "Linear exponentiality",
-  r112 : "112",
-  r113 : "113",
+  r112 : "Infinitely challenging",
+  r113 : "Long lasting relationship",
   r114 : "114",
   r115 : "115",
   r116 : "116",
@@ -2968,10 +2969,10 @@ const allAchievements = {
   r122 : "Hey look, you did the thing again",
   r123 : "Through the event horizon",
   r124 : "IT'S OVER 9000!!!",
-  r125 : "125",
+  r125 : "Great, now actually go study",
   r126 : "126",
   r127 : "127",
-  r128 : "128",
+  r128 : "I think you should buy something",
 };
 // to retrieve by value: Object.keys(allAchievements).find(key => allAchievements[key] === "L4D: Left 4 Dimensions");
 
@@ -6820,6 +6821,11 @@ setInterval(function() {
 
     document.getElementById("infinitiedBank").style.display = (player.infinitiedBank > 0) ? "block" : "none"
     document.getElementById("infinitiedBank").innerHTML = "You have " + player.infinitiedBank.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " banked infinities."
+
+    if (infchallengeTimes < 7.5) giveAchievement("Infinitely challenging")
+    if (player.infinityPoints.gte(new Decimal("1e22000")) && player.timestudy.studies.length == 0) giveAchievement("I think you should buy something")
+    if (player.timestudy.theorem >= 1000) giveAchievement("Great, now actually go study")
+
 }, 1000)
 
 function fact(v) {
@@ -7025,16 +7031,22 @@ function gameLoop(diff) {
     if (player.timestudy.studies.includes(62)) interval = interval/3
     if (player.timestudy.studies.includes(133)) interval *= 10
     if (player.timestudy.studies.includes(193)) interval /= 20
-    if (player.replicanti.amount.gt(Number.MAX_VALUE)) interval = interval * Math.pow(1.2, (player.replicanti.amount.log10() - 308)/308)
+    if (player.replicanti.amount.gt(Number.MAX_VALUE)) interval = Math.max(interval * Math.pow(1.2, (player.replicanti.amount.log10() - 308)/308), interval)
     var est = player.replicanti.chance * 1000 / interval
     
     var current = player.replicanti.amount.ln()
     
     if (diff > 5 || interval < 50) {
-        var gained = Decimal.pow(Math.E, current +(diff*est/10))
-        player.replicanti.amount = Decimal.min(Number.MAX_VALUE, gained)
-        if (player.timestudy.studies.includes(192)) player.replicanti.amount = gained
-        replicantiTicks = 0
+        if (diff > 50 && player.timestudy.studies.includes(192)) {
+            var gained = Decimal.pow(Math.E, current +(diff*est/10))
+            player.replicanti.amount = gained
+            replicantiTicks = 0
+        } else {
+            var gained = Decimal.pow(Math.E, current +(diff*est/10))
+            player.replicanti.amount = Decimal.min(Number.MAX_VALUE, gained)
+            if (player.timestudy.studies.includes(192)) player.replicanti.amount = gained
+            replicantiTicks = 0
+        }
     } else {
         if (player.replicanti.interval <= replicantiTicks && player.replicanti.unl) {
             if (player.replicanti.amount.lte(100)) {
@@ -7113,10 +7125,19 @@ function gameLoop(diff) {
     if (calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).gt(player.money)) {
     if(player.money.gt(Math.pow(10,63)) && !player.achievements.includes("r42")) giveAchievement("Supersanic");
     Marathon++;
+    Marathon2++;
 
-    if (Marathon >= 300 && !player.achievements.includes("r44")) giveAchievement("Over in 30 seconds");
+    if (Marathon >= 300 && !player.achievements.includes("r44")) {
+        giveAchievement("Over in 30 seconds");
     } else if (getDimensionProductionPerSecond(1).lt(player.money)){
-    Marathon = 0; }
+        Marathon = 0; 
+    }
+
+    if (Marathon2 >= 300 && !player.achievements.includes("r113")) {
+        giveAchievement("Long lasting relationship");
+    } else if (DimensionProduction(1).lt(player.infinityPower)){
+        Marathon2 = 0; 
+    }
 
     for (let tier = 1; tier <= 8; ++tier) {
         var name = TIER_NAMES[tier];
