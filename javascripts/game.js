@@ -4576,6 +4576,9 @@ function setAchieveTooltip() {
     let thething = document.getElementById("Hey look, you did the thing again")
     let over9000 = document.getElementById("IT'S OVER 9000")
     let linear = document.getElementById("Dawg I heard you liked infinities...")
+    let eatass = document.getElementById("Like feasting on a behind")
+    let layer = document.getElementById("But I wanted another prestige layer...")
+    let fkoff = document.getElementById("What do I have to do to get rid of you")
 
     apocAchieve.setAttribute('ach-tooltip', "Get over " + formatValue(player.options.notation, 1e80, 0, 0) + " antimatter.");
     noPointAchieve.setAttribute('ach-tooltip', "Buy a single First Dimension when you have over " + formatValue(player.options.notation, 1e150, 0, 0) + " of them. Reward: First Dimensions are 10% stronger.");
@@ -4596,7 +4599,10 @@ function setAchieveTooltip() {
     infiniteIP.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal("1e30008"))+" IP.")
     thething.setAttribute('ach-tooltip', "Reach "+shortenDimensions(Number.MAX_VALUE)+" time shards.")
     over9000.setAttribute('ach-tooltip', "Get a total sacrifice multiplier of "+shortenCosts(new Decimal("1e9000"))+".")
-    linear.setAttribute('ach-tooltip', "Have all your past 10 infinities be at least "+formatValue(player.options.notation, 1e300, 0, 0)+" times higher than the previous one.")
+    linear.setAttribute('ach-tooltip', "Have all your past 10 infinities be at least "+shortenMoney(Number.MAX_VALUE)+" times higher than the previous one.")
+    eatass.setAttribute('ach-tooltip', "Get "+shortenCosts(1e100)+" IP without any infinities or first dimensions")
+    layer.setAttribute('ach-tooltip', "Get "+shortenMoney(Number.MAX_VALUE)+" EP")
+    fkoff.setAttribute('ach-tooltip', "Gain "+shortenCosts(new Decimal("1e22000"))+" IP without any time studies.")
 }
 
 document.getElementById("notation").onclick = function () {
