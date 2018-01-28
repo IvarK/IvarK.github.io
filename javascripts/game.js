@@ -2958,7 +2958,7 @@ const allAchievements = {
   r107 : "Do you really need a guide for this?",
   r108 : "We could afford 9",
   r111 : "Linear exponentiality",
-  r112 : "Infinitely challenging",
+  r112 : "Never again",
   r113 : "Long lasting relationship",
   r114 : "You're a mistake",
   r115 : "115",
@@ -6822,7 +6822,7 @@ setInterval(function() {
     document.getElementById("infinitiedBank").style.display = (player.infinitiedBank > 0) ? "block" : "none"
     document.getElementById("infinitiedBank").innerHTML = "You have " + player.infinitiedBank.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " banked infinities."
 
-    if (infchallengeTimes < 7.5) giveAchievement("Infinitely challenging")
+    if (infchallengeTimes < 7.5) giveAchievement("Never again")
     if (player.infinityPoints.gte(new Decimal("1e22000")) && player.timestudy.studies.length == 0) giveAchievement("I think you should buy something")
     if (player.timestudy.theorem >= 1000) giveAchievement("Great, now actually go study")
     if (player.replicanti.galaxies >= 180*player.galaxies) giveAchievement("Popular music")
