@@ -2960,7 +2960,7 @@ const allAchievements = {
   r111 : "Linear exponentiality",
   r112 : "Infinitely challenging",
   r113 : "Long lasting relationship",
-  r114 : "114",
+  r114 : "You're a mistake",
   r115 : "115",
   r116 : "116",
   r117 : "117",
@@ -2970,8 +2970,8 @@ const allAchievements = {
   r123 : "Through the event horizon",
   r124 : "IT'S OVER 9000!!!",
   r125 : "Great, now actually go study",
-  r126 : "126",
-  r127 : "127",
+  r126 : "Popular music",
+  r127 : "But I wanted another prestige layer...",
   r128 : "I think you should buy something",
 };
 // to retrieve by value: Object.keys(allAchievements).find(key => allAchievements[key] === "L4D: Left 4 Dimensions");
@@ -5275,6 +5275,7 @@ document.getElementById("bigcrunch").onclick = function () {
             if (player.infinitied >= 16 - (ECTimesCompleted("eterc4")*4)) {
                 document.getElementById("challfail").style.display = "block"
                 setTimeout(exitChallenge, 500)
+                giveAchievement("You're a mistake")
             }
         }
         if (autoS && auto) {
@@ -6825,6 +6826,8 @@ setInterval(function() {
     if (infchallengeTimes < 7.5) giveAchievement("Infinitely challenging")
     if (player.infinityPoints.gte(new Decimal("1e22000")) && player.timestudy.studies.length == 0) giveAchievement("I think you should buy something")
     if (player.timestudy.theorem >= 1000) giveAchievement("Great, now actually go study")
+    if (player.replicanti.galaxies >= 180*player.galaxies) giveAchievement("Popular music")
+    if (player.eternityPoints.gte(Number.MAX_VALUE)) giveAchievement("But I wanted another prestige layer...")
 
 }, 1000)
 
@@ -7042,7 +7045,7 @@ function gameLoop(diff) {
             player.replicanti.amount = gained
             replicantiTicks = 0
         } else {
-            var gained = Decimal.pow(Math.E, current +(diff*est/10))
+            var gained = Decimal.pow(Math.E, current +Math.log((diff*est/10)/ (308/Math.log10(1.2)/1.2)+1) / (Math.log10(1.2)/308))
             player.replicanti.amount = Decimal.min(Number.MAX_VALUE, gained)
             if (player.timestudy.studies.includes(192)) player.replicanti.amount = gained
             replicantiTicks = 0
