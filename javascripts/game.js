@@ -4568,6 +4568,7 @@ function setAchieveTooltip() {
     let infiniteIP = document.getElementById("Can you get infinite IP?")
     let thething = document.getElementById("Hey look, you did the thing again")
     let over9000 = document.getElementById("IT'S OVER 9000!!!")
+    let linear = document.getElementById("Linear exponentiality")
 
     apocAchieve.setAttribute('ach-tooltip', "Get over " + formatValue(player.options.notation, 1e80, 0, 0) + " antimatter.");
     noPointAchieve.setAttribute('ach-tooltip', "Buy a single First Dimension when you have over " + formatValue(player.options.notation, 1e150, 0, 0) + " of them. Reward: First Dimensions are 10% stronger.");
@@ -4588,11 +4589,12 @@ function setAchieveTooltip() {
     infiniteIP.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal("1e30008"))+" IP.")
     thething.setAttribute('ach-tooltip', "Reach "+shortenDimensions(Number.MAX_VALUE)+" time shards.")
     over9000.setAttribute('ach-tooltip', "Get a total sacrifice multiplier of "+shortenCosts(new Decimal("1e9000"))+".")
+    linear.setAttribute('ach-tooltip', "Have all your past 10 infinities be at least "+formatValue(player.options.notation, 1e300, 0, 0)+" times higher than the previous one.")
 }
 
 document.getElementById("notation").onclick = function () {
     player.options.scientific = !player.options.scientific;
-    if (player.options.notation === "Color") {
+    if (player.options.notation === "Logarithm") {
         player.options.notation = "Scientific";
         document.getElementById("notation").innerHTML = ("Notation: Scientific")
     } else if (player.options.notation === "Scientific") {
@@ -4616,9 +4618,6 @@ document.getElementById("notation").onclick = function () {
     } else if (player.options.notation === "Mixed engineering") {
         player.options.notation = "Logarithm";
         document.getElementById("notation").innerHTML = ("Notation: Logarithm")
-    } else if (player.options.notation === "Logarithm") {
-        player.options.notation = "Color";
-        document.getElementById("notation").innerHTML = ("Notation: Color")
     }
     setAchieveTooltip();
     updateCosts();
@@ -5263,7 +5262,7 @@ document.getElementById("bigcrunch").onclick = function () {
         if (!player.achievements.includes("r111") && player.lastTenRuns[9][1] != 1) {
             var n = 0;
             for (i=0; i<9; i++) {
-                if (player.lastTenRuns[0][1].gte(player.lastTenRuns[0+1][1].times(1e200))) n++;
+                if (player.lastTenRuns[0][1].gte(player.lastTenRuns[0+1][1].times(1e300))) n++;
             }
             if (n == 9) giveAchievement("Linear exponentiality")
         }
