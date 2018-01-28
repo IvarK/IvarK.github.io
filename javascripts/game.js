@@ -6867,7 +6867,7 @@ function gameLoop(diff) {
             postC2Count = 0;
         }
     }
-    if (player.infinityUpgrades.includes("passiveGen")) player.partInfinityPoint += diff / player.bestInfinityTime;
+    if (player.infinityUpgrades.includes("passplayer.lastUpdateiveGen")) player.partInfinityPoint += diff / player.bestInfinityTime;
     if (player.partInfinityPoint >= 100) {
         player.infinityPoints = player.infinityPoints.plus(player.infMult.times(kongIPMult * (player.partInfinityPoint/10)));
         player.partInfinityPoint = 0;
@@ -7124,16 +7124,17 @@ function gameLoop(diff) {
     updateTimeShards()
     if (calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).gt(player.money)) {
         if(player.money.gt(Math.pow(10,63)) && !player.achievements.includes("r42")) giveAchievement("Supersanic");
-        Marathon++;
-        Marathon2++;
+        Marathon+=player.options.updateRate/1000;
+        
 
-        if (Marathon >= 300 && !player.achievements.includes("r44")) {
+        if (Marathon >= 30 && !player.achievements.includes("r44")) {
             giveAchievement("Over in 30 seconds");
         } else if (getDimensionProductionPerSecond(1).lt(player.money)){
             Marathon = 0; 
         }
     }
-    if (Marathon2 >= 300 && !player.achievements.includes("r113")) {
+    Marathon2+=player.options.updateRate/1000;
+    if (Marathon2 >= 30 && !player.achievements.includes("r113")) {
         giveAchievement("Long lasting relationship");
     } else if (DimensionProduction(1).lt(player.infinityPower)){
         Marathon2 = 0; 
