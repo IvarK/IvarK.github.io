@@ -219,6 +219,7 @@ var player = {
     eterc8ids: 50,
     eterc8repl: 40,
     dimlife: true,
+    dead: true,
     options: {
         newsHidden: false,
         notation: "Standard",
@@ -784,6 +785,7 @@ function onLoad() {
     if (player.eterc8repl === undefined) player.eterc8repl = 40
     if (player.infinitiedBank === undefined) player.infinitiedBank = 0
     if (player.dimlife === undefined) player.dimlife = false
+    if (player.dead === undefined) player.dead = false
     setTheme(player.options.theme);
 
     sliderText.innerHTML = "Update rate: " + player.options.updateRate + "ms";
@@ -2645,6 +2647,7 @@ function softReset(bulk) {
         eterc8ids: player.eterc8ids,
         eterc8repl: player.eterc8repl,
         dimlife: player.dimlife,
+        dead: player.dead,
         options: player.options
     };
     if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -2969,7 +2972,7 @@ const allAchievements = {
   r117 : "8 nobody got time for that",
   r118 : "Eternities are the new infinity",
   r121 : "Can you get infinite IP?",
-  r122 : "Hey look, you did the thing again",
+  r122 : "You're already dead.",
   r123 : "5 more eternities until update",
   r124 : "IT'S OVER 9000",
   r125 : "Like feasting on a behind",
@@ -3130,6 +3133,7 @@ function onBuyDimension(tier) {
     player.postC4Tier = tier;
     postc8Mult = new Decimal(1)
     if (tier != 8) player.dimlife = false
+    if (tier != 1) player.dead = false
 
 
 }
@@ -3398,6 +3402,7 @@ function buyManyDimensionAutobuyer(tier, bulk) {
         if (player.currentChallenge == "postc1") clearDimensions(tier-1);
         player.postC4Tier = tier;
         if (tier != 8) player.dimlife = false
+        if (tier != 1) player.dead = false
 }
 
 
@@ -4350,6 +4355,7 @@ function galaxyReset() {
         eterc8ids: player.eterc8ids,
         eterc8repl: player.eterc8repl,
         dimlife: player.dimlife,
+        dead: player.dead,
         options: player.options
     };
 
@@ -4573,7 +4579,6 @@ function setAchieveTooltip() {
     let overdrive = document.getElementById("MAXIMUM OVERDRIVE")
     let minute = document.getElementById("Minute of infinity")
     let infiniteIP = document.getElementById("Can you get infinite IP?")
-    let thething = document.getElementById("Hey look, you did the thing again")
     let over9000 = document.getElementById("IT'S OVER 9000")
     let dawg = document.getElementById("Yo dawg, I heard you liked infinities...")
     let eatass = document.getElementById("Like feasting on a behind")
@@ -4597,7 +4602,6 @@ function setAchieveTooltip() {
     overdrive.setAttribute('ach-tooltip', "Big Crunch with " + shortenCosts(1e300) + " IP/min. Reward: Additional 4x multiplier to IP.")
     minute.setAttribute('ach-tooltip', "Reach " + shortenCosts(1e260) + " infinity power. Reward: Double infinity power gain.")
     infiniteIP.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal("1e30008"))+" IP.")
-    thething.setAttribute('ach-tooltip', "Reach "+shortenDimensions(Number.MAX_VALUE)+" time shards.")
     over9000.setAttribute('ach-tooltip', "Get a total sacrifice multiplier of "+shortenCosts(new Decimal("1e9000"))+".")
     dawg.setAttribute('ach-tooltip', "Have all your past 10 infinities be at least "+shortenMoney(Number.MAX_VALUE)+" times higher than the previous one.")
     eatass.setAttribute('ach-tooltip', "Get "+shortenCosts(1e100)+" IP without any infinities or first dimensions")
@@ -5422,6 +5426,7 @@ document.getElementById("bigcrunch").onclick = function () {
         eterc8ids: player.eterc8ids,
         eterc8repl: player.eterc8repl,
         dimlife: player.dimlife,
+        dead: player.dead,
         options: player.options
         };
 
@@ -5556,6 +5561,7 @@ function eternity(force) {
         if (player.infinitied < 10) giveAchievement("Do you really need a guide for this?");
         if (Decimal.round(player.replicanti.amount) == 9) giveAchievement("We could afford 9");
         if (player.dimlife) giveAchievement("8 nobody got time for that")
+        if (player.dead) giveAchievement("You're already dead.")
         if (player.infinitied <= 1 && !force) giveAchievement("Do I really need to infinity")
         temp = []
         player.eternityPoints = player.eternityPoints.plus(gainedEternityPoints())
@@ -5769,6 +5775,7 @@ function eternity(force) {
             eterc8ids: 50,
             eterc8repl: 40,
             dimlife: true,
+            dead: true,
             options: player.options
         };
         if (player.respec) respecTimeStudies()
@@ -5998,6 +6005,7 @@ function startChallenge(name, target) {
       eterc8ids: player.eterc8ids,
       eterc8repl: player.eterc8repl,
       dimlife: player.dimlife,
+      dead: player.dead,
       options: player.options
     };
 	if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -6498,6 +6506,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
             eterc8ids: 50,
             eterc8repl: 40,
             dimlife: true,
+            dead: true,
             options: player.options
         };
         
@@ -6845,7 +6854,6 @@ setInterval(function() {
 
     if (infchallengeTimes < 7.5) giveAchievement("Never again")
     if (player.infinityPoints.gte(new Decimal("1e22000")) && player.timestudy.studies.length == 0) giveAchievement("What do I have to do to get rid of you")
-    if (player.timestudy.theorem >= 1000) giveAchievement("Like feasting on a behind")
     if (player.replicanti.galaxies >= 180*player.galaxies) giveAchievement("Popular music")
     if (player.eternityPoints.gte(Number.MAX_VALUE)) giveAchievement("But I wanted another prestige layer...")
     if (player.infinityPoints.gte(1e100) && player.firstAmount.equals(0) && player.infinitied == 0) giveAchievement("Like feasting on a behind")
@@ -6988,8 +6996,6 @@ function gameLoop(diff) {
 
     if (player.money.gte("9.9999e9999")) giveAchievement("This achievement doesn't exist")
     if (player.money.gte("1e35000")) giveAchievement("I got a few to spare")
-
-    if (player.timeShards.gte(Number.MAX_VALUE)) giveAchievement("Hey look, you did the thing again")
 
     if (player.currentEternityChall !== "eterc7") player.infinityPower = player.infinityPower.plus(DimensionProduction(1).times(diff/10))
     else player.seventhAmount = player.seventhAmount.plus(DimensionProduction(1).times(diff/10))
