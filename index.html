@@ -101,7 +101,7 @@
             <div class="eternitytab" id="timestudies" style="font-size: 15px">
                 <canvas id="studyTreeCanvas"></canvas>
                 <div><button class="storebtn" onclick="respecToggle()" id="respec" style="width:150px; height: 40px; font-size: 10px; margin: auto">Respec time studies on next Eternity</button></div>
-                <button class="maxbuytheorembtn" onclick="maxTheorems()" style="margin-left: -266px">Buy max Theorems</button>
+                <button class="timetheorembtn" onclick="maxTheorems()" style="margin-left:-266px; width:130px; height: 30px; font-size: 0.75rem; bottom: 77px;">Buy max Theorems</button>
                 <button class="timetheorembtn" onclick="buyWithAntimatter()" id="theoremam" style="margin-left: -266px">Buy Time Theorems <br>Cost: 1e20000 antimatter</button>
                 <button class="timetheorembtn" onclick="buyWithIP()" id="theoremip" style="margin-left: -86px">Buy Time Theorems <br>Cost: 1 IP</button>
                 <button class="timetheorembtnlocked" onclick="buyWithEP()" id="theoremep" style="margin-left: 96px">Buy Time Theorems <br>Cost: 1 EP</button>
@@ -124,7 +124,7 @@
                     <tr>
                         <td><button class="timestudy" id="33" onclick="buyTimeStudy(33, 2)">You keep half of your replicanti galaxies on infinity<span>Cost: 2 Time Theorems</button></td>
                         <td><button class="timestudy" id="31" onclick="buyTimeStudy(31, 3)">Powers up bonuses that are based on your infinitied stat (to the power of 4)<span>Cost: 3 Time Theorems</button></td>
-                        <td><button class="timestudy" id="32" onclick="buyTimeStudy(32, 2)">You gain x1 more infinitied stat (based on soft resets)<span>Cost: 2 Time Theorems</button></td>
+                        <td><button class="timestudy" id="32" onclick="buyTimeStudy(32, 2)">You gain x1 more infinitied stat (based on dimension boosts)<span>Cost: 2 Time Theorems</button></td>
                         <td style="opacity: 0;"><button class="timestudylocked"></button></td>
                     </tr>
                 </table>
@@ -879,7 +879,7 @@
             <div id="stats" class="statstab">
             <br>
             <div id="totalmoney">You have made x antimatter.</div>
-            <div id="totalresets">You have made x soft resets.</div>
+            <div id="totalresets">You have made x dimensional boosts/shifts.</div>
             <div id="galaxies">You have made x Antimatter galaxies.</div>
             <div id="eternitied">You have eternitied x times.</div>
             <div id="thiseternity">You have spent x in this eternity</div>
@@ -1208,7 +1208,7 @@
                     </tr>
                     <tr id="achRow10">
                         <td>
-                            <div id="Costco sells dimboosts now" class="achievement achievementlocked" style="background-image: url(images/65.png)" ach-tooltip="Bulk 750 soft resets at once. Reward: Soft resets are 1% more powerful (to normal dims)."><br></div>
+                            <div id="Costco sells dimboosts now" class="achievement achievementlocked" style="background-image: url(images/65.png)" ach-tooltip="Bulk buy 750 dimension boosts at once. Reward: Dimension boosts are 1% more powerful (to normal dims)."><br></div>
                         </td>
                         <td>
                             <div id="This mile took an Eternity" class="achievement achievementlocked" style="background-image: url(images/66.png)" ach-tooltip="Get all eternity milestones. Reward: Gain a small bonus to time dimensions based on amount eternitied."><br></div>
@@ -1234,7 +1234,7 @@
                     </tr>
                     <tr id="achRow11">
                         <td>
-                            <div id="Dawg I heard you liked infinities..." class="achievement achievementlocked" style="background-image: url(images/73.png)" ach-tooltip="Have all your past 10 infinities be at least 1e300 times higher than the previous one."><br></div>
+                            <div id="Yo dawg, I heard you liked infinities..." class="achievement achievementlocked" style="background-image: url(images/73.png)" ach-tooltip="Have all your past 10 infinities be at least 1.79e308 times higher than the previous one."><br></div>
                         </td>
                         <td>
                             <div id="Never again" class="achievement achievementlocked" style="background-image: url(images/74.png)" ach-tooltip="Max out your third Eternity upgrade."><br></div>
@@ -1469,7 +1469,7 @@
                     <tr>
                         <td>
                             <div class= "challengediv">
-                                <span style="font-size: 110%">There's normal matter which rises. If it exceeds your antimatter, it will (soft) reset.</span>
+                                <span style="font-size: 110%">There's normal matter which rises. If it exceeds your antimatter, it will dimension boost without giving the bonus.</span>
                                 <br>
                                 <br>
                                 

@@ -516,10 +516,10 @@ function drawTreeBranch(num1, num2) {
     }
     var start = document.getElementById(num1).getBoundingClientRect()
     var end = document.getElementById(num2).getBoundingClientRect()
-    var x1 = start.left + (start.width / 2) + document.documentElement.scrollLeft;
-    var y1 = start.top + (start.height / 2) + document.documentElement.scrollTop;
-    var x2 = end.left + (start.width / 2) + document.documentElement.scrollLeft;
-    var y2 = end.top + (start.height / 2) + document.documentElement.scrollTop;
+    var x1 = start.left + (start.width / 2) + (document.documentElement.scrollLeft || document.body.scrollLeft);
+    var y1 = start.top + (start.height / 2) + (document.documentElement.scrollTop || document.body.scrollTop);
+    var x2 = end.left + (start.width / 2) + (document.documentElement.scrollLeft || document.body.scrollLeft);
+    var y2 = end.top + (start.height / 2) + (document.documentElement.scrollTop || document.body.scrollTop);
     ctx.lineWidth=15;
     ctx.beginPath();
     if ((player.timestudy.studies.includes(name1) && player.timestudy.studies.includes(name2)) || player.eternityChallUnlocked === name2) {
@@ -1718,7 +1718,7 @@ function updateDimensions() {
     else if (player.replicanti.galaxies > 0) document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies ('+ player.galaxies +' + '+ player.replicanti.galaxies +'): requires ' + getGalaxyRequirement() + ' Sixth Dimensions';
     else document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies ('+ player.galaxies +'): requires ' + getGalaxyRequirement() + ' Sixth Dimensions';
     document.getElementById("totalmoney").innerHTML = 'You have made a total of ' + shortenMoney(player.totalmoney) + ' antimatter.';
-    document.getElementById("totalresets").innerHTML = 'You have done ' + player.resets + ' soft resets.';
+    document.getElementById("totalresets").innerHTML = 'You have done ' + player.resets + ' dimensional boosts/shifts.';
     document.getElementById("galaxies").innerHTML = 'You have ' + Math.round(player.galaxies) + ' Antimatter Galaxies.';
     document.getElementById("totalTime").innerHTML = "You have played for " + timeDisplay(player.totalTimePlayed) + ".";
 
@@ -1781,7 +1781,7 @@ function updateDimensions() {
     if (player.offlineProd == 50) document.getElementById("offlineProd").innerHTML = "Generates "+player.offlineProd+"% of your best IP/min from last 10 infinities, works offline<br>Currently: "+shortenMoney(bestRunIppm.times(player.offlineProd/100)) +" IP/min"
 
 
-    document.getElementById("32").innerHTML = "You gain x"+Math.max(player.resets, 1)+" more infinitied stat (based on soft resets)<p>Cost: 2 Time Theorems"
+    document.getElementById("32").innerHTML = "You gain x"+Math.max(player.resets, 1)+" more infinitied stat (based on dimension boosts)<p>Cost: 2 Time Theorems"
 
     document.getElementById("eter1").innerHTML = "Infinity Dimensions multiplier based on unspent EP (x+1)<br>Currently: "+shortenMoney(player.eternityPoints.plus(1))+"x<br>Cost: 5 EP"
     document.getElementById("eter2").innerHTML = "Infinity Dimension multiplier based on eternities ((x/300)^log4(2x))<br>Currently: "+shortenMoney(Decimal.pow(player.eternities/300+1, Math.log(player.eternities*2)/Math.log(4)))+"x<br>Cost: 10 EP"
@@ -2960,7 +2960,7 @@ const allAchievements = {
   r106 : "The swarm",
   r107 : "Do you really need a guide for this?",
   r108 : "We could afford 9",
-  r111 : "Dawg I heard you liked infinities...",
+  r111 : "Yo dawg, I heard you liked infinities...",
   r112 : "Never again",
   r113 : "Long lasting relationship",
   r114 : "You're a mistake",
@@ -4575,7 +4575,7 @@ function setAchieveTooltip() {
     let infiniteIP = document.getElementById("Can you get infinite IP?")
     let thething = document.getElementById("Hey look, you did the thing again")
     let over9000 = document.getElementById("IT'S OVER 9000")
-    let linear = document.getElementById("Dawg I heard you liked infinities...")
+    let dawg = document.getElementById("Yo dawg, I heard you liked infinities...")
     let eatass = document.getElementById("Like feasting on a behind")
     let layer = document.getElementById("But I wanted another prestige layer...")
     let fkoff = document.getElementById("What do I have to do to get rid of you")
@@ -4599,7 +4599,7 @@ function setAchieveTooltip() {
     infiniteIP.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal("1e30008"))+" IP.")
     thething.setAttribute('ach-tooltip', "Reach "+shortenDimensions(Number.MAX_VALUE)+" time shards.")
     over9000.setAttribute('ach-tooltip', "Get a total sacrifice multiplier of "+shortenCosts(new Decimal("1e9000"))+".")
-    linear.setAttribute('ach-tooltip', "Have all your past 10 infinities be at least "+shortenMoney(Number.MAX_VALUE)+" times higher than the previous one.")
+    dawg.setAttribute('ach-tooltip', "Have all your past 10 infinities be at least "+shortenMoney(Number.MAX_VALUE)+" times higher than the previous one.")
     eatass.setAttribute('ach-tooltip', "Get "+shortenCosts(1e100)+" IP without any infinities or first dimensions")
     layer.setAttribute('ach-tooltip', "Get "+shortenMoney(Number.MAX_VALUE)+" EP")
     fkoff.setAttribute('ach-tooltip', "Gain "+shortenCosts(new Decimal("1e22000"))+" IP without any time studies.")
@@ -5544,8 +5544,8 @@ function respecToggle() {
     }
 }
 
-function eternity() {
-    if (player.infinityPoints.gte(Number.MAX_VALUE) && (!player.options.eternityconfirm || confirm("Eternity will reset everything except achievements and challenge records. You will also gain an Eternity point and unlock various upgrades."))) {
+function eternity(force) {
+    if ((player.infinityPoints.gte(Number.MAX_VALUE) && (!player.options.eternityconfirm || confirm("Eternity will reset everything except achievements and challenge records. You will also gain an Eternity point and unlock various upgrades."))) || force) {
         if (player.currentEternityChall !== "" && player.infinityPoints.lt(player.eternityChallGoal)) return false
         if (player.thisEternity<player.bestEternity) {
             player.bestEternity = player.thisEternity
@@ -5556,7 +5556,7 @@ function eternity() {
         if (player.infinitied < 10) giveAchievement("Do you really need a guide for this?");
         if (Decimal.round(player.replicanti.amount) == 9) giveAchievement("We could afford 9");
         if (player.dimlife) giveAchievement("8 nobody got time for that")
-        if (player.infinitied <= 1) giveAchievement("Do I really need to infinity")
+        if (player.infinitied <= 1 && !force) giveAchievement("Do I really need to infinity")
         temp = []
         player.eternityPoints = player.eternityPoints.plus(gainedEternityPoints())
         addEternityTime(player.thisEternity, gainedEternityPoints())
@@ -5864,7 +5864,7 @@ function exitChallenge() {
     } else if (player.currentEternityChall !== "") {
         player.currentEternityChall = ""
         player.eternityChallGoal = new Decimal(Number.MAX_VALUE)
-        eternity()
+        eternity(true)
         updateEternityChallenges();
     }
 }
@@ -7100,7 +7100,7 @@ function gameLoop(diff) {
             replicantiTicks -= interval
         }
     }
-    if (player.replicanti.amount.gt(0)) replicantiTicks += 50
+    if (player.replicanti.amount !== 0) replicantiTicks += 50
 
 
     if (current == Math.log(Number.MAX_VALUE) && player.thisInfinityTime < 600*30) giveAchievement("Is this safe?");
@@ -7147,21 +7147,17 @@ function gameLoop(diff) {
     updateInfPower();
     updateTimeDimensions()
     updateTimeShards()
-    if (calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).gt(player.money)) {
+    if (getDimensionProductionPerSecond(1).gt(player.money) && !player.achievements.includes("r44")) {
         if(player.money.gt(Math.pow(10,63)) && !player.achievements.includes("r42")) giveAchievement("Supersanic");
         Marathon+=player.options.updateRate/1000;
-        
-
-        if (Marathon >= 30 && !player.achievements.includes("r44")) {
-            giveAchievement("Over in 30 seconds");
-        } else if (getDimensionProductionPerSecond(1).lt(player.money)){
-            Marathon = 0; 
-        }
+        if (Marathon >= 30) giveAchievement("Over in 30 seconds");
+    } else {
+        Marathon = 0; 
     }
-    Marathon2+=player.options.updateRate/1000;
-    if (Marathon2 >= 30 && !player.achievements.includes("r113")) {
-        giveAchievement("Long lasting relationship");
-    } else if (DimensionProduction(1).lt(player.infinityPower)){
+    if (DimensionProduction(1).gt(player.infinityPower) && !player.achievements.includes("r113")) {
+        Marathon2+=player.options.updateRate/1000;
+        if (Marathon2 >= 30) giveAchievement("Long lasting relationship");
+    } else {
         Marathon2 = 0; 
     }
 
