@@ -516,10 +516,10 @@ function drawTreeBranch(num1, num2) {
     }
     var start = document.getElementById(num1).getBoundingClientRect()
     var end = document.getElementById(num2).getBoundingClientRect()
-    var x1 = start.left + (start.width / 2) + document.documentElement.scrollLeft;
-    var y1 = start.top + (start.height / 2) + document.documentElement.scrollTop;
-    var x2 = end.left + (start.width / 2) + document.documentElement.scrollLeft;
-    var y2 = end.top + (start.height / 2) + document.documentElement.scrollTop;
+    var x1 = start.left + (start.width / 2) + (document.documentElement.scrollLeft || document.body.scrollLeft);
+    var y1 = start.top + (start.height / 2) + (document.documentElement.scrollTop || document.body.scrollTop);
+    var x2 = end.left + (start.width / 2) + (document.documentElement.scrollLeft || document.body.scrollLeft);
+    var y2 = end.top + (start.height / 2) + (document.documentElement.scrollTop || document.body.scrollTop);
     ctx.lineWidth=15;
     ctx.beginPath();
     if ((player.timestudy.studies.includes(name1) && player.timestudy.studies.includes(name2)) || player.eternityChallUnlocked === name2) {
@@ -7099,7 +7099,7 @@ function gameLoop(diff) {
             replicantiTicks -= interval
         }
     }
-    if (player.replicanti.amount.gt(0)) replicantiTicks += 50
+    if (player.replicanti.amount !== 0) replicantiTicks += 50
 
 
     if (current == Math.log(Number.MAX_VALUE) && player.thisInfinityTime < 600*30) giveAchievement("Is this safe?");
@@ -7146,21 +7146,17 @@ function gameLoop(diff) {
     updateInfPower();
     updateTimeDimensions()
     updateTimeShards()
-    if (calcPerSec(player.firstAmount, player.firstPow, player.infinityUpgrades.includes("18Mult")).gt(player.money)) {
+    if (getDimensionProductionPerSecond(1).gt(player.money) && !player.achievements.includes("r44")) {
         if(player.money.gt(Math.pow(10,63)) && !player.achievements.includes("r42")) giveAchievement("Supersanic");
         Marathon+=player.options.updateRate/1000;
-        
-
-        if (Marathon >= 30 && !player.achievements.includes("r44")) {
-            giveAchievement("Over in 30 seconds");
-        } else if (getDimensionProductionPerSecond(1).lt(player.money)){
-            Marathon = 0; 
-        }
+        if (Marathon >= 30) giveAchievement("Over in 30 seconds");
+    } else {
+        Marathon = 0; 
     }
-    Marathon2+=player.options.updateRate/1000;
-    if (Marathon2 >= 30 && !player.achievements.includes("r113")) {
-        giveAchievement("Long lasting relationship");
-    } else if (DimensionProduction(1).lt(player.infinityPower)){
+    if (DimensionProduction(1).gt(player.infinityPower) && !player.achievements.includes("r113")) {
+        Marathon2+=player.options.updateRate/1000;
+        if (Marathon2 >= 30) giveAchievement("Long lasting relationship");
+    } else {
         Marathon2 = 0; 
     }
 
