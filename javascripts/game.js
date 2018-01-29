@@ -5556,7 +5556,7 @@ function eternity(force) {
             player.bestEternity = player.thisEternity
             if (player.bestEternity < 300) giveAchievement("That wasn't an eternity");
         }
-        if (player.thisEternity > 2) giveAchievement("Eternities are the new infinity")
+        if (player.thisEternity < 2) giveAchievement("Eternities are the new infinity")
         if (player.currentEternityChall == "eterc6" && ECTimesCompleted("eterc6") < 5) player.dimensionMultDecrease -= 0.2
         if (player.infinitied < 10) giveAchievement("Do you really need a guide for this?");
         if (Decimal.round(player.replicanti.amount) == 9) giveAchievement("We could afford 9");
