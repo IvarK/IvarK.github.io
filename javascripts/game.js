@@ -7056,7 +7056,7 @@ function gameLoop(diff) {
     if (player.timestudy.studies.includes(133)) interval *= 10
     if (player.timestudy.studies.includes(193)) interval /= 20
     if (player.replicanti.amount.gt(Number.MAX_VALUE)) interval = Math.max(interval * Math.pow(1.2, (player.replicanti.amount.log10() - 308)/308), interval)
-    var est = player.replicanti.chance * 1000 / interval
+    var est = Math.log(player.replicanti.chance+1) * 1000 / interval
     
     var current = player.replicanti.amount.ln()
     
@@ -7066,7 +7066,8 @@ function gameLoop(diff) {
             player.replicanti.amount = gained
             replicantiTicks = 0
         } else {
-            var gained = Decimal.pow(Math.E, current +Math.log((diff*est/10)/ (308/Math.log10(1.2)/1.2)+1) / (Math.log10(1.2)/308))
+            var gained = Decimal.pow(Math.E, current +(diff*est/10))
+            if (player.timestudy.studies.includes(192)) gained = Decimal.pow(Math.E, current +Math.log((diff*est/10) * (Math.log10(1.2)/308)+1) / (Math.log10(1.2)/308))
             player.replicanti.amount = Decimal.min(Number.MAX_VALUE, gained)
             if (player.timestudy.studies.includes(192)) player.replicanti.amount = gained
             replicantiTicks = 0
