@@ -5281,7 +5281,7 @@ document.getElementById("bigcrunch").onclick = function () {
             for (i=0; i<9; i++) {
                 if (player.lastTenRuns[0][1].gte(player.lastTenRuns[0+1][1].times(1e300))) n++;
             }
-            if (n == 9) giveAchievement("Dawg I heard you liked infinities...")
+            if (n == 9) giveAchievement("Yo dawg, I heard you liked infinities...")
         }
         let infGain = 1;
         if (player.thisInfinityTime > 50 && player.achievements.includes("r87")) infGain = 250;
