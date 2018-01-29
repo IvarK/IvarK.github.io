@@ -651,6 +651,10 @@ function setTheme(name) {
         document.getElementById("theme").innerHTML="Current theme: " + player.options.secretThemeKey;
         Chart.defaults.global.defaultFontColor = 'black';
         normalDimChart.data.datasets[0].borderColor = '#000'
+    } else if(name === "S4") {
+        document.getElementById("theme").innerHTML="Current theme: " + player.options.secretThemeKey;
+        Chart.defaults.global.defaultFontColor = 'black';
+        normalDimChart.data.datasets[0].borderColor = '#000'
     } else {
         document.getElementById("theme").innerHTML="Current theme: " + name;
     }
@@ -4477,6 +4481,9 @@ document.getElementById("importbtn").onclick = function () {
         setTheme(player.options.theme);
     } else if (sha512_256(save_data) === "d764e9a1d1e18081be19f3483b537ae1159ab40d10e096df1d9e857d68d6ba7a") {
         player.options.theme = "S3";
+        setTheme(player.options.theme);
+    } else if (sha512_256(save_data) === "ae0199482ecfa538a03eb37c67866e67a11f1832516c26c7939e971e514d40c5") {
+        player.options.theme = "S4";
         setTheme(player.options.theme);
     } else {
         save_data = JSON.parse(atob(save_data), function(k, v) { return (v === Infinity) ? "Infinity" : v; });
