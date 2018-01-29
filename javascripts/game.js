@@ -376,6 +376,15 @@ Array.min = function( array ){
     return Math.min.apply( Math, array );
 };
 
+Object.invert = function(obj) {
+    var result = {};
+    var keys = Object.keys(obj);
+    for (var i = 0, length = keys.length; i < length; i++) {
+      result[obj[keys[i]]] = keys[i];
+    }
+    return result;
+};
+
 Chart.defaults.global.defaultFontColor = 'black';
 Chart.defaults.global.defaultFontFamily = 'Typewriter';
 var ctx2 = document.getElementById("normalDimChart").getContext('2d');
@@ -2985,6 +2994,7 @@ const allAchievements = {
   r127 : "But I wanted another prestige layer...",
   r128 : "What do I have to do to get rid of you",
 };
+const allAchievementNums = Object.invert(allAchievements)
 // to retrieve by value: Object.keys(allAchievements).find(key => allAchievements[key] === "L4D: Left 4 Dimensions");
 
 function clearOldAchieves(){
@@ -3014,9 +3024,7 @@ function giveAchievement(name) {
 
     if (player.achievements.includes(name)){ clearOldAchieves(); }
 
-    if (player.achievements.includes(Object.keys(allAchievements).find(function(key){ return allAchievements[key] === name;}))) {
-        return
-    }
+    if (player.achievements.includes(allAchievementNums[name])) return false
 
     $.notify(name, "success");
     player.achievements.push((Object.keys(allAchievements).find(key => allAchievements[key] === name)));
@@ -5248,9 +5256,9 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.thisInfinityTime <= 6000) giveAchievement("That's faster!")
         if (player.thisInfinityTime <= 600) giveAchievement("Forever isn't that long")
         if (player.thisInfinityTime <= 2) giveAchievement("Blink of an eye")
-        if (!player.achievements.includes("r34") && player.eightAmount == 0) giveAchievement("You didn't need it anyway");
-        if (!player.achievements.includes("r36") && player.galaxies == 1) giveAchievement("Claustrophobic");
-        if (!player.achievements.includes("r43") && player.galaxies == 0 && player.resets == 0) giveAchievement("Zero Deaths")
+        if (player.eightAmount == 0) giveAchievement("You didn't need it anyway");
+        if (player.galaxies == 1) giveAchievement("Claustrophobic");
+        if (player.galaxies == 0 && player.resets == 0) giveAchievement("Zero Deaths")
         if (player.currentChallenge == "challenge2" && player.thisInfinityTime <= 1800) giveAchievement("Many Deaths")
         if (player.currentChallenge == "challenge11" && player.thisInfinityTime <= 1800) giveAchievement("Gift from the Gods")
         if (player.currentChallenge == "challenge5" && player.thisInfinityTime <= 1800) giveAchievement("Is this hell?")
@@ -5498,8 +5506,8 @@ document.getElementById("bigcrunch").onclick = function () {
             kongregate.stats.submit('Fastest Infinity time (ms)', Math.floor(player.bestInfinityTime * 100))
 
         } catch (err) {console.log("Couldn't load Kongregate API")}
-        if (!player.achievements.includes("r21")) giveAchievement("To infinity!");
-        if (!player.achievements.includes("r33") && player.infinitied >= 10) giveAchievement("That's a lot of infinites");
+        giveAchievement("To infinity!");
+        if (player.infinitied >= 10) giveAchievement("That's a lot of infinites");
         if (player.infinitied >= 1 && !player.challenges.includes("challenge1")) player.challenges.push("challenge1");
 
 
@@ -5509,8 +5517,8 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.achievements.includes("r54")) player.money = new Decimal(2e5);
         if (player.achievements.includes("r55")) player.money = new Decimal(1e10);
         if (player.achievements.includes("r78")) player.money = new Decimal(1e25);
-        if (player.challenges.length >= 2 && !player.achievements.includes("r47")) giveAchievement("Daredevil");
-        if (player.challenges.length == 12 && !player.achievements.includes("r48")) giveAchievement("AntiChallenged");
+        if (player.challenges.length >= 2) giveAchievement("Daredevil");
+        if (player.challenges.length == 12) giveAchievement("AntiChallenged");
         resetInfDimensions();
         player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
         if (player.challenges.length == 20) giveAchievement("Anti-antichallenged");
@@ -5558,7 +5566,7 @@ function respecToggle() {
 }
 
 function eternity(force) {
-    if ((player.infinityPoints.gte(Number.MAX_VALUE) && (!player.options.eternityconfirm || confirm("Eternity will reset everything except achievements and challenge records. You will also gain an Eternity point and unlock various upgrades."))) || force) {
+    if ((player.infinityPoints.gte(Number.MAX_VALUE) && (!player.options.eternityconfirm || confirm("Eternity will reset everything except achievements and challenge records. You will also gain an Eternity point and unlock various upgrades."))) || force === true) {
         if (player.currentEternityChall !== "" && player.infinityPoints.lt(player.eternityChallGoal)) return false
         if (player.thisEternity<player.bestEternity) {
             player.bestEternity = player.thisEternity
@@ -7170,7 +7178,7 @@ function gameLoop(diff) {
     updateTimeDimensions()
     updateTimeShards()
     if (getDimensionProductionPerSecond(1).gt(player.money) && !player.achievements.includes("r44")) {
-        if(player.money.gt(Math.pow(10,63)) && !player.achievements.includes("r42")) giveAchievement("Supersanic");
+        if(player.money.gt(Math.pow(10,63))) giveAchievement("Supersanic");
         Marathon+=player.options.updateRate/1000;
         if (Marathon >= 30) giveAchievement("Over in 30 seconds");
     } else {
