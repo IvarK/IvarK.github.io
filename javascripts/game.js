@@ -6073,7 +6073,7 @@ function startChallenge(name, target) {
     resetInfDimensions();
     player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
 
-    if (player.resets == 0 && player.currentChallenge == "I wish I had gotten 7 eternities") {
+    if (player.resets == 0 && player.currentChallenge == "") {
         if (player.infinityUpgrades.includes("skipReset1")) player.resets++;
         if (player.infinityUpgrades.includes("skipReset2")) player.resets++;
         if (player.infinityUpgrades.includes("skipReset3")) player.resets++;
@@ -6082,7 +6082,7 @@ function startChallenge(name, target) {
             if (player.galaxies == 0) player.galaxies = 1
         }
     }
-    if (player.currentChallenge.includes("post") && player.currentEternityChall !== "") return 
+    if (player.currentChallenge.includes("post") && player.currentEternityChall !== "") giveAchievement("I wish I had gotten 7 eternities")
 }
 }
 
@@ -6854,7 +6854,7 @@ setInterval(function() {
 
     if (infchallengeTimes < 7.5) giveAchievement("Never again")
     if (player.infinityPoints.gte(new Decimal("1e22000")) && player.timestudy.studies.length == 0) giveAchievement("What do I have to do to get rid of you")
-    if (player.replicanti.galaxies >= 180*player.galaxies) giveAchievement("Popular music")
+    if (player.replicanti.galaxies >= 180*player.galaxies && player.galaxies > 0) giveAchievement("Popular music")
     if (player.eternityPoints.gte(Number.MAX_VALUE)) giveAchievement("But I wanted another prestige layer...")
     if (player.infinityPoints.gte(1e100) && player.firstAmount.equals(0) && player.infinitied == 0) giveAchievement("Like feasting on a behind")
 
