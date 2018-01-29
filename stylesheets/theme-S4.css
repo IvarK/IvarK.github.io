@@ -1,0 +1,26 @@
+* {
+    border-radius: 0px !important;
+}
+
+* {
+    font-family: "Comic Sans MS", cursive, sans-serif !important;
+}
+
+html{
+	background-color: #FF00FF;
+    color: black !important;
+    background-attachment:fixed;
+    background-position:center bottom;	
+	border: 1px solid white !important;
+}
+
+body {
+    filter: invert(0%);
+	background: #0FFF0F !important;
+	
+	border: 1px solid white !important;
+}
+
+* {
+	box-shadow: 1px 1px 1px 0px #9E9E9E;
+}
