@@ -2960,7 +2960,7 @@ const allAchievements = {
   r106 : "The swarm",
   r107 : "Do you really need a guide for this?",
   r108 : "We could afford 9",
-  r111 : "Dawg I heard you liked infinities...",
+  r111 : "Yo dawg, I heard you liked infinities...",
   r112 : "Never again",
   r113 : "Long lasting relationship",
   r114 : "You're a mistake",
@@ -4575,7 +4575,7 @@ function setAchieveTooltip() {
     let infiniteIP = document.getElementById("Can you get infinite IP?")
     let thething = document.getElementById("Hey look, you did the thing again")
     let over9000 = document.getElementById("IT'S OVER 9000")
-    let linear = document.getElementById("Dawg I heard you liked infinities...")
+    let dawg = document.getElementById("Yo dawg, I heard you liked infinities...")
     let eatass = document.getElementById("Like feasting on a behind")
     let layer = document.getElementById("But I wanted another prestige layer...")
     let fkoff = document.getElementById("What do I have to do to get rid of you")
@@ -4599,7 +4599,7 @@ function setAchieveTooltip() {
     infiniteIP.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal("1e30008"))+" IP.")
     thething.setAttribute('ach-tooltip', "Reach "+shortenDimensions(Number.MAX_VALUE)+" time shards.")
     over9000.setAttribute('ach-tooltip', "Get a total sacrifice multiplier of "+shortenCosts(new Decimal("1e9000"))+".")
-    linear.setAttribute('ach-tooltip', "Have all your past 10 infinities be at least "+shortenMoney(Number.MAX_VALUE)+" times higher than the previous one.")
+    dawg.setAttribute('ach-tooltip', "Have all your past 10 infinities be at least "+shortenMoney(Number.MAX_VALUE)+" times higher than the previous one.")
     eatass.setAttribute('ach-tooltip', "Get "+shortenCosts(1e100)+" IP without any infinities or first dimensions")
     layer.setAttribute('ach-tooltip', "Get "+shortenMoney(Number.MAX_VALUE)+" EP")
     fkoff.setAttribute('ach-tooltip', "Gain "+shortenCosts(new Decimal("1e22000"))+" IP without any time studies.")
@@ -5544,8 +5544,8 @@ function respecToggle() {
     }
 }
 
-function eternity() {
-    if (player.infinityPoints.gte(Number.MAX_VALUE) && (!player.options.eternityconfirm || confirm("Eternity will reset everything except achievements and challenge records. You will also gain an Eternity point and unlock various upgrades."))) {
+function eternity(force) {
+    if ((player.infinityPoints.gte(Number.MAX_VALUE) && (!player.options.eternityconfirm || confirm("Eternity will reset everything except achievements and challenge records. You will also gain an Eternity point and unlock various upgrades."))) || force) {
         if (player.currentEternityChall !== "" && player.infinityPoints.lt(player.eternityChallGoal)) return false
         if (player.thisEternity<player.bestEternity) {
             player.bestEternity = player.thisEternity
@@ -5556,7 +5556,7 @@ function eternity() {
         if (player.infinitied < 10) giveAchievement("Do you really need a guide for this?");
         if (Decimal.round(player.replicanti.amount) == 9) giveAchievement("We could afford 9");
         if (player.dimlife) giveAchievement("8 nobody got time for that")
-        if (player.infinitied <= 1) giveAchievement("Do I really need to infinity")
+        if (player.infinitied <= 1 && !force) giveAchievement("Do I really need to infinity")
         temp = []
         player.eternityPoints = player.eternityPoints.plus(gainedEternityPoints())
         addEternityTime(player.thisEternity, gainedEternityPoints())
@@ -5864,7 +5864,7 @@ function exitChallenge() {
     } else if (player.currentEternityChall !== "") {
         player.currentEternityChall = ""
         player.eternityChallGoal = new Decimal(Number.MAX_VALUE)
-        eternity()
+        eternity(true)
         updateEternityChallenges();
     }
 }
