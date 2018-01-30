@@ -5297,8 +5297,7 @@ document.getElementById("bigcrunch").onclick = function () {
             for (i=0; i<9; i++) {
                 if (player.lastTenRuns[i][1].gte(player.lastTenRuns[i+1][1].times(1e300))) n++;
             }
-            if (n == 9) console.log("yes")
-            else console.log(no)
+            if (n == 9) giveAchievement("Yo dawg, I heard you liked infinities...")
         }
         let infGain = 1;
         if (player.thisInfinityTime > 50 && player.achievements.includes("r87")) infGain = 250;
@@ -5578,7 +5577,7 @@ function eternity(force) {
         if (player.infinitied < 10) giveAchievement("Do you really need a guide for this?");
         if (Decimal.round(player.replicanti.amount) == 9) giveAchievement("We could afford 9");
         if (player.dimlife) giveAchievement("8 nobody got time for that")
-        if (player.dead) giveAchievement("You're already dead.")
+        if (player.dead && !force) giveAchievement("You're already dead.")
         if (player.infinitied <= 1 && !force) giveAchievement("Do I really need to infinity")
         temp = []
         player.eternityPoints = player.eternityPoints.plus(gainedEternityPoints())
