@@ -1144,6 +1144,31 @@ function onLoad() {
         }
     }
 
+    if (player.version < 9 ) {
+        player.version = 9
+        let achs = []
+        if (player.achievements.includes("r22")) {
+            achs.push("r35")
+            player.achievements.splice(player.achievements.indexOf("r22"), 1)
+        }
+        if (player.achievements.includes("r35")) {
+            achs.push("r76")
+            player.achievements.splice(player.achievements.indexOf("r35"), 1)
+        }
+        if (player.achievements.includes("r41")) {
+            achs.push("r22")
+            player.achievements.splice(player.achievements.indexOf("r41"), 1)
+        }
+        if (player.achievements.includes("r76")) {
+            achs.push("r41")
+            player.achievements.splice(player.achievements.indexOf("r76"), 1)
+        }
+
+        for (var i=0; i<achs.length;i++) player.achievements.push(achs[i])
+        updateAchievements()
+        player.replicanti.intervalCost = player.replicanti.intervalCost.dividedBy(1e20)
+    }
+
     toggleCrunchMode()
     toggleCrunchMode()
     toggleCrunchMode()
