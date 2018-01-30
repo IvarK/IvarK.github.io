@@ -2987,7 +2987,7 @@ const allAchievements = {
   r118 : "IT'S OVER 9000",
   r121 : "Can you get infinite IP?",
   r122 : "You're already dead.",
-  r123 : "5 more eternities until update",
+  r123 : "5 more eternities until the update",
   r124 : "Eternities are the new infinity",
   r125 : "Like feasting on a behind",
   r126 : "Popular music",
@@ -5595,7 +5595,7 @@ function eternity(force) {
                     eterchallscompletedtotal += player.eternityChalls["eterc"+i]
                 }
                 if (eterchallscompletedtotal === 50) {
-                    giveAchievement("5 more eternities until update");
+                    giveAchievement("5 more eternities until the update");
                 }
             }
         }
