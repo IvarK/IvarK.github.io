@@ -14,11 +14,15 @@ html{
 	border: 1px solid white !important;
 }
 
+#container {
+    cursor: url(cursor.cur),  auto !important;
+}
+
 body {
     filter: invert(0%);
 	background: #0FFF0F !important;
 	
-	border: 1px solid white !important;
+    border: 1px solid white !important;
 }
 
 .unavailablebtn {
@@ -27,10 +31,13 @@ body {
 
 .storebtn {
     background-color: #ff00e0 !important;
+    cursor: url(cursor2.cur),  auto !important;
 }
+
 
 .tabbtn, .secondarytabbtn {
     background-color: #1b00ff !important;
+    cursor: url(cursor2.cur), auto !important;
 }
 
 * {

@@ -4493,6 +4493,7 @@ document.getElementById("importbtn").onclick = function () {
     } else if (sha512_256(save_data) === "ae0199482ecfa538a03eb37c67866e67a11f1832516c26c7939e971e514d40c5") {
         player.options.theme = "S4";
         setTheme(player.options.theme);
+        
     } else {
         save_data = JSON.parse(atob(save_data), function(k, v) { return (v === Infinity) ? "Infinity" : v; });
         if (!save_data || !verify_save(save_data)) {
