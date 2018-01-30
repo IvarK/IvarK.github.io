@@ -3012,7 +3012,7 @@ const allAchievements = {
   r118 : "IT'S OVER 9000",
   r121 : "Can you get infinite IP?",
   r122 : "You're already dead.",
-  r123 : "5 more eternities until update",
+  r123 : "5 more eternities until the update",
   r124 : "Eternities are the new infinity",
   r125 : "Like feasting on a behind",
   r126 : "Popular music",
@@ -5620,7 +5620,7 @@ function eternity(force) {
                     eterchallscompletedtotal += player.eternityChalls["eterc"+i]
                 }
                 if (eterchallscompletedtotal === 50) {
-                    giveAchievement("5 more eternities until update");
+                    giveAchievement("5 more eternities until the update");
                 }
             }
         }
@@ -7460,7 +7460,7 @@ function gameLoop(diff) {
     }
 
     document.getElementById("ec1reward").innerHTML = "Reward: "+shortenMoney(Math.pow(Math.max(player.thisEternity*10, 1), 0.3+(ECTimesCompleted("eterc1")*0.05)))+"x on all Time Dimensions (based on time spent this Eternity)"
-    document.getElementById("ec2reward").innerHTML = "Reward: Infinity power affects Infinity Dimensions with reduced effect, Currently: "+shortenMoney(player.infinityPower.pow(1.5/(700 - ECTimesCompleted("eterc2")*100)).min(new Decimal("1e100")))+"x"
+    document.getElementById("ec2reward").innerHTML = "Reward: Infinity power affects Infinity Dimensions with reduced effect, Currently: "+shortenMoney(player.infinityPower.pow(1.5/(700 - ECTimesCompleted("eterc2")*100)).min(new Decimal("1e100")).max(1))+"x"
     document.getElementById("ec3reward").innerHTML = "Reward: Increase the multiplier for buying 10 dimensions, Currently: "+getDimensionPowerMultiplier().toFixed(2)+"x"
     document.getElementById("ec4reward").innerHTML = "Reward: Infinity Dimension multiplier from unspent IP, Currently: "+shortenMoney(player.infinityPoints.pow(0.003 + ECTimesCompleted("eterc4")*0.002).min(new Decimal("1e200")))+"x"
     document.getElementById("ec5reward").innerHTML = "Reward: Galaxy cost scaling starts "+((ECTimesCompleted("eterc5")*5))+" galaxies later."
