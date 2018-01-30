@@ -7813,7 +7813,7 @@ newsArray = [//always true
 ["A new group for the standardisation of numbers have come forward with a novel new format involving emoji's.", player.spreadingCancer > 0, "b11"], 
 ["Antimatter ice cream stand has recently opened- they have octillions of flavors!", player.totalmoney.e >= 27, "b13"], 
 ["The Heavenly Pelle has generated too much antimatter and needed to create another galaxy. This one can be seen in the southwestern sky.", player.galaxies > 0 || player.infinitied > 0, "b21"],
-["What does the CTRL button do again?", controlDown, "b27"]
+["What does the CTRL button do again?", controlDown, "b27"],
 //9th dim
 ["9th Dimension is a lie.", player.resets >= 5 || player.galaxies > 0, "b6"],
 ["The square root of 9 is 3, therefore the 9th dimension can't exist.", player.resets >= 5 || player.galaxies > 0, "b7"], 
@@ -7889,7 +7889,11 @@ function scrollNextMessage() {
   updateNewsArray();
   //select a message at random
   var index;
-  do {index = Math.floor(Math.random() * newsArray.length)} while (!newsArray[index][1])
+  try {
+    do {index = Math.floor(Math.random() * newsArray.length)} while (!newsArray[index][1])
+  } catch(e) {
+      console.log("Newsarray doesn't work at idx " + index)
+  }
 
   scrollTimeouts.forEach(function(v) {clearTimeout(v);});
   scrollTimeouts = [];
