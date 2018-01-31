@@ -3945,7 +3945,7 @@ function updateInfCosts() {
     else document.getElementById("ec7unl").innerHTML = "Eternity Challenge 7<span>Cost: 115 Time Theorems"
     if (player.etercreq !== 8) document.getElementById("ec8unl").innerHTML = "Eternity Challenge 8<span>Requirement: "+shortenCosts(new Decimal("1e4000").times(new Decimal("1e1000").pow(ECTimesCompleted("eterc8"))))+" IP <span>Cost: 115 Time Theorems"
     else document.getElementById("ec8unl").innerHTML = "Eternity Challenge 8<span>Cost: 115 Time Theorems"
-    if (player.etercreq !== 9) document.getElementById("ec9unl").innerHTML = "Eternity Challenge 9<span>Requirement: "+shortenCosts(new Decimal("1e22000").times(new Decimal("1e2000").pow(ECTimesCompleted("eterc9"))))+" infinity power<span>Cost: 415 Time Theorems"
+    if (player.etercreq !== 9) document.getElementById("ec9unl").innerHTML = "Eternity Challenge 9<span>Requirement: "+shortenCosts(new Decimal("1e17500").times(new Decimal("1e2000").pow(ECTimesCompleted("eterc9"))))+" infinity power<span>Cost: 415 Time Theorems"
     else document.getElementById("ec9unl").innerHTML = "Eternity Challenge 9<span>Cost: 415 Time Theorems"
     if (player.etercreq !== 10) document.getElementById("ec10unl").innerHTML = "Eternity Challenge 10<span>Requirement: "+shortenCosts(new Decimal("1e100").times(new Decimal("1e20").pow(ECTimesCompleted("eterc10"))))+" EP<span>Cost: 550 Time Theorems"
     else document.getElementById("ec10unl").innerHTML = "Eternity Challenge 10<span>Cost: 550 Time Theorems"
@@ -4587,10 +4587,11 @@ function gainedInfinityPoints() {
     var ret = Decimal.pow(10, player.money.e/div -0.75).times(player.infMult).times(kongIPMult)
     if (player.timestudy.studies.includes(41)) ret = ret.times(Decimal.pow(1.2, player.galaxies + player.replicanti.galaxies))
     if (player.timestudy.studies.includes(51)) ret = ret.times(1e15)
-    if (player.timestudy.studies.includes(141)) ret = ret.times(new Decimal(1e45).dividedBy(Decimal.pow(15, Math.log(player.thisInfinityTime)*Math.pow(player.thisInfinityTime, 0.125))).max(1))
+    if (player.timestudy.studies.includes(141)) ret = ret.times(new Decimal(1e45).dividedBy(Decimal.pow(15, Math.log(player.thisInfinityTime+1)*Math.pow(player.thisInfinityTime+1, 0.125))).max(1))
     if (player.timestudy.studies.includes(142)) ret = ret.times(1e25)
-    if (player.timestudy.studies.includes(143)) ret = ret.times(Decimal.pow(15, Math.log(player.thisInfinityTime)*Math.pow(player.thisInfinityTime, 0.125)))
+    if (player.timestudy.studies.includes(143)) ret = ret.times(Decimal.pow(15, Math.log(player.thisInfinityTime+1)*Math.pow(player.thisInfinityTime+1, 0.125)))
     if (player.achievements.includes("r116")) ret = ret.times(Decimal.pow(2, Math.log10(getInfinitied()+1)))
+    if (isNaN(ret) || ret.e > 200000 || ret.e < 0 || ret.mantissa < 1) console.log(ret)
     return ret.floor()
 }
 
@@ -6187,7 +6188,7 @@ function canUnlockEC(idx, cost, study) {
         break;
 
         case 9:
-        if (player.infinityPower.gte(new Decimal("1e22000").times(new Decimal("1e2000").pow(ECTimesCompleted("eterc9"))))) return true
+        if (player.infinityPower.gte(new Decimal("1e17500").times(new Decimal("1e2000").pow(ECTimesCompleted("eterc9"))))) return true
         break;
 
         case 10:
@@ -6863,16 +6864,16 @@ setInterval(function() {
     document.getElementById("eterc5goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e750").times(new Decimal("1e400").pow(ECTimesCompleted("eterc5"))).max(new Decimal("1e750"))) + " IP"
     document.getElementById("eterc5completed").innerHTML = "Completed "+ECTimesCompleted("eterc5")+" times."
 
-    document.getElementById("eterc6goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e850").times(new Decimal("1e275").pow(ECTimesCompleted("eterc6"))).max(new Decimal("1e850"))) + " IP"
+    document.getElementById("eterc6goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e850").times(new Decimal("1e250").pow(ECTimesCompleted("eterc6"))).max(new Decimal("1e850"))) + " IP"
     document.getElementById("eterc6completed").innerHTML = "Completed "+ECTimesCompleted("eterc6")+" times."
 
     document.getElementById("eterc7goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2000").times(new Decimal("1e530").pow(ECTimesCompleted("eterc7"))).max(new Decimal("1e2000"))) + " IP"
     document.getElementById("eterc7completed").innerHTML = "Completed "+ECTimesCompleted("eterc7")+" times."
 
-    document.getElementById("eterc8goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e1300").times(new Decimal("1e1000").pow(ECTimesCompleted("eterc8"))).max(new Decimal("1e1300"))) + " IP"
+    document.getElementById("eterc8goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e1300").times(new Decimal("1e900").pow(ECTimesCompleted("eterc8"))).max(new Decimal("1e1300"))) + " IP"
     document.getElementById("eterc8completed").innerHTML = "Completed "+ECTimesCompleted("eterc8")+" times."
 
-    document.getElementById("eterc9goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2350").times(new Decimal("1e150").pow(ECTimesCompleted("eterc9"))).max(new Decimal("1e2450"))) + " IP"
+    document.getElementById("eterc9goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e1750").times(new Decimal("1e250").pow(ECTimesCompleted("eterc9"))).max(new Decimal("1e1750"))) + " IP"
     document.getElementById("eterc9completed").innerHTML = "Completed "+ECTimesCompleted("eterc9")+" times."
 
     document.getElementById("eterc10goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e3100").times(new Decimal("1e300").pow(ECTimesCompleted("eterc10"))).max(new Decimal("1e3100"))) + " IP"
@@ -7063,8 +7064,8 @@ function gameLoop(diff) {
     if (getTimeDimensionProduction(1).gt(0)) player.infinityDimension8.amount = player.infinityDimension8.amount.plus(getTimeDimensionProduction(1).pow(ECTimesCompleted("eterc7")*0.2).minus(1).times(diff/10))
     let gain;
     if (player.timeShards.gt(0)) {
-        if (player.timestudy.studies.includes(171)) gain = Math.ceil(new Decimal(player.timeShards).dividedBy(player.tickThreshold).log10() / Math.log10(1.25)) + 1 
-        else gain = Math.ceil(new Decimal(player.timeShards).dividedBy(player.tickThreshold).log10() / Math.log10(1.33)) + 1 
+        if (player.timestudy.studies.includes(171)) gain = Math.ceil(new Decimal(player.timeShards).dividedBy(player.tickThreshold).log10() / Math.log10(1.25))
+        else gain = Math.ceil(new Decimal(player.timeShards).dividedBy(player.tickThreshold).log10() / Math.log10(1.33))
         player.totalTickGained += gain
         player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), gain))
         if (player.timestudy.studies.includes(171)) player.tickThreshold = new Decimal(1).times(1.25).pow(player.totalTickGained)
