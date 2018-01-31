@@ -6852,7 +6852,7 @@ setInterval(function() {
     document.getElementById("eterc2goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e975").times(new Decimal("1e175").pow(ECTimesCompleted("eterc2"))).max(new Decimal("1e975"))) + " IP"
     document.getElementById("eterc2completed").innerHTML = "Completed "+ECTimesCompleted("eterc2")+" times."
 
-    document.getElementById("eterc3goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e575").times(new Decimal("1e75").pow(ECTimesCompleted("eterc3"))).max(new Decimal("1e575"))) + " IP"
+    document.getElementById("eterc3goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e600").times(new Decimal("1e75").pow(ECTimesCompleted("eterc3"))).max(new Decimal("1e575"))) + " IP"
     document.getElementById("eterc3completed").innerHTML = "Completed "+ECTimesCompleted("eterc3")+" times."
 
     document.getElementById("eterc4goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2750").times(new Decimal("1e550").pow(ECTimesCompleted("eterc4"))).max(new Decimal("1e2750"))) + " IP in less than "+(16 - (ECTimesCompleted("eterc4")*4))+" infinities."
@@ -7059,16 +7059,14 @@ function gameLoop(diff) {
     else player.timeShards = player.timeShards.plus(getTimeDimensionProduction(1).times(diff/10))
 
     if (getTimeDimensionProduction(1).gt(0)) player.infinityDimension8.amount = player.infinityDimension8.amount.plus(getTimeDimensionProduction(1).pow(ECTimesCompleted("eterc7")*0.2).minus(1).times(diff/10))
-
-    while (player.timeShards.gte(player.tickThreshold)) {
-        player.tickspeed = player.tickspeed.times(getTickSpeedMultiplier())
-        if (player.timestudy.studies.includes(171)) player.tickThreshold = new Decimal(1).times(1.25).pow(player.totalTickGained)
-        else player.tickThreshold = new Decimal(1).times(1.33).pow(player.totalTickGained)
-        player.totalTickGained++;
-        
-        document.getElementById("totaltickgained").innerHTML = "You've gained "+shortenDimensions(player.totalTickGained)+" tickspeed upgrades."
-        
-    }
+    let gain;
+    if (player.timestudy.studies.includes(171)) gain = Math.ceil(new Decimal(player.timeShards).dividedBy(player.tickThreshold).log10() / Math.log10(1.25)) + 1 
+    else gain = Math.ceil(new Decimal(player.timeShards).dividedBy(player.tickThreshold).log10() / Math.log10(1.33)) + 1 
+    player.totalTickGained += gain
+    player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), gain))
+    if (player.timestudy.studies.includes(171)) player.tickThreshold = new Decimal(1).times(1.25).pow(player.totalTickGained)
+    else player.tickThreshold = new Decimal(1).times(1.33).pow(player.totalTickGained)
+    document.getElementById("totaltickgained").innerHTML = "You've gained "+shortenDimensions(player.totalTickGained)+" tickspeed upgrades."
     updateTickSpeed();
 
     if (player.eternities == 0) {
