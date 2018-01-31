@@ -6863,7 +6863,7 @@ setInterval(function() {
     document.getElementById("eterc5goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e750").times(new Decimal("1e400").pow(ECTimesCompleted("eterc5"))).max(new Decimal("1e750"))) + " IP"
     document.getElementById("eterc5completed").innerHTML = "Completed "+ECTimesCompleted("eterc5")+" times."
 
-    document.getElementById("eterc6goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e850").times(new Decimal("1e300").pow(ECTimesCompleted("eterc6"))).max(new Decimal("1e850"))) + " IP"
+    document.getElementById("eterc6goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e850").times(new Decimal("1e275").pow(ECTimesCompleted("eterc6"))).max(new Decimal("1e850"))) + " IP"
     document.getElementById("eterc6completed").innerHTML = "Completed "+ECTimesCompleted("eterc6")+" times."
 
     document.getElementById("eterc7goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e2000").times(new Decimal("1e530").pow(ECTimesCompleted("eterc7"))).max(new Decimal("1e2000"))) + " IP"
