@@ -8512,6 +8512,10 @@ window.addEventListener('keydown', function(event) {
             if (shiftDown) buyTickSpeed()
             else buyMaxTickSpeed()
         break;
+
+        case 82: //R
+            replicantiGalaxy()
+        break;
     }
   }, false);
 
