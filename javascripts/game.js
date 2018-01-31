@@ -7060,14 +7060,16 @@ function gameLoop(diff) {
 
     if (getTimeDimensionProduction(1).gt(0)) player.infinityDimension8.amount = player.infinityDimension8.amount.plus(getTimeDimensionProduction(1).pow(ECTimesCompleted("eterc7")*0.2).minus(1).times(diff/10))
     let gain;
-    if (player.timestudy.studies.includes(171)) gain = Math.ceil(new Decimal(player.timeShards).dividedBy(player.tickThreshold).log10() / Math.log10(1.25)) + 1 
-    else gain = Math.ceil(new Decimal(player.timeShards).dividedBy(player.tickThreshold).log10() / Math.log10(1.33)) + 1 
-    player.totalTickGained += gain
-    player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), gain))
-    if (player.timestudy.studies.includes(171)) player.tickThreshold = new Decimal(1).times(1.25).pow(player.totalTickGained)
-    else player.tickThreshold = new Decimal(1).times(1.33).pow(player.totalTickGained)
-    document.getElementById("totaltickgained").innerHTML = "You've gained "+shortenDimensions(player.totalTickGained)+" tickspeed upgrades."
-    updateTickSpeed();
+    if (player.timeShards.gt(0)) {
+        if (player.timestudy.studies.includes(171)) gain = Math.ceil(new Decimal(player.timeShards).dividedBy(player.tickThreshold).log10() / Math.log10(1.25)) + 1 
+        else gain = Math.ceil(new Decimal(player.timeShards).dividedBy(player.tickThreshold).log10() / Math.log10(1.33)) + 1 
+        player.totalTickGained += gain
+        player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), gain))
+        if (player.timestudy.studies.includes(171)) player.tickThreshold = new Decimal(1).times(1.25).pow(player.totalTickGained)
+        else player.tickThreshold = new Decimal(1).times(1.33).pow(player.totalTickGained)
+        document.getElementById("totaltickgained").innerHTML = "You've gained "+shortenDimensions(player.totalTickGained)+" tickspeed upgrades."
+        updateTickSpeed();
+    }
 
     if (player.eternities == 0) {
         document.getElementById("eternityPoints2").style.display = "none"
