@@ -7697,7 +7697,7 @@ function autoBuyerTick() {
 
     if (player.autobuyers[9]%1 !== 0) {
         if (player.autobuyers[9].isOn && dimBoolean()) {
-            if (player.resets < 4) maxBuyDimBoosts()
+            if (player.resets < 4) softReset()
             else if (player.eternities < 10) softReset(player.autobuyers[9].bulk)
             else if ((Math.round(timer * 100))%(Math.round(player.autobuyers[9].bulk * 100)) == 0 && player.eightAmount >= getShiftRequirement(0).amount) maxBuyDimBoosts()
             player.autobuyers[9].ticks = 0
