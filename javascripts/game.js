@@ -3557,7 +3557,7 @@ document.getElementById("softReset").onclick = function () {
   auto = false;
   var name = TIER_NAMES[getShiftRequirement(0).tier]
   if (player[name + "Amount"] >= getShiftRequirement(0).amount) {
-      if (player.infinityUpgrades.includes("bulkBoost")) maxBuyDimBoosts(true);
+      if (player.infinityUpgrades.includes("bulkBoost") && player.eternities >= 10) maxBuyDimBoosts(true);
       else softReset(1)
   }
 };
@@ -7622,7 +7622,6 @@ function dimBoolean() {
     var name = TIER_NAMES[getShiftRequirement(0).tier]
     if (!player.autobuyers[9].isOn) return false
     if (player.autobuyers[9].ticks*100 < player.autobuyers[9].interval) return false
-    if (player.eternities < 10 && player[name + "Amount"] > getShiftRequirement(0).amount && getShiftRequirement(0).tier < 8) return true
     if (player.eternities < 10 && player[name + "Amount"] < getShiftRequirement(player.autobuyers[9].bulk-1).amount) return false
     if (player.overXGalaxies <= player.galaxies) return true
     if ((player.currentChallenge =="challenge4" || player.currentChallenge == "postc1") && player.autobuyers[9].priority < getShiftRequirement(0).amount && getShiftRequirement(0).tier == 6) return false
@@ -7699,7 +7698,7 @@ function autoBuyerTick() {
 
     if (player.autobuyers[9]%1 !== 0) {
         if (player.autobuyers[9].isOn && dimBoolean()) {
-            if (player.resets < 4) softReset()
+            if (player.resets < 4) softReset(1)
             else if (player.eternities < 10) softReset(player.autobuyers[9].bulk)
             else if ((Math.round(timer * 100))%(Math.round(player.autobuyers[9].bulk * 100)) == 0 && player.eightAmount >= getShiftRequirement(0).amount) maxBuyDimBoosts()
             player.autobuyers[9].ticks = 0
