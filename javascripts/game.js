@@ -7113,7 +7113,7 @@ function gameLoop(diff) {
     let interval = player.replicanti.interval
     if (player.timestudy.studies.includes(62)) interval = interval/3
     if (player.timestudy.studies.includes(133) || player.replicanti.amount.gt(Number.MAX_VALUE)) interval *= 10
-    if (player.timestudy.studies.includes(193)) interval /= 20
+    if (player.timestudy.studies.includes(213)) interval /= 20
     if (player.replicanti.amount.gt(Number.MAX_VALUE)) interval = Math.max(interval * Math.pow(1.2, (player.replicanti.amount.log10() - 308)/308), interval)
     var est = Math.log(player.replicanti.chance+1) * 1000 / interval
     
@@ -7132,7 +7132,7 @@ function gameLoop(diff) {
             replicantiTicks = 0
         }
     } else {
-        if (player.replicanti.interval <= replicantiTicks && player.replicanti.unl) {
+        if (interval <= replicantiTicks && player.replicanti.unl) {
             if (player.replicanti.amount.lte(100)) {
                 var temp = player.replicanti.amount
                 for (var i=0; temp.gt(i); i++) {
