@@ -33,6 +33,11 @@ body {
     background-color: #455A64;
 }
 
+input {
+    background-color: #455A64 !important;
+    border: 1px solid black !important;
+}
+
 .tabbtn {
     color: #E0E0E0 !important;
     background: #455A64 !important;
@@ -109,7 +114,7 @@ body {
 
 .eternitybtn {
     color: #673AB7 !important;
-    border: 2px solid #673AB7 !important;
+    border: 1px solid #673AB7 !important;
 }
 
 .eternitybtn:hover {
@@ -280,6 +285,11 @@ body {
     background: #E53935 !important;
 }
 
+#theorembuybackground {
+    background: #455A64 !important;
+    border-width: 1px !important;
+}
+
 .timestudy {
     color: #673AB7 !important;
     border: 1px solid #4527A0 !important;
@@ -408,7 +418,6 @@ body {
 .eternityupbtn {
     color: #673AB7 !important;
     border: 1px solid #673AB7 !important;
-    box-shadow: 1px 1px 1px 0px #9E9E9E;
 }
 
 .eternityupbtn:hover {
@@ -441,6 +450,11 @@ body {
     border: 1px solid black !important;
 }
 
+.eterchallengediv {
+    color: #673AB7 !important;
+    border: 1px solid #673AB7 !important;
+}
+
 .challengesbtn {
     border: 3px solid #43A047 !important;
     border-bottom-color: #388E3C !important;
@@ -456,6 +470,13 @@ body {
     border: 3px solid #43A047 !important;
     border-bottom-color: #388E3C !important;
     border-right-color: #388E3C !important;
+}
+
+.lockedchallengesbtn {
+    background-color: #9E9E9E !important;
+    border: 3px solid #757575 !important;
+    border-bottom-color: #616161 !important;
+    border-right-color: #616161 !important;
 }
 
 .milestonereward {

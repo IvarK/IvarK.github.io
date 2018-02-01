@@ -1,13 +1,21 @@
-* {
-    border-radius: 0px !important;
-}
-
 body {
     filter: invert(100%);
     background-color: black !important;
 }
 
+* {
+    border-radius: 0px !important;
+}
+
+input, select {
+    border: 1px solid #A9A9A9;
+}
+
 .popup {
+    border: 1px solid black !important;
+}
+
+#game {
     border: 1px solid black !important;
 }
 
@@ -85,7 +93,7 @@ body {
 
 .eternitybtn {
     color: #673AB7 !important;
-    border: 2px solid #673AB7 !important;
+    border: 1px solid #673AB7 !important;
 }
 
 .eternitybtn:hover {
@@ -227,6 +235,15 @@ body {
     background: #EF5350 !important;
 }
 
+#theorembuybackground {
+    background: #EEEEEE !important;
+    border-width: 1px !important;
+}
+
+.eternitychallengestudy {
+    animation: eternityChallengeGlowIn 5s infinite !important;
+}
+
 .timestudy {
     color: #673AB7 !important;
     border: 1px solid #4527A0 !important;
@@ -317,7 +334,7 @@ body {
     background: #0080ff !important;
 }
 
-.timestudylocked {
+.timestudylocked, .eternitychallengestudylocked {
     color: black !important;
     background: #9E9E9E !important;
     box-shadow: 1px 1px 1px 0px #000;
@@ -348,7 +365,7 @@ body {
     background: #949ea8 !important;
 }
 
-.timestudylocked:hover {
+.timestudylocked:hover, .eternitychallengestudylocked:hover {
     background: #EF5350 !important;
 }
 
@@ -387,6 +404,11 @@ body {
     border: 1px solid black !important;
 }
 
+.eterchallengediv {
+    color: #673AB7 !important;
+    border: 1px solid #673AB7 !important;
+}
+
 .challengesbtn {
     border: 3px solid #43A047 !important;
     border-bottom-color: #388E3C !important;
@@ -402,6 +424,13 @@ body {
     border: 3px solid #43A047 !important;
     border-bottom-color: #388E3C !important;
     border-right-color: #388E3C !important;
+}
+
+.lockedchallengesbtn {
+    background-color: #9E9E9E !important;
+    border: 3px solid #757575 !important;
+    border-bottom-color: #616161 !important;
+    border-right-color: #616161 !important;
 }
 
 .milestonereward {
