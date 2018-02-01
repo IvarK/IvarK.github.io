@@ -1,1 +1,1 @@
-{"version" : 7.01, "message" : "Congratulations to Finland on 100 years of independence! Import 'Finnish' for a special theme."}
+{"version" : 9.01, "message" : "Eternity Challenges are here! Refresh for the update!"}

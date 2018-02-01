@@ -81,7 +81,7 @@ var player = {
     dimensionMultDecrease: 10,
     dimensionMultDecreaseCost: 1e8,
     overXGalaxies: 10,
-    version: 7.01,
+    version: 9.01,
     infDimensionsUnlocked: [false, false, false, false, false, false, false, false],
     infinityPower: new Decimal(1),
     spreadingCancer: 0,
@@ -7575,9 +7575,7 @@ function simulateTime(seconds) {
 }
 
 function startInterval() {
-    if (player.options.themes !== undefined && sha512_256(player.options.themes) === "0b4d2986d955f7f0a5be3e560b0c2008a6a046269ffe6704bfacf55e8f292339") {
-        gameLoopIntervalId = setInterval(gameLoop, player.options.updateRate);
-    }
+    gameLoopIntervalId = setInterval(gameLoop, player.options.updateRate);
 }
 
 function enableChart() {
@@ -7784,7 +7782,7 @@ function chall7cheat() {
 
 
 
-let newsArray;
+var newsArray;
 
 function updateNewsArray() {
 newsArray = [//always true
@@ -7833,8 +7831,30 @@ newsArray = [//always true
 ["If you open an anti-lootbox, are you selling random possessions for in-game currency?", true, "a106"], ["People are beginning to question Hevipelle's existence.",  true, "a107"], ["Antimatter Dimensions is proud to be sponsored by Lehmä! Now offering - grass eating lessons! Learn what grass is safe to eat and what grass isn't.",  true, "a108"],
 ["It is the year 2422. The update still isn't out. Hevi is working on balancing unfunity dimension dimensions and challenges for the 38th layer of prestige. There are over 100 rows of achievements. They're getting ready to start using breaking_breaking_breaking_infinity.js", true, "a109"],
 ["Import Christmas for a secret theme", true, "a110"],
-["What the f*ck did you just f*cking say about me, you little b*tch? I’ll have you know I graduated top of my class in the Antimatter Seals, and I’ve been involved in numerous secret raids on the 9th Dimension, and I have over 300 NNnNeMI-NNnNe confirmed kills. I am trained in potato warfare and I’m the top sniper in the entire Antimatter Galactic armed forces. You are nothing to me but just another infinity. I will wipe you the f*ck out with Max All mashing the likes of which has never been seen before in this dimension, mark my f*cking words. You think you can get away with saying that shit to me over the Interdimensional network? Think again, f*cker. As we speak I am contacting my secret network of autobuyers across the galaxy and your IP is being traced right now so you better prepare for the Big Crunch, maggot. The Big Crunch that wipes out the pathetic little thing you call your life. You’re f*cking dead, kid. I can be anywhere, anytime, and I can kill you in over seven 😠💩 different ways, and that’s just with my mouse. Not only am I extensively trained in dimension shift combat, but I have access to the entire arsenal of the Antimatter Marine Corps and I will use it to its full extent to wipe your miserable asoff the face of the universe, you little shit. If only you could have known what unhevi retribution your little “clever” comment was about to bring down upon you, maybe you would have held your f*cking tongue. But you couldn’t, you didn’t, and now you’re buying until 10, you goddamn idiot. I will shit antimatter shit I'll over you and you will drown in it. You’re f*cking dead, kiddo.", true, "a111"],
+["What the f*ck did you just f*cking say about me, you little b*tch? I’ll have you know I graduated top of my class in the Antimatter Seals, and I’ve been involved in numerous secret raids on the 9th Dimension, and I have over 300 NNnNeMI-NNnNe confirmed kills. I am trained in potato warfare and I’m the top sniper in the entire Antimatter Galactic armed forces. You are nothing to me but just another infinity. I will wipe you the f*ck out with Max All mashing the likes of which has never been seen before in this dimension, mark my f*cking words. You think you can get away with saying that shit to me over the Interdimensional network? Think again, f*cker. As we speak I am contacting my secret network of autobuyers across the galaxy and your IP is being traced right now so you better prepare for the Big Crunch, maggot. The Big Crunch that wipes out the pathetic little thing you call your life. You’re f*cking dead, kid. I can be anywhere, anytime, and I can kill you in over seven 😠💩 different ways, and that’s just with my mouse. Not only am I extensively trained in dimension shift combat, but I have access to the entire arsenal of the Antimatter Marine Corps and I will use it to its full extent to wipe your miserable ass off the face of the universe, you little shit. If only you could have known what unhevi retribution your little “clever” comment was about to bring down upon you, maybe you would have held your f*cking tongue. But you couldn’t, you didn’t, and now you’re buying until 10, you goddamn idiot. I will shit antimatter shit all over you and you will drown in it. You’re f*cking dead, kiddo.", true, "a111"],
 ["So I've pondered this question for a long time. Antimatter Dimensions... what does it mean? I mean it's game, that's clear. You buy the first dimension, and it gives you antimatter, and the second dimension provides more first dimensions and so on... But what does it mean? It can't just be a game, it seems too plain for that. The developer must have made it as a metaphor. I was doing my weekly ritual of using the fingernail clipper to cut my pubic hair, when finally the realization came to me. The dimensions are just thinly veiled misspellings of the word 'depression'. Regular matter are the cruel and negative thoughts that add to and fuel depression, while antimatter is the positive thoughts and good friends that dispel it You start off with something simple, and it fights almost imperceptibly against the depression, but as you keep going the fight builds. But it never seems to fix everything. The depression seems like it could go on to infinity. So you keep going. But eventually, you figure out, depression isn't infinite. It's just very very large. But your 'dimensions' eventually, with enough work, make enough 'antimatter' to usurp that seeming infinity of depression. Then the possibilities are endless. You are actually happy for once, and your happiness grows exponentially as you go beyond and seemingly 'break' the 'infinity' of depression. And you go on until that 'infinity' seems tiny in comparison to the happiness you've managed to achieve in your life, where if you reset you get over that infinity in less than the blink of an eye. If you want to know what the multiple layers of prestige are...'Dimensional Shifts' are getting new things and methods to give you happiness. 'Dimensional Boosts' are upgrading the things and methods. Examples would be getting a new car being a 'Dimensional Shift' and trading that car in for a new one would be a 'Dimensional Boost'. 'Eternities' are major tragedies such as a loved one dying. That lapse brings you straight back to the beginning, with seemingly no hope of return. But with time, you grow back stronger and happier than ever before. 'Dimesional Sacrifice' is moving away. You have to give up a lot of the things you had that made you happy, but there is new opportunity in where you move to. And that new opportunity gives you more happiness than you ever had. 'Tickspeed' is how easy it is to make you happy, and 'Time Dimensions' make it even easier to be happy. Antimatter Dimensions is a metaphor for a depressed man's successful battle against his illness.",true ,"a112"],
+[`(Make me sleep) 
+    Put me to sleep inside. 
+    (I can't sleep) 
+    Put me to sleep inside. 
+    (Leave me) 
+    Whisper my name and give me to the dark. 
+    (Make me sleep) 
+    Bid my milk to stay. 
+    (I can't fall asleep) 
+    Before I become done. 
+    (Leave me) 
+    Leave me to the nothing I've become.`, true, "a113"],
+["A preview of the next update - loot boxes! Feel a sense of pride and progression as you open cosmic, galactic, and universal lootboxes for chances at rare skins, unique challenges with uniquer rewards, time skips and even new dimensions!", true, "a114"],
+["The intent of dimensions is to give a sense of pride and accomplishment", true, "a115"],
+["Refreshing cures cancer", true, "a116"],
+["I have a 9th, i have a dimension... UHH... IT DOESN'T EXIST!", true, "a117"],
+["Since when did we start reporting stuff like this? Half of it isn't even proper news, it's just jokes and meta-references, it doesn't even make sens-HAHAHA DISREGARD THAT I SUCK CO-", true, "a118"],
+["The year is 1944, Hevipelle can't release updates for AD because he doesn't exist", true, "a119"],
+[`"THAT DIMENSION DOESN'T EXIST" -GhostBot`, true, "a120"],
+["Most things you know as nuts are actually Drupe seeds or Legumes. Hevipelle on the other hand is quite crazy and can thus be considered a dry uncompartmented fruit.", true, "a121"],
+[eval(`LZString.decompressFromEncodedURIComponent("GISwdgNghmAmAEsCmBjaAnJBneAXAFlLvCLgOQ5a5Tq7gDmeA9iQLYAOTt8AwjCknRA")`), true, "a122"],
+[eval(`LZString.decompressFromEncodedURIComponent("IIGxAIBcAsEsGdywLYAcD2AnSsB2BzJRZAQwGs9DkBTcAYXVwDMBXeagEyA")`), true, "a123"],
 //basic (pre-inf)
 ["You just made your 1,000,000,000,000,000 antimatter. This one tastes like chicken", player.money.e == 15, "b1"],
 ["Nerf the galaxies please.", player.galaxies == 2 || player.infinitied > 0, "b2"],
@@ -7915,24 +7935,24 @@ newsArray = [//always true
 var s = document.getElementById('news');
 document.addEventListener("visibilitychange", function() {if (!document.hidden) {scrollNextMessage();}}, false);
 var scrollTimeouts = [];
-
+var nextMsgIndex;
 function scrollNextMessage() {
   //don't run if hidden to save performance
   if (player.options.newsHidden) return false
   updateNewsArray();
   //select a message at random
-  var index;
+  
   try {
-    do {index = Math.floor(Math.random() * newsArray.length)} while (!newsArray[index][1])
+    do {nextMsgIndex = Math.floor(Math.random() * newsArray.length)} while (!newsArray[nextMsgIndex][1])
   } catch(e) {
-      console.log("Newsarray doesn't work at idx " + index)
+      console.log("Newsarray doesn't work at idx " + nextMsgIndex)
   }
 
   scrollTimeouts.forEach(function(v) {clearTimeout(v);});
   scrollTimeouts = [];
 
   //set the text
-  s.innerHTML = newsArray[index][0];
+  s.innerHTML = newsArray[nextMsgIndex][0];
 
   //get the parent width so we can start the message beyond it
   let parentWidth = s.parentElement.clientWidth;
@@ -7950,8 +7970,8 @@ function scrollNextMessage() {
     let rate = 100; //change this value to change the scroll speed
     let transformDuration = dist / rate;
 
-    if (!player.options.newsHidden && !player.newsArray.includes(newsArray[index][2])) {
-        player.newsArray.push(newsArray[index][2]);
+    if (!player.options.newsHidden && !player.newsArray.includes(newsArray[nextMsgIndex][2])) {
+        player.newsArray.push(newsArray[nextMsgIndex][2]);
         if (player.newsArray.length>=50) giveAchievement("Fake News")
     }
 
@@ -8460,6 +8480,7 @@ window.onload = function() {
         document.getElementById("container").style.display = "block"
         document.getElementById("loading").style.display = "none"
     }, 1000)
+    
 }
 
 window.addEventListener('keydown', function(event) {
@@ -8567,50 +8588,3 @@ setInterval( function() {
         ec10bonus = new Decimal(1)
     }
 }, 100)
-
-
-
-
-
-
-
-
-
-
-
-function generateLookUps(mode, amount) {
-    if (mode == "tick") {
-        let cost = new Decimal(1000)
-        let multi = new Decimal(10)
-        let string = "["
-        for (var i=0; i<amount; i++) {
-            string+= "'"+cost.toString()+"',"
-            cost = cost.times(multi)
-            if (cost.gte(Number.MAX_VALUE)) multi = multi.times(2)
-        }
-        string+= "]"
-        console.log(string)
-    } else if (mode == "dim") {
-        let costs = [null, new Decimal(10),
-        new Decimal(100),
-        new Decimal(10000),
-        new Decimal(1000000),
-        new Decimal(1e9),
-        new Decimal(1e13),
-        new Decimal(1e18),
-        new Decimal(1e24)]
-        let multis = [null, new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15)]
-        let string = "["
-        for (var tier=1; tier <9; tier++) {
-            string+="["
-            for (var i=0; i<amount; i++) {
-                string+= "'"+costs[tier].toString()+"',"
-                costs[tier] = costs[tier].times(multis[tier])
-                if (costs[tier].gte(Number.MAX_VALUE)) multis[tier] = multis[tier].times(3)
-            }
-            string+="],"
-        }
-        string+= "]"
-        console.log(string)
-    } else console.log("Input either 'tick' or 'dim' to the first parameter")
-}
