@@ -7552,6 +7552,7 @@ function gameLoop(diff) {
 var gameLoopIntervalId;
 
 function simulateTime(seconds) {
+    /*
     //the game is simulated at a 50ms update rate, with a max of 1000 ticks
     document.getElementById("offlineprogress").style.display = "block"
     var ticks = seconds * 20;
@@ -7575,6 +7576,7 @@ function simulateTime(seconds) {
     if (popupString.includes("times")) popupString+= "."
     
     document.getElementById("offlinePopup").innerHTML = popupString
+    */ console.log("simulate time is disabled for a temporary fix to try to find the cause of bugs")
 }
 
 function startInterval() {
