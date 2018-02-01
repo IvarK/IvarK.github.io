@@ -7612,9 +7612,7 @@ slider.oninput = function() {
     player.options.updateRate = parseInt(this.value);
     sliderText.innerHTML = "Update rate: " + this.value + "ms"
     clearInterval(gameLoopIntervalId);
-    if (player.options.themes !== undefined && sha512_256(player.options.themes) === "0b4d2986d955f7f0a5be3e560b0c2008a6a046269ffe6704bfacf55e8f292339") {
         gameLoopIntervalId = setInterval(gameLoop, player.options.updateRate);
-    }
 }
 
 function dimBoolean() {
