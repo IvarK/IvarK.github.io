@@ -4592,7 +4592,6 @@ function gainedInfinityPoints() {
     if (player.timestudy.studies.includes(142)) ret = ret.times(1e25)
     if (player.timestudy.studies.includes(143)) ret = ret.times(Decimal.pow(15, Math.log(player.thisInfinityTime+1)*Math.pow(player.thisInfinityTime+1, 0.125)))
     if (player.achievements.includes("r116")) ret = ret.times(Decimal.pow(2, Math.log10(getInfinitied()+1)))
-    if (isNaN(ret) || ret.e > 200000 || ret.e < 0 || ret.mantissa < 1) console.log(ret)
     return ret.floor()
 }
 
