@@ -1,1 +1,1 @@
-{"version" : 9.01, "message" : "Eternity Challenges are here! Refresh for the update!"}
+{"version" : 8.01, "message" : "Eternity Challenges are here! Refresh for the update!"}

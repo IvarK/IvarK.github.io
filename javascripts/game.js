@@ -1845,6 +1845,7 @@ function updateDimensions() {
         document.getElementById("193").innerHTML = "Normal dimension boost based on eternities<span>Currently "+shortenMoney(Decimal.pow(1.02, player.eternities).min(new Decimal("1e30000")))+"<span>Cost: 300 Time Theorems"
         document.getElementById("212").innerHTML = "Galaxies are more effective based on your timeshards<span>Currently "+((Math.pow(player.timeShards.max(2).log2(), 0.005)-1)*100).toFixed(2)+"%<span>Cost: 150 Time Theorems"
         document.getElementById("214").innerHTML = "Sacrifice boosts the 8th dimension even more.<span>Currently "+shortenMoney(((calcTotalSacrificeBoost().pow(8)).min("1e46000").times(calcTotalSacrificeBoost().pow(1.1)).div(calcTotalSacrificeBoost())).max(1).min(new Decimal("1e125000")))+"x<span>Cost: 120 Time Theorems"
+        document.getElementById("192").innerHTML = "You can get beyond "+shortenMoney(Number.MAX_VALUE)+" replicantis, but the interval is increased the more you have<span>Cost: 730 Time Theorems"
     }
 }
 
