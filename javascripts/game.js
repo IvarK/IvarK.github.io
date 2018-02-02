@@ -1461,7 +1461,7 @@ function formatValue(notation, value, places, placesUnder1000) {
         } else if (notation === "Letters") {
             return matissa + letter(power,'abcdefghijklmnopqrstuvwxyz');
         } else if (notation === "Emojis") {
-            return matissa + letter(power,'😠🎂🎄💀🍆👪🌈💯🍦🎃💋😂🌙⛔🐙💩❓☢️🙈👍☂️✌️⚠️❌😋⚡')
+            return matissa + letter(power,['😠', '🎂', '🎄', '💀', '🍆', '👪', '🌈', '💯', '🍦', '🎃', '💋', '😂', '🌙', '⛔', '🐙', '💩', '❓', '☢', '🙈', '👍', '☂', '✌', '⚠', '❌', '😋', '⚡'])
         } else {
             if (power > 100000  && player.options.commas) power = power.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             return "1337 H4CK3R"
@@ -7165,7 +7165,7 @@ function gameLoop(diff) {
     if (player.replicanti.amount !== 0) replicantiTicks += 50
 
 
-    if (current == Math.log(Number.MAX_VALUE) && player.thisInfinityTime < 600*30) giveAchievement("Is this safe?");
+    if (current == Decimal.ln(Number.MAX_VALUE) && player.thisInfinityTime < 600*30) giveAchievement("Is this safe?");
     if (player.replicanti.galaxies >= 10 && player.thisInfinityTime < 150) giveAchievement("The swarm");
 
     if (player.replicanti.galaxybuyer && player.replicanti.amount.gte(Number.MAX_VALUE) && !player.timestudy.studies.includes(131)) {
