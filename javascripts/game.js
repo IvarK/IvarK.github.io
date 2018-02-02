@@ -2488,7 +2488,7 @@ function updateTimeStudyButtons() {
 function studiesUntil(id) {
     var col = id % 10;
     var row = Math.floor(id / 10);
-    if ((row > 10 && !(player.timestudy.studies.includes(101) || player.timestudy.studies.includes(102) || player.timestudy.studies.includes(103))) || (row > 14 && !(player.timestudy.studies.includes(141) || player.timestudy.studies.includes(142) || player.timestudy.studies.includes(143)))) return;
+    if ((row > 10 && !(player.timestudy.studies.includes(71) || player.timestudy.studies.includes(72) || player.timestudy.studies.includes(73) || player.timestudy.studies.includes(81) || player.timestudy.studies.includes(82) || player.timestudy.studies.includes(83) || player.timestudy.studies.includes(91) || player.timestudy.studies.includes(92) || player.timestudy.studies.includes(93) || player.timestudy.studies.includes(101) || player.timestudy.studies.includes(102) || player.timestudy.studies.includes(103))) || (row > 14 && !(player.timestudy.studies.includes(121) || player.timestudy.studies.includes(122) || player.timestudy.studies.includes(123) || player.timestudy.studies.includes(131) || player.timestudy.studies.includes(132) || player.timestudy.studies.includes(133) || player.timestudy.studies.includes(141) || player.timestudy.studies.includes(142) || player.timestudy.studies.includes(143)))) return;
     for (var i = 0; i < row; i++){ 
         if ((i > 6 && i < 11) || (i > 11 && i < 15)) buyTimeStudy(i * 10 + col, studyCosts[all.indexOf(i * 10 + col)],0);
     else for (var j = 1; all.includes(i * 10 + j) ; j++) buyTimeStudy(i * 10 + j, studyCosts[all.indexOf(i*10+j)],0);
