@@ -2490,8 +2490,8 @@ function studiesUntil(id) {
     var row = Math.floor(id / 10);
 	var check;
     for(var i=1;i<4;i++){
-        if (player.timestudy.studies.includes(70+i)) var check;
-        if (player.timestudy.studies.includes(120+i)) var check;
+        if (player.timestudy.studies.includes(70+i)) var check = 1;
+        if (player.timestudy.studies.includes(120+i)) var check = 2;
     }
     if ((row > 10 || row > 14) && check>0) return;
     for (var i = 0; i < row; i++){ 
