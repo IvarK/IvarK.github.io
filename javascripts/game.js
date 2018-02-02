@@ -2489,12 +2489,13 @@ function studiesUntil(id) {
     var col = id % 10;
     var row = Math.floor(id / 10);
     for(var i=1;i<4;i++){
-        if (player.timestudy.studies.includes(70+i)) var check = true;
-        if (player.timestudy.studies.includes(120+i)) var check = true;
+        if (player.timestudy.studies.includes(70+i)) var check = 1;
+        if (player.timestudy.studies.includes(120+i)) var check = 2;
     }
-    if ((row > 10 || row > 14) && !check) return;
+    if ((row > 10 || row > 14) && check>0) return;
     for (var i = 0; i < row; i++){ 
-        if ((i > 6 && i < 11) || (i > 11 && i < 15)) buyTimeStudy(i * 10 + col, studyCosts[all.indexOf(i * 10 + col)],0);
+        if ((i > 6 && i < 11 && check == 1) || (i > 11 && i < 15 check == 2)) for(var j = 1; i<4; j++) if(player.timestudy.studies.includes((i>11 ? 120 : 70)+j))buyTimeStudy(i * 10 + j, studyCosts[all.indexOf(i * 10 + j)],0);
+	    else ((i > 6 && i < 11) || (i > 11 && i < 15))buyTimeStudy(i * 10 + col, studyCosts[all.indexOf(i * 10 + col)]
     else for (var j = 1; all.includes(i * 10 + j) ; j++) buyTimeStudy(i * 10 + j, studyCosts[all.indexOf(i*10+j)],0);
     }
     buyTimeStudy(id, studyCosts[all.indexOf(id)], 0);
