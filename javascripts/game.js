@@ -2494,8 +2494,11 @@ function studiesUntil(id) {
     }
     if ((row > 10 || row > 14) && check>0) return;
     for (var i = 0; i < row; i++){ 
-        if ((i > 6 && i < 11 && check == 1) || (i > 11 && i < 15 && check == 2)) for(var j = 1; i<4; j++) if(player.timestudy.studies.includes((i>11 ? 120 : 70)+j))buyTimeStudy(i * 10 + j, studyCosts[all.indexOf(i * 10 + j)],0);
-	    else if((i > 6 && i < 11) || (i > 11 && i < 15))buyTimeStudy(i * 10 + col, studyCosts[all.indexOf(i * 10 + col)],0);
+        if ((i > 6 && i < 11 && check == 1) || (i > 11 && i < 15 && check == 2)){ 
+		for(var j = 1; j<4; j++){
+			if(player.timestudy.studies.includes((i>11 ? 120 : 70)+j))buyTimeStudy(i * 10 + j, studyCosts[all.indexOf(i * 10 + j)],0);
+		}
+	} else if((i > 6 && i < 11) || (i > 11 && i < 15))buyTimeStudy(i * 10 + col, studyCosts[all.indexOf(i * 10 + col)],0);
     else for (var j = 1; all.includes(i * 10 + j) ; j++) buyTimeStudy(i * 10 + j, studyCosts[all.indexOf(i*10+j)],0);
     }
     buyTimeStudy(id, studyCosts[all.indexOf(id)], 0);
