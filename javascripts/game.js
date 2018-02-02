@@ -2890,7 +2890,7 @@ function buyMaxTickSpeed() {
         player.tickspeedMultiplier = player.tickspeedMultiplier.times(2)
     }
 
-
+    updateTickSpeed()
 }
 
 function timeDisplay(time) {
