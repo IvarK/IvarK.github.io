@@ -2493,7 +2493,7 @@ function studiesUntil(id) {
         if (player.timestudy.studies.includes(70+i)) var check = 1;
         if (player.timestudy.studies.includes(120+i)) var check = 2;
     }
-    if ((row > 10 || row > 14) && check>0) return;
+    if ((row > 10 && check == 1)|| (row > 14 && check == 2)) return;
     for (var i = 0; i < row; i++){ 
         if ((i > 6 && i < 11 && check == 1) || (i > 11 && i < 15 && check == 2)){ 
 		for(var j = 1; j<4; j++){
