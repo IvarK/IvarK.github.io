@@ -6960,7 +6960,7 @@ function gameLoop(diff) {
             postC2Count = 0;
         }
     }
-    if (player.infinityUpgrades.includes("passplayer.lastUpdateiveGen")) player.partInfinityPoint += diff / player.bestInfinityTime;
+    if (player.infinityUpgrades.includes("passiveGen")) player.partInfinityPoint += diff / player.bestInfinityTime;
     if (player.partInfinityPoint >= 100) {
         player.infinityPoints = player.infinityPoints.plus(player.infMult.times(kongIPMult * (player.partInfinityPoint/10)));
         player.partInfinityPoint = 0;
