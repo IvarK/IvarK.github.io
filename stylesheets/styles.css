@@ -57,6 +57,20 @@
     background: #5AC467;
 }
 
+.lockedchallengesbtn {
+    width:150px;
+    height: 30px;
+    color: black;
+    background: rgb(92, 92, 92);
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 3px solid rgb(136, 29, 29);
+    border-radius: 10px;
+    font-size: 140%;
+    transition-duration: 0.2s;
+    margin: auto;
+}
+
 .outer {
     position: absolute;
     right: 0;
@@ -100,6 +114,24 @@
     margin: 3px 8px;
     position: relative;
     border-radius: 5px;
+}
+
+.eterchallengediv {
+    display:table;
+    text-align:center;
+    width: 350px;
+    height: 105px;
+    color: #b341e0;
+    background: black;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 3px solid #b341e0;
+    border-radius: 10px;
+    font-size: 80%;
+    transition-duration: 0.2s;
+    padding: 2px;
+    margin: 3px 8px;
+    position: relative;
 }
 
 .completedchallengesbtn {
@@ -354,7 +386,7 @@
     cursor: pointer;
     position: absolute;
     left: 80%;
-    width: 200px;
+    width: 210px;
     height: 70px;
     font-family: Typewriter;
     font-size: 11px
@@ -455,7 +487,7 @@
     cursor: pointer;
     position: absolute;
     right: 80%;
-    width: 200px;
+    width: 210px;
     height: 70px;
     font-family: Typewriter;
     color: #b341e0;
@@ -642,6 +674,7 @@
     transition-duration: 0.1s;
 }
 
+
 .greedbtn {
     height: 40px;
     width: 100px;
@@ -672,6 +705,23 @@
 
 #replicantiresettoggle {
     margin-top: 3px;
+}
+
+.eternitychallengestudy {
+    color: #490066;
+    background: white;
+    border: 1px solid black;
+    font-weight: bold;
+    font-family: Typewriter;
+    width: 170px;
+    height: 80px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    vertical-align: top;
+    margin:7px;
+    animation: eternityChallengeGlowIn 7s infinite;
 }
 
 .timestudy {
@@ -727,6 +777,11 @@
     animation: idleStudyGlowIn 7s infinite;
 }
 
+.eternitychallengestudy:hover {
+    color: white;
+    background: #490066;
+}
+
 .timestudy:hover {
     color: #DADADA;
     background: #3A0A57;
@@ -762,7 +817,7 @@
     background: #0080ff !important;
 }
 
-.timestudylocked {
+.timestudylocked, .eternitychallengestudylocked {
     color: #181818;
     background: #5F5F5F;
     font-weight: bold;
@@ -777,7 +832,7 @@
     margin:7px;
 }
 
-.timestudylocked:hover {
+.timestudylocked:hover, .eternitychallengestudylocked:hover {
     color: #1D1D1D;
     background: #660000;
 }
@@ -788,6 +843,21 @@
     font-weight: bold;
     font-family: Typewriter;
     border: 1px solid #691fa5;
+    width: 170px;
+    height: 80px;
+    transition-duration: 0.2s;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    vertical-align: top;
+    margin:7px;
+}
+
+.eternitychallengestudybought {
+    color: black;
+    background: #490066;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 1px solid black;
     width: 170px;
     height: 80px;
     transition-duration: 0.2s;
@@ -809,14 +879,18 @@
     cursor: pointer;
     border-radius: 4px;
     font-size: 0.85rem;
-    vertical-align: top;
-    margin: 7px;
+    position: fixed;
+    left: 50%;
+    
+    bottom: 5px;
+    z-index: 1;
 }
 
 .timetheorembtn:hover {
     color: #232028;
     background: #3AACD6;
 }
+
 
 .timetheorembtnlocked {
     color: black;
@@ -829,12 +903,41 @@
     transition-duration: 0.2s;
     border-radius: 4px;
     font-size: 0.85rem;
-    vertical-align: top;
-    margin: 7px;
+    position: fixed;
+    left: 50%;
+    bottom: 5px;
+    z-index: 1;
 }
 
 .timetheorembtnlocked:hover {
     background: #652F2F;
+}
+
+.maxbuytheorembtn:hover {
+    color: #232028;
+    background: #3AACD6;
+}
+
+#timetheorems {
+    color: black;
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    margin-left: -114px;
+}
+
+#theorembuybackground {
+    background: #E0E0E0;
+    width: 550px;
+    height: 110px;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    margin-left: -277px;
+    border: 2px solid black;
+    border-bottom: none;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
 }
 
 #studyTreeCanvas {
@@ -842,6 +945,11 @@
     left: 0;
     position: absolute;
     z-index: -999;
+}
+
+#studytable {
+    display: flex !important;
+    justify-content: center;
 }
 
 #loading {
@@ -934,6 +1042,10 @@
 
 .milestoneText {
     font-size: 20px;
+}
+
+#production {
+    font-size: 12px;
 }
 
 @keyframes glow {
@@ -1344,4 +1456,10 @@ screen and (max-width: 480px) {
     0%  {box-shadow: inset 0px 0px 3px 0px #0080ff;}
     50% {box-shadow: inset 0px 0px 20px 0px #0080ff;}
     100%  {box-shadow: inset 0px 0px 3px 0px #0080ff;}
+}
+
+@keyframes eternityChallengeGlowIn {
+    0%  {box-shadow: inset 0px 0px 3px 0px #490066;}
+    50% {box-shadow: inset 0px 0px 20px 0px #490066;}
+    100%  {box-shadow: inset 0px 0px 3px 0px #490066;}
 }

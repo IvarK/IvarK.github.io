@@ -1,7 +1,6 @@
 <html>
   <head>
   <title>How to play</title>
-  <script src='javascripts/howto.js'></script>
   <link rel='stylesheet' type='text/css' href='stylesheets/howto.css'>
   <link rel="icon" type="image/png" href="icon.png">
   </head>
@@ -17,7 +16,21 @@
   Antimatter Dimensions is an Idle Incremental game with multiple layers of unlocks, prestige, and achievements. The basic Goal is to reach infinity and receive an infinity point, which can be spent on various skills to increase your overall production.
   </div>
   <hr>
-  <button onclick='changestate(1)'  class="storebtn">Dimensions</button>
+  <div style="text-align: center">
+  You can choose whether or not you would like to see spoilers here. Setting this to "Avoid spoilers" will only show the content you have access to, as well as the next piece(s) of content you will unlock.
+  </div>
+  <table style="margin: auto;">
+    <tr>
+      <td>
+          <button onclick='showspoilers()' class="storebtn" id="showspoilersbtn" style="margin-top: 5px;">View: <br> Avoid spoilers</button>
+      </td>
+      <td>
+          <button class="storebtn" id="importbtn" style="margin-top: 5px;">Import your save</button>
+      </td>
+    </tr>
+  </table>
+  <hr>
+  <button onclick='changestate(1)' id='div1btn'  class="storebtn">Dimensions</button>
   <div style="text-align: left" id='div1' class='hidden'>
   <b>Dimensions:</b>
   <br>
@@ -41,8 +54,8 @@
       <br>
     <b>Hotkeys: 1, 2, 3, 4, 5, 6, 7, 8</b> for buy until 10 []th dimension, <b>M</b> for Max all
   </div>
-  <hr>
-  <button onclick='changestate(2)' class="storebtn">Ticks</button>
+  <hr id='div1hr'>
+  <button onclick='changestate(2)' id='div2btn' class="storebtn">Ticks</button>
   <div style="text-align: left" id='div2' class='hidden'>
   <b>Tick:</b> Production in the game happens on each “tick”.
   <br>
@@ -54,8 +67,8 @@
   <br>
   Note that the actual tickspeed time is fake and the game always runs at 20 ticks per second.
   </div>
-  <hr>
-  <button onclick='changestate(3)' class="storebtn">Dimension Shift/Boost</button>
+  <hr id='div2hr'>
+  <button onclick='changestate(3)' id='div3btn' class="storebtn">Dimension Shift/Boost</button>
   <div style="text-align: left" id='div3' class='hidden'>
   <b>Dimension Shift:</b> This resets your current game, but unlocks another dimension for your next run. Each one requires 20 (base) of your highest unlocked dimension.
   <br>
@@ -65,9 +78,9 @@
       <br>
     <b>Hotkey: D</b>
   </div>
-  <hr>
-  <button onclick='changestate(5)' class="storebtn">Antimatter Galaxies</button>
-  <div style="text-align: left" id='div5' class='hidden'>
+  <hr id='div3hr'>
+  <button onclick='changestate(4)' id='div4btn' class="storebtn">Antimatter Galaxies</button>
+  <div style="text-align: left" id='div4' class='hidden'>
   Purchasing an Antimatter Galaxy will reset your game back to the point where only 4 Dimensions are available, but will increase the effect of your tick speed interval reduction by 2%.
   <br>
   Though it will have very little impact for the first few purchases, the increase is multiplicative and won’t take long to be visible.
@@ -78,9 +91,9 @@
   <br>
     <b>Hotkey: G</b>
   </div>
-  <hr>
-  <button onclick='changestate(7)' class="storebtn">Dimensional Sacrifice</button>
-  <div style="text-align: left" id='div7' class='hidden'>
+  <hr id='div4hr'>
+  <button onclick='changestate(5)' id='div5btn' class="storebtn">Dimensional Sacrifice</button>
+  <div style="text-align: left" id='div5' class='hidden'>
   You unlock Dimensional Sacrifice after your first dimensional boost.
   <br>
   Sacrificing will immediately reduce the owned quantity of dimensions 1 through 7 to zero. This does not reduce the multiplier or the current cost.  In return, it will multiply the Eighth Dimension Multiplier by the shown value. It will take time to get back to the production you previously had, but you will end up with a net increase.
@@ -99,34 +112,36 @@
       <br>
     <b>Hotkey: S</b>
   </div>
-  <hr>
-  <button onclick='changestate(8)' class="storebtn">Infinity</button>
-  <div style="text-align: left" id='div8' class='hidden'>
+  <hr id='div5hr'>
+  <button onclick='changestate(6)' id='div6btn' class="storebtn">Infinity</button>
+  <div style="text-align: left" id='div6' class='hidden'>
   Once you have too much Antimatter for the world to handle (2^1024, or 1.7976931348623159e308) you’ll reach infinity and be able to perform a “Big Crunch”.
   <br>
   Each Infinity completed will give an Infinity Point. These can be spent on upgrades in the new infinity tab. You must purchase these upgrades from top to bottom.
   <br>
   The "x2 IP from all sources" upgrade can be bought multiple times, but each purchase requires 10 times as much IP. You must buy all 16 previous infinity upgrades to buy the first level.
+  <br>
+  <b>When should I try to reach Infinity?</b> It's recommend to get 2 galaxies before attempting to reach it. On the way there, you should dimension boost as many times as you can.
   </div>
-  <hr>
-  <button onclick='changestate(9)' class="storebtn">Achievements</button>
-  <div style="text-align: left" id='div9' class='hidden'>
+  <hr id='div6hr'>
+  <button onclick='changestate(7)' id='div7btn' class="storebtn">Achievements</button>
+  <div style="text-align: left" id='div7' class='hidden'>
   Each achievement has conditions that must be met before they are earned.  Some are very simple, and some are significantly trickier.  You may have to infinity or start a challenge before attempting some of the harder ones.
   <br>
   You will recieve a x1.5 multiplier to all dimensions for each completed row. In addition, some achievements have their own rewards.
   </div>
-  <hr>
-  <button onclick='changestate(10)' class="storebtn">Challenges</button>
-  <div style="text-align: left" id='div10' class='hidden'>
+  <hr id='div7hr'>
+  <button onclick='changestate(8)' id='div8btn' class="storebtn">Challenges</button>
+  <div style="text-align: left" id='div8' class='hidden'>
   Challenges are unlocked after first infinity; they change in-game mechanics in different ways to create more difficult infinity circumstances.
   <br>
   Each completed challenge will award an auto buyer.  You can run them multiple times (though only the first time grants a reward), and they can be exited at any time via the “Exit Challenge” button on the challenge tab.
   <br>
   The rightmost row of Infinity Upgrades does not work in challenges.
   </div>
-  <hr>
-  <button onclick='changestate(11)' class="storebtn">Autobuyers</button>
-  <div style="text-align: left" id='div11' class='hidden'>
+  <hr id='div8hr'>
+  <button onclick='changestate(9)' id='div9btn' class="storebtn">Autobuyers</button>
+  <div style="text-align: left" id='div9' class='hidden'>
   <b>Autobuyers:</b>
   <br>
   Autobuyers (awarded by completing challenges) allow the automatic purchase of dimensions, dimension shifts/boosts, galaxies, tickspeed interval decreases, Big Crunches, and Dimensional Sacrifice (later). They are located under the infinty tab in "Autobuyers".
@@ -154,18 +169,18 @@
       <br>
     <b>Hotkey: A</b> (for toggle all autobuyers)
   </div>
-  <hr>
-  <button onclick='changestate(12)' class="storebtn">Breaking Infinity</button>
-  <div style="text-align: left" id='div12' class='hidden'>
+  <hr id='div9hr'>
+  <button onclick='changestate(10)' id='div10btn' class="storebtn">Breaking Infinity</button>
+  <div style="text-align: left" id='div10' class='hidden'>
   Originally Antimatter Dimensions was restricted by "Infinity". Since a significant update, you can now "Break Infinity" once your Big Crunch autobuyer has been maxed. This opens up a selection of new upgrades as well as the ability to gain more than 1 infinity point per run.
   <br>
   <b>Fixing Infinity:</b>You can revert the breaking at anytime by clicking fix infinity.
   <br>
   <b>IP Gain Formula:</b>10^(log(current antimatter)/n-0.75)*bonuses, where n is 308 at default, 307.8 with the "This achievement doesn't exist II" achievement, or 290 with the relevant timestudy.
   </div>
-  <hr>
-  <button onclick='changestate(13)' class="storebtn">Infinity Dimensions</button>
-  <div style="text-align: left" id='div13' class='hidden'>
+  <hr id='div10hr'>
+  <button onclick='changestate(11)' id='div11btn' class="storebtn">Infinity Dimensions</button>
+  <div style="text-align: left" id='div11' class='hidden'>
   <b>Unlocking Infinity Dimensions:</b>Infinity Dimensions are unlocked by reaching a certain amount of antimatter.
   <br>
   <b>Infinity Dimension Cost:</b>Infinity dimensions are only purchasable in sets of 10, and cost Infinity points.
@@ -174,59 +189,59 @@
   <br>
   Infinity Power gives a boost to all dimensions equal to (power^7).
   </div>
-  <hr>
-  <button onclick='changestate(14)' class="storebtn">Infinity Challenges</button>
-  <div style="text-align: left" id='div14' class='hidden'>
+  <hr id='div11hr'>
+  <button onclick='changestate(12)' id='div12btn' class="storebtn">Infinity Challenges</button>
+  <div style="text-align: left" id='div12' class='hidden'>
   Infinity Challenges are like regular challenges, but they have higher end goals and are generally harder than regular challenges (but have a different kind of reward).
-    <br>
+  <br>
   They unlock at set amounts of antimatter - the ones unlocking later are (generally) more difficult.
-    </div>
- <hr>
- <button onclick='changestate(15)' class="storebtn">Replicanti</button>
+  </div>
+  <hr id='div12hr'>
+  <button onclick='changestate(13)' id='div13btn' class="storebtn">Replicanti</button>
+  <div style="text-align: left" id='div13' class='hidden'>
+  Each replicanti has an upgradable chance to update every replicanti tick. You will gain a bonus to infinity dimensions based on much replicanti you have.
+  <br>
+  When replicanti reach infinity, you can buy a galaxy. This will not increase the cost of normal galaxies. The amount of replicanti galaxies you can have is capped (upgradable). Once you reach infinity replicanti, they will not continue growing.
+  <br>
+  When offline, in an inactive tab, lagging, or a tickspeed under 50ms, replicanti get calculated with an approximation. This can cause wildly varying results, especially at extremely low numbers (1-5).
+  <br>
+  When at low values (100-1000) (when none of the conditions above are true), there may be some minor variances in the expected amount of replicanti gain.
+  <br><b>Formulas:
+  <br>Infinity Dimension power increase:</b> log2(replicanti)^2, plus replicanti^0.032 if you have the relevant time study, times 5^galaxies if you have that time study.
+  <br><b>Chance upgrade cost:</b>x(1e15) per upgrade
+  <br><b>Speed upgrade cost:</b>x(1e10) per upgrade
+  <br><b>Galaxy upgrade cost:</b>1e(170+n*25+n^2*5)
+  </div>
+  <hr id='div13hr'>
+  <button onclick='changestate(14)' id='div14btn' class="storebtn">Eternity</button>
+  <div style="text-align: left" id='div14' class='hidden'>
+  Upon reaching infinity Infinity Points, you can eternity. Eternities will reset everything before this point except challenge times, achievements, and total antimatter. You also unlock a new tab.
+  <br>
+  You can pass infinity Infinity Points whenever. You will recieve more Eternity Points the nore Infinity Points you had before going Eternal.
+  <br>
+  <b>EP gain formula:</b> floor(5^(floor(log10(IP))/308-0.7)*bonuses. The x10 EP time study gives the bonus before the outer floor.
+  </div>
+  <hr id='div14hr'>
+  <button onclick='changestate(15)' id='div15btn' class="storebtn">Milestones</button>
   <div style="text-align: left" id='div15' class='hidden'>
-    Each replicanti has an upgradable chance to update every replicanti tick. You will gain a bonus to infinity dimensions based on much replicanti you have.
-    <br>
-    When replicanti reach infinity, you can buy a galaxy. This will not increase the cost of normal galaxies. The amount of replicanti galaxies you can have is capped (upgradable). Once you reach infinity replicanti, they will not continue growing.
-    <br>
-    When offline, in an inactive tab, lagging, or a tickspeed under 50ms, replicanti get calculated with an approximation. This can cause wildly varying results, especially at extremely low numbers (1-5).
-    <br>
-    When at low values (100-1000) (when none of the conditions above are true), there may be some minor variances in the expected amount of replicanti gain.
-    <br><b>Formulas:
-    <br>Infinity Dimension power increase:</b> log2(replicanti)^2, plus replicanti^0.032 if you have the relevant time study, times 5^galaxies if you have that time study.
-    <br><b>Chance upgrade cost:</b>x(1e15) per upgrade
-    <br><b>Speed upgrade cost:</b>x(1e10) per upgrade
-    <br><b>Galaxy upgrade cost:</b>1e(170+n*25+n^2*5)
-    </div>
-    <hr>
-     <button onclick='changestate(16)' class="storebtn">Eternity</button>
-  <div style="text-align: left" id='div16' class='hidden'>
-    Upon reaching infinity Infinity Points, you can eternity. Eternities will reset everything before this point except challenge times, achievements, and total antimatter. You also unlock a new tab.
-    <br>
-    You can pass infinity Infinity Points whenever. You will recieve more Eternity Points the nore Infinity Points you had before going Eternal.
-    <br>
-    <b>EP gain formula:</b> floor(5^(floor(log10(IP))/308-0.7)*bonuses. The x10 EP time study gives the bonus before the outer floor.
-    </div>
-    <hr>
-    <button onclick='changestate(17)' class="storebtn">Milestones</button>
-  <div style="text-align: left" id='div17' class='hidden'>
     To make eternities faster and more convenient, you will unlock various buffs as you get more eternities. These buffs are either making you start with something on eternity or unlock an autobuyer.
     <br>
     For the buffs at the the start of an eternity, you will keep the relevant statistic on the run you unlock the milestone. (On 1 > 2, you will keep your autobuyers.)
     <br>
     The last milestone is at 100 eternities and allows full automation.
     </div>
-    <hr>
-    <button onclick='changestate(18)' class="storebtn">Time Dimensions</button>
-  <div style="text-align: left" id='div18' class='hidden'>
+    <hr id='div15hr'>
+    <button onclick='changestate(16)'id='div16btn' class="storebtn">Time Dimensions</button>
+  <div style="text-align: left" id='div16' class='hidden'>
     After your first eternity, you unlock Time Dimensions. You buy them with EP and they provide time shards, which give free tickspeed upgrades (which don't increase the price). These free tickspeed upgrades stay on infinity (applying retroactively to your tickspeed mult through more galaxies).
     <br>
     Similarly to the other dimensions, a Time Dimension 2 produces a Time Dimension 1 and so on.
     <br>
     Each tick threshold takes 33% more time shards than the previous (25% with the relevant time study).
     </div>
-    <hr>
-  <button onclick='changestate(19)' class="storebtn">Time Study</button>
-  <div style="text-align: left" id='div19' class='hidden'>
+    <hr id='div16hr'>
+  <button onclick='changestate(17)' id='div17btn' class="storebtn">Time Study</button>
+  <div style="text-align: left" id='div17' class='hidden'>
     A Time Study is a powerful post-eternity upgrade, which costs Time Theorems. Time Studies are laid out in a tree-like fashion, where you must buy preresiquites before continuing. There are sometimes choices to make with which Time Study to buy, as you cannot get all of them even if affordable.
     <br>
     Time Theorems are a limited resource which costs more for each one you buy. They can be bought with antimatter, infinity points, and eternity points.
@@ -235,9 +250,10 @@
     <br>
     <b>Costs:</b> x1e20000 for each from antimatter, x1e100 for each from IP, x2 for each from EP.
     </div>
-    <hr>
+    <hr id='div17hr'>
     <a href="https://www.reddit.com/r/AntimatterDimensions/comments/73jhqe/patashus_antimatter_dimensions_guide/?utm_content=title&utm_medium=hot&utm_source=reddit&utm_name=AntimatterDimensions">Strategy Guide</a>
   </body>
+  <script src='javascripts/howto.js'></script>
   </html>
   
   
