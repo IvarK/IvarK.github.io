@@ -2349,8 +2349,9 @@ function updateTheoremButtons() {
     document.getElementById("timetheorems").innerHTML = "You have <span style='display:inline' class=\"TheoremAmount\">"+player.timestudy.theorem+"</span> Time "+ (player.timestudy.theorem == 1 ? "Theorem." : "Theorems.")
 }
 
-function buyTimeStudy(name, cost) {
-    if (player.timestudy.theorem >= cost && canBuyStudy(name) && !player.timestudy.studies.includes(name)) {
+function buyTimeStudy(name, cost, check) {
+    if (shiftDown && check === undefined) studiesUntil(name);
+    else if (player.timestudy.theorem >= cost && canBuyStudy(name) && !player.timestudy.studies.includes(name)) {
         player.timestudy.studies.push(name)
         player.timestudy.theorem -= cost
         if (name == 71 || name == 81 || name == 91 || name == 101) {
@@ -2483,6 +2484,18 @@ function updateTimeStudyButtons() {
         }
     }
 }
+
+function studiesUntil(id) {
+    var col = id % 10;
+    var row = Math.floor(id / 10);
+    if ((row > 10 && !(player.timestudy.studies.includes(101) || player.timestudy.studies.includes(102) || player.timestudy.studies.includes(103))) || (row > 14 && !(player.timestudy.studies.includes(141) || player.timestudy.studies.includes(142) || player.timestudy.studies.includes(143)))) return;
+    for (var i = 0; i < row; i++){ 
+        if ((i > 6 && i < 11) || (i > 11 && i < 15)) buyTimeStudy(i * 10 + col, studyCosts[all.indexOf(i * 10 + col)],0);
+    else for (var j = 1; all.includes(i * 10 + j) ; j++) buyTimeStudy(i * 10 + j, studyCosts[all.indexOf(i*10+j)],0);
+    }
+    buyTimeStudy(id, studyCosts[all.indexOf(id)],0);
+}
+
 
 function respecTimeStudies() {
     for (var i=0; i<all.length; i++) {
