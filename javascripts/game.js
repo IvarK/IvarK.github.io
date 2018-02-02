@@ -2885,7 +2885,7 @@ function buyMaxTickSpeed() {
             player.tickSpeedCost = player.tickSpeedCost.times(player.tickspeedMultiplier)
             player.tickspeedMultiplier = player.tickspeedMultiplier.times(2)
         }
-        player.money = player.money.minus(player.tickSpeedCost)
+        if (player.money.gte(player.tickSpeedCost)) player.money = player.money.minus(player.tickSpeedCost)
         player.tickSpeedCost = player.tickSpeedCost.times(player.tickspeedMultiplier)
         player.tickspeedMultiplier = player.tickspeedMultiplier.times(2)
     }
@@ -3385,7 +3385,7 @@ function buyManyDimensionAutobuyer(tier, bulk) {
                 
                 player[name + "Cost"] = newCost
                 player.costMultipliers[tier-1] = newMult
-                player.money = player.money.minus(player[name + "Cost"])
+                if (player.money.gte(player[name + "Cost"])) player.money = player.money.minus(player[name + "Cost"])
                 player[name + "Cost"] = player[name + "Cost"].times(player.costMultipliers[tier-1])
                 player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
             }
@@ -3651,7 +3651,7 @@ document.getElementById("maxall").onclick = function () {
                     
                     player[name + "Cost"] = newCost
                     player.costMultipliers[tier-1] = newMult
-                    player.money = player.money.minus(player[name + "Cost"])
+                    if (player.money.gte(player[name + "Cost"]))player.money = player.money.minus(player[name + "Cost"])
                     player[name + "Cost"] = player[name + "Cost"].times(player.costMultipliers[tier-1])
                     player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
                 }
@@ -3664,6 +3664,7 @@ document.getElementById("maxall").onclick = function () {
         if (player.currentChallenge == "postc1") clearDimensions(tier-1);
         player.postC4Tier = tier;
         onBuyDimension(tier)
+        console.log(player.money)
     }
 }
 
