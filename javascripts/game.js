@@ -4138,8 +4138,8 @@ function toggleReplAuto(i) {
 function toggleCommas() {
     player.options.commas = !player.options.commas
 
-    if (player.options.commas) document.getElementById("commas").innerHTML = "Commas on large exponents ON"
-    else document.getElementById("commas").innerHTML = "Commas on large exponents OFF"
+    if (player.options.commas) document.getElementById("commas").innerHTML = "Commas on exponents"
+    else document.getElementById("commas").innerHTML = "Notation on exponents"
 }
 
 
