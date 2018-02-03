@@ -7583,7 +7583,7 @@ function gameLoop(diff) {
 var gameLoopIntervalId;
 
 function simulateTime(seconds) {
-    /*
+    
     //the game is simulated at a 50ms update rate, with a max of 1000 ticks
     document.getElementById("offlineprogress").style.display = "block"
     var ticks = seconds * 20;
@@ -7598,16 +7598,17 @@ function simulateTime(seconds) {
         gameLoop(50+bonusDiff)
         ticksDone++;
     }
-    var popupString = "While you were away,<br> your antimatter increased "+shortenMoney(player.money.log10() - (playerStart.money).log10())+" orders of magnitude"
+    var popupString = "While you were away"
+    if (player.money.gt(playerStart.money)) popupString+= ",<br> your antimatter increased "+shortenMoney(player.money.log10() - (playerStart.money).log10())+" orders of magnitude"
     if (player.infinityPower.gt(playerStart.infinityPower)) popupString+= ",<br> infinity power increased "+shortenMoney(player.infinityPower.log10() - (playerStart.infinityPower).log10())+" orders of magnitude"
     if (player.timeShards.gt(playerStart.timeShards)) popupString+= ",<br> time shards increased "+shortenMoney(player.timeShards.log10() - (playerStart.timeShards).log10())+" orders of magnitude"
     popupString+= "."
     if (player.infinitied > playerStart.infinitied) popupString+= "<br>You infinitied "+(player.infinitied-playerStart.infinitied)+" times"
     if (player.eternities > playerStart.eternities) popupString+= " <br>and eternitied "+(player.eternities-playerStart.eternities)+" times"
     if (popupString.includes("times")) popupString+= "."
+    if (popupString.length == 19) popupString+= " ...nothing happened."
     
     document.getElementById("offlinePopup").innerHTML = popupString
-    */ console.log("simulate time is disabled for a temporary fix to try to find the cause of bugs")
 }
 
 function startInterval() {
