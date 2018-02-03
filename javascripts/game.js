@@ -93,7 +93,7 @@ var player = {
     thisEternity: 0,
     bestEternity: 9999999999,
     eternityUpgrades: [],
-    epmult: 1,
+    epmult: new Decimal(1),
     epmultCost: new Decimal(500),
     infinityDimension1 : {
         cost: new Decimal(1e8),
@@ -1120,7 +1120,7 @@ function onLoad() {
     }
 
     if (player.epmult === undefined) {
-        player.epmult = 1
+        player.epmult = new Decimal(1)
         player.epmultCost = new Decimal(500)
     }
 
@@ -1332,6 +1332,7 @@ function transformSaveToDecimal() {
     if (player.autobuyers[11].priority !== undefined && player.autobuyers[11].priority !== null && player.autobuyers[11].priority !== "undefined")player.autobuyers[11].priority = new Decimal(player.autobuyers[11].priority)
 
     player.epmultCost = new Decimal(player.epmultCost)
+    player.epmult = new Decimal(player.epmult)
     player.eternityBuyer.limit = new Decimal(player.eternityBuyer.limit)
     player.eternityChallGoal = new Decimal(player.eternityChallGoal)
     player.replicanti.amount = new Decimal(player.replicanti.amount)
@@ -3731,7 +3732,7 @@ function buyEternityUpgrade(name, cost) {
 
 function buyEPMult() {
     if (player.eternityPoints.gte(player.epmultCost)) {
-        player.epmult *= 5
+        player.epmult = player.epmult.times(5)
         player.eternityBuyer.limit = player.eternityBuyer.limit.times(5)
         document.getElementById("priority13").value = player.eternityBuyer.limit
         player.eternityPoints = player.eternityPoints.minus(player.epmultCost)
@@ -7177,8 +7178,7 @@ function gameLoop(diff) {
     if (player.replicanti.galaxybuyer && player.replicanti.amount.gte(Number.MAX_VALUE) && !player.timestudy.studies.includes(131)) {
         document.getElementById("replicantireset").click()
     }
-
-    if (player.timestudy.studies.includes(22) ? player.replicanti.interval !== 1 : (player.replicanti.interval !== 50)) document.getElementById("replicantiinterval").innerHTML = "Interval: "+(interval).toFixed(3)+"ms<br>-> "+Math.max(interval*0.9, 1).toFixed(3)+" Costs: "+shortenCosts(player.replicanti.intervalCost)+" IP"
+    if (player.timestudy.studies.includes(22) ? player.replicanti.interval !== 1 : (player.replicanti.interval !== 50)) document.getElementById("replicantiinterval").innerHTML = "Interval: "+(interval).toFixed(3)+"ms<br>-> "+Math.max(interval*0.9).toFixed(3)+" Costs: "+shortenCosts(player.replicanti.intervalCost)+" IP"
     else document.getElementById("replicantiinterval").innerHTML = "Interval: "+(interval).toFixed(3)+"ms"
 
 
