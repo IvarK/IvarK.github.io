@@ -5910,7 +5910,8 @@ function eternity(force) {
             showTab("dimensions")
             showDimTab("timedimensions")
         }
-
+        if (player.replicanti.galaxybuyer) document.getElementById("replicantiresettoggle").innerHTML = "Auto galaxy ON"
+        else document.getElementById("replicantiresettoggle").innerHTML = "Auto galaxy OFF"
         
     }
 }
@@ -6632,6 +6633,9 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
         playerInfinityUpgradesOnEternity()
         document.getElementById("eternityPoints2").innerHTML = "You have <span class=\"EPAmount2\">"+shortenDimensions(player.eternityPoints)+"</span> Eternity points."
         updateEternityChallenges()
+        if (player.replicanti.galaxybuyer) document.getElementById("replicantiresettoggle").innerHTML = "Auto galaxy ON"
+        else document.getElementById("replicantiresettoggle").innerHTML = "Auto galaxy OFF"
+
 
     }
 }
