@@ -4512,8 +4512,8 @@ function verify_save(obj) {
 
 document.getElementById("importbtn").onclick = function () {
     var save_data = prompt("Input your save.");
-    save_data = save_data.constructor !== String ? save_data = "":
-    player.options.secretThemeKey = save_data;
+    if (save_data.constructor !== String) save_data = "";
+    if (save_data.length < 10) player.options.secretThemeKey = save_data;;
     if (sha512_256(save_data) === "de24687ee7ba1acd8f5dc8f71d41a3d4b7f14432fff53a4d4166e7eea48a88c0") {
         player.options.theme = "S1";
         setTheme(player.options.theme);
@@ -5561,7 +5561,7 @@ document.getElementById("bigcrunch").onclick = function () {
         IPminpeak = new Decimal(0)
         
 
-        if (player.eternities > 10 && player.currentEternityChall !== "eterc8") {
+        if (player.eternities > 10 && player.currentEternityChall !== "eterc8" && player.currentEternityChall !== "eterc2") {
             for (var i=1;i<player.eternities-9 && i < 9; i++) {
                 if (player.infDimBuyers[i-1]) {
                     buyMaxInfDims(i)
@@ -5910,7 +5910,8 @@ function eternity(force) {
             showTab("dimensions")
             showDimTab("timedimensions")
         }
-
+        if (player.replicanti.galaxybuyer) document.getElementById("replicantiresettoggle").innerHTML = "Auto galaxy ON"
+        else document.getElementById("replicantiresettoggle").innerHTML = "Auto galaxy OFF"
         
     }
 }
@@ -6632,6 +6633,9 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
         playerInfinityUpgradesOnEternity()
         document.getElementById("eternityPoints2").innerHTML = "You have <span class=\"EPAmount2\">"+shortenDimensions(player.eternityPoints)+"</span> Eternity points."
         updateEternityChallenges()
+        if (player.replicanti.galaxybuyer) document.getElementById("replicantiresettoggle").innerHTML = "Auto galaxy ON"
+        else document.getElementById("replicantiresettoggle").innerHTML = "Auto galaxy OFF"
+
 
     }
 }
