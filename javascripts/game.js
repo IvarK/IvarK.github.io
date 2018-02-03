@@ -2493,10 +2493,12 @@ function studiesUntil(id) {
         if (player.timestudy.studies.includes(70+i)) path[0] = i;
         if (player.timestudy.studies.includes(120+i))path[1] = i;
     }
-    if ((row > 10 && path[0] == 1) || (row > 14 && path[1] === 0)) return;
-    for (var i = 0; i < row; i++) {
-        var chosenPath =  path[i > 11 ? 1 : 0];
-        if ((i > 6 && i < 11) || (i > 11 && i < 15)) buyTimeStudy(i * 10 + chosenPath === 0 ? col : chosenPath, studyCosts[all.indexOf(i * 10 + chosenPath === 0 ? col : chosenPath)], 0);
+    if ((row > 10 && path[0] === 0) || (row > 14 && path[1] === 0)) {
+        return;
+    }
+    for (var i = 1; i < row; i++) {
+        var chosenPath = path[i > 11 ? 1 : 0];
+        if ((i > 6 && i < 11) || (i > 11 && i < 15)) buyTimeStudy(i * 10 + (chosenPath === 0 ? col : chosenPath), studyCosts[all.indexOf(i * 10 + (chosenPath === 0 ? col : chosenPath))], 0);
         else for (var j = 1; all.includes(i * 10 + j) ; j++) buyTimeStudy(i * 10 + j, studyCosts[all.indexOf(i * 10 + j)], 0);
     }
     buyTimeStudy(id, studyCosts[all.indexOf(id)], 0);
