@@ -5561,7 +5561,7 @@ document.getElementById("bigcrunch").onclick = function () {
         IPminpeak = new Decimal(0)
         
 
-        if (player.eternities > 10 && player.currentEternityChall !== "eterc8") {
+        if (player.eternities > 10 && player.currentEternityChall !== "eterc8" && player.currentEternityChall !== "eterc2") {
             for (var i=1;i<player.eternities-9 && i < 9; i++) {
                 if (player.infDimBuyers[i-1]) {
                     buyMaxInfDims(i)
