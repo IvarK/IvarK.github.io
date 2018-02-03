@@ -8229,7 +8229,7 @@ function onPurchaseResult(result) {
 
 function onPurchaseTimeSkip(result) {
     if (result.success) {
-        player.lastUpdate -= 21600000
+        simulateTime(21600)
     }
 }
 
