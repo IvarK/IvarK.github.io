@@ -5218,7 +5218,7 @@ document.getElementById("challengetime2").innerHTML = "Challenge  " + 2 + " time
         document.getElementById("infchallengetime"+(i+1)).innerHTML = "Infinity Challenge " + (i+1) + " time record " + timeDisplayShort(player.infchallengeTimes[i])
 		temp += player.infchallengeTimes[i]
     }
-	document.getElementById("ïnfchallengetimesum").innerHTML = "Sum of infinity challenge time records is " + timeDisplayShort(temp)
+	document.getElementById("infchallengetimesum").innerHTML = "Sum of infinity challenge time records is " + timeDisplayShort(temp)
     updateWorstChallengeTime();
 }
 
