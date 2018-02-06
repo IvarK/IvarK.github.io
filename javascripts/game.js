@@ -7154,17 +7154,11 @@ function gameLoop(diff) {
     var current = player.replicanti.amount.ln()
     
     if (player.replicanti.unl && (diff > 5 || interval < 50)) {
-        if (diff > 50 && player.timestudy.studies.includes(192)) {
-            var gained = Decimal.pow(Math.E, current +(diff*est/10))
-            player.replicanti.amount = gained
-            replicantiTicks = 0
-        } else {
-            var gained = Decimal.pow(Math.E, current +(diff*est/10))
-            if (player.timestudy.studies.includes(192)) gained = Decimal.pow(Math.E, current +Math.log((diff*est/10) * (Math.log10(1.2)/308)+1) / (Math.log10(1.2)/308))
-            player.replicanti.amount = Decimal.min(Number.MAX_VALUE, gained)
-            if (player.timestudy.studies.includes(192)) player.replicanti.amount = gained
-            replicantiTicks = 0
-        }
+        var gained = Decimal.pow(Math.E, current +(diff*est/10))
+        if (player.timestudy.studies.includes(192)) gained = Decimal.pow(Math.E, current +Math.log((diff*est/10) * (Math.log10(1.2)/308)+1) / (Math.log10(1.2)/308))
+        player.replicanti.amount = Decimal.min(Number.MAX_VALUE, gained)
+        if (player.timestudy.studies.includes(192)) player.replicanti.amount = gained
+        replicantiTicks = 0
     } else {
         if (interval <= replicantiTicks && player.replicanti.unl) {
             if (player.replicanti.amount.lte(100)) {
@@ -7194,7 +7188,7 @@ function gameLoop(diff) {
         }
 
     }
-    if (player.replicanti.amount !== 0) replicantiTicks += 50
+    if (player.replicanti.amount !== 0) replicantiTicks += player.options.updateRate
 
 
     if (current == Decimal.ln(Number.MAX_VALUE) && player.thisInfinityTime < 600*30) giveAchievement("Is this safe?");
