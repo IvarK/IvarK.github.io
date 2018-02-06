@@ -1171,6 +1171,11 @@ function onLoad() {
         player.replicanti.intervalCost = player.replicanti.intervalCost.dividedBy(1e20)
     }
 
+    if (player.version < 9.5) {
+        player.version = 9.5
+        if (player.timestudy.studies.includes(191)) player.timestudy.theorem += 100
+    }
+
     toggleCrunchMode()
     toggleCrunchMode()
     toggleCrunchMode()
