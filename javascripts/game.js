@@ -8549,7 +8549,7 @@ window.onload = function() {
         playFabLogin();
         updateKongPurchases()
         try {
-            if (kongregate.services.getGameAuthToken() === undefined) document.getElementById("shopbtn").style.display = "inline-block"
+            if (kongregate.services.getGameAuthToken() === undefined) document.getElementById("shopbtn").style.display = "none"
         } catch(e) {
             console.log(e)
             document.getElementById("shopbtn").style.display = "none"
