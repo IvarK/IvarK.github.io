@@ -710,6 +710,8 @@ document.getElementById("theme").onclick = function () {
 
 let kongIPMult = 1
 let kongDimMult = 1
+let kongAllDimMult = 1
+let kongEPMult = 1
 
 
 
@@ -1515,6 +1517,14 @@ function hasInfinityMult(tier) {
     }
 }
 
+var firstRowMult = 1
+function updateFirstRowMult() {
+    firstRowMult = 1
+    for (var i=1; i<9; i++) {
+        if (player.achievements.includes("r1"+i)) firstRowMult *= 1.05
+    }
+}
+
 
 
 function getDimensionFinalMultiplier(tier) {
@@ -1528,8 +1538,9 @@ function getDimensionFinalMultiplier(tier) {
     }
     
     multiplier = multiplier.times(player.achPow);
-
+    multiplier = multiplier.times(firstRowMult)
     multiplier = multiplier.times(kongDimMult)
+    multiplier = multiplier.times(kongAllDimMult)
 
     if (player.currentEternityChall == "eterc9") multiplier = multiplier;
     else multiplier = multiplier.times(player.infinityPower.pow(7).max(1))
@@ -2035,6 +2046,8 @@ function DimensionProduction(tier) {
 function DimensionPower(tier) {
     var dim = player["infinityDimension"+tier]
     var mult = dim.power.times(infDimPow)
+
+    mult = mult.times(kongAllDimMult)
     if (player.achievements.includes("r94") && tier == 1) mult = mult.times(2);
     if (player.achievements.includes("r75")) mult = mult.times(player.achPow);
     if (player.replicanti.unl && player.replicanti.amount.gt(1)) {
@@ -2213,6 +2226,8 @@ var infDimPow = 1
 function getTimeDimensionPower(tier) {
     var dim = player["timeDimension"+tier]
     var ret = new Decimal(dim.power)
+
+    ret = ret.times(kongAllDimMult)
 
     if (player.eternityUpgrades.includes(4)) ret = ret.times(player.achPow)
     if (player.eternityUpgrades.includes(5)) ret = ret.times(Math.max(player.timestudy.theorem, 1))
@@ -3797,6 +3812,8 @@ function updateAchievements() {
     player.achPow = Decimal.pow(1.5, amount)
 
     document.getElementById("achmultlabel").innerHTML = "Current achievement multiplier on each Dimension: " + player.achPow.toFixed(1) + "x"
+
+    updateFirstRowMult()
 }
 
 
@@ -4629,7 +4646,7 @@ function gainedInfinityPoints() {
 }
 
 function gainedEternityPoints() {
-    var ret = Decimal.pow(5, player.infinityPoints.plus(gainedInfinityPoints()).e/308 -0.7).times(player.epmult)
+    var ret = Decimal.pow(5, player.infinityPoints.plus(gainedInfinityPoints()).e/308 -0.7).times(player.epmult).times(kongEPMult)
     if (player.timestudy.studies.includes(61)) ret = ret.times(10)
     if (player.timestudy.studies.includes(121)) ret = ret.times(((253 - averageEp.dividedBy(player.epmult).dividedBy(10).min(248).max(3))/5)) //x300 if tryhard, ~x60 if not
     else if (player.timestudy.studies.includes(122)) ret = ret.times(35)
@@ -4834,17 +4851,17 @@ function updateAutobuyers() {
     var autoSacrifice = new Autobuyer(13)
 
 
-    autoBuyerDim1.interval = 3000
-    autoBuyerDim2.interval = 4000
-    autoBuyerDim3.interval = 5000
-    autoBuyerDim4.interval = 6000
-    autoBuyerDim5.interval = 8000
-    autoBuyerDim6.interval = 10000
-    autoBuyerDim7.interval = 12000
-    autoBuyerDim8.interval = 15000
-    autoBuyerDimBoost.interval = 16000
-    autoBuyerGalaxy.interval = 300000
-    autoBuyerTickspeed.interval = 10000
+    autoBuyerDim1.interval = 1500
+    autoBuyerDim2.interval = 2000
+    autoBuyerDim3.interval = 2500
+    autoBuyerDim4.interval = 3000
+    autoBuyerDim5.interval = 4000
+    autoBuyerDim6.interval = 5000
+    autoBuyerDim7.interval = 6000
+    autoBuyerDim8.interval = 7500
+    autoBuyerDimBoost.interval = 8000
+    autoBuyerGalaxy.interval = 150000
+    autoBuyerTickspeed.interval = 5000
     autoBuyerInf.interval = 300000
 
     autoSacrifice.interval = 100
@@ -6824,7 +6841,9 @@ setInterval(function() {
     if (player.money.gte(new Decimal("1e2000"))) document.getElementById("challTabButtons").style.display = "table"
 
     document.getElementById("kongip").innerHTML = "Double your IP gain from all sources (additive). Forever. Currently: x"+kongIPMult+", next: x"+(kongIPMult==1? 2: kongIPMult+2)
-    document.getElementById("kongdim").innerHTML = "Double all your dimension multipliers (dimensions 1-8) (multiplicative). Forever. Currently: x"+kongDimMult+", next: x"+(kongDimMult*2)
+    document.getElementById("kongep").innerHTML = "Triple your EP gain from all sources (additive). Forever. Currently: x"+kongEPMult+", next: x"+(kongEPMult==1? 3: kongIPMult+3)
+    document.getElementById("kongdim").innerHTML = "Double all your normal dimension multipliers (multiplicative). Forever. Currently: x"+kongDimMult+", next: x"+(kongDimMult*2)
+    document.getElementById("kongalldim").innerHTML = "Double ALL the dimension multipliers (Normal, Infinity, Time) (multiplicative). Forever. Currently: x"+kongAllDimMult+", next: x"+(kongAllDimMult*2)
     document.getElementById("eternityPoints2").innerHTML = "You have <span class=\"EPAmount2\">"+shortenDimensions(player.eternityPoints)+"</span> Eternity points."
 
     document.getElementById("eternitybtn").style.display = (player.infinityPoints.gte(player.eternityChallGoal) && player.infDimensionsUnlocked[7]) ? "inline-block" : "none"
@@ -8219,9 +8238,17 @@ function purchaseDimMult() {
     kongregate.mtx.purchaseItems(['doublemult'], onPurchaseResult)
 }
 
+function purchaseAllDimMult() {
+    kongregate.mtx.purchaseItems(['alldimboost'], onPurchaseResult)
+}
+
 
 function purchaseTimeSkip() {
     kongregate.mtx.purchaseItems(['timeskip'], onPurchaseTimeSkip)
+}
+
+function purchaseEP() {
+    kongregate.mtx.purchaseItems(['tripleep'], onPurchaseResult)
 }
 
 
@@ -8256,21 +8283,30 @@ function updateKongPurchases() {
         console.log("checking for all items")
         let ipmult = 0
         let dimmult = 1
+        let epmult = 0
+        let alldimmult = 1
         for(var i = 0; i < result.data.length; i++) {
             var item = result.data[i];
             console.log((i+1) + ". " + item.identifier + ", " +
             item.id + "," + item.data);
             if (item.identifier == "doublemult") dimmult *= 2
             if (item.identifier == "doubleip") ipmult += 2
+            if (item.identifier == "tripleep") epmult +=3
+            if (item.identifier == "alldimboost") alldimmult *= 2
 
         }
         kongDimMult = dimmult
+        kongAllDimMult = alldimmult
         if (ipmult !== 0) kongIPMult = ipmult
         else kongIPMult = 1
+        if (epmult !== 0) kongEPMult = epmult
+        else kongEPMult = 1
     }
 
-    document.getElementById("kongip").innerHTML = "Double your IP gain from all sources (additive). Forever. Currently: x"+kongIPMult+", next: "+(kongIPMult==1? 2: kongIPMult+2)+"x"
-    document.getElementById("kongdim").innerHTML = "Double all your dimension multipliers (dimensions 1-8) (multiplicative). Forever. Currently: x"+kongDimMult+", next: "+(kongDimMult*2)+"x"
+    document.getElementById("kongip").innerHTML = "Double your IP gain from all sources (additive). Forever. Currently: x"+kongIPMult+", next: x"+(kongIPMult==1? 2: kongIPMult+2)
+    document.getElementById("kongep").innerHTML = "Triple your EP gain from all sources (additive). Forever. Currently: x"+kongEPMult+", next: x"+(kongEPMult==1? 3: kongIPMult+3)
+    document.getElementById("kongdim").innerHTML = "Double all your normal dimension multipliers (multiplicative). Forever. Currently: x"+kongDimMult+", next: x"+(kongDimMult*2)
+    document.getElementById("kongalldim").innerHTML = "Double ALL the dimension multipliers (Normal, Infinity, Time) (multiplicative). Forever. Currently: x"+kongAllDimMult+", next: x"+(kongAllDimMult*2)
 }
 
 
@@ -8513,7 +8549,7 @@ window.onload = function() {
         playFabLogin();
         updateKongPurchases()
         try {
-            if (kongregate.services.getGameAuthToken() === undefined) document.getElementById("shopbtn").style.display = "none"
+            if (kongregate.services.getGameAuthToken() === undefined) document.getElementById("shopbtn").style.display = "inline-block"
         } catch(e) {
             console.log(e)
             document.getElementById("shopbtn").style.display = "none"
