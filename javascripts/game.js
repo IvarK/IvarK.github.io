@@ -1773,7 +1773,10 @@ function updateDimensions() {
         } else {
             document.getElementById("softReset").innerHTML = "Reset the game for a new Dimension";
         }
-        if (player.replicanti.galaxies > 0 && (player.galaxies >= 100 + ECTimesCompleted("eterc5") * 5 || player.currentEternityChall === "eterc5")) document.getElementById("secondResetLabel").innerHTML = 'Distant Antimatter Galaxies ('+ player.galaxies +' + '+ player.replicanti.galaxies +'): requires ' + getGalaxyRequirement() + ' Eighth Dimensions';
+        let extraGals = player.replicanti.galaxies
+        if (player.timestudy.studies.includes(225)) extraGals += Math.floor(player.replicanti.amount.e / 2500)
+        if (player.timestudy.studies.includes(226)) extraGals += Math.floor(player.replicanti.gal / 40)
+        if (player.replicanti.galaxies > 0 && (player.galaxies >= 100 + ECTimesCompleted("eterc5") * 5 || player.currentEternityChall === "eterc5")) document.getElementById("secondResetLabel").innerHTML = 'Distant Antimatter Galaxies ('+ player.galaxies +' + '+ extraGals +'): requires ' + getGalaxyRequirement() + ' Eighth Dimensions';
         else if (player.galaxies >= 100 + ECTimesCompleted("eterc5") * 5 || player.currentEternityChall === "eterc5") document.getElementById("secondResetLabel").innerHTML = 'Distant Antimatter Galaxies ('+ player.galaxies +'): requires ' + getGalaxyRequirement() + ' Eighth Dimensions';
         else if (player.replicanti.galaxies > 0) document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies ('+ player.galaxies +' + '+ player.replicanti.galaxies +'): requires ' + getGalaxyRequirement() + ' Eighth Dimensions';
         else if (player.currentChallenge != "challenge4") document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies ('+ player.galaxies +'): requires ' + getGalaxyRequirement() + ' Eighth Dimensions';
@@ -2252,7 +2255,7 @@ function getTimeDimensionPower(tier) {
     if (player.timestudy.studies.includes(93)) ret = ret.times(Decimal.pow(player.totalTickGained, 0.25).max(1))
     if (player.timestudy.studies.includes(103)) ret = ret.times(Math.max(player.replicanti.galaxies, 1))
     if (player.timestudy.studies.includes(151)) ret = ret.times(1e4)
-    if (player.timestudy.studies.includes(221)) ret = ret.times(Decimal.pow(1.008, player.resets))
+    if (player.timestudy.studies.includes(221)) ret = ret.times(Decimal.pow(1.0008, player.resets))
     //if (player.achievements.includes("r103")) ret = ret.times(Decimal.pow(player.totalTickGained,0.02).max(1))
     if (player.achievements.includes("r105")) ret = ret.div(player.tickspeed.div(1000).pow(0.000005))
     if (player.currentEternityChall == "eterc9") ret = ret.times((Decimal.pow(Math.max(player.infinityPower.log2(), 1), 4)).max(1))
