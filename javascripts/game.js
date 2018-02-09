@@ -2256,7 +2256,7 @@ function getTimeDimensionPower(tier) {
     if (player.timestudy.studies.includes(103)) ret = ret.times(Math.max(player.replicanti.galaxies, 1))
     if (player.timestudy.studies.includes(151)) ret = ret.times(1e4)
     if (player.timestudy.studies.includes(221)) ret = ret.times(Decimal.pow(1.0008, player.resets))
-    //if (player.achievements.includes("r103")) ret = ret.times(Decimal.pow(player.totalTickGained,0.02).max(1))
+    if (player.timestudy.studies.includes(227)) ret = ret.times(Math.pow(calcTotalSacrificeBoost().log10(), 4))
     if (player.achievements.includes("r105")) ret = ret.div(player.tickspeed.div(1000).pow(0.000005))
     if (player.currentEternityChall == "eterc9") ret = ret.times((Decimal.pow(Math.max(player.infinityPower.log2(), 1), 4)).max(1))
     if (ECTimesCompleted("eterc1") !== 0) ret = ret.times(Math.pow(Math.max(player.thisEternity*10, 1), 0.3+(ECTimesCompleted("eterc1")*0.05)))
@@ -2491,7 +2491,7 @@ function canBuyStudy(name) {
     }
 }
 var all =      [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 201, 211, 212, 213, 214, 221, 222, 223, 224, 225, 226, 227, 228]
-var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 400, 730, 300, 900, 120, 150, 200, 120, 700, 700, 700, 700, 700, 700, 11500, 11500]
+var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 400, 730, 300, 900, 120, 150, 200, 120, 700, 700, 700, 700, 700, 700, 700, 700]
 function updateTimeStudyButtons() {
     for (var i=0; i<all.length; i++) {
         if (!player.timestudy.studies.includes(all[i])) {
@@ -4804,6 +4804,7 @@ function resetDimensions() {
 function calcSacrificeBoost() {
     if (player.firstAmount == 0) return new Decimal(1);
     if (player.challenges.includes("postc2")) {
+        if (player.timestudy.studies.includes(228)) return player.firstAmount.dividedBy(player.sacrificed.max(1)).pow(0.014).max(1)
         if (player.achievements.includes("r88")) return player.firstAmount.dividedBy(player.sacrificed.max(1)).pow(0.011).max(1)
         return player.firstAmount.dividedBy(player.sacrificed.max(1)).pow(0.01).max(1)
     }
@@ -4820,7 +4821,8 @@ function calcSacrificeBoost() {
 function calcTotalSacrificeBoost() {
     if (player.sacrificed == 0) return new Decimal(1);
     if (player.challenges.includes("postc2")) {
-        if (player.achievements.includes("r88")) return player.sacrificed.pow(0.011)
+        if (player.timestudy.studies.includes(228)) return player.sacrificed.pow(0.014).max(1)
+        if (player.achievements.includes("r88")) return player.sacrificed.pow(0.011).max(1)
         else return player.sacrificed.pow(0.01)
     }
     if (player.currentChallenge != "challenge11") {
