@@ -743,6 +743,18 @@ button {
     vertical-align: top;
     margin:7px;
     animation: studyGlowIn 7s infinite;
+
+}
+
+.small {
+    margin: 1px;
+    width: 120px;
+    font-size: 0.6rem;
+    padding: 3px;
+}
+
+.wideRow td {
+    padding: 5px 2px;
 }
 
 .timestudy.normaldimstudy {

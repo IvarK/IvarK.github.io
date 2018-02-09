@@ -640,6 +640,14 @@ function drawStudyTree() {
     drawTreeBranch("192", "201")
     drawTreeBranch("193", "213")
     drawTreeBranch("193", "214")
+    drawTreeBranch("211", "221")
+    drawTreeBranch("211", "222")
+    drawTreeBranch("212", "223")
+    drawTreeBranch("212", "224")
+    drawTreeBranch("213", "225")
+    drawTreeBranch("213", "226")
+    drawTreeBranch("214", "227")
+    drawTreeBranch("214", "228")
     
 }
 
@@ -1641,7 +1649,11 @@ function getShiftRequirement(bulk) {
         tier = Math.min(player.resets + bulk + 4, 8)
     }
 
-    if (tier == 8) amount += player.timestudy.studies.includes(211) ?  (player.resets+bulk - 4) * 10 : (player.resets+bulk - 4) * 15;
+    let mult = 15
+    if (player.timestudy.studies.includes(211)) mult -= 5
+    if (player.timestudy.studies.includes(222)) mult -= 1
+
+    if (tier == 8) amount += (player.resets+bulk - 4) * mult;
     if (player.currentEternityChall == "eterc5") {
         amount += Math.pow(player.resets+bulk, 3) + player.resets+bulk
     }
@@ -1657,11 +1669,14 @@ function getGalaxyRequirement() {
     if (player.timestudy.studies.includes(42)) amount = 80 + (player.galaxies * 52)
     if (player.currentChallenge == "challenge4") amount = 99 + (player.galaxies * 90)
 
+    let galaxyCostScalingStart = 100 + ECTimesCompleted("eterc5")*5
+    if (player.timestudy.studies.includes(223)) galaxyCostScalingStart += 10
+    if (player.timestudy.studies.includes(224)) galaxyCostScalingStart += Math.floor(player.resets/2000)
     if (player.currentEternityChall == "eterc5") {
         amount += Math.pow(player.galaxies, 2) + player.galaxies
     }
-    else if (player.galaxies >= 100 + ECTimesCompleted("eterc5")*5) {
-        amount += Math.pow(player.galaxies-(99 + ECTimesCompleted("eterc5")*5),2)+player.galaxies-(99 + ECTimesCompleted("eterc5")*5)
+    else if (player.galaxies >= galaxyCostScalingStart) {
+        amount += Math.pow(player.galaxies-(galaxyCostScalingStart-1),2)+player.galaxies-(galaxyCostScalingStart-1)
     }
 
 
@@ -2237,6 +2252,7 @@ function getTimeDimensionPower(tier) {
     if (player.timestudy.studies.includes(93)) ret = ret.times(Decimal.pow(player.totalTickGained, 0.25).max(1))
     if (player.timestudy.studies.includes(103)) ret = ret.times(Math.max(player.replicanti.galaxies, 1))
     if (player.timestudy.studies.includes(151)) ret = ret.times(1e4)
+    if (player.timestudy.studies.includes(221)) ret = ret.times(Decimal.pow(1.0015, player.resets))
     //if (player.achievements.includes("r103")) ret = ret.times(Decimal.pow(player.totalTickGained,0.02).max(1))
     if (player.achievements.includes("r105")) ret = ret.div(player.tickspeed.div(1000).pow(0.000005))
     if (player.currentEternityChall == "eterc9") ret = ret.times((Decimal.pow(Math.max(player.infinityPower.log2(), 1), 4)).max(1))
@@ -2466,10 +2482,13 @@ function canBuyStudy(name) {
         if (player.eternityChalls.eterc10 !== undefined && player.timestudy.studies.includes(181)) return true; else return false
         break;
 
+        case 22:
+        if (player.timestudy.studies.includes(210 + Math.round(col/2)) && ((name%2 == 0) ? !player.timestudy.studies.includes(name-1) : !player.timestudy.studies.includes(name+1))) return true; else return false
+        break;
     }
 }
-var all =      [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 201, 211, 212, 213, 214]
-var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 400, 730, 300, 900, 120, 150, 200, 120]
+var all =      [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 201, 211, 212, 213, 214, 221, 222, 223, 224, 225, 226, 227, 228]
+var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 400, 730, 300, 900, 120, 150, 200, 120, 500, 500, 500, 500, 11500, 11500, 11500, 11500]
 function updateTimeStudyButtons() {
     for (var i=0; i<all.length; i++) {
         if (!player.timestudy.studies.includes(all[i])) {
@@ -3397,7 +3416,8 @@ function buyManyDimensionAutobuyer(tier, bulk) {
             }
         } else {
             if (player[name + "Cost"].lt(Number.MAX_VALUE)) {
-                while (player.money.gt(player[name + "Cost"].times(10)) && x > 0 && player[name + "Cost"].lte(Number.MAX_VALUE)) {
+                let failsafe = 0
+                while (player.money.gt(player[name + "Cost"].times(10)) && x > 0 && player[name + "Cost"].lte(Number.MAX_VALUE) && failsafe < 150) {
                     player.money = player.money.minus(player[name + "Cost"].times(10))
                     if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5") player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
                     else if (player.currentChallenge == "postc5") multiplyPC5Costs(player[name + 'Cost'], tier)
@@ -3408,6 +3428,7 @@ function buyManyDimensionAutobuyer(tier, bulk) {
                     if (player[name + 'Cost'].gte(Number.MAX_VALUE)) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
                     if (player.currentChallenge == "challenge8") clearDimensions(tier-1)
                     x--;
+                    failsafe++;
                 }
             }
             if (player[name + "Cost"].gte(Number.MAX_VALUE)) {
@@ -7170,7 +7191,7 @@ function gameLoop(diff) {
     document.getElementById("postInfinityButton").innerHTML = "<b>Big Crunch for "+shortenDimensions(gainedInfinityPoints())+" Infinity Points</b><br>"+shortenDimensions(currentIPmin) + " IP/min"+
                                                                 "<br>Peaked at "+shortenDimensions(IPminpeak)+" IP/min"
 
-    if (nextAt[player.postChallUnlocked] === undefined) document.getElementById("nextchall").innerHTML = ""
+    if (nextAt[player.postChallUnlocked] === undefined) document.getElementById("nextchall").innerHTML = " "
     else {
         document.getElementById("nextchall").innerHTML = "Next challenge unlocks at "+ shortenCosts(nextAt[player.postChallUnlocked]) + " antimatter."
         while (player.money.gte(nextAt[player.postChallUnlocked]) && player.challenges.includes("postc8") === false && player.postChallUnlocked != 8) {
