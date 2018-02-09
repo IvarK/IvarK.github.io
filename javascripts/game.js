@@ -1599,7 +1599,7 @@ function getDimensionFinalMultiplier(tier) {
     if (player.currentChallenge == "postc4" && player.postC4Tier != tier) multiplier = multiplier.pow(0.25)
     if (player.challenges.includes("postc4")) multiplier = multiplier.pow(1.05);
     if (player.currentEternityChall == "eterc10") multiplier = multiplier.times(ec10bonus)
-    if (player.timestudy.studies.includes(193)) multiplier = multiplier.times(Decimal.pow(1.02, player.eternities).min(new Decimal("1e30000")))
+    if (player.timestudy.studies.includes(193)) multiplier = multiplier.times(Decimal.pow(1.02, Math.min(player.eternities, 1.5e6)))
     if (tier == 8 && player.timestudy.studies.includes(214)) multiplier = multiplier.times((calcTotalSacrificeBoost().pow(8)).min("1e46000").times(calcTotalSacrificeBoost().pow(1.1).min(new Decimal("1e125000"))))
      
     return multiplier;
@@ -1651,9 +1651,9 @@ function getShiftRequirement(bulk) {
 
     let mult = 15
     if (player.timestudy.studies.includes(211)) mult -= 5
-    if (player.timestudy.studies.includes(222)) mult -= 1
+    if (player.timestudy.studies.includes(222)) mult -= 0.5
 
-    if (tier == 8) amount += (player.resets+bulk - 4) * mult;
+    if (tier == 8) amount += Math.ceil((player.resets+bulk - 4) * mult);
     if (player.currentEternityChall == "eterc5") {
         amount += Math.pow(player.resets+bulk, 3) + player.resets+bulk
     }
@@ -1670,8 +1670,8 @@ function getGalaxyRequirement() {
     if (player.currentChallenge == "challenge4") amount = 99 + (player.galaxies * 90)
 
     let galaxyCostScalingStart = 100 + ECTimesCompleted("eterc5")*5
-    if (player.timestudy.studies.includes(223)) galaxyCostScalingStart += 10
-    if (player.timestudy.studies.includes(224)) galaxyCostScalingStart += Math.floor(player.resets/2000)
+    if (player.timestudy.studies.includes(223)) galaxyCostScalingStart += 7
+    if (player.timestudy.studies.includes(224)) galaxyCostScalingStart += Math.floor(player.resets/3000)
     if (player.currentEternityChall == "eterc5") {
         amount += Math.pow(player.galaxies, 2) + player.galaxies
     }
@@ -1879,7 +1879,7 @@ function updateDimensions() {
         document.getElementById("123").innerHTML = "You gain more EP based on time spent this eternity<span>Currently: "+Math.sqrt(1.39*player.thisEternity/10).toFixed(1)+"x<span>Cost: 9 Time Theorems"
         document.getElementById("141").innerHTML = "Multiplier to IP, decaying over this infinity<span>Currently "+shortenMoney(new Decimal(1e45).dividedBy(Decimal.pow(15, Math.log(player.thisInfinityTime)*Math.pow(player.thisInfinityTime, 0.125))).max(1))+"x<span>Cost: 4 Time Theorems"
         document.getElementById("143").innerHTML = "Multiplier to IP, increasing over this infinity<span>Currently "+shortenMoney(Decimal.pow(15, Math.log(player.thisInfinityTime)*Math.pow(player.thisInfinityTime, 0.125)))+"x<span>Cost: 4 Time Theorems"
-        document.getElementById("193").innerHTML = "Normal dimension boost based on eternities<span>Currently "+shortenMoney(Decimal.pow(1.02, player.eternities).min(new Decimal("1e30000")))+"<span>Cost: 300 Time Theorems"
+        document.getElementById("193").innerHTML = "Normal dimension boost based on eternities<span>Currently "+shortenMoney(Decimal.pow(1.02, Math.min(player.eternities, 1.5e6)))+"<span>Cost: 300 Time Theorems"
         document.getElementById("212").innerHTML = "Galaxies are more effective based on your timeshards<span>Currently "+((Math.pow(player.timeShards.max(2).log2(), 0.005)-1)*100).toFixed(2)+"%<span>Cost: 150 Time Theorems"
         document.getElementById("214").innerHTML = "Sacrifice boosts the 8th dimension even more.<span>Currently "+shortenMoney(((calcTotalSacrificeBoost().pow(8)).min("1e46000").times(calcTotalSacrificeBoost().pow(1.1)).div(calcTotalSacrificeBoost())).max(1).min(new Decimal("1e125000")))+"x<span>Cost: 120 Time Theorems"
         document.getElementById("192").innerHTML = "You can get beyond "+shortenMoney(Number.MAX_VALUE)+" replicantis, but the interval is increased the more you have<span>Cost: 730 Time Theorems"
@@ -2252,7 +2252,7 @@ function getTimeDimensionPower(tier) {
     if (player.timestudy.studies.includes(93)) ret = ret.times(Decimal.pow(player.totalTickGained, 0.25).max(1))
     if (player.timestudy.studies.includes(103)) ret = ret.times(Math.max(player.replicanti.galaxies, 1))
     if (player.timestudy.studies.includes(151)) ret = ret.times(1e4)
-    if (player.timestudy.studies.includes(221)) ret = ret.times(Decimal.pow(1.0015, player.resets))
+    if (player.timestudy.studies.includes(221)) ret = ret.times(Decimal.pow(1.001, player.resets))
     //if (player.achievements.includes("r103")) ret = ret.times(Decimal.pow(player.totalTickGained,0.02).max(1))
     if (player.achievements.includes("r105")) ret = ret.div(player.tickspeed.div(1000).pow(0.000005))
     if (player.currentEternityChall == "eterc9") ret = ret.times((Decimal.pow(Math.max(player.infinityPower.log2(), 1), 4)).max(1))
@@ -2488,7 +2488,7 @@ function canBuyStudy(name) {
     }
 }
 var all =      [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 201, 211, 212, 213, 214, 221, 222, 223, 224, 225, 226, 227, 228]
-var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 400, 730, 300, 900, 120, 150, 200, 120, 500, 500, 500, 500, 11500, 11500, 11500, 11500]
+var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 400, 730, 300, 900, 120, 150, 200, 120, 500, 500, 500, 500, 500, 500, 11500, 11500]
 function updateTimeStudyButtons() {
     for (var i=0; i<all.length; i++) {
         if (!player.timestudy.studies.includes(all[i])) {
@@ -2870,6 +2870,8 @@ function getTickSpeedMultiplier() {
         let galaxies = player.galaxies+player.replicanti.galaxies
         if (player.timestudy.studies.includes(133)) galaxies += player.replicanti.galaxies/2
         if (player.timestudy.studies.includes(132)) galaxies += player.replicanti.galaxies*0.3
+        if (player.timestudy.studies.includes(225)) galaxies += Math.floor(player.replicanti.amount.e / 1500)
+        if (player.timestudy.studies.includes(226)) galaxies += Math.floor(player.replicanti.gal / 25)
         galaxies += Math.min(player.replicanti.galaxies, player.replicanti.gal) * Math.max(Math.pow(Math.log10(player.infinityPower.plus(1).log10()+1), 0.03 * ECTimesCompleted("eterc8"))-1, 0)
         if (player.infinityUpgrades.includes("galaxyBoost")) perGalaxy *= 2;
         if (player.infinityUpgrades.includes("postGalaxy")) perGalaxy *= 1.5;
@@ -2885,6 +2887,8 @@ function getTickSpeedMultiplier() {
         let galaxies = player.galaxies-2+player.replicanti.galaxies
         if (player.timestudy.studies.includes(133)) galaxies += player.replicanti.galaxies/2
         if (player.timestudy.studies.includes(132)) galaxies += player.replicanti.galaxies*0.3
+        if (player.timestudy.studies.includes(225)) galaxies += Math.floor(player.replicanti.amount.e / 1500)
+        if (player.timestudy.studies.includes(226)) galaxies += Math.floor(player.replicanti.gal / 25)
         galaxies +=  Math.min(player.replicanti.galaxies, player.replicanti.gal) * Math.max(Math.pow(Math.log10(player.infinityPower.plus(1).log10()+1), 0.03 * ECTimesCompleted("eterc8"))-1, 0)
         if (player.infinityUpgrades.includes("galaxyBoost")) galaxies *= 2;
         if (player.infinityUpgrades.includes("postGalaxy")) galaxies *= 1.5;
@@ -3982,7 +3986,11 @@ function updateInfCosts() {
     var places = Math.floor(Math.log10(player.replicanti.interval/1000)) * (-1)
     if (player.replicanti.chance < 1) document.getElementById("replicantichance").innerHTML = "Replicate chance: "+Math.round(player.replicanti.chance*100)+"%<br>+"+1+"% Costs: "+shortenCosts(player.replicanti.chanceCost)+" IP"
     else document.getElementById("replicantichance").innerHTML = "Replicate chance: "+Math.round(player.replicanti.chance*100)+"%"
-    if (player.timestudy.studies.includes(131)) document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"+"+Math.floor(player.replicanti.gal / 2)+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP"
+    let replGalOver = 0
+    if (player.timestudy.studies.includes(131)) replGalOver += Math.floor(player.replicanti.gal / 2)
+    if (player.timestudy.studies.includes(225)) replGalOver += Math.floor(player.replicanti.amount.e / 1500)
+    if (player.timestudy.studies.includes(226)) replGalOver += Math.floor(player.replicanti.gal / 25)
+    if (replGalOver !== 0) document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"+"+replGalOver+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP"
     else document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP"
     document.getElementById("replicantiunlock").innerHTML = "Unlock Replicantis<br>Cost: "+shortenCosts(1e140)+" IP"
     document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
