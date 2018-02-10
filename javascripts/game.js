@@ -3510,6 +3510,12 @@ document.getElementById("first").onclick = function () {
         }
         if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1") && player.matter.equals(0)) player.matter = new Decimal(1);
     }
+    if (player.firstAmount.lt(1)) {
+        player.money = new Decimal("0")
+        player.firstAmount = player.firstAmount.plus(1);
+        player.firstBought += 1;
+        giveAchievement("You gotta start somewhere");
+    }
 };
 
 
@@ -7278,6 +7284,7 @@ function gameLoop(diff) {
             }
         }
     }
+    if (player.firstAmount.lt(1)) document.getElementById("first").className = 'storebtn';
 
     for (var tier = 1; tier < 9; tier++) {
         if (player.infinityPoints.gte(player["infinityDimension"+tier].cost)) document.getElementById("infMax"+tier).className = "storebtn"
