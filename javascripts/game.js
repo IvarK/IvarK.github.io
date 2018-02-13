@@ -7256,12 +7256,14 @@ function gameLoop(diff) {
     updateTimeDimensions()
     updateTimeShards()
     if (getDimensionProductionPerSecond(1).gt(player.money) && !player.achievements.includes("r44")) {
-        if(player.money.gt(Math.pow(10,63))) giveAchievement("Supersanic");
         Marathon+=player.options.updateRate/1000;
         if (Marathon >= 30) giveAchievement("Over in 30 seconds");
     } else {
         Marathon = 0; 
     }
+
+    if(player.money.gt(Math.pow(10,63))) giveAchievement("Supersanic");
+    
     if (DimensionProduction(1).gt(player.infinityPower) && !player.achievements.includes("r113")) {
         Marathon2+=player.options.updateRate/1000;
         if (Marathon2 >= 30) giveAchievement("Long lasting relationship");
