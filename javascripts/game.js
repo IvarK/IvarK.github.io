@@ -5211,17 +5211,17 @@ function toggleHotkeys() {
 
 
 function updateChallengeTimes() {
-document.getElementById("challengetime2").innerHTML = "Challenge  " + 2 + " time record " + timeDisplayShort(player.challengeTimes[0])
-    document.getElementById("challengetime3").innerHTML = "Challenge  " + 3 + " time record " + timeDisplayShort(player.challengeTimes[1])
-    document.getElementById("challengetime4").innerHTML = "Challenge  " + 4 + " time record " + timeDisplayShort(player.challengeTimes[6])
-    document.getElementById("challengetime5").innerHTML = "Challenge  " + 5 + " time record " + timeDisplayShort(player.challengeTimes[4])
-    document.getElementById("challengetime6").innerHTML = "Challenge  " + 6 + " time record " + timeDisplayShort(player.challengeTimes[8])
-    document.getElementById("challengetime7").innerHTML = "Challenge  " + 7 + " time record " + timeDisplayShort(player.challengeTimes[7])
-    document.getElementById("challengetime8").innerHTML = "Challenge  " + 8 + " time record " + timeDisplayShort(player.challengeTimes[9])
-    document.getElementById("challengetime9").innerHTML = "Challenge  " + 9 + " time record " + timeDisplayShort(player.challengeTimes[3])
-    document.getElementById("challengetime10").innerHTML = "Challenge " + 10 + " time record " + timeDisplayShort(player.challengeTimes[2])
-    document.getElementById("challengetime11").innerHTML = "Challenge " + 11 + " time record " + timeDisplayShort(player.challengeTimes[10])
-    document.getElementById("challengetime12").innerHTML = "Challenge " + 12 + " time record " + timeDisplayShort(player.challengeTimes[5])
+document.getElementById("challengetime2").innerHTML = "Challenge  " + 2 + " time record: " + timeDisplayShort(player.challengeTimes[0])
+    document.getElementById("challengetime3").innerHTML = "Challenge  " + 3 + " time record: " + timeDisplayShort(player.challengeTimes[1])
+    document.getElementById("challengetime4").innerHTML = "Challenge  " + 4 + " time record: " + timeDisplayShort(player.challengeTimes[6])
+    document.getElementById("challengetime5").innerHTML = "Challenge  " + 5 + " time record: " + timeDisplayShort(player.challengeTimes[4])
+    document.getElementById("challengetime6").innerHTML = "Challenge  " + 6 + " time record: " + timeDisplayShort(player.challengeTimes[8])
+    document.getElementById("challengetime7").innerHTML = "Challenge  " + 7 + " time record: " + timeDisplayShort(player.challengeTimes[7])
+    document.getElementById("challengetime8").innerHTML = "Challenge  " + 8 + " time record: " + timeDisplayShort(player.challengeTimes[9])
+    document.getElementById("challengetime9").innerHTML = "Challenge  " + 9 + " time record: " + timeDisplayShort(player.challengeTimes[3])
+    document.getElementById("challengetime10").innerHTML = "Challenge " + 10 + " time record: " + timeDisplayShort(player.challengeTimes[2])
+    document.getElementById("challengetime11").innerHTML = "Challenge " + 11 + " time record: " + timeDisplayShort(player.challengeTimes[10])
+    document.getElementById("challengetime12").innerHTML = "Challenge " + 12 + " time record: " + timeDisplayShort(player.challengeTimes[5])
 	var temp = 0
 	for (var i=0; i<11; i++) {
 		temp += player.challengeTimes[i]
@@ -5230,7 +5230,7 @@ document.getElementById("challengetime2").innerHTML = "Challenge  " + 2 + " time
 	
 	temp = 0
     for (var i=0; i<8; i++) {
-        document.getElementById("infchallengetime"+(i+1)).innerHTML = "Infinity Challenge " + (i+1) + " time record " + timeDisplayShort(player.infchallengeTimes[i])
+        document.getElementById("infchallengetime"+(i+1)).innerHTML = "Infinity Challenge " + (i+1) + " time record: " + timeDisplayShort(player.infchallengeTimes[i])
 		temp += player.infchallengeTimes[i]
     }
 	document.getElementById("infchallengetimesum").innerHTML = "Sum of infinity challenge time records is " + timeDisplayShort(temp)
