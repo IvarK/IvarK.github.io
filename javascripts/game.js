@@ -7382,7 +7382,7 @@ function gameLoop(diff) {
         if (player.infinityPoints.gte(1e15)) document.getElementById("postinfi33").className = "infinistorebtn1"
         else document.getElementById("postinfi33").className = "infinistorebtnlocked"
 
-        if (player.infinityPoints.gte(player.offlineProdCost)) document.getElementById("offlineProd").className = "infinistorebtn1"
+        if (player.infinityPoints.gte(player.offlineProdCost)) document.getElementById("offlineProd").className = "infinimultbtn"
         else document.getElementById("offlineProd").className = "infinistorebtnlocked"
 
     }
