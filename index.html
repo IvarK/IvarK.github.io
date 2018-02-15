@@ -242,7 +242,7 @@
                 </table>
                 <table class="table" id="studytable">
                     <tr>
-                        <td><button class="timestudy" id="191" onclick="buyTimeStudy(191, 500)">After eternity you permanently keep 5% of your infinities<span>Cost: 500 Time Theorems</button></td>
+                        <td><button class="timestudy" id="191" onclick="buyTimeStudy(191, 400)">After eternity you permanently keep 5% of your infinities<span>Cost: 400 Time Theorems</button></td>
                         <td><button class="timestudy" id="192" onclick="buyTimeStudy(192, 730)" style="font-size: 10px;">You can get beyond 1.8e308 replicantis, but the interval is increased the more you have<span>Cost: 730 Time Theorems</button></td>
                         <td><button class="timestudy" id="193" onclick="buyTimeStudy(193, 300)">Normal dimension boost based on eternities<span>Currently xX<span>Cost: 300 Time Theorems</button></td>
                     </tr>
@@ -294,7 +294,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <button id="eter4" class="eternityupbtn" onclick="buyEternityUpgrade(4, 1e18)">Your achievement bonus affects Time Dimensions<br>Cost: 1e18 EP</button>
+                            <button id="eter4" class="eternityupbtn" onclick="buyEternityUpgrade(4, 1e16)">Your achievement bonus affects Time Dimensions<br>Cost: 1e16 EP</button>
                         </td>
                         <td>
                             <button id="eter5" class="eternityupbtn" onclick="buyEternityUpgrade(5, 1e40)">Time Dimensions are multiplied by your unspent time theorems<br>Cost: 1e40 EP</button>
@@ -877,19 +877,22 @@
                 <td><button class="secondarytabbtn" onclick="showStatsTab('lastteneternities')" id="pasteternities" >Past Eternities</button><td>
             </tr>
             <div id="stats" class="statstab">
-            <br>
-            <div id="totalmoney">You have made x antimatter.</div>
-            <div id="totalresets">You have made x dimensional boosts/shifts.</div>
-            <div id="galaxies">You have made x Antimatter galaxies.</div>
-            <div id="eternitied">You have eternitied x times.</div>
-            <div id="thiseternity">You have spent x in this eternity</div>
-            <div id="besteternity">Your fastest eternity is in x.</div>
-            <div id="infinitied">You have infinitied x times.</div>
-            <div id="infinitiedBank">You have infinitied x times.</div>
-            <div id="bestInfinity">Your fastest infinity is in x.</div>
-            <div id="thisInfinity">You have spent x in this Infinity.</div>
-            <div id="totalTime">You have played for </div>
-            <div id="infoScale">If every antimatter were a planck volume, you would have enough to </div>
+                <br>
+                <div id="totalmoney">You have made x antimatter.</div>
+                <div id="totalresets">You have made x dimensional boosts/shifts.</div>
+                <div id="galaxies">You have made x Antimatter galaxies.</div>
+                <br>
+                <div id="eternitied">You have eternitied x times.</div>
+                <div id="thiseternity">You have spent x in this eternity</div>
+                <div id="besteternity">Your fastest eternity is in x.</div>
+                <br>
+                <div id="infinitied">You have infinitied x times.</div>
+                <div id="infinitiedBank">You have infinitied x times.</div>
+                <div id="bestInfinity">Your fastest infinity is in x.</div>
+                <div id="thisInfinity">You have spent x in this Infinity.</div>
+                <br>
+                <div id="totalTime">You have played for </div>
+                <div id="infoScale">If every antimatter were a planck volume, you would have enough to </div>
             </div>
             <div id="challengetimes" class="statstab" >
                 <br>
@@ -905,19 +908,21 @@
                 <div id="challengetime11"></div>
                 <div id="challengetime12"></div>
                 <br>
+                <div id="challengetimesum"></div>
             </div>
             <div id="infchallengetimes" class="statstab" >
-                    <br>
-                    <div id="infchallengetime1"></div>
-                    <div id="infchallengetime2"></div>
-                    <div id="infchallengetime3"></div>
-                    <div id="infchallengetime4"></div>
-                    <div id="infchallengetime5"></div>
-                    <div id="infchallengetime6"></div>
-                    <div id="infchallengetime7"></div>
-                    <div id="infchallengetime8"></div>
-                    <br>
-                </div>
+                <br>
+                <div id="infchallengetime1"></div>
+                <div id="infchallengetime2"></div>
+                <div id="infchallengetime3"></div>
+                <div id="infchallengetime4"></div>
+                <div id="infchallengetime5"></div>
+                <div id="infchallengetime6"></div>
+                <div id="infchallengetime7"></div>
+                <div id="infchallengetime8"></div>
+                <br>
+                <div id="infchallengetimesum"></div>
+            </div>
             <div id="lasttenruns" class="statstab">
                 <div id="run1"></div>
                 <div id="run2"></div>
@@ -932,24 +937,22 @@
                 <br>
                 <div id="averagerun"></div>
                 <br>
-                
             </div>
             <div id="lastteneternities" class="statstab">
-                    <div id="eternityrun1"></div>
-                    <div id="eternityrun2"></div>
-                    <div id="eternityrun3"></div>
-                    <div id="eternityrun4"></div>
-                    <div id="eternityrun5"></div>
-                    <div id="eternityrun6"></div>
-                    <div id="eternityrun7"></div>
-                    <div id="eternityrun8"></div>
-                    <div id="eternityrun9"></div>
-                    <div id="eternityrun10"></div>
-                    <br>
-                    <div id="averageEternityRun"></div>
-                    <br>
-                    
-                </div>
+                <div id="eternityrun1"></div>
+                <div id="eternityrun2"></div>
+                <div id="eternityrun3"></div>
+                <div id="eternityrun4"></div>
+                <div id="eternityrun5"></div>
+                <div id="eternityrun6"></div>
+                <div id="eternityrun7"></div>
+                <div id="eternityrun8"></div>
+                <div id="eternityrun9"></div>
+                <div id="eternityrun10"></div>
+                <br>
+                <div id="averageEternityRun"></div>
+                <br>
+            </div>
             <div id="footercontainer">
                 <table id="footer">
                     <tr>
@@ -1234,13 +1237,13 @@
                     </tr>
                     <tr id="achRow11">
                         <td>
-                            <div id="Yo dawg, I heard you liked infinities..." class="achievement achievementlocked" style="background-image: url(images/73.png)" ach-tooltip="Have all your past 10 infinities be at least 1.79e308 times higher than the previous one. Reward: Your antimatter doesn't reset on dimboost/galaxy"><br></div>
+                            <div id="Yo dawg, I heard you liked infinities..." class="achievement achievementlocked" style="background-image: url(images/73.png)" ach-tooltip="Have all your past 10 infinities be at least 1.79e308 times higher IP than the previous one. Reward: Your antimatter doesn't reset on dimboost/galaxy"><br></div>
                         </td>
                         <td>
                             <div id="Never again" class="achievement achievementlocked" style="background-image: url(images/74.png)" ach-tooltip="Max out your third Eternity upgrade. Reward: The limit is a bit higher."><br></div>
                         </td>
                         <td>
-                            <div id="Long lasting relationship" class="achievement achievementlocked" style="background-image: url(images/75.png)" ach-tooltip="Have your Infinity power per second be over your infinity power for 30 consecutive seconds."><br></div>
+                            <div id="Long lasting relationship" class="achievement achievementlocked" style="background-image: url(images/75.png)" ach-tooltip="Have your Infinity power per second exceed your infinity power for 60 consecutive seconds during a single infinity."><br></div>
                         </td>
                         <td>
                             <div id="You're a mistake" class="achievement achievementlocked" style="background-image: url(images/76.png)" ach-tooltip="Fail an Eternity challenge. Reward: A fading sense of accomplishment"><br></div>
