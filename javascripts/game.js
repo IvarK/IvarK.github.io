@@ -1119,7 +1119,7 @@ function onLoad() {
         infMultAutoToggle()
     }
 
-    if (player.epmult === undefined) {
+    if (player.epmult === undefined || player.epmult == 0) {
         player.epmult = new Decimal(1)
         player.epmultCost = new Decimal(500)
     }
