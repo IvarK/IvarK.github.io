@@ -648,6 +648,14 @@ function drawStudyTree() {
     drawTreeBranch("213", "226")
     drawTreeBranch("214", "227")
     drawTreeBranch("214", "228")
+    drawTreeBranch("221", "231")
+    drawTreeBranch("222", "231")
+    drawTreeBranch("223", "232")
+    drawTreeBranch("224", "232")
+    drawTreeBranch("225", "233")
+    drawTreeBranch("226", "233")
+    drawTreeBranch("227", "234")
+    drawTreeBranch("228", "234")
     
 }
 
@@ -1589,6 +1597,7 @@ function getDimensionFinalMultiplier(tier) {
     if (player.timestudy.studies.includes(91)) multiplier = multiplier.times(Decimal.pow(10, Math.min(player.thisEternity, 18000)/60));
     if (player.timestudy.studies.includes(101)) multiplier = multiplier.times(Decimal.max(player.replicanti.amount, 1))
     if (player.timestudy.studies.includes(161)) multiplier = multiplier.times(new Decimal("1e616"))
+    if (player.timestudy.studies.includes(234) && tier == 1) multiplier = multiplier.times(calcTotalSacrificeBoost())
 
     multiplier = multiplier.times(player.postC3Reward)
     if (player.challenges.includes("postc8") && tier < 8 && tier > 1) multiplier = multiplier.times(mult18);
@@ -2491,10 +2500,14 @@ function canBuyStudy(name) {
         case 22:
         if (player.timestudy.studies.includes(210 + Math.round(col/2)) && ((name%2 == 0) ? !player.timestudy.studies.includes(name-1) : !player.timestudy.studies.includes(name+1))) return true; else return false
         break;
+
+        case 23:
+        if (player.timestudy.studies.includes(220 + Math.floor(col*2)) || player.timestudy.studies.includes(220 + Math.floor(col*2-1))) return true; else return false;
+        break;
     }
 }
-var all =      [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 201, 211, 212, 213, 214, 221, 222, 223, 224, 225, 226, 227, 228]
-var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 400, 730, 300, 900, 120, 150, 200, 120, 700, 700, 700, 700, 700, 700, 700, 700]
+var all =      [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 201, 211, 212, 213, 214, 221, 222, 223, 224, 225, 226, 227, 228, 231, 232, 233, 234]
+var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 400, 730, 300, 900, 120, 150, 200, 120, 900, 900, 900, 900, 900, 900, 900, 900, 500, 500, 500, 500]
 function updateTimeStudyButtons() {
     for (var i=0; i<all.length; i++) {
         if (!player.timestudy.studies.includes(all[i])) {
@@ -2624,7 +2637,7 @@ function getDimensionBoostPower() {
 
     if (player.achievements.includes("r101")) ret = ret*1.01
     if (player.timestudy.studies.includes(83)) ret = Decimal.pow(1.0004, player.totalTickGained).times(ret);
-    
+    if (player.timestudy.studies.includes(233)) ret = ret.times(Math.pow(player.resets, 0.3))
     return Decimal.fromValue(ret)
 }
 
@@ -2901,6 +2914,7 @@ function getTickSpeedMultiplier() {
         if (player.challenges.includes("postc5")) galaxies *= 1.1;
         if (player.achievements.includes("r86")) galaxies *= 1.01
         if (player.timestudy.studies.includes(212)) galaxies *= Math.min(Math.pow(player.timeShards.max(2).log2(), 0.005), 1.1)
+        if (player.timestudy.studies.includes(232)) galaxies *= Math.pow(1+player.galaxies/1000, 0.3)
 
         return baseMultiplier * (Math.pow(perGalaxy, (galaxies-2)))
     }
@@ -4086,8 +4100,10 @@ function upgradeReplicantiInterval() {
 }
 
 function upgradeReplicantiGalaxy() {
-    if (player.infinityPoints.gte(player.replicanti.galCost) && player.eterc8repl !== 0) {
-        player.infinityPoints = player.infinityPoints.minus(player.replicanti.galCost)
+    let cost = player.replicanti.galCost
+    if (player.timestudy.studies.includes(233)) cost = cost.dividedBy(player.replicanti.amount.pow(0.3))
+    if (player.infinityPoints.gte(cost) && player.eterc8repl !== 0) {
+        player.infinityPoints = player.infinityPoints.minus(cost)
         if (player.currentEternityChall == "eterc6") player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(1e2, player.replicanti.gal)).times(1e2)
         else player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(1e5, player.replicanti.gal)).times(1e25)
         if (player.replicanti.gal >= 100) player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(1e50, player.replicanti.gal - 95))
