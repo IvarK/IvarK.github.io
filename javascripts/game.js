@@ -4127,10 +4127,8 @@ function updateInfCosts() {
     if (player.etercreq !== 10) document.getElementById("ec10unl").innerHTML = "Eternity Challenge 10<span>Requirement: "+shortenCosts(new Decimal("1e100").times(new Decimal("1e20").pow(ECTimesCompleted("eterc10"))))+" EP<span>Cost: 550 Time Theorems"
     else document.getElementById("ec10unl").innerHTML = "Eternity Challenge 10<span>Cost: 550 Time Theorems"
 
-    if (player.etercreq !== 11) document.getElementById("ec11unl").innerHTML = "Eternity Challenge 11<span>Requirement: ass EP<span>Cost: 1 Time Theorems"
-    else document.getElementById("ec11unl").innerHTML = "Eternity Challenge 11<span>Cost: 1 Time Theorems"
-    if (player.etercreq !== 12) document.getElementById("ec12unl").innerHTML = "Eternity Challenge 12<span>Requirement: ass EP<span>Cost: 1 Time Theorems"
-    else document.getElementById("ec12unl").innerHTML = "Eternity Challenge 12<span>Cost: 1 Time Theorems"
+    document.getElementById("ec11unl").innerHTML = "Eternity Challenge 11Eternity Challenge 11<span>Requirement: Use only the Normal Dimension path<span>Cost: 1 Time Theorems"
+    document.getElementById("ec12unl").innerHTML = "Eternity Challenge 12<span>Requirement: Use only the Infinity Dimension path<span>Cost: 1 Time Theorems"
 }
 
 
@@ -6334,7 +6332,7 @@ function unlockEChall(idx) {
         document.getElementById("eterc"+player.eternityChallUnlocked+"div").style.display = "inline-block"
         showTab("challenges")
         showChallengesTab("eternitychallenges")
-        player.etercreq = idx
+        if (idx !== 12 && idx !== 13) player.etercreq = idx
     }
     updateEternityChallenges()
     updateTimeStudyButtons()
