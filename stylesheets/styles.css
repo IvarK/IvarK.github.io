@@ -15,6 +15,11 @@
     outline: none;
 }
 
+button {
+    padding: 1px 6px;
+}
+
+
 #game {
     border: 2px solid black;
     border-radius: 4px;
@@ -481,7 +486,6 @@
 }
 
 .eternitybtn {
-    font-weight: bold;
     border-radius: 4px;
     transition-duration: 0.2s;
     cursor: pointer;
@@ -494,7 +498,7 @@
     background: black;
     border: 2px solid #b341e0;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 11px;
 }
 
 
@@ -739,6 +743,18 @@
     vertical-align: top;
     margin:7px;
     animation: studyGlowIn 7s infinite;
+
+}
+
+.small {
+    margin: 1px;
+    width: 120px;
+    font-size: 0.6rem;
+    padding: 3px;
+}
+
+.wideRow td {
+    padding: 5px 2px;
 }
 
 .timestudy.normaldimstudy {
@@ -1117,7 +1133,7 @@ body {
     padding: 1px 7px;
     font: 14px/1.5 "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #727272;
-    font-weight: 400;
+    font-weight: 300;
 }
 
 h1,

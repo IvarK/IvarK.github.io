@@ -79,10 +79,16 @@
             <div align="center">
                 <br>
                 <span id="kongip"> Double your IP gain from all sources. Forever. </span><br>
-                <button class="greedbtn" onclick="purchaseIP()">50 Kreds</button>
+                <button class="greedbtn" onclick="purchaseIP()">40 Kreds</button>
+                <br><br><br>
+                <span id="kongep"> Double your EP gain from all sources. Forever. </span><br>
+                <button class="greedbtn" onclick="purchaseEP()">50 Kreds</button>
                 <br><br><br>
                 <span id="kongdim"> Double all your dimension multipliers (dimensions 1-8). Forever. </span><br>
                 <button class="greedbtn" onclick="purchaseDimMult()">30 Kreds</button>
+                <br><br><br>
+                <span id="kongalldim"> Double ALL the dimension multipliers (Normal, Infinity and Time). Forever. </span><br>
+                <button class="greedbtn" onclick="purchaseAllDimMult()">60 Kreds</button>
                 <br><br><br>
                 <span>Get 6 hours worth of offline production. (Doesn't work for autobuyers)</span><br>
                 <button class="greedbtn" onclick="purchaseTimeSkip()">10 Kreds</button>
@@ -152,8 +158,8 @@
                 <br>
                 <table class="table" id="studytable">
                     <tr>
-                        <td><button class="timestudy normaldimstudy" id="71" onclick="buyTimeStudy(71, 4)">Sacrifice affects all normal dimensions with reduced effect<span>Cost: 4 Time Theorems</button></td>
-                        <td><button class="timestudy infdimstudy" id="72" onclick="buyTimeStudy(72, 6)">Sacrifice affects 4th and 8th Infinity Dimension with greatly reduced effect<span>Cost: 6 Time Theorems</button></td>
+                        <td><button class="timestudy normaldimstudy" id="71" onclick="buyTimeStudy(71, 4)">Sacrifice affects all other normal dimensions with reduced effect<span>Cost: 4 Time Theorems</button></td>
+                        <td><button class="timestudy infdimstudy" id="72" onclick="buyTimeStudy(72, 6)">Sacrifice affects 4th Infinity Dimension with greatly reduced effect<span>Cost: 6 Time Theorems</button></td>
                         <td><button class="timestudy timedimstudy" id="73" onclick="buyTimeStudy(73, 5)">Sacrifice affects 3rd Time Dimension with greatly reduced effect<span>Cost: 5 Time Theorems</button></td>
                     </tr>
                     <tr>
@@ -258,6 +264,32 @@
                         <td><button class="timestudy" id="212" onclick="buyTimeStudy(212, 150)">Galaxies are more effective based on your timeshards<span>Currently xX<span>Cost: 200 Time Theorems</button></td>
                         <td><button class="timestudy" id="213" onclick="buyTimeStudy(213, 200)">You gain replicanti 20 times faster<span>Cost: 200 Time Theorems</button></td>
                         <td><button class="timestudy" id="214" onclick="buyTimeStudy(214, 120)">Sacrifice boosts the 8th dimension even more<span>Currently xX<span>Cost: 120 Time Theorems</button></td>
+                    </tr>
+                </table>
+                <table class="table" id="studytable">
+                    <tr class="wideRow">
+                        <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.6rem; padding: 3px;" id="221" onclick="buyTimeStudy(221, 900)">Dimensional boosts affect time dimensions with reduced power.<span>Cost: 900 Time Theorems</button></td>
+                        <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.6rem; padding: 3px;" id="222" onclick="buyTimeStudy(222, 900)">Dimensional boosts scale by another 1 less.<span>Cost: 900 Time Theorems</button></td>
+                        <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.6rem; padding: 3px;" id="223" onclick="buyTimeStudy(223, 900)">Galaxy cost scaling starts 7 galaxies later.<span>Cost: 900 Time Theorems</button></td>
+                        <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.6rem; padding: 3px;" id="224" onclick="buyTimeStudy(224, 900)">Galaxy cost scaling starts 1 galaxy later for each 2000 Dimboosts.<span>Cost: 900 Time Theorems</button></td>
+                        <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.6rem; padding: 3px;" id="225" onclick="buyTimeStudy(225, 900)">You gain extra RGs based on how high above infinity your replicanti are.<span>Cost: 900 Time Theorems</button></td>
+                        <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.6rem; padding: 3px;" id="226" onclick="buyTimeStudy(226, 900)">You gain extra RGs based on your max RGs you have.<span>Cost: 900 Time Theorems</button></td>
+                        <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.6rem; padding: 3px;" id="227" onclick="buyTimeStudy(227, 900)">Sacrifice boosts TD4 at an reduced rate.<span>Cost: 900 Time Theorems</button></td>
+                        <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.6rem; padding: 3px;" id="228" onclick="buyTimeStudy(228, 900)">Sacrifice scales better.<span>Cost: 900 Time Theorems</button></td>
+                    </tr>
+                </table>
+                <table class="table" id="studytable">
+                    <tr>
+                        <td><button class="timestudy" id="231" onclick="buyTimeStudy(231, 500)">Dimensional boost are more effective based on their amount<span>Cost: 500 Time Theorems</button></td>
+                        <td><button class="timestudy" id="232" onclick="buyTimeStudy(232, 500)">Galaxies are more effective based non-replicated galaxies<span>Cost: 500 Time Theorems</button></td>
+                        <td><button class="timestudy" id="233" onclick="buyTimeStudy(233, 500)">Max replicanti galaxy upgrade cost reduced based on replicanti amount.<span>Cost: 500 Time Theorems</button></td>
+                        <td><button class="timestudy" id="234" onclick="buyTimeStudy(234, 500)">Sacrifice boosts First Dimension<span>Cost: 500 Time Theorems</button></td>
+                    </tr>
+                </table>
+                <table class="table" id="studytable">
+                    <tr>
+                        <td><button class="eternitychallengestudy" id="ec11unl">Eternity Challenge 11<span>Requirement: Use only the Normal Dimension path<span>Cost: 1 Time Theorems</button></td>
+                        <td><button class="eternitychallengestudy" id="ec12unl">Eternity Challenge 12<span>Requirement: Use only the Infinity Dimension path<span>Cost: 1 Time Theorems</button></td>
                     </tr>
                 </table>
                 <div style="height: 60px;"></div>
@@ -601,6 +633,7 @@
                 <button id="quickReset" style="color:black; width: 200px; height: 50px; font-size: 12px; display: none" class="storebtn">Lose a reset, returning to the start of the reset</button>
             </div>
             <div id="infinitydimensions" class="dimtab">
+                <span id="EC12Pow"></span>
                 <div>
                     <p>You have <span id="infPowAmount" style="font-size:35px; color: black">0</span> infinity power. translated to <span id="infDimMultAmount" style="font-size:35px; color: black">0</span>x multiplier on all dimensions</p>
                 </div>
@@ -977,28 +1010,28 @@
             <table id="achievementtable" style="margin: auto">
                 <tr id="achRow1">
                     <td>
-                        <div id="You gotta start somewhere" class="achievement achievementlocked" style="background-image: url(images/1.png)" ach-tooltip="Buy a single First Dimension."><br></div>
+                        <div id="You gotta start somewhere" class="achievement achievementlocked" style="background-image: url(images/1.png)" ach-tooltip="Buy a single First Dimension. Reward: All dimensions are 5% more powerful."><br></div>
                     </td>
                     <td>
-                        <div id="100 antimatter is a lot" class="achievement achievementlocked" style="background-image: url(images/2.png)" ach-tooltip="Buy a single Second Dimension."><br></div>
+                        <div id="100 antimatter is a lot" class="achievement achievementlocked" style="background-image: url(images/2.png)" ach-tooltip="Buy a single Second Dimension. Reward: All dimensions are 5% more powerful."><br></div>
                     </td>
                     <td>
-                        <div id="Half life 3 confirmed" class="achievement achievementlocked" style="background-image: url(images/3.png)" ach-tooltip="Buy a single Third Dimension."><br></div>
+                        <div id="Half life 3 confirmed" class="achievement achievementlocked" style="background-image: url(images/3.png)" ach-tooltip="Buy a single Third Dimension. Reward: All dimensions are 5% more powerful."><br></div>
                     </td>
                     <td>
-                        <div id="L4D: Left 4 Dimensions" class="achievement achievementlocked" style="background-image: url(images/4.png)" ach-tooltip="Buy a single Fourth Dimension."><br></div>
+                        <div id="L4D: Left 4 Dimensions" class="achievement achievementlocked" style="background-image: url(images/4.png)" ach-tooltip="Buy a single Fourth Dimension. Reward: All dimensions are 5% more powerful."><br></div>
                     </td>
                     <td>
-                        <div id="5 Dimension Antimatter Punch" class="achievement achievementlocked" style="background-image: url(images/5.png)" ach-tooltip="Buy a single Fifth Dimension."><br></div>
+                        <div id="5 Dimension Antimatter Punch" class="achievement achievementlocked" style="background-image: url(images/5.png)" ach-tooltip="Buy a single Fifth Dimension. Reward: All dimensions are 5% more powerful."><br></div>
                     </td>
                     <td>
-                        <div id="We couldn't afford 9" class="achievement achievementlocked" style="background-image: url(images/6.png)" ach-tooltip="Buy a single Sixth Dimension."><br></div>
+                        <div id="We couldn't afford 9" class="achievement achievementlocked" style="background-image: url(images/6.png)" ach-tooltip="Buy a single Sixth Dimension. Reward: All dimensions are 5% more powerful."><br></div>
                     </td>
                     <td>
-                        <div id="Not a luck related achievement" class="achievement achievementlocked" style="background-image: url(images/7.png)" ach-tooltip="Buy a single Seventh Dimension."><br></div>
+                        <div id="Not a luck related achievement" class="achievement achievementlocked" style="background-image: url(images/7.png)" ach-tooltip="Buy a single Seventh Dimension. Reward: All dimensions are 5% more powerful."><br></div>
                     </td>
                     <td>
-                        <div id="90 degrees to infinity" class="achievement achievementlocked" style="background-image: url(images/8.png)" ach-tooltip="Buy a single Eighth Dimension."><br></div>
+                        <div id="90 degrees to infinity" class="achievement achievementlocked" style="background-image: url(images/8.png)" ach-tooltip="Buy a single Eighth Dimension. Reward: All dimensions are 5% more powerful."><br></div>
                     </td>
                 </tr>
                 <tr id="achRow2">
@@ -1772,6 +1805,37 @@
                                     <span id="eterc10completed">Completed 0 Times.</span><br>
                                     <span id="eterc10goal" >Goal: 1e1500</span><br>
                                     <span id="ec10reward">Reward: dunno</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="eterchallengediv" id="eterc11div" style="height: 140px; display: none">
+                                <span>All dimension multipliers are disabled except for the multipliers from Infinity power and dimension boosts (to normal dimensions)</span>
+                                <br>
+                                <br>
+                                <div class="outer">
+                                    <button id="eterc11" class="challengesbtn" onclick="startEternityChallenge('eterc11', new Decimal('1e500'), new Decimal('1e150'))">Start</button>
+                                    <br>
+                                    <span id="eterc11completed">Completed 0 Times.</span><br>
+                                    <span id="eterc11goal" >Goal: 1e400 IP</span><br>
+                                    <span id="ec11reward">Reward: something good I hope</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="eterchallengediv" id="eterc12div" style="height: 140px; display: none">
+                                <span>1.Infinity dimension multipliers are reduced. 2. They get further reduction for 3 minutes when you buy them. 3. When buying Infinity dimensions 1-4, everything with costs smaller or equal increases. When buying  Infinity dimensions 5-8, everything with costs bigger or equal increases.
+                                </span>
+                                <br>
+                                <br>
+                                <div class="outer">
+                                    <button id="eterc12" class="challengesbtn" onclick="startEternityChallenge('eterc12', new Decimal('1e20000'), new Decimal('1e2000'))">Start</button>
+                                    <br>
+                                    <span id="eterc12completed">Completed 0 Times.</span><br>
+                                    <span id="eterc12goal" >Goal: 1e1500</span><br>
+                                    <span id="ec12reward">Reward: dunno</span>
                                 </div>
                             </div>
                         </td>
