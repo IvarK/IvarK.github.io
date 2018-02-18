@@ -3012,7 +3012,7 @@ function buyMaxTickSpeed() {
     if (!canBuyTickSpeed()) return false
     var mult = getTickSpeedMultiplier()
     if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0
-    if (player.currentChallenge == "challenge5" || player.currentChallenge == "postc5" || player.tickSpeedCost.lt(Number.MAX_VALUE) || player.tickSpeedMultDecrease !== 2) {
+    if (player.currentChallenge == "challenge5" || player.currentChallenge == "postc5" || player.tickSpeedCost.lt(Number.MAX_VALUE) || player.tickSpeedMultDecrease > 2) {
         while (player.money.gt(player.tickSpeedCost)) {
             player.money = player.money.minus(player.tickSpeedCost);
             if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5") player.tickSpeedCost = player.tickSpeedCost.times(player.tickspeedMultiplier);
@@ -3024,8 +3024,8 @@ function buyMaxTickSpeed() {
         }
     } else {
 
-        var a = Math.log10(Math.sqrt(2))
-        var b = player.tickspeedMultiplier.dividedBy(Math.sqrt(2)).log10()
+        var a = Math.log10(Math.sqrt(player.tickSpeedMultDecrease))
+        var b = player.tickspeedMultiplier.dividedBy(Math.sqrt(player.tickSpeedMultDecrease)).log10()
         var c = player.tickSpeedCost.dividedBy(player.money).log10()
         var discriminant = Math.pow(b, 2) - (c *a* 4)
         if (discriminant < 0) return false
@@ -3035,11 +3035,11 @@ function buyMaxTickSpeed() {
         if (player.challenges.includes("postc3") || player.currentChallenge == "postc3") player.postC3Reward = player.postC3Reward.times(Decimal.pow(1.05+(player.galaxies*0.005), buying))
         for (var i = 0; i<buying-1; i++) {
             player.tickSpeedCost = player.tickSpeedCost.times(player.tickspeedMultiplier)
-            player.tickspeedMultiplier = player.tickspeedMultiplier.times(2)
+            player.tickspeedMultiplier = player.tickspeedMultiplier.times(player.tickSpeedMultDecrease)
         }
         if (player.money.gte(player.tickSpeedCost)) player.money = player.money.minus(player.tickSpeedCost)
         player.tickSpeedCost = player.tickSpeedCost.times(player.tickspeedMultiplier)
-        player.tickspeedMultiplier = player.tickspeedMultiplier.times(2)
+        player.tickspeedMultiplier = player.tickspeedMultiplier.times(player.tickSpeedMultDecrease)
     }
 
     updateTickSpeed()
@@ -5790,6 +5790,7 @@ function eternity(force) {
         }
         if (player.thisEternity < 2) giveAchievement("Eternities are the new infinity")
         if (player.currentEternityChall == "eterc6" && ECTimesCompleted("eterc6") < 5) player.dimensionMultDecrease -= 0.2
+        if (player.currentEternityChall == "eterc11" && ECTimesCompleted("eterc11") < 5) player.tickSpeedMultDecrease -= 0.05
         if (player.infinitied < 10) giveAchievement("Do you really need a guide for this?");
         if (Decimal.round(player.replicanti.amount) == 9) giveAchievement("We could afford 9");
         if (player.dimlife && !force) giveAchievement("8 nobody got time for that")
@@ -7714,6 +7715,7 @@ function gameLoop(diff) {
     document.getElementById("ec8reward").innerHTML = "Reward: Infinity power powers up replicanti galaxies, Currently: " + (Math.max(Math.pow(Math.log10(player.infinityPower.plus(1).log10()+1), 0.03 * ECTimesCompleted("eterc8"))-1, 0) * 100).toFixed(2) + "%"
     document.getElementById("ec9reward").innerHTML = "Reward: Infinity Dimension multiplier based on time shards, Currently: "+shortenMoney(player.timeShards.pow(ECTimesCompleted("eterc9")*0.1).min(new Decimal("1e400")))+"x "
     document.getElementById("ec10reward").innerHTML = "Reward: Time dimensions gain a multiplier from infinitied stat, Currently: "+shortenMoney(Math.max(getInfinitied() * ECTimesCompleted("eterc10") * 0.000002+1, 1))+"x "
+    document.getElementById("ec11reward").innerHTML = "Reward: Further reduction tickspeed cost multiplier increase, Currently: "+player.tickSpeedMultDecrease.toFixed(2)+"x "
 
     // let extraGals = 0
     // if (player.timestudy.studies.includes(225)) extraGals += Math.floor(player.replicanti.amount.e / 2500)
