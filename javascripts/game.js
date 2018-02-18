@@ -4175,7 +4175,9 @@ function upgradeReplicantiGalaxy() {
         player.replicanti.gal += 1
         if (player.currentEternityChall == "eterc8") player.eterc8repl-=1
         document.getElementById("eterc8repl").innerHTML = "You have "+player.eterc8repl+" purchases left."
+        return true
     }
+    return false
 }
 
 
@@ -7082,7 +7084,7 @@ setInterval(function() {
     }
 
     if (player.eternities >= 80 && player.replicanti.auto[2] && player.currentEternityChall !== "eterc8") {
-        while (player.infinityPoints.gte(player.replicanti.galCost)) upgradeReplicantiGalaxy()
+        while (upgradeReplicantiGalaxy()) continue
     }
 
     document.getElementById("eterc1goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e1800").times(new Decimal("1e200").pow(ECTimesCompleted("eterc1"))).max(new Decimal("1e1800"))) + " IP"
