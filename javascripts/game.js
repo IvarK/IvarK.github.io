@@ -4121,7 +4121,7 @@ function updateInfCosts() {
     if (player.etercreq !== 10) document.getElementById("ec10unl").innerHTML = "Eternity Challenge 10<span>Requirement: "+shortenCosts(new Decimal("1e100").times(new Decimal("1e20").pow(ECTimesCompleted("eterc10"))))+" EP<span>Cost: 550 Time Theorems"
     else document.getElementById("ec10unl").innerHTML = "Eternity Challenge 10<span>Cost: 550 Time Theorems"
 
-    document.getElementById("ec11unl").innerHTML = "Eternity Challenge 11Eternity Challenge 11<span>Requirement: Use only the Normal Dimension path<span>Cost: 1 Time Theorems"
+    document.getElementById("ec11unl").innerHTML = "Eternity Challenge 11<span>Requirement: Use only the Normal Dimension path<span>Cost: 1 Time Theorems"
     document.getElementById("ec12unl").innerHTML = "Eternity Challenge 12<span>Requirement: Use only the Infinity Dimension path<span>Cost: 1 Time Theorems"
 }
 
@@ -7769,6 +7769,7 @@ function gameLoop(diff) {
     else document.getElementById("chall2Pow").style.display = "none"
     if (player.currentChallenge == "challenge3" || player.currentChallenge == "postc1") document.getElementById("chall3Pow").style.display = "inline-block"
     else document.getElementById("chall3Pow").style.display = "none"
+    document.getElementById("EC12Pow").style.display = (player.currentEternityChall == "eterc12") ? "block" : "none";
 
     document.getElementById("chall2Pow").innerHTML = (player.chall2Pow*100).toFixed(2) + "%"
     document.getElementById("EC12Pow").innerHTML = "Multiplier^0.0"+player.chall2Pow.toPrecision(2).toString().replace(".", "")
