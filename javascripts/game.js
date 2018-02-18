@@ -220,6 +220,13 @@ var player = {
     eterc8repl: 40,
     dimlife: true,
     dead: true,
+    blackhole: {
+        AMamount: new Decimal(0),
+        IPamount: new Decimal(0),
+        EPamount: new Decimal(0),
+        unl: false,
+        power: new Decimal(0),
+    },
     options: {
         newsHidden: false,
         notation: "Standard",
@@ -360,6 +367,8 @@ function get_save(name) {
 
 var canvas = document.getElementById("studyTreeCanvas");
 var ctx = canvas.getContext("2d");
+var ctx2 = document.getElementById("normalDimChart").getContext('2d');
+var ctx3 = document.getElementById("blackHoleCanvas").getContext('2d');
 window.addEventListener("resize", resizeCanvas)
 
 function resizeCanvas() {
@@ -387,7 +396,6 @@ Object.invert = function(obj) {
 
 Chart.defaults.global.defaultFontColor = 'black';
 Chart.defaults.global.defaultFontFamily = 'Typewriter';
-var ctx2 = document.getElementById("normalDimChart").getContext('2d');
 var normalDimChart = new Chart(ctx2, {
     type: 'line',
     data: {
@@ -663,6 +671,38 @@ function drawStudyTree() {
     
 }
 
+function drawBlackHole() {
+    var size = player.blackhole.power.max(2).log10()
+    var size = size.min(400)
+    ctx3.beginPath();
+    ctx3.arc(200,200,size,0,2*Math.PI);
+    ctx3.stroke();
+    ctx3.fill();
+    document.getElementById("blackholepower").innerHTML = "Black hole power is currently: "+shortenMoney(player.blackhole.power)
+}
+
+function feedBlackHole(type) {
+    if (type === 1) {
+        player.blackhole.AMamount = player.blackhole.AMamount.plus(player.money)
+        player.money = new Decimal(10)
+    }
+    if (type === 2) {
+        player.blackhole.IPamount = player.blackhole.IPamount.plus(player.infinityPoints)
+        player.infinityPoints = new Decimal(0)
+    }
+    if (type === 3) {
+        player.blackhole.EPamount = player.blackhole.EPamount.plus(player.eternityPoints)
+        player.eternityPoints = new Decimal(0)
+    }
+    let power = new Decimal(1);
+    power = power.plus(Decimal.pow(player.blackhole.AMamount.log10(), 0.4));
+    power = power.times(Decimal.pow(player.blackhole.IPamount.log10(), 0.5).max(1));
+    power = power.times(Decimal.pow(player.blackhole.EPamount.log10(), 1.3).max(1));
+    power = power.max(1);
+    player.blackhole.power = power;
+    drawBlackHole();
+}
+
 function setTheme(name) {
     document.querySelectorAll("link").forEach( function(e) {
         if (e.href.includes("theme")) e.remove();
@@ -823,6 +863,15 @@ function onLoad() {
     if (player.infinitiedBank === undefined) player.infinitiedBank = 0
     if (player.dimlife === undefined) player.dimlife = false
     if (player.dead === undefined) player.dead = false
+    if (player.blackhole === undefined) player.blackhole = {}
+    if (player.blackhole.unl === undefined) player.blackhole.unl = true
+    if (player.blackhole.power === undefined) player.blackhole.power = new Decimal(0)
+    if (player.blackhole.AMamount === undefined) player.blackhole.AMamount = new Decimal(0)
+    if (player.blackhole.IPamount === undefined) player.blackhole.IPamount = new Decimal(0)
+    if (player.blackhole.EPamount === undefined) player.blackhole.EPamount = new Decimal(0)
+    if (player.blackhole.galaxies === undefined) player.blackhole.galaxies = new Decimal(0)
+    if (player.blackhole.galacticPow === undefined) player.blackhole.galacticPow = new Decimal(0)
+    if (player.blackhole.galaxyThreshold === undefined) player.blackhole.galaxyThreshold = new Decimal(0)
     setTheme(player.options.theme);
 
     sliderText.innerHTML = "Update rate: " + player.options.updateRate + "ms";
@@ -945,6 +994,7 @@ function onLoad() {
     if (player.resets > 3 && player.currentChallenge !== "challenge4") document.getElementById("eightRow").style.display = "table-row";
 
     document.getElementById("totaltickgained").innerHTML = "You've gained "+shortenDimensions(player.totalTickGained)+" tickspeed upgrades."
+    document.getElementById("blackholegalaxies").innerHTML = "You've gained "+shortenDimensions(player.blackhole.galaxies)+" free galaxies."
 
     if (typeof player.autobuyers[9].bulk !== "number") {
         player.autobuyers[9].bulk = 1
@@ -1372,6 +1422,13 @@ function transformSaveToDecimal() {
     player.eternityBuyer.limit = new Decimal(player.eternityBuyer.limit)
     player.eternityChallGoal = new Decimal(player.eternityChallGoal)
     player.replicanti.amount = new Decimal(player.replicanti.amount)
+    player.blackhole.power = new Decimal(player.blackhole.power)
+    player.blackhole.AMamount = new Decimal(player.blackhole.AMamount)
+    player.blackhole.IPamount = new Decimal(player.blackhole.IPamount)
+    player.blackhole.EPamount = new Decimal(player.blackhole.EPamount)
+    player.blackhole.galaxies = new Decimal(player.blackhole.galaxies)
+    player.blackhole.galacticPow = new Decimal(player.blackhole.galacticPow)
+    player.blackhole.galaxyThreshold = new Decimal(player.blackhole.galaxyThreshold)
 }
 
 
@@ -1526,16 +1583,12 @@ function updateMoney() {
 
 function updateCoinPerSec() {
     var element = document.getElementById("coinsPerSec");
-    if (player.currentChallenge != "" && getDimensionProductionPerSecond(1).gte(player.challengeTarget)) {
-        element.innerHTML = 'You are getting ' + shortenDimensions(new Decimal(player.challengeTarget)) + ' antimatter per second.';
+    if (player.currentChallenge == "challenge3" || player.currentChallenge == "postc1") {
+      element.innerHTML = 'You are getting ' + shortenDimensions(getDimensionProductionPerSecond(1).times(player.chall3Pow)) + ' antimatter per second.';
+    } else if (player.currentChallenge == "challenge7") {
+      element.innerHTML = 'You are getting ' + (shortenDimensions(getDimensionProductionPerSecond(1).plus(getDimensionProductionPerSecond(2)))) + ' antimatter per second.';
     } else {
-        if (player.currentChallenge == "challenge3" || player.currentChallenge == "postc1") {
-            element.innerHTML = 'You are getting ' + shortenDimensions(getDimensionProductionPerSecond(1).times(player.chall3Pow)) + ' antimatter per second.';
-          } else if (player.currentChallenge == "challenge7") {
-            element.innerHTML = 'You are getting ' + (shortenDimensions(getDimensionProductionPerSecond(1).plus(getDimensionProductionPerSecond(2)))) + ' antimatter per second.';
-          } else {
-            element.innerHTML = 'You are getting ' + shortenDimensions(getDimensionProductionPerSecond(1)) + ' antimatter per second.';
-          }
+      element.innerHTML = 'You are getting ' + shortenDimensions(getDimensionProductionPerSecond(1)) + ' antimatter per second.';
     }
 }
 
@@ -2839,6 +2892,7 @@ function softReset(bulk) {
         eterc8repl: player.eterc8repl,
         dimlife: player.dimlife,
         dead: player.dead,
+        blackhole: player.blackhole,
         options: player.options
     };
     if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -3828,6 +3882,7 @@ document.getElementById("maxall").onclick = function () {
         if (player.currentChallenge == "postc1") clearDimensions(tier-1);
         player.postC4Tier = tier;
         onBuyDimension(tier)
+        console.log(player.money)
     }
 }
 
@@ -4573,6 +4628,7 @@ function galaxyReset() {
         eterc8repl: player.eterc8repl,
         dimlife: player.dimlife,
         dead: player.dead,
+        blackhole: player.blackhole,
         options: player.options
     };
 
@@ -5660,6 +5716,7 @@ document.getElementById("bigcrunch").onclick = function () {
         eterc8repl: player.eterc8repl,
         dimlife: player.dimlife,
         dead: player.dead,
+        blackhole: player.blackhole,
         options: player.options
         };
 
@@ -6011,6 +6068,7 @@ function eternity(force) {
             eterc8repl: 40,
             dimlife: true,
             dead: true,
+            blackhole: player.blackhole,
             options: player.options
         };
         if (player.respec) respecTimeStudies()
@@ -6087,6 +6145,7 @@ function eternity(force) {
         document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
         updateEternityUpgrades()
         document.getElementById("totaltickgained").innerHTML = "You've gained "+player.totalTickGained.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" tickspeed upgrades."
+        document.getElementById("blackholegalaxies").innerHTML = "You've gained "+player.blackhole.galaxies.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" free galaxies."
         playerInfinityUpgradesOnEternity()
         document.getElementById("eternityPoints2").innerHTML = "You have <span class=\"EPAmount2\">"+shortenDimensions(player.eternityPoints)+"</span> Eternity points."
         updateEternityChallenges()
@@ -6243,6 +6302,7 @@ function startChallenge(name, target) {
       eterc8repl: player.eterc8repl,
       dimlife: player.dimlife,
       dead: player.dead,
+      blackhole: player.blackhole,
       options: player.options
     };
 	if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -6784,6 +6844,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
             eterc8repl: 40,
             dimlife: true,
             dead: true,
+            blackhole: player.blackhole,
             options: player.options
         };
         
@@ -6854,6 +6915,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
         document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
         updateEternityUpgrades()
         document.getElementById("totaltickgained").innerHTML = "You've gained "+player.totalTickGained.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" tickspeed upgrades."
+        document.getElementById("blackholegalaxies").innerHTML = "You've gained "+player.blackhole.galaxies.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" free galaxies."
         
         playerInfinityUpgradesOnEternity()
         document.getElementById("eternityPoints2").innerHTML = "You have <span class=\"EPAmount2\">"+shortenDimensions(player.eternityPoints)+"</span> Eternity points."
@@ -6903,6 +6965,12 @@ function updateTimeShards() {
     document.getElementById("tickThreshold").innerHTML = shortenMoney(player.tickThreshold)
     if (player.currentEternityChall == "eterc7") document.getElementById("timeShardsPerSec").innerHTML = "You are getting "+shortenDimensions(getTimeDimensionProduction(1))+" Eighth Infinity Dimensions per second."
     else document.getElementById("timeShardsPerSec").innerHTML = "You are getting "+shortenDimensions(getTimeDimensionProduction(1))+" Timeshards per second."
+}
+
+function updateGalacticPow() {
+    document.getElementById("galacticPowAmount").innerHTML = shortenMoney(player.blackhole.galacticPow)
+    document.getElementById("galaxyThreshold").innerHTML = shortenMoney(player.blackhole.galaxyThreshold)
+    document.getElementById("galacticPowPerSec").innerHTML = "You are getting "+shortenDimensions(player.blackhole.power)+" Galactic Power per second."
 }
 
 
@@ -7252,21 +7320,17 @@ function gameLoop(diff) {
                 player[name + 'Amount'] = player[name + 'Amount'].plus(getDimensionProductionPerSecond(tier + 1).times(diff / 100));
             }
         }
-        if (player.currentChallenge != "" && getDimensionProductionPerSecond(1).gte(player.challengeTarget)) {
-            player.money = player.money.plus(player.challengeTarget);
-            player.totalmoney = player.totalmoney.plus(player.challengeTarget);
+
+        if (player.currentChallenge == "challenge3" || player.currentChallenge == "postc1") {
+            player.money = player.money.plus(getDimensionProductionPerSecond(1).times(diff/10).times(player.chall3Pow));
+            player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(1).times(diff/10).times(player.chall3Pow));
         } else {
-            if (player.currentChallenge == "challenge3" || player.currentChallenge == "postc1") {
-                player.money = player.money.plus(getDimensionProductionPerSecond(1).times(diff/10).times(player.chall3Pow));
-                player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(1).times(diff/10).times(player.chall3Pow));
-            } else {
-                player.money = player.money.plus(getDimensionProductionPerSecond(1).times(diff/10));
-                player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(1).times(diff/10));
-            }
-            if (player.currentChallenge == "challenge7") {
-                player.money = player.money.plus(getDimensionProductionPerSecond(2).times(diff/10));
-                player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(2).times(diff/10))
-            }
+            player.money = player.money.plus(getDimensionProductionPerSecond(1).times(diff/10));
+            player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(1).times(diff/10));
+        }
+        if (player.currentChallenge == "challenge7") {
+            player.money = player.money.plus(getDimensionProductionPerSecond(2).times(diff/10));
+            player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(2).times(diff/10))
         }
     }
 
@@ -7293,6 +7357,7 @@ function gameLoop(diff) {
         }
 
         if (tier <4) player["timeDimension"+tier].amount = player["timeDimension"+tier].amount.plus(getTimeDimensionProduction(tier+1).times(diff/100))
+        if (tier <2) player.blackhole.galacticPow = player.blackhole.galacticPow.plus(player.blackhole.power.times(diff/10))
     }
 
     if (player.infinitied > 0 && player.eternities < 1) {
@@ -7323,6 +7388,12 @@ function gameLoop(diff) {
         else player.tickThreshold = new Decimal(1).times(1.33).pow(player.totalTickGained)
         document.getElementById("totaltickgained").innerHTML = "You've gained "+player.totalTickGained.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" tickspeed upgrades."
         updateTickSpeed();
+    }
+
+    while (player.blackhole.galacticPow.gt(player.blackhole.galaxyThreshold)) {
+        player.blackhole.galaxies = player.blackhole.galaxies.plus(1)
+        player.blackhole.galaxyThreshold = new Decimal(1).times(player.blackhole.galaxies.factorial().max(1))
+        document.getElementById("blackholegalaxies").innerHTML = "You've gained "+player.blackhole.galaxies.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" free galaxies."
     }
 
     if (player.eternities == 0) {
@@ -7452,6 +7523,7 @@ function gameLoop(diff) {
     updateInfPower();
     updateTimeDimensions()
     updateTimeShards()
+    updateGalacticPow()
     if (getDimensionProductionPerSecond(1).gt(player.money) && !player.achievements.includes("r44")) {
         Marathon+=player.options.updateRate/1000;
         if (Marathon >= 30) giveAchievement("Over in 30 seconds");
@@ -8363,6 +8435,7 @@ function showEternityTab(tabName) {
     }
     resizeCanvas();
     drawStudyTree();
+    drawBlackHole();
 }
 
 
@@ -8398,6 +8471,7 @@ function init() {
         showTab('eternitystore')
         resizeCanvas()
         drawStudyTree()
+        drawBlackHole()
     }
     //show one tab during init or they'll all start hidden
     showTab('dimensions')

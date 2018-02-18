@@ -96,12 +96,13 @@
                 <span style="font-size: 12px"><b>Disclaimer: These are not required to progress in the game, they are just to help and support the developer.</b></span>
             </div>
         </div>
-        <div id="eternitystore" class="tab" style="font-size: 15px; width: 60%; margin: 0 auto; display: none" align="center">
-            <table class="table" align="center" style="margin: auto">
+        <div id="eternitystore" class="tab" style="font-size: 15px; margin: 0 auto; display: none" align="center">
+            <table class="table" align="center" style="margin: auto" >
                 <tr>
-                    <td><button class="secondarytabbtn" onclick="showEternityTab('timestudies')">Time studies</button><td>
-                    <td><button class="secondarytabbtn" onclick="showEternityTab('eternityupgrades')">Eternity upgrades</button><td>
-                    <td><button class="secondarytabbtn" onclick="showEternityTab('milestones')">Eternity milestones</button><td>
+                    <td><button class="secondarytabbtn" onclick="showEternityTab('timestudies')">Time studies</button></td>
+                    <td><button class="secondarytabbtn" onclick="showEternityTab('eternityupgrades')">Eternity upgrades</button></td>
+                    <td><button class="secondarytabbtn" onclick="showEternityTab('milestones')">Eternity milestones</button></td>
+                    <td><button class="secondarytabbtn" onclick="showEternityTab('blackhole')">Black hole</button></td>  
                 </tr>
             </table>
             <div class="eternitytab" id="timestudies" style="font-size: 15px">
@@ -310,7 +311,7 @@
                     </table>
                 </div>
             </div>
-            <div  class="eternitytab" id="eternityupgrades">
+            <div class="eternitytab" id="eternityupgrades">
                 <br>
                 <table class="table" style="margin: 0 auto">
                     <tr>
@@ -473,6 +474,43 @@
                                     <a href="https://discord.gg/ST9NaXa" target="_newtab">Discord</a> |
                                     <a href="https://www.reddit.com/r/AntimatterDimensions/" target="_newtab">Subreddit</a>      |    <a href="https://ivark.github.io/savefixer/index.html" target="_newtab">Savefixer</a>
                 
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="eternitytab" id="blackhole" style="font-size:11px !important;">
+                <p id="blackholegalaxies">You've gained 0 free galaxies.</p>
+                <p>You have <span id="galacticPowAmount" style="font-size:35px; color: black">0</span> Galactic Power. Next free galaxy at <span id="galaxyThreshold" style="font-size:35px; color: black">0</span></p>
+                <span id="galacticPowPerSec">You are getting 0 Galactic Power per second.</span>
+                <br>
+                <canvas id="blackHoleCanvas" width="400" height="400" style="user-select: none;"></canvas>
+                <br>
+                <span id="blackholepower">Black hole power: 100</span>
+                <table class="table" style="margin: 0 auto">
+                    <tr>
+                        <td>
+                            <button id="blackholeAM" class="eternityupbtn" onclick="feedBlackHole(1)">Feed the black hole with Antimatter</button>
+                        </td>
+                        <td>
+                            <button id="blackholeIP" class="eternityupbtn" onclick="feedBlackHole(2)">Feed the black hole with Infinity Points</button>
+                        </td>
+                        <td>
+                            <button id="blackholeEP" class="eternityupbtn" onclick="feedBlackHole(3)">Feed the black hole with Eternity Points</button>
+                        </td>
+                    </tr>
+                </table>
+                <div>
+                    <table id="footer">
+                        <tr>
+                            <td>
+                                <div style="text-align:center">
+                                    <a href="howto.html" target="_newtab">How to play  </a> |
+                                    <a href="about.html" target="_newtab">Donate   </a> |
+                                    <a href="changelog.html" target="_newtab">Changelog   </a> |
+                                    <a href="https://discord.gg/ST9NaXa" target="_newtab">Discord</a> |
+                                    <a href="https://www.reddit.com/r/AntimatterDimensions/" target="_newtab">Subreddit</a>      |    <a href="https://ivark.github.io/savefixer/index.html" target="_newtab">Savefixer</a>
                                 </div>
                             </td>
                         </tr>
