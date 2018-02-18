@@ -1688,12 +1688,6 @@ function getShiftRequirement(bulk) {
     return { tier: tier, amount: amount };
 }
 
-function getGalaxyScalingStart() {
-    let num = 100 + ECTimesCompleted("eterc5")*5
-    if (player.timestudy.studies.includes(223)) num += 5
-    if (player.timestudy.studies.includes(224)) num += Math.floor(player.resets/4000)
-    return num;
-}
 
 function getGalaxyRequirement() {
     let amount = 80 + (player.galaxies * 60);
@@ -1701,7 +1695,7 @@ function getGalaxyRequirement() {
     if (player.currentChallenge == "challenge4") amount = 99 + (player.galaxies * 90)
 
     let galaxyCostScalingStart = 100 + ECTimesCompleted("eterc5")*5
-    if (player.timestudy.studies.includes(223)) galaxyCostScalingStart += 10
+    if (player.timestudy.studies.includes(223)) galaxyCostScalingStart += 7
     if (player.timestudy.studies.includes(224)) galaxyCostScalingStart += Math.floor(player.resets/2000)
     if (player.currentEternityChall == "eterc5") {
         amount += Math.pow(player.galaxies, 2) + player.galaxies
@@ -2982,7 +2976,7 @@ function getTickSpeedMultiplier() {
         if (player.challenges.includes("postc5")) galaxies *= 1.1;
         if (player.achievements.includes("r86")) galaxies *= 1.01
         if (player.timestudy.studies.includes(212)) galaxies *= Math.min(Math.pow(player.timeShards.max(2).log2(), 0.005), 1.1)
-        if (player.timestudy.studies.includes(232)) galaxies *= Math.pow(1+player.galaxies/1000, 0.3)
+        if (player.timestudy.studies.includes(232)) galaxies *= Math.pow(1+player.galaxies/1000, 0.2)
 
         return baseMultiplier * (Math.pow(perGalaxy, (galaxies-2)))
     }
