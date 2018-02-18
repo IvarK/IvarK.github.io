@@ -226,6 +226,9 @@ var player = {
         EPamount: new Decimal(0),
         unl: false,
         power: new Decimal(0),
+        galaxies: 0,
+        galacticPow: new Decimal(0),
+        galaxyThreshold: new Decimal(0)
     },
     options: {
         newsHidden: false,
@@ -673,7 +676,7 @@ function drawStudyTree() {
 
 function drawBlackHole() {
     var size = player.blackhole.power.max(2).log10()
-    var size = size.min(400)
+    var size = Math.min(size, 400)
     ctx3.beginPath();
     ctx3.arc(200,200,size,0,2*Math.PI);
     ctx3.stroke();
@@ -864,12 +867,12 @@ function onLoad() {
     if (player.dimlife === undefined) player.dimlife = false
     if (player.dead === undefined) player.dead = false
     if (player.blackhole === undefined) player.blackhole = {}
-    if (player.blackhole.unl === undefined) player.blackhole.unl = true
+    if (player.blackhole.unl === undefined) player.blackhole.unl = false
     if (player.blackhole.power === undefined) player.blackhole.power = new Decimal(0)
     if (player.blackhole.AMamount === undefined) player.blackhole.AMamount = new Decimal(0)
     if (player.blackhole.IPamount === undefined) player.blackhole.IPamount = new Decimal(0)
     if (player.blackhole.EPamount === undefined) player.blackhole.EPamount = new Decimal(0)
-    if (player.blackhole.galaxies === undefined) player.blackhole.galaxies = new Decimal(0)
+    if (player.blackhole.galaxies === undefined) player.blackhole.galaxies = 0
     if (player.blackhole.galacticPow === undefined) player.blackhole.galacticPow = new Decimal(0)
     if (player.blackhole.galaxyThreshold === undefined) player.blackhole.galaxyThreshold = new Decimal(0)
     setTheme(player.options.theme);
@@ -993,8 +996,8 @@ function onLoad() {
     if (player.seventhAmount !== 0|| player.eternities >= 30)
     if (player.resets > 3 && player.currentChallenge !== "challenge4") document.getElementById("eightRow").style.display = "table-row";
 
-    document.getElementById("totaltickgained").innerHTML = "You've gained "+shortenDimensions(player.totalTickGained)+" tickspeed upgrades."
-    document.getElementById("blackholegalaxies").innerHTML = "You've gained "+shortenDimensions(player.blackhole.galaxies)+" free galaxies."
+    document.getElementById("totaltickgained").innerHTML = "You've gained "+player.totalTickGained.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" tickspeed upgrades."
+    document.getElementById("blackholegalaxies").innerHTML = "You've gained "+player.blackhole.galaxies.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" free galaxies."
 
     if (typeof player.autobuyers[9].bulk !== "number") {
         player.autobuyers[9].bulk = 1
@@ -1426,7 +1429,6 @@ function transformSaveToDecimal() {
     player.blackhole.AMamount = new Decimal(player.blackhole.AMamount)
     player.blackhole.IPamount = new Decimal(player.blackhole.IPamount)
     player.blackhole.EPamount = new Decimal(player.blackhole.EPamount)
-    player.blackhole.galaxies = new Decimal(player.blackhole.galaxies)
     player.blackhole.galacticPow = new Decimal(player.blackhole.galacticPow)
     player.blackhole.galaxyThreshold = new Decimal(player.blackhole.galaxyThreshold)
 }
@@ -3006,7 +3008,7 @@ function getTickSpeedMultiplier() {
         if (player.galaxies == 0) baseMultiplier = 0.89
         if (player.currentChallenge == "challenge6" || player.currentChallenge == "postc1") baseMultiplier = 0.93;
         let perGalaxy = 0.02;
-        let galaxies = player.galaxies+player.replicanti.galaxies
+        let galaxies = player.galaxies+player.replicanti.galaxies+player.blackhole.galaxies
         if (player.timestudy.studies.includes(133)) galaxies += player.replicanti.galaxies/2
         if (player.timestudy.studies.includes(132)) galaxies += player.replicanti.galaxies*0.3
         if (player.timestudy.studies.includes(225)) galaxies += Math.floor(player.replicanti.amount.e / 1250)
@@ -3023,7 +3025,7 @@ function getTickSpeedMultiplier() {
         let baseMultiplier = 0.8
         if (player.currentChallenge == "challenge6" || player.currentChallenge == "postc1") baseMultiplier = 0.83
         let perGalaxy = 0.965
-        let galaxies = player.galaxies-2+player.replicanti.galaxies
+        let galaxies = player.galaxies-2+player.replicanti.galaxies+player.blackhole.galaxies
         if (player.timestudy.studies.includes(133)) galaxies += player.replicanti.galaxies/2
         if (player.timestudy.studies.includes(132)) galaxies += player.replicanti.galaxies*0.3
         if (player.timestudy.studies.includes(225)) galaxies += Math.floor(player.replicanti.amount.e / 1250)
@@ -7391,8 +7393,8 @@ function gameLoop(diff) {
     }
 
     while (player.blackhole.galacticPow.gt(player.blackhole.galaxyThreshold)) {
-        player.blackhole.galaxies = player.blackhole.galaxies.plus(1)
-        player.blackhole.galaxyThreshold = new Decimal(1).times(player.blackhole.galaxies.factorial().max(1))
+        player.blackhole.galaxies++
+        player.blackhole.galaxyThreshold = new Decimal(player.blackhole.galaxies).factorial().max(1)
         document.getElementById("blackholegalaxies").innerHTML = "You've gained "+player.blackhole.galaxies.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" free galaxies."
     }
 
