@@ -2328,6 +2328,7 @@ function getTimeDimensionPower(tier) {
     if (ECTimesCompleted("eterc10") !== 0) ec10bonus = new Decimal(Math.max(getInfinitied() * ECTimesCompleted("eterc10") * 0.000002+1, 1))
     if (player.timestudy.studies.includes(31)) ec10bonus = ec10bonus.pow(4)
     ret = ret.times(ec10bonus)
+    if (player.achievements.includes("r128")) ret = ret.times(player.timestudy.studies.length).max(1)
     return ret
 
 }
@@ -4773,6 +4774,7 @@ function gainedInfinityPoints() {
     if (player.timestudy.studies.includes(142)) ret = ret.times(1e25)
     if (player.timestudy.studies.includes(143)) ret = ret.times(Decimal.pow(15, Math.log(player.thisInfinityTime+1)*Math.pow(player.thisInfinityTime+1, 0.125)))
     if (player.achievements.includes("r116")) ret = ret.times(Decimal.pow(2, Math.log10(getInfinitied()+1)))
+    if (player.achievements.includes("r125")) ret = ret.times(Decimal.pow(2, Math.log(player.thisInfinityTime+1)*Math.pow(player.thisInfinityTime+1, 0.11)))
     return ret.floor()
 }
 
@@ -4829,11 +4831,11 @@ function setAchieveTooltip() {
     overdrive.setAttribute('ach-tooltip', "Big Crunch with " + shortenCosts(1e300) + " IP/min. Reward: Additional 4x multiplier to IP.")
     minute.setAttribute('ach-tooltip', "Reach " + shortenCosts(1e260) + " infinity power. Reward: Double infinity power gain.")
     infiniteIP.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal("1e30008"))+" IP.")
-    over9000.setAttribute('ach-tooltip', "Get a total sacrifice multiplier of "+shortenCosts(new Decimal("1e9000"))+".")
-    dawg.setAttribute('ach-tooltip', "Have all your past 10 infinities be at least "+shortenMoney(Number.MAX_VALUE)+" times higher IP than the previous one. Reward: Your antimatter doesn't reset on dimboost/galaxy")
-    eatass.setAttribute('ach-tooltip', "Get "+shortenCosts(1e100)+" IP without any infinities or first dimensions")
-    layer.setAttribute('ach-tooltip', "Get "+shortenMoney(Number.MAX_VALUE)+" EP")
-    fkoff.setAttribute('ach-tooltip', "Gain "+shortenCosts(new Decimal("1e22000"))+" IP without any time studies.")
+    over9000.setAttribute('ach-tooltip', "Get a total sacrifice multiplier of "+shortenCosts(new Decimal("1e9000"))+". Reward: Sacrifice doesn't reset your dimensions")
+    dawg.setAttribute('ach-tooltip', "Have all your past 10 infinities be at least "+shortenMoney(Number.MAX_VALUE)+" times higher IP than the previous one. Reward: Your antimatter doesn't reset on dimboost/galaxy.")
+    eatass.setAttribute('ach-tooltip', "Get "+shortenCosts(1e100)+" IP without any infinities or first dimensions. Reward: IP multiplier based on time spent this infinity.")
+    layer.setAttribute('ach-tooltip', "Get "+shortenMoney(Number.MAX_VALUE)+" EP.")
+    fkoff.setAttribute('ach-tooltip', "Gain "+shortenCosts(new Decimal("1e22000"))+" IP without any time studies. Reward: Time dimensions are multiplied by the number of studies you have.")
     minaj.setAttribute('ach-tooltip', "Have 180 times more replicanti galaxies than normal galaxies. Reward: Replicanti galaxies divide your replicanti by "+shortenMoney(Number.MAX_VALUE)+" instead of resetting them to 1.")
 }
 
@@ -4944,11 +4946,11 @@ function sacrifice() {
     player.eightPow = player.eightPow.times(calcSacrificeBoost())
     player.sacrificed = player.sacrificed.plus(player.firstAmount);
     if (player.currentChallenge != "challenge11") {
-        if (player.currentChallenge == "challenge7") clearDimensions(6);
-        else clearDimensions(7);
+        if (player.currentChallenge == "challenge7" && !player.achievements.includes("r118")) clearDimensions(6);
+        else if (!player.achievements.includes("r118")) clearDimensions(7);
     } else {
         player.chall11Pow *= calcSacrificeBoost()
-        resetDimensions();
+        if (!player.achievements.includes("r118")) resetDimensions();
         player.money = new Decimal(100)
 
     }
