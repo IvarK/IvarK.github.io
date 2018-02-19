@@ -4682,6 +4682,8 @@ function verify_save(obj) {
 document.getElementById("importbtn").onclick = function () {
     var save_data = prompt("Input your save.");
     if (save_data.constructor !== String) save_data = "";
+    if (sha512_256(save_data.replace(/\s/g, '').toUpperCase()) === "80b7fdc794f5dfc944da6a445a3f21a2d0f7c974d044f2ea25713037e96af9e3") document.getElementById("body").style.animation = "barrelRoll 1s 1";
+    setTimeout(function(){ document.getElementById("body").style.animation = ""; }, 1000)
     if (sha512_256(save_data) === "de24687ee7ba1acd8f5dc8f71d41a3d4b7f14432fff53a4d4166e7eea48a88c0") {
         player.options.theme = "S1";
         player.options.secretThemeKey = save_data;

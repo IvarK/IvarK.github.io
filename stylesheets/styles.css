@@ -1459,23 +1459,29 @@ screen and (max-width: 480px) {
 @keyframes activeStudyGlowIn {
     0%  {box-shadow: inset 0px 0px 3px 0px #FF0100;}
     50% {box-shadow: inset 0px 0px 20px 0px #FF0100;}
-    100%  {box-shadow: inset 0px 0px 3px 0px #FF0100;}
+    100% {box-shadow: inset 0px 0px 3px 0px #FF0100;}
 }
 
 @keyframes passiveStudyGlowIn {
     0%  {box-shadow: inset 0px 0px 3px 0px #5E33B6;}
     50% {box-shadow: inset 0px 0px 20px 0px #5E33B6;}
-    100%  {box-shadow: inset 0px 0px 3px 0px #5E33B6;}
+    100% {box-shadow: inset 0px 0px 3px 0px #5E33B6;}
 }
 
 @keyframes idleStudyGlowIn {
     0%  {box-shadow: inset 0px 0px 3px 0px #0080ff;}
     50% {box-shadow: inset 0px 0px 20px 0px #0080ff;}
-    100%  {box-shadow: inset 0px 0px 3px 0px #0080ff;}
+    100% {box-shadow: inset 0px 0px 3px 0px #0080ff;}
 }
 
 @keyframes eternityChallengeGlowIn {
     0%  {box-shadow: inset 0px 0px 3px 0px #490066;}
     50% {box-shadow: inset 0px 0px 20px 0px #490066;}
-    100%  {box-shadow: inset 0px 0px 3px 0px #490066;}
+    100% {box-shadow: inset 0px 0px 3px 0px #490066;}
+}
+
+@keyframes barrelRoll {
+    0%  {transform: rotateZ(0deg);}
+    50% {transform: rotateZ(360deg);}
+    100% {transform: rotateZ(360deg);}
 }
