@@ -1119,7 +1119,7 @@ function onLoad() {
         infMultAutoToggle()
     }
 
-    if (player.epmult === undefined) {
+    if (player.epmult === undefined || player.epmult == 0) {
         player.epmult = new Decimal(1)
         player.epmultCost = new Decimal(500)
     }
@@ -1495,12 +1495,16 @@ function updateMoney() {
 
 function updateCoinPerSec() {
     var element = document.getElementById("coinsPerSec");
-    if (player.currentChallenge == "challenge3" || player.currentChallenge == "postc1") {
-      element.innerHTML = 'You are getting ' + shortenDimensions(getDimensionProductionPerSecond(1).times(player.chall3Pow)) + ' antimatter per second.';
-    } else if (player.currentChallenge == "challenge7") {
-      element.innerHTML = 'You are getting ' + (shortenDimensions(getDimensionProductionPerSecond(1).plus(getDimensionProductionPerSecond(2)))) + ' antimatter per second.';
+    if (player.currentChallenge != "" && getDimensionProductionPerSecond(1).gte(player.challengeTarget)) {
+        element.innerHTML = 'You are getting ' + shortenDimensions(new Decimal(player.challengeTarget)) + ' antimatter per second.';
     } else {
-      element.innerHTML = 'You are getting ' + shortenDimensions(getDimensionProductionPerSecond(1)) + ' antimatter per second.';
+        if (player.currentChallenge == "challenge3" || player.currentChallenge == "postc1") {
+            element.innerHTML = 'You are getting ' + shortenDimensions(getDimensionProductionPerSecond(1).times(player.chall3Pow)) + ' antimatter per second.';
+          } else if (player.currentChallenge == "challenge7") {
+            element.innerHTML = 'You are getting ' + (shortenDimensions(getDimensionProductionPerSecond(1).plus(getDimensionProductionPerSecond(2)))) + ' antimatter per second.';
+          } else {
+            element.innerHTML = 'You are getting ' + shortenDimensions(getDimensionProductionPerSecond(1)) + ' antimatter per second.';
+          }
     }
 }
 
@@ -3707,7 +3711,6 @@ document.getElementById("maxall").onclick = function () {
         if (player.currentChallenge == "postc1") clearDimensions(tier-1);
         player.postC4Tier = tier;
         onBuyDimension(tier)
-        console.log(player.money)
     }
 }
 
@@ -7065,17 +7068,21 @@ function gameLoop(diff) {
                 player[name + 'Amount'] = player[name + 'Amount'].plus(getDimensionProductionPerSecond(tier + 1).times(diff / 100));
             }
         }
-
-        if (player.currentChallenge == "challenge3" || player.currentChallenge == "postc1") {
-            player.money = player.money.plus(getDimensionProductionPerSecond(1).times(diff/10).times(player.chall3Pow));
-            player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(1).times(diff/10).times(player.chall3Pow));
+        if (player.currentChallenge != "" && getDimensionProductionPerSecond(1).gte(player.challengeTarget)) {
+            player.money = player.money.plus(player.challengeTarget);
+            player.totalmoney = player.totalmoney.plus(player.challengeTarget);
         } else {
-            player.money = player.money.plus(getDimensionProductionPerSecond(1).times(diff/10));
-            player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(1).times(diff/10));
-        }
-        if (player.currentChallenge == "challenge7") {
-            player.money = player.money.plus(getDimensionProductionPerSecond(2).times(diff/10));
-            player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(2).times(diff/10))
+            if (player.currentChallenge == "challenge3" || player.currentChallenge == "postc1") {
+                player.money = player.money.plus(getDimensionProductionPerSecond(1).times(diff/10).times(player.chall3Pow));
+                player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(1).times(diff/10).times(player.chall3Pow));
+            } else {
+                player.money = player.money.plus(getDimensionProductionPerSecond(1).times(diff/10));
+                player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(1).times(diff/10));
+            }
+            if (player.currentChallenge == "challenge7") {
+                player.money = player.money.plus(getDimensionProductionPerSecond(2).times(diff/10));
+                player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(2).times(diff/10))
+            }
         }
     }
 
