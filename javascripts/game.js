@@ -1675,7 +1675,7 @@ function getShiftRequirement(bulk) {
 
     let mult = 15
     if (player.timestudy.studies.includes(211)) mult -= 5
-    if (player.timestudy.studies.includes(222)) mult -= 1
+    if (player.timestudy.studies.includes(222)) mult -= 2
 
     if (tier == 8) amount += Math.ceil((player.resets+bulk - 4) * mult);
     if (player.currentEternityChall == "eterc5") {
@@ -1799,8 +1799,8 @@ function updateDimensions() {
             document.getElementById("softReset").innerHTML = "Reset the game for a new Dimension";
         }
         let extraGals = player.replicanti.galaxies
-        if (player.timestudy.studies.includes(225)) extraGals += Math.floor(player.replicanti.amount.e / 1250)
-        if (player.timestudy.studies.includes(226)) extraGals += Math.floor(player.replicanti.gal / 20)
+        if (player.timestudy.studies.includes(225)) extraGals += Math.floor(player.replicanti.amount.e / 1000)
+        if (player.timestudy.studies.includes(226)) extraGals += Math.floor(player.replicanti.gal / 15)
         if (player.replicanti.galaxies > 0 && (player.galaxies >= 100 + ECTimesCompleted("eterc5") * 5 || player.currentEternityChall === "eterc5")) document.getElementById("secondResetLabel").innerHTML = 'Distant Antimatter Galaxies ('+ player.galaxies +' + '+ extraGals +'): requires ' + getGalaxyRequirement() + ' Eighth Dimensions';
         else if (player.galaxies >= 100 + ECTimesCompleted("eterc5") * 5 || player.currentEternityChall === "eterc5") document.getElementById("secondResetLabel").innerHTML = 'Distant Antimatter Galaxies ('+ player.galaxies +'): requires ' + getGalaxyRequirement() + ' Eighth Dimensions';
         else if (player.replicanti.galaxies > 0) document.getElementById("secondResetLabel").innerHTML = 'Antimatter Galaxies ('+ player.galaxies +' + '+ player.replicanti.galaxies +'): requires ' + getGalaxyRequirement() + ' Eighth Dimensions';
@@ -2321,8 +2321,8 @@ function getTimeDimensionPower(tier) {
     if (player.timestudy.studies.includes(93)) ret = ret.times(Decimal.pow(player.totalTickGained, 0.25).max(1))
     if (player.timestudy.studies.includes(103)) ret = ret.times(Math.max(player.replicanti.galaxies, 1))
     if (player.timestudy.studies.includes(151)) ret = ret.times(1e4)
-    if (player.timestudy.studies.includes(221)) ret = ret.times(Decimal.pow(1.0015, player.resets))
-    if (player.timestudy.studies.includes(227) && tier == 4) ret = ret.times(Math.pow(calcTotalSacrificeBoost().log10(), 7))
+    if (player.timestudy.studies.includes(221)) ret = ret.times(Decimal.pow(1.0025, player.resets))
+    if (player.timestudy.studies.includes(227) && tier == 4) ret = ret.times(Math.pow(calcTotalSacrificeBoost().log10(), 10))
     if (player.currentEternityChall == "eterc9") ret = ret.times((Decimal.pow(Math.max(player.infinityPower.log2(), 1), 4)).max(1))
     if (ECTimesCompleted("eterc1") !== 0) ret = ret.times(Math.pow(Math.max(player.thisEternity*10, 1), 0.3+(ECTimesCompleted("eterc1")*0.05)))
     let ec10bonus = new Decimal(1)
@@ -2951,8 +2951,8 @@ function getTickSpeedMultiplier() {
         let galaxies = player.galaxies+player.replicanti.galaxies
         if (player.timestudy.studies.includes(133)) galaxies += player.replicanti.galaxies/2
         if (player.timestudy.studies.includes(132)) galaxies += player.replicanti.galaxies*0.3
-        if (player.timestudy.studies.includes(225)) galaxies += Math.floor(player.replicanti.amount.e / 1250)
-        if (player.timestudy.studies.includes(226)) galaxies += Math.floor(player.replicanti.gal / 20)
+        if (player.timestudy.studies.includes(225)) galaxies += Math.floor(player.replicanti.amount.e / 1000)
+        if (player.timestudy.studies.includes(226)) galaxies += Math.floor(player.replicanti.gal / 15)
         galaxies += Math.min(player.replicanti.galaxies, player.replicanti.gal) * Math.max(Math.pow(Math.log10(player.infinityPower.plus(1).log10()+1), 0.03 * ECTimesCompleted("eterc8"))-1, 0)
         if (player.infinityUpgrades.includes("galaxyBoost")) perGalaxy *= 2;
         if (player.infinityUpgrades.includes("postGalaxy")) perGalaxy *= 1.5;
@@ -2968,8 +2968,8 @@ function getTickSpeedMultiplier() {
         let galaxies = player.galaxies-2+player.replicanti.galaxies
         if (player.timestudy.studies.includes(133)) galaxies += player.replicanti.galaxies/2
         if (player.timestudy.studies.includes(132)) galaxies += player.replicanti.galaxies*0.3
-        if (player.timestudy.studies.includes(225)) galaxies += Math.floor(player.replicanti.amount.e / 1250)
-        if (player.timestudy.studies.includes(226)) galaxies += Math.floor(player.replicanti.gal / 20)
+        if (player.timestudy.studies.includes(225)) galaxies += Math.floor(player.replicanti.amount.e / 1000)
+        if (player.timestudy.studies.includes(226)) galaxies += Math.floor(player.replicanti.gal / 15)
         galaxies +=  Math.min(player.replicanti.galaxies, player.replicanti.gal) * Math.max(Math.pow(Math.log10(player.infinityPower.plus(1).log10()+1), 0.03 * ECTimesCompleted("eterc8"))-1, 0)
         if (player.infinityUpgrades.includes("galaxyBoost")) galaxies *= 2;
         if (player.infinityUpgrades.includes("postGalaxy")) galaxies *= 1.5;
@@ -4080,8 +4080,8 @@ function updateInfCosts() {
     else document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP"
     document.getElementById("replicantiunlock").innerHTML = "Unlock Replicantis<br>Cost: "+shortenCosts(1e140)+" IP"
     let extraGals = 0
-    if (player.timestudy.studies.includes(225)) extraGals += Math.floor(player.replicanti.amount.e / 1250)
-    if (player.timestudy.studies.includes(226)) extraGals += Math.floor(player.replicanti.gal / 20)
+    if (player.timestudy.studies.includes(225)) extraGals += Math.floor(player.replicanti.amount.e / 1000)
+    if (player.timestudy.studies.includes(226)) extraGals += Math.floor(player.replicanti.gal / 15)
     if (extraGals !== 0) document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + "+"+extraGals+ " replicated galaxies created."
     else document.getElementById("replicantireset").innerHTML = (player.replicanti.galaxies !== 1) ? "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created." : "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxy created."
 
