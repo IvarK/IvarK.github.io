@@ -7463,7 +7463,7 @@ function gameLoop(diff) {
 
     if(player.money.gt(Math.pow(10,63))) giveAchievement("Supersanic");
 
-    if (DimensionProduction(1).gt(player.infinityPower) && !player.achievements.includes("r113")) {
+    if (DimensionProduction(1).gt(player.infinityPower) && player.currentEternityChall != "eterc7" && !player.achievements.includes("r113")) {
         Marathon2+=player.options.updateRate/1000;
         if (Marathon2 >= 60) giveAchievement("Long lasting relationship");
     } else {
