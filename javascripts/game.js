@@ -2505,7 +2505,7 @@ function canBuyStudy(name) {
     if (name == 181) {
         if (player.eternityChalls.eterc1 !== undefined && player.eternityChalls.eterc2 !== undefined && player.eternityChalls.eterc3 !== undefined && player.timestudy.studies.includes(171)) return true; else return false;
     }
-    if (name == 201) if(player.timestudy.studies.includes(192)) return true; else return false
+    if (name == 201) if(player.timestudy.studies.includes(192) && player.eternityChallUnlocked !== 11 && player.eternityChallUnlocked !== 12) return true; else return false
     if (name == 211) if(player.timestudy.studies.includes(191)) return true; else return false
     if (name == 212) if(player.timestudy.studies.includes(191)) return true; else return false
     if (name == 213) if(player.timestudy.studies.includes(193)) return true; else return false
@@ -6346,7 +6346,7 @@ function canUnlockEC(idx, cost, study, study2 = 0) {
     if (player.eternityChallUnlocked !== 0) return false
     if (!player.timestudy.studies.includes(study) && (player.study2 == 0 || !player.timestudy.studies.includes(study2))) return false
     if (player.timestudy.theorem < cost) return false
-    if (player.etercreq == idx) return true
+    if (player.etercreq == idx && idx !== 11 && idx !== 12) return true
 
     switch(idx) {
         case 1:
@@ -6390,11 +6390,11 @@ function canUnlockEC(idx, cost, study, study2 = 0) {
         break;
 
         case 11:
-        if (player.timestudy.studies.includes(71) && !player.timestudy.studies.includes(72) && !player.timestudy.studies.includes(73)) return true
+        if (player.timestudy.studies.includes(71) && !player.timestudy.studies.includes(72) && !player.timestudy.studies.includes(73) && !player.timestudy.studies.includes(201)) return true
         break;
 
         case 12:
-        if (player.timestudy.studies.includes(72) && !player.timestudy.studies.includes(71) && !player.timestudy.studies.includes(73)) return true
+        if (player.timestudy.studies.includes(72) && !player.timestudy.studies.includes(71) && !player.timestudy.studies.includes(73) && !player.timestudy.studies.includes(201)) return true
         break;
     }
 }
