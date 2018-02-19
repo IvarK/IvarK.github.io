@@ -1900,7 +1900,6 @@ function updateDimensions() {
         document.getElementById("eter4").innerHTML = "Your achievement bonus affects Time Dimensions"+"<br>Cost: "+shortenCosts(1e16)+" EP"
         document.getElementById("eter5").innerHTML = "Time Dimensions are multiplied by your unspent time theorems"+"<br>Cost: "+shortenCosts(1e40)+" EP"
         document.getElementById("eter6").innerHTML = "Time Dimensions are multiplied by days played"+"<br>Cost: "+shortenCosts(1e50)+" EP"
-        document.getElementById("epmult").innerHTML = "You gain 5 times more EP<p>Currently: "+shortenDimensions(player.epmult)+"x<p>Cost: "+shortenDimensions(player.epmultCost)+" EP"
         document.getElementById("32").innerHTML = "You gain x"+Math.max(player.resets, 1)+" more infinitied stat (based on dimension boosts)<p>Cost: 2 Time Theorems"
         document.getElementById("71").innerHTML = "Sacrifice affects all other normal dimensions with reduced effect<span>Currently: "+shortenMoney(calcTotalSacrificeBoost().pow(0.25).max(1))+"x<span>Cost: 4 Time Theorems"
         document.getElementById("72").innerHTML = "Sacrifice affects 4th Infinity Dimension with greatly reduced effect<span>Currently: "+shortenMoney(calcTotalSacrificeBoost().pow(0.04).max(1))+"x<span>Cost: 6 Time Theorems"
@@ -4865,7 +4864,7 @@ document.getElementById("notation").onclick = function () {
     }
     setAchieveTooltip();
     updateCosts();
-   
+    document.getElementById("epmult").innerHTML = "You gain 5 times more EP<p>Currently: "+shortenDimensions(player.epmult)+"x<p>Cost: "+shortenDimensions(player.epmultCost)+" EP"
 };
 
 
