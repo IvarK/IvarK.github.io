@@ -1628,7 +1628,7 @@ function getDimensionRateOfChange(tier) {
 function getShiftRequirement(bulk) {
     let amount = 20;
     if (player.currentChallenge == "challenge4") {
-        tier = Math.min(player.resets + 4, 6)
+        tier = Math.min(player.resets + bulk + 4, 6)
         if (tier == 6) amount += (player.resets+bulk - 2) * 20;
     } else {
         tier = Math.min(player.resets + bulk + 4, 8)
@@ -4801,6 +4801,7 @@ function sacrifice() {
     if (player.eightAmount == 0) return false;
     if (player.resets < 5) return false
     if (player.currentEternityChall == "eterc3") return false
+    if (player.currentChallenge == "challenge11" && calcTotalSacrificeBoost().gte(Number.MAX_VALUE)) return false
 
     if (calcSacrificeBoost().gte(Number.MAX_VALUE)) giveAchievement("Yet another infinity reference");
     player.eightPow = player.eightPow.times(calcSacrificeBoost())
@@ -7119,7 +7120,7 @@ function gameLoop(diff) {
     if (player.eternities > 0) document.getElementById("dimTabButtons").style.display = "inline-block"
 
     if (player.currentEternityChall !== "eterc7") player.infinityPower = player.infinityPower.plus(DimensionProduction(1).times(diff/10))
-    else player.seventhAmount = player.seventhAmount.plus(DimensionProduction(1).times(diff/10))
+    else if (player.currentChallenge !== "challenge4") player.seventhAmount = player.seventhAmount.plus(DimensionProduction(1).times(diff/10))
     
 
     
@@ -7684,6 +7685,7 @@ function dimBoolean() {
     var name = TIER_NAMES[getShiftRequirement(0).tier]
     if (!player.autobuyers[9].isOn) return false
     if (player.autobuyers[9].ticks*100 < player.autobuyers[9].interval) return false
+    if (player[name + "Amount"] > getShiftRequirement(0)) return true
     if (player.eternities < 10 && player[name + "Amount"] < getShiftRequirement(player.autobuyers[9].bulk-1).amount) return false
     if (player.overXGalaxies <= player.galaxies) return true
     if ((player.currentChallenge =="challenge4" || player.currentChallenge == "postc1") && player.autobuyers[9].priority < getShiftRequirement(0).amount && getShiftRequirement(0).tier == 6) return false
