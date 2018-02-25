@@ -421,8 +421,8 @@ var normalDimChart = new Chart(ctx2, {
         scales: {
             yAxes: [{
                 ticks: {
-                    max: 1000000,
-                    min: 0
+                    max: 100000000,
+                    min: 1
                 }
             }],
             xAxes: [{
@@ -476,10 +476,10 @@ function addData(chart, label, data) {
     if (data > comp1) {
         chart.options.scales.yAxes[0].ticks.max = data;
     }
-    if (chart.options.scales.yAxes[0].ticks.min < comp2) {
+    if (chart.options.scales.yAxes[0].ticks.min < comp2 || chart.options.scales.yAxes[0].ticks.min == Infinity) {
         chart.options.scales.yAxes[0].ticks.min = comp2;
     }
-    if (data < chart.options.scales.yAxes[0].ticks.min) {
+    if (data < chart.options.scales.yAxes[0].ticks.min && player.options.chart.dips) {
         chart.options.scales.yAxes[0].ticks.min = data;
     }
     var preservedChartValues = false;
@@ -513,7 +513,8 @@ function addData(chart, label, data) {
     }
     chart.data.labels.push(label);
     chart.data.datasets.forEach((dataset) => {
-        dataset.data.push(data);
+        if (data < normalDimChart.data.datasets[0].data[normalDimChart.data.datasets[0].data.length-1] && !player.options.chart.dips) dataset.data.push(normalDimChart.data.datasets[0].data[normalDimChart.data.datasets[0].data.length-1]);
+        else dataset.data.push(data);
     });
     chart.update(300);
 }
@@ -816,6 +817,7 @@ function onLoad() {
     if (player.options.chart.duration === undefined) player.options.chart.duration = 10
     if (player.options.chart.warning === undefined) player.options.chart.warning = 0
     if (player.options.chart.on === undefined) player.options.chart.on = false
+    if (player.options.chart.dips === undefined) player.options.chart.dips = true
     if (player.etercreq === undefined) player.etercreq = 0
     if (player.options.updateRate === undefined) player.options.updateRate = 50
     if (player.eterc8ids === undefined) player.eterc8ids = 50
@@ -1225,6 +1227,8 @@ function onLoad() {
     document.getElementById("chartUpdateRateInput").value = player.options.chart.updateRate;
     if (player.options.chart.on) document.getElementById("chartOnOff").checked = true
     else document.getElementById("chartOnOff").checked = false
+    if (player.options.chart.dips) document.getElementById("chartDipsOnOff").checked = true
+    else document.getElementById("chartDipsOnOff").checked = false
 
     if (!player.options.hotkeys) document.getElementById("hotkeys").innerHTML = "Enable hotkeys"
     updateAutobuyers();
@@ -7850,6 +7854,14 @@ function enableChart() {
         if (player.options.chart.warning < 1) alert("Warning: the chart can cause performance issues. Please disable it if you're experiencing lag.")
     } else {
         player.options.chart.on = false;
+    }
+}
+
+function enableChartDips() {
+    if (document.getElementById("chartDipsOnOff").checked) {
+        player.options.chart.dips = true;
+    } else {
+        player.options.chart.dips = false;
     }
 }
 
