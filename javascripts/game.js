@@ -462,7 +462,8 @@ function updateChartValues() {
 }
 
 function addData(chart, label, data) {
-    if (chart.data.datasets[0].data.length >= Math.ceil(player.options.chart.duration / player.options.chart.updateRate * 1000)) {
+    var points = Math.ceil(player.options.chart.duration / player.options.chart.updateRate * 1000 - 1)
+    if (chart.data.datasets[0].data.length > points) {
         chart.data.labels.shift();
         chart.data.datasets[0].data.shift();
     }
@@ -484,7 +485,7 @@ function addData(chart, label, data) {
     }
     var preservedChartValues = false;
     let failSafe = 0;
-    while (chart.data.datasets[0].data.length < Math.ceil(player.options.chart.duration / player.options.chart.updateRate * 1000 - 1)) {
+    while (chart.data.datasets[0].data.length < points) {
         if (preservedChartValues) {
             chart.data.labels.push(label);
             chart.data.datasets.forEach((dataset) => {
@@ -495,7 +496,7 @@ function addData(chart, label, data) {
             var tempData = data;
             preservedChartValues = true;
         }
-        if (chart.data.datasets[0].data.length >= Math.ceil(player.options.chart.duration / player.options.chart.updateRate * 1000 - 1)) {
+        if (chart.data.datasets[0].data.length >= points) {
             var temp2 = chart.data.datasets[0].data.slice()
             for (i=0; i<temp.length; i++) {
                 temp2[chart.data.datasets[0].data.length - temp.length + i] = temp[i];
@@ -504,7 +505,7 @@ function addData(chart, label, data) {
             chart.data.datasets[0].data = temp2;
         }
     }
-    while (chart.data.datasets[0].data.length > Math.ceil(player.options.chart.duration / player.options.chart.updateRate * 1000 - 1) && failSafe < (player.options.chart.duration / player.options.chart.updateRate * 1000 - 1)) {
+    while (chart.data.datasets[0].data.length > points && failSafe < points) {
         chart.data.labels.pop(label);
         chart.data.datasets.forEach((dataset) => {
             dataset.data.pop(data);
@@ -513,7 +514,7 @@ function addData(chart, label, data) {
     }
     chart.data.labels.push(label);
     chart.data.datasets.forEach((dataset) => {
-        if (data < normalDimChart.data.datasets[0].data[normalDimChart.data.datasets[0].data.length-1] && !player.options.chart.dips) dataset.data.push(normalDimChart.data.datasets[0].data[normalDimChart.data.datasets[0].data.length-1]);
+        if (data < chart.data.datasets[0].data[chart.data.datasets[0].data.length-1] && !player.options.chart.dips) dataset.data.push(chart.data.datasets[0].data[chart.data.datasets[0].data.length-1]);
         else dataset.data.push(data);
     });
     chart.update(300);
