@@ -6106,10 +6106,10 @@ function eternity(force) {
         if (player.eternities == 1) {
             showTab("dimensions")
             showDimTab("timedimensions")
+            loadAutoBuyerSettings()
         }
         if (player.replicanti.galaxybuyer) document.getElementById("replicantiresettoggle").innerHTML = "Auto galaxy ON"
         else document.getElementById("replicantiresettoggle").innerHTML = "Auto galaxy OFF"
-        
     }
 }
 
