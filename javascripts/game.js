@@ -4116,10 +4116,10 @@ function toggleCrunchMode() {
 function toggleEternityConf() {
     if (player.options.eternityconfirm) {
         player.options.eternityconfirm = false
-        document.getElementById("eternityconf").innerHTML = "Eternity confimation OFF"
+        document.getElementById("eternityconf").innerHTML = "Eternity confirmation OFF"
     } else {
         player.options.eternityconfirm = true
-        document.getElementById("eternityconf").innerHTML = "Eternity confimation ON"
+        document.getElementById("eternityconf").innerHTML = "Eternity confirmation ON"
     }
 }
 
