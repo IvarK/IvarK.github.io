@@ -3895,7 +3895,7 @@ function buyEPMult() {
         player.eternityBuyer.limit = player.eternityBuyer.limit.times(5)
         document.getElementById("priority13").value = player.eternityBuyer.limit
         player.eternityPoints = player.eternityPoints.minus(player.epmultCost)
-        let count = Math.log(player.epmult)/Math.log(5)
+        let count = player.epmult.ln()/Math.log(5)
         player.epmultCost = Decimal.pow(50, count).times(500)
         if (player.epmultCost.gte(new Decimal("1e100"))) player.epmultCost = Decimal.pow(100, count).times(500)
         if (player.epmultCost.gte(Number.MAX_VALUE)) player.epmultCost = Decimal.pow(500, count).times(500)
