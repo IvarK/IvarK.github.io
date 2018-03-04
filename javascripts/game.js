@@ -1415,6 +1415,8 @@ function showTab(tabName) {
             tab.style.display = 'none';
         }
     }
+    if (document.getElementById("timestudies").style.display != "none" && document.getElementById("eternitystore").style.display != "none") document.getElementById("TTbuttons").style.display = "block";
+    else document.getElementById("TTbuttons").style.display = "none"
 }
 
 var FormatList = ['', 'K', 'M', 'B', 'T', 'Qd', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QdDc', 'QtDc', 'SxDc', 'SpDc', 'ODc', 'NDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QdVg', 'QtVg', 'SxVg', 'SpVg', 'OVg', 'NVg', 'Tg', 'UTg', 'DTg', 'TTg', 'QdTg', 'QtTg', 'SxTg', 'SpTg', 'OTg', 'NTg', 'Qa', 'UQa', 'DQa', 'TQa', 'QdQa', 'QtQa', 'SxQa', 'SpQa', 'OQa', 'NQa', 'Qi', 'UQi', 'DQi', 'TQi', 'QaQi', 'QtQi', 'SxQi', 'SpQi', 'OQi', 'NQi', 'Se', 'USe', 'DSe', 'TSe', 'QaSe', 'QtSe', 'SxSe', 'SpSe', 'OSe', 'NSe', 'St', 'USt', 'DSt', 'TSt', 'QaSt', 'QtSt', 'SxSt', 'SpSt', 'OSt', 'NSt', 'Og', 'UOg', 'DOg', 'TOg', 'QdOg', 'QtOg', 'SxOg', 'SpOg', 'OOg', 'NOg', 'Nn', 'UNn', 'DNn', 'TNn', 'QdNn', 'QtNn', 'SxNn', 'SpNn', 'ONn', 'NNn', 'Ce',];
@@ -8368,7 +8370,7 @@ function showChallengesTab(tabName) {
     }
 }
 
-function showEternityTab(tabName) {
+function showEternityTab(tabName, init) {
     //iterate over all elements in div_tab class. Hide everything that's not tabName and show tabName
     var tabs = document.getElementsByClassName('eternitytab');
     var tab;
@@ -8380,6 +8382,8 @@ function showEternityTab(tabName) {
             tab.style.display = 'none';
         }
     }
+    if (tabName === 'timestudies' && !init) document.getElementById("TTbuttons").style.display = "block"
+    else document.getElementById("TTbuttons").style.display = "none"
     resizeCanvas();
     drawStudyTree();
 }
@@ -8424,7 +8428,7 @@ function init() {
     showStatsTab('stats')
     showDimTab('antimatterdimensions')
     showChallengesTab('challenges')
-    showEternityTab('timestudies')
+    showEternityTab('timestudies', true)
     load_game();
     updateTickSpeed();
     updateAutobuyers();

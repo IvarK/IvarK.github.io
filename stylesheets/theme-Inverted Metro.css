@@ -1,6 +1,9 @@
 body {
-    filter: invert(100%);
     background-color: black !important;
+}
+
+#container {
+    filter: invert(100%);
 }
 
 * {
@@ -215,29 +218,35 @@ input, select {
 }
 
 .timetheorembtn {
-    background: #212121 !important;
-    color: #00BCD4 !important;
-    border: 1px solid #00BCD4 !important;
+    background: #dedede !important;
+    color: #ff432b !important;
+    border: 1px solid #ff432b !important;
 }
 
 .timetheorembtn:hover {
-    color: #212121 !important;
-    background: #00BCD4 !important;
+    color: #dedede !important;
+    background: #ff432b !important;
 }
 
 .timetheorembtnlocked {
-    background: #9E9E9E !important;
+    color: #fff !important;
+    background: #616161 !important;
     border: none !important;
-    box-shadow: 1px 1px 1px 0px #000;
+    box-shadow: 1px 1px 1px 0px #fff;
 }
 
 .timetheorembtnlocked:hover {
-    background: #EF5350 !important;
+    background: #10acaf !important;
+}
+
+#timetheorems {
+    color: #bbb !important;
 }
 
 #theorembuybackground {
-    background: #EEEEEE !important;
+    background: #111 !important;
     border-width: 1px !important;
+    border-color: #fff !important;
 }
 
 .eternitychallengestudy {

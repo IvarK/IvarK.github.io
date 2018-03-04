@@ -107,13 +107,6 @@
             <div class="eternitytab" id="timestudies" style="font-size: 15px">
                 <canvas id="studyTreeCanvas"></canvas>
                 <div><button class="storebtn" onclick="respecToggle()" id="respec" style="width:150px; height: 40px; font-size: 10px; margin: auto">Respec time studies on next Eternity</button></div>
-                <button class="timetheorembtn" onclick="maxTheorems()" style="margin-left:-266px; width:130px; height: 30px; font-size: 0.75rem; bottom: 77px;">Buy max Theorems</button>
-                <button class="timetheorembtn" onclick="buyWithAntimatter()" id="theoremam" style="margin-left: -266px">Buy Time Theorems <br>Cost: 1e20000 antimatter</button>
-                <button class="timetheorembtn" onclick="buyWithIP()" id="theoremip" style="margin-left: -86px">Buy Time Theorems <br>Cost: 1 IP</button>
-                <button class="timetheorembtnlocked" onclick="buyWithEP()" id="theoremep" style="margin-left: 96px">Buy Time Theorems <br>Cost: 1 EP</button>
-                <div id="theorembuybackground"></div>
-                
-                <p id="timetheorems" style="position: fixed;">You have 0 Time Theorems.</p>
                 <table class="table" id="studytable">
                     <tr>
                         <td><button class="timestudylocked" id="11" onclick="buyTimeStudy(11, 1)">Tickspeed affects First Time Dimension (With reduced effect)<span>Cost: 1 Time Theorem</button></td>
@@ -2407,6 +2400,14 @@
     <div class="popup" id="offlineprogress" style="width: 450px; height: 200px;">
         <div id="offlinePopup" style="height: 150px">You made X antimatter and stuff</div>
         <button class="storebtn" style="font-size: 15px" onclick="closeToolTip()" style="display: inline">Okay</button>
+    </div>
+    <div id="TTbuttons" style="display:none;">
+        <button class="timetheorembtn" onclick="maxTheorems()" style="margin-left:-266px; width:130px; height: 30px; font-size: 0.75rem; bottom: 77px;">Buy max Theorems</button>
+        <button class="timetheorembtn" onclick="buyWithAntimatter()" id="theoremam" style="margin-left: -266px">Buy Time Theorems <br>Cost: 1e20000 antimatter</button>
+        <button class="timetheorembtn" onclick="buyWithIP()" id="theoremip" style="margin-left: -86px">Buy Time Theorems <br>Cost: 1 IP</button>
+        <button class="timetheorembtnlocked" onclick="buyWithEP()" id="theoremep" style="margin-left: 96px">Buy Time Theorems <br>Cost: 1 EP</button>
+        <div id="theorembuybackground"></div>
+        <p id="timetheorems" style="position: fixed;">You have 0 Time Theorems.</p>
     </div>
 </body>
 
