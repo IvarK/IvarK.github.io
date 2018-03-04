@@ -652,6 +652,7 @@ button {
     position: fixed;
     width: 100%;
     z-index: 1;
+    pointer-events: none;
 }
 
 
@@ -661,6 +662,10 @@ button {
     text-align:center;
     font-size: 15px;
     font-family: Typewriter;
+}
+
+#footer tr td div {
+    pointer-events: all !important;
 }
 
 #progress {
