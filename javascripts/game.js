@@ -1482,6 +1482,9 @@ function formatValue(notation, value, places, placesUnder1000) {
             if (power > 100000  && player.options.commas) return (matissa + "e" + power.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
             return (matissa + "e" + power);
         }
+        if (notation === "Infinity") {
+            return ((power + matissa / 10) / 308).toFixed(Math.max(3, places)) + "∞"
+        } 
         if (notation.includes("engineering") || notation.includes("Engineering")) pow = power - (power % 3)
         else pow = power
         if (power > 100000  && !player.options.commas) pow = formatValue(notation, pow, 3, 3)
@@ -4848,7 +4851,7 @@ function setAchieveTooltip() {
 
 document.getElementById("notation").onclick = function () {
     player.options.scientific = !player.options.scientific;
-    if (player.options.notation === "Logarithm") {
+    if (player.options.notation === "Infinity") {
         player.options.notation = "Scientific";
         document.getElementById("notation").innerHTML = ("Notation: Scientific")
     } else if (player.options.notation === "Scientific") {
@@ -4872,7 +4875,11 @@ document.getElementById("notation").onclick = function () {
     } else if (player.options.notation === "Mixed engineering") {
         player.options.notation = "Logarithm";
         document.getElementById("notation").innerHTML = ("Notation: Logarithm")
+    } else if (player.options.notation === "Logarithm") {
+        player.options.notation = "Infinity";
+        document.getElementById("notation").innerHTML = ("Notation: Infinity")
     }
+    
     setAchieveTooltip();
     updateCosts();
     document.getElementById("epmult").innerHTML = "You gain 5 times more EP<p>Currently: "+shortenDimensions(player.epmult)+"x<p>Cost: "+shortenDimensions(player.epmultCost)+" EP"
