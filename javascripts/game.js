@@ -1483,7 +1483,7 @@ function formatValue(notation, value, places, placesUnder1000) {
             return (matissa + "e" + power);
         }
         if (notation === "Infinity") {
-            if ((power + matissa / 10) / 308 < 1) var infPlaces = 3
+            if ((power + matissa / 10) / 308 < 10) var infPlaces = 3
             else var infPlaces = 2
             return ((power + matissa / 10) / 308).toFixed(Math.max(infPlaces, places)) + "∞"
         } 
@@ -6138,7 +6138,7 @@ function exitChallenge() {
 }
 
 function startChallenge(name, target) {
-  if(player.options.challConf || name == "" ? true : confirm("You will start over with just your infinity upgrades and achievements. You need to reach infinity with special conditions. NOTE: The rightmost infinity upgrade column doesn't work on challenges.")) {
+  if(player.options.challConf || name == "" ? true : (name.includes("post")) ? confirm("You will start over with just your infinity upgrades, and achievements. You need to reach a set goal with special conditions. NOTE: The rightmost infinity upgrade column doesn't work on challenges.") : confirm("You will start over with just your infinity upgrades, and achievements. You need to reach infinity with special conditions. NOTE: The rightmost infinity upgrade column doesn't work on challenges.")) {
     if (player.currentChallenge != "") document.getElementById(player.currentChallenge).innerHTML = "Start"
     player = {
         money: new Decimal(10),
