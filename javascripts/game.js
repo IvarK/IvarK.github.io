@@ -3729,7 +3729,7 @@ document.getElementById("softReset").onclick = function () {
   auto = false;
   var name = TIER_NAMES[getShiftRequirement(0).tier]
   if (player[name + "Amount"] >= getShiftRequirement(0).amount) {
-      if (player.infinityUpgrades.includes("bulkBoost") && player.eternities >= 10) maxBuyDimBoosts(true);
+      if (player.infinityUpgrades.includes("bulkBoost")) maxBuyDimBoosts(true);
       else softReset(1)
   }
 };
