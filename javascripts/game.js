@@ -1485,7 +1485,7 @@ function formatValue(notation, value, places, placesUnder1000) {
         if (notation === "Infinity") {
             if ((power + matissa / 10) / 308 < 1000) var infPlaces = 3
             else var infPlaces = 2
-            return ((power + matissa / 10) / 308).toFixed(Math.max(infPlaces, places)) + "∞"
+            return ((power + matissa / 10) / 308.25471555991675).toFixed(Math.max(infPlaces, places)) + "∞"
         } 
         if (notation.includes("engineering") || notation.includes("Engineering")) pow = power - (power % 3)
         else pow = power
