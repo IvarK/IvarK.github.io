@@ -1558,15 +1558,6 @@ function hasInfinityMult(tier) {
     }
 }
 
-var firstRowMult = 1
-function updateFirstRowMult() {
-    firstRowMult = 1
-    for (var i=1; i<9; i++) {
-        if (player.achievements.includes("r1"+i)) firstRowMult *= 1.05
-    }
-}
-
-
 
 function getDimensionFinalMultiplier(tier) {
     //if (player.currentEternityChall == "eterc3" && tier > 4) return new Decimal(0)
@@ -1581,7 +1572,6 @@ function getDimensionFinalMultiplier(tier) {
     }
     
     multiplier = multiplier.times(player.achPow);
-    multiplier = multiplier.times(firstRowMult)
     multiplier = multiplier.times(kongDimMult)
     multiplier = multiplier.times(kongAllDimMult)
 
@@ -2224,6 +2214,11 @@ function buyManyInfinityDimension(tier) {
     if (player.eterc8ids == 0) return false
     player.infinityPoints = player.infinityPoints.minus(dim.cost)
     dim.amount = dim.amount.plus(10);
+    if (ECTimesCompleted("eterc12")) {
+        dim.cost = Decimal.round(dim.cost.times(Math.pow(infCostMults[tier], 1-ECTimesCompleted("eterc12")*0.04)))
+    } else {
+        dim.cost = Decimal.round(dim.cost.times(infCostMults[tier]))
+    }
     dim.power = dim.power.times(infPowerMults[tier])
     dim.baseAmount += 10
 
@@ -3909,7 +3904,6 @@ function updateAchievements() {
 
     document.getElementById("achmultlabel").innerHTML = "Current achievement multiplier on each Dimension: " + player.achPow.toFixed(1) + "x"
 
-    updateFirstRowMult()
 }
 
 
@@ -7723,7 +7717,8 @@ function gameLoop(diff) {
     document.getElementById("ec9reward").innerHTML = "Reward: Infinity Dimension multiplier based on time shards, Currently: "+shortenMoney(player.timeShards.pow(ECTimesCompleted("eterc9")*0.1).min(new Decimal("1e400")))+"x "
     document.getElementById("ec10reward").innerHTML = "Reward: Time dimensions gain a multiplier from infinitied stat, Currently: "+shortenMoney(Math.max(getInfinitied() * ECTimesCompleted("eterc10") * 0.000002+1, 1))+"x "
     document.getElementById("ec11reward").innerHTML = "Reward: Further reduction tickspeed cost multiplier increase, Currently: "+player.tickSpeedMultDecrease.toFixed(2)+"x "
-
+    document.getElementById("ec12reward").innerHTML = "Reward: Infinity Dimension cost multipliers are reduced. (x^"+(1-ECTimesCompleted("eterc12")*0.04)+")"
+    
     // let extraGals = 0
     // if (player.timestudy.studies.includes(225)) extraGals += Math.floor(player.replicanti.amount.e / 2500)
     // if (player.timestudy.studies.includes(226)) extraGals += Math.floor(player.replicanti.gal / 40)
