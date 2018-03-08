@@ -2872,6 +2872,7 @@ function softReset(bulk) {
 
 
     player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
+    updateTickSpeed()
     if (player.challenges.includes("challenge1")) player.money = new Decimal(100).max(player.money)
     if (player.achievements.includes("r37")) player.money = new Decimal(1000).max(player.money);
     if (player.achievements.includes("r54")) player.money = new Decimal(2e5).max(player.money);
