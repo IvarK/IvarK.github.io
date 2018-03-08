@@ -5573,7 +5573,7 @@ document.getElementById("bigcrunch").onclick = function () {
         infinitied: player.infinitied + infGain,
         infinitiedBank: player.infinitiedBank,
         totalTimePlayed: player.totalTimePlayed,
-        bestInfinityTime: Math.min(player.bestInfinityTime, player.thisInfinityTime),
+        bestInfinityTime: (player.currentEternityChall !== "eterc12") ? Math.min(player.bestInfinityTime, player.thisInfinityTime) : player.bestInfinityTime,
         thisInfinityTime: 0,
         resets: 0,
         galaxies: 0,
@@ -5783,7 +5783,7 @@ function respecToggle() {
 function eternity(force) {
     if ((player.infinityPoints.gte(Number.MAX_VALUE) && (!player.options.eternityconfirm || confirm("Eternity will reset everything except achievements and challenge records. You will also gain an Eternity point and unlock various upgrades."))) || force === true) {
         if (player.currentEternityChall !== "" && player.infinityPoints.lt(player.eternityChallGoal)) return false
-        if (player.thisEternity<player.bestEternity) {
+        if (player.thisEternity<player.bestEternity && !force) {
             player.bestEternity = player.thisEternity
             if (player.bestEternity < 300) giveAchievement("That wasn't an eternity");
         }
