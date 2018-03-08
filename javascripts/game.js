@@ -4626,8 +4626,7 @@ function galaxyReset() {
     if (player.achievements.includes("r78")) player.money = new Decimal(1e25).max(player.money);
     player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
     if (player.achievements.includes("r66")) player.tickspeed = player.tickspeed.times(0.98);
-    
-
+    updateTickSpeed();
 };
 
 document.getElementById("exportbtn").onclick = function () {
@@ -5734,6 +5733,7 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.challenges.length == 12) giveAchievement("AntiChallenged");
         resetInfDimensions();
         player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
+        updateTickSpeed();
         if (player.challenges.length == 20) giveAchievement("Anti-antichallenged");
         IPminpeak = new Decimal(0)
         
@@ -6084,6 +6084,7 @@ function eternity(force) {
         document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
         updateEternityUpgrades()
         document.getElementById("totaltickgained").innerHTML = "You've gained "+player.totalTickGained.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" tickspeed upgrades."
+        updateTickSpeed();
         playerInfinityUpgradesOnEternity()
         document.getElementById("eternityPoints2").innerHTML = "You have <span class=\"EPAmount2\">"+shortenDimensions(player.eternityPoints)+"</span> Eternity points."
         updateEternityChallenges()
@@ -6306,6 +6307,7 @@ function startChallenge(name, target) {
 
     resetInfDimensions();
     player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
+    updateTickSpeed();
 
     if (player.resets == 0 && player.currentChallenge == "") {
         if (player.infinityUpgrades.includes("skipReset1")) player.resets++;
@@ -6851,7 +6853,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
         document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
         updateEternityUpgrades()
         document.getElementById("totaltickgained").innerHTML = "You've gained "+player.totalTickGained.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" tickspeed upgrades."
-        
+        updateTickSpeed();
         playerInfinityUpgradesOnEternity()
         document.getElementById("eternityPoints2").innerHTML = "You have <span class=\"EPAmount2\">"+shortenDimensions(player.eternityPoints)+"</span> Eternity points."
         updateEternityChallenges()
