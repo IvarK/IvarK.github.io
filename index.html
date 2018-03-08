@@ -107,13 +107,6 @@
             <div class="eternitytab" id="timestudies" style="font-size: 15px">
                 <canvas id="studyTreeCanvas"></canvas>
                 <div><button class="storebtn" onclick="respecToggle()" id="respec" style="width:150px; height: 40px; font-size: 10px; margin: auto">Respec time studies on next Eternity</button></div>
-                <button class="timetheorembtn" onclick="maxTheorems()" style="margin-left:-266px; width:130px; height: 30px; font-size: 0.75rem; bottom: 77px;">Buy max Theorems</button>
-                <button class="timetheorembtn" onclick="buyWithAntimatter()" id="theoremam" style="margin-left: -266px">Buy Time Theorems <br>Cost: 1e20000 antimatter</button>
-                <button class="timetheorembtn" onclick="buyWithIP()" id="theoremip" style="margin-left: -86px">Buy Time Theorems <br>Cost: 1 IP</button>
-                <button class="timetheorembtnlocked" onclick="buyWithEP()" id="theoremep" style="margin-left: 96px">Buy Time Theorems <br>Cost: 1 EP</button>
-                <div id="theorembuybackground"></div>
-                
-                <p id="timetheorems" style="position: fixed;">You have 0 Time Theorems.</p>
                 <table class="table" id="studytable">
                     <tr>
                         <td><button class="timestudylocked" id="11" onclick="buyTimeStudy(11, 1)">Tickspeed affects First Time Dimension (With reduced effect)<span>Cost: 1 Time Theorem</button></td>
@@ -190,7 +183,7 @@
                 <table class="table" id="studytable">
                     <tr>
                         <td><button class="timestudy activestudy" id="121" onclick="buyTimeStudy(121, 9)">The worse your average EP/min is on last ten eternities, the more EP you get.<span>Currently: Xx more EP<span>Cost: 9 Time Theorems</button></td>
-                        <td><button class="timestudy passivestudy" id="122" onclick="buyTimeStudy(122, 9)">You gain 35x more EP.<span>Cost: 9 Time Theorems</button></td>
+                        <td><button class="timestudy passivestudy" id="122" onclick="buyTimeStudy(122, 9)">You gain 35x more EP<span>Cost: 9 Time Theorems</button></td>
                         <td><button class="timestudy idlestudy" id="123" onclick="buyTimeStudy(123, 9)">You gain more EP based on time spent this eternity.<span>Currently: Xx more EP<span>Cost: 9 Time Theorems</button></td>
                     </tr>
                 </table>
@@ -198,7 +191,7 @@
                     <tr>
                         <td><button class="eternitychallengestudy" id="ec6unl">Eternity Challenge 6<span>Requirement: 40 replicanti galaxies<span>Cost: 100 Time Theorems</button></td>
                         <td><button class="timestudy activestudy" id="131" onclick="buyTimeStudy(131, 5)">Automatic replicanti galaxies are disabled, but you can get 50% more<span>Cost: 5 Time Theorems</button></td>
-                        <td><button class="timestudy passivestudy" id="132" onclick="buyTimeStudy(132, 5)">Replicanti galaxies are 30% more effective<span>Cost: 5 Time Theorems</button></td>
+                        <td><button class="timestudy passivestudy" id="132" onclick="buyTimeStudy(132, 5)">Replicanti galaxies are 40% more effective<span>Cost: 5 Time Theorems</button></td>
                         <td><button class="timestudy idlestudy" id="133" onclick="buyTimeStudy(133, 5)">You gain replicantis 10 times slower but each galaxy is 50% more effective<span>Cost: 5 Time Theorems</button></td>
                         <td><button class="eternitychallengestudy" id="ec8unl">Eternity Challenge 8<span>Cost: 100 Time Theorems</button></td>
                     </tr>
@@ -269,21 +262,21 @@
                 <table class="table" id="studytable">
                     <tr class="wideRow">
                         <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.6rem; padding: 3px;" id="221" onclick="buyTimeStudy(221, 900)">Dimensional boosts affect time dimensions with reduced power.<span>Cost: 900 Time Theorems</button></td>
-                        <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.6rem; padding: 3px;" id="222" onclick="buyTimeStudy(222, 900)">Dimensional boosts scale by another 2 less.<span>Cost: 900 Time Theorems</button></td>
+                        <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.6rem; padding: 3px;" id="222" onclick="buyTimeStudy(222, 900)">Dimensional boost costs scale by another 2 less.<span>Cost: 900 Time Theorems</button></td>
                         <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.6rem; padding: 3px;" id="223" onclick="buyTimeStudy(223, 900)">Galaxy cost scaling starts 7 galaxies later.<span>Cost: 900 Time Theorems</button></td>
-                        <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.6rem; padding: 3px;" id="224" onclick="buyTimeStudy(224, 900)">Galaxy cost scaling starts 1 galaxy later for each 2000 Dimboosts.<span>Cost: 900 Time Theorems</button></td>
+                        <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.6rem; padding: 3px;" id="224" onclick="buyTimeStudy(224, 900)">Galaxy cost scaling starts 1 galaxy later for every 2000 dimensional boosts.<span>Cost: 900 Time Theorems</button></td>
                         <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.6rem; padding: 3px;" id="225" onclick="buyTimeStudy(225, 900)">You gain extra RGs based on how high above infinity your replicanti are.<span>Cost: 900 Time Theorems</button></td>
                         <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.6rem; padding: 3px;" id="226" onclick="buyTimeStudy(226, 900)">You gain extra RGs based on your max RGs you have.<span>Cost: 900 Time Theorems</button></td>
-                        <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.6rem; padding: 3px;" id="227" onclick="buyTimeStudy(227, 900)">Sacrifice boosts TD4 at an reduced rate.<span>Cost: 900 Time Theorems</button></td>
+                        <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.6rem; padding: 3px;" id="227" onclick="buyTimeStudy(227, 900)">Sacrifice affects the 4th Time Dimension with reduced effect.<span>Cost: 900 Time Theorems</button></td>
                         <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.6rem; padding: 3px;" id="228" onclick="buyTimeStudy(228, 900)">Sacrifice scales better.<span>Cost: 900 Time Theorems</button></td>
                     </tr>
                 </table>
                 <table class="table" id="studytable">
                     <tr>
-                        <td><button class="timestudy" id="231" onclick="buyTimeStudy(231, 500)">Dimensional boost are more effective based on their amount<span>Cost: 500 Time Theorems</button></td>
-                        <td><button class="timestudy" id="232" onclick="buyTimeStudy(232, 500)">Galaxies are more effective based non-replicated galaxies<span>Cost: 500 Time Theorems</button></td>
-                        <td><button class="timestudy" id="233" onclick="buyTimeStudy(233, 500)">Max replicanti galaxy upgrade cost reduced based on replicanti amount.<span>Cost: 500 Time Theorems</button></td>
-                        <td><button class="timestudy" id="234" onclick="buyTimeStudy(234, 500)">Sacrifice boosts First Dimension<span>Cost: 500 Time Theorems</button></td>
+                        <td><button class="timestudy" id="231" onclick="buyTimeStudy(231, 500)">Dimensional boosts are more effective based on their amount.<span>Cost: 500 Time Theorems</button></td>
+                        <td><button class="timestudy" id="232" onclick="buyTimeStudy(232, 500)">Galaxies are more effective based non-replicated galaxies.<span>Cost: 500 Time Theorems</button></td>
+                        <td><button class="timestudy" id="233" onclick="buyTimeStudy(233, 500)">Max replicanti galaxy upgrade cost is reduced based on replicanti amount.<span>Cost: 500 Time Theorems</button></td>
+                        <td><button class="timestudy" id="234" onclick="buyTimeStudy(234, 500)">Sacrifice boosts First Dimension.<span>Cost: 500 Time Theorems</button></td>
                     </tr>
                 </table>
                 <table class="table" id="studytable">
@@ -816,6 +809,8 @@
                 <input type="number" value="1000" onchange="updateChartValues()" id="chartUpdateRateInput"></input>
                 <b>enabled:</b>
                 <input id="chartOnOff" type="checkbox" onchange="enableChart()"></input>
+                <b>dips:</b>
+                <input id="chartDipsOnOff" type="checkbox" onchange="enableChartDips()"></input>
                 <canvas id="normalDimChart" width="1500" height="500" style="user-select: none;"></canvas>
                 <b>Exponents of antimatter per second</b>
             </div>
@@ -866,7 +861,7 @@
                 <tr>
                     <td><div><button id="hotkeys" onclick="toggleHotkeys()" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:120%">Disable hotkeys</button></div></td>
                     <td><div><button id="reset" class="storebtn" style="color:black; width: 200px; height: 55px; font-size: 20px">RESET THE GAME</button></div></td>
-                    <td><div><button id="eternityconf" onclick="toggleEternityConf()" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:120%; display: none">Eternity confimation ON</button></div></td>
+                    <td><div><button id="eternityconf" onclick="toggleEternityConf()" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:120%; display: none">Eternity confirmation ON</button></div></td>
                 </tr>
                 <tr>
                     <td><div><button class="storebtn" style="width: 200px; height: 55px; opacity: 0;"></button></div></td>
@@ -1285,13 +1280,13 @@
                             <div id="I wish I had gotten 7 eternities" class="achievement achievementlocked" style="background-image: url(images/77.png)" ach-tooltip="Start an Infinity challenge inside an Eternity challenge."><br></div>
                         </td>
                         <td>
-                            <div id="Do I really need to infinity" class="achievement achievementlocked" style="background-image: url(images/78.png)" ach-tooltip="Eternity with only 1 infinity. Reward: Multiplier to IP based on infinities"><br></div>
+                            <div id="Do I really need to infinity" class="achievement achievementlocked" style="background-image: url(images/78.png)" ach-tooltip="Eternity with only 1 infinity. Reward: Multiplier to IP based on infinities."><br></div>
                         </td>
                         <td>
                             <div id="8 nobody got time for that" class="achievement achievementlocked" style="background-image: url(images/79.png)" ach-tooltip="Eternity without buying dimensions 1-7"><br></div>
                         </td>
                         <td>
-                            <div id="IT'S OVER 9000" class="achievement achievementlocked" style="background-image: url(images/80.png)" ach-tooltip="Get a total sacrifice multiplier of 1e9000."><br></div>
+                            <div id="IT'S OVER 9000" class="achievement achievementlocked" style="background-image: url(images/80.png)" ach-tooltip="Get a total sacrifice multiplier of 1e9000. Reward: Sacrifice doesn't reset your dimensions."><br></div>
                         </td>
                     </tr>
                     <tr id="achRow12">
@@ -1308,7 +1303,7 @@
                             <div id="Eternities are the new infinity" class="achievement achievementlocked" style="background-image: url(images/84.png)" ach-tooltip="Eternity in under 200ms."><br></div>
                         </td>
                         <td>
-                            <div id="Like feasting on a behind" class="achievement achievementlocked" style="background-image: url(images/85.png)" ach-tooltip="Get 1e100 IP without any infinities, dimensions, or resets (not including upgrades)"><br></div>
+                            <div id="Like feasting on a behind" class="achievement achievementlocked" style="background-image: url(images/85.png)" ach-tooltip="Get 1e100 IP without any infinities, dimensions, or resets (not including upgrades). Reward: IP multiplier based on time spent this infinity."><br></div>
                         </td>
                         <td>
                             <div id="Popular music" class="achievement achievementlocked" style="background-image: url(images/86.png)" ach-tooltip="Have 180 times more replicanti galaxies than normal galaxies. Reward: Replicanti galaxies divide your replicanti by 1.79e308 instead of resetting them to 1."><br></div>
@@ -1317,7 +1312,7 @@
                             <div id="But I wanted another prestige layer..." class="achievement achievementlocked" style="background-image: url(images/87.png)" ach-tooltip="Reach 1e308 EP"><br></div>
                         </td>
                         <td>
-                            <div id="What do I have to do to get rid of you" class="achievement achievementlocked" style="background-image: url(images/88.png)" ach-tooltip="Gain 1e22000 IP without any time studies."><br></div>
+                            <div id="What do I have to do to get rid of you" class="achievement achievementlocked" style="background-image: url(images/88.png)" ach-tooltip="Gain 1e22000 IP without any time studies. Reward: Time dimensions are multiplied by the number of studies you have."><br></div>
                         </td>
                     </tr>
             </table>
@@ -1826,15 +1821,14 @@
                         </td>
                         <td>
                             <div class="eterchallengediv" id="eterc12div" style="height: 140px; display: none">
-                                <span>1.Infinity dimension multipliers are reduced. 2. They get further reduction for 3 minutes when you buy them. 3. When buying Infinity dimensions 1-4, everything with costs smaller or equal increases. When buying  Infinity dimensions 5-8, everything with costs bigger or equal increases.
-                                </span>
+                                <span>The game runs 1000x slower.</span>
                                 <br>
                                 <br>
                                 <div class="outer">
-                                    <button id="eterc12" class="challengesbtn" onclick="startEternityChallenge('eterc12', new Decimal('1e20000'), new Decimal('1e2000'))">Start</button>
+                                    <button id="eterc12" class="challengesbtn" onclick="startEternityChallenge('eterc12', new Decimal('1e110000'), new Decimal('1e10000'))">Start</button>
                                     <br>
                                     <span id="eterc12completed">Completed 0 Times.</span><br>
-                                    <span id="eterc12goal" >Goal: 1e1500</span><br>
+                                    <span id="eterc12goal" >Goal: 1e110000 in 0.5 seconds or less.</span><br>
                                     <span id="ec12reward">Reward: dunno</span>
                                 </div>
                             </div>
@@ -2053,7 +2047,7 @@
                             <button class="autobuyerbtn" id="buyerBtn2">46% smaller interval<br>Cost: 2 points</button>
                             <button class="autobuyerbtn" id="toggleBtn2">Buys singles</button>
                             <div style="font-size: 80%"id="interval2">Current interval: 5 seconds<br></div>
-                                <span>Priority:</span>
+                            <span>Priority:</span>
                             <select onchange="updatePriorities()" id="priority2">
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -2405,6 +2399,14 @@
     <div class="popup" id="offlineprogress" style="width: 450px; height: 200px;">
         <div id="offlinePopup" style="height: 150px">You made X antimatter and stuff</div>
         <button class="storebtn" style="font-size: 15px" onclick="closeToolTip()" style="display: inline">Okay</button>
+    </div>
+    <div id="TTbuttons" style="display:none;">
+        <button class="timetheorembtn" onclick="maxTheorems()" style="margin-left:-266px; width:130px; height: 30px; font-size: 0.75rem; bottom: 77px;">Buy max Theorems</button>
+        <button class="timetheorembtn" onclick="buyWithAntimatter()" id="theoremam" style="margin-left: -266px">Buy Time Theorems <br>Cost: 1e20000 antimatter</button>
+        <button class="timetheorembtn" onclick="buyWithIP()" id="theoremip" style="margin-left: -86px">Buy Time Theorems <br>Cost: 1 IP</button>
+        <button class="timetheorembtnlocked" onclick="buyWithEP()" id="theoremep" style="margin-left: 96px">Buy Time Theorems <br>Cost: 1 EP</button>
+        <div id="theorembuybackground"></div>
+        <p id="timetheorems" style="position: fixed;">You have 0 Time Theorems.</p>
     </div>
 </body>
 
