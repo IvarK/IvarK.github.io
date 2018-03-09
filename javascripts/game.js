@@ -347,15 +347,61 @@ if (!String.prototype.includes) {
         };
     }
 
+    if (!Array.prototype.find) {
+        Object.defineProperty(Array.prototype, 'find', {
+          value: function(predicate) {
+           // 1. Let O be ? ToObject(this value).
+            if (this == null) {
+              throw new TypeError('"this" is null or not defined');
+            }
+      
+            var o = Object(this);
+      
+            // 2. Let len be ? ToLength(? Get(O, "length")).
+            var len = o.length >>> 0;
+      
+            // 3. If IsCallable(predicate) is false, throw a TypeError exception.
+            if (typeof predicate !== 'function') {
+              throw new TypeError('predicate must be a function');
+            }
+      
+            // 4. If thisArg was supplied, let T be thisArg; else let T be undefined.
+            var thisArg = arguments[1];
+      
+            // 5. Let k be 0.
+            var k = 0;
+      
+            // 6. Repeat, while k < len
+            while (k < len) {
+              // a. Let Pk be ! ToString(k).
+              // b. Let kValue be ? Get(O, Pk).
+              // c. Let testResult be ToBoolean(? Call(predicate, T, « kValue, k, O »)).
+              // d. If testResult is true, return kValue.
+              var kValue = o[k];
+              if (predicate.call(thisArg, kValue, k, o)) {
+                return kValue;
+              }
+              // e. Increase k by 1.
+              k++;
+            }
+      
+            // 7. Return undefined.
+            return undefined;
+          }
+        });
+      }
+
 
 function set_save(name, value) {
     localStorage.setItem(name, btoa(JSON.stringify(value, function(k, v) { return (v === Infinity) ? "Infinity" : v; })))
 }
 
 function get_save(name) {
-    if (localStorage.getItem("dimensionSave") !== null) {
-        return JSON.parse(atob(localStorage.getItem(name), function(k, v) { return (v === Infinity) ? "Infinity" : v; }))
-    }
+    try {
+        if (localStorage.getItem("dimensionSave") !== null) {
+            return JSON.parse(atob(localStorage.getItem(name), function(k, v) { return (v === Infinity) ? "Infinity" : v; }))
+        }
+    } catch(e) { console.log("Fuck IE") }
 }
 
 var canvas = document.getElementById("studyTreeCanvas");
@@ -488,8 +534,8 @@ function addData(chart, label, data) {
     while (chart.data.datasets[0].data.length < points) {
         if (preservedChartValues) {
             chart.data.labels.push(label);
-            chart.data.datasets.forEach((dataset) => {
-            dataset.data.push(data);
+            chart.data.datasets.forEach( function(dataset) {
+                dataset.data.push(data);
             });
         } else {
             var temp = chart.data.datasets[0].data.slice()
@@ -507,13 +553,13 @@ function addData(chart, label, data) {
     }
     while (chart.data.datasets[0].data.length > points && failSafe < 1000) {
         chart.data.labels.pop(label);
-        chart.data.datasets.forEach((dataset) => {
+        chart.data.datasets.forEach( function(dataset) {
             dataset.data.pop(data);
         });
         failSafe++;
     }
     chart.data.labels.push(label);
-    chart.data.datasets.forEach((dataset) => {
+    chart.data.datasets.forEach( function(dataset) {
         if (data < chart.data.datasets[0].data[chart.data.datasets[0].data.length-1] && !player.options.chart.dips) dataset.data.push(chart.data.datasets[0].data[chart.data.datasets[0].data.length-1]);
         else dataset.data.push(data);
     });
@@ -1558,15 +1604,6 @@ function hasInfinityMult(tier) {
     }
 }
 
-var firstRowMult = 1
-function updateFirstRowMult() {
-    firstRowMult = 1
-    for (var i=1; i<9; i++) {
-        if (player.achievements.includes("r1"+i)) firstRowMult *= 1.05
-    }
-}
-
-
 
 function getDimensionFinalMultiplier(tier) {
     //if (player.currentEternityChall == "eterc3" && tier > 4) return new Decimal(0)
@@ -1581,7 +1618,6 @@ function getDimensionFinalMultiplier(tier) {
     }
     
     multiplier = multiplier.times(player.achPow);
-    multiplier = multiplier.times(firstRowMult)
     multiplier = multiplier.times(kongDimMult)
     multiplier = multiplier.times(kongAllDimMult)
 
@@ -2224,6 +2260,11 @@ function buyManyInfinityDimension(tier) {
     if (player.eterc8ids == 0) return false
     player.infinityPoints = player.infinityPoints.minus(dim.cost)
     dim.amount = dim.amount.plus(10);
+    if (ECTimesCompleted("eterc12")) {
+        dim.cost = Decimal.round(dim.cost.times(Math.pow(infCostMults[tier], 1-ECTimesCompleted("eterc12")*0.04)))
+    } else {
+        dim.cost = Decimal.round(dim.cost.times(infCostMults[tier]))
+    }
     dim.power = dim.power.times(infPowerMults[tier])
     dim.baseAmount += 10
 
@@ -2540,7 +2581,7 @@ function canBuyStudy(name) {
         break;
 
         case 23:
-        if (player.timestudy.studies.includes(220 + Math.floor(col*2)) || player.timestudy.studies.includes(220 + Math.floor(col*2-1))) return true; else return false;
+        if ( (player.timestudy.studies.includes(220 + Math.floor(col*2)) || player.timestudy.studies.includes(220 + Math.floor(col*2-1))) && !player.timestudy.studies.includes((name%2 == 0) ? name-1 : name+1)) return true; else return false;
         break;
     }
 } 
@@ -2853,8 +2894,6 @@ function softReset(bulk) {
 
 
 
-
-    clearInterval(player.interval);
     //updateInterval();
     if (player.eternities < 30) {
         document.getElementById("secondRow").style.display = "none";
@@ -2998,7 +3037,7 @@ function buyMaxTickSpeed() {
     var mult = getTickSpeedMultiplier()
     if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0
     if (player.currentChallenge == "challenge5" || player.currentChallenge == "postc5" || player.tickSpeedCost.lt(Number.MAX_VALUE) || player.tickSpeedMultDecrease > 2) {
-        while (player.money.gt(player.tickSpeedCost)) {
+        while (player.money.gt(player.tickSpeedCost) && player.tickSpeedCost.lt(Number.MAX_VALUE)) {
             player.money = player.money.minus(player.tickSpeedCost);
             if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5") player.tickSpeedCost = player.tickSpeedCost.times(player.tickspeedMultiplier);
             else multiplySameCosts(player.tickSpeedCost)
@@ -3190,7 +3229,7 @@ function giveAchievement(name) {
     if (player.achievements.includes(allAchievementNums[name])) return false
 
     $.notify(name, "success");
-    player.achievements.push((Object.keys(allAchievements).find(key => allAchievements[key] === name)));
+    player.achievements.push((Object.keys(allAchievements).find(function(key) { allAchievements[key] === name } )));
     document.getElementById(name).className = "achievementunlocked"
     try {
         kongregate.stats.submit('Achievements', player.achievements.length);
@@ -3911,7 +3950,6 @@ function updateAchievements() {
 
     document.getElementById("achmultlabel").innerHTML = "Current achievement multiplier on each Dimension: " + player.achPow.toFixed(1) + "x"
 
-    updateFirstRowMult()
 }
 
 
@@ -6342,7 +6380,8 @@ function ECTimesCompleted(name) {
     else return player.eternityChalls[name]
 }
 
-function canUnlockEC(idx, cost, study, study2 = 0) {
+function canUnlockEC(idx, cost, study, study2) {
+    study2 = (study2 !== undefined) ? study2 : 0;
     if (player.eternityChallUnlocked !== 0) return false
     if (!player.timestudy.studies.includes(study) && (player.study2 == 0 || !player.timestudy.studies.includes(study2))) return false
     if (player.timestudy.theorem < cost) return false
@@ -7119,7 +7158,7 @@ setInterval(function() {
     document.getElementById("eterc10goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e3000").times(new Decimal("1e300").pow(ECTimesCompleted("eterc10"))).max(new Decimal("1e3000"))) + " IP"
     document.getElementById("eterc10completed").innerHTML = "Completed "+ECTimesCompleted("eterc10")+" times."
 
-    document.getElementById("eterc11goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e500").times(new Decimal("1e150").pow(ECTimesCompleted("eterc11"))).max(new Decimal("1e500"))) + " IP"
+    document.getElementById("eterc11goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e500").times(new Decimal("1e200").pow(ECTimesCompleted("eterc11"))).max(new Decimal("1e500"))) + " IP"
     document.getElementById("eterc11completed").innerHTML = "Completed "+ECTimesCompleted("eterc11")+" times."
 
     document.getElementById("eterc12goal").innerHTML = "Goal: "+shortenCosts(new Decimal("1e110000").times(new Decimal("1e10000").pow(ECTimesCompleted("eterc12"))).max(new Decimal("1e110000"))) + " IP in "+(Math.max(10 - ECTimesCompleted("eterc12")*2, 1)/10) + ((ECTimesCompleted("eterc12") === 0) ? " second or less." :" seconds or less." )
@@ -7727,7 +7766,8 @@ function gameLoop(diff) {
     document.getElementById("ec9reward").innerHTML = "Reward: Infinity Dimension multiplier based on time shards, Currently: "+shortenMoney(player.timeShards.pow(ECTimesCompleted("eterc9")*0.1).min(new Decimal("1e400")))+"x "
     document.getElementById("ec10reward").innerHTML = "Reward: Time dimensions gain a multiplier from infinitied stat, Currently: "+shortenMoney(Math.max(getInfinitied() * ECTimesCompleted("eterc10") * 0.000002+1, 1))+"x "
     document.getElementById("ec11reward").innerHTML = "Reward: Further reduction tickspeed cost multiplier increase, Currently: "+player.tickSpeedMultDecrease.toFixed(2)+"x "
-
+    document.getElementById("ec12reward").innerHTML = "Reward: Infinity Dimension cost multipliers are reduced. (x^"+(1-ECTimesCompleted("eterc12")*0.04)+")"
+    
     // let extraGals = 0
     // if (player.timestudy.studies.includes(225)) extraGals += Math.floor(player.replicanti.amount.e / 2500)
     // if (player.timestudy.studies.includes(226)) extraGals += Math.floor(player.replicanti.gal / 40)
@@ -8103,28 +8143,17 @@ newsArray = [//always true
 ["Import Christmas for a secret theme", true, "a110"],
 ["What the f*ck did you just f*cking say about me, you little b*tch? I’ll have you know I graduated top of my class in the Antimatter Seals, and I’ve been involved in numerous secret raids on the 9th Dimension, and I have over 300 NNnNeMI-NNnNe confirmed kills. I am trained in potato warfare and I’m the top sniper in the entire Antimatter Galactic armed forces. You are nothing to me but just another infinity. I will wipe you the f*ck out with Max All mashing the likes of which has never been seen before in this dimension, mark my f*cking words. You think you can get away with saying that shit to me over the Interdimensional network? Think again, f*cker. As we speak I am contacting my secret network of autobuyers across the galaxy and your IP is being traced right now so you better prepare for the Big Crunch, maggot. The Big Crunch that wipes out the pathetic little thing you call your life. You’re f*cking dead, kid. I can be anywhere, anytime, and I can kill you in over seven 😠💩 different ways, and that’s just with my mouse. Not only am I extensively trained in dimension shift combat, but I have access to the entire arsenal of the Antimatter Marine Corps and I will use it to its full extent to wipe your miserable ass off the face of the universe, you little shit. If only you could have known what unhevi retribution your little “clever” comment was about to bring down upon you, maybe you would have held your f*cking tongue. But you couldn’t, you didn’t, and now you’re buying until 10, you goddamn idiot. I will shit antimatter shit all over you and you will drown in it. You’re f*cking dead, kiddo.", true, "a111"],
 ["So I've pondered this question for a long time. Antimatter Dimensions... what does it mean? I mean it's game, that's clear. You buy the first dimension, and it gives you antimatter, and the second dimension provides more first dimensions and so on... But what does it mean? It can't just be a game, it seems too plain for that. The developer must have made it as a metaphor. I was doing my weekly ritual of using the fingernail clipper to cut my pubic hair, when finally the realization came to me. The dimensions are just thinly veiled misspellings of the word 'depression'. Regular matter are the cruel and negative thoughts that add to and fuel depression, while antimatter is the positive thoughts and good friends that dispel it You start off with something simple, and it fights almost imperceptibly against the depression, but as you keep going the fight builds. But it never seems to fix everything. The depression seems like it could go on to infinity. So you keep going. But eventually, you figure out, depression isn't infinite. It's just very very large. But your 'dimensions' eventually, with enough work, make enough 'antimatter' to usurp that seeming infinity of depression. Then the possibilities are endless. You are actually happy for once, and your happiness grows exponentially as you go beyond and seemingly 'break' the 'infinity' of depression. And you go on until that 'infinity' seems tiny in comparison to the happiness you've managed to achieve in your life, where if you reset you get over that infinity in less than the blink of an eye. If you want to know what the multiple layers of prestige are...'Dimensional Shifts' are getting new things and methods to give you happiness. 'Dimensional Boosts' are upgrading the things and methods. Examples would be getting a new car being a 'Dimensional Shift' and trading that car in for a new one would be a 'Dimensional Boost'. 'Eternities' are major tragedies such as a loved one dying. That lapse brings you straight back to the beginning, with seemingly no hope of return. But with time, you grow back stronger and happier than ever before. 'Dimesional Sacrifice' is moving away. You have to give up a lot of the things you had that made you happy, but there is new opportunity in where you move to. And that new opportunity gives you more happiness than you ever had. 'Tickspeed' is how easy it is to make you happy, and 'Time Dimensions' make it even easier to be happy. Antimatter Dimensions is a metaphor for a depressed man's successful battle against his illness.",true ,"a112"],
-[`(Make me sleep) 
-    Put me to sleep inside. 
-    (I can't sleep) 
-    Put me to sleep inside. 
-    (Leave me) 
-    Whisper my name and give me to the dark. 
-    (Make me sleep) 
-    Bid my milk to stay. 
-    (I can't fall asleep) 
-    Before I become done. 
-    (Leave me) 
-    Leave me to the nothing I've become.`, true, "a113"],
+["(Make me sleep) Put me to sleep inside. (I can't sleep) Put me to sleep inside. (Leave me) Whisper my name and give me to the dark. (Make me sleep) Bid my milk to stay. (I can't fall asleep) Before I become done. (Leave me) Leave me to the nothing I've become.", true, "a113"],
 ["A preview of the next update - loot boxes! Feel a sense of pride and progression as you open cosmic, galactic, and universal lootboxes for chances at rare skins, unique challenges with uniquer rewards, time skips and even new dimensions!", true, "a114"],
 ["The intent of dimensions is to give a sense of pride and accomplishment", true, "a115"],
 ["Refreshing cures cancer", true, "a116"],
 ["I have a 9th, i have a dimension... UHH... IT DOESN'T EXIST!", true, "a117"],
 ["Since when did we start reporting stuff like this? Half of it isn't even proper news, it's just jokes and meta-references, it doesn't even make sens-HAHAHA DISREGARD THAT I SUCK CO-", true, "a118"],
 ["The year is 1944, Hevipelle can't release updates for AD because he doesn't exist", true, "a119"],
-[`"THAT DIMENSION DOESN'T EXIST" -GhostBot`, true, "a120"],
+['"THAT DIMENSION DOESN\'T EXIST" -GhostBot', true, "a120"],
 ["Most things you know as nuts are actually Drupe seeds or Legumes. Hevipelle on the other hand is quite crazy and can thus be considered a dry uncompartmented fruit.", true, "a121"],
-[eval(`LZString.decompressFromEncodedURIComponent("GISwdgNghmAmAEsCmBjaAnJBneAXAFlLvCLgOQ5a5Tq7gDmeA9iQLYAOTt8AwjCknRA")`), true, "a122"],
-[eval(`LZString.decompressFromEncodedURIComponent("IIGxAIBcAsEsGdywLYAcD2AnSsB2BzJRZAQwGs9DkBTcAYXVwDMBXeagEyA")`), true, "a123"],
+[eval('LZString.decompressFromEncodedURIComponent("GISwdgNghmAmAEsCmBjaAnJBneAXAFlLvCLgOQ5a5Tq7gDmeA9iQLYAOTt8AwjCknRA")'), true, "a122"],
+[eval('LZString.decompressFromEncodedURIComponent("IIGxAIBcAsEsGdywLYAcD2AnSsB2BzJRZAQwGs9DkBTcAYXVwDMBXeagEyA")'), true, "a123"],
 //basic (pre-inf)
 ["You just made your 1,000,000,000,000,000 antimatter. This one tastes like chicken", player.money.e == 15, "b1"],
 ["Nerf the galaxies please.", player.galaxies == 2 || player.infinitied > 0, "b2"],
