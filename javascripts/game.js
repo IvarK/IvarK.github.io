@@ -6069,6 +6069,9 @@ function eternity(force) {
         if (player.eternities < 50) {
             document.getElementById("replicantidiv").style.display="none"
             document.getElementById("replicantiunlock").style.display="inline-block"
+        } else if (document.getElementById("replicantidiv").style.display === "none" && player.eternities >= 50) {
+            document.getElementById("replicantidiv").style.display="inline-block"
+            document.getElementById("replicantiunlock").style.display="none"
         }
         try {
             kongregate.stats.submit('Eternities', player.eternities);
