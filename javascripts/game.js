@@ -1214,6 +1214,10 @@ function onLoad() {
             document.getElementById(""+player.timestudy.studies[i]).className = "timestudybought passivestudy"
         } else if (player.timestudy.studies[i] == 123 || player.timestudy.studies[i] == 133 || player.timestudy.studies[i] == 143) {
             document.getElementById(""+player.timestudy.studies[i]).className = "timestudybought idlestudy"
+        } else if (player.timestudy.studies[i] == 221 || player.timestudy.studies[i] == 223 || player.timestudy.studies[i] == 225 || player.timestudy.studies[i] == 227 || player.timestudy.studies[i] == 231 || player.timestudy.studies[i] == 233) {
+            document.getElementById(player.timestudy.studies[i]).className = "timestudybought darkstudy"
+        } else if (player.timestudy.studies[i] == 222 || player.timestudy.studies[i] == 224 || player.timestudy.studies[i] == 226 || player.timestudy.studies[i] == 228 || player.timestudy.studies[i] == 232 || player.timestudy.studies[i] == 234) {
+            document.getElementById(player.timestudy.studies[i]).className = "timestudybought lightstudy"
         } else {
             document.getElementById(""+player.timestudy.studies[i]).className = "timestudybought"
         }
@@ -2504,6 +2508,10 @@ function buyTimeStudy(name, cost, check) {
             document.getElementById(""+name).className = "timestudybought passivestudy"
         } else if (name == 123 || name == 133 || name == 143) {
             document.getElementById(""+name).className = "timestudybought idlestudy"
+        } else if (name == 221 || name == 223 || name == 225 || name == 227 || name == 231 || name == 233) {
+            document.getElementById(name).className = "timestudybought darkstudy"
+        } else if (name == 222 || name == 224 || name == 226 || name == 228 || name == 232 || name == 234) {
+            document.getElementById(name).className = "timestudybought lightstudy"
         } else {
             document.getElementById(""+name).className = "timestudybought"
         }

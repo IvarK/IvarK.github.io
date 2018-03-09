@@ -337,6 +337,18 @@ input, select {
     background: #0080ff !important;
 }
 
+.timestudybought.darkstudy {
+    color: black !important;
+    background-color: white !important;
+    border-color: black !important;
+}
+
+.timestudybought.lightstudy {
+    color: white !important;
+    background-color: black !important;
+    border-color: white !important;
+}
+
 .timestudylocked, .eternitychallengestudylocked {
     color: black !important;
     background: #9E9E9E !important;
