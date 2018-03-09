@@ -269,6 +269,14 @@ input, select {
     animation: idleStudyGlowIn 5s infinite !important;
 }
 
+.timestudy.darkstudy {
+    animation: darkStudyGlowIn 5s infinite !important;
+}
+
+.timestudy.lightstudy {
+    animation: lightStudyGlowIn 5s infinite !important;
+}
+
 .timestudy:hover {
     color: #EEEEEE !important;
     background: #512DA8 !important;

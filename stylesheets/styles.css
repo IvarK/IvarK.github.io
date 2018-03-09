@@ -803,6 +803,20 @@ button {
     animation: idleStudyGlowIn 7s infinite;
 }
 
+.timestudy.darkstudy {
+    color: white !important;
+    background-color: black !important;
+    border-color: white !important;
+    animation: darkStudyGlowIn 7s infinite;
+}
+
+.timestudy.lightstudy {
+    color: black !important;
+    background-color: white !important;
+    border-color: black !important;
+    animation: lightStudyGlowIn 7s infinite;
+}
+
 .eternitychallengestudy:hover {
     color: white;
     background: #490066;
@@ -841,6 +855,18 @@ button {
 .timestudy.idlestudy:hover {
     color: #EEEEEE !important;
     background: #0080ff !important;
+}
+
+.timestudy.darkstudy:hover {
+    color: black !important;
+    background-color: white !important;
+    border-color: black !important;
+}
+
+.timestudy.lightstudy:hover {
+    color: white !important;
+    background-color: black !important;
+    border-color: white !important;
 }
 
 .timestudylocked, .eternitychallengestudylocked {
@@ -1497,6 +1523,18 @@ screen and (max-width: 480px) {
     0%  {box-shadow: inset 0px 0px 3px 0px #490066;}
     50% {box-shadow: inset 0px 0px 20px 0px #490066;}
     100% {box-shadow: inset 0px 0px 3px 0px #490066;}
+}
+
+@keyframes darkStudyGlowIn {
+    0%  {box-shadow: inset 0px 0px 3px 0px white;}
+    50% {box-shadow: inset 0px 0px 20px 0px white;}
+    100% {box-shadow: inset 0px 0px 3px 0px white;}
+}
+
+@keyframes lightStudyGlowIn {
+    0%  {box-shadow: inset 0px 0px 3px 0px black;}
+    50% {box-shadow: inset 0px 0px 20px 0px black;}
+    100% {box-shadow: inset 0px 0px 3px 0px black;}
 }
 
 @keyframes barrelRoll {

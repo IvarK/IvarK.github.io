@@ -568,9 +568,11 @@ function addData(chart, label, data) {
 
 function drawTreeBranch(num1, num2) {
     var name1 = parseInt(num1)
+    var isECname = false;
     if (isNaN(parseInt(num2))) {
         var a = num2.split("c")[1]
         var name2 = parseInt(a.split("u")[0])
+        var isECname = true;
     } else {
         var name2 = parseInt(num2)
     }
@@ -582,7 +584,7 @@ function drawTreeBranch(num1, num2) {
     var y2 = end.top + (start.height / 2) + (document.documentElement.scrollTop || document.body.scrollTop);
     ctx.lineWidth=15;
     ctx.beginPath();
-    if ((player.timestudy.studies.includes(name1) && player.timestudy.studies.includes(name2)) || player.eternityChallUnlocked === name2) {
+    if ((player.timestudy.studies.includes(name1) && player.timestudy.studies.includes(name2) && !isECname) || (player.timestudy.studies.includes(name1) && player.eternityChallUnlocked === name2)) {
         if (name2 < 20) {
             ctx.strokeStyle="#490066";
         } else if (name2 == 71 || name2 == 81 || name2 == 91 || name2 == 101 || name1 == 101) {
@@ -2597,12 +2599,16 @@ function updateTimeStudyButtons() {
                     document.getElementById(all[i]).className = "timestudy infdimstudy"
                 } else if (all[i] == 73 || all[i] == 83 || all[i] == 93 || all[i] == 103) {
                     document.getElementById(all[i]).className = "timestudy timedimstudy"
-                }  else if (all[i] == 121 || all[i] == 131 || all[i] == 141) {
+                } else if (all[i] == 121 || all[i] == 131 || all[i] == 141) {
                     document.getElementById(all[i]).className = "timestudy activestudy"
-                }  else if (all[i] == 122 || all[i] == 132 || all[i] == 142) {
+                } else if (all[i] == 122 || all[i] == 132 || all[i] == 142) {
                     document.getElementById(all[i]).className = "timestudy passivestudy"
-                }  else if (all[i] == 123 || all[i] == 133 || all[i] == 143) {
+                } else if (all[i] == 123 || all[i] == 133 || all[i] == 143) {
                     document.getElementById(all[i]).className = "timestudy idlestudy"
+                } else if (all[i] == 221 || all[i] == 223 || all[i] == 225 || all[i] == 227 || all[i] == 231 || all[i] == 233) {
+                    document.getElementById(all[i]).className = "timestudy darkstudy"
+                } else if (all[i] == 222 || all[i] == 224 || all[i] == 226 || all[i] == 228 || all[i] == 232 || all[i] == 234) {
+                    document.getElementById(all[i]).className = "timestudy lightstudy"
                 } else {
                     document.getElementById(all[i]).className = "timestudy"
                 }
@@ -2614,11 +2620,11 @@ function updateTimeStudyButtons() {
                     document.getElementById(all[i]).className = "timestudylocked infdimstudylocked"
                 } else if (all[i] == 73 || all[i] == 83 || all[i] == 93 || all[i] == 103) {
                     document.getElementById(all[i]).className = "timestudylocked timedimstudylocked"
-                }  else if (all[i] == 121 || all[i] == 131 || all[i] == 141) {
+                } else if (all[i] == 121 || all[i] == 131 || all[i] == 141) {
                     document.getElementById(all[i]).className = "timestudylocked activestudylocked"
-                }  else if (all[i] == 122 || all[i] == 132 || all[i] == 142) {
+                } else if (all[i] == 122 || all[i] == 132 || all[i] == 142) {
                     document.getElementById(all[i]).className = "timestudylocked passivestudylocked"
-                }  else if (all[i] == 123 || all[i] == 133 || all[i] == 143) {
+                } else if (all[i] == 123 || all[i] == 133 || all[i] == 143) {
                     document.getElementById(all[i]).className = "timestudylocked idlestudylocked"
                 } else {
                     document.getElementById(all[i]).className = "timestudylocked"
