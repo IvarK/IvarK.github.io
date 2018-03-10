@@ -2077,11 +2077,18 @@ function updateEternityChallenges() {
         document.getElementById("eterc"+player.eternityChallUnlocked).innerHTML = "Start"
         document.getElementById("eterc"+player.eternityChallUnlocked).className = "challengesbtn"
         document.getElementById("eterctabbtn").style.display = "block"
+    } else {
+        for (i=1; i<13; i++) {
+            if (document.getElementById(property).innerHTML !== "Completed") {
+                document.getElementById("eterc"+i).innerHTML = "Locked"
+                document.getElementById("eterc"+i).className = "lockedchallengesbtn"
+            }
+        }
     }
 
     if (player.eternityChallUnlocked == 0 && player.eternityChalls.eterc1 === undefined) {
         document.getElementById("eterctabbtn").style.display = "none"
-        for (i=1; i<11; i++) {
+        for (i=1; i<13; i++) {
             document.getElementById("eterc"+i+"div").style.display = "none"
         }
     }
