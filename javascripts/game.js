@@ -5,6 +5,7 @@ var auto = false;
 var autoS = true;
 var controlDown = false;
 var shiftDown = false;
+var justImported = false;
 var player = {
     money: new Decimal(10),
     tickSpeedCost: new Decimal(1000),
@@ -430,6 +431,10 @@ Object.invert = function(obj) {
     }
     return result;
 };
+
+function sortNumber(a,b) {
+    return a - b;
+}
 
 Chart.defaults.global.defaultFontColor = 'black';
 Chart.defaults.global.defaultFontFamily = 'Typewriter';
@@ -1451,6 +1456,44 @@ function loadAutoBuyerSettings() {
     document.getElementById("priority13").value = player.eternityBuyer.limit
 
 }
+
+function exportStudyTree() {
+    let output = document.getElementById('treeExportOutput');
+    let parent = output.parentElement;
+
+    parent.style.display = "";
+    output.value = player.timestudy.studies + "|" + player.eternityChallUnlocked;
+
+    output.onblur = function() {
+        parent.style.display = "none";
+    }
+
+    output.focus();
+    output.select();
+
+    try {
+        if (document.execCommand('copy')) {
+            $.notify("exported to clipboard", "info");
+            output.blur();
+        }
+    } catch(ex) {
+        // well, we tried.
+    }
+};
+
+function importStudyTree(input) {
+    var input = prompt()
+    var studiesToBuy = input.split("|")[0].split(",");
+    console.log(studiesToBuy)
+    for (i=0; i<studiesToBuy.length; i++) {
+        document.getElementById(studiesToBuy[i]).click();
+    }
+    if (parseInt(input.split("|")[1]) !== 0) {
+        justImported = true;
+        document.getElementById("ec"+parseInt(input.split("|")[1])+"unl").click();
+        setTimeout(function(){ justImported = false; }, 100);
+    }
+};
 
 
 
@@ -6388,8 +6431,8 @@ function unlockEChall(idx) {
     if (player.eternityChallUnlocked == 0) {
         player.eternityChallUnlocked = idx
         document.getElementById("eterc"+player.eternityChallUnlocked+"div").style.display = "inline-block"
-        showTab("challenges")
-        showChallengesTab("eternitychallenges")
+        if (!justImported) showTab("challenges")
+        if (!justImported) showChallengesTab("eternitychallenges")
         if (idx !== 12 && idx !== 13) player.etercreq = idx
     }
     updateEternityChallenges()

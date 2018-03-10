@@ -105,8 +105,13 @@
                 </tr>
             </table>
             <div class="eternitytab" id="timestudies" style="font-size: 15px">
+                <div style="display: none;"><textarea id="treeExportOutput" style="color:black; width: 200px; height: 55px;"></textarea></div>
                 <canvas id="studyTreeCanvas"></canvas>
-                <div><button class="storebtn" onclick="respecToggle()" id="respec" style="width:150px; height: 40px; font-size: 10px; margin: auto">Respec time studies on next Eternity</button></div>
+                <tr>
+                    <td><button class="storebtn" onclick="exportStudyTree()" style="width:150px; height: 40px; font-size: 10px; margin: auto">Export tree</button><td>
+                    <td><button class="storebtn" onclick="respecToggle()" id="respec" style="width:150px; height: 40px; font-size: 10px; margin: auto">Respec time studies on next Eternity</button><td>
+                    <td><button class="storebtn" onclick="importStudyTree()" style="width:150px; height: 40px; font-size: 10px; margin: auto">Import tree</button><td>
+                </tr>
                 <table class="table" id="studytable">
                     <tr>
                         <td><button class="timestudylocked" id="11" onclick="buyTimeStudy(11, 1)">Tickspeed affects First Time Dimension (With reduced effect)<span>Cost: 1 Time Theorem</button></td>
