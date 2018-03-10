@@ -2122,7 +2122,7 @@ function updateEternityChallenges() {
         document.getElementById("eterctabbtn").style.display = "block"
     } else {
         for (i=1; i<13; i++) {
-            if (document.getElementById(property).innerHTML !== "Completed") {
+            if (document.getElementById("eterc"+i).innerHTML !== "Completed") {
                 document.getElementById("eterc"+i).innerHTML = "Locked"
                 document.getElementById("eterc"+i).className = "lockedchallengesbtn"
             }
