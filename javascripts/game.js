@@ -7546,7 +7546,7 @@ function gameLoop(diff) {
     var replmult = Decimal.pow(Decimal.log2(Decimal.max(player.replicanti.amount, 1)), 2)
     if (player.timestudy.studies.includes(21)) replmult = replmult.plus(Decimal.pow(player.replicanti.amount, 0.032))
     if (player.timestudy.studies.includes(102))replmult = replmult.times(Decimal.pow(5, player.replicanti.galaxies, 150))
-    document.getElementById("replicantimult").innerHTML = shorten(replmult)
+    document.getElementById("replicantimult").innerHTML = shorten(replmult.max(1))
 
     var currentEPmin = gainedEternityPoints().dividedBy(player.thisEternity/600)
     if (currentEPmin.gt(EPminpeak)) EPminpeak = currentEPmin
