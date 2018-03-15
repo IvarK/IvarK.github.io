@@ -62,7 +62,7 @@ function buyStuff(id) {
       pbtn.className = "prestigebtn"
       pbtn.onclick = function() {prestige(parseInt(this.id));}
       insertAfter(pbtn, otherbtn)
-      for (var i=1; i<game.costs.length-5; i++) document.getElementById(i+"prestige").innerHTML = "Reset to increase bonus to "+(game.costs.length-i-5).max(game.prestige[id-1])+"x boost."
+      for (var i=1; i<game.costs.length-5; i++) document.getElementById(i+"prestige").innerHTML = "Reset to increase bonus to "+Math.max(game.costs.length-i-5, game.prestige[id-1])+"x boost."
     }
     
 
@@ -80,7 +80,7 @@ function hardreset() {
     costs: [new Decimal(1)],
     amounts: [new Decimal(0)],
     depression: new Decimal(1),
-    prestige: [new Decimal(1)]
+    prestige: [1]
   }
 }
 
@@ -128,7 +128,7 @@ function load() {
   for (var i=1; i<game.costs.length-5; i++) {
     var pbtn = document.createElement("button")
     var otherbtn = document.getElementById(i)
-    pbtn.innerHTML = "Reset to increase bonus to "+Math.max(game.costs.length-id-5, game.prestige[id-1])+"x boost."
+    pbtn.innerHTML = "Reset to increase bonus to "+Math.max(game.costs.length-i-5, game.prestige[i-1])+"x boost."
     pbtn.id = i+"prestige"
     pbtn.className = "prestigebtn"
     pbtn.onclick = function() {prestige(parseInt(this.id));}
@@ -141,9 +141,6 @@ function load() {
   for (var i=0; i<Object.keys(game.costs).length; i++) {
     game.costs[i] = new Decimal(game.costs[i])
   }
-  for (var i=0; i<Object.keys(game.prestige).length; i++) {
-    game.prestige[i] = new Decimal(game.prestige[i])
-  }
 }
 
 
@@ -152,7 +149,7 @@ var cheat = false;
 
 
 setInterval(function() {
-  game.depression = game.depression.plus(game.amounts[0].times(game.prestige[0].div(33)))
+  game.depression = game.depression.plus(game.amounts[0].times(game.prestige[0]/33))
   document.getElementById("1").innerHTML = "Amount: "+formatValue(game.amounts[0], 2)+"<br>Power: "+formatValue(game.prestige[0], 2)+"x<br>Cost:"+formatValue(game.costs[0], 2)
   for (var i=2; i <= game.costs.length; i++) {
     document.getElementById(i).innerHTML = "Amount: "+formatValue(game.amounts[i-1], 2)+"<br>Power: "+formatValue(game.prestige[i-1], 2)+"x<br>Cost:"+formatValue(game.costs[i-1], 2)
@@ -167,7 +164,7 @@ setInterval(function() {
 }, 33)
 
 
-setInterval(function() { save() }, 10000)
+setInterval(function() { save() }, 5000)
 
 
 
