@@ -11,39 +11,174 @@
     src: url('MonospaceTypewriter.ttf');
 }
 
-.logo {
-    position: relative;
-    top: 0;
-    left: 0;
+*:focus {
+    outline: none;
 }
 
-#logoanimation {
-    position: absolute;
-    height: 200px;
-    top: 2%;
-    left: calc(50% - 100px);
-    z-index: 1;
+button {
+    padding: 1px 6px;
 }
+
 
 #game {
-    width: 80%;
-    height: 30px;
-    background-color: white;
-    top: 0;
-    left: 0;
-    margin: 0;
     border: 2px solid black;
-    border-radius: 8px;
+    border-radius: 4px;
+    padding: 2px;
+    width: 75%;
+    overflow: hidden;
+    margin: auto;
+    text-align: left
 }
 
-.invert {
-    filter: invert(100%);
-    background-color: black;
+#TTbuttons {
+    font-family: Typewriter;
+}
+  
+#news {
+    color: #000000;
+    /*transition: transform 1s;*/
+    position: relative;
+    display: inline-block;
+    font-family: Typewriter;
+    font-size: 15px;
+    white-space: nowrap;
+    font-weight: bold
+}
+
+.challengesbtn {
+    
+    width:150px;
+    height: 30px;
+    color: black;
+    background: #F2F2F2;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 3px solid #127A20;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 140%;
+    transition-duration: 0.2s;
+    margin: auto;
+}
+
+.challengesbtn:hover {
+    color: #FFF;
+    background: #5AC467;
+}
+
+.lockedchallengesbtn {
+    width:150px;
+    height: 30px;
+    color: black;
+    background: rgb(92, 92, 92);
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 3px solid rgb(136, 29, 29);
+    border-radius: 10px;
+    font-size: 140%;
+    transition-duration: 0.2s;
+    margin: auto;
+}
+
+.outer {
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 5px;
+}
+  
+.challengediv {
+    display:table;
+    text-align:center;
+    width:350px;
+    height: 105px;
+    color: black;
+    background: #F2F2F2;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-size: 80%;
+    transition-duration: 0.2s;
+    padding: 2px;
+    margin: 3px 8px;
+    position: relative;
+    border-radius: 5px;
+}
+
+.infchallengediv {
+    display:table;
+    text-align:center;
+    width:350px;
+    height: 105px;
+    color: white;
+    background: #181818;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-size: 80%;
+    transition-duration: 0.2s;
+    padding: 2px;
+    margin: 3px 8px;
+    position: relative;
+    border-radius: 5px;
+}
+
+.eterchallengediv {
+    display:table;
+    text-align:center;
+    width: 350px;
+    height: 105px;
+    color: #b341e0;
+    background: black;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 3px solid #b341e0;
+    border-radius: 10px;
+    font-size: 80%;
+    transition-duration: 0.2s;
+    padding: 2px;
+    margin: 3px 8px;
+    position: relative;
+}
+
+.completedchallengesbtn {
+  width:150px;
+  height: 30px;
+  color: #FFF;
+  background: #5AC467;
+  font-weight: bold;
+  font-family: Typewriter;
+  border: 3px solid #127A20;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 140%;
+  transition-duration: 0.2s;
+}
+
+.onchallengebtn {
+  width:150px;
+  height: 30px;
+  color: #FFF;
+  background: #1F1F1F;
+  font-weight: bold;
+  font-family: Typewriter;
+  border: 3px solid #127A20;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 140%;
+  transition-duration: 0.2s;
+}
+
+#quickReset {
+    position: relative;
+    z-index: 2;
 }
 
 .completedrow {
     background: #007308;
-    border: 2px solid #127A20;
+    border: 4px solid #127A20;
     border-radius: 10px;
 }
 
@@ -54,11 +189,12 @@
     font-family: Typewriter;
     border: 1px solid #127A20;
     width: 120px;
-    height: 30px;
+    height: 25px;
     transition-duration: 0.2s;
     cursor: pointer;
     border-radius: 4px;
-    font-size: 55%;
+    font-size: 13px;
+    vertical-align: top;
 }
 
 .storebtn:hover {
@@ -66,14 +202,33 @@
     background: #5AC467;
 }
 
+.infinimultbtn {
+    color: #C93A3A;
+    background: #1F1F1F;
+    font-weight: bold;
+    font-size:  10px;
+    border: 1px solid #17B3B5;
+    width: 190px;
+    height: 90px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: Typewriter;
+}
+
+.infinimultbtn:hover {
+    color: #000;
+    background: #E0D8E0;
+}
+
 .infinistorebtn1 {
     color: white;
     background: #1F1F1F;
     font-weight: bold;
-    font-size: 80%;
+    font-size:  10px;
     border: 1px solid #ED85DF;
-    width: 160px;
-    height: 65px;
+    width: 190px;
+    height: 90px;
     transition-duration: 0.2s;
     cursor: pointer;
     border-radius: 4px;
@@ -89,10 +244,10 @@
     color: white;
     background: #1F1F1F;
     font-weight: bold;
-    font-size: 80%;
+    font-size:  10px;
     border: 1px solid #ED85DF;
-    width: 160px;
-    height: 65px;
+    width: 190px;
+    height: 90px;
     transition-duration: 0.2s;
     cursor: pointer;
     border-radius: 4px;
@@ -104,14 +259,52 @@
     background: #ff3300;
 }
 
+.infinistorebtn3 {
+    color: white;
+    background: #1F1F1F;
+    font-weight: bold;
+    font-size:  10px;
+    border: 1px solid #ED85DF;
+    width: 190px;
+    height: 90px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: Typewriter;
+}
+
+.infinistorebtn3:hover {
+    color: #000;
+    background: #C6D50D;
+}
+
+.infinistorebtn4 {
+    color: white;
+    background: #1F1F1F;
+    font-weight: bold;
+    font-size:  10px;
+    border: 1px solid #ED85DF;
+    width: 190px;
+    height: 90px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: Typewriter;
+}
+
+.infinistorebtn4:hover {
+    color: #000;
+    background: #0CFEC5;
+}
+
 .infinistorebtnlocked {
     color: black;
     background: #F7F7F7;
     font-weight: bold;
-    font-size: 80%;
+    font-size:  10px;
     border: 1px solid #ED85DF;
-    width: 160px;
-    height: 65px;
+    width: 190px;
+    height: 90px;
     transition-duration: 0.2s;
     cursor: pointer;
     border-radius: 4px;
@@ -127,10 +320,10 @@
     color: black;
     background: #5AC467;
     font-weight: bold;
-    font-size: 80%;
+    font-size:  10px;
     border: 1px solid #ED85DF;
-    width: 160px;
-    height: 65px;
+    width: 190px;
+    height: 90px;
     transition-duration: 0.2s;
     border-radius: 4px;
     font-family: Typewriter;
@@ -143,10 +336,11 @@
     font-family: Typewriter;
     border: 1px solid #B84B5F;
     width: 120px;
-    height: 30px;
+    height: 25px;
     transition-duration: 0.2s;
     border-radius: 4px;
-    font-size: 55%;
+    font-size: 13px;
+    vertical-align: top;
 }
 
 .unavailablebtn:hover {
@@ -171,6 +365,155 @@
     border-radius: 4px;
 }
 
+.secondarytabbtn {
+    background: #E0E0E0;
+    font-weight: bold;
+    border: 2px solid #4980CC;
+    border-radius: 4px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    width: 175px;
+    height: 25px;
+    font-family: Typewriter;
+    font-size: 0.8rem;
+}
+
+.secondarytabbtn:hover {
+    color: #FFFFFF;
+    background: #4980CC;
+    font-weight: bold;
+    border: 2px solid #4980CC;
+    border-radius: 4px;
+}
+
+
+.postinfcrunch {
+    background: #E0E0E0;
+    border: 2px solid #4980CC;
+    border-radius: 4px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    position: absolute;
+    left: 80%;
+    width: 210px;
+    height: 70px;
+    font-family: Typewriter;
+    font-size: 11px
+}
+
+.postinfcrunch br {
+    pointer-events: none;
+}
+
+.postinfcrunch b {
+    pointer-events: none;
+}
+
+.postinfcrunch:hover {
+    color: #FFFFFF;
+    background: #4980CC;
+    border: 2px solid #4980CC;
+    border-radius: 4px;
+}
+
+#IPmin {
+    left: 81.5%;
+    position: absolute;
+    width: 150px
+}
+
+.IP {
+    left:81.5%;
+    position: absolute;
+    font-size: 12px;
+    width: 150px;
+}
+
+.IPAmount2 {
+    font-weight: bold;
+}
+
+.EP {
+    right:81.5%;
+    position: absolute;
+    font-size: 12px;
+    width: 150px;
+} 
+
+.EPAmount2 {
+    font-weight: bold;
+}
+
+.newdim {
+    font-weight: bold;
+    border-radius: 4px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    position: absolute;
+    right: 80%;
+    width: 200px;
+    height: 60px;
+    font-family: Typewriter;
+    color: black;
+    background: #F2F2F2;
+    border: 1px solid #127A20;
+    cursor: pointer;
+    z-index: 1;
+}
+
+
+
+.newdim:hover {
+    color: #FFF;
+    background: #5AC467;
+}
+
+
+.newdimlocked {
+    border-radius: 4px;
+    transition-duration: 0.2s;
+    position: absolute;
+    right: 80%;
+    width: 200px;
+    height: 60px;
+    color: #000000;
+    background: #A3A3A3;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 1px solid #B84B5F;
+    z-index: 1;
+}
+
+.newdimlocked:hover {
+    color: #000000;
+    background: #B84B5F;
+}
+
+.eternitybtn {
+    border-radius: 4px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    position: absolute;
+    right: 80%;
+    width: 210px;
+    height: 70px;
+    font-family: Typewriter;
+    color: #b341e0;
+    background: black;
+    border: 2px solid #b341e0;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+
+
+.eternitybtn:hover {
+    color: #511568;
+    background: white;
+}
+
+
+
 .infinitybtn {
     color: #FFFFFF;
     background: #1F1F1F;
@@ -187,6 +530,21 @@
     font-weight: bold;
     border: 2px solid #B67F33;
     border-radius: 4px;
+}
+
+.eternitytabbtn {
+    color: #b341e0;
+    background: black;
+    border: 2px solid #b341e0;
+    font-weight: bold;
+    border-radius: 4px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+
+.eternitytabbtn:hover {
+    color: #511568;
+    background: white;
 }
 
 .achievementlocked {
@@ -216,19 +574,536 @@
     font-size: 70%;
 }
 
-#progress {
+.autoBuyerDiv {
+    border: solid 1px grey;
+    width:230px;
+    height:155px;
+    text-align:center;
+    font-size:100%;
+    padding:10px;
+    display: none;
+    border-radius: 4px;
+}
+
+.autobuyerbtn {
+      color: white;
+      background: #1F1F1F;
+      font-weight: bold;
+      font-size: 70%;
+      border: 1px solid #ED85DF;
+      width: 180px;
+      height: 35px;
+      transition-duration: 0.2s;
+      cursor: pointer;
+      border-radius: 4px;
+      font-family: Typewriter;
+}
+
+.autobuyerbtn:hover {
+    color: #000000;
+    background: #B67F33;
+    font-weight: bold;
+    border: 2px solid #B67F33;
+    border-radius: 4px;
+}
+
+.crunchbtn {
+    background: #E0E0E0;
+    font-weight: bold;
+    border: 2px solid #4980CC;
+    border-radius: 4px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    position: relative;
+    top: 50%;
+    left: 40%;
+    
+}
+
+.crunchbtn:hover {
+    color: #FFFFFF;
+    background: #4980CC;
+    font-weight: bold;
+    border: 2px solid #4980CC;
+    border-radius: 4px;
+
+}
+
+.popup {
+    position: absolute;
+    left: 33%;
+    top: 33%;
+    border: 3px solid black;
+    width: 300px;
+    height: 120px;
+    background-color: #E0E0E0;
+    border-radius: 6px;
+    text-align:center;
+    z-index: 2;
+    color: black;
+    font-family: Typewriter;
+    padding: 10px;
+    padding-bottom: 15px;
+    display: none;
+}
+
+#footercontainer {
+    bottom: 0;
+    position: fixed;
     width: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+
+#footer {
+    height: 50px;
+    margin: auto;
+    text-align:center;
+    font-size: 15px;
+    font-family: Typewriter;
+}
+
+#footer tr td div {
+    pointer-events: all !important;
+}
+
+#progress {
+    width: 98%;
     background-color: #A3A3A3;
     border-radius: 5px;
+    bottom: 35px;
+    position: fixed;
+    z-index: 1;
+    pointer-events: none;
 }
 
 #progressbar {
     width: 0%;
-    height: 30px;
+    height: 23px;
     background-color: #127A20;
     color: black;
-    font-size: 130%;
+    font-size: 16px;
     border-radius: 5px;
+    transition-duration: 0.1s;
+}
+
+
+.greedbtn {
+    height: 40px;
+    width: 100px;
+    background-color: #f2d729;
+    border: 1px solid red;
+    border-radius: 5px;
+    font-family: TypeWriter;
+    transition-duration: 0.2s;
+}
+
+.greedbtn:hover {
+    cursor: pointer;
+    background-color: #9E913A;
+
+}
+
+#replauto1 {
+    margin-top: 3px;
+}
+
+#replauto2 {
+    margin-top: 3px;
+}
+
+#replauto3 {
+    margin-top: 3px;
+}
+
+#replicantiresettoggle {
+    margin-top: 3px;
+}
+
+.eternitychallengestudy {
+    color: #490066;
+    background: white;
+    border: 1px solid black;
+    font-weight: bold;
+    font-family: Typewriter;
+    width: 170px;
+    height: 80px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    vertical-align: top;
+    margin:7px;
+    animation: eternityChallengeGlowIn 7s infinite;
+}
+
+.timestudy {
+    color: #b341e0;
+    background: black;
+    border: 1px solid #b341e0;
+    font-weight: bold;
+    font-family: Typewriter;
+    width: 170px;
+    height: 80px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    vertical-align: top;
+    margin:7px;
+    animation: studyGlowIn 7s infinite;
+
+}
+
+.small {
+    margin: 1px;
+    width: 120px;
+    font-size: 0.6rem;
+    padding: 3px;
+}
+
+.wideRow td {
+    padding: 5px 2px;
+}
+
+.timestudy.normaldimstudy {
+    color: #22aa48 !important;
+    border: 1px solid #198036 !important;
+    animation: normalDimStudyGlowIn 7s infinite;
+}
+
+.timestudy.infdimstudy {
+    color: #B67F33 !important;
+    border: 1px solid #8b6227 !important;
+    animation: infDimStudyGlowIn 7s infinite;
+}
+
+.timestudy.timedimstudy {
+    color: #B241E3 !important;
+    border: 1px solid #951ec8 !important;
+    animation: timeDimStudyGlowIn 7s infinite;
+}
+
+.timestudy.activestudy {
+    color: #FF0100 !important;
+    border: 1px solid #cc0000 !important;
+    animation: activeStudyGlowIn 7s infinite;
+}
+
+.timestudy.passivestudy {
+    color: #5E33B6 !important;
+    border: 1px solid #4b288f !important;
+    animation: passiveStudyGlowIn 7s infinite;
+}
+
+.timestudy.idlestudy {
+    color: #0080ff !important;
+    border: 1px solid #0066cc !important;
+    animation: idleStudyGlowIn 7s infinite;
+}
+
+.timestudy.darkstudy {
+    color: white !important;
+    background-color: black !important;
+    border-color: white !important;
+    animation: darkStudyGlowIn 7s infinite;
+}
+
+.timestudy.lightstudy {
+    color: black !important;
+    background-color: white !important;
+    border-color: black !important;
+    animation: lightStudyGlowIn 7s infinite;
+}
+
+.eternitychallengestudy:hover {
+    color: white;
+    background: #490066;
+}
+
+.timestudy:hover {
+    color: #DADADA;
+    background: #3A0A57;
+}
+
+.timestudy.normaldimstudy:hover {
+    color: #EEEEEE !important;
+    background: #22aa48 !important;
+}
+
+.timestudy.infdimstudy:hover {
+    color: #EEEEEE !important;
+    background: #B67F33 !important;
+}
+
+.timestudy.timedimstudy:hover {
+    color: #EEEEEE !important;
+    background: #B241E3 !important;
+}
+
+.timestudy.activestudy:hover {
+    color: #EEEEEE !important;
+    background: #FF0100 !important;
+}
+
+.timestudy.passivestudy:hover {
+    color: #EEEEEE !important;
+    background: #5E33B6 !important;
+}
+
+.timestudy.idlestudy:hover {
+    color: #EEEEEE !important;
+    background: #0080ff !important;
+}
+
+.timestudy.darkstudy:hover {
+    color: black !important;
+    background-color: white !important;
+    border-color: black !important;
+}
+
+.timestudy.lightstudy:hover {
+    color: white !important;
+    background-color: black !important;
+    border-color: white !important;
+}
+
+.timestudylocked, .eternitychallengestudylocked {
+    color: #181818;
+    background: #5F5F5F;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 1px solid #691fa5;
+    width: 170px;
+    height: 80px;
+    transition-duration: 0.2s;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    vertical-align: top;
+    margin:7px;
+}
+
+.timestudylocked:hover, .eternitychallengestudylocked:hover {
+    color: #1D1D1D;
+    background: #660000;
+}
+
+.timestudybought {
+    color: #1e0830;
+    background: #0BD251;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 1px solid #691fa5;
+    width: 170px;
+    height: 80px;
+    transition-duration: 0.2s;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    vertical-align: top;
+    margin:7px;
+}
+
+.eternitychallengestudybought {
+    color: black;
+    background: #490066;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 1px solid black;
+    width: 170px;
+    height: 80px;
+    transition-duration: 0.2s;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    vertical-align: top;
+    margin:7px;
+}
+
+.timetheorembtn {
+    color: #3AACD6;
+    background: #232028;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 1px solid #691fa5;
+    width: 170px;
+    height: 70px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    position: fixed;
+    left: 50%;
+    
+    bottom: 5px;
+    z-index: 1;
+}
+
+.timetheorembtn:hover {
+    color: #232028;
+    background: #3AACD6;
+}
+
+
+.timetheorembtnlocked {
+    color: black;
+    background: #4A4A4A;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 1px solid #691fa5;
+    width: 170px;
+    height: 70px;
+    transition-duration: 0.2s;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    position: fixed;
+    left: 50%;
+    bottom: 5px;
+    z-index: 1;
+}
+
+.timetheorembtnlocked:hover {
+    background: #652F2F;
+}
+
+.maxbuytheorembtn:hover {
+    color: #232028;
+    background: #3AACD6;
+}
+
+#timetheorems {
+    color: black;
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    margin-left: -114px;
+    font-size: 15px;
+}
+
+#theorembuybackground {
+    background: #E0E0E0;
+    width: 550px;
+    height: 110px;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    margin-left: -277px;
+    border: 2px solid black;
+    border-bottom: none;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+#studyTreeCanvas {
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: -999;
+}
+
+#studytable {
+    display: flex !important;
+    justify-content: center;
+}
+
+#loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1050px;
+    height:800px;
+    margin-top: -400px;
+    margin-left: -525px;
+}
+
+.eternityupbtn {
+    color: #b341e0;
+    background: black;
+    font-weight: bold;
+    font-size: 10px;
+    border: 1px solid #b341e0;
+    width: 190px;
+    height: 90px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: Typewriter;
+}
+
+.eternityupbtn:hover {
+    color: #511568;
+    background: white;
+}
+
+.eternityupbtnlocked {
+    color: #181818;
+    background: #5F5F5F;
+    font-weight: bold;
+    font-size: 10px;
+    border: 1px solid #b341e0;
+    width: 190px;
+    height: 90px;
+    transition-duration: 0.2s;
+    border-radius: 4px;
+    font-family: Typewriter;
+    cursor: pointer;
+}
+
+.eternityupbtnlocked:hover {
+    background: #737373;
+}
+
+.eternityupbtnbought {
+    color: #511568;
+    background: #5AC467;
+    font-weight: bold;
+    font-size: 10px;
+    border: 1px solid #b341e0;
+    width: 190px;
+    height: 90px;
+    transition-duration: 0.2s;
+    border-radius: 4px;
+    font-family: Typewriter;
+}
+
+.milestonereward {
+    width: 250px;
+    height: 60px;
+    color: black;
+    background: #8D48C3;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 1px solid #691fa5;
+    transition-duration: 0.2s;
+    border-radius: 4px;
+    vertical-align: top;
+    font-size: 12px;
+}
+
+.milestonerewardlocked {
+    width: 250px;
+    height: 60px;
+    color: black;
+    background: #696969;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 1px solid #691fa5;
+    transition-duration: 0.2s;
+    border-radius: 4px;
+    vertical-align: top;
+    font-size: 12px;
+}
+
+.milestoneText {
+    font-size: 20px;
+}
+
+#production {
+    font-size: 12px;
+}
+
+@keyframes glow {
+    20% { text-shadow: 0 0 10px green; }
+    100% { text-shadow: 0 0 10px white; }
 }
 
 [ach-tooltip] {
@@ -292,10 +1167,10 @@
 
 body {
     background-color: #fff;
-    padding: 7px;
+    padding: 1px 7px;
     font: 14px/1.5 "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #727272;
-    font-weight: 400;
+    font-weight: 300;
 }
 
 h1,
@@ -386,14 +1261,13 @@ pre {
 }
 
 table {
-    border-collapse: collapse;
+    border-spacing: 0
 }
 
 th,
 td {
     text-align: left;
-    padding: 5px 10px;
-    border-bottom: 1px solid #e5e5e5;
+    padding: 5px 8px;
 }
 
 dt {
@@ -500,6 +1374,37 @@ footer {
     -webkit-font-smoothing: subpixel-antialiased;
 }
 
+br {
+    margin: 0;
+    pointer-events:none;
+}
+
+#timestudies br {
+    content: " ";
+    display: block;
+    margin: 0;
+    margin-top: 20px;
+    pointer-events:none;
+}
+
+#TTbuttons br {
+    content: " ";
+    display: block;
+    margin: 0;
+    margin-top: 20px;
+    pointer-events:none;
+}
+
+
+
+#timestudies span {
+    display:block;
+    pointer-events:none;
+}
+
+
+
+
 @media print,
 screen and (max-width: 960px) {
     div.wrapper {
@@ -570,4 +1475,70 @@ screen and (max-width: 480px) {
         font-size: 12pt;
         color: #444;
     }
+}
+
+@keyframes studyGlowIn {
+    0%  {box-shadow: inset 0px 0px 3px 0px #b341e0;}
+    50% {box-shadow: inset 0px 0px 15px 0px #b341e0;}
+    100%  {box-shadow: inset 0px 0px 3px 0px #b341e0;}
+}
+
+@keyframes normalDimStudyGlowIn {
+    0%  {box-shadow: inset 0px 0px 3px 0px #22aa48;}
+    50% {box-shadow: inset 0px 0px 20px 0px #22aa48;}
+    100%  {box-shadow: inset 0px 0px 3px 0px #22aa48;}
+}
+
+@keyframes infDimStudyGlowIn {
+    0%  {box-shadow: inset 0px 0px 3px 0px #B67F33;}
+    50% {box-shadow: inset 0px 0px 20px 0px #B67F33;}
+    100%  {box-shadow: inset 0px 0px 3px 0px #B67F33;}
+}
+
+@keyframes timeDimStudyGlowIn {
+    0%  {box-shadow: inset 0px 0px 3px 0px #B241E3;}
+    50% {box-shadow: inset 0px 0px 20px 0px #B241E3;}
+    100%  {box-shadow: inset 0px 0px 3px 0px #B241E3;}
+}
+
+@keyframes activeStudyGlowIn {
+    0%  {box-shadow: inset 0px 0px 3px 0px #FF0100;}
+    50% {box-shadow: inset 0px 0px 20px 0px #FF0100;}
+    100% {box-shadow: inset 0px 0px 3px 0px #FF0100;}
+}
+
+@keyframes passiveStudyGlowIn {
+    0%  {box-shadow: inset 0px 0px 3px 0px #5E33B6;}
+    50% {box-shadow: inset 0px 0px 20px 0px #5E33B6;}
+    100% {box-shadow: inset 0px 0px 3px 0px #5E33B6;}
+}
+
+@keyframes idleStudyGlowIn {
+    0%  {box-shadow: inset 0px 0px 3px 0px #0080ff;}
+    50% {box-shadow: inset 0px 0px 20px 0px #0080ff;}
+    100% {box-shadow: inset 0px 0px 3px 0px #0080ff;}
+}
+
+@keyframes eternityChallengeGlowIn {
+    0%  {box-shadow: inset 0px 0px 3px 0px #490066;}
+    50% {box-shadow: inset 0px 0px 20px 0px #490066;}
+    100% {box-shadow: inset 0px 0px 3px 0px #490066;}
+}
+
+@keyframes darkStudyGlowIn {
+    0%  {box-shadow: inset 0px 0px 3px 0px white;}
+    50% {box-shadow: inset 0px 0px 20px 0px white;}
+    100% {box-shadow: inset 0px 0px 3px 0px white;}
+}
+
+@keyframes lightStudyGlowIn {
+    0%  {box-shadow: inset 0px 0px 3px 0px black;}
+    50% {box-shadow: inset 0px 0px 20px 0px black;}
+    100% {box-shadow: inset 0px 0px 3px 0px black;}
+}
+
+@keyframes barrelRoll {
+    0%  {transform: rotateZ(0deg);}
+    50% {transform: rotateZ(360deg);}
+    100% {transform: rotateZ(360deg);}
 }

@@ -1,0 +1,507 @@
+html {
+    background: url('../images/s1-bg.svg') no-repeat;
+    background-size: contain;
+    align-content: center;
+    background-size: 100%;
+    background-color: #d72621;
+    color: black !important;
+    background-attachment:fixed;
+    background-position:center bottom;
+}
+
+body {
+    background: none !important;
+}
+
+.popup {
+    background-color: #dbd242 !important;
+}
+
+.tabbtn {
+    color: black !important;
+    background: #dbd242 !important;
+    border-color: black !important;
+}
+
+.secondarytabbtn {
+    color: black !important;
+    background: #dbd242 !important;
+    border-color: black !important;
+}
+
+.tabbtn:hover {
+    color: #dbd242 !important;
+    background: black !important;
+}
+
+.secondarytabbtn:hover {
+    color: #dbd242 !important;
+    background: black !important;
+}
+
+.newdim {
+    color: black !important;
+    background: #dbd242 !important;
+    border-color: black !important;
+}
+
+.newdim:hover {
+    background-color: #4baf4e !important;
+    border-color: black !important;
+}
+
+.newdimlocked {
+    color: black !important;
+    background: #9a921d !important;
+    border-color: black !important;
+}
+
+.newdimlocked:hover {
+    background: #d72621 !important;
+    border: 1px solid black !important;
+}
+
+.storebtn {
+    background: #dbd242 !important;
+    border-color: black !important;
+}
+
+.storebtn:hover {
+    background-color: #4baf4e !important;
+    border-color: black !important;
+}
+
+.postinfcrunch {
+    background: #dbd242 !important;
+    border-color: black !important;
+}
+
+.postinfcrunch:hover {
+    color: #dbd242 !important;
+    background: black !important;
+}
+
+.unavailablebtn {
+    background: #9a921d !important;
+    border-color: black !important;
+}
+
+.unavailablebtn:hover {
+    background: #d72621 !important;
+    border: 1px solid black !important;
+}
+
+#game {
+    background: #dbd242
+}
+
+#progressbar {
+    background-color: #4baf4e !important;
+}
+
+#container.container {
+    color: black !important;
+}
+
+.eternitybtn {
+    color: #639565 !important;
+    background: black !important;
+    border-color: #639565 !important;
+}
+
+.eternitybtn:hover {
+    color: black !important;
+    background: #639565 !important;
+    border-color: black !important;
+}
+
+.eternitytabbtn {
+    color: #639565 !important;
+    background: black !important;
+    border-color: #639565 !important;
+}
+
+.eternitytabbtn:hover {
+    color: black !important;
+    background: #639565 !important;
+    border-color: black !important;
+}
+
+.EPAmount1 {
+    color: #639565;
+}
+
+.EPAmount2 {
+    color: #639565;
+    text-shadow: 1px 1px 0px black;
+}
+
+.infinitybtn {
+    color: #FFFFFF !important;
+    background: black !important;
+    border: 2px solid #7d3c1b !important;
+}
+
+.infinitybtn:hover {
+    color: #FFFFFF !important;
+    background: #7d3c1b !important;
+}
+
+.IPAmount1 {
+    color: #7d3c1b;
+    text-shadow: 1px 1px 0px black;
+}
+
+.IPAmount2 {
+    color: #7d3c1b;
+    text-shadow: 1px 1px 0px black;
+}
+
+.completedrow {
+    background: #9a921d !important;
+}
+
+.achievementunlocked {
+    background-color: #dbd242 !important;
+    border-color: #c5ba26 !important;
+}
+
+.challengediv {
+    background: #dbd242 !important;
+}
+
+.infchallengediv {
+    color: #dbd242 !important;
+}
+
+.eterchallengediv {
+    color: #639565 !important;
+    border: 3px solid #639565 !important;
+}
+
+.challengesbtn {
+    color: #FFF !important;
+    background: none !important;
+    border: 3px solid #507751 !important;
+}
+
+.challengesbtn:hover {
+    background: #639565 !important;
+}
+
+.completedchallengesbtn {
+    background: #639565 !important;
+    border: 3px solid #507751 !important;
+}
+
+.infinistorebtn1 {
+    border-color: black !important;
+}
+
+.infinistorebtn2 {
+    border-color: black !important;
+}
+
+.infinistorebtn3 {
+    border-color: black !important;
+}
+
+.infinistorebtn4 {
+    border-color: black !important;
+}
+
+.infinimultbtn {
+    background: black !important;
+    color: #d72621 !important;
+    border-color: #dbd242 !important;
+}
+
+.infinimultbtn:hover {
+    background: white !important;
+    color: black !important;
+}
+
+.infinistorebtnbought {
+    background-color: #4baf4e !important;
+    border-color: black !important;
+}
+
+.infinistorebtnlocked {
+    background: #9a921d !important;
+    border-color: black !important;
+}
+
+.infinistorebtnlocked:hover {
+    background: #c5ba26 !important;
+}
+
+input {
+    background-color: #9a921d !important;
+    border: 1px solid black !important;
+    border-radius: 3px !important;
+}
+
+.autoBuyerDiv {
+    color: black !important;
+    border-color: black !important;
+    background-color: #dbd242 !important;
+}
+
+.autobuyerbtn {
+    border: 1px solid #7d3c1b !important;
+    margin-bottom: -1px;
+}
+
+.autobuyerbtn:hover {
+    background: #7d3c1b !important;
+}
+
+.eternityupbtn {
+    color: #639565 !important;
+    background-color: black !important;
+    border-color: #639565 !important;
+}
+
+.eternityupbtn:hover {
+    color: black !important;
+    background-color: #639565 !important;
+    border-color: black !important;
+}
+
+.eternityupbtnbought {
+    color: black !important;
+    background-color: #639565 !important;
+    border-color: black !important;
+}
+
+.eternityupbtnlocked {
+    color: black !important;
+    background: #4A4A4A !important;
+    border-color: #639565 !important;
+}
+
+.eternityupbtnlocked:hover {
+    background: #636363 !important;
+}
+
+.timetheorembtn {
+    color: #639565 !important;
+    border-color: #639565 !important;
+}
+
+.timetheorembtn:hover {
+    color: #232028 !important;
+    background: #639565 !important;
+}
+
+.timetheorembtnlocked {
+    border-color: #639565 !important;
+}
+
+.timetheorembtnlocked:hover {
+    background: #d72621 !important;
+    border-color: black !important;
+}
+
+#theorembuybackground {
+    background: #dbd242 !important;
+}
+
+.timestudy {
+    color: #639565 !important;
+    border: 1px solid #639565 !important;
+    animation: christmasStudyGlowIn 7s infinite !important;
+}
+
+.timestudy.normaldimstudy {
+    animation: normalDimStudyGlowIn 7s infinite !important;
+}
+
+.timestudy.infdimstudy {
+    animation: infDimStudyGlowIn 7s infinite !important;
+}
+
+.timestudy.timedimstudy {
+    animation: timeDimStudyGlowIn 7s infinite !important;
+}
+
+.timestudy.activestudy {
+    animation: activeStudyGlowIn 7s infinite !important;
+}
+
+.timestudy.passivestudy {
+    animation: passiveStudyGlowIn 7s infinite !important;
+}
+
+.timestudy.idlestudy {
+    animation: idleStudyGlowIn 7s infinite !important;
+}
+
+.timestudy.darkstudy {
+    animation: darkStudyGlowIn 7s infinite !important;
+}
+
+.timestudy.lightstudy {
+    animation: lightStudyGlowIn 7s infinite !important;
+}
+
+.timestudy:hover {
+    color: #EEEEEE !important;
+    background: #639565 !important;
+}
+
+.timestudy.normaldimstudy:hover {
+    color: #EEEEEE !important;
+    background: #22aa48 !important;
+}
+
+.timestudy.infdimstudy:hover {
+    color: #EEEEEE !important;
+    background: #B67F33 !important;
+}
+
+.timestudy.timedimstudy:hover {
+    color: #EEEEEE !important;
+    background: #B241E3 !important;
+}
+
+.timestudy.activestudy:hover {
+    color: #EEEEEE !important;
+    background: #FF0100 !important;
+}
+
+.timestudy.idlestudy:hover {
+    color: #EEEEEE !important;
+    background: #0080ff !important;
+}
+
+.timestudybought {
+    color: black !important;
+    background: #639565 !important;
+    border: 1px solid black !important;
+}
+
+.timestudybought.normaldimstudy {
+    background: #22aa48 !important;
+}
+
+.timestudybought.infdimstudy {
+    background: #B67F33 !important;
+}
+
+.timestudybought.timedimstudy {
+    background: #B241E3 !important;
+}
+
+.timestudybought.activestudy {
+    background: #FF0100 !important;
+}
+
+.timestudybought.passivestudy {
+    background: #5E33B6 !important;
+}
+
+.timestudybought.idlestudy {
+    background: #0080ff !important;
+}
+
+.timestudybought.darkstudy {
+    color: black !important;
+    background-color: white !important;
+    border-color: black !important;
+}
+
+.timestudybought.lightstudy {
+    color: white !important;
+    background-color: black !important;
+    border-color: white !important;
+}
+
+.timestudylocked, .eternitychallengestudylocked {
+    color: black !important;
+    background: #9E9E9E !important;
+    box-shadow: 1px 1px 1px 0px #000;
+    border: none !important;
+}
+
+.timestudylocked.normaldimstudylocked {
+    background: #94a89a !important;
+}
+
+.timestudylocked.infdimstudylocked {
+    background: #a8a094 !important;
+}
+
+.timestudylocked.timedimstudylocked {
+    background: #a294a8 !important;
+}
+
+.timestudylocked.activestudylocked {
+    background: #a89494 !important;
+}
+
+.timestudylocked.passivestudylocked {
+    background: #9b94a8 !important;
+}
+
+.timestudylocked.idlestudylocked {
+    background: #949ea8 !important;
+}
+
+.timestudylocked:hover, .eternitychallengestudylocked:hover {
+    background: #d72621 !important;
+}
+
+.milestonereward {
+    background: #639565 !important;
+    border-color: #507751 !important;
+}
+
+.milestonerewardlocked {
+    background: #9E9E9E !important;
+    box-shadow: 1px 1px 1px 0px #000;
+    border: none !important;
+}
+
+.greedbtn {
+    color: black !important;
+    background: #dbd242 !important;
+    border-color: black !important;
+}
+
+.greedbtn:hover {
+    color: #dbd242 !important;
+    background: black !important;
+}
+
+#snow {
+    display: block !important;
+    background-image: url('../images/snow1.png'), url('../images/snow2.png'), url('../images/snow3.png');
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+	position: fixed;
+    z-index: -1;
+    opacity: 1;
+    pointer-events: none;
+    animation: snow 10s linear infinite, snowFade 10s cubic-bezier(0,0.3,1,0.7) infinite;
+}
+
+@keyframes snow {
+  0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+  50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+  100% {background-position: 1000px 1000px, 200px 400px, -200px 300px;}
+}
+
+@keyframes snowFade {
+    0% {opacity: 0;}
+    50% {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+@keyframes christmasStudyGlowIn {
+    0%  {box-shadow: inset 0px 0px 3px 0px #639565;}
+    50% {box-shadow: inset 0px 0px 20px 0px #639565;}
+    100%  {box-shadow: inset 0px 0px 3px 0px #639565;}
+}

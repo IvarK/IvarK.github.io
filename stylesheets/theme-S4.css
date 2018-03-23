@@ -1,0 +1,45 @@
+* {
+    border-radius: 40% !important;
+}
+
+* {
+    font-family: "Comic Sans MS", cursive, sans-serif !important;
+}
+
+html{
+	background-color: #FF00FF;
+    color: black !important;
+    background-attachment:fixed;
+    background-position:center bottom;	
+	border: 1px solid white !important;
+}
+
+#container {
+    cursor: url(cursor.cur),  auto !important;
+}
+
+body {
+    filter: invert(0%);
+	background: #0FFF0F !important;
+	
+    border: 1px solid white !important;
+}
+
+.unavailablebtn {
+    background-color: #ff0000 !important;
+}
+
+.storebtn {
+    background-color: #ff00e0 !important;
+    cursor: url(cursor2.cur),  auto !important;
+}
+
+
+.tabbtn, .secondarytabbtn {
+    background-color: #1b00ff !important;
+    cursor: url(cursor2.cur), auto !important;
+}
+
+* {
+	box-shadow: 1px 1px 1px 0px #9E9E9E;
+}
