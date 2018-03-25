@@ -1593,6 +1593,26 @@ function formatValue(notation, value, places, placesUnder1000) {
             else return "e"+Decimal.log10(value).toFixed(places)
         }
 
+        if (notation === "Brackets") {
+          var table = [")", "[", "{", "]", "(", "}"];
+          var log6 = Math.LN10 / Math.log(6) * Decimal.log10(value);
+          var wholePartOfLog = Math.floor(log6);
+          var decimalPartOfLog = log6 - wholePartOfLog;
+          //Easier to convert a number between 0-35 to base 6 than messing with fractions and shit
+          var decimalPartTimes36 = Math.floor(decimalPartOfLog * 36);
+          var string = "";
+          while (wholePartOfLog >= 6) {
+            var remainder = wholePartOfLog % 6;
+            wholePartOfLog -= remainder;
+            wholePartOfLog /= 6;
+            string = table[remainder] + string;
+          }
+          string = "e" + table[wholePartOfLog] + string + ".";
+          string += table[Math.floor(decimalPartTimes36 / 6)];
+          string += table[decimalPartTimes36 % 6];
+          return string;
+        }
+
         matissa = (matissa * Decimal.pow(10, power % 3)).toFixed(places)
         if (matissa >= 1000) {
             matissa /= 1000;
@@ -1611,30 +1631,12 @@ function formatValue(notation, value, places, placesUnder1000) {
             return matissa + letter(power,'abcdefghijklmnopqrstuvwxyz');
         } else if (notation === "Emojis") {
             return matissa + letter(power,['😠', '🎂', '🎄', '💀', '🍆', '👪', '🌈', '💯', '🍦', '🎃', '💋', '😂', '🌙', '⛔', '🐙', '💩', '❓', '☢', '🙈', '👍', '☂', '✌', '⚠', '❌', '😋', '⚡'])
-        } else if (notation === "Brackets") {
-          var table = [")", "[", "{", "]", "(", "}"];
-          var log6 = value.log(6);
-          var wholePartOfLog = Math.floor(log6);
-          var decimalPartOfLog = log6 - wholePartOfLog;
-          //Easier to convert a number between 0-35 to base 6 than messing with fractions and shit
-          var decimalPartTimes36 = Math.floor(decimalPartOfLog * 36);
-          var string = "";
-          while (wholePartOfLog >= 6) {
-            var remainder = wholePartOfLog % 6;
-            wholePartOfLog -= remainder;
-            wholePartOfLog /= 6;
-            string = table[remainder] + string;
-          }
-          string = "e" + table[wholePartOfLog] + string + ".";
-          string += table[Math.floor(decimalPartTimes36 / 6)];
-          string += table[decimalPartTimes36 % 6];
-          return string;
-        } else {
+        }
+
+        else {
             if (power > 100000  && player.options.commas) power = power.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             return "1337 H4CK3R"
         }
-
-
     } else if (value < 1000) {
         return (value).toFixed(placesUnder1000);
     } else {
