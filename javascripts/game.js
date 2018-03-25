@@ -1611,12 +1611,7 @@ function formatValue(notation, value, places, placesUnder1000) {
             return matissa + letter(power,'abcdefghijklmnopqrstuvwxyz');
         } else if (notation === "Emojis") {
             return matissa + letter(power,['😠', '🎂', '🎄', '💀', '🍆', '👪', '🌈', '💯', '🍦', '🎃', '💋', '😂', '🌙', '⛔', '🐙', '💩', '❓', '☢', '🙈', '👍', '☂', '✌', '⚠', '❌', '😋', '⚡'])
-        } else {
-            if (power > 100000  && player.options.commas) power = power.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-            return "1337 H4CK3R"
-        }
-
-        if (notation === "Brackets") {
+        } else if (notation === "Brackets") {
           var table = [")", "[", "{", "]", "(", "}"];
           var log6 = value.log(6);
           var wholePartOfLog = Math.floor(log6);
@@ -1634,7 +1629,12 @@ function formatValue(notation, value, places, placesUnder1000) {
           string += table[Math.floor(decimalPartTimes36 / 6)];
           string += table[decimalPartTimes36 % 6];
           return string;
+        } else {
+            if (power > 100000  && player.options.commas) power = power.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            return "1337 H4CK3R"
         }
+
+
     } else if (value < 1000) {
         return (value).toFixed(placesUnder1000);
     } else {
