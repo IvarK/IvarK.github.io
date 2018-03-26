@@ -8935,6 +8935,10 @@ window.addEventListener('keydown', function(event) {
             document.getElementById("bigcrunch").onclick()
         break;
 
+        case 69: // E, also, nice.
+        document.getElementById("eternitybtn").onclick();
+        break;
+
         case 70: // F
             $.notify("Paying respects", "info")
         break;
