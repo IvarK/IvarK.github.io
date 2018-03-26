@@ -1219,9 +1219,9 @@ function onLoad() {
             document.getElementById(""+player.timestudy.studies[i]).className = "timestudybought passivestudy"
         } else if (player.timestudy.studies[i] == 123 || player.timestudy.studies[i] == 133 || player.timestudy.studies[i] == 143) {
             document.getElementById(""+player.timestudy.studies[i]).className = "timestudybought idlestudy"
-        } else if (player.timestudy.studies[i] == 221 || player.timestudy.studies[i] == 223 || player.timestudy.studies[i] == 225 || player.timestudy.studies[i] == 227 || player.timestudy.studies[i] == 231 || player.timestudy.studies[i] == 233) {
+        } else if (player.timestudy.studies[i] == 221 || player.timestudy.studies[i] == 224 || player.timestudy.studies[i] == 225 || player.timestudy.studies[i] == 228 || player.timestudy.studies[i] == 231 || player.timestudy.studies[i] == 233) {
             document.getElementById(player.timestudy.studies[i]).className = "timestudybought darkstudy"
-        } else if (player.timestudy.studies[i] == 222 || player.timestudy.studies[i] == 224 || player.timestudy.studies[i] == 226 || player.timestudy.studies[i] == 228 || player.timestudy.studies[i] == 232 || player.timestudy.studies[i] == 234) {
+        } else if (player.timestudy.studies[i] == 222 || player.timestudy.studies[i] == 223 || player.timestudy.studies[i] == 226 || player.timestudy.studies[i] == 227 || player.timestudy.studies[i] == 232 || player.timestudy.studies[i] == 234) {
             document.getElementById(player.timestudy.studies[i]).className = "timestudybought lightstudy"
         } else {
             document.getElementById(""+player.timestudy.studies[i]).className = "timestudybought"
@@ -2580,9 +2580,9 @@ function buyTimeStudy(name, cost, check) {
             document.getElementById(""+name).className = "timestudybought passivestudy"
         } else if (name == 123 || name == 133 || name == 143) {
             document.getElementById(""+name).className = "timestudybought idlestudy"
-        } else if (name == 221 || name == 223 || name == 225 || name == 227 || name == 231 || name == 233) {
+        } else if (name == 221 || name == 224 || name == 225 || name == 228 || name == 231 || name == 234) {
             document.getElementById(name).className = "timestudybought darkstudy"
-        } else if (name == 222 || name == 224 || name == 226 || name == 228 || name == 232 || name == 234) {
+        } else if (name == 222 || name == 223 || name == 226 || name == 227 || name == 232 || name == 233) {
             document.getElementById(name).className = "timestudybought lightstudy"
         } else {
             document.getElementById(""+name).className = "timestudybought"
@@ -2685,9 +2685,9 @@ function updateTimeStudyButtons() {
                     document.getElementById(all[i]).className = "timestudy passivestudy"
                 } else if (all[i] == 123 || all[i] == 133 || all[i] == 143) {
                     document.getElementById(all[i]).className = "timestudy idlestudy"
-                } else if (all[i] == 221 || all[i] == 223 || all[i] == 225 || all[i] == 227 || all[i] == 231 || all[i] == 233) {
+                } else if (all[i] == 221 || all[i] == 224 || all[i] == 225 || all[i] == 228 || all[i] == 231 || all[i] == 234) {
                     document.getElementById(all[i]).className = "timestudy darkstudy"
-                } else if (all[i] == 222 || all[i] == 224 || all[i] == 226 || all[i] == 228 || all[i] == 232 || all[i] == 234) {
+                } else if (all[i] == 222 || all[i] == 223 || all[i] == 226 || all[i] == 227 || all[i] == 232 || all[i] == 233) {
                     document.getElementById(all[i]).className = "timestudy lightstudy"
                 } else {
                     document.getElementById(all[i]).className = "timestudy"
