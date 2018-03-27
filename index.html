@@ -105,8 +105,13 @@
                 </tr>
             </table>
             <div class="eternitytab" id="timestudies" style="font-size: 15px">
+                <div style="display: none;"><textarea id="treeExportOutput" style="color:black; width: 200px; height: 55px;"></textarea></div>
                 <canvas id="studyTreeCanvas"></canvas>
-                <div><button class="storebtn" onclick="respecToggle()" id="respec" style="width:150px; height: 40px; font-size: 10px; margin: auto">Respec time studies on next Eternity</button></div>
+                <tr>
+                    <td><button class="storebtn" onclick="exportStudyTree()" style="width:150px; height: 40px; font-size: 10px; margin: auto">Export tree</button><td>
+                    <td><button class="storebtn" onclick="respecToggle()" id="respec" style="width:150px; height: 40px; font-size: 10px; margin: auto">Respec time studies on next Eternity</button><td>
+                    <td><button class="storebtn" onclick="importStudyTree()" style="width:150px; height: 40px; font-size: 10px; margin: auto">Import tree</button><td>
+                </tr>
                 <table class="table" id="studytable">
                     <tr>
                         <td><button class="timestudylocked" id="11" onclick="buyTimeStudy(11, 1)">Tickspeed affects First Time Dimension (With reduced effect)<span>Cost: 1 Time Theorem</button></td>
@@ -261,22 +266,22 @@
                 </table>
                 <table class="table" id="studytable">
                     <tr class="wideRow">
-                        <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.55rem; padding: 3px;" id="221" onclick="buyTimeStudy(221, 900)">Dimensional boosts affect time dimensions with reduced power.<span>Cost: 900 Time Theorems</button></td>
-                        <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.55rem; padding: 3px;" id="222" onclick="buyTimeStudy(222, 900)">Dimensional boost costs scale by another 2 less.<span>Cost: 900 Time Theorems</button></td>
-                        <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.55rem; padding: 3px;" id="223" onclick="buyTimeStudy(223, 900)">Galaxy cost scaling starts 7 galaxies later.<span>Cost: 900 Time Theorems</button></td>
-                        <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.55rem; padding: 3px;" id="224" onclick="buyTimeStudy(224, 900)">Galaxy cost scaling starts 1 galaxy later for every 2000 dimensional boosts.<span>Cost: 900 Time Theorems</button></td>
-                        <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.55rem; padding: 3px;" id="225" onclick="buyTimeStudy(225, 900)">You gain extra RGs based on how high above infinity your replicanti are.<span>Cost: 900 Time Theorems</button></td>
-                        <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.55rem; padding: 3px;" id="226" onclick="buyTimeStudy(226, 900)">You gain extra RGs based on your max RGs you have.<span>Cost: 900 Time Theorems</button></td>
-                        <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.55rem; padding: 3px;" id="227" onclick="buyTimeStudy(227, 900)">Sacrifice affects the 4th Time Dimension with reduced effect.<span>Cost: 900 Time Theorems</button></td>
-                        <td><button class="timestudy" style="margin: 1px; width: 120px; font-size: 0.55rem; padding: 3px;" id="228" onclick="buyTimeStudy(228, 900)">Sacrifice scales better.<span>Cost: 900 Time Theorems</button></td>
+                        <td><button class="timestudy darkstudy" style="margin: 1px; width: 120px; font-size: 0.55rem; padding: 3px;" id="221" onclick="buyTimeStudy(221, 900)">Dimensional boosts affect time dimensions with reduced power.<span>Cost: 900 Time Theorems</button></td>
+                        <td><button class="timestudy lightstudy" style="margin: 1px; width: 120px; font-size: 0.55rem; padding: 3px;" id="222" onclick="buyTimeStudy(222, 900)">Dimensional boost costs scale by another 2 less.<span>Cost: 900 Time Theorems</button></td>
+                        <td><button class="timestudy darkstudy" style="margin: 1px; width: 120px; font-size: 0.55rem; padding: 3px;" id="223" onclick="buyTimeStudy(223, 900)">Galaxy cost scaling starts 7 galaxies later.<span>Cost: 900 Time Theorems</button></td>
+                        <td><button class="timestudy lightstudy" style="margin: 1px; width: 120px; font-size: 0.55rem; padding: 3px;" id="224" onclick="buyTimeStudy(224, 900)">Galaxy cost scaling starts 1 galaxy later for every 2000 dimensional boosts.<span>Cost: 900 Time Theorems</button></td>
+                        <td><button class="timestudy darkstudy" style="margin: 1px; width: 120px; font-size: 0.55rem; padding: 3px;" id="225" onclick="buyTimeStudy(225, 900)">You gain extra RGs based on how high above infinity your replicanti are.<span>Cost: 900 Time Theorems</button></td>
+                        <td><button class="timestudy lightstudy" style="margin: 1px; width: 120px; font-size: 0.55rem; padding: 3px;" id="226" onclick="buyTimeStudy(226, 900)">You gain extra RGs based on your max RGs you have.<span>Cost: 900 Time Theorems</button></td>
+                        <td><button class="timestudy darkstudy" style="margin: 1px; width: 120px; font-size: 0.55rem; padding: 3px;" id="227" onclick="buyTimeStudy(227, 900)">Sacrifice affects the 4th Time Dimension with reduced effect.<span>Cost: 900 Time Theorems</button></td>
+                        <td><button class="timestudy lightstudy" style="margin: 1px; width: 120px; font-size: 0.55rem; padding: 3px;" id="228" onclick="buyTimeStudy(228, 900)">Sacrifice scales better.<span>Cost: 900 Time Theorems</button></td>
                     </tr>
                 </table>
                 <table class="table" id="studytable">
                     <tr>
-                        <td><button class="timestudy" id="231" onclick="buyTimeStudy(231, 500)">Dimensional boosts are more effective based on their amount.<span>Cost: 500 Time Theorems</button></td>
-                        <td><button class="timestudy" id="232" onclick="buyTimeStudy(232, 500)">Galaxies are more effective based non-replicated galaxies.<span>Cost: 500 Time Theorems</button></td>
-                        <td><button class="timestudy" id="233" onclick="buyTimeStudy(233, 500)">Max replicanti galaxy upgrade cost is reduced based on replicanti amount.<span>Cost: 500 Time Theorems</button></td>
-                        <td><button class="timestudy" id="234" onclick="buyTimeStudy(234, 500)">Sacrifice boosts First Dimension.<span>Cost: 500 Time Theorems</button></td>
+                        <td><button class="timestudy darkstudy" id="231" onclick="buyTimeStudy(231, 500)">Dimensional boosts are more effective based on their amount.<span>Cost: 500 Time Theorems</button></td>
+                        <td><button class="timestudy lightstudy" id="232" onclick="buyTimeStudy(232, 500)">Galaxies are more effective based on non-replicated galaxies.<span>Cost: 500 Time Theorems</button></td>
+                        <td><button class="timestudy darkstudy" id="233" onclick="buyTimeStudy(233, 500)">Max replicanti galaxy upgrade cost is reduced based on replicanti amount.<span>Cost: 500 Time Theorems</button></td>
+                        <td><button class="timestudy lightstudy" id="234" onclick="buyTimeStudy(234, 500)">Sacrifice boosts First Dimension.<span>Cost: 500 Time Theorems</button></td>
                     </tr>
                 </table>
                 <table class="table" id="studytable">
@@ -877,7 +882,7 @@
                 
             </table>
             <div style="display: none;"><textarea id="exportOutput" style="color:black; width: 200px; height: 55px;"></textarea></div>
-            <p>Hotkeys: 1-8 for buy 10 dimension, shift+1-8 for buy 1 dimension, T to buy max tickspeed, shift+T to buy one tickspeed, M for max all<br>S for sacrifice, D for dimension boost, G for galaxy, C for crunch, A for toggle autobuyers, R for replicanti galaxies.<br>You can hold shift while buying time studies to buy all up until that point.<br>Hotkeys do not work while holding control.</p>
+            <p>Hotkeys: 1-8 for buy 10 dimension, shift+1-8 for buy 1 dimension, T to buy max tickspeed, shift+T to buy one tickspeed, M for max all<br>S for sacrifice, D for dimension boost, G for galaxy, C for crunch, A for toggle autobuyers, R for replicanti galaxies, E for eternity.<br>You can hold shift while buying time studies to buy all up until that point.<br>Hotkeys do not work while holding control.</p>
             <div id="footercontainer">
                 <table id="footer">
                     <tr>
@@ -1118,7 +1123,7 @@
                         <div id="Definitely not worth it" class="achievement achievementlocked" style="background-image: url(images/35.png)" ach-tooltip="Max all the autobuyers."><br></div>
                     </td>
                     <td>
-                        <div id="That's faster!" class="achievement achievementlocked" style="background-image: url(images/36.png)" ach-tooltip="Infinity in 10 minutes or less. Reward: Start with 20000 antimatter."><br></div>
+                        <div id="That's faster!" class="achievement achievementlocked" style="background-image: url(images/36.png)" ach-tooltip="Infinity in 10 minutes or less. Reward: Start with 200000 antimatter."><br></div>
                     </td>
                     <td>
                         <div id="Forever isn't that long" class="achievement achievementlocked" style="background-image: url(images/37.png)" ach-tooltip="Infinity in 1 minute or less. Reward: Start with 1e10 antimatter."><br></div>
@@ -2304,7 +2309,7 @@
                             <button id="postinfi23" class="infinistorebtn1" onclick="buyInfinityUpgrade('bulkBoost',5e9)">Option to bulk buy Dimension Boosts <br>Cost: </button>
                         </td>
                         <td>
-                            <button id="postinfi33" class="infinistorebtn1" onclick="buyInfinityUpgrade('autoBuyerUpgrade',1e15)">Autobuyers work twice as fast<br>Cost: 10 B IP</button>
+                            <button id="postinfi33" class="infinistorebtn1" onclick="buyInfinityUpgrade('autoBuyerUpgrade',1e15)">Autobuyers work twice as fast <br>Cost: 1 Qa IP</button>
                         </td>
                         
                     </tr>
