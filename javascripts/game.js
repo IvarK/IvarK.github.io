@@ -7272,6 +7272,15 @@ setInterval(function() {
         giveAchievement("You're a mistake")
     }
 
+    if (Math.random() > Math.pow(0.95, 1/(8*60*60))) {
+        player.options.theme = "S4";
+        player.options.secretThemeKey = "Cancer";
+        setTheme(player.options.theme);
+        player.options.notation = "Emojis"
+        document.getElementById("theme").innerHTML = "GET"
+        document.getElementById("notation").innerHTML = "CANCER"
+    }
+
 
     document.getElementById("infinitiedBank").style.display = (player.infinitiedBank > 0) ? "block" : "none"
     document.getElementById("infinitiedBank").innerHTML = "You have " + player.infinitiedBank.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " banked infinities."
@@ -7303,6 +7312,15 @@ function fact(v) {
     let ret=1;
     do {ret *= v} while (--v > 1)
     return ret;
+}
+
+function testTrigger() {
+    player.options.theme = "S4";
+    player.options.secretThemeKey = "Cancer";
+    setTheme(player.options.theme);
+    player.options.notation = "Emojis"
+    document.getElementById("theme").innerHTML = "SO"
+    document.getElementById("notation").innerHTML = "BEAUTIFUL"
 }
 
 
