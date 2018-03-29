@@ -3315,7 +3315,7 @@ function giveAchievement(name) {
     if (player.achievements.includes(allAchievementNums[name])) return false
 
     $.notify(name, "success");
-    player.achievements.push((Object.keys(allAchievements).find(function(key) { allAchievements[key] === name } )));
+    player.achievements.push(allAchievementNums[name]);
     document.getElementById(name).className = "achievementunlocked"
     try {
         kongregate.stats.submit('Achievements', player.achievements.length);
