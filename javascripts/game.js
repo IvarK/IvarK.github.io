@@ -1276,9 +1276,9 @@ function onLoad() {
         document.getElementById("game").style.display = "none";
     }
     if (player.options.challConf) {
-        document.getElementById("challengeconfirmation").innerHTML = "Challenge confirmation off"
+        document.getElementById("challengeconfirmation").innerHTML = "Challenge confirmation OFF"
     } else {
-        document.getElementById("challengeconfirmation").innerHTML = "Challenge confirmation on"
+        document.getElementById("challengeconfirmation").innerHTML = "Challenge confirmation ON"
     }
 
     document.getElementById("chartDurationInput").value = player.options.chart.duration;
