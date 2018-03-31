@@ -320,6 +320,14 @@ input {
     animation: idleStudyGlowIn 5s infinite !important;
 }
 
+.timestudy.darkstudy {
+    animation: darkStudyGlowIn 5s infinite !important;
+}
+
+.timestudy.lightstudy {
+    animation: lightStudyGlowIn 5s infinite !important;
+}
+
 .timestudy:hover {
     color: #EEEEEE !important;
     background: #512DA8 !important;
@@ -380,7 +388,19 @@ input {
     background: #0080ff !important;
 }
 
-.timestudylocked {
+.timestudybought.darkstudy {
+    color: black !important;
+    background-color: white !important;
+    border-color: black !important;
+}
+
+.timestudybought.lightstudy {
+    color: white !important;
+    background-color: black !important;
+    border-color: white !important;
+}
+
+.timestudylocked, .eternitychallengestudylocked {
     color: black !important;
     background: #9E9E9E !important;
     box-shadow: 1px 1px 1px 0px #000;
