@@ -5063,7 +5063,7 @@ function sacrifice() {
         if (player.currentChallenge == "challenge7" && !player.achievements.includes("r118")) clearDimensions(6);
         else if (!player.achievements.includes("r118")) clearDimensions(7);
     } else {
-        player.chall11Pow *= calcSacrificeBoost()
+        player.chall11Pow = player.chall11Pow.times(calcSacrificeBoost())
         if (!player.achievements.includes("r118")) resetDimensions();
         player.money = new Decimal(100)
 
@@ -7453,7 +7453,7 @@ function gameLoop(diff) {
     if (player.eternities > 0) document.getElementById("dimTabButtons").style.display = "inline-block"
 
     if (player.currentEternityChall !== "eterc7") player.infinityPower = player.infinityPower.plus(DimensionProduction(1).times(diff/10))
-    else player.seventhAmount = player.seventhAmount.plus(DimensionProduction(1).times(diff/10))
+    else if (player.currentChallenge !== "challenge4") player.seventhAmount = player.seventhAmount.plus(DimensionProduction(1).times(diff/10))
 
 
 
