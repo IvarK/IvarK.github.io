@@ -414,18 +414,6 @@ input {
     border: 1px solid #0066cc !important;
 }
 
-.timestudybought.darkstudy {
-    color: black !important;
-    background-color: white !important;
-    border-color: black !important;
-}
-
-.timestudybought.lightstudy {
-    color: white !important;
-    background-color: black !important;
-    border-color: white !important;
-}
-
 .timestudylocked, .eternitychallengestudylocked {
     background: #23292a !important;
     color: black !important;

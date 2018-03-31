@@ -15,11 +15,6 @@
     outline: none;
 }
 
-button {
-    padding: 1px 6px;
-}
-
-
 #game {
     border: 2px solid black;
     border-radius: 4px;
@@ -28,10 +23,6 @@ button {
     overflow: hidden;
     margin: auto;
     text-align: left
-}
-
-#TTbuttons {
-    font-family: Typewriter;
 }
   
 #news {
@@ -490,6 +481,7 @@ button {
 }
 
 .eternitybtn {
+    font-weight: bold;
     border-radius: 4px;
     transition-duration: 0.2s;
     cursor: pointer;
@@ -502,7 +494,7 @@ button {
     background: black;
     border: 2px solid #b341e0;
     cursor: pointer;
-    font-size: 11px;
+    font-size: 12px;
 }
 
 
@@ -652,7 +644,6 @@ button {
     position: fixed;
     width: 100%;
     z-index: 1;
-    pointer-events: none;
 }
 
 
@@ -664,10 +655,6 @@ button {
     font-family: Typewriter;
 }
 
-#footer tr td div {
-    pointer-events: all !important;
-}
-
 #progress {
     width: 98%;
     background-color: #A3A3A3;
@@ -675,7 +662,6 @@ button {
     bottom: 35px;
     position: fixed;
     z-index: 1;
-    pointer-events: none;
 }
 
 #progressbar {
@@ -753,18 +739,6 @@ button {
     vertical-align: top;
     margin:7px;
     animation: studyGlowIn 7s infinite;
-
-}
-
-.small {
-    margin: 1px;
-    width: 120px;
-    font-size: 0.6rem;
-    padding: 3px;
-}
-
-.wideRow td {
-    padding: 5px 2px;
 }
 
 .timestudy.normaldimstudy {
@@ -801,20 +775,6 @@ button {
     color: #0080ff !important;
     border: 1px solid #0066cc !important;
     animation: idleStudyGlowIn 7s infinite;
-}
-
-.timestudy.darkstudy {
-    color: white !important;
-    background-color: black !important;
-    border-color: white !important;
-    animation: darkStudyGlowIn 7s infinite;
-}
-
-.timestudy.lightstudy {
-    color: black !important;
-    background-color: white !important;
-    border-color: black !important;
-    animation: lightStudyGlowIn 7s infinite;
 }
 
 .eternitychallengestudy:hover {
@@ -855,18 +815,6 @@ button {
 .timestudy.idlestudy:hover {
     color: #EEEEEE !important;
     background: #0080ff !important;
-}
-
-.timestudy.darkstudy:hover {
-    color: black !important;
-    background-color: white !important;
-    border-color: black !important;
-}
-
-.timestudy.lightstudy:hover {
-    color: white !important;
-    background-color: black !important;
-    border-color: white !important;
 }
 
 .timestudylocked, .eternitychallengestudylocked {
@@ -976,7 +924,6 @@ button {
     bottom: 80px;
     left: 50%;
     margin-left: -114px;
-    font-size: 15px;
 }
 
 #theorembuybackground {
@@ -1170,7 +1117,7 @@ body {
     padding: 1px 7px;
     font: 14px/1.5 "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #727272;
-    font-weight: 300;
+    font-weight: 400;
 }
 
 h1,
@@ -1387,14 +1334,6 @@ br {
     pointer-events:none;
 }
 
-#TTbuttons br {
-    content: " ";
-    display: block;
-    margin: 0;
-    margin-top: 20px;
-    pointer-events:none;
-}
-
 
 
 #timestudies span {
@@ -1504,41 +1443,23 @@ screen and (max-width: 480px) {
 @keyframes activeStudyGlowIn {
     0%  {box-shadow: inset 0px 0px 3px 0px #FF0100;}
     50% {box-shadow: inset 0px 0px 20px 0px #FF0100;}
-    100% {box-shadow: inset 0px 0px 3px 0px #FF0100;}
+    100%  {box-shadow: inset 0px 0px 3px 0px #FF0100;}
 }
 
 @keyframes passiveStudyGlowIn {
     0%  {box-shadow: inset 0px 0px 3px 0px #5E33B6;}
     50% {box-shadow: inset 0px 0px 20px 0px #5E33B6;}
-    100% {box-shadow: inset 0px 0px 3px 0px #5E33B6;}
+    100%  {box-shadow: inset 0px 0px 3px 0px #5E33B6;}
 }
 
 @keyframes idleStudyGlowIn {
     0%  {box-shadow: inset 0px 0px 3px 0px #0080ff;}
     50% {box-shadow: inset 0px 0px 20px 0px #0080ff;}
-    100% {box-shadow: inset 0px 0px 3px 0px #0080ff;}
+    100%  {box-shadow: inset 0px 0px 3px 0px #0080ff;}
 }
 
 @keyframes eternityChallengeGlowIn {
     0%  {box-shadow: inset 0px 0px 3px 0px #490066;}
     50% {box-shadow: inset 0px 0px 20px 0px #490066;}
-    100% {box-shadow: inset 0px 0px 3px 0px #490066;}
-}
-
-@keyframes darkStudyGlowIn {
-    0%  {box-shadow: inset 0px 0px 3px 0px white;}
-    50% {box-shadow: inset 0px 0px 20px 0px white;}
-    100% {box-shadow: inset 0px 0px 3px 0px white;}
-}
-
-@keyframes lightStudyGlowIn {
-    0%  {box-shadow: inset 0px 0px 3px 0px black;}
-    50% {box-shadow: inset 0px 0px 20px 0px black;}
-    100% {box-shadow: inset 0px 0px 3px 0px black;}
-}
-
-@keyframes barrelRoll {
-    0%  {transform: rotateZ(0deg);}
-    50% {transform: rotateZ(360deg);}
-    100% {transform: rotateZ(360deg);}
+    100%  {box-shadow: inset 0px 0px 3px 0px #490066;}
 }
