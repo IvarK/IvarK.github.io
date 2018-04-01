@@ -3165,7 +3165,7 @@ function buyMaxTickSpeed() {
 }
 
 function timeDisplay(time) {
-    if (time <= 100) return (time/10).toFixed(2) + " seconds"
+    if (time <= 100) return (time/10).toFixed(3) + " seconds"
     time = Decimal.floor(time / 10)
 
 
@@ -3187,6 +3187,7 @@ function preformat(int) {
 }
 
 function timeDisplayShort(time) {
+    if (time <= 100) return (time/10).toFixed(3) + " seconds"
     if (time <= 600) return (time/10).toFixed(2) + " seconds"
     time = Decimal.floor(time / 10)
     return preformat(Decimal.floor((time) / 3600)) + ":" + preformat(Decimal.floor((time % 3600) / 60)) + ":" + preformat(Decimal.floor(time % 60))
