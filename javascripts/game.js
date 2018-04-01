@@ -7535,7 +7535,7 @@ function gameLoop(diff) {
 
     var current = player.replicanti.amount.ln()
 
-    if (player.replicanti.unl && (diff > 5 || interval < 50)) {
+    if (player.replicanti.unl && (diff > 5 || interval < 50 || player.timestudy.studies.includes(192))) {
         var gained = Decimal.pow(Math.E, current +(diff*est/10))
         if (player.timestudy.studies.includes(192)) gained = Decimal.pow(Math.E, current +Math.log((diff*est/10) * (Math.log10(1.2)/308)+1) / (Math.log10(1.2)/308))
         player.replicanti.amount = Decimal.min(Number.MAX_VALUE, gained)
