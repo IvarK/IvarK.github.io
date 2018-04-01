@@ -3132,7 +3132,7 @@ function buyMaxTickSpeed() {
     var mult = getTickSpeedMultiplier()
     if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0
     if (player.currentChallenge == "challenge5" || player.currentChallenge == "postc5" || player.tickSpeedCost.lt(Number.MAX_VALUE) || player.tickSpeedMultDecrease > 2) {
-        while (player.money.gt(player.tickSpeedCost) && player.tickSpeedCost.lt(Number.MAX_VALUE)) {
+        while (player.money.gt(player.tickSpeedCost) && (player.tickSpeedCost.lt(Number.MAX_VALUE) || player.tickSpeedMultDecrease > 2)) {
             player.money = player.money.minus(player.tickSpeedCost);
             if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5") player.tickSpeedCost = player.tickSpeedCost.times(player.tickspeedMultiplier);
             else multiplySameCosts(player.tickSpeedCost)
