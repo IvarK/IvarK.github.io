@@ -1587,9 +1587,11 @@ function formatValue(notation, value, places, placesUnder1000) {
             return (matissa + "e" + power);
         }
         if (notation === "Infinity") {
+            
             if ((power + matissa / 10) / 308 < 1000) var infPlaces = 4
             else var infPlaces = 3
-            return ((power + matissa / 10) / 308.25471555991675).toFixed(Math.max(infPlaces, places)) + "∞"
+            if (player.options.commas) return ((power + matissa / 10) / 308.25471555991675).toFixed(Math.max(infPlaces, places)).toString().split(".")[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"."+((power + matissa / 10) / 308.25471555991675).toFixed(Math.max(infPlaces, places)).toString().split(".")[1]+"∞"
+            else return ((power + matissa / 10) / 308.25471555991675).toFixed(Math.max(infPlaces, places))+"∞"
         }
         if (notation.includes("engineering") || notation.includes("Engineering")) pow = power - (power % 3)
         else pow = power
