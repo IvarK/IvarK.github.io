@@ -5947,10 +5947,10 @@ function eternity(force) {
             respecTimeStudies()
             if (Object.keys(player.eternityChalls).length === 10) {
                 var eterchallscompletedtotal = 0;
-                for (i=1; i<11; i++) {
+                for (i=1; i<Object.keys(player.eternityChalls).length+1; i++) {
                     eterchallscompletedtotal += player.eternityChalls["eterc"+i]
                 }
-                if (eterchallscompletedtotal === 50) {
+                if (eterchallscompletedtotal >= 50) {
                     giveAchievement("5 more eternities until the update");
                 }
             }
@@ -7535,7 +7535,7 @@ function gameLoop(diff) {
 
     var current = player.replicanti.amount.ln()
 
-    if (player.replicanti.unl && (diff > 5 || interval < 50)) {
+    if (player.replicanti.unl && (diff > 5 || interval < 50 || player.timestudy.studies.includes(192))) {
         var gained = Decimal.pow(Math.E, current +(diff*est/10))
         if (player.timestudy.studies.includes(192)) gained = Decimal.pow(Math.E, current +Math.log((diff*est/10) * (Math.log10(1.2)/308)+1) / (Math.log10(1.2)/308))
         player.replicanti.amount = Decimal.min(Number.MAX_VALUE, gained)
