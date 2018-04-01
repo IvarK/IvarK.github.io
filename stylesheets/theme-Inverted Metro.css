@@ -1,9 +1,6 @@
 body {
-    background-color: black !important;
-}
-
-#container {
     filter: invert(100%);
+    background-color: black !important;
 }
 
 * {
@@ -218,35 +215,29 @@ input, select {
 }
 
 .timetheorembtn {
-    background: #dedede !important;
-    color: #ff432b !important;
-    border: 1px solid #ff432b !important;
+    background: #212121 !important;
+    color: #00BCD4 !important;
+    border: 1px solid #00BCD4 !important;
 }
 
 .timetheorembtn:hover {
-    color: #dedede !important;
-    background: #ff432b !important;
+    color: #212121 !important;
+    background: #00BCD4 !important;
 }
 
 .timetheorembtnlocked {
-    color: #fff !important;
-    background: #616161 !important;
+    background: #9E9E9E !important;
     border: none !important;
-    box-shadow: 1px 1px 1px 0px #fff;
+    box-shadow: 1px 1px 1px 0px #000;
 }
 
 .timetheorembtnlocked:hover {
-    background: #10acaf !important;
-}
-
-#timetheorems {
-    color: #bbb !important;
+    background: #EF5350 !important;
 }
 
 #theorembuybackground {
-    background: #111 !important;
+    background: #EEEEEE !important;
     border-width: 1px !important;
-    border-color: #fff !important;
 }
 
 .eternitychallengestudy {
@@ -281,14 +272,6 @@ input, select {
 
 .timestudy.idlestudy {
     animation: idleStudyGlowIn 5s infinite !important;
-}
-
-.timestudy.darkstudy {
-    animation: darkStudyGlowIn 5s infinite !important;
-}
-
-.timestudy.lightstudy {
-    animation: lightStudyGlowIn 5s infinite !important;
 }
 
 .timestudy:hover {
@@ -349,18 +332,6 @@ input, select {
 
 .timestudybought.idlestudy {
     background: #0080ff !important;
-}
-
-.timestudybought.darkstudy {
-    color: black !important;
-    background-color: white !important;
-    border-color: black !important;
-}
-
-.timestudybought.lightstudy {
-    color: white !important;
-    background-color: black !important;
-    border-color: white !important;
 }
 
 .timestudylocked, .eternitychallengestudylocked {
