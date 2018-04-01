@@ -2596,6 +2596,10 @@ function buyTimeStudy(name, cost, check) {
         } else {
             document.getElementById(""+name).className = "timestudybought"
         }
+        if (name === 131) {
+            document.getElementById("replicantiresettoggle").innerHTML = "Auto galaxy OFF"
+            player.replicanti.galaxybuyer = false
+        }
         updateTheoremButtons()
         updateTimeStudyButtons()
         drawStudyTree()
