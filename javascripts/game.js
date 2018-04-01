@@ -230,6 +230,7 @@ var player = {
         galacticPow: new Decimal(0),
         galaxyThreshold: new Decimal(0)
     },
+    slowMode: false,
     options: {
         newsHidden: false,
         notation: "Standard",
@@ -251,7 +252,6 @@ var player = {
             warning: 0,
         }
     }
-
 };
 
 /*var c = document.getElementById("game");
@@ -1259,6 +1259,8 @@ function onLoad() {
             }
         }
     }
+
+    if (player.slowMode === undefined) player.slowMode = false
 
     toggleCrunchMode()
     toggleCrunchMode()
@@ -2895,6 +2897,7 @@ function softReset(bulk) {
         dimlife: player.dimlife,
         dead: player.dead,
         blackhole: player.blackhole,
+        slowMode: player.slowMode,
         options: player.options
     };
     if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -4631,6 +4634,7 @@ function galaxyReset() {
         dimlife: player.dimlife,
         dead: player.dead,
         blackhole: player.blackhole,
+        slowMode: player.slowMode,
         options: player.options
     };
 
@@ -5719,6 +5723,7 @@ document.getElementById("bigcrunch").onclick = function () {
         dimlife: player.dimlife,
         dead: player.dead,
         blackhole: player.blackhole,
+        slowMode: player.slowMode,
         options: player.options
         };
 
@@ -6071,6 +6076,7 @@ function eternity(force) {
             dimlife: true,
             dead: true,
             blackhole: player.blackhole,
+            slowMode: player.slowMode,
             options: player.options
         };
         if (player.respec) respecTimeStudies()
@@ -6305,6 +6311,7 @@ function startChallenge(name, target) {
       dimlife: player.dimlife,
       dead: player.dead,
       blackhole: player.blackhole,
+      slowMode: player.slowMode,
       options: player.options
     };
 	if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -6847,6 +6854,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
             dimlife: true,
             dead: true,
             blackhole: player.blackhole,
+            slowMode: player.slowMode,
             options: player.options
         };
         
@@ -7255,6 +7263,8 @@ function gameLoop(diff) {
     if (diff < 0) diff = 1;
     if (player.thisInfinityTime < -10) player.thisInfinityTime = Infinity
     if (player.bestInfinityTime < -10) player.bestInfinityTime = Infinity
+    if (player.slowMode) diff /= Math.max(player.infinityPoints.e/30000, 1)
+
     if (diff > player.autoTime && !player.break) player.infinityPoints = player.infinityPoints.plus(player.autoIP.times(diff -player.autoTime))
     /*if (player.currentChallenge == "postc6" && player.matter.gte(1)) player.matter = player.matter.plus(diff/10)
     else */
