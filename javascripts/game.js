@@ -4,6 +4,7 @@ var Marathon2 = 0;
 var auto = false;
 var autoS = true;
 var shiftDown = false;
+var controlDown = false;
 var justImported = false;
 var player = {
     money: new Decimal(10),
@@ -4192,8 +4193,13 @@ function updateInfCosts() {
     else document.getElementById("replicantichance").innerHTML = "Replicate chance: "+Math.round(player.replicanti.chance*100)+"%"
     let replGalOver = 0
     if (player.timestudy.studies.includes(131)) replGalOver += Math.floor(player.replicanti.gal / 2)
-    if (replGalOver !== 0) document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"+"+replGalOver+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP"
-    else document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP"
+    if (player.timestudy.studies.includes(233)) {
+        if (replGalOver !== 0) document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"+"+replGalOver+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost.dividedBy(player.replicanti.amount.pow(0.3)))+" IP"
+        else document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost.dividedBy(player.replicanti.amount.pow(0.3)))+" IP"
+    } else {
+        if (replGalOver !== 0) document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"+"+replGalOver+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP"
+        else document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP" 
+    }
     document.getElementById("replicantiunlock").innerHTML = "Unlock Replicantis<br>Cost: "+shortenCosts(1e140)+" IP"
     let extraGals = 0
     if (player.timestudy.studies.includes(225)) extraGals += Math.floor(player.replicanti.amount.e / 1000)
@@ -7601,7 +7607,7 @@ function gameLoop(diff) {
 
     var currentEPmin = gainedEternityPoints().dividedBy(player.thisEternity/600)
     if (currentEPmin.gt(EPminpeak) && player.infinityPoints.gte(Number.MAX_VALUE)) EPminpeak = currentEPmin
-    document.getElementById("eternitybtn").innerHTML = (player.eternities == 0) ? "Other times await.. I need to become Eternal" : "<b>I need to become Eternal.</b><br>"+"Gain <b>"+shortenDimensions(gainedEternityPoints())+"</b> Eternity points.<br>"+shortenDimensions(currentEPmin)+ " EP/min<br>Peaked at "+shortenDimensions(EPminpeak)
+    document.getElementById("eternitybtn").innerHTML = (player.eternities == 0) ? "Other times await.. I need to become Eternal" : "<b>I need to become Eternal.</b><br>"+"Gain <b>"+shortenDimensions(gainedEternityPoints())+"</b> Eternity points.<br>"+shortenDimensions(currentEPmin)+ " EP/min<br>Peaked at "+shortenDimensions(EPminpeak)+" EP/min"
     if (player.currentEternityChall !== "") document.getElementById("eternitybtn").innerHTML = "Other challenges await.. I need to become Eternal"
     updateMoney();
     updateCoinPerSec();
@@ -8281,6 +8287,7 @@ newsArray = [//always true
 ["A new group for the standardisation of numbers have come forward with a novel new format involving emoji's.", player.spreadingCancer > 0, "b11"],
 ["Antimatter ice cream stand has recently opened- they have octillions of flavors!", player.totalmoney.e >= 27, "b13"],
 ["The Heavenly Pelle has generated too much antimatter and needed to create another galaxy. This one can be seen in the southwestern sky.", player.galaxies > 0 || player.infinitied > 0, "b21"],
+["What does the CTRL button do again?", controlDown, "b27"],
 //9th dim
 ["9th Dimension is a lie.", player.resets >= 5 || player.galaxies > 0, "b6"],
 ["The square root of 9 is 3, therefore the 9th dimension can't exist.", player.resets >= 5 || player.galaxies > 0, "b7"],
@@ -8917,19 +8924,22 @@ window.onload = function() {
 }
 
 window.addEventListener('keydown', function(event) {
+    if (event.keyCode == 17) controlDown = true;
     if (event.keyCode == 16) shiftDown = true;
 }, false);
 
 window.addEventListener('keyup', function(event) {
+    if (event.keyCode == 17) controlDown = false;
     if (event.keyCode == 16) shiftDown = false;
 }, false);
 
 window.onfocus = function() {
+    controlDown = false;
     shiftDown = false;
 }
 
 window.addEventListener('keydown', function(event) {
-    if (!player.options.hotkeys || document.activeElement.type === "text") return false
+    if (!player.options.hotkeys || controlDown === true || document.activeElement.type === "text") return false
     const tmp = event.keyCode;
     if (tmp >= 49 && tmp <= 56) {
         if (shiftDown) buyOneDimension(tmp-48)
@@ -8977,7 +8987,7 @@ window.addEventListener('keydown', function(event) {
   }, false);
 
   window.addEventListener('keyup', function(event) {
-    if (!player.options.hotkeys || document.activeElement.type === "text") return false
+    if (!player.options.hotkeys || controlDown === true || document.activeElement.type === "text") return false
     switch (event.keyCode) {
         case 67: // C
             document.getElementById("bigcrunch").onclick()
