@@ -6739,7 +6739,7 @@ document.getElementById("ec12unl").onclick = function() {
 }
 
 function startEternityChallenge(name, startgoal, goalIncrease) {
-    if (!name.includes(player.eternityChallUnlocked)) return
+    if (player.eternityChallUnlocked !== 0 && !name.includes(player.eternityChallUnlocked)) return
     if((player.options.challConf) || name == "" ? true :  (confirm("You will start over with just your time studies, eternity upgrades and achievements. You need to reach a set IP with special conditions."))) {
         player = {
             money: new Decimal(10),
