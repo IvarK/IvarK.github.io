@@ -5947,10 +5947,10 @@ function eternity(force) {
             respecTimeStudies()
             if (Object.keys(player.eternityChalls).length === 10) {
                 var eterchallscompletedtotal = 0;
-                for (i=1; i<11; i++) {
+                for (i=1; i<Object.keys(player.eternityChalls).length+1; i++) {
                     eterchallscompletedtotal += player.eternityChalls["eterc"+i]
                 }
-                if (eterchallscompletedtotal === 50) {
+                if (eterchallscompletedtotal >= 50) {
                     giveAchievement("5 more eternities until the update");
                 }
             }
