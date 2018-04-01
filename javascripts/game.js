@@ -1885,7 +1885,7 @@ function updateDimensions() {
 
         for (let tier = 1; tier <= 8; ++tier) {
             var name = TIER_NAMES[tier];
-            if (!canBuyDimension(tier)) {
+            if (!canBuyDimension(tier) && document.getElementById(name + "Row").style.display !== "table-row") {
                 break;
             }
             document.getElementById(name + "D").innerHTML = DISPLAY_NAMES[tier] + " Dimension x" + formatValue(player.options.notation, getDimensionFinalMultiplier(tier), 1, 1);
