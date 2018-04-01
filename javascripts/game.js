@@ -67,7 +67,7 @@ var player = {
     chall2Pow: 1,
     chall3Pow: new Decimal(0.01),
     matter: new Decimal(0),
-    chall11Pow: 1,
+    chall11Pow: new Decimal(1),
     partInfinityPoint: 0,
     partInfinitied: 0,
     break: false,
@@ -1381,6 +1381,7 @@ function transformSaveToDecimal() {
     player.sacrificed = new Decimal(player.sacrificed)
     player.totalmoney = new Decimal(player.totalmoney)
     player.chall3Pow = new Decimal(player.chall3Pow)
+    player.chall11Pow = new Decimal(player.chall11Pow)
     player.costMultipliers = [new Decimal(player.costMultipliers[0]), new Decimal(player.costMultipliers[1]), new Decimal(player.costMultipliers[2]), new Decimal(player.costMultipliers[3]), new Decimal(player.costMultipliers[4]), new Decimal(player.costMultipliers[5]), new Decimal(player.costMultipliers[6]), new Decimal(player.costMultipliers[7])]
     player.tickspeedMultiplier = new Decimal(player.tickspeedMultiplier)
     player.matter = new Decimal(player.matter)
@@ -1792,7 +1793,7 @@ function getDimensionRateOfChange(tier) {
 function getShiftRequirement(bulk) {
     let amount = 20;
     if (player.currentChallenge == "challenge4") {
-        tier = Math.min(player.resets + 4, 6)
+        tier = Math.min(player.resets + bulk + 4, 6)
         if (tier == 6) amount += (player.resets+bulk - 2) * 20;
     } else {
         tier = Math.min(player.resets + bulk + 4, 8)
@@ -1891,7 +1892,7 @@ function updateDimensions() {
 
         for (let tier = 1; tier <= 8; ++tier) {
             var name = TIER_NAMES[tier];
-            if (!canBuyDimension(tier)) {
+            if (!canBuyDimension(tier) && document.getElementById(name + "Row").style.display !== "table-row") {
                 break;
             }
             document.getElementById(name + "D").innerHTML = DISPLAY_NAMES[tier] + " Dimension x" + formatValue(player.options.notation, getDimensionFinalMultiplier(tier), 1, 1);
@@ -2886,7 +2887,7 @@ function softReset(bulk) {
         chall2Pow: player.chall2Pow,
         chall3Pow: new Decimal(0.01),
         matter: new Decimal(0),
-        chall11Pow: 1,
+        chall11Pow: new Decimal(1),
         partInfinityPoint: player.partInfinityPoint,
         partInfinitied: player.partInfinitied,
         break: player.break,
@@ -4621,7 +4622,7 @@ function galaxyReset() {
         chall2Pow: player.chall2Pow,
         chall3Pow: new Decimal(0.01),
         matter: new Decimal(0),
-        chall11Pow: 1,
+        chall11Pow: new Decimal(1),
         partInfinityPoint: player.partInfinityPoint,
         partInfinitied: player.partInfinitied,
         break: player.break,
@@ -5061,6 +5062,7 @@ function sacrifice() {
     if (player.eightAmount == 0) return false;
     if (player.resets < 5) return false
     if (player.currentEternityChall == "eterc3") return false
+    if (player.currentChallenge == "challenge11" && (calcTotalSacrificeBoost().gte(Number.MAX_VALUE) || player.chall11Pow.gte(Number.MAX_VALUE))) return false
 
     if (calcSacrificeBoost().gte(Number.MAX_VALUE)) giveAchievement("Yet another infinity reference");
     player.eightPow = player.eightPow.times(calcSacrificeBoost())
@@ -5721,7 +5723,7 @@ document.getElementById("bigcrunch").onclick = function () {
         chall3Pow: new Decimal(0.01),
         newsArray: player.newsArray,
         matter: new Decimal(0),
-        chall11Pow: 1,
+        chall11Pow: new Decimal(1),
         partInfinityPoint: player.partInfinityPoint,
         partInfinitied: player.partInfinitied,
         break: player.break,
@@ -6016,7 +6018,7 @@ function eternity(force) {
             chall3Pow: new Decimal(0.01),
             newsArray: player.newsArray,
             matter: new Decimal(0),
-            chall11Pow: 1,
+            chall11Pow: new Decimal(1),
             challengeTimes: player.challengeTimes,
             infchallengeTimes: player.infchallengeTimes,
             lastTenRuns: [[600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)]],
@@ -6310,7 +6312,7 @@ function startChallenge(name, target) {
       chall3Pow: new Decimal(0.01),
       matter: new Decimal(0),
       newsArray: player.newsArray,
-      chall11Pow: 1,
+      chall11Pow: new Decimal(1),
       partInfinityPoint: player.partInfinityPoint,
       partInfinitied: player.partInfinitied,
       break: player.break,
@@ -6795,7 +6797,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
             chall3Pow: new Decimal(0.01),
             newsArray: player.newsArray,
             matter: new Decimal(0),
-            chall11Pow: 1,
+            chall11Pow: new Decimal(1),
             challengeTimes: player.challengeTimes,
             infchallengeTimes: player.infchallengeTimes,
             lastTenRuns: [[600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)], [600*60*24*31, new Decimal(1)]],
@@ -8042,6 +8044,7 @@ function dimBoolean() {
     var name = TIER_NAMES[getShiftRequirement(0).tier]
     if (!player.autobuyers[9].isOn) return false
     if (player.autobuyers[9].ticks*100 < player.autobuyers[9].interval) return false
+    if (player[name + "Amount"] > getShiftRequirement(0)) return true
     if (player.eternities < 10 && player[name + "Amount"] < getShiftRequirement(player.autobuyers[9].bulk-1).amount) return false
     if (player.overXGalaxies <= player.galaxies) return true
     if ((player.currentChallenge =="challenge4" || player.currentChallenge == "postc1") && player.autobuyers[9].priority < getShiftRequirement(0).amount && getShiftRequirement(0).tier == 6) return false
