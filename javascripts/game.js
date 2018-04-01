@@ -3165,7 +3165,7 @@ function buyMaxTickSpeed() {
 }
 
 function timeDisplay(time) {
-    if (time <= 100) return (time/10).toFixed(2) + " seconds"
+    if (time <= 100) return (time/10).toFixed(3) + " seconds"
     time = Decimal.floor(time / 10)
 
 
@@ -3187,6 +3187,7 @@ function preformat(int) {
 }
 
 function timeDisplayShort(time) {
+    if (time <= 100) return (time/10).toFixed(3) + " seconds"
     if (time <= 600) return (time/10).toFixed(2) + " seconds"
     time = Decimal.floor(time / 10)
     return preformat(Decimal.floor((time) / 3600)) + ":" + preformat(Decimal.floor((time % 3600) / 60)) + ":" + preformat(Decimal.floor(time % 60))
@@ -6738,7 +6739,7 @@ document.getElementById("ec12unl").onclick = function() {
 }
 
 function startEternityChallenge(name, startgoal, goalIncrease) {
-    if (!name.includes(player.eternityChallUnlocked)) return
+    if (player.eternityChallUnlocked !== 0 && !name.includes(player.eternityChallUnlocked)) return
     if((player.options.challConf) || name == "" ? true :  (confirm("You will start over with just your time studies, eternity upgrades and achievements. You need to reach a set IP with special conditions."))) {
         player = {
             money: new Decimal(10),
