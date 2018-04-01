@@ -3,7 +3,6 @@ var Marathon = 0;
 var Marathon2 = 0;
 var auto = false;
 var autoS = true;
-var controlDown = false;
 var shiftDown = false;
 var justImported = false;
 var player = {
@@ -8282,7 +8281,6 @@ newsArray = [//always true
 ["A new group for the standardisation of numbers have come forward with a novel new format involving emoji's.", player.spreadingCancer > 0, "b11"],
 ["Antimatter ice cream stand has recently opened- they have octillions of flavors!", player.totalmoney.e >= 27, "b13"],
 ["The Heavenly Pelle has generated too much antimatter and needed to create another galaxy. This one can be seen in the southwestern sky.", player.galaxies > 0 || player.infinitied > 0, "b21"],
-["What does the CTRL button do again?", controlDown, "b27"],
 //9th dim
 ["9th Dimension is a lie.", player.resets >= 5 || player.galaxies > 0, "b6"],
 ["The square root of 9 is 3, therefore the 9th dimension can't exist.", player.resets >= 5 || player.galaxies > 0, "b7"],
@@ -8919,22 +8917,19 @@ window.onload = function() {
 }
 
 window.addEventListener('keydown', function(event) {
-    if (event.keyCode == 17) controlDown = true;
     if (event.keyCode == 16) shiftDown = true;
 }, false);
 
 window.addEventListener('keyup', function(event) {
-    if (event.keyCode == 17) controlDown = false;
     if (event.keyCode == 16) shiftDown = false;
 }, false);
 
 window.onfocus = function() {
-    controlDown = false;
     shiftDown = false;
 }
 
 window.addEventListener('keydown', function(event) {
-    if (!player.options.hotkeys || controlDown === true) return false
+    if (!player.options.hotkeys || document.activeElement.type === "text") return false
     const tmp = event.keyCode;
     if (tmp >= 49 && tmp <= 56) {
         if (shiftDown) buyOneDimension(tmp-48)
@@ -8982,7 +8977,7 @@ window.addEventListener('keydown', function(event) {
   }, false);
 
   window.addEventListener('keyup', function(event) {
-    if (!player.options.hotkeys || controlDown === true) return false
+    if (!player.options.hotkeys || document.activeElement.type === "text") return false
     switch (event.keyCode) {
         case 67: // C
             document.getElementById("bigcrunch").onclick()
