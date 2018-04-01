@@ -1269,8 +1269,10 @@ function onLoad() {
 
     if (player.version < 11) {
         player.version = 11
-        player.options.notation = "Default";
-        document.getElementById("notation").innerHTML = ("Notation: Default")
+        if (player.break) {
+            player.options.notation = "Default";
+            document.getElementById("notation").innerHTML = ("Notation: Default")
+        }
     }
 
     toggleCrunchMode()
