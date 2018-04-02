@@ -2119,6 +2119,7 @@ function updateChallenges() {
             document.getElementById(player.currentChallenge).innerHTML = "Running"
         }
 
+        document.getElementById("challTabButtons").style.display = "table"
         for (var i=1; i<=player.postChallUnlocked; i++) document.getElementById("postc"+i+"div").style.display = "inline-block"
 
 
