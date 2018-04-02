@@ -1267,12 +1267,10 @@ function onLoad() {
         }
     }
 
-    if (player.version < 11) {
-        player.version = 11
-        if (player.break) {
-            player.options.notation = "Default";
-            document.getElementById("notation").innerHTML = ("Notation: Default")
-        }
+    // player.version is currently 11
+    if (player.options.notation = "Default") {
+        player.options.notation = "Brackets";
+        document.getElementById("notation").innerHTML = ("Notation: Brackets")
     }
 
     toggleCrunchMode()
@@ -1604,7 +1602,7 @@ function formatValue(notation, value, places, placesUnder1000) {
             else return "e"+Decimal.log10(value).toFixed(places)
         }
 
-        if (notation === "Default") {
+        if (notation === "Brackets") {
           var table = [")", "[", "{", "]", "(", "}"];
           var log6 = Math.LN10 / Math.log(6) * Decimal.log10(value);
           var wholePartOfLog = Math.floor(log6);
@@ -4994,9 +4992,9 @@ document.getElementById("notation").onclick = function () {
         player.options.notation = "Logarithm";
         document.getElementById("notation").innerHTML = ("Notation: Logarithm")
     } else if (player.options.notation === "Logarithm") {
-        player.options.notation = "Default";
-        document.getElementById("notation").innerHTML = ("Notation: Default")
-    } else if (player.options.notation === "Default") {
+        player.options.notation = "Brackets";
+        document.getElementById("notation").innerHTML = ("Notation: Brackets")
+    } else if (player.options.notation === "Brackets") {
       player.options.notation = "Infinity";
       document.getElementById("notation").innerHTML = ("Notation: Infinity")
     }
@@ -7293,16 +7291,6 @@ setInterval(function() {
         setTimeout(exitChallenge, 500)
         giveAchievement("You're a mistake")
     }
-
-    if (Math.random() > Math.pow(0.65, 1/(8*60*60))) {
-        player.options.theme = "S4";
-        player.options.secretThemeKey = "Cancer";
-        setTheme(player.options.theme);
-        player.options.notation = "Emojis"
-        document.getElementById("theme").innerHTML = "GET"
-        document.getElementById("notation").innerHTML = "CANCER"
-    }
-
 
     document.getElementById("infinitiedBank").style.display = (player.infinitiedBank > 0) ? "block" : "none"
     document.getElementById("infinitiedBank").innerHTML = "You have " + player.infinitiedBank.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " banked infinities."
