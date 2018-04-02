@@ -6245,6 +6245,7 @@ function eternity(force) {
         }
         if (player.replicanti.galaxybuyer) document.getElementById("replicantiresettoggle").innerHTML = "Auto galaxy ON"
         else document.getElementById("replicantiresettoggle").innerHTML = "Auto galaxy OFF"
+        Marathon2 = 0;
     }
 }
 
@@ -6469,6 +6470,7 @@ function startChallenge(name, target) {
         }
     }
     if (player.currentChallenge.includes("post") && player.currentEternityChall !== "") giveAchievement("I wish I had gotten 7 eternities")
+    Marathon2 = 0;
 }
 }
 
@@ -7010,6 +7012,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
         updateEternityChallenges()
         if (player.replicanti.galaxybuyer) document.getElementById("replicantiresettoggle").innerHTML = "Auto galaxy ON"
         else document.getElementById("replicantiresettoggle").innerHTML = "Auto galaxy OFF"
+        Marathon2 = 0;
 
 
     }
