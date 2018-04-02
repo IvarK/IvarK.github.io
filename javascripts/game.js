@@ -1268,7 +1268,7 @@ function onLoad() {
     }
 
     // player.version is currently 11
-    if (player.options.notation = "Default") {
+    if (player.options.notation == "Default") {
         player.options.notation = "Brackets";
         document.getElementById("notation").innerHTML = ("Notation: Brackets")
     }
@@ -1585,11 +1585,12 @@ function formatValue(notation, value, places, placesUnder1000) {
             return (matissa + "e" + power);
         }
         if (notation === "Infinity") {
-            
-            if ((power + matissa / 10) / 308 < 1000) var infPlaces = 4
+            const inflog = Math.log10(Number.MAX_VALUE)
+            const pow = Decimal.log10(value)
+            if (pow / inflog < 1000) var infPlaces = 4
             else var infPlaces = 3
-            if (player.options.commas) return ((power + matissa / 10) / 308.25471555991675).toFixed(Math.max(infPlaces, places)).toString().split(".")[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"."+((power + matissa / 10) / 308.25471555991675).toFixed(Math.max(infPlaces, places)).toString().split(".")[1]+"∞"
-            else return ((power + matissa / 10) / 308.25471555991675).toFixed(Math.max(infPlaces, places))+"∞"
+            if (player.options.commas) return (pow / inflog).toFixed(Math.max(infPlaces, places)).toString().split(".")[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"."+(pow / inflog).toFixed(Math.max(infPlaces, places)).toString().split(".")[1]+"∞"
+            else return (pow / inflog).toFixed(Math.max(infPlaces, places))+"∞"
         }
         if (notation.includes("engineering") || notation.includes("Engineering")) pow = power - (power % 3)
         else pow = power
