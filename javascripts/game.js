@@ -8276,6 +8276,11 @@ newsArray = [//always true
 ["Most things you know as nuts are actually Drupe seeds or Legumes. Hevipelle on the other hand is quite crazy and can thus be considered a dry uncompartmented fruit.", true, "a121"],
 [eval('LZString.decompressFromEncodedURIComponent("GISwdgNghmAmAEsCmBjaAnJBneAXAFlLvCLgOQ5a5Tq7gDmeA9iQLYAOTt8AwjCknRA")'), true, "a122"],
 [eval('LZString.decompressFromEncodedURIComponent("IIGxAIBcAsEsGdywLYAcD2AnSsB2BzJRZAQwGs9DkBTcAYXVwDMBXeagEyA")'), true, "a123"],
+["Only today you can call 1-800-ANTIMATTER and get a FREE Infinity Dimension! The package also comes with a COMPLETELY FREE SHIPPING and a FREE HIGH DEFINITION ANTI-V!!! Only today for the low price of 42! Estimated delivery time - 5 hours.", true, "a124"],
+["1e420 blaze it.", true, "a125"],
+["This game doesn't have any bugs, you're just doing it wrong.", true, "a126"],
+["Antimatter_Dimensions.mp1.79e308", true, "a127"],
+["https://www.youtube.com/watch?v=dQw4w9WgXcQ", true, "a128"],
 //basic (pre-inf)
 ["You just made your 1,000,000,000,000,000 antimatter. This one tastes like chicken", player.money.e == 15, "b1"],
 ["Nerf the galaxies please.", player.galaxies == 2 || player.infinitied > 0, "b2"],
