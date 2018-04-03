@@ -7859,20 +7859,20 @@ function gameLoop(diff) {
 
     if (player.currentChallenge !== "") {
         document.getElementById("progressbar").style.width = Decimal.min((Decimal.log10(player.money.plus(1)) / Decimal.log10(player.challengeTarget) * 100), 100).toFixed(2) + "%"
-        document.getElementById("progressbar").innerHTML = Decimal.min((Decimal.log10(player.money.plus(1)) / Decimal.log10(player.challengeTarget) * 100), 100).toFixed(2) + "%"
-        document.getElementById("progress").setAttribute('ach-tooltip',"Percentage to challenge goal")
+        document.getElementById("progresspercent").innerHTML = Decimal.min((Decimal.log10(player.money.plus(1)) / Decimal.log10(player.challengeTarget) * 100), 100).toFixed(2) + "%"
+        document.getElementById("progresspercent").setAttribute('ach-tooltip',"Percentage to challenge goal")
     } else if (!player.break) {
         document.getElementById("progressbar").style.width = Decimal.min((Decimal.log10(player.money.plus(1)) / Decimal.log10(Number.MAX_VALUE) * 100), 100).toFixed(2) + "%"
-        document.getElementById("progressbar").innerHTML = Decimal.min((Decimal.log10(player.money.plus(1)) / Decimal.log10(Number.MAX_VALUE) * 100), 100).toFixed(2) + "%"
-        document.getElementById("progress").setAttribute('ach-tooltip',"Percentage to Infinity")
+        document.getElementById("progresspercent").innerHTML = Decimal.min((Decimal.log10(player.money.plus(1)) / Decimal.log10(Number.MAX_VALUE) * 100), 100).toFixed(2) + "%"
+        document.getElementById("progresspercent").setAttribute('ach-tooltip',"Percentage to Infinity")
     } else if (player.infDimensionsUnlocked.includes(false)) {
         document.getElementById("progressbar").style.width = Decimal.min(player.money.e / getNewInfReq().e * 100, 100).toFixed(2) + "%"
-        document.getElementById("progressbar").innerHTML = Decimal.min(player.money.e / getNewInfReq().e * 100, 100).toFixed(2) + "%"
-        document.getElementById("progress").setAttribute('ach-tooltip',"Percentage to next dimension unlock")
+        document.getElementById("progresspercent").innerHTML = Decimal.min(player.money.e / getNewInfReq().e * 100, 100).toFixed(2) + "%"
+        document.getElementById("progresspercent").setAttribute('ach-tooltip',"Percentage to next dimension unlock")
     } else {
         document.getElementById("progressbar").style.width = Decimal.min(Decimal.log10(player.infinityPoints.plus(1)) / Decimal.log10(Number.MAX_VALUE)  * 100, 100).toFixed(2) + "%"
-        document.getElementById("progressbar").innerHTML = Decimal.min(Decimal.log10(player.infinityPoints.plus(1)) / Decimal.log10(Number.MAX_VALUE)  * 100, 100).toFixed(2) + "%"
-        document.getElementById("progress").setAttribute('ach-tooltip',"Percentage to Eternity")
+        document.getElementById("progresspercent").innerHTML = Decimal.min(Decimal.log10(player.infinityPoints.plus(1)) / Decimal.log10(Number.MAX_VALUE)  * 100, 100).toFixed(2) + "%"
+        document.getElementById("progresspercent").setAttribute('ach-tooltip',"Percentage to Eternity")
     }
 
     if (player.eternities > 0) {
