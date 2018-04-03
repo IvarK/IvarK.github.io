@@ -221,7 +221,14 @@ var player = {
     eterc8repl: 40,
     dimlife: true,
     dead: true,
-    dilation: {},
+    dilation: {
+        unlocked: false,
+        active: false,
+        dilatedAM: new Decimal(0),
+        tachyonParticles: new Decimal(0),
+        dilatedTime: new Decimal(0),
+        totalTachyonParticles: new Decimal(0)
+    },
     options: {
         newsHidden: false,
         notation: "Standard",
@@ -887,6 +894,7 @@ function onLoad() {
     if (player.dilation.dilatedAM === undefined) player.dilation.dilatedAM = new Decimal(0)
     if (player.dilation.tachyonParticles === undefined) player.dilation.tachyonParticles = new Decimal(0)
     if (player.dilation.dilatedTime === undefined) player.dilation.dilatedTime = new Decimal(0)
+    if (player.dilation.totalTachyonParticles === undefined) player.dilation.totalTachyonParticles = new Decimal(0)
     setTheme(player.options.theme);
 
     sliderText.innerHTML = "Update rate: " + player.options.updateRate + "ms";
@@ -1453,6 +1461,7 @@ function transformSaveToDecimal() {
     player.dilation.dilatedAM = new Decimal(player.dilation.dilatedAM)
     player.dilation.tachyonParticles = new Decimal(player.dilation.tachyonParticles)
     player.dilation.dilatedTime = new Decimal(player.dilation.dilatedTime)
+    player.dilation.totalTachyonParticles = new Decimal(player.dilation.totalTachyonParticles)
 }
 
 
@@ -6173,7 +6182,10 @@ function eternity(force) {
             dilation: {
                 unlocked: player.dilation.unlocked,
                 active: false,
-                dilatedAM: player.dilation.dilatedAM
+                dilatedAM: player.dilation.dilatedAM,
+                tachyonParticles: player.dilation.tachyonParticles,
+                dilatedTime: player.dilation.dilatedTime,
+                totalTachyonParticles: player.dilation.totalTachyonParticles
             },
             options: player.options
         };
@@ -7085,6 +7097,7 @@ function updateTimeShards() {
 function updateDilation() {
     document.getElementById("totalDilatedAM").innerHTML = "You have accrued a total of "+shortenMoney(player.dilation.dilatedAM)+" dilated antimatter. "
     document.getElementById("tachyonParticleAmount").innerHTML = shortenMoney(player.dilation.tachyonParticles)
+    document.getElementById("dilatedTimeAmount").innerHTML = shortenMoney(player.dilation.dilatedTime)
     if (player.currentEternityChall == "eterc7") document.getElementById("timeShardsPerSec").innerHTML = "You are getting "+shortenDimensions(getTimeDimensionProduction(1))+" Eighth Infinity Dimensions per second."
     else document.getElementById("timeShardsPerSec").innerHTML = "You are getting "+shortenDimensions(getTimeDimensionProduction(1))+" Timeshards per second."
 }
@@ -7384,7 +7397,10 @@ function gameLoop(diff) {
     if (player.currentEternityChall === "eterc12") diff = diff / 1000;
     if (player.thisInfinityTime < -10) player.thisInfinityTime = Infinity
     if (player.bestInfinityTime < -10) player.bestInfinityTime = Infinity
-    if (player.dilation.active) diff /= Math.max(player.infinityPoints.e/30000, 1)
+    if (player.dilation.active) {
+        if (diff > 500) diff = 10
+        diff /= Math.pow(Math.max(player.infinityPoints.e/30000, 1), 3)
+    }
     if (diff > player.autoTime && !player.break) player.infinityPoints = player.infinityPoints.plus(player.autoIP.times(diff -player.autoTime))
     /*if (player.currentChallenge == "postc6" && player.matter.gte(1)) player.matter = player.matter.plus(diff/10)
     else */
@@ -7694,6 +7710,14 @@ function gameLoop(diff) {
         if (player.eternityPoints.gte(player["timeDimension"+tier].cost)) document.getElementById("timeMax"+tier).className = "storebtn"
         else document.getElementById("timeMax"+tier).className = "unavailablebtn"
     }
+
+    if (player.dilation.active) {
+        let tachyonGain = Math.max(Math.pow((Decimal.log10(player.money) / Decimal.log10(1000))/1000000, 1.5) - player.dilation.totalTachyonParticles, 0)
+        player.dilation.totalTachyonParticles = player.dilation.totalTachyonParticles.plus(tachyonGain)
+        player.dilation.tachyonParticles = player.dilation.tachyonParticles.plus(tachyonGain)
+    }
+
+    player.dilation.dilatedTime = player.dilation.dilatedTime.plus(player.dilation.tachyonParticles*diff/10)
 
 
 
