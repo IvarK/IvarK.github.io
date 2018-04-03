@@ -96,12 +96,13 @@
                 <span style="font-size: 12px"><b>Disclaimer: These are not required to progress in the game, they are just to help and support the developer.</b></span>
             </div>
         </div>
-        <div id="eternitystore" class="tab" style="font-size: 15px; width: 60%; margin: 0 auto; display: none" align="center">
+        <div id="eternitystore" class="tab" style="font-size: 15px; margin: 0 auto; display: none" align="center">
             <table class="table" align="center" style="margin: auto">
                 <tr>
                     <td><button class="secondarytabbtn" onclick="showEternityTab('timestudies')">Time studies</button><td>
                     <td><button class="secondarytabbtn" onclick="showEternityTab('eternityupgrades')">Eternity upgrades</button><td>
                     <td><button class="secondarytabbtn" onclick="showEternityTab('milestones')">Eternity milestones</button><td>
+                    <td><button class="secondarytabbtn" onclick="showEternityTab('dilation')">Time dilation</button><td>
                 </tr>
             </table>
             <div class="eternitytab" id="timestudies" style="font-size: 15px">
@@ -290,6 +291,11 @@
                         <td><button class="eternitychallengestudy" id="ec12unl">Eternity Challenge 12<span>Requirement: Use only the Infinity Dimension path<span>Cost: 1 Time Theorems</button></td>
                     </tr>
                 </table>
+                <table class="table" id="studytable">
+                    <tr>
+                        <td><button class="timestudylocked" id="dilationunlock">Unlock time dilation<span>Cost: 4444 Time Theorems</button></td>
+                    </tr>
+                </table>
                 <div style="height: 60px;"></div>
                 <div>
                     <table id="footer">
@@ -470,7 +476,35 @@
                                     <a href="changelog.html" target="_newtab">Changelog   </a> |
                                     <a href="https://discord.gg/ST9NaXa" target="_newtab">Discord</a> |
                                     <a href="https://www.reddit.com/r/AntimatterDimensions/" target="_newtab">Subreddit</a>      |    <a href="https://ivark.github.io/savefixer/index.html" target="_newtab">Savefixer</a>
-                
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="eternitytab" id="dilation" style="font-size: 11px">
+                <div>
+                    <span id="totalDilatedAM">You have accrued a total of 0 dilated antimatter.</span>
+                    <p>You have <span id="tachyonParticleAmount" style="font-size:35px; color: black">0</span> tachyon particles.</p>
+                </div>
+                <div id="dilatedResourcesPerSec">You are getting 0 Tachyon particles and 0 seconds of dilated time per second.</div>
+                <table class="table" style="margin: 0 auto">
+                    <tr>
+                        <td>
+                            <button id="enabledilation" class="dilationbtn" onclick="startDilatedEternity()">Dilate time.</button>
+                        </td>
+                    </tr>
+                </table>
+                <div>
+                    <table id="footer">
+                        <tr>
+                            <td>
+                                <div style="text-align:center">
+                                    <a href="howto.html" target="_newtab">How to play  </a> |
+                                    <a href="about.html" target="_newtab">Donate   </a> |
+                                    <a href="changelog.html" target="_newtab">Changelog   </a> |
+                                    <a href="https://discord.gg/ST9NaXa" target="_newtab">Discord</a> |
+                                    <a href="https://www.reddit.com/r/AntimatterDimensions/" target="_newtab">Subreddit</a>      |    <a href="https://ivark.github.io/savefixer/index.html" target="_newtab">Savefixer</a>
                                 </div>
                             </td>
                         </tr>

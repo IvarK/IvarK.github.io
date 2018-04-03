@@ -221,6 +221,7 @@ var player = {
     eterc8repl: 40,
     dimlife: true,
     dead: true,
+    dilation: {},
     options: {
         newsHidden: false,
         notation: "Standard",
@@ -715,7 +716,8 @@ function drawStudyTree() {
     drawTreeBranch("232", "ec11unl")
     drawTreeBranch("233", "ec12unl")
     drawTreeBranch("234", "ec12unl")
-
+    drawTreeBranch("ec11unl", "dilationunlock")
+    drawTreeBranch("ec12unl", "dilationunlock")
 }
 
 function setTheme(name) {
@@ -879,6 +881,12 @@ function onLoad() {
     if (player.infinitiedBank === undefined) player.infinitiedBank = 0
     if (player.dimlife === undefined) player.dimlife = false
     if (player.dead === undefined) player.dead = false
+    if (player.dilation === undefined) player.dilation = {}
+    if (player.dilation.unlocked === undefined) player.dilation.unlocked = false
+    if (player.dilation.active === undefined) player.dilation.active = false
+    if (player.dilation.dilatedAM === undefined) player.dilation.dilatedAM = new Decimal(0)
+    if (player.dilation.tachyonParticles === undefined) player.dilation.tachyonParticles = new Decimal(0)
+    if (player.dilation.dilatedTime === undefined) player.dilation.dilatedTime = new Decimal(0)
     setTheme(player.options.theme);
 
     sliderText.innerHTML = "Update rate: " + player.options.updateRate + "ms";
@@ -1441,6 +1449,10 @@ function transformSaveToDecimal() {
     player.eternityBuyer.limit = new Decimal(player.eternityBuyer.limit)
     player.eternityChallGoal = new Decimal(player.eternityChallGoal)
     player.replicanti.amount = new Decimal(player.replicanti.amount)
+
+    player.dilation.dilatedAM = new Decimal(player.dilation.dilatedAM)
+    player.dilation.tachyonParticles = new Decimal(player.dilation.tachyonParticles)
+    player.dilation.dilatedTime = new Decimal(player.dilation.dilatedTime)
 }
 
 
@@ -2960,6 +2972,7 @@ function softReset(bulk) {
         eterc8repl: player.eterc8repl,
         dimlife: player.dimlife,
         dead: player.dead,
+        dilation: player.dilation,
         options: player.options
     };
     if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -4701,6 +4714,7 @@ function galaxyReset() {
         eterc8repl: player.eterc8repl,
         dimlife: player.dimlife,
         dead: player.dead,
+        dilation: player.dilation,
         options: player.options
     };
 
@@ -5802,6 +5816,7 @@ document.getElementById("bigcrunch").onclick = function () {
         eterc8repl: player.eterc8repl,
         dimlife: player.dimlife,
         dead: player.dead,
+        dilation: player.dilation,
         options: player.options
         };
 
@@ -6155,6 +6170,11 @@ function eternity(force) {
             eterc8repl: 40,
             dimlife: true,
             dead: true,
+            dilation: {
+                unlocked: player.dilation.unlocked,
+                active: false,
+                dilatedAM: player.dilation.dilatedAM
+            },
             options: player.options
         };
         if (player.respec) respecTimeStudies()
@@ -6391,6 +6411,7 @@ function startChallenge(name, target) {
       eterc8repl: player.eterc8repl,
       dimlife: player.dimlife,
       dead: player.dead,
+      dilation: player.dilation,
       options: player.options
     };
 	if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -6934,6 +6955,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
             eterc8repl: 40,
             dimlife: true,
             dead: true,
+            dilation: player.dilation,
             options: player.options
         };
 
@@ -7015,6 +7037,11 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
     }
 }
 
+function startDilatedEternity() {
+    eternity()
+    player.dilation.active = true;
+}
+
 function getDimensionProductionPerSecond(tier) {
     let ret = Decimal.floor(player[TIER_NAMES[tier] + 'Amount']).times(getDimensionFinalMultiplier(tier)).times(1000).dividedBy(player.tickspeed)
     if (player.currentChallenge == "challenge7") {
@@ -7051,6 +7078,13 @@ function updateInfPower() {
 function updateTimeShards() {
     document.getElementById("timeShardAmount").innerHTML = shortenMoney(player.timeShards)
     document.getElementById("tickThreshold").innerHTML = shortenMoney(player.tickThreshold)
+    if (player.currentEternityChall == "eterc7") document.getElementById("timeShardsPerSec").innerHTML = "You are getting "+shortenDimensions(getTimeDimensionProduction(1))+" Eighth Infinity Dimensions per second."
+    else document.getElementById("timeShardsPerSec").innerHTML = "You are getting "+shortenDimensions(getTimeDimensionProduction(1))+" Timeshards per second."
+}
+
+function updateDilation() {
+    document.getElementById("totalDilatedAM").innerHTML = "You have accrued a total of "+shortenMoney(player.dilation.dilatedAM)+" dilated antimatter. "
+    document.getElementById("tachyonParticleAmount").innerHTML = shortenMoney(player.dilation.tachyonParticles)
     if (player.currentEternityChall == "eterc7") document.getElementById("timeShardsPerSec").innerHTML = "You are getting "+shortenDimensions(getTimeDimensionProduction(1))+" Eighth Infinity Dimensions per second."
     else document.getElementById("timeShardsPerSec").innerHTML = "You are getting "+shortenDimensions(getTimeDimensionProduction(1))+" Timeshards per second."
 }
@@ -7350,6 +7384,7 @@ function gameLoop(diff) {
     if (player.currentEternityChall === "eterc12") diff = diff / 1000;
     if (player.thisInfinityTime < -10) player.thisInfinityTime = Infinity
     if (player.bestInfinityTime < -10) player.bestInfinityTime = Infinity
+    if (player.dilation.active) diff /= Math.max(player.infinityPoints.e/30000, 1)
     if (diff > player.autoTime && !player.break) player.infinityPoints = player.infinityPoints.plus(player.autoIP.times(diff -player.autoTime))
     /*if (player.currentChallenge == "postc6" && player.matter.gte(1)) player.matter = player.matter.plus(diff/10)
     else */
@@ -7428,6 +7463,9 @@ function gameLoop(diff) {
         if (player.currentChallenge == "challenge7") {
             player.money = player.money.plus(getDimensionProductionPerSecond(2).times(diff/10));
             player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(2).times(diff/10))
+        }
+        if (player.dilation.active && player.money.gte(player.dilation.dilatedAM)) {
+            player.dilation.dilatedAM = player.money
         }
     }
 
@@ -7613,6 +7651,7 @@ function gameLoop(diff) {
     updateInfPower();
     updateTimeDimensions()
     updateTimeShards()
+    updateDilation()
     if (getDimensionProductionPerSecond(1).gt(player.money) && !player.achievements.includes("r44")) {
         Marathon+=player.options.updateRate/1000;
         if (Marathon >= 30) giveAchievement("Over in 30 seconds");

@@ -1101,6 +1101,27 @@ button {
     font-size: 12px;
 }
 
+.dilationbtn {
+    color: #64DD17;
+    background: black;
+    font-weight: bold;
+    font-size: 0.7rem;
+    border: 1px solid #64DD17;
+    width: 190px;
+    height: 90px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: Typewriter;
+    box-shadow: inset 5px -5px 20px #64DD17;
+    animation: dilationBtnGlow2 13s infinite;
+}
+
+.dilationbtn:hover {
+    color: #64DD17;
+    background: white;
+}
+
 @keyframes glow {
     20% { text-shadow: 0 0 10px green; }
     100% { text-shadow: 0 0 10px white; }
@@ -1535,6 +1556,36 @@ screen and (max-width: 480px) {
     0%  {box-shadow: inset 0px 0px 3px 0px black;}
     50% {box-shadow: inset 0px 0px 20px 0px black;}
     100% {box-shadow: inset 0px 0px 3px 0px black;}
+}
+
+@keyframes dilationBtnGlow {
+    0%  {box-shadow: inset 5px -5px 20px #64DD17;}
+    50% {box-shadow: inset -5px 5px 20px #64DD17;}
+    100% {box-shadow: inset 5px -5px 20px #64DD17;}
+}
+
+@keyframes dilationBtnGlow2 {
+    0%  {box-shadow: inset 5px -5px 20px #64DD17;}
+    10% {box-shadow: inset -5px 5px 20px #64DD17;}
+    20% {box-shadow: inset 5px -5px 20px #64DD17;}
+    22% {box-shadow: inset -5px 5px 20px #64DD17;}
+    25% {box-shadow: inset 5px -5px 20px #64DD17;}
+    29% {box-shadow: inset -5px 5px 20px #64DD17;}
+    39% {box-shadow: inset 5px -5px 20px #64DD17;}
+    44% {box-shadow: inset -5px 5px 20px #64DD17;}
+    53% {box-shadow: inset 5px -5px 20px #64DD17;}
+    57% {box-shadow: inset -5px 5px 20px #64DD17;}
+    63% {box-shadow: inset 5px -5px 20px #64DD17;}
+    69% {box-shadow: inset -5px 5px 20px #64DD17;}
+    71% {box-shadow: inset 5px -5px 20px #64DD17;}
+    74% {box-shadow: inset -5px 5px 20px #64DD17;}
+    75% {box-shadow: inset 5px -5px 20px #64DD17;}
+    84% {box-shadow: inset -5px 5px 20px #64DD17;}
+    88% {box-shadow: inset 5px -5px 20px #64DD17;}
+    92% {box-shadow: inset -5px 5px 20px #64DD17;}
+    93% {box-shadow: inset 5px -5px 20px #64DD17;}
+    95% {box-shadow: inset -5px 5px 20px #64DD17;}
+    100% {box-shadow: inset 5px -5px 20px #64DD17;}
 }
 
 @keyframes barrelRoll {
