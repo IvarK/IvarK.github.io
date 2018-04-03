@@ -3146,6 +3146,7 @@ function buyMaxTickSpeed() {
             player.tickspeed = player.tickspeed.times(mult);
             if (player.challenges.includes("postc3") || player.currentChallenge == "postc3") player.postC3Reward = player.postC3Reward.times(1.05+(player.galaxies*0.005))
             postc8Mult = new Decimal(1)
+            if (player.tickSpeedCost.gt(Number.MAX_VALUE)) buyMaxTickSpeed()
         }
     } else {
 
