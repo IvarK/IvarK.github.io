@@ -2367,17 +2367,11 @@ function buyMaxInfDims(tier) {
 
     if (player.infinityPoints.lt(dim.cost)) return false
     if (!player.infDimensionsUnlocked[tier-1]) return false
-    let costMult;
-    if (ECTimesCompleted("eterc12")) {
-        costMult = Math.pow(infCostMults[tier], 1-ECTimesCompleted("eterc12")*0.01)
-    } else {
-        costMult = infCostMults[tier]
-    }
 
-    var toBuy = Math.ceil((player.infinityPoints.e - dim.cost.e) / Math.log10(costMult))
-    dim.cost = dim.cost.times(Decimal.pow(costMult, toBuy-1))
+    var toBuy = Math.ceil((player.infinityPoints.e - dim.cost.e) / Math.log10(infCostMults[tier]))
+    dim.cost = dim.cost.times(Decimal.pow(infCostMults[tier], toBuy-1))
     player.infinityPoints = player.infinityPoints.minus(dim.cost)
-    dim.cost = dim.cost.times(costMult)
+    dim.cost = dim.cost.times(infCostMults[tier])
     dim.amount = dim.amount.plus(10*toBuy);
     dim.power = dim.power.times(Decimal.pow(infPowerMults[tier], toBuy))
     dim.baseAmount += 10*toBuy
