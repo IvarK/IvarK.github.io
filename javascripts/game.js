@@ -2350,7 +2350,7 @@ function buyManyInfinityDimension(tier) {
     player.infinityPoints = player.infinityPoints.minus(dim.cost)
     dim.amount = dim.amount.plus(10);
     if (ECTimesCompleted("eterc12")) {
-        dim.cost = Decimal.round(dim.cost.times(Math.pow(infCostMults[tier], 1-ECTimesCompleted("eterc12")*0.01)))
+        dim.cost = Decimal.round(dim.cost.times(Math.pow(infCostMults[tier], 1-ECTimesCompleted("eterc12")*0.008)))
     } else {
         dim.cost = Decimal.round(dim.cost.times(infCostMults[tier]))
     }
@@ -2370,7 +2370,7 @@ function buyMaxInfDims(tier) {
 
     let costMult;
     if (ECTimesCompleted("eterc12")) {
-        costMult = Math.pow(infCostMults[tier], 1-ECTimesCompleted("eterc12")*0.01)
+        costMult = Math.pow(infCostMults[tier], 1-ECTimesCompleted("eterc12")*0.008)
     } else {
         costMult = infCostMults[tier]
     }
