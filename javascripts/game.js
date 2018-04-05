@@ -227,11 +227,13 @@ var player = {
         dilatedAM: new Decimal(0),
         tachyonParticles: new Decimal(0),
         dilatedTime: new Decimal(0),
-        totalTachyonParticles: new Decimal(0)
+        totalTachyonParticles: new Decimal(0),
+        nextThreshold: new Decimal(1000),
+        freeGalaxies: 0
     },
     options: {
         newsHidden: false,
-        notation: "Standard",
+        notation: "Mixed scientific",
         //Standard = normal prefixed numbers, Scientific = standard form, Engineering = powers of 3.
         scientific: false,
         challConf: false,
@@ -895,6 +897,8 @@ function onLoad() {
     if (player.dilation.tachyonParticles === undefined) player.dilation.tachyonParticles = new Decimal(0)
     if (player.dilation.dilatedTime === undefined) player.dilation.dilatedTime = new Decimal(0)
     if (player.dilation.totalTachyonParticles === undefined) player.dilation.totalTachyonParticles = new Decimal(0)
+    if (player.dilation.nextThreshold === undefined) player.dilation.nextThreshold = new Decimal(1000)
+    if (player.dilation.freeGalaxies === undefined) player.dilation.freeGalaxies = 0
     setTheme(player.options.theme);
 
     sliderText.innerHTML = "Update rate: " + player.options.updateRate + "ms";
@@ -1462,6 +1466,7 @@ function transformSaveToDecimal() {
     player.dilation.tachyonParticles = new Decimal(player.dilation.tachyonParticles)
     player.dilation.dilatedTime = new Decimal(player.dilation.dilatedTime)
     player.dilation.totalTachyonParticles = new Decimal(player.dilation.totalTachyonParticles)
+    player.dilation.nextThreshold = new Decimal(player.dilation.nextThreshold)
 }
 
 
@@ -1840,9 +1845,9 @@ function getShiftRequirement(bulk) {
 
 
 function getGalaxyRequirement() {
-    let amount = 80 + (player.galaxies * 60);
-    if (player.timestudy.studies.includes(42)) amount = 80 + (player.galaxies * 52)
-    if (player.currentChallenge == "challenge4") amount = 99 + (player.galaxies * 90)
+    let amount = 80 + ((player.galaxies - player.dilation.freeGalaxies) * 60);
+    if (player.timestudy.studies.includes(42)) amount = 80 + ((player.galaxies - player.dilation.freeGalaxies) * 52)
+    if (player.currentChallenge == "challenge4") amount = 99 + ((player.galaxies - player.dilation.freeGalaxies) * 90)
 
     let galaxyCostScalingStart = 100 + ECTimesCompleted("eterc5")*5
     if (player.timestudy.studies.includes(223)) galaxyCostScalingStart += 7
@@ -1850,8 +1855,8 @@ function getGalaxyRequirement() {
     if (player.currentEternityChall == "eterc5") {
         amount += Math.pow(player.galaxies, 2) + player.galaxies
     }
-    else if (player.galaxies >= galaxyCostScalingStart) {
-        amount += Math.pow(player.galaxies-(galaxyCostScalingStart-1),2)+player.galaxies-(galaxyCostScalingStart-1)
+    else if ((player.galaxies - player.dilation.freeGalaxies) >= galaxyCostScalingStart) {
+        amount += Math.pow((player.galaxies - player.dilation.freeGalaxies)-(galaxyCostScalingStart-1),2)+(player.galaxies - player.dilation.freeGalaxies)-(galaxyCostScalingStart-1)
     }
 
 
@@ -2841,6 +2846,11 @@ function respecTimeStudies() {
     updateTimeStudyButtons()
     updateTheoremButtons()
     drawStudyTree()
+
+    if (player.dilation.unlocked) {
+        player.timestudy.theorem += 4444
+        player.dilation.unlocked = false
+    }
 
 
 }
@@ -5858,6 +5868,8 @@ document.getElementById("bigcrunch").onclick = function () {
             }
         }
 
+        player.galaxies += player.dilation.freeGalaxies
+
         if (player.replicanti.unl && !player.achievements.includes("r95")) player.replicanti.amount = new Decimal(1)
 
         player.replicanti.galaxies = (player.timestudy.studies.includes(33)) ? Math.floor(player.replicanti.galaxies/2) :0
@@ -6007,6 +6019,11 @@ function eternity(force) {
             if (!player.challenges[i].includes("post") && player.eternities > 1) temp.push(player.challenges[i])
         }
         if (player.timestudy.studies.includes(191)) player.infinitiedBank += Math.floor(player.infinitied*0.05)
+        if (player.dilation.active) {
+            let tachyonGain = Math.max(Math.pow((Decimal.log10(player.money) / Decimal.log10(1000))/1000000, 1.5) - player.dilation.totalTachyonParticles, 0)
+            player.dilation.totalTachyonParticles = player.dilation.totalTachyonParticles.plus(tachyonGain)
+            player.dilation.tachyonParticles = player.dilation.tachyonParticles.plus(tachyonGain)
+        }
         player.challenges = temp
         player = {
             money: new Decimal(10),
@@ -6202,7 +6219,9 @@ function eternity(force) {
                 dilatedAM: player.dilation.dilatedAM,
                 tachyonParticles: player.dilation.tachyonParticles,
                 dilatedTime: player.dilation.dilatedTime,
-                totalTachyonParticles: player.dilation.totalTachyonParticles
+                totalTachyonParticles: player.dilation.totalTachyonParticles,
+                nextThreshold: player.dilation.nextThreshold,
+                freeGalaxies: player.dilation.freeGalaxies
             },
             options: player.options
         };
@@ -6217,6 +6236,9 @@ function eternity(force) {
         if (player.achievements.includes("r45")) player.tickspeed = player.tickspeed.times(0.98);
         clearInterval(player.interval);
         //updateInterval();
+
+        player.galaxies += player.dilation.freeGalaxies
+
         if (player.eternities <= 30) {
             document.getElementById("secondRow").style.display = "none";
             document.getElementById("thirdRow").style.display = "none";
@@ -6470,6 +6492,9 @@ function startChallenge(name, target) {
     if (player.achievements.includes("r83")) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
     clearInterval(player.interval);
     //updateInterval();
+
+    player.galaxies += player.dilation.freeGalaxies
+
     if (player.eternities < 30) {
         document.getElementById("secondRow").style.display = "none";
         document.getElementById("thirdRow").style.display = "none";
@@ -7070,8 +7095,17 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
 }
 
 function startDilatedEternity() {
+    if (!player.dilation.unlocked) return
     eternity()
     player.dilation.active = true;
+}
+
+function unlockDilation() {
+    if (player.timestudy.theorem < 4444) return
+    if (ECTimesCompleted("eterc12") !== 5) return
+    if (ECTimesCompleted("eterc11") !== 5) return
+    player.timestudy.theorem -= 4444
+    player.dilation.unlocked = true
 }
 
 function getDimensionProductionPerSecond(tier) {
@@ -7118,8 +7152,16 @@ function updateDilation() {
     document.getElementById("totalDilatedAM").innerHTML = "You have accrued a total of "+shortenMoney(player.dilation.dilatedAM)+" dilated antimatter. "
     document.getElementById("tachyonParticleAmount").innerHTML = shortenMoney(player.dilation.tachyonParticles)
     document.getElementById("dilatedTimeAmount").innerHTML = shortenMoney(player.dilation.dilatedTime)
+    document.getElementById("galaxyThreshold").innerHTML = shortenMoney(player.dilation.nextThreshold)
+    document.getElementById("dilatedGalaxies").innerHTML = player.dilation.freeGalaxies
     if (player.currentEternityChall == "eterc7") document.getElementById("timeShardsPerSec").innerHTML = "You are getting "+shortenDimensions(getTimeDimensionProduction(1))+" Eighth Infinity Dimensions per second."
     else document.getElementById("timeShardsPerSec").innerHTML = "You are getting "+shortenDimensions(getTimeDimensionProduction(1))+" Timeshards per second."
+
+    if (player.dilation.active) {
+        document.getElementById("enabledilation").innerHTML = "Time is running " + Math.round(Math.pow(Math.max(player.infinityPoints.e/30000, 1), 3)) + "x slower."
+    } else {
+        document.getElementById("enabledilation").innerHTML = "Dilate time."
+    }
 }
 
 
@@ -7383,6 +7425,8 @@ setInterval(function() {
     if (player.seventhAmount > 1e12) giveAchievement("Multidimensional");
     if (player.tickspeed.lt(1e-26)) giveAchievement("Faster than a potato");
     if (player.tickspeed.lt(1e-55)) giveAchievement("Faster than a squared potato");
+
+    document.getElementById("dilationTabbtn").style.display = (player.dilation.unlocked) ? "inline-block" : "none"
 
 }, 1000)
 
@@ -7679,6 +7723,7 @@ function gameLoop(diff) {
     if (currentEPmin.gt(EPminpeak) && player.infinityPoints.gte(Number.MAX_VALUE)) EPminpeak = currentEPmin
     document.getElementById("eternitybtn").innerHTML = (player.eternities == 0) ? "Other times await.. I need to become Eternal" : "<b>I need to become Eternal.</b><br>"+"Gain <b>"+shortenDimensions(gainedEternityPoints())+"</b> Eternity points.<br>"+shortenDimensions(currentEPmin)+ " EP/min<br>Peaked at "+shortenDimensions(EPminpeak)+" EP/min"
     if (gainedEternityPoints().gte(1e6)) document.getElementById("eternitybtn").innerHTML = "Gain <b>"+shortenDimensions(gainedEternityPoints())+"</b> Eternity points.<br>"+shortenDimensions(currentEPmin)+ " EP/min<br>Peaked at "+shortenDimensions(EPminpeak)+" EP/min"
+    if (player.dilation.active) document.getElementById("eternitybtn").innerHTML = "Gain <b>"+shortenDimensions(gainedEternityPoints())+"</b> Eternity points.<br>"+shortenDimensions(currentEPmin)+ " EP/min<br>Peaked at "+shortenDimensions(EPminpeak)+" EP/min <br> +" + Math.round(Math.max(Math.pow((Decimal.log10(player.money) / Decimal.log10(1000))/1000000, 1.5) - player.dilation.totalTachyonParticles, 0) * 10)/10 +" Tachyon particles"
     if (player.currentEternityChall !== "") document.getElementById("eternitybtn").innerHTML = "Other challenges await.. I need to become Eternal"
     updateMoney();
     updateCoinPerSec();
@@ -7732,13 +7777,13 @@ function gameLoop(diff) {
         else document.getElementById("timeMax"+tier).className = "unavailablebtn"
     }
 
-    if (player.dilation.active) {
-        let tachyonGain = Math.max(Math.pow((Decimal.log10(player.money) / Decimal.log10(1000))/1000000, 1.5) - player.dilation.totalTachyonParticles, 0)
-        player.dilation.totalTachyonParticles = player.dilation.totalTachyonParticles.plus(tachyonGain)
-        player.dilation.tachyonParticles = player.dilation.tachyonParticles.plus(tachyonGain)
-    }
+    if (player.dilation.unlocked) player.dilation.dilatedTime = player.dilation.dilatedTime.plus(player.dilation.tachyonParticles*diff/10)
 
-    player.dilation.dilatedTime = player.dilation.dilatedTime.plus(player.dilation.tachyonParticles*diff/10)
+    if (player.dilation.nextThreshold.lte(player.dilation.dilatedTime)) {
+        player.dilation.nextThreshold = player.dilation.nextThreshold.times(5)
+        player.dilation.freeGalaxies += 1
+        player.galaxies += 1
+    }
 
 
 

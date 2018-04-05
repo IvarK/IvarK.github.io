@@ -102,7 +102,7 @@
                     <td><button class="secondarytabbtn" onclick="showEternityTab('timestudies')">Time studies</button></td>
                     <td><button class="secondarytabbtn" onclick="showEternityTab('eternityupgrades')">Eternity upgrades</button></td>
                     <td><button class="secondarytabbtn" onclick="showEternityTab('milestones')">Eternity milestones</button></td>
-                    <td><button class="secondarytabbtn" onclick="showEternityTab('dilation')">Time dilation</button></td>
+                    <td><button class="secondarytabbtn" onclick="showEternityTab('dilation')" id="dilationTabbtn">Time dilation</button></td>
                 </tr>
             </table>
             <div class="eternitytab" id="timestudies" style="font-size: 15px">
@@ -293,7 +293,7 @@
                 </table>
                 <table class="table" id="studytable">
                     <tr>
-                        <td><button class="timestudylocked" id="dilationunlock">Unlock time dilation<span>Cost: 4444 Time Theorems</button></td>
+                        <td><button class="timestudylocked" id="dilationunlock" onclick="unlockDilation()">Unlock time dilation<span>Cost: 4444 Time Theorems</button></td>
                     </tr>
                 </table>
                 <div style="height: 60px;"></div>
@@ -486,13 +486,42 @@
                 <div>
                     <span id="totalDilatedAM">You have accrued a total of 0 dilated antimatter.</span>
                     <p>You have <span id="tachyonParticleAmount" style="font-size:35px; color: black">0</span> tachyon particles.</p>
-                    <p>You have <span id="dilatedTimeAmount" style="font-size:35px; color: black">0</span> dilated time.</p>
                 </div>
-                <div id="dilatedResourcesPerSec">You are getting 0 Tachyon particles and 0 seconds of dilated time per second.</div>
-                <table class="table" style="margin: 0 auto">
+                <button id="enabledilation" class="dilationbtn" onclick="startDilatedEternity()">Dilate time.</button>
+                <p>You have <span id="dilatedTimeAmount" style="font-size:35px; color: black">0</span> dilated time.</p>
+                <p>Next free galaxy at <span id="galaxyThreshold" style="font-size:25px; color: black">1000</span> dilated time, gained total of <span id="dilatedGalaxies" style="font-size:25px; color: black">0</span></p>
+                <table>
                     <tr>
                         <td>
-                            <button id="enabledilation" class="dilationbtn" onclick="startDilatedEternity()">Dilate time.</button>
+                            <button class="timestudy">Upgrade</button>
+                        </td>
+                        <td>
+                            <button class="timestudy">Upgrade</button>
+                        </td>
+                        <td>
+                            <button class="timestudy">Upgrade</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="timestudy">Upgrade</button>
+                        </td>
+                        <td>
+                            <button class="timestudy">Upgrade</button>
+                        </td>
+                        <td>
+                            <button class="timestudy">Upgrade</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="timestudy">Upgrade</button>
+                        </td>
+                        <td>
+                            <button class="timestudy">Upgrade</button>
+                        </td>
+                        <td>
+                            <button class="timestudy">Upgrade</button>
                         </td>
                     </tr>
                 </table>
