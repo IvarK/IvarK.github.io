@@ -1780,7 +1780,9 @@ function getDimensionFinalMultiplier(tier) {
     if (player.currentEternityChall == "eterc10") multiplier = multiplier.times(ec10bonus)
     if (player.timestudy.studies.includes(193)) multiplier = multiplier.times(Decimal.pow(1.02, Math.min(player.eternities, 1.5e6)))
     if (tier == 8 && player.timestudy.studies.includes(214)) multiplier = multiplier.times((calcTotalSacrificeBoost().pow(8)).min("1e46000").times(calcTotalSacrificeBoost().pow(1.1).min(new Decimal("1e125000"))))
-
+    if (player.dilation.active) {
+        multiplier.e = Math.floor(Math.pow(multiplier.e, 0.75))
+    }
     return multiplier;
 }
 
@@ -2251,7 +2253,14 @@ function DimensionProduction(tier) {
     var ret = dim.amount
     if (player.currentEternityChall == "eterc11") return ret
     if (player.currentEternityChall == "eterc7") ret = ret.dividedBy(player.tickspeed.dividedBy(1000))
-    if (player.challenges.includes("postc6")) return ret.times(DimensionPower(tier)).dividedBy(player.tickspeed.dividedBy(1000).pow(0.0005))
+    if (player.challenges.includes("postc6")) {
+        let tick = new Decimal(player.tickspeed)
+        if (player.dilation.active) {
+            tick.e = Math.ceil(Math.pow(Math.abs(tick.e), 0.75))
+            tick = new Decimal(1).dividedBy(tick)
+        }
+        return ret.times(DimensionPower(tier)).dividedBy(tick.dividedBy(1000).pow(0.0005))
+    }
     else return ret.times(DimensionPower(tier))
 }
 
@@ -2298,6 +2307,11 @@ function DimensionPower(tier) {
     if (ECTimesCompleted("eterc4") !== 0) mult = mult.times(player.infinityPoints.pow(0.003 + ECTimesCompleted("eterc4")*0.002).min(new Decimal("1e200")))
 
     if (ECTimesCompleted("eterc9") !== 0) mult = mult.times(player.timeShards.pow(ECTimesCompleted("eterc9")*0.1).plus(1).min(new Decimal("1e400")))
+
+    if (player.dilation.active) {
+        mult.e = Math.ceil(Math.pow(mult.e, 0.75))
+    }
+    
     return mult
 }
 
@@ -2454,7 +2468,7 @@ var infDimPow = 1
 function getTimeDimensionPower(tier) {
     if (player.currentEternityChall == "eterc11") return new Decimal(1)
     var dim = player["timeDimension"+tier]
-    var ret = new Decimal(dim.power)
+    var ret = dim.power.pow(2)
 
     if (player.timestudy.studies.includes(11) && tier == 1) ret = ret.dividedBy(player.tickspeed.dividedBy(1000).pow(0.005).times(0.95).plus(player.tickspeed.dividedBy(1000).pow(0.0003).times(0.05)))
     if (player.achievements.includes("r105")) ret = ret.div(player.tickspeed.div(1000).pow(0.000005))
@@ -2477,6 +2491,12 @@ function getTimeDimensionPower(tier) {
     if (player.timestudy.studies.includes(31)) ec10bonus = ec10bonus.pow(4)
     ret = ret.times(ec10bonus)
     if (player.achievements.includes("r128")) ret = ret.times(player.timestudy.studies.length).max(1)
+
+    if (player.dilation.active) {
+        ret.e = Math.floor(Math.pow(ret.e, 0.75))
+    }
+
+
     return ret
 
 }
@@ -2486,9 +2506,11 @@ function getTimeDimensionProduction(tier) {
     if (player.currentEternityChall == "eterc10") return new Decimal(0)
     var dim = player["timeDimension"+tier]
     if (player.currentEternityChall == "eterc11") return dim.amount
-    var ret = dim.amount.times(dim.power)
+    var ret = dim.amount
     ret = ret.times(getTimeDimensionPower(tier))
-    if (player.currentEternityChall == "eterc7") ret = ret.dividedBy(player.tickspeed.dividedBy(1000))
+    if (player.currentEternityChall == "eterc7") {
+        ret = ret.dividedBy(player.tickspeed.dividedBy(1000))
+    }
     if (player.currentEternityChall == "eterc1") return new Decimal(0)
     return ret
 }
@@ -2764,6 +2786,11 @@ function updateTimeStudyButtons() {
             }
         }
     }
+
+    if (player.timestudy.theorem < 4444 || 
+        ECTimesCompleted("eterc12") !== 5 ||
+        ECTimesCompleted("eterc11") !== 5) document.getElementById("dilationunlock").className = "timestudylocked"
+    else document.getElementById("dilationunlock").className = "timestudy"
 }
 
 function studiesUntil(id) {
@@ -6020,7 +6047,7 @@ function eternity(force) {
         }
         if (player.timestudy.studies.includes(191)) player.infinitiedBank += Math.floor(player.infinitied*0.05)
         if (player.dilation.active) {
-            let tachyonGain = Math.max(Math.pow((Decimal.log10(player.money) / Decimal.log10(1000))/1000000, 1.5) - player.dilation.totalTachyonParticles, 0)
+            let tachyonGain = Math.max(Math.pow((Decimal.log10(player.money) / Decimal.log10(1000))/1000, 1.5) - player.dilation.totalTachyonParticles, 0)
             player.dilation.totalTachyonParticles = player.dilation.totalTachyonParticles.plus(tachyonGain)
             player.dilation.tachyonParticles = player.dilation.tachyonParticles.plus(tachyonGain)
         }
@@ -7106,6 +7133,7 @@ function unlockDilation() {
     if (ECTimesCompleted("eterc11") !== 5) return
     player.timestudy.theorem -= 4444
     player.dilation.unlocked = true
+    showEternityTab("dilation")
 }
 
 function getDimensionProductionPerSecond(tier) {
@@ -7115,6 +7143,12 @@ function getDimensionProductionPerSecond(tier) {
         else if (tier == 2) ret = player[TIER_NAMES[tier] + 'Amount'].floor().pow(1.5).times(getDimensionFinalMultiplier(tier)).dividedBy(player.tickspeed.dividedBy(1000))
     }
     if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") ret = ret.times(player.chall2Pow)
+    if (player.dilation.active) {
+        let tick = new Decimal(player.tickspeed)
+        tick.e = Math.floor(Math.pow(Math.abs(tick.e), 0.75))
+        tick = new Decimal(1).dividedBy(tick)
+        ret = Decimal.floor(player[TIER_NAMES[tier] + 'Amount']).times(getDimensionFinalMultiplier(tier)).times(1000).dividedBy(tick)
+    }
     return ret;
 }
 
@@ -7156,12 +7190,6 @@ function updateDilation() {
     document.getElementById("dilatedGalaxies").innerHTML = player.dilation.freeGalaxies
     if (player.currentEternityChall == "eterc7") document.getElementById("timeShardsPerSec").innerHTML = "You are getting "+shortenDimensions(getTimeDimensionProduction(1))+" Eighth Infinity Dimensions per second."
     else document.getElementById("timeShardsPerSec").innerHTML = "You are getting "+shortenDimensions(getTimeDimensionProduction(1))+" Timeshards per second."
-
-    if (player.dilation.active) {
-        document.getElementById("enabledilation").innerHTML = "Time is running " + Math.round(Math.pow(Math.max(player.infinityPoints.e/30000, 1), 3)) + "x slower."
-    } else {
-        document.getElementById("enabledilation").innerHTML = "Dilate time."
-    }
 }
 
 
@@ -7279,7 +7307,7 @@ setInterval(function() {
     document.getElementById("kongalldim").innerHTML = "Double ALL the dimension multipliers (Normal, Infinity, Time) (multiplicative until 32x). Forever. Currently: x"+kongAllDimMult+", next: x"+((kongAllDimMult < 32) ? kongAllDimMult * 2 : kongAllDimMult + 32)
     document.getElementById("eternityPoints2").innerHTML = "You have <span class=\"EPAmount2\">"+shortenDimensions(player.eternityPoints)+"</span> Eternity points."
 
-    document.getElementById("eternitybtn").style.display = (player.infinityPoints.gte(player.eternityChallGoal) && player.infDimensionsUnlocked[7]) ? "inline-block" : "none"
+    document.getElementById("eternitybtn").style.display = (player.infinityPoints.gte(player.eternityChallGoal) && (player.infDimensionsUnlocked[7] || player.eternities > 24)) ? "inline-block" : "none"
 
 
     if (player.eternities !== 0)document.getElementById("eternitystorebtn").style.display = "inline-block"
@@ -7461,10 +7489,6 @@ function gameLoop(diff) {
     if (player.currentEternityChall === "eterc12") diff = diff / 1000;
     if (player.thisInfinityTime < -10) player.thisInfinityTime = Infinity
     if (player.bestInfinityTime < -10) player.bestInfinityTime = Infinity
-    if (player.dilation.active) {
-        if (diff > 500) diff = 10
-        diff /= Math.pow(Math.max(player.infinityPoints.e/30000, 1), 3)
-    }
     if (diff > player.autoTime && !player.break) player.infinityPoints = player.infinityPoints.plus(player.autoIP.times(diff -player.autoTime))
     /*if (player.currentChallenge == "postc6" && player.matter.gte(1)) player.matter = player.matter.plus(diff/10)
     else */
@@ -7723,7 +7747,7 @@ function gameLoop(diff) {
     if (currentEPmin.gt(EPminpeak) && player.infinityPoints.gte(Number.MAX_VALUE)) EPminpeak = currentEPmin
     document.getElementById("eternitybtn").innerHTML = (player.eternities == 0) ? "Other times await.. I need to become Eternal" : "<b>I need to become Eternal.</b><br>"+"Gain <b>"+shortenDimensions(gainedEternityPoints())+"</b> Eternity points.<br>"+shortenDimensions(currentEPmin)+ " EP/min<br>Peaked at "+shortenDimensions(EPminpeak)+" EP/min"
     if (gainedEternityPoints().gte(1e6)) document.getElementById("eternitybtn").innerHTML = "Gain <b>"+shortenDimensions(gainedEternityPoints())+"</b> Eternity points.<br>"+shortenDimensions(currentEPmin)+ " EP/min<br>Peaked at "+shortenDimensions(EPminpeak)+" EP/min"
-    if (player.dilation.active) document.getElementById("eternitybtn").innerHTML = "Gain <b>"+shortenDimensions(gainedEternityPoints())+"</b> Eternity points.<br>"+shortenDimensions(currentEPmin)+ " EP/min<br>Peaked at "+shortenDimensions(EPminpeak)+" EP/min <br> +" + Math.round(Math.max(Math.pow((Decimal.log10(player.money) / Decimal.log10(1000))/1000000, 1.5) - player.dilation.totalTachyonParticles, 0) * 10)/10 +" Tachyon particles"
+    if (player.dilation.active) document.getElementById("eternitybtn").innerHTML = "Gain <b>"+shortenDimensions(gainedEternityPoints())+"</b> Eternity points.<br>"+shortenDimensions(currentEPmin)+ " EP/min<br>Peaked at "+shortenDimensions(EPminpeak)+" EP/min <br> +" + Math.round(Math.max(Math.pow((Decimal.log10(player.money) / Decimal.log10(1000))/1000, 1.5) - player.dilation.totalTachyonParticles, 0) * 10)/10 +" Tachyon particles"
     if (player.currentEternityChall !== "") document.getElementById("eternitybtn").innerHTML = "Other challenges await.. I need to become Eternal"
     updateMoney();
     updateCoinPerSec();
@@ -8071,7 +8095,7 @@ function gameLoop(diff) {
     document.getElementById("chall3Pow").innerHTML = shorten(player.chall3Pow*100) + "%"
 
 
-    if (player.infDimensionsUnlocked[7] == false && player.break) {
+    if (player.infDimensionsUnlocked[7] == false && player.break && player.eternities <= 24) {
         document.getElementById("newDimensionButton").style.display = "inline-block"
     } else document.getElementById("newDimensionButton").style.display = "none"
 
