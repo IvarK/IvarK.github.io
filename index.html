@@ -854,8 +854,8 @@
                 <canvas id="normalDimChart" width="1500" height="500" style="user-select: none;"></canvas>
                 <b>Exponents of antimatter per second</b>
             </div>
-            <div id="progress" ach-tooltip="Percentage until Infinity">
-                <div id="progressbar"></div>
+            <div id="progress">
+                <div id="progressbar"><span id="progresspercent" ach-tooltip="Percentage until Infinity">0%</span></div>
             </div>
             <div id="footercontainer">
                     
@@ -1865,7 +1865,7 @@
                                 <br>
                                 <br>
                                 <div class="outer">
-                                    <button id="eterc12" class="challengesbtn" onclick="startEternityChallenge('eterc12', new Decimal('1e110000'), new Decimal('1e10000'))">Start</button>
+                                    <button id="eterc12" class="challengesbtn" onclick="startEternityChallenge('eterc12', new Decimal('1e110000'), new Decimal('1e12000'))">Start</button>
                                     <br>
                                     <span id="eterc12completed">Completed 0 Times.</span><br>
                                     <span id="eterc12goal" >Goal: 1e110000 in 0.5 seconds or less.</span><br>
