@@ -5456,7 +5456,7 @@ function updatePriorities() {
     player.autobuyers[9].bulk = (isNaN(bulk)) ? 1 : bulk
     player.overXGalaxies = parseInt(document.getElementById("overGalaxies").value)
     player.autoSacrifice.priority = fromValue(document.getElementById("prioritySac").value)
-    if (isNaN(player.autoSacrifice.priority) || player.autoSacrifice.priority === null || player.autoSacrifice.priority === undefined || player.autoSacrifice.priority <= 1) player.autoSacrifice.priority = Decimal.fromNumber(Number.EPSILON)
+    if (isNaN(player.autoSacrifice.priority) || player.autoSacrifice.priority === null || player.autoSacrifice.priority === undefined || player.autoSacrifice.priority <= 1) player.autoSacrifice.priority = Decimal.fromNumber(1.01)
     player.autobuyers[10].bulk = parseFloat(document.getElementById("bulkgalaxy").value)
     const eterValue = fromValue(document.getElementById("priority13").value)
     if (!isNaN(eterValue)) player.eternityBuyer.limit = eterValue
