@@ -5429,7 +5429,7 @@ function fromValue(value) {
     let e = 0;
     for (let i=0;i<v.length;i++) {
         for (let j=1;j<27;j++) {
-            if (v[i] == l[j]) e += Math.pow(26,i)*j
+            if (v[i] == l[j]) e += Math.pow(26,v.length-i-1)*j
         }
     }
     return Decimal.fromMantissaExponent(parseFloat(value), e*3)
