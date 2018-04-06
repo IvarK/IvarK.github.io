@@ -727,8 +727,6 @@ function drawStudyTree() {
             ctx.font = "15px Typewriter";
             ctx.strokeText(all[i], x1 - start.width / 2, y1 - start.height / 2 - 1);
             ctx.fillText(all[i], x1 - start.width / 2, y1 - start.height / 2 - 1);
-            ctx.fill()
-            ctx.stroke();
         }
     }
 }
