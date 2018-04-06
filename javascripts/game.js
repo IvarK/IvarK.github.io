@@ -632,6 +632,7 @@ function drawTreeBranch(num1, num2) {
 }
 
 function drawStudyTree() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawTreeBranch("11", "21");
     drawTreeBranch("11", "22");
     drawTreeBranch("21", "31");
@@ -715,7 +716,21 @@ function drawStudyTree() {
     drawTreeBranch("232", "ec11unl")
     drawTreeBranch("233", "ec12unl")
     drawTreeBranch("234", "ec12unl")
-
+    if (shiftDown) {
+        for (i=0; i<all.length; i++) {
+            var start = document.getElementById(all[i]).getBoundingClientRect();
+            var x1 = start.left + (start.width / 2) + (document.documentElement.scrollLeft || document.body.scrollLeft);
+            var y1 = start.top + (start.height / 2) + (document.documentElement.scrollTop || document.body.scrollTop);
+            ctx.fillStyle = 'white';
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 3;
+            ctx.font = "15px Typewriter";
+            ctx.strokeText(all[i], x1 - start.width / 2, y1 - start.height / 2 - 1);
+            ctx.fillText(all[i], x1 - start.width / 2, y1 - start.height / 2 - 1);
+            ctx.fill()
+            ctx.stroke();
+        }
+    }
 }
 
 function setTheme(name) {
@@ -2693,7 +2708,7 @@ function canBuyStudy(name) {
         break;
     }
 }
-var all =      [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 201, 211, 212, 213, 214, 221, 222, 223, 224, 225, 226, 227, 228, 231, 232, 233, 234]
+var all = [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 201, 211, 212, 213, 214, 221, 222, 223, 224, 225, 226, 227, 228, 231, 232, 233, 234]
 var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 400, 730, 300, 900, 120, 150, 200, 120, 900, 900, 900, 900, 900, 900, 900, 900, 500, 500, 500, 500]
 function updateTimeStudyButtons() {
     for (var i=0; i<all.length; i++) {
@@ -8061,7 +8076,7 @@ slider.oninput = function() {
     player.options.updateRate = parseInt(this.value);
     sliderText.innerHTML = "Update rate: " + this.value + "ms"
     clearInterval(gameLoopIntervalId);
-        gameLoopIntervalId = setInterval(gameLoop, player.options.updateRate);
+    gameLoopIntervalId = setInterval(gameLoop, player.options.updateRate);
 }
 
 function dimBoolean() {
@@ -8947,12 +8962,18 @@ window.onload = function() {
 
 window.addEventListener('keydown', function(event) {
     if (event.keyCode == 17) controlDown = true;
-    if (event.keyCode == 16) shiftDown = true;
+    if (event.keyCode == 16) {
+        shiftDown = true;
+        drawStudyTree()
+    }
 }, false);
 
 window.addEventListener('keyup', function(event) {
     if (event.keyCode == 17) controlDown = false;
-    if (event.keyCode == 16) shiftDown = false;
+    if (event.keyCode == 16) {
+        shiftDown = false;
+        drawStudyTree()
+    }
 }, false);
 
 window.onfocus = function() {
