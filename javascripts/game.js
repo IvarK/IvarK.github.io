@@ -2787,10 +2787,11 @@ function updateTimeStudyButtons() {
         }
     }
 
-    if (player.timestudy.theorem < 4444 || 
+    if (player.dilation.unlocked) document.getElementById("dilationunlock").className = "timestudybought"
+    else if (player.timestudy.theorem < 4444 || 
         ECTimesCompleted("eterc12") !== 5 ||
         ECTimesCompleted("eterc11") !== 5) document.getElementById("dilationunlock").className = "timestudylocked"
-    else document.getElementById("dilationunlock").className = "timestudy"
+    else document.getElementById("dilationunlock").className = "dilationbtn"
 }
 
 function studiesUntil(id) {
@@ -7123,16 +7124,19 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
 
 function startDilatedEternity() {
     if (!player.dilation.unlocked) return
+    if (!confirm("You will start an eternity with all of your dimension multiplier's exponents and tickspeed multiplier's exponent reduced to ^ 0.2. Additionally time will be dilated, slowing down time based on how much progress you've made in the eternity. If you can eternity while dilated, you'll be rewarded with dilated antimatter.")) return
     eternity()
     player.dilation.active = true;
 }
 
 function unlockDilation() {
+    if (player.dilation.unlocked) return
     if (player.timestudy.theorem < 4444) return
     if (ECTimesCompleted("eterc12") !== 5) return
     if (ECTimesCompleted("eterc11") !== 5) return
     player.timestudy.theorem -= 4444
     player.dilation.unlocked = true
+    updateTimeStudyButtons()
     showEternityTab("dilation")
 }
 
