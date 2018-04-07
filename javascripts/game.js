@@ -7472,7 +7472,7 @@ function gameLoop(diff) {
     if (player.eternities > 0) document.getElementById("tdtabbtn").style.display = "inline-block"
 
     for (let tier=1;tier<9;tier++) {
-        if (tier != 8 && player.infDimensionsUnlocked[tier-1]) player["infinityDimension"+tier].amount = player["infinityDimension"+tier].amount.plus(DimensionProduction(tier+1).times(diff/100))
+        if (tier != 8 && (player.infDimensionsUnlocked[tier-1] || ECTimesCompleted("eterc7") > 0)) player["infinityDimension"+tier].amount = player["infinityDimension"+tier].amount.plus(DimensionProduction(tier+1).times(diff/100))
         if (player.infDimensionsUnlocked[tier-1]) {
             document.getElementById("infRow"+tier).style.display = "inline-block"
             document.getElementById("dimTabButtons").style.display = "inline-block"
@@ -7982,7 +7982,15 @@ function gameLoop(diff) {
     if (player.money.gte(getNewInfReq())) document.getElementById("newDimensionButton").className = "newdim"
     else document.getElementById("newDimensionButton").className = "newdimlocked"
 
-    while (player.eternities > 24 && getNewInfReq().lt(player.money) && player.infDimensionsUnlocked[7] === false) newDimension()
+    var infdimpurchasewhileloop = 1;
+    while (player.eternities > 24 && getNewInfReq().lt(player.money) && player.infDimensionsUnlocked[7] === false) {
+        for (i=0; i<8; i++) {
+            if (player.infDimensionsUnlocked[i]) infdimpurchasewhileloop++
+        }
+        newDimension()
+        buyMaxInfDims(infdimpurchasewhileloop)
+        infdimpurchasewhileloop = 1;
+    }
 
     document.getElementById("newDimensionButton").innerHTML = "Get " + shortenCosts(getNewInfReq()) + " antimatter to unlock a new Dimension."
 
