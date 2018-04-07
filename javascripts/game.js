@@ -7496,7 +7496,7 @@ function gameLoop(diff) {
     if (player.eternities > 0) document.getElementById("dimTabButtons").style.display = "inline-block"
 
     if (player.currentEternityChall !== "eterc7") player.infinityPower = player.infinityPower.plus(DimensionProduction(1).times(diff/10))
-    else if (player.currentChallenge !== "challenge4") player.seventhAmount = player.seventhAmount.plus(DimensionProduction(1).times(diff/10))
+    else if (player.currentChallenge !== "challenge4" && player.currentChallenge !== "postc1") player.seventhAmount = player.seventhAmount.plus(DimensionProduction(1).times(diff/10))
 
 
 
