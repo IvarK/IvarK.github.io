@@ -518,11 +518,7 @@ function addData(chart, label, data) {
         chart.data.labels.shift();
         chart.data.datasets[0].data.shift();
     }
-    if (player.options.notation === "Logarithm") {
-        data = Math.max(data.log(10), 0.1);
-    } else {
-        data = data.exponent + (data.mantissa / 10);
-    }
+    data = Math.max(data.log(10), 0.1);
     comp1 = Array.max(chart.data.datasets[0].data);
     comp2 = Array.min(chart.data.datasets[0].data);
     if (data > comp1) {
