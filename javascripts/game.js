@@ -2786,11 +2786,12 @@ function updateTimeStudyButtons() {
             }
         }
     }
-
-    if (player.timestudy.theorem < 4444 || 
-        ECTimesCompleted("eterc12") !== 5 ||
-        ECTimesCompleted("eterc11") !== 5) document.getElementById("dilationunlock").className = "timestudylocked"
-    else document.getElementById("dilationunlock").className = "timestudy"
+    if  (!player.dilation.unlocked) {
+        if (player.timestudy.theorem < 4444 || 
+            ECTimesCompleted("eterc12") !== 5 ||
+            ECTimesCompleted("eterc11") !== 5) document.getElementById("dilationunlock").className = "timestudylocked"
+        else document.getElementById("dilationunlock").className = "timestudy"
+    }
 }
 
 function studiesUntil(id) {
@@ -7133,6 +7134,7 @@ function unlockDilation() {
     if (ECTimesCompleted("eterc11") !== 5) return
     player.timestudy.theorem -= 4444
     player.dilation.unlocked = true
+    document.getElementById("dilationunlock").className = "timestudybought"
     showEternityTab("dilation")
 }
 
