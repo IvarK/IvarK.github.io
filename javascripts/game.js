@@ -2049,7 +2049,6 @@ function updateDimensions() {
         }
     }
 
-
     if (document.getElementById("eternitystore").style.display == "block") {
         document.getElementById("eter1").innerHTML = "Infinity Dimensions multiplier based on unspent EP (x+1)<br>Currently: "+shortenMoney(player.eternityPoints.plus(1))+"x<br>Cost: 5 EP"
         document.getElementById("eter2").innerHTML = "Infinity Dimension multiplier based on eternities ((x/300)^log4(2x))<br>Currently: "+shortenMoney(Decimal.pow(Math.min(player.eternities, 125000)/300 + 1, Math.log(Math.min(player.eternities, 125000)*2+1)/Math.log(4)).times(new Decimal((player.eternities-125000)/300 + 1).times(Math.log((player.eternities- 125000)*2+1)/Math.log(4)).max(1)))+"x<br>Cost: 10 EP"
@@ -2073,6 +2072,11 @@ function updateDimensions() {
         document.getElementById("193").innerHTML = "Normal dimension boost based on eternities<span>Currently "+shortenMoney(Decimal.pow(1.02, Math.min(player.eternities, 1.5e6)))+"<span>Cost: 300 Time Theorems"
         document.getElementById("212").innerHTML = "Galaxies are more effective based on your timeshards<span>Currently "+((Math.pow(player.timeShards.max(2).log2(), 0.005)-1)*100).toFixed(2)+"%<span>Cost: 150 Time Theorems"
         document.getElementById("214").innerHTML = "Sacrifice boosts the 8th dimension even more.<span>Currently "+shortenMoney(((calcTotalSacrificeBoost().pow(8)).min("1e46000").times(calcTotalSacrificeBoost().pow(1.1)).div(calcTotalSacrificeBoost())).max(1).min(new Decimal("1e125000")))+"x<span>Cost: 120 Time Theorems"
+    }
+
+    if (document.getElementById("dilation").style.display == "block") {
+        if (player.dilation.active) document.getElementById("enabledilation").innerHTML = "Disable dilation.<br>Currently: "+0+"x slower"
+        else document.getElementById("enabledilation").innerHTML = "Dilate time."
     }
 }
 
@@ -3275,7 +3279,7 @@ function timeDisplayShort(time) {
 const allAchievements = {
   r11 : "You gotta start somewhere",
   r12 : "100 antimatter is a lot",
-  r13  : "Half life 3 confirmed",
+  r13 : "Half life 3 confirmed",
   r14 : "L4D: Left 4 Dimensions",
   r15 : "5 Dimension Antimatter Punch",
   r16 : "We couldn't afford 9",
@@ -3369,6 +3373,14 @@ const allAchievements = {
   r126 : "Popular music",
   r127 : "But I wanted another prestige layer...",
   r128 : "What do I have to do to get rid of you",
+  r131 : "No ethical consumption",
+  r132 : "r132",
+  r133 : "r133",
+  r134 : "r134",
+  r135 : "r135",
+  r136 : "r136",
+  r137 : "r137",
+  r138 : "r138",
 };
 const allAchievementNums = Object.invert(allAchievements)
 // to retrieve by value: Object.keys(allAchievements).find(key => allAchievements[key] === "L4D: Left 4 Dimensions");
@@ -4099,7 +4111,7 @@ function buyEPMult() {
 
 function updateAchievements() {
     var amount = 0
-    for (var i=1; i<13; i++) {
+    for (var i=1; i<document.getElementById("achievementtable").children[0].children.length+1; i++) {
         var n = 0
         var achNum = i * 10
         for (var l=0; l<8; l++) {
@@ -5704,6 +5716,7 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.currentChallenge != "" && player.challengeTimes[challNumber-2] > player.thisInfinityTime) player.challengeTimes[challNumber-2] = player.thisInfinityTime
         if (player.currentChallenge.includes("post") && player.infchallengeTimes[challNumber-1] > player.thisInfinityTime) player.infchallengeTimes[challNumber-1] = player.thisInfinityTime
         if (player.currentChallenge == "postc5" && player.thisInfinityTime <= 100) giveAchievement("Hevipelle did nothing wrong")
+        if (player.infinitiedBank > 5000000000) giveAchievement("No ethical consumption");
         if ((player.bestInfinityTime > 600 && !player.break) || (player.currentChallenge != "" && !player.options.retryChallenge)) showTab("dimensions")
         if (player.currentChallenge == "challenge5") {
             try {
@@ -6047,7 +6060,8 @@ function eternity(force) {
             if (!player.challenges[i].includes("post") && player.eternities > 1) temp.push(player.challenges[i])
         }
         if (player.timestudy.studies.includes(191)) player.infinitiedBank += Math.floor(player.infinitied*0.05)
-        if (player.dilation.active) {
+        if (player.timestudy.achievements.includes("r131")) player.infinitiedBank += Math.floor(player.infinitied*0.05)
+        if (player.dilation.active && !force) {
             let tachyonGain = Math.max(Math.pow((Decimal.log10(player.money) / Decimal.log10(1000))/1000, 1.5) - player.dilation.totalTachyonParticles, 0)
             player.dilation.totalTachyonParticles = player.dilation.totalTachyonParticles.plus(tachyonGain)
             player.dilation.tachyonParticles = player.dilation.tachyonParticles.plus(tachyonGain)
@@ -7124,6 +7138,10 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
 
 function startDilatedEternity() {
     if (!player.dilation.unlocked) return
+    if (player.dilation.active) {
+        eternity(true)
+        return
+    }
     if (!confirm("You will start an eternity with all of your dimension multiplier's exponents and tickspeed multiplier's exponent reduced to ^ 0.2. Additionally time will be dilated, slowing down time based on how much progress you've made in the eternity. If you can eternity while dilated, you'll be rewarded with dilated antimatter.")) return
     eternity()
     player.dilation.active = true;
