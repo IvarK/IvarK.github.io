@@ -2097,7 +2097,7 @@ function updateDimensions() {
     }
 
     if (document.getElementById("dilation").style.display == "block") {
-        if (player.dilation.active) document.getElementById("enabledilation").innerHTML = "Disable dilation.<br>Currently: "+0+"x slower"
+        if (player.dilation.active) document.getElementById("enabledilation").innerHTML = "Disable dilation."
         else document.getElementById("enabledilation").innerHTML = "Dilate time."
     }
 }
