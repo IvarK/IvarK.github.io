@@ -528,11 +528,7 @@ function addData(chart, label, data) {
         chart.data.labels.shift();
         chart.data.datasets[0].data.shift();
     }
-    if (player.options.notation === "Logarithm") {
-        data = Math.max(data.log(10), 0.1);
-    } else {
-        data = data.exponent + (data.mantissa / 10);
-    }
+    data = Math.max(data.log(10), 0.1);
     comp1 = Array.max(chart.data.datasets[0].data);
     comp2 = Array.min(chart.data.datasets[0].data);
     if (data > comp1) {
@@ -642,6 +638,7 @@ function drawTreeBranch(num1, num2) {
 }
 
 function drawStudyTree() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawTreeBranch("11", "21");
     drawTreeBranch("11", "22");
     drawTreeBranch("21", "31");
@@ -727,6 +724,19 @@ function drawStudyTree() {
     drawTreeBranch("234", "ec12unl")
     drawTreeBranch("ec11unl", "dilationunlock")
     drawTreeBranch("ec12unl", "dilationunlock")
+    if (shiftDown) {
+        for (i=0; i<all.length; i++) {
+            var start = document.getElementById(all[i]).getBoundingClientRect();
+            var x1 = start.left + (start.width / 2) + (document.documentElement.scrollLeft || document.body.scrollLeft);
+            var y1 = start.top + (start.height / 2) + (document.documentElement.scrollTop || document.body.scrollTop);
+            ctx.fillStyle = 'white';
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 3;
+            ctx.font = "15px Typewriter";
+            ctx.strokeText(all[i], x1 - start.width / 2, y1 - start.height / 2 - 1);
+            ctx.fillText(all[i], x1 - start.width / 2, y1 - start.height / 2 - 1);
+        }
+    }
 }
 
 function setTheme(name) {
@@ -2741,7 +2751,7 @@ function canBuyStudy(name) {
         break;
     }
 }
-var all =      [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 201, 211, 212, 213, 214, 221, 222, 223, 224, 225, 226, 227, 228, 231, 232, 233, 234]
+var all = [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 201, 211, 212, 213, 214, 221, 222, 223, 224, 225, 226, 227, 228, 231, 232, 233, 234]
 var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 400, 730, 300, 900, 120, 150, 200, 120, 900, 900, 900, 900, 900, 900, 900, 900, 500, 500, 500, 500]
 function updateTimeStudyButtons() {
     for (var i=0; i<all.length; i++) {
@@ -3209,7 +3219,7 @@ function buyMaxTickSpeed() {
     var mult = getTickSpeedMultiplier()
     if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0
     if (player.currentChallenge == "challenge5" || player.currentChallenge == "postc5" || player.tickSpeedCost.lt(Number.MAX_VALUE) || player.tickSpeedMultDecrease > 2) {
-        while (player.money.gt(player.tickSpeedCost) && (player.tickSpeedCost.lt(Number.MAX_VALUE) || player.tickSpeedMultDecrease > 2)) {
+        while (player.money.gt(player.tickSpeedCost) && (player.tickSpeedCost.lt(Number.MAX_VALUE) || player.tickSpeedMultDecrease > 2 || player.currentChallenge == "postc5")) {
             player.money = player.money.minus(player.tickSpeedCost);
             if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5") player.tickSpeedCost = player.tickSpeedCost.times(player.tickspeedMultiplier);
             else multiplySameCosts(player.tickSpeedCost)
@@ -5477,7 +5487,7 @@ function fromValue(value) {
     let e = 0;
     for (let i=0;i<v.length;i++) {
         for (let j=1;j<27;j++) {
-            if (v[i] == l[j]) e += Math.pow(26,i)*j
+            if (v[i] == l[j]) e += Math.pow(26,v.length-i-1)*j
         }
     }
     return Decimal.fromMantissaExponent(parseFloat(value), e*3)
@@ -5504,7 +5514,7 @@ function updatePriorities() {
     player.autobuyers[9].bulk = (isNaN(bulk)) ? 1 : bulk
     player.overXGalaxies = parseInt(document.getElementById("overGalaxies").value)
     player.autoSacrifice.priority = fromValue(document.getElementById("prioritySac").value)
-    if (isNaN(player.autoSacrifice.priority) || player.autoSacrifice.priority === null || player.autoSacrifice.priority === undefined || player.autoSacrifice.priority <= 1) player.autoSacrifice.priority = Decimal.fromNumber(Number.EPSILON)
+    if (isNaN(player.autoSacrifice.priority) || player.autoSacrifice.priority === null || player.autoSacrifice.priority === undefined || player.autoSacrifice.priority <= 1) player.autoSacrifice.priority = Decimal.fromNumber(1.01)
     player.autobuyers[10].bulk = parseFloat(document.getElementById("bulkgalaxy").value)
     const eterValue = fromValue(document.getElementById("priority13").value)
     if (!isNaN(eterValue)) player.eternityBuyer.limit = eterValue
@@ -6018,7 +6028,7 @@ function eternity(force) {
         if (player.thisEternity < 2) giveAchievement("Eternities are the new infinity")
         if (player.currentEternityChall == "eterc6" && ECTimesCompleted("eterc6") < 5) player.dimensionMultDecrease = parseFloat((player.dimensionMultDecrease - 0.2).toFixed(1))
         if (player.currentEternityChall == "eterc11" && ECTimesCompleted("eterc11") < 5) player.tickSpeedMultDecrease = parseFloat((player.tickSpeedMultDecrease - 0.07).toFixed(2))
-        if (player.infinitied < 10) giveAchievement("Do you really need a guide for this?");
+        if (player.infinitied < 10 && !force) giveAchievement("Do you really need a guide for this?");
         if (Decimal.round(player.replicanti.amount) == 9) giveAchievement("We could afford 9");
         if (player.dimlife && !force) giveAchievement("8 nobody got time for that")
         if (player.dead && !force) giveAchievement("You're already dead.")
@@ -6043,7 +6053,6 @@ function eternity(force) {
             }
         }
         for (var i=0; i<player.challenges.length; i++) {
-
             if (!player.challenges[i].includes("post") && player.eternities > 1) temp.push(player.challenges[i])
         }
         if (player.timestudy.studies.includes(191)) player.infinitiedBank += Math.floor(player.infinitied*0.05)
@@ -7136,11 +7145,8 @@ function unlockDilation() {
     if (ECTimesCompleted("eterc11") !== 5) return
     player.timestudy.theorem -= 4444
     player.dilation.unlocked = true
-<<<<<<< HEAD
     document.getElementById("dilationunlock").className = "timestudybought"
-=======
     updateTimeStudyButtons()
->>>>>>> ac851c0db0f7ed84329741c9799ecbf8cecead26
     showEternityTab("dilation")
 }
 
@@ -7590,7 +7596,7 @@ function gameLoop(diff) {
     if (player.eternities > 0) document.getElementById("tdtabbtn").style.display = "inline-block"
 
     for (let tier=1;tier<9;tier++) {
-        if (tier != 8 && player.infDimensionsUnlocked[tier-1]) player["infinityDimension"+tier].amount = player["infinityDimension"+tier].amount.plus(DimensionProduction(tier+1).times(diff/100))
+        if (tier != 8 && (player.infDimensionsUnlocked[tier-1] || ECTimesCompleted("eterc7") > 0)) player["infinityDimension"+tier].amount = player["infinityDimension"+tier].amount.plus(DimensionProduction(tier+1).times(diff/100))
         if (player.infDimensionsUnlocked[tier-1]) {
             document.getElementById("infRow"+tier).style.display = "inline-block"
             document.getElementById("dimTabButtons").style.display = "inline-block"
@@ -7614,7 +7620,7 @@ function gameLoop(diff) {
     if (player.eternities > 0) document.getElementById("dimTabButtons").style.display = "inline-block"
 
     if (player.currentEternityChall !== "eterc7") player.infinityPower = player.infinityPower.plus(DimensionProduction(1).times(diff/10))
-    else if (player.currentChallenge !== "challenge4") player.seventhAmount = player.seventhAmount.plus(DimensionProduction(1).times(diff/10))
+    else if (player.currentChallenge !== "challenge4" && player.currentChallenge !== "postc1") player.seventhAmount = player.seventhAmount.plus(DimensionProduction(1).times(diff/10))
 
 
 
@@ -8110,7 +8116,15 @@ function gameLoop(diff) {
     if (player.money.gte(getNewInfReq())) document.getElementById("newDimensionButton").className = "newdim"
     else document.getElementById("newDimensionButton").className = "newdimlocked"
 
-    while (player.eternities > 24 && getNewInfReq().lt(player.money) && player.infDimensionsUnlocked[7] === false) newDimension()
+    var infdimpurchasewhileloop = 1;
+    while (player.eternities > 24 && getNewInfReq().lt(player.money) && player.infDimensionsUnlocked[7] === false) {
+        for (i=0; i<8; i++) {
+            if (player.infDimensionsUnlocked[i]) infdimpurchasewhileloop++
+        }
+        newDimension()
+        buyMaxInfDims(infdimpurchasewhileloop)
+        infdimpurchasewhileloop = 1;
+    }
 
     document.getElementById("newDimensionButton").innerHTML = "Get " + shortenCosts(getNewInfReq()) + " antimatter to unlock a new Dimension."
 
@@ -8201,7 +8215,7 @@ slider.oninput = function() {
     player.options.updateRate = parseInt(this.value);
     sliderText.innerHTML = "Update rate: " + this.value + "ms"
     clearInterval(gameLoopIntervalId);
-        gameLoopIntervalId = setInterval(gameLoop, player.options.updateRate);
+    gameLoopIntervalId = setInterval(gameLoop, player.options.updateRate);
 }
 
 function dimBoolean() {
@@ -9087,12 +9101,18 @@ window.onload = function() {
 
 window.addEventListener('keydown', function(event) {
     if (event.keyCode == 17) controlDown = true;
-    if (event.keyCode == 16) shiftDown = true;
+    if (event.keyCode == 16) {
+        shiftDown = true;
+        drawStudyTree()
+    }
 }, false);
 
 window.addEventListener('keyup', function(event) {
     if (event.keyCode == 17) controlDown = false;
-    if (event.keyCode == 16) shiftDown = false;
+    if (event.keyCode == 16) {
+        shiftDown = false;
+        drawStudyTree()
+    }
 }, false);
 
 window.onfocus = function() {
