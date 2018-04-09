@@ -2619,7 +2619,7 @@ const allAchievements = {
   r138 : "r138",
   s11 : "Real news",
   s12 : "Just in case",
-  s13 : "s13",
+  s13 : "It's good to have respec",
   s14 : "s14",
   s15 : "s15",
   s16 : "s16",
@@ -2629,7 +2629,7 @@ const allAchievements = {
 const secretAchievementTooltips = {
     s11 : "Click on the news ticker that tells you to click on it.",
     s12 : "Save 100 times without refreshing",
-    s13 : "s13",
+    s13 : "Pay respects",
     s14 : "s14",
     s15 : "s15",
     s16 : "s16",
@@ -8553,6 +8553,7 @@ window.addEventListener('keydown', function(event) {
 
         case 70: // F
             $.notify("Paying respects", "info")
+            giveAchievement("It's good to have respec")
         break;
     }
   }, false);
