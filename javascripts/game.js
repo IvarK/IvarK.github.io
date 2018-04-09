@@ -7210,6 +7210,15 @@ function startDilatedEternity() {
     if (!confirm("You will start an eternity with all of your dimension multiplier's exponents and tickspeed multiplier's exponent reduced to ^ 0.2. Additionally time will be dilated, slowing down time based on how much progress you've made in the eternity. If you can eternity while dilated, you'll be rewarded with dilated antimatter.")) return
     eternity()
     player.dilation.active = true;
+    var totalMult = 1
+    var currentMult = 1
+    var infinitiedMult = 1
+    var achievementMult = 1
+    var challengeMult = 1
+    var unspentBonus = 1
+    var postc8Mult = new Decimal(0)
+    var mult18 = 1
+    var ec10bonus = new Decimal(1)
 }
 
 function unlockDilation() {
