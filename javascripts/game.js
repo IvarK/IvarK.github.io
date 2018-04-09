@@ -6,6 +6,7 @@ var autoS = true;
 var shiftDown = false;
 var controlDown = false;
 var justImported = false;
+var saved = 0;
 var player = {
     money: new Decimal(10),
     tickSpeedCost: new Decimal(1000),
@@ -1371,6 +1372,8 @@ function load_game() {
 
 
 function save_game() {
+    saved++
+    if (saved > 99) giveAchievement("Just in case")
     set_save('dimensionSave', player);
     $.notify("Game saved", "info")
 }
@@ -3392,7 +3395,7 @@ const allAchievements = {
   r137 : "r137",
   r138 : "r138",
   s11 : "Real news",
-  s12 : "s12",
+  s12 : "Just in case",
   s13 : "s13",
   s14 : "s14",
   s15 : "s15",
@@ -3402,7 +3405,7 @@ const allAchievements = {
 };
 const secretAchievementTooltips = {
     s11 : "Click on the news ticker that tells you to click on it.",
-    s12 : "s12",
+    s12 : "Save 100 times without refreshing",
     s13 : "s13",
     s14 : "s14",
     s15 : "s15",
