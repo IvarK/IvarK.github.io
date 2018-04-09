@@ -225,7 +225,6 @@ var player = {
     dilation: {
         unlocked: false,
         active: false,
-        dilatedAM: new Decimal(0),
         tachyonParticles: new Decimal(0),
         dilatedTime: new Decimal(0),
         totalTachyonParticles: new Decimal(0),
@@ -910,7 +909,6 @@ function onLoad() {
     if (player.dilation === undefined) player.dilation = {}
     if (player.dilation.unlocked === undefined) player.dilation.unlocked = false
     if (player.dilation.active === undefined) player.dilation.active = false
-    if (player.dilation.dilatedAM === undefined) player.dilation.dilatedAM = new Decimal(0)
     if (player.dilation.tachyonParticles === undefined) player.dilation.tachyonParticles = new Decimal(0)
     if (player.dilation.dilatedTime === undefined) player.dilation.dilatedTime = new Decimal(0)
     if (player.dilation.totalTachyonParticles === undefined) player.dilation.totalTachyonParticles = new Decimal(0)
@@ -1484,7 +1482,6 @@ function transformSaveToDecimal() {
     player.eternityChallGoal = new Decimal(player.eternityChallGoal)
     player.replicanti.amount = new Decimal(player.replicanti.amount)
 
-    player.dilation.dilatedAM = new Decimal(player.dilation.dilatedAM)
     player.dilation.tachyonParticles = new Decimal(player.dilation.tachyonParticles)
     player.dilation.dilatedTime = new Decimal(player.dilation.dilatedTime)
     player.dilation.totalTachyonParticles = new Decimal(player.dilation.totalTachyonParticles)
@@ -6321,7 +6318,6 @@ function eternity(force) {
             dilation: {
                 unlocked: player.dilation.unlocked,
                 active: false,
-                dilatedAM: player.dilation.dilatedAM,
                 tachyonParticles: player.dilation.tachyonParticles,
                 dilatedTime: player.dilation.dilatedTime,
                 totalTachyonParticles: player.dilation.totalTachyonParticles,
@@ -7340,7 +7336,6 @@ function updateTimeShards() {
 }
 
 function updateDilation() {
-    document.getElementById("totalDilatedAM").innerHTML = "You have accrued a total of "+shortenMoney(player.dilation.dilatedAM)+" dilated antimatter. "
     document.getElementById("tachyonParticleAmount").innerHTML = shortenMoney(player.dilation.tachyonParticles)
     document.getElementById("dilatedTimeAmount").innerHTML = shortenMoney(player.dilation.dilatedTime)
     document.getElementById("dilatedTimePerSecond").innerHTML = "+" + shortenMoney(player.dilation.tachyonParticles.times(Decimal.pow(2, player.dilation.rebuyables[1]))) + "/s"
@@ -7726,9 +7721,6 @@ function gameLoop(diff) {
         if (player.currentChallenge == "challenge7") {
             player.money = player.money.plus(getDimensionProductionPerSecond(2).times(diff/10));
             player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(2).times(diff/10))
-        }
-        if (player.dilation.active && player.money.gte(player.dilation.dilatedAM)) {
-            player.dilation.dilatedAM = player.money
         }
     }
 
