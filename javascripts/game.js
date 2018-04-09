@@ -6069,7 +6069,7 @@ function eternity(force) {
             if (!player.challenges[i].includes("post") && player.eternities > 1) temp.push(player.challenges[i])
         }
         if (player.timestudy.studies.includes(191)) player.infinitiedBank += Math.floor(player.infinitied*0.05)
-        if (player.timestudy.achievements.includes("r131")) player.infinitiedBank += Math.floor(player.infinitied*0.05)
+        if (player.achievements.includes("r131")) player.infinitiedBank += Math.floor(player.infinitied*0.05)
         if (player.dilation.active && !force) {
             let tachyonGain = Math.max(Math.pow((Decimal.log10(player.money) / Decimal.log10(1000))/1000, 1.5) - player.dilation.totalTachyonParticles, 0)
             player.dilation.totalTachyonParticles = player.dilation.totalTachyonParticles.plus(tachyonGain)
