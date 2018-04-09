@@ -3391,7 +3391,25 @@ const allAchievements = {
   r136 : "r136",
   r137 : "r137",
   r138 : "r138",
+  s11 : "s11",
+  s12 : "s12",
+  s13 : "s13",
+  s14 : "s14",
+  s15 : "s15",
+  s16 : "s16",
+  s17 : "s17",
+  s18 : "s18",
 };
+const secretAchievementTooltips = {
+    s11 : "Click on the news ticker that tells you to click on it.",
+    s12 : "s12",
+    s13 : "s13",
+    s14 : "s14",
+    s15 : "s15",
+    s16 : "s16",
+    s17 : "s17",
+    s18 : "s18",
+  };
 const allAchievementNums = Object.invert(allAchievements)
 // to retrieve by value: Object.keys(allAchievements).find(key => allAchievements[key] === "L4D: Left 4 Dimensions");
 
@@ -3839,8 +3857,11 @@ function toggleChallengeRetry() {
     }
 }
 
-
-
+document.getElementById("news").onclick = function () {
+    if (document.getElementById("news").textContent === "Click this to unlock a secret achievement.") {
+        giveAchievement("s11")
+    }
+};
 
 document.getElementById("first").onclick = function () {
     if (buyOneDimension(1)) {
@@ -4139,6 +4160,26 @@ function updateAchievements() {
             document.getElementById("achRow"+i).className = "completedrow"
         } else {
             document.getElementById("achRow"+i).className = ""
+        }
+    }
+    for (var i=1; i<document.getElementById("secretachievementtable").children[0].children.length+1; i++) {
+        var n = 0
+        var achNum = i * 10
+        for (var l=0; l<8; l++) {
+            achNum += 1;
+            var name = allAchievements["s"+achNum]
+            if (player.achievements.includes("s"+achNum)) {
+                n++
+                document.getElementById(name).setAttribute('ach-tooltip', secretAchievementTooltips["s"+achNum])
+                document.getElementById(name).className = "achievementunlocked"
+            } else {
+                document.getElementById(name).className = "achievementhidden"
+            }
+        }
+        if (n == 8) {
+            document.getElementById("secretAchRow"+i).className = "completedrow"
+        } else {
+            document.getElementById("secretAchRow"+i).className = ""
         }
     }
 
@@ -8723,6 +8764,20 @@ function showEternityTab(tabName, init) {
     else document.getElementById("TTbuttons").style.display = "none"
     resizeCanvas();
     drawStudyTree();
+}
+
+function showAchTab(tabName) {
+    //iterate over all elements in div_tab class. Hide everything that's not tabName and show tabName
+    var tabs = document.getElementsByClassName('achtab');
+    var tab;
+    for (var i = 0; i < tabs.length; i++) {
+        tab = tabs.item(i);
+        if (tab.id === tabName) {
+            tab.style.display = 'block';
+        } else {
+            tab.style.display = 'none';
+        }
+    }
 }
 
 
