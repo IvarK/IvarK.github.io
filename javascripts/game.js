@@ -7136,11 +7136,7 @@ function unlockDilation() {
     if (ECTimesCompleted("eterc11") !== 5) return
     player.timestudy.theorem -= 4444
     player.dilation.unlocked = true
-<<<<<<< HEAD
     document.getElementById("dilationunlock").className = "timestudybought"
-=======
-    updateTimeStudyButtons()
->>>>>>> ac851c0db0f7ed84329741c9799ecbf8cecead26
     showEternityTab("dilation")
 }
 
