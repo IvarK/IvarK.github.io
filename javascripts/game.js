@@ -6420,7 +6420,7 @@ function startDilatedEternity() {
         eternity(true)
         return
     }
-    if (!confirm("You will start an eternity with all of your dimension multiplier's exponents and tickspeed multiplier's exponent reduced to ^ 0.2. Additionally time will be dilated, slowing down time based on how much progress you've made in the eternity. If you can eternity while dilated, you'll be rewarded with dilated antimatter.")) return
+    if (!confirm("You will start an eternity with all of your dimension multiplier's exponents and tickspeed multiplier's exponent reduced to ^ 0.75. If you can eternity while dilated, you'll be rewarded with tachyon particles based on your antimatter and tachyon particles.")) return
     eternity()
     player.dilation.active = true;
     var totalMult = 1
