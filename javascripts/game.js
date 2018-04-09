@@ -3391,7 +3391,7 @@ const allAchievements = {
   r136 : "r136",
   r137 : "r137",
   r138 : "r138",
-  s11 : "s11",
+  s11 : "Real news",
   s12 : "s12",
   s13 : "s13",
   s14 : "s14",
@@ -3859,7 +3859,7 @@ function toggleChallengeRetry() {
 
 document.getElementById("news").onclick = function () {
     if (document.getElementById("news").textContent === "Click this to unlock a secret achievement.") {
-        giveAchievement("s11")
+        giveAchievement("Real news")
     }
 };
 
