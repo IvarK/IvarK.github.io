@@ -488,40 +488,40 @@
                     <p>You have <span id="tachyonParticleAmount" style="font-size:35px; color: black">0</span> tachyon particles.</p>
                 </div>
                 <button id="enabledilation" class="dilationbtn" onclick="startDilatedEternity()">Dilate time.</button>
-                <p>You have <span id="dilatedTimeAmount" style="font-size:35px; color: black">0</span> dilated time.</p>
+                <p>You have <span id="dilatedTimeAmount" style="font-size:35px; color: black">0</span> dilated time <span id="dilatedTimePerSecond" style="font-size:25px; color: black">0</span></p>
                 <p>Next free galaxy at <span id="galaxyThreshold" style="font-size:25px; color: black">1000</span> dilated time, gained total of <span id="dilatedGalaxies" style="font-size:25px; color: black">0</span></p>
                 <table>
                     <tr>
                         <td>
-                            <button class="timestudy">Upgrade</button>
+                            <button class="timestudy" id="dil1" onclick="buyDilationUpgrade(1)">Double time dilation gain<br>Cost: 1e4 dilated time</button>
                         </td>
                         <td>
-                            <button class="timestudy">Upgrade</button>
+                            <button class="timestudy" id="dil2" onclick="buyDilationUpgrade(2)">Upgrade</button>
                         </td>
                         <td>
-                            <button class="timestudy">Upgrade</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button class="timestudy">Upgrade</button>
-                        </td>
-                        <td>
-                            <button class="timestudy">Upgrade</button>
-                        </td>
-                        <td>
-                            <button class="timestudy">Upgrade</button>
+                            <button class="timestudy" id="dil3">Upgrade</button>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <button class="timestudy">Upgrade</button>
+                            <button class="timestudy" id="dil4">Upgrade</button>
                         </td>
                         <td>
-                            <button class="timestudy">Upgrade</button>
+                            <button class="timestudy" id="dil5">Upgrade</button>
                         </td>
                         <td>
-                            <button class="timestudy">Upgrade</button>
+                            <button class="timestudy" id="dil6">Upgrade</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="timestudy" id="dil7">Upgrade</button>
+                        </td>
+                        <td>
+                            <button class="timestudy" id="dil8">Upgrade</button>
+                        </td>
+                        <td>
+                            <button class="timestudy" id="dil9">Upgrade</button>
                         </td>
                     </tr>
                 </table>

@@ -229,7 +229,13 @@ var player = {
         dilatedTime: new Decimal(0),
         totalTachyonParticles: new Decimal(0),
         nextThreshold: new Decimal(1000),
-        freeGalaxies: 0
+        freeGalaxies: 0,
+        upgrades: [],
+        rebuyables: {
+            1: 0,
+            2: 0,
+            3: 0,
+        }
     },
     options: {
         newsHidden: false,
@@ -909,6 +915,8 @@ function onLoad() {
     if (player.dilation.totalTachyonParticles === undefined) player.dilation.totalTachyonParticles = new Decimal(0)
     if (player.dilation.nextThreshold === undefined) player.dilation.nextThreshold = new Decimal(1000)
     if (player.dilation.freeGalaxies === undefined) player.dilation.freeGalaxies = 0
+    if (player.dilation.upgrades === undefined) player.dilation.upgrades = []
+    if (player.dilation.rebuyables === undefined) player.dilation.rebuyables =  { 1: 0, 2: 0, 3: 0 }
     setTheme(player.options.theme);
 
     sliderText.innerHTML = "Update rate: " + player.options.updateRate + "ms";
@@ -1344,6 +1352,7 @@ function onLoad() {
     resizeCanvas();
     checkForEndMe();
     updateEternityChallenges();
+    updateDilationUpgradeCosts()
     let diff = new Date().getTime() - player.lastUpdate
     if (diff > 1000*1000) {
         simulateTime(diff/1000)
@@ -5102,6 +5111,7 @@ document.getElementById("notation").onclick = function () {
     updateTickSpeed();
     setAchieveTooltip();
     updateCosts();
+    updateDilationUpgradeCosts()
     document.getElementById("epmult").innerHTML = "You gain 5 times more EP<p>Currently: "+shortenDimensions(player.epmult)+"x<p>Cost: "+shortenDimensions(player.epmultCost)+" EP"
 };
 
@@ -6272,7 +6282,9 @@ function eternity(force) {
                 dilatedTime: player.dilation.dilatedTime,
                 totalTachyonParticles: player.dilation.totalTachyonParticles,
                 nextThreshold: player.dilation.nextThreshold,
-                freeGalaxies: player.dilation.freeGalaxies
+                freeGalaxies: player.dilation.freeGalaxies,
+                upgrades: player.dilation.upgrades,
+                rebuyables: player.dilation.rebuyables
             },
             options: player.options
         };
@@ -7168,6 +7180,65 @@ function unlockDilation() {
     showEternityTab("dilation")
 }
 
+
+/**
+ * 
+ * @param {Name of the ugrade} id 
+ * @param {Cost of the upgrade} cost 
+ * @param {Cost increase for the upgrade, only for rebuyables} costInc
+ * 
+ * id 1-3 are rebuyables
+ * 
+ * id 2 resets your dilated time and free galaxies
+ *
+ */
+
+ const DIL_UPG_COSTS = [null, [1e4, 20], [1e6, 1000], [9e99, 9e99], 
+                              9e99,        9e99,         9e99,
+                              9e99,        9e99,         9e99]
+
+
+function buyDilationUpgrade(id, costInc) {
+    if (id > 3) { // Not rebuyable
+        if (player.dilation.dilatedTime < DIL_UPG_COSTS[id]) return // Not enough dilated time
+        if (player.dilation.upgrades.includes(id)) return // Has the upgrade
+        player.dilation.dilatedTime = player.dilation.dilatedTime.minus(DIL_UPG_COSTS[id])
+        player.dilation.upgrades.push(id)
+    } else { // Is rebuyable
+        let upgAmount = player.dilation.rebuyables[id];
+        let realCost = new Decimal(DIL_UPG_COSTS[id][0]).times( Decimal.pow(DIL_UPG_COSTS[id][1], (upgAmount)) )
+        if (player.dilation.dilatedTime.lt(realCost)) return
+
+        player.dilation.dilatedTime = player.dilation.dilatedTime.minus(realCost)
+        player.dilation.rebuyables[id] += 1
+        if (id == 2) {
+            player.dilation.dilatedTime = new Decimal(0)
+            player.dilation.nextThreshold = new Decimal(1000)
+            player.dilation.freeGalaxies = 0
+        }
+    }
+
+    updateDilationUpgradeCosts()
+    updateDilationUpgradeButtons()
+}
+
+function updateDilationUpgradeButtons() {
+    for (var i = 1; i <= 9; i++) {
+        if (i <= 3) {
+            document.getElementById("dil"+i).className = ( new Decimal(DIL_UPG_COSTS[i][0]).times(Decimal.pow(DIL_UPG_COSTS[i][1],(player.dilation.rebuyables[i]))).gt(player.dilation.dilatedTime) ) ? "timestudylocked" : "timestudy";
+        } else if (player.dilation.upgrades.includes(i)) {
+            document.getElementById("dil"+i).className = "timestudybought"
+        } else {
+            document.getElementById("dil"+i).className = ( DIL_UPG_COSTS[i] > player.dilation.dilatedTime ) ? "timestudylocked" : "timestudy";
+        }
+    }
+}
+
+function updateDilationUpgradeCosts() {
+    document.getElementById("dil1").innerHTML = "Double time dilation gain.<br>Cost: " + shortenCosts( new Decimal(DIL_UPG_COSTS[1][0]).times(Decimal.pow(DIL_UPG_COSTS[1][1],(player.dilation.rebuyables[1]))) ) + " dilated time"
+    document.getElementById("dil2").innerHTML = "Decrease the galaxy threshold multiplier, but resets free galaxies and dilated time.<br>Cost: " + shortenCosts( new Decimal(DIL_UPG_COSTS[2][0]).times(Decimal.pow(DIL_UPG_COSTS[2][1],(player.dilation.rebuyables[2]))) ) + " dilated time"
+}
+
 function getDimensionProductionPerSecond(tier) {
     let ret = Decimal.floor(player[TIER_NAMES[tier] + 'Amount']).times(getDimensionFinalMultiplier(tier)).times(1000).dividedBy(player.tickspeed)
     if (player.currentChallenge == "challenge7") {
@@ -7218,6 +7289,7 @@ function updateDilation() {
     document.getElementById("totalDilatedAM").innerHTML = "You have accrued a total of "+shortenMoney(player.dilation.dilatedAM)+" dilated antimatter. "
     document.getElementById("tachyonParticleAmount").innerHTML = shortenMoney(player.dilation.tachyonParticles)
     document.getElementById("dilatedTimeAmount").innerHTML = shortenMoney(player.dilation.dilatedTime)
+    document.getElementById("dilatedTimePerSecond").innerHTML = "+" + shortenMoney(player.dilation.tachyonParticles.times(Decimal.pow(2, player.dilation.rebuyables[1]))) + "/s"
     document.getElementById("galaxyThreshold").innerHTML = shortenMoney(player.dilation.nextThreshold)
     document.getElementById("dilatedGalaxies").innerHTML = player.dilation.freeGalaxies
     if (player.currentEternityChall == "eterc7") document.getElementById("timeShardsPerSec").innerHTML = "You are getting "+shortenDimensions(getTimeDimensionProduction(1))+" Eighth Infinity Dimensions per second."
@@ -7487,6 +7559,7 @@ setInterval(function() {
     if (player.tickspeed.lt(1e-55)) giveAchievement("Faster than a squared potato");
 
     document.getElementById("dilationTabbtn").style.display = (player.dilation.unlocked) ? "inline-block" : "none"
+    updateDilationUpgradeButtons()
 
 }, 1000)
 
@@ -7833,10 +7906,14 @@ function gameLoop(diff) {
         else document.getElementById("timeMax"+tier).className = "unavailablebtn"
     }
 
-    if (player.dilation.unlocked) player.dilation.dilatedTime = player.dilation.dilatedTime.plus(player.dilation.tachyonParticles*diff/10)
+    if (player.dilation.unlocked) player.dilation.dilatedTime = player.dilation.dilatedTime.plus(player.dilation.tachyonParticles*Math.pow(2, player.dilation.rebuyables[1])*diff/10)
 
     if (player.dilation.nextThreshold.lte(player.dilation.dilatedTime)) {
-        player.dilation.nextThreshold = player.dilation.nextThreshold.times(5)
+        let thresholdMult = 5
+        for (var i = 0; i < player.dilation.rebuyables[2]; i++) {
+            thresholdMult *= Math.min( 1 - (Math.pow(0.8, i) / 10), 0.999)
+        }
+        player.dilation.nextThreshold = player.dilation.nextThreshold.times(thresholdMult)
         player.dilation.freeGalaxies += 1
         player.galaxies += 1
     }
