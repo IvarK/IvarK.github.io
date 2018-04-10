@@ -1618,11 +1618,11 @@ screen and (max-width: 480px) {
 }
 
 @keyframes dilationBtnGlow2 {
-    0%  {box-shadow: inset 5px 0px 20px #64ddad;}
-    25% {box-shadow: inset 0px 5px 20px #64ddad;}
-    50% {box-shadow: inset -5px 0px 20px #64ddad;}
-    75% {box-shadow: inset 0px -5px 20px #64ddad;}
-    100% {box-shadow: inset 5px 0px 20px #64ddad;}
+    0%  {box-shadow: inset -5px 0px 20px #64ddad;}
+    25% {box-shadow: inset 0px -5px 20px #64ddad;}
+    50% {box-shadow: inset 5px 0px 20px #64ddad;}
+    75% {box-shadow: inset 0px 5px 20px #64ddad;}
+    100% {box-shadow: inset -5px 0px 20px #64ddad;}
 }
 
 @keyframes dilationBtnGlowLegacy {
