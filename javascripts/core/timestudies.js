@@ -209,7 +209,7 @@ function updateTimeStudyButtons() {
   }
 
   if (player.dilation.unlocked) document.getElementById("dilationunlock").className = "timestudybought"
-  else if (player.timestudy.theorem < 4444 || 
+  else if (player.timestudy.theorem < 5000 || 
       ECTimesCompleted("eterc12") !== 5 ||
       ECTimesCompleted("eterc11") !== 5) document.getElementById("dilationunlock").className = "timestudylocked"
   else document.getElementById("dilationunlock").className = "dilationbtn"
@@ -297,7 +297,7 @@ function respecTimeStudies() {
   drawStudyTree()
 
   if (player.dilation.unlocked) {
-      player.timestudy.theorem += 4444
+      player.timestudy.theorem += 5000
       player.dilation.unlocked = false
   }
 

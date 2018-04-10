@@ -1123,6 +1123,26 @@ button {
     background: black;
     font-weight: bold;
     font-size: 0.7rem;
+    border: 2px solid #64DD17;
+    width: 190px;
+    height: 90px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: Typewriter;
+    animation: dilationBtnGlow 10s infinite;
+}
+
+.dilationbtn:hover {
+    color: #64DD17;
+    background: white;
+}
+
+.dilationupg {
+    color: #64DD17;
+    background: black;
+    font-weight: bold;
+    font-size: 0.65rem;
     border: 1px solid #64DD17;
     width: 190px;
     height: 90px;
@@ -1130,12 +1150,26 @@ button {
     cursor: pointer;
     border-radius: 4px;
     font-family: Typewriter;
-    box-shadow: inset 5px -5px 20px #64DD17;
-    animation: dilationBtnGlow2 13s infinite;
+    animation: dilationBtnGlow 10s infinite;
 }
 
-.dilationbtn:hover {
-    color: #64DD17;
+.dilationupgrebuyable {
+    color: #64dd7b;
+    background: black;
+    font-weight: bold;
+    font-size: 0.65rem;
+    border: 1px solid #64dd7b;
+    width: 190px;
+    height: 90px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: Typewriter;
+    animation: dilationBtnGlow2 10s infinite;
+}
+
+.dilationupgrebuyable:hover {
+    color: #64dd7b;
     background: white;
 }
 
@@ -1576,12 +1610,22 @@ screen and (max-width: 480px) {
 }
 
 @keyframes dilationBtnGlow {
-    0%  {box-shadow: inset 5px -5px 20px #64DD17;}
-    50% {box-shadow: inset -5px 5px 20px #64DD17;}
-    100% {box-shadow: inset 5px -5px 20px #64DD17;}
+    0%  {box-shadow: inset 5px 0px 20px #64DD17;}
+    25% {box-shadow: inset 0px 5px 20px #64DD17;}
+    50% {box-shadow: inset -5px 0px 20px #64DD17;}
+    75% {box-shadow: inset 0px -5px 20px #64DD17;}
+    100% {box-shadow: inset 5px 0px 20px #64DD17;}
 }
 
 @keyframes dilationBtnGlow2 {
+    0%  {box-shadow: inset 5px 0px 20px #64dd7b;}
+    25% {box-shadow: inset 0px 5px 20px #64dd7b;}
+    50% {box-shadow: inset -5px 0px 20px #64dd7b;}
+    75% {box-shadow: inset 0px -5px 20px #64dd7b;}
+    100% {box-shadow: inset 5px 0px 20px #64dd7b;}
+}
+
+@keyframes dilationBtnGlowLegacy {
     0%  {box-shadow: inset 5px -5px 20px #64DD17;}
     10% {box-shadow: inset -5px 5px 20px #64DD17;}
     20% {box-shadow: inset 5px -5px 20px #64DD17;}
