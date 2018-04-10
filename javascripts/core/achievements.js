@@ -1,0 +1,218 @@
+const allAchievements = {
+  r11 : "You gotta start somewhere",
+  r12 : "100 antimatter is a lot",
+  r13 : "Half life 3 confirmed",
+  r14 : "L4D: Left 4 Dimensions",
+  r15 : "5 Dimension Antimatter Punch",
+  r16 : "We couldn't afford 9",
+  r17 : "Not a luck related achievement",
+  r18 : "90 degrees to infinity",
+  r21 : "To infinity!",
+  r22 : "Fake News",
+  r23 : "The 9th Dimension is a lie",
+  r24 : "Antimatter Apocalypse",
+  r25 : "Boosting to the max",
+  r26 : "You got past The Big Wall",
+  r27 : "Double Galaxy",
+  r28 : "There's no point in doing that",
+  r31 : "I forgot to nerf that",
+  r32 : "The Gods are pleased",
+  r33 : "That's a lot of infinites",
+  r34 : "You didn't need it anyway",
+  r35 : "Don't you dare to sleep",
+  r36 : "Claustrophobic",
+  r37 : "That's fast!",
+  r38 : "I don't believe in Gods",
+  r41 : "Spreading Cancer",
+  r42 : "Supersanic",
+  r43 : "Zero Deaths",
+  r44 : "Over in 30 seconds",
+  r45 : "Faster than a potato",
+  r46 : "Multidimensional",
+  r47 : "Daredevil",
+  r48 : "AntiChallenged",
+  r51 : "Limit Break",
+  r52 : "Age of Automation",
+  r53 : "Definitely not worth it",
+  r54 : "That's faster!",
+  r55 : "Forever isn't that long",
+  r56 : "Many Deaths",
+  r57 : "Gift from the Gods",
+  r58 : "Is this hell?",
+  r61 : "Bulked up",
+  r62 : "Oh hey, you're still here",
+  r63 : "A new beginning.",
+  r64 : "1 million is a lot",
+  r65 : "Not-so-challenging",
+  r66 : "Faster than a squared potato",
+  r67 : "Infinitely Challenging",
+  r68 : "You did this again just for the achievement right?",
+  r71 : "ERROR 909: Dimension not found",
+  r72 : "Can't hold all these infinities",
+  r73 : "This achievement doesn't exist",
+  r74 : "End me",
+  r75 : "NEW DIMENSIONS???",
+  r76 : "One for each dimension",
+  r77 : "How the antitables have turned",
+  r78 : "Blink of an eye",
+  r81 : "Hevipelle did nothing wrong",
+  r82 : "Anti-antichallenged",
+  r83 : "YOU CAN GET 50 GALAXIES!??",
+  r84 : "I got a few to spare",
+  r85 : "All your IP are belong to us",
+  r86 : "Do you even bend time bro?",
+  r87 : "2 Million Infinities",
+  r88 : "Yet another infinity reference",
+  r91 : "Ludicrous Speed",
+  r92 : "I brake for nobody",
+  r93 : "MAXIMUM OVERDRIVE",
+  r94 : "Minute of infinity",
+  r95 : "Is this safe?",
+  r96 : "Time is relative",
+  r97 : "Yes. This is hell.",
+  r98 : "0 degrees from infinity",
+  r101 : "Costco sells dimboosts now",
+  r102 : "This mile took an Eternity",
+  r103 : "This achievement doesn't exist II",
+  r104 : "That wasn't an eternity",
+  r105 : "Infinite time",
+  r106 : "The swarm",
+  r107 : "Do you really need a guide for this?",
+  r108 : "We could afford 9",
+  r111 : "Yo dawg, I heard you liked infinities...",
+  r112 : "Never again",
+  r113 : "Long lasting relationship",
+  r114 : "You're a mistake",
+  r115 : "I wish I had gotten 7 eternities",
+  r116 : "Do I really need to infinity",
+  r117 : "8 nobody got time for that",
+  r118 : "IT'S OVER 9000",
+  r121 : "Can you get infinite IP?",
+  r122 : "You're already dead.",
+  r123 : "5 more eternities until the update",
+  r124 : "Eternities are the new infinity",
+  r125 : "Like feasting on a behind",
+  r126 : "Popular music",
+  r127 : "But I wanted another prestige layer...",
+  r128 : "What do I have to do to get rid of you",
+  r131 : "No ethical consumption",
+  r132 : "r132",
+  r133 : "r133",
+  r134 : "r134",
+  r135 : "r135",
+  r136 : "r136",
+  r137 : "r137",
+  r138 : "r138",
+  s11 : "Real news",
+  s12 : "Just in case",
+  s13 : "It's good to have respec",
+  s14 : "s14",
+  s15 : "s15",
+  s16 : "s16",
+  s17 : "s17",
+  s18 : "s18",
+};
+const secretAchievementTooltips = {
+    s11 : "Click on the news ticker that tells you to click on it.",
+    s12 : "Save 100 times without refreshing",
+    s13 : "Pay respects",
+    s14 : "s14",
+    s15 : "s15",
+    s16 : "s16",
+    s17 : "s17",
+    s18 : "s18",
+  };
+const allAchievementNums = Object.invert(allAchievements)
+// to retrieve by value: Object.keys(allAchievements).find(key => allAchievements[key] === "L4D: Left 4 Dimensions");
+
+function clearOldAchieves(){
+    var toRemove = [];
+    var achieveKey;
+    var values = Object.keys(allAchievements).map(function(e) { return allAchievements[e] });
+    for (var i = 0; i < player.achievements.length; i++) {
+      if (values.indexOf(player.achievements[i]) !== -1 ) {  // does index[i] exist in allAchievements as a value?
+        toRemove.push(i); // mark it for removal
+        achieveKey = Object.keys(allAchievements).find(function(key){ return allAchievements[key] === player.achievements[i];});
+        if (!player.achievements.includes(achieveKey)) { // check if new key already exists as well
+            player.achievements.push(achieveKey); // if not... add it
+        }
+      } else if (allAchievements[player.achievements[i]] === undefined){
+        toRemove.push(i);
+      }
+    }
+
+
+    toRemove.reverse();
+    for (var i = 0; i < toRemove.length; i++) {
+      player.achievements.splice(toRemove[i], 1);
+    }
+}
+
+function giveAchievement(name) {
+
+    if (player.achievements.includes(name)){ clearOldAchieves(); }
+
+    if (player.achievements.includes(allAchievementNums[name])) return false
+
+    $.notify(name, "success");
+    player.achievements.push(allAchievementNums[name]);
+    document.getElementById(name).className = "achievementunlocked"
+    try {
+        kongregate.stats.submit('Achievements', player.achievements.length);
+    } catch (err) {console.log("Couldn't load Kongregate API")}
+    if (name == "All your IP are belong to us" || name == "MAXIMUM OVERDRIVE") {
+        player.infMult = player.infMult.times(4);
+        player.autoIP = player.autoIP.times(4);
+        if (player.autoCrunchMode == "amount") player.autobuyers[11].priority = player.autobuyers[11].priority.times(4);
+    }
+    updateAchievements();
+}
+
+function updateAchievements() {
+  var amount = 0
+  for (var i=1; i<document.getElementById("achievementtable").children[0].children.length+1; i++) {
+      var n = 0
+      var achNum = i * 10
+      for (var l=0; l<8; l++) {
+          achNum += 1;
+          var name = allAchievements["r"+achNum]
+          if (player.achievements.includes("r"+achNum)) {
+              n++
+              document.getElementById(name).className = "achievementunlocked"
+          } else {
+              document.getElementById(name).className = "achievementlocked"
+          }
+      }
+      if (n == 8) {
+          amount++
+          document.getElementById("achRow"+i).className = "completedrow"
+      } else {
+          document.getElementById("achRow"+i).className = ""
+      }
+  }
+  for (var i=1; i<document.getElementById("secretachievementtable").children[0].children.length+1; i++) {
+      var n = 0
+      var achNum = i * 10
+      for (var l=0; l<8; l++) {
+          achNum += 1;
+          var name = allAchievements["s"+achNum]
+          if (player.achievements.includes("s"+achNum)) {
+              n++
+              document.getElementById(name).setAttribute('ach-tooltip', secretAchievementTooltips["s"+achNum])
+              document.getElementById(name).className = "achievementunlocked"
+          } else {
+              document.getElementById(name).className = "achievementhidden"
+          }
+      }
+      if (n == 8) {
+          document.getElementById("secretAchRow"+i).className = "completedrow"
+      } else {
+          document.getElementById("secretAchRow"+i).className = ""
+      }
+  }
+
+  player.achPow = Decimal.pow(1.5, amount)
+
+  document.getElementById("achmultlabel").innerHTML = "Current achievement multiplier on each Dimension: " + player.achPow.toFixed(1) + "x"
+
+}
