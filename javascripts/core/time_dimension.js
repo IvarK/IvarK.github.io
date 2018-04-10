@@ -26,6 +26,7 @@ function getTimeDimensionPower(tier) {
   if (player.timestudy.studies.includes(31)) ec10bonus = ec10bonus.pow(4)
   ret = ret.times(ec10bonus)
   if (player.achievements.includes("r128")) ret = ret.times(player.timestudy.studies.length).max(1)
+  if (player.dilation.upgrades.includes(5)) ret = ret.times(player.replicanti.amount)
 
   if (player.dilation.active) {
       ret.e = Math.floor(Math.pow(ret.e, 0.75))
