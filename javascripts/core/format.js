@@ -77,7 +77,7 @@ function formatValue(notation, value, places, placesUnder1000) {
         if (notation === "Logarithm") {
             if (power > 100000  && !player.options.commas) return "ee"+Math.log10(Decimal.log10(value)).toFixed(3)
             if (power > 100000  && player.options.commas) return "e"+Decimal.log10(value).toFixed(places).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            // else return "e"+Decimal.log10(value).toFixed(Math.max(places, 1))
+            else return "e"+Decimal.log10(value).toFixed(Math.max(places, 1))
         }
 
         if (notation === "Brackets") {

@@ -1010,7 +1010,7 @@ button {
     border-top-right-radius: 7px;
 }
 
-#studyTreeCanvas {
+#canvas {
     top: 0;
     left: 0;
     position: absolute;
