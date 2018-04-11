@@ -23,7 +23,7 @@ function point(x, y, canvas){
   }
 
 function drawAnimations(ts){
-    ctx.clearRect(0, 0, ctx.width, ctx.height)
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     if (player.dilation.tachyonParticles.gte(1)) {
         if ((goalX > canvas.width || goalX < 0) || (goalY > canvas.height || goalY < 0)) {
             goalX = Math.ceil(Math.random() * canvas.width);
