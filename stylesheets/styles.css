@@ -1144,8 +1144,8 @@ button {
     font-weight: bold;
     font-size: 0.65rem;
     border: 1px solid #64DD17;
-    width: 190px;
-    height: 90px;
+    width: 170px;
+    height: 80px;
     transition-duration: 0.2s;
     cursor: pointer;
     border-radius: 4px;
@@ -1154,13 +1154,13 @@ button {
 }
 
 .dilationupgrebuyable {
-    color: #64dd7b;
+    color: #64ddad;
     background: black;
     font-weight: bold;
     font-size: 0.65rem;
-    border: 1px solid #64dd7b;
-    width: 190px;
-    height: 90px;
+    border: 1px solid #64ddad;
+    width: 170px;
+    height: 80px;
     transition-duration: 0.2s;
     cursor: pointer;
     border-radius: 4px;
@@ -1169,7 +1169,7 @@ button {
 }
 
 .dilationupgrebuyable:hover {
-    color: #64dd7b;
+    color: #64ddad;
     background: white;
 }
 
@@ -1618,11 +1618,11 @@ screen and (max-width: 480px) {
 }
 
 @keyframes dilationBtnGlow2 {
-    0%  {box-shadow: inset 5px 0px 20px #64dd7b;}
-    25% {box-shadow: inset 0px 5px 20px #64dd7b;}
-    50% {box-shadow: inset -5px 0px 20px #64dd7b;}
-    75% {box-shadow: inset 0px -5px 20px #64dd7b;}
-    100% {box-shadow: inset 5px 0px 20px #64dd7b;}
+    0%  {box-shadow: inset -5px 0px 20px #64ddad;}
+    25% {box-shadow: inset 0px -5px 20px #64ddad;}
+    50% {box-shadow: inset 5px 0px 20px #64ddad;}
+    75% {box-shadow: inset 0px 5px 20px #64ddad;}
+    100% {box-shadow: inset -5px 0px 20px #64ddad;}
 }
 
 @keyframes dilationBtnGlowLegacy {
