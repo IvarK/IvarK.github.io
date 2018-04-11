@@ -105,7 +105,7 @@ const allAchievements = {
   r138 : "r138",
   s11 : "Real news",
   s12 : "Just in case",
-  s13 : "It's good to have respec",
+  s13 : "It pays to have respect",
   s14 : "s14",
   s15 : "s15",
   s16 : "s16",
@@ -114,8 +114,8 @@ const allAchievements = {
 };
 const secretAchievementTooltips = {
     s11 : "Click on the news ticker that tells you to click on it.",
-    s12 : "Save 100 times without refreshing",
-    s13 : "Pay respects",
+    s12 : "Save 100 times without refreshing.",
+    s13 : "Pay respects.",
     s14 : "s14",
     s15 : "s15",
     s16 : "s16",
