@@ -4010,7 +4010,7 @@ function unlockDilation() {
  *
  */
 
- const DIL_UPG_COSTS = [null, [1e4, 10], [1e6, 100], [1e7, 15], 
+ const DIL_UPG_COSTS = [null, [1e4, 10], [1e6, 100], [1e7, 20], 
                               5e6,        1e9,         5e7,
                               9e99,        9e99,         9e99]
 
