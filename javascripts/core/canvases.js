@@ -29,12 +29,12 @@ function point(x, y, ctz){
   }
 
 function drawAnimations(ts){
-    ctx3.clearRect(0, 0, canvas.width, canvas.height);
-    if (player.dilation.tachyonParticles.gte(1)) {
+    if (player.dilation.tachyonParticles.gte(1) && document.getElementById("eternitystore").style.display !== "none" && document.getElementById("dilation").style.display !== "none") {
+        ctx3.clearRect(0, 0, canvas.width, canvas.height);
         for (i=0; i<6; i++) {
             if (typeof particles["particle"+i] == "undefined") {
                 particles["particle"+i] = {
-                    
+
                 }
             }
             if ((goalX > canvas3.width || goalX < 0) || (goalY > canvas3.height || goalY < 0)) {
