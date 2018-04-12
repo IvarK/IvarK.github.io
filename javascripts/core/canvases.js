@@ -31,7 +31,7 @@ function point(x, y, ctz){
 function drawAnimations(ts){
     if (player.dilation.tachyonParticles.gte(1) && document.getElementById("eternitystore").style.display !== "none" && document.getElementById("dilation").style.display !== "none") {
         ctx3.clearRect(0, 0, canvas.width, canvas.height);
-        for (i=0; i<6; i++) {
+        for (i=0; i<player.dilation.tachyonParticles.exponent+1; i++) {
             if (typeof particles["particle"+i] == "undefined") {
                 particles["particle"+i] = {}
                 particles["particle"+i].goalX = Math.ceil(Math.random() * canvas3.width);
