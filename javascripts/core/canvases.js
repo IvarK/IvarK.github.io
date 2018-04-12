@@ -5,28 +5,34 @@ var direction = 0;
 var velocityX = 0;
 var velocityY = 0;
 
-var canvas = document.getElementById("canvas");
+var canvas = document.getElementById("studyTreeCanvas");
 var ctx = canvas.getContext("2d");
+var canvas3 = document.getElementById("dilationCanvas");
+var ctx3 = canvas3.getContext("2d");
+
 window.addEventListener("resize", resizeCanvas);
 window.addEventListener("click", resizeCanvas);
 
 function resizeCanvas() {
     canvas.width = document.body.scrollWidth;
     canvas.height = document.body.scrollHeight;
+    canvas3.width = document.body.scrollWidth;
+    canvas3.height = document.body.scrollHeight;
     drawStudyTree();
 }
 
-function point(x, y, canvas){
-    canvas.beginPath();
-    canvas.arc(x, y, 2, 0, 2 * Math.PI, true);
-    canvas.fill();
+function point(x, y, ctz){
+    ctz.beginPath();
+    ctz.arc(x, y, 2, 0, 2 * Math.PI, true);
+    ctz.fill();
   }
 
 function drawAnimations(ts){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     if (player.dilation.tachyonParticles.gte(1)) {
-        if ((goalX > canvas.width || goalX < 0) || (goalY > canvas.height || goalY < 0)) {
-            goalX = Math.ceil(Math.random() * canvas.width);
-            goalY = Math.ceil(Math.random() * canvas.height);
+        if ((goalX > canvas3.width || goalX < 0) || (goalY > canvas3.height || goalY < 0)) {
+            goalX = Math.ceil(Math.random() * canvas3.width);
+            goalY = Math.ceil(Math.random() * canvas3.height);
             direction = Math.ceil(Math.random() * 8);
             velocityX = Math.ceil((Math.random() - 0.5) * 25)
             velocityY = Math.ceil((Math.random() - 0.5) * 25)
@@ -35,7 +41,8 @@ function drawAnimations(ts){
             if (velocityY < 0) velocityY -= 5
             else velocityY += 5
         }
-        point(goalX, goalY, ctx)
+        point(goalX, goalY, ctx3)
+        point(goalX - 200, goalY + 200, ctx3)
         goalX += velocityX
         goalY += velocityY
     }

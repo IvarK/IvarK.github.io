@@ -5603,8 +5603,6 @@ function showEternityTab(tabName, init) {
     }
     if (tabName === 'timestudies' && !init) document.getElementById("TTbuttons").style.display = "block"
     else document.getElementById("TTbuttons").style.display = "none"
-    resizeCanvas();
-    drawStudyTree();
 }
 
 function showAchTab(tabName) {
@@ -5652,8 +5650,6 @@ function init() {
     }
     document.getElementById("eternitystorebtn").onclick = function () {
         showTab('eternitystore')
-        resizeCanvas()
-        drawStudyTree()
     }
     //show one tab during init or they'll all start hidden
     showTab('dimensions')
