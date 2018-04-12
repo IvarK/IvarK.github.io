@@ -33,26 +33,33 @@ function drawAnimations(ts){
         ctx3.clearRect(0, 0, canvas.width, canvas.height);
         for (i=0; i<6; i++) {
             if (typeof particles["particle"+i] == "undefined") {
-                particles["particle"+i] = {
-
+                particles["particle"+i] = {}
+                particles["particle"+i].goalX = Math.ceil(Math.random() * canvas3.width);
+                particles["particle"+i].goalY = Math.ceil(Math.random() * canvas3.height);
+                particles["particle"+i].direction = Math.ceil(Math.random() * 8);
+                particles["particle"+i].velocityX = Math.ceil((Math.random() - 0.5) * 25)
+                particles["particle"+i].velocityY = Math.ceil((Math.random() - 0.5) * 25)
+                if (particles["particle"+i].velocityX < 0) particles["particle"+i].velocityX -= 5
+                else particles["particle"+i].velocityX += 5
+                if (particles["particle"+i].velocityY < 0) particles["particle"+i].velocityY -= 5
+                else particles["particle"+i].velocityY += 5
                 }
-            }
+            goalX = particles["particle"+i].goalX
+            goalY = particles["particle"+i].goalY
             if ((goalX > canvas3.width || goalX < 0) || (goalY > canvas3.height || goalY < 0)) {
-                particles["particle"+i]
-                goalX = Math.ceil(Math.random() * canvas3.width);
-                goalY = Math.ceil(Math.random() * canvas3.height);
-                direction = Math.ceil(Math.random() * 8);
-                velocityX = Math.ceil((Math.random() - 0.5) * 25)
-                velocityY = Math.ceil((Math.random() - 0.5) * 25)
-                if (velocityX < 0) velocityX -= 5
-                else velocityX += 5
-                if (velocityY < 0) velocityY -= 5
-                else velocityY += 5
-            }
-            point(goalX, goalY, ctx3)
-            point(goalX - 200, goalY + 200, ctx3)
-            goalX += velocityX
-            goalY += velocityY
+                particles["particle"+i].goalX = Math.ceil(Math.random() * canvas3.width);
+                particles["particle"+i].goalY = Math.ceil(Math.random() * canvas3.height);
+                particles["particle"+i].direction = Math.ceil(Math.random() * 8);
+                particles["particle"+i].velocityX = Math.ceil((Math.random() - 0.5) * 25)
+                particles["particle"+i].velocityY = Math.ceil((Math.random() - 0.5) * 25)
+                if (particles["particle"+i].velocityX < 0) particles["particle"+i].velocityX -= 5
+                else particles["particle"+i].velocityX += 5
+                if (particles["particle"+i].velocityY < 0) particles["particle"+i].velocityY -= 5
+                else particles["particle"+i].velocityY += 5
+                }
+            point(particles["particle"+i].goalX, particles["particle"+i].goalY, ctx3)
+            particles["particle"+i].goalX += particles["particle"+i].velocityX
+            particles["particle"+i].goalY += particles["particle"+i].velocityY
         }
     }
     delta = (ts - lastTs) / 1000;
