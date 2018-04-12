@@ -4057,7 +4057,7 @@ function updateDilationUpgradeCosts() {
     document.getElementById("dil2").innerHTML = "Decrease the galaxy threshold multiplier, but resets free galaxies and dilated time.<br>Cost: " + shortenCosts( new Decimal(DIL_UPG_COSTS[2][0]).times(Decimal.pow(DIL_UPG_COSTS[2][1],(player.dilation.rebuyables[2]))) ) + " dilated time"
     document.getElementById("dil3").innerHTML = "Triple the amount of Tachyon Particles gained.<br>Cost: " + shortenCosts( new Decimal(DIL_UPG_COSTS[3][0]).times(Decimal.pow(DIL_UPG_COSTS[3][1],(player.dilation.rebuyables[3]))) ) + " dilated time"
     document.getElementById("dil4").innerHTML = "Gain twice as many free galaxies.<br>Cost: " + shortenCosts(DIL_UPG_COSTS[4])
-    document.getElementById("dil5").innerHTML = "Time Dimensions gain a multiplier equal to replicanti amount.<br>Cost: " + shortenCosts(DIL_UPG_COSTS[5])
+    document.getElementById("dil5").innerHTML = "Time Dimensions gain a multiplier equal to replicanti multiplier.<br>Cost: " + shortenCosts(DIL_UPG_COSTS[5])
     document.getElementById("dil6").innerHTML = "Normal dimension gain a multiplier based on dilated time, unaffected by time dilation.<br>Cost: " + shortenCosts(DIL_UPG_COSTS[6])
 }
 
