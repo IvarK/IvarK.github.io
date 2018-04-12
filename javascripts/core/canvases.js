@@ -1,6 +1,7 @@
 var lastTs = 0;
 var goalX = -1;
 var goalY = -1;
+var particles = {}
 var direction = 0;
 var velocityX = 0;
 var velocityY = 0;
@@ -28,23 +29,31 @@ function point(x, y, ctz){
   }
 
 function drawAnimations(ts){
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx3.clearRect(0, 0, canvas.width, canvas.height);
     if (player.dilation.tachyonParticles.gte(1)) {
-        if ((goalX > canvas3.width || goalX < 0) || (goalY > canvas3.height || goalY < 0)) {
-            goalX = Math.ceil(Math.random() * canvas3.width);
-            goalY = Math.ceil(Math.random() * canvas3.height);
-            direction = Math.ceil(Math.random() * 8);
-            velocityX = Math.ceil((Math.random() - 0.5) * 25)
-            velocityY = Math.ceil((Math.random() - 0.5) * 25)
-            if (velocityX < 0) velocityX -= 5
-            else velocityX += 5
-            if (velocityY < 0) velocityY -= 5
-            else velocityY += 5
+        for (i=0; i<6; i++) {
+            if (typeof particles["particle"+i] == "undefined") {
+                particles["particle"+i] = {
+                    
+                }
+            }
+            if ((goalX > canvas3.width || goalX < 0) || (goalY > canvas3.height || goalY < 0)) {
+                particles["particle"+i]
+                goalX = Math.ceil(Math.random() * canvas3.width);
+                goalY = Math.ceil(Math.random() * canvas3.height);
+                direction = Math.ceil(Math.random() * 8);
+                velocityX = Math.ceil((Math.random() - 0.5) * 25)
+                velocityY = Math.ceil((Math.random() - 0.5) * 25)
+                if (velocityX < 0) velocityX -= 5
+                else velocityX += 5
+                if (velocityY < 0) velocityY -= 5
+                else velocityY += 5
+            }
+            point(goalX, goalY, ctx3)
+            point(goalX - 200, goalY + 200, ctx3)
+            goalX += velocityX
+            goalY += velocityY
         }
-        point(goalX, goalY, ctx3)
-        point(goalX - 200, goalY + 200, ctx3)
-        goalX += velocityX
-        goalY += velocityY
     }
     delta = (ts - lastTs) / 1000;
     lastTs = ts;

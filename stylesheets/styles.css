@@ -1151,6 +1151,8 @@ button {
     border-radius: 4px;
     font-family: Typewriter;
     animation: dilationBtnGlow 10s infinite;
+    vertical-align: top;
+    margin:7px;
 }
 
 .dilationupgrebuyable {
@@ -1166,6 +1168,13 @@ button {
     border-radius: 4px;
     font-family: Typewriter;
     animation: dilationBtnGlow2 10s infinite;
+    vertical-align: top;
+    margin:7px;
+}
+
+.dilationupg:hover {
+    color: #64DD17;
+    background: white;
 }
 
 .dilationupgrebuyable:hover {
