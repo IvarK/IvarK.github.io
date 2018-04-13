@@ -1747,6 +1747,7 @@ document.getElementById("importbtn").onclick = function () {
             load_custom_game();
             return;
         }
+        saved = 0;
         totalMult = 1
         currentMult = 1
         infinitiedMult = 1
@@ -5361,6 +5362,7 @@ newsArray = [//always true
 ["This game doesn't have any bugs, you're just doing it wrong.", true, "a126"],
 ["Antimatter_Dimensions.mp1.79e308", true, "a127"],
 ["https://www.youtube.com/watch?v=dQw4w9WgXcQ", true, "a128"],
+["Click this to unlock a secret achievement.", true, "a129"],
 //basic (pre-inf)
 ["You just made your 1,000,000,000,000,000 antimatter. This one tastes like chicken", "player.money.e == 15", "b1"],
 ["Nerf the galaxies please.", "player.galaxies == 2 || player.infinitied > 0", "b2"],
