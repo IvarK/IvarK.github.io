@@ -361,6 +361,7 @@ function showTab(tabName) {
     }
     if (document.getElementById("timestudies").style.display != "none" && document.getElementById("eternitystore").style.display != "none") document.getElementById("TTbuttons").style.display = "block";
     else document.getElementById("TTbuttons").style.display = "none"
+    resizeCanvas()
 }
 
 
@@ -5615,6 +5616,7 @@ function showEternityTab(tabName, init) {
     }
     if (tabName === 'timestudies' && !init) document.getElementById("TTbuttons").style.display = "block"
     else document.getElementById("TTbuttons").style.display = "none"
+    resizeCanvas()
 }
 
 function showAchTab(tabName) {

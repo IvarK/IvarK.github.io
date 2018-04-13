@@ -12,7 +12,6 @@ var canvas3 = document.getElementById("dilationCanvas");
 var ctx3 = canvas3.getContext("2d");
 
 window.addEventListener("resize", resizeCanvas);
-window.addEventListener("click", resizeCanvas);
 
 function resizeCanvas() {
     canvas.width = 0;
