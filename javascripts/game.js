@@ -5828,7 +5828,7 @@ window.addEventListener('keydown', function(event) {
 
         case 70: // F
             $.notify("Paying respects", "info")
-            giveAchievement("It's good to have respec")
+            giveAchievement("It pays to have respect")
         break;
     }
   }, false);
