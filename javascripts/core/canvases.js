@@ -15,6 +15,10 @@ window.addEventListener("resize", resizeCanvas);
 window.addEventListener("click", resizeCanvas);
 
 function resizeCanvas() {
+    canvas.width = 0;
+    canvas.height = 0;
+    canvas3.width = 0;
+    canvas3.height = 0;
     canvas.width = document.body.scrollWidth;
     canvas.height = document.body.scrollHeight;
     canvas3.width = document.body.scrollWidth;
