@@ -33,7 +33,7 @@ function getTimeDimensionPower(tier) {
     if (player.timestudy.studies.includes(21)) replmult = replmult.plus(Decimal.pow(player.replicanti.amount, 0.032))
     if (player.timestudy.studies.includes(102)) replmult = replmult.times(Decimal.pow(5, player.replicanti.galaxies))
 
-    ret = ret.times(replmult.pow(0.1))
+    if (player.dilation.upgrades.includes(5)) ret = ret.times(replmult.pow(0.1))
 }
 
   if (player.dilation.active) {

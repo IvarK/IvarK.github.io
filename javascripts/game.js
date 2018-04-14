@@ -2553,7 +2553,6 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.currentChallenge != "" && player.challengeTimes[challNumber-2] > player.thisInfinityTime) player.challengeTimes[challNumber-2] = player.thisInfinityTime
         if (player.currentChallenge.includes("post") && player.infchallengeTimes[challNumber-1] > player.thisInfinityTime) player.infchallengeTimes[challNumber-1] = player.thisInfinityTime
         if (player.currentChallenge == "postc5" && player.thisInfinityTime <= 100) giveAchievement("Hevipelle did nothing wrong")
-        if (player.infinitiedBank > 5000000000) giveAchievement("No ethical consumption");
         if ((player.bestInfinityTime > 600 && !player.break) || (player.currentChallenge != "" && !player.options.retryChallenge)) showTab("dimensions")
         if (player.currentChallenge == "challenge5") {
             try {
@@ -2873,6 +2872,7 @@ function eternity(force) {
         if (player.dimlife && !force) giveAchievement("8 nobody got time for that")
         if (player.dead && !force) giveAchievement("You're already dead.")
         if (player.infinitied <= 1 && !force) giveAchievement("Do I really need to infinity")
+        if (player.infinitiedBank > 5000000000) giveAchievement("No ethical consumption");
         temp = []
         player.eternityPoints = player.eternityPoints.plus(gainedEternityPoints())
         addEternityTime(player.thisEternity, gainedEternityPoints())
