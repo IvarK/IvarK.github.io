@@ -12,9 +12,12 @@ var canvas3 = document.getElementById("dilationCanvas");
 var ctx3 = canvas3.getContext("2d");
 
 window.addEventListener("resize", resizeCanvas);
-window.addEventListener("click", resizeCanvas);
 
 function resizeCanvas() {
+    canvas.width = 0;
+    canvas.height = 0;
+    canvas3.width = 0;
+    canvas3.height = 0;
     canvas.width = document.body.scrollWidth;
     canvas.height = document.body.scrollHeight;
     canvas3.width = document.body.scrollWidth;

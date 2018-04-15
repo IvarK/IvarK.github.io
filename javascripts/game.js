@@ -361,6 +361,7 @@ function showTab(tabName) {
     }
     if (document.getElementById("timestudies").style.display != "none" && document.getElementById("eternitystore").style.display != "none") document.getElementById("TTbuttons").style.display = "block";
     else document.getElementById("TTbuttons").style.display = "none"
+    resizeCanvas()
 }
 
 
@@ -1724,6 +1725,7 @@ document.getElementById("importbtn").onclick = function () {
     if (save_data.constructor !== String) save_data = "";
     if (sha512_256(save_data.replace(/\s/g, '').toUpperCase()) === "80b7fdc794f5dfc944da6a445a3f21a2d0f7c974d044f2ea25713037e96af9e3") document.getElementById("body").style.animation = "barrelRoll 5s 1";
     setTimeout(function(){ document.getElementById("body").style.animation = ""; }, 5000)
+    if (sha512_256(save_data.replace(/\s/g, '').toUpperCase()) === "857876556a230da15fe1bb6f410ca8dbc9274de47c1a847c2281a7103dd2c274") giveAchievement("So do I");
     if (sha512_256(save_data) === "de24687ee7ba1acd8f5dc8f71d41a3d4b7f14432fff53a4d4166e7eea48a88c0") {
         player.options.theme = "S1";
         player.options.secretThemeKey = save_data;
@@ -1747,6 +1749,7 @@ document.getElementById("importbtn").onclick = function () {
             load_custom_game();
             return;
         }
+        saved = 0;
         totalMult = 1
         currentMult = 1
         infinitiedMult = 1
@@ -2550,7 +2553,6 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.currentChallenge != "" && player.challengeTimes[challNumber-2] > player.thisInfinityTime) player.challengeTimes[challNumber-2] = player.thisInfinityTime
         if (player.currentChallenge.includes("post") && player.infchallengeTimes[challNumber-1] > player.thisInfinityTime) player.infchallengeTimes[challNumber-1] = player.thisInfinityTime
         if (player.currentChallenge == "postc5" && player.thisInfinityTime <= 100) giveAchievement("Hevipelle did nothing wrong")
-        if (player.infinitiedBank > 5000000000) giveAchievement("No ethical consumption");
         if ((player.bestInfinityTime > 600 && !player.break) || (player.currentChallenge != "" && !player.options.retryChallenge)) showTab("dimensions")
         if (player.currentChallenge == "challenge5") {
             try {
@@ -2870,6 +2872,7 @@ function eternity(force) {
         if (player.dimlife && !force) giveAchievement("8 nobody got time for that")
         if (player.dead && !force) giveAchievement("You're already dead.")
         if (player.infinitied <= 1 && !force) giveAchievement("Do I really need to infinity")
+        if (player.infinitiedBank > 5000000000) giveAchievement("No ethical consumption");
         temp = []
         player.eternityPoints = player.eternityPoints.plus(gainedEternityPoints())
         addEternityTime(player.thisEternity, gainedEternityPoints())
@@ -5364,6 +5367,7 @@ newsArray = [//always true
 ["This game doesn't have any bugs, you're just doing it wrong.", true, "a126"],
 ["Antimatter_Dimensions.mp1.79e308", true, "a127"],
 ["https://www.youtube.com/watch?v=dQw4w9WgXcQ", true, "a128"],
+["Click this to unlock a secret achievement.", true, "a129"],
 //basic (pre-inf)
 ["You just made your 1,000,000,000,000,000 antimatter. This one tastes like chicken", "player.money.e == 15", "b1"],
 ["Nerf the galaxies please.", "player.galaxies == 2 || player.infinitied > 0", "b2"],
@@ -5615,6 +5619,7 @@ function showEternityTab(tabName, init) {
     }
     if (tabName === 'timestudies' && !init) document.getElementById("TTbuttons").style.display = "block"
     else document.getElementById("TTbuttons").style.display = "none"
+    resizeCanvas()
 }
 
 function showAchTab(tabName) {
@@ -5826,7 +5831,7 @@ window.addEventListener('keydown', function(event) {
 
         case 70: // F
             $.notify("Paying respects", "info")
-            giveAchievement("It's good to have respec")
+            giveAchievement("It pays to have respect")
         break;
     }
   }, false);
