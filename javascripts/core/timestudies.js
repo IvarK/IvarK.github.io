@@ -142,7 +142,9 @@ function canBuyStudy(name) {
       break;
 
       case 7:
-      if (!player.timestudy.studies.includes(201)) {
+      if (player.dilation.upgrades.includes(8)) {
+        if (player.timestudy.studies.includes(61)) return true; else return false;
+      } else if (!player.timestudy.studies.includes(201)) {
           if (player.timestudy.studies.includes(61) && !hasRow(row)) return true; else return false
       } else {
           if (player.timestudy.studies.filter(function(x) {return Math.floor(x / 10) == 7}).length < 2) return true; else return false

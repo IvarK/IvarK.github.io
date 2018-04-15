@@ -40,6 +40,10 @@ function getTimeDimensionPower(tier) {
       ret.e = Math.floor(Math.pow(ret.e, 0.75))
   }
 
+  if (player.dilation.upgrades.includes(9)) {
+    ret.e = Math.floor(Math.pow(ret.e, 1.05))
+  }
+
 
   return ret
 

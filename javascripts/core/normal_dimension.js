@@ -69,6 +69,9 @@ function getDimensionFinalMultiplier(tier) {
   if (player.dilation.active) {
       multiplier.e = Math.floor(Math.pow(multiplier.e, 0.75))
   }
+  if (player.dilation.upgrades.includes(9)) {
+    multiplier.e = Math.floor(Math.pow(multiplier.e, 1.05))
+  }
 
   if (player.dilation.upgrades.includes(6)) multiplier = multiplier.times(player.dilation.dilatedTime.pow(308))
   return multiplier;

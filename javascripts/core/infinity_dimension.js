@@ -102,6 +102,10 @@ function DimensionPower(tier) {
   if (player.dilation.active) {
       mult.e = Math.ceil(Math.pow(mult.e, 0.75))
   }
+
+  if (player.dilation.upgrades.includes(9)) {
+    mult.e = Math.floor(Math.pow(mult.e, 1.05))
+  }
   
   return mult
 }

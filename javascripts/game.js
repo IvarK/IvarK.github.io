@@ -4019,9 +4019,9 @@ function unlockDilation() {
  *
  */
 
- const DIL_UPG_COSTS = [null, [1e4, 10], [1e6, 100], [1e7, 20], 
+ const DIL_UPG_COSTS = [null, [1e4, 10], [1e6, 100], [1e7, 20],
                               5e6,        1e9,         5e7,
-                              9e99,        9e99,         9e99]
+                              9e99,        1e10,         1e11]
 
 
 function buyDilationUpgrade(id, costInc) {
@@ -4068,6 +4068,9 @@ function updateDilationUpgradeCosts() {
     document.getElementById("dil4").innerHTML = "Gain twice as many free galaxies.<br>Cost: " + shortenCosts(DIL_UPG_COSTS[4])
     document.getElementById("dil5").innerHTML = "Time Dimensions gain a multiplier equal to replicanti multiplier.<br>Cost: " + shortenCosts(DIL_UPG_COSTS[5])
     document.getElementById("dil6").innerHTML = "Normal dimension gain a multiplier based on dilated time, unaffected by time dilation.<br>Cost: " + shortenCosts(DIL_UPG_COSTS[6])
+    //dil7
+    document.getElementById("dil8").innerHTML = "Pick all the study paths from the first split.<br>Cost: " + shortenCosts(DIL_UPG_COSTS[8])
+    document.getElementById("dil9").innerHTML = "Reduce the dilation penalty.<br>Cost: " + shortenCosts(DIL_UPG_COSTS[9])
 }
 
 
