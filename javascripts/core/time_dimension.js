@@ -22,7 +22,7 @@ function getTimeDimensionPower(tier) {
   if (player.currentEternityChall == "eterc9") ret = ret.times((Decimal.pow(Math.max(player.infinityPower.log2(), 1), 4)).max(1))
   if (ECTimesCompleted("eterc1") !== 0) ret = ret.times(Math.pow(Math.max(player.thisEternity*10, 1), 0.3+(ECTimesCompleted("eterc1")*0.05)))
   let ec10bonus = new Decimal(1)
-  if (ECTimesCompleted("eterc10") !== 0) ec10bonus = new Decimal(Math.max(Math.pow(getInfinitied(), 0.9) * ECTimesCompleted("eterc10") * 0.000002+1, 1)).pow(4)
+  if (ECTimesCompleted("eterc10") !== 0) ec10bonus = new Decimal(Math.max(Math.pow(getInfinitied(), 0.9) * ECTimesCompleted("eterc10") * 0.000002+1, 1))
   if (player.timestudy.studies.includes(31)) ec10bonus = ec10bonus.pow(4)
   ret = ret.times(ec10bonus)
   if (player.achievements.includes("r128")) ret = ret.times(player.timestudy.studies.length).max(1)
