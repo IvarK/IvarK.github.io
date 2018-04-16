@@ -1723,8 +1723,11 @@ function verify_save(obj) {
 document.getElementById("importbtn").onclick = function () {
     var save_data = prompt("Input your save.");
     if (save_data.constructor !== String) save_data = "";
-    if (sha512_256(save_data.replace(/\s/g, '').toUpperCase()) === "80b7fdc794f5dfc944da6a445a3f21a2d0f7c974d044f2ea25713037e96af9e3") document.getElementById("body").style.animation = "barrelRoll 5s 1";
-    setTimeout(function(){ document.getElementById("body").style.animation = ""; }, 5000)
+    if (sha512_256(save_data.replace(/\s/g, '').toUpperCase()) === "80b7fdc794f5dfc944da6a445a3f21a2d0f7c974d044f2ea25713037e96af9e3") {
+        document.getElementById("body").style.animation = "barrelRoll 5s 1";
+        giveAchievement("Do a barrel roll!")
+        setTimeout(function(){ document.getElementById("body").style.animation = ""; }, 5000)
+    }
     if (sha512_256(save_data.replace(/\s/g, '').toUpperCase()) === "857876556a230da15fe1bb6f410ca8dbc9274de47c1a847c2281a7103dd2c274") giveAchievement("So do I");
     if (sha512_256(save_data) === "de24687ee7ba1acd8f5dc8f71d41a3d4b7f14432fff53a4d4166e7eea48a88c0") {
         player.options.theme = "S1";
