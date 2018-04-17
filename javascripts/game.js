@@ -1132,6 +1132,7 @@ function updateInfCosts() {
     document.getElementById("replicantireset").className = ((player.replicanti.galaxies < player.replicanti.gal && player.replicanti.amount.gte(Number.MAX_VALUE)) || (player.replicanti.galaxies < Math.floor(player.replicanti.gal * 1.5) && player.replicanti.amount.gte(Number.MAX_VALUE) && player.timestudy.studies.includes(131))) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantiunlock").className = (player.infinityPoints.gte(1e140)) ? "storebtn" : "unavailablebtn"
 
+    document.getElementById("51").innerHTML = "You gain "+shortenCosts(1e15)+"x more IP<span>Cost: 3 Time Theorems"
     document.getElementById("142").innerHTML = "You gain "+shortenCosts(1e25)+"x more IP<span>Cost: 4 Time Theorems"
     document.getElementById("161").innerHTML = shortenCosts(new Decimal("1e616"))+"x multiplier on all normal dimensions<span>Cost: 7 Time Theorems"
     document.getElementById("162").innerHTML = shortenCosts(1e11)+"x multiplier on all Infinity dimensions<span>Cost: 7 Time Theorems"
