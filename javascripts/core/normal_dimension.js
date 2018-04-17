@@ -68,9 +68,9 @@ function getDimensionFinalMultiplier(tier) {
   if (tier == 8 && player.timestudy.studies.includes(214)) multiplier = multiplier.times((calcTotalSacrificeBoost().pow(8)).min("1e46000").times(calcTotalSacrificeBoost().pow(1.1).min(new Decimal("1e125000"))))
   if (player.dilation.active) {
       multiplier.e = Math.floor(Math.pow(multiplier.e, 0.75))
-  }
-  if (player.dilation.upgrades.includes(9)) {
-    multiplier.e = Math.floor(Math.pow(multiplier.e, 1.05))
+      if (player.dilation.upgrades.includes(9)) {
+        multiplier.e = Math.floor(Math.pow(multiplier.e, 1.05))
+      }
   }
 
   if (player.dilation.upgrades.includes(6)) multiplier = multiplier.times(player.dilation.dilatedTime.pow(308))
