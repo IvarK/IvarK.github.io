@@ -108,7 +108,7 @@ const allAchievements = {
   s13 : "It pays to have respect",
   s14 : "So do I",
   s15 : "Do a barrel roll!",
-  s16 : "s16",
+  s16 : "Do you enjoy pain?",
   s17 : "s17",
   s18 : "s18",
 };
@@ -118,7 +118,7 @@ const secretAchievementTooltips = {
     s13 : "Pay respects.",
     s14 : "Say something naughty.",
     s15 : "Do a barrel roll.",
-    s16 : "s16",
+    s16 : "Use standard, cancer, or bracket notation for 10 minutes with more than 1 eternity without refreshing.",
     s17 : "s17",
     s18 : "s18",
   };

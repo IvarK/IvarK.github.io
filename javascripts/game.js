@@ -7,6 +7,7 @@ var shiftDown = false;
 var controlDown = false;
 var justImported = false;
 var saved = 0;
+var painTimer = 0;
 var TIER_NAMES = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
 var DISPLAY_NAMES = [ null, "First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth" ];
 var player = {
@@ -3192,7 +3193,7 @@ function eternity(force) {
         playerInfinityUpgradesOnEternity()
         document.getElementById("eternityPoints2").innerHTML = "You have <span class=\"EPAmount2\">"+shortenDimensions(player.eternityPoints)+"</span> Eternity points."
         updateEternityChallenges()
-        if (player.eternities == 1) {
+        if (player.eternities <= 1) {
             showTab("dimensions")
             showDimTab("timedimensions")
             loadAutoBuyerSettings()
@@ -4205,7 +4206,7 @@ setInterval(function() {
 
 
 
-    if (player.infinitied == 0 && player.infinityPoints.lt(new Decimal(1e50)) && player.eternities == 0) document.getElementById("infinityPoints2").style.display = "none"
+    if (player.infinitied == 0 && player.infinityPoints.lt(new Decimal(1e50)) && player.eternities <= 0) document.getElementById("infinityPoints2").style.display = "none"
     else document.getElementById("infinityPoints2").style.display = "inline-block"
 
     if (blink && !player.achievements.includes("r78")) {
@@ -4692,15 +4693,18 @@ function gameLoop(diff) {
     } else {
         Marathon = 0;
     }
-
-    if(player.money.gt(Math.pow(10,63))) giveAchievement("Supersanic");
-
     if (DimensionProduction(1).gt(player.infinityPower) && player.currentEternityChall != "eterc7" && !player.achievements.includes("r113")) {
         Marathon2+=player.options.updateRate/1000;
         if (Marathon2 >= 60) giveAchievement("Long lasting relationship");
     } else {
         Marathon2 = 0;
     }
+    if (player.eternities >= 1 && (player.options.notation == "Standard" || player.options.notation == "Emojis" || player.options.notation == "Brackets")) {
+        painTimer += player.options.updateRate/1000;
+        if (painTimer >= 600) giveAchievement("Do you enjoy pain?");
+    }
+
+    if(player.money.gt(Math.pow(10,63))) giveAchievement("Supersanic");
 
     for (let tier = 1; tier <= 8; ++tier) {
         var name = TIER_NAMES[tier];
