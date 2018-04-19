@@ -483,6 +483,15 @@ if (player.version < 5) {
           }
       }
   }
+  //updates TD costs to harsher scaling
+  if (player.version < 12) {
+      player.version = 12
+      for (i=1; i<5; i++) {
+        if (player["timeDimension"+i].cost.gte("1e1300")) {
+            player["timeDimension"+i].cost = Decimal.pow(timeDimCostMults[i]*2.5, player["timeDimension"+i].bought).times(timeDimStartCosts[i])
+          }
+      }
+  }
 
   // player.version is currently 11
   if (player.options.notation == "Default") {
