@@ -1164,6 +1164,9 @@ function updateInfCosts() {
 
     document.getElementById("ec11unl").innerHTML = "Eternity Challenge 11<span>Requirement: Use only the Normal Dimension path<span>Cost: 1 Time Theorems"
     document.getElementById("ec12unl").innerHTML = "Eternity Challenge 12<span>Requirement: Use only the Time Dimension path<span>Cost: 1 Time Theorems"
+
+    if (player.dilation.unlocked) document.getElementById("dilationunlock").innerHTML = "Unlock time dilation<span>Cost: 5000 Time Theorems"
+    else document.getElementById("dilationunlock").innerHTML = "Unlock time dilation<span>Requirement: 5 Eternity Challenge 11 and 12 completions<span>Cost: 5000 Time Theorems"
 }
 
 
@@ -3991,7 +3994,7 @@ function startDilatedEternity() {
         eternity(true)
         return
     }
-    if (!confirm("You will start an eternity with all of your dimension multiplier's exponents and tickspeed multiplier's exponent reduced to ^ 0.75. If you can eternity while dilated, you'll be rewarded with tachyon particles based on your antimatter and tachyon particles.")) return
+    if (!confirm("You will start an eternity with all of your Dimension/Infinity Dimension/Time Dimension multiplier's exponents and tickspeed multiplier's exponent reduced to ^ 0.75. If you can eternity while dilated, you'll be rewarded with tachyon particles based on your antimatter and tachyon particles.")) return
     eternity()
     player.dilation.active = true;
     var totalMult = 1
@@ -4019,6 +4022,7 @@ function unlockDilation() {
     document.getElementById("dilationunlock").className = "timestudybought"
     updateTimeStudyButtons()
     showEternityTab("dilation")
+    document.getElementById("dilationunlock").innerHTML = "Unlock time dilation<span>Cost: 5000 Time Theorems"
 }
 
 

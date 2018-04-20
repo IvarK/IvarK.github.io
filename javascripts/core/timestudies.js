@@ -298,12 +298,6 @@ function respecTimeStudies() {
   updateTheoremButtons()
   drawStudyTree()
 
-  if (player.dilation.unlocked) {
-      player.timestudy.theorem += 5000
-      player.dilation.unlocked = false
-  }
-
-
 }
 
 function exportStudyTree() {
