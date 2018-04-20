@@ -6,6 +6,7 @@ var autoS = true;
 var shiftDown = false;
 var controlDown = false;
 var justImported = false;
+var forceHardReset = false;
 var player = {
     money: new Decimal(10),
     tickSpeedCost: new Decimal(1000),
@@ -4853,6 +4854,9 @@ document.getElementById("importbtn").onclick = function () {
         player.options.secretThemeKey = save_data;
         setTheme(player.options.theme);
     } else {
+        forceHardReset = true
+        document.getElementById("reset").click();
+        forceHardReset = false
         save_data = JSON.parse(atob(save_data), function(k, v) { return (v === Infinity) ? "Infinity" : v; });
         if (!save_data || !verify_save(save_data)) {
             alert('could not load the save..');
@@ -4880,7 +4884,7 @@ document.getElementById("importbtn").onclick = function () {
 
 
 document.getElementById("reset").onclick = function () {
-    if (confirm("Do you really want to erase all your progress?")) {
+    if (!forceHardReset && confirm("Do you really want to erase all your progress?") || forceHardReset) {
         set_save('dimensionSave', defaultStart);
         player = defaultStart
         save_game();
