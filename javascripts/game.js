@@ -4854,10 +4854,10 @@ document.getElementById("importbtn").onclick = function () {
         player.options.secretThemeKey = save_data;
         setTheme(player.options.theme);
     } else {
-        forceHardReset = true
-        document.getElementById("reset").click();
-        forceHardReset = false
         save_data = JSON.parse(atob(save_data), function(k, v) { return (v === Infinity) ? "Infinity" : v; });
+        if(verify_save(save_data)) forceHardReset = true
+        if(verify_save(save_data)) document.getElementById("reset").click();
+        forceHardReset = false
         if (!save_data || !verify_save(save_data)) {
             alert('could not load the save..');
             load_custom_game();
