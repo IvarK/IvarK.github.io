@@ -109,8 +109,8 @@ const allAchievements = {
   s14 : "So do I",
   s15 : "Do a barrel roll!",
   s16 : "Do you enjoy pain?",
-  s17 : "s17",
-  s18 : "s18",
+  s17 : "30 Lives",
+  s18 : "Do you feel lucky? Well do ya punk?",
 };
 const secretAchievementTooltips = {
     s11 : "Click on the news ticker that tells you to click on it.",
@@ -119,8 +119,8 @@ const secretAchievementTooltips = {
     s14 : "Say something naughty.",
     s15 : "Do a barrel roll.",
     s16 : "Use standard, cancer, or bracket notation for 10 minutes with more than 1 eternity without refreshing.",
-    s17 : "s17",
-    s18 : "s18",
+    s17 : "Input the konami code.",
+    s18 : "You have a 1/100,000 chance of getting this achievement every second.",
   };
 const allAchievementNums = Object.invert(allAchievements)
 // to retrieve by value: Object.keys(allAchievements).find(key => allAchievements[key] === "L4D: Left 4 Dimensions");

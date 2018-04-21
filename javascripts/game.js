@@ -8,6 +8,7 @@ var controlDown = false;
 var justImported = false;
 var saved = 0;
 var painTimer = 0;
+var keySequence = 0;
 var TIER_NAMES = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
 var DISPLAY_NAMES = [ null, "First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth" ];
 var player = {
@@ -4401,6 +4402,7 @@ setInterval(function() {
     if (player.seventhAmount > 1e12) giveAchievement("Multidimensional");
     if (player.tickspeed.lt(1e-26)) giveAchievement("Faster than a potato");
     if (player.tickspeed.lt(1e-55)) giveAchievement("Faster than a squared potato");
+    if (Math.random() < 0.00001) giveAchievement("Do you feel lucky? Well do ya punk?")
 
     document.getElementById("dilationTabbtn").style.display = (player.dilation.unlocked) ? "inline-block" : "none"
     updateDilationUpgradeButtons()
@@ -5775,6 +5777,29 @@ window.onload = function() {
 }
 
 window.addEventListener('keydown', function(event) {
+    if (keySequence == 0 && event.keyCode == 38) {
+        keySequence++
+    } else if (keySequence == 1 && event.keyCode == 38) {
+        keySequence++
+    } else if (keySequence == 2 && event.keyCode == 40) {
+        keySequence++
+    } else if (keySequence == 3 && event.keyCode == 40) {
+        keySequence++
+    } else if (keySequence == 4 && event.keyCode == 37) {
+        keySequence++
+    } else if (keySequence == 5 && event.keyCode == 39) {
+        keySequence++
+    } else if (keySequence == 6 && event.keyCode == 37) {
+        keySequence++
+    } else if (keySequence == 7 && event.keyCode == 39) {
+        keySequence++
+    } else if (keySequence == 8 && event.keyCode == 66) {
+        keySequence++
+    } else if (keySequence == 9 && event.keyCode == 65) {
+        giveAchievement("30 Lives")
+    } else {
+        keySequence = 0;
+    }
     if (event.keyCode == 17) controlDown = true;
     if (event.keyCode == 16) {
         shiftDown = true;
