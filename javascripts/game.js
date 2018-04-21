@@ -975,6 +975,12 @@ function buyEPMult() {
     }
 }
 
+function buyMaxEPMult() {
+    while (player.eternityPoints.gte(player.epmultCost)) {
+        buyEPMult()
+    }
+}
+
 
 
 
