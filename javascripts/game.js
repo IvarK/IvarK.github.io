@@ -387,7 +387,7 @@ function updateCoinPerSec() {
     }
 }
 
-function getInfinitied() {return player.infinitied + player.infinitiedBank}
+function getInfinitied() {return Math.max(player.infinitied + player.infinitiedBank, 0)}
 
 
 
