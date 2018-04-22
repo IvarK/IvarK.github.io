@@ -1173,11 +1173,26 @@ button {
 }
 
 .dilationupgbought {
-    color: #1e0830;
+    color: black;
     background: #64DD17;
     font-weight: bold;
     font-family: Typewriter;
     border: 1px solid black;
+    width: 170px;
+    height: 80px;
+    transition-duration: 0.2s;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    vertical-align: top;
+    margin:7px;
+}
+
+.dilationupgrebuyablelocked {
+    color: #181818;
+    background: #5F5F5F;
+    font-weight: bold;
+    font-family: Typewriter;
+    border: 1px solid #64ddad;
     width: 170px;
     height: 80px;
     transition-duration: 0.2s;

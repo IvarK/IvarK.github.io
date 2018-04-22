@@ -474,6 +474,21 @@ input {
     background: black !important;
 }
 
+.dilationbtn {
+    border-width: 1px !important;
+}
+
+.dilationupglocked, .dilationupgrebuyablelocked {
+    color: black !important;
+    background: #9E9E9E !important;
+    box-shadow: 1px 1px 1px 0px #000;
+    border: none !important;
+}
+
+.dilationupglocked:hover, .dilationupgrebuyablelocked:hover {
+    background: #d72621 !important;
+}
+
 #snow {
     display: block !important;
     background-image: url('../images/snow1.png'), url('../images/snow2.png'), url('../images/snow3.png');

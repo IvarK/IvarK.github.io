@@ -507,6 +507,58 @@ input {
     background-color: #9E913A !important;
 }
 
+.dilationbtn {
+    color: #64DD17 !important;
+    background: black !important;
+}
+
+.dilationbtn:hover {
+    color: #64DD17 !important;
+    background: white !important;
+}
+
+.dilationupg {
+    background: black !important;
+}
+
+.dilationupgrebuyable {
+    background: black !important;
+}
+
+.dilationupg:hover {
+    color: #64DD17 !important;
+    background: white !important;
+}
+
+.dilationupgrebuyable:hover {
+    color: #64ddad !important;
+    background: white !important;
+}
+
+.dilationupgbought {
+    background: #64DD17 !important;
+}
+
+.dilationupgrebuyablelocked, .dilationupglocked {
+    color: black !important;
+    background: #23292a !important;
+}
+
+.dilationupgrebuyablelocked:hover, .dilationupglocked:hover {
+    background: #B84B5F !important;
+    border: 1px solid #B84B5F !important;
+}
+
+#tachyonParticleAmount {
+    color: #64ddad !important;
+    text-shadow: 0px 0px 7px #64ddad;
+}
+
+#dilatedTimeAmount, #dilatedTimePerSecond, #galaxyThreshold, #dilatedGalaxies {
+    color: #64DD17 !important;
+    text-shadow: 0px 0px 7px #64DD17;
+}
+
 @keyframes antimatterGlow {
     0%  {color: #2196F3;}
     33% {color: #673AB7;}

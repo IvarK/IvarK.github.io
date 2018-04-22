@@ -4078,7 +4078,7 @@ function buyDilationUpgrade(id, costInc) {
 function updateDilationUpgradeButtons() {
     for (var i = 1; i <= 9; i++) {
         if (i <= 3) {
-            document.getElementById("dil"+i).className = ( new Decimal(DIL_UPG_COSTS[i][0]).times(Decimal.pow(DIL_UPG_COSTS[i][1],(player.dilation.rebuyables[i]))).gt(player.dilation.dilatedTime) ) ? "timestudylocked" : "dilationupgrebuyable";
+            document.getElementById("dil"+i).className = ( new Decimal(DIL_UPG_COSTS[i][0]).times(Decimal.pow(DIL_UPG_COSTS[i][1],(player.dilation.rebuyables[i]))).gt(player.dilation.dilatedTime) ) ? "dilationupgrebuyablelocked" : "dilationupgrebuyable";
         } else if (player.dilation.upgrades.includes(i)) {
             document.getElementById("dil"+i).className = "dilationupgbought"
         } else {
