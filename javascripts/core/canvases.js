@@ -34,13 +34,15 @@ function point(x, y, ctz){
 function drawAnimations(ts){
     if (player.dilation.tachyonParticles.gte(1) && document.getElementById("eternitystore").style.display !== "none" && document.getElementById("dilation").style.display !== "none") {
         ctx3.clearRect(0, 0, canvas.width, canvas.height);
+        if (player.options.theme == "Dark" || player.options.theme == "Dark Metro") ctx3.fillStyle="#FFF";
+        else ctx3.fillStyle="#000";
         for (i=0; i<player.dilation.tachyonParticles.exponent+1; i++) {
             if (typeof particles["particle"+i] == "undefined") {
                 particles["particle"+i] = {}
                 particles["particle"+i].goalX = Math.ceil(Math.random() * canvas3.width);
                 particles["particle"+i].goalY = Math.ceil(Math.random() * canvas3.height);
                 particles["particle"+i].direction = Math.ceil(Math.random() * 8);
-                particles["particle"+i].velocityX = Math.ceil((Math.random() - 0.5) * 25)
+                particles["particle"+i].velocityX = Math.ceil((Math.random() - 0.5) * 20)
                 particles["particle"+i].velocityY = Math.ceil((Math.random() - 0.5) * 25)
                 if (particles["particle"+i].velocityX < 0) particles["particle"+i].velocityX -= 5
                 else particles["particle"+i].velocityX += 5
@@ -53,8 +55,8 @@ function drawAnimations(ts){
                 particles["particle"+i].goalX = Math.ceil(Math.random() * canvas3.width);
                 particles["particle"+i].goalY = Math.ceil(Math.random() * canvas3.height);
                 particles["particle"+i].direction = Math.ceil(Math.random() * 8);
-                particles["particle"+i].velocityX = Math.ceil((Math.random() - 0.5) * 25)
-                particles["particle"+i].velocityY = Math.ceil((Math.random() - 0.5) * 25)
+                particles["particle"+i].velocityX = Math.ceil((Math.random() - 0.5) * 20)
+                particles["particle"+i].velocityY = Math.ceil((Math.random() - 0.5) * 20)
                 if (particles["particle"+i].velocityX < 0) particles["particle"+i].velocityX -= 5
                 else particles["particle"+i].velocityX += 5
                 if (particles["particle"+i].velocityY < 0) particles["particle"+i].velocityY -= 5
