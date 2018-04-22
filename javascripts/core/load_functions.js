@@ -569,8 +569,6 @@ function load_game() {
 
 
 function save_game() {
-  saved++
-  if (saved > 99) giveAchievement("Just in case")
   set_save('dimensionSave', player);
   $.notify("Game saved", "info")
 }

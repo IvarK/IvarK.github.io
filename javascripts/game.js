@@ -1722,6 +1722,8 @@ document.getElementById("exportbtn").onclick = function () {
 
 
 document.getElementById("save").onclick = function () {
+    saved++
+    if (saved > 99) giveAchievement("Just in case")
     save_game();
 };
 
