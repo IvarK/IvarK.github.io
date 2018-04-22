@@ -210,10 +210,10 @@ function updateTimeStudyButtons() {
       }
   }
 
-  if (player.dilation.unlocked) document.getElementById("dilationunlock").className = "timestudybought"
+  if (player.dilation.unlocked) document.getElementById("dilationunlock").className = "dilationupgbought"
   else if (player.timestudy.theorem < 5000 || 
       ECTimesCompleted("eterc12") !== 5 ||
-      ECTimesCompleted("eterc11") !== 5) document.getElementById("dilationunlock").className = "timestudylocked"
+      ECTimesCompleted("eterc11") !== 5) document.getElementById("dilationunlock").className = "dilationupglocked"
   else document.getElementById("dilationunlock").className = "dilationbtn"
 }
 

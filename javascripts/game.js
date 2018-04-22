@@ -4026,7 +4026,7 @@ function unlockDilation() {
     if (ECTimesCompleted("eterc11") !== 5) return
     player.timestudy.theorem -= 5000
     player.dilation.unlocked = true
-    document.getElementById("dilationunlock").className = "timestudybought"
+    document.getElementById("dilationunlock").className = "dilationupgbought"
     updateTimeStudyButtons()
     showEternityTab("dilation")
     document.getElementById("dilationunlock").innerHTML = "Unlock time dilation<span>Cost: 5000 Time Theorems"
@@ -4080,9 +4080,9 @@ function updateDilationUpgradeButtons() {
         if (i <= 3) {
             document.getElementById("dil"+i).className = ( new Decimal(DIL_UPG_COSTS[i][0]).times(Decimal.pow(DIL_UPG_COSTS[i][1],(player.dilation.rebuyables[i]))).gt(player.dilation.dilatedTime) ) ? "timestudylocked" : "dilationupgrebuyable";
         } else if (player.dilation.upgrades.includes(i)) {
-            document.getElementById("dil"+i).className = "timestudybought"
+            document.getElementById("dil"+i).className = "dilationupgbought"
         } else {
-            document.getElementById("dil"+i).className = ( DIL_UPG_COSTS[i] > player.dilation.dilatedTime ) ? "timestudylocked" : "dilationupg";
+            document.getElementById("dil"+i).className = ( DIL_UPG_COSTS[i] > player.dilation.dilatedTime ) ? "dilationupglocked" : "dilationupg";
         }
     }
 }
