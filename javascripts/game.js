@@ -4091,12 +4091,12 @@ function updateDilationUpgradeCosts() {
     document.getElementById("dil1").innerHTML = "Double time dilation gain.<br>Cost: " + shortenCosts( new Decimal(DIL_UPG_COSTS[1][0]).times(Decimal.pow(DIL_UPG_COSTS[1][1],(player.dilation.rebuyables[1]))) ) + " dilated time"
     document.getElementById("dil2").innerHTML = "Decrease the galaxy threshold multiplier, but resets free galaxies and dilated time.<br>Cost: " + shortenCosts( new Decimal(DIL_UPG_COSTS[2][0]).times(Decimal.pow(DIL_UPG_COSTS[2][1],(player.dilation.rebuyables[2]))) ) + " dilated time"
     document.getElementById("dil3").innerHTML = "Triple the amount of Tachyon Particles gained.<br>Cost: " + shortenCosts( new Decimal(DIL_UPG_COSTS[3][0]).times(Decimal.pow(DIL_UPG_COSTS[3][1],(player.dilation.rebuyables[3]))) ) + " dilated time"
-    document.getElementById("dil4").innerHTML = "Gain twice as many free galaxies.<br>Cost: " + shortenCosts(DIL_UPG_COSTS[4])
-    document.getElementById("dil5").innerHTML = "Time Dimensions gain a multiplier equal to replicanti multiplier.<br>Cost: " + shortenCosts(DIL_UPG_COSTS[5])
-    document.getElementById("dil6").innerHTML = "Normal dimension gain a multiplier based on dilated time, unaffected by time dilation.<br>Cost: " + shortenCosts(DIL_UPG_COSTS[6])
+    document.getElementById("dil4").innerHTML = "Gain twice as many free galaxies.<br>Cost: " + shortenCosts(DIL_UPG_COSTS[4]) + " dilated time"
+    document.getElementById("dil5").innerHTML = "Time Dimensions are affected by replicanti multiplier ^ 0.1.<br>Cost: " + shortenCosts(DIL_UPG_COSTS[5]) + " dilated time"
+    document.getElementById("dil6").innerHTML = "Normal dimension gain a multiplier based on dilated time, unaffected by time dilation.<br>Cost: " + shortenCosts(DIL_UPG_COSTS[6]) + " dilated time"
     //dil7
-    document.getElementById("dil8").innerHTML = "Pick all the study paths from the first split.<br>Cost: " + shortenCosts(DIL_UPG_COSTS[8])
-    document.getElementById("dil9").innerHTML = "Reduce the dilation penalty.<br>Cost: " + shortenCosts(DIL_UPG_COSTS[9])
+    document.getElementById("dil8").innerHTML = "Pick all the study paths from the first split.<br>Cost: " + shortenCosts(DIL_UPG_COSTS[8]) + " dilated time"
+    document.getElementById("dil9").innerHTML = "Reduce the dilation penalty. (^ 1.05 after reduction) <br>Cost: " + shortenCosts(DIL_UPG_COSTS[9]) + " dilated time"
 }
 
 
