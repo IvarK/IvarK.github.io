@@ -488,7 +488,7 @@ if (player.version < 5) {
       player.version = 12
       for (i=1; i<5; i++) {
         if (player["timeDimension"+i].cost.gte("1e1300")) {
-            player["timeDimension"+i].cost = Decimal.pow(timeDimCostMults[i]*2.5, player["timeDimension"+i].bought).times(timeDimStartCosts[i])
+            player["timeDimension"+i].cost = Decimal.pow(timeDimCostMults[i]*2.2, player["timeDimension"+i].bought).times(timeDimStartCosts[i])
           }
       }
   }
