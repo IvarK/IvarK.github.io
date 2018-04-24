@@ -1789,7 +1789,8 @@ document.getElementById("importbtn").onclick = function () {
 
 document.getElementById("reset").onclick = function () {
     if (confirm("Do you really want to erase all your progress?")) {
-        set_save('dimensionSave', defaultStart);
+        if (window.location.href.split("//")[1].length > 20) set_save('dimensionSave', defaultStart);
+        else set_save('dimensionTestSave', defaultStart);
         player = defaultStart
         save_game();
         load_game();

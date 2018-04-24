@@ -561,7 +561,8 @@ function loadFromString(string) {
 
 
 function load_game() {
-  var save_data = get_save('dimensionSave');
+  if (window.location.href.split("//")[1].length > 20) var save_data = get_save('dimensionTestSave');
+  else var save_data = get_save('dimensionSave');
   if (!save_data) return;
   player = save_data;
   onLoad()
@@ -569,7 +570,8 @@ function load_game() {
 
 
 function save_game() {
-  set_save('dimensionSave', player);
+  if (window.location.href.split("//")[1].length > 20) set_save('dimensionTestSave', player);
+  else set_save('dimensionSave', player);
   $.notify("Game saved", "info")
 }
 
