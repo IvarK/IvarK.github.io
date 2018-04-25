@@ -5819,6 +5819,9 @@ window.addEventListener('keydown', function(event) {
         shiftDown = true;
         drawStudyTree()
     }
+    if ((controlDown && shiftDown && event.keyCode == 74) || event.keyCode == 123) {
+        giveAchievement("Stop right there criminal scum!")
+    }
 }, false);
 
 window.addEventListener('keyup', function(event) {
