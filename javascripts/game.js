@@ -1670,6 +1670,7 @@ function galaxyReset() {
 
     if (player.options.notation == "Emojis") player.spreadingCancer+=1;
     if (player.spreadingCancer >= 10) giveAchievement("Spreading Cancer")
+    if (player.spreadingCancer >= 1000000) giveAchievement("Cancer = Spread")
     if (player.achievements.includes("r36")) player.tickspeed = player.tickspeed.times(0.98);
     if (player.achievements.includes("r45")) player.tickspeed = player.tickspeed.times(0.98);
     if (player.achievements.includes("r83")) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
@@ -5186,7 +5187,10 @@ function dimBoolean() {
 function maxBuyGalaxies() {
     if (player.currentEternityChall == "eterc6") return
     if (player.autobuyers[10].priority > player.galaxies) {
-        while(player.eightAmount >= getGalaxyRequirement() && player.autobuyers[10].priority > player.galaxies) player.galaxies++
+        while(player.eightAmount >= getGalaxyRequirement() && player.autobuyers[10].priority > player.galaxies) {
+            if (player.options.notation == "Emojis") player.spreadingCancer+=1;
+            player.galaxies++
+        }
         player.galaxies--
         galaxyReset()
     }
