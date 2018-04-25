@@ -232,3 +232,17 @@ function updateAchievements() {
   document.getElementById("achmultlabel").innerHTML = "Current achievement multiplier on each Dimension: " + player.achPow.toFixed(1) + "x"
 
 }
+
+function getSecretAchAmount() {
+    var n = 0
+    for (var i=1; i<document.getElementById("secretachievementtable").children[0].children.length+1; i++) {
+        var achNum = i * 10
+        for (var l=0; l<8; l++) {
+            achNum += 1;
+            if (player.achievements.includes("s"+achNum)) {
+                n++
+            }
+        }
+    }
+    return n
+}
