@@ -111,6 +111,14 @@ const allAchievements = {
   s16 : "Do you enjoy pain?",
   s17 : "30 Lives",
   s18 : "Do you feel lucky? Well do ya punk?",
+  s21 : "Go study in real life instead",
+  s22 : "s22",
+  s23 : "s23",
+  s24 : "s24",
+  s25 : "s25",
+  s26 : "s26",
+  s27 : "s27",
+  s28 : "s28",
 };
 const secretAchievementTooltips = {
     s11 : "Click on the news ticker that tells you to click on it.",
@@ -121,6 +129,14 @@ const secretAchievementTooltips = {
     s16 : "Use standard, cancer, or bracket notation for 10 minutes with more than 1 eternity without refreshing.",
     s17 : "Input the konami code.",
     s18 : "You have a 1/100,000 chance of getting this achievement every second.",
+    s21 : "Purchase the secret time study",
+    s22 : "s22",
+    s23 : "s23",
+    s24 : "s24",
+    s25 : "s25",
+    s26 : "s26",
+    s27 : "s27",
+    s28 : "s28",
   };
 const allAchievementNums = Object.invert(allAchievements)
 // to retrieve by value: Object.keys(allAchievements).find(key => allAchievements[key] === "L4D: Left 4 Dimensions");

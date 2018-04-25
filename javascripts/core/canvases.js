@@ -128,6 +128,7 @@ function drawTreeBranch(num1, num2) {
             ctx.strokeStyle="#444";
         }
     }
+    if (num2 == "secretstudy") ctx.strokeStyle="#000000";
     ctx.moveTo(x1, y1);
     ctx.lineTo(x2, y2);
     ctx.stroke();
@@ -135,6 +136,7 @@ function drawTreeBranch(num1, num2) {
 
 function drawStudyTree() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (document.getElementById("secretstudy").style.opacity != "0") drawTreeBranch("11", "secretstudy");
     drawTreeBranch("11", "21");
     drawTreeBranch("11", "22");
     drawTreeBranch("21", "31");
