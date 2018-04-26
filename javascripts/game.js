@@ -277,6 +277,7 @@ function setTheme(name) {
         if (e.href.includes("theme")) e.remove();
     });
 
+    if(name !== undefined && name.length < 3) giveAchievement("Shhh... It's a secret")
     if(name === undefined) {
         document.getElementById("theme").innerHTML="Current theme: Normal";
     } else if(name === "S1") {
@@ -794,6 +795,10 @@ document.getElementById("secretstudy").onclick = function () {
     document.getElementById("secretstudy").style.cursor = "default";
     giveAchievement("Go study in real life instead");
     setTimeout(drawStudyTree, 2000);
+};
+
+document.getElementById("The first one's always free").onclick = function () {
+    giveAchievement("The first one's always free")
 };
 
 
