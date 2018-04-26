@@ -141,6 +141,10 @@ input {
     border: 1px solid #E53935 !important;
 }
 
+.achievementhidden {
+    border-width: 1px !important;
+}
+
 #infinityPoints1 {
     color: #757575 !important;
 }
@@ -508,6 +512,10 @@ input {
     background: #9E9E9E !important;
     box-shadow: 1px 1px 1px 0px #000;
     border: none !important;
+}
+
+.dilationbtn {
+    border-width: 1px !important;
 }
 
 .dilationupglocked, .dilationupgrebuyablelocked {

@@ -123,6 +123,10 @@ input, select {
     border: 1px solid #EF5350 !important;
 }
 
+.achievementhidden {
+    border-width: 1px !important;
+}
+
 .infinistorebtn1 {
     border: 1px solid black !important;
 }
@@ -239,7 +243,7 @@ input, select {
     background: #10acaf !important;
 }
 
-#timetheorems {
+#timetheorems, #studytreeloadsavetext {
     color: #bbb !important;
 }
 

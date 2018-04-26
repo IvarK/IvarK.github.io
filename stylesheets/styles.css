@@ -1693,30 +1693,6 @@ screen and (max-width: 480px) {
     100% {box-shadow: inset -5px 0px 20px #64ddad;}
 }
 
-@keyframes dilationBtnGlowLegacy {
-    0%  {box-shadow: inset 5px -5px 20px #64DD17;}
-    10% {box-shadow: inset -5px 5px 20px #64DD17;}
-    20% {box-shadow: inset 5px -5px 20px #64DD17;}
-    22% {box-shadow: inset -5px 5px 20px #64DD17;}
-    25% {box-shadow: inset 5px -5px 20px #64DD17;}
-    29% {box-shadow: inset -5px 5px 20px #64DD17;}
-    39% {box-shadow: inset 5px -5px 20px #64DD17;}
-    44% {box-shadow: inset -5px 5px 20px #64DD17;}
-    53% {box-shadow: inset 5px -5px 20px #64DD17;}
-    57% {box-shadow: inset -5px 5px 20px #64DD17;}
-    63% {box-shadow: inset 5px -5px 20px #64DD17;}
-    69% {box-shadow: inset -5px 5px 20px #64DD17;}
-    71% {box-shadow: inset 5px -5px 20px #64DD17;}
-    74% {box-shadow: inset -5px 5px 20px #64DD17;}
-    75% {box-shadow: inset 5px -5px 20px #64DD17;}
-    84% {box-shadow: inset -5px 5px 20px #64DD17;}
-    88% {box-shadow: inset 5px -5px 20px #64DD17;}
-    92% {box-shadow: inset -5px 5px 20px #64DD17;}
-    93% {box-shadow: inset 5px -5px 20px #64DD17;}
-    95% {box-shadow: inset -5px 5px 20px #64DD17;}
-    100% {box-shadow: inset 5px -5px 20px #64DD17;}
-}
-
 @keyframes barrelRoll {
     0%  {transform: rotateZ(0deg);}
     50% {transform: rotateZ(360deg);}
