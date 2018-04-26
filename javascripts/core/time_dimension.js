@@ -83,9 +83,11 @@ function getTimeDimensionDescription(tier) {
 }
 
 function updateTimeDimensions() {
-  for (let tier = 1; tier <= 4; ++tier) {
+  if (document.getElementById("timedimensions").style.display == "block" && document.getElementById("dimensions").style.display == "block") {
+    for (let tier = 1; tier <= 4; ++tier) {
       document.getElementById("timeD"+tier).innerHTML = DISPLAY_NAMES[tier] + " Time Dimension x" + shortenMoney(getTimeDimensionPower(tier));
       document.getElementById("timeAmount"+tier).innerHTML = getTimeDimensionDescription(tier);
+  }
   }
 }
 

@@ -25,16 +25,18 @@ function DimensionRateOfChange(tier) {
 
 
 function updateInfinityDimensions() {
-  for (let tier = 1; tier <= 8; ++tier) {
-      document.getElementById("infD"+tier).innerHTML = DISPLAY_NAMES[tier] + " Infinity Dimension x" + shortenMoney(DimensionPower(tier));
-      document.getElementById("infAmount"+tier).innerHTML = DimensionDescription(tier);
-      var name = TIER_NAMES[tier];
-      if (!player.infDimensionsUnlocked[tier-1]) {
-          break;
-      }
-
-      document.getElementById("infRow"+tier).style.display = "table-row";
-      document.getElementById("infRow"+tier).style.visibility = "visible";
+  if (document.getElementById("infinitydimensions").style.display == "block" && document.getElementById("dimensions").style.display == "block") {
+    for (let tier = 1; tier <= 8; ++tier) {
+        document.getElementById("infD"+tier).innerHTML = DISPLAY_NAMES[tier] + " Infinity Dimension x" + shortenMoney(DimensionPower(tier));
+        document.getElementById("infAmount"+tier).innerHTML = DimensionDescription(tier);
+        var name = TIER_NAMES[tier];
+        if (!player.infDimensionsUnlocked[tier-1]) {
+            break;
+        }
+  
+        document.getElementById("infRow"+tier).style.display = "table-row";
+        document.getElementById("infRow"+tier).style.visibility = "visible";
+    }
   }
 }
 
