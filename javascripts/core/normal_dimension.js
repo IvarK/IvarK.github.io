@@ -101,6 +101,7 @@ function getDimensionRateOfChange(tier) {
   }
 
   let toGain = getDimensionProductionPerSecond(tier + 1)
+  if (tier == 7 && player.currentEternityChall == "eterc7") toGain = DimensionProduction(1).times(10)
 
   var name = TIER_NAMES[tier];
   if (player.currentChallenge == "challenge7") {
