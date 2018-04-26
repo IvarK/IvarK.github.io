@@ -5832,6 +5832,7 @@ window.addEventListener('keydown', function(event) {
     if (event.keyCode == 17) controlDown = true;
     if (event.keyCode == 16) {
         shiftDown = true;
+        document.getElementById("studytreeloadsavetext").textContent = "save:"
         drawStudyTree()
     }
     if ((controlDown && shiftDown && event.keyCode == 74) || event.keyCode == 123) {
@@ -5843,6 +5844,7 @@ window.addEventListener('keyup', function(event) {
     if (event.keyCode == 17) controlDown = false;
     if (event.keyCode == 16) {
         shiftDown = false;
+        document.getElementById("studytreeloadsavetext").textContent = "load:"
         drawStudyTree()
     }
 }, false);

@@ -325,7 +325,7 @@ function exportStudyTree() {
 };
 
 function importStudyTree(input) {
-  var input = prompt()
+  if (typeof input !== 'string') var input = prompt()
   var studiesToBuy = input.split("|")[0].split(",");
   console.log(studiesToBuy)
   for (i=0; i<studiesToBuy.length; i++) {
@@ -337,3 +337,11 @@ function importStudyTree(input) {
       setTimeout(function(){ justImported = false; }, 100);
   }
 };
+
+function studyTreeSaveButton(num) {
+    if (shiftDown) {
+        localStorage.setItem("studyTree"+num, player.timestudy.studies + "|" + player.eternityChallUnlocked);
+    } else {
+        if (localStorage.getItem("studyTree"+num) !== null && localStorage.getItem("studyTree"+num) !== "|0") importStudyTree(localStorage.getItem("studyTree"+num));
+    }
+}

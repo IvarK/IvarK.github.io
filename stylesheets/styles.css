@@ -996,6 +996,15 @@ button {
     font-size: 15px;
 }
 
+#studytreeloadsavetext {
+    color: black;
+    position: fixed;
+    bottom: 82px;
+    left: 50%;
+    margin-left: 135px;
+    font-size: 10px;
+}
+
 #theorembuybackground {
     background: #E0E0E0;
     width: 550px;
