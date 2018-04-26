@@ -704,7 +704,10 @@ function updateChallenges() {
         }
 
         if (player.money.gte(new Decimal("1e2000")) || Object.keys(player.eternityChalls).length > 0 || player.eternityChallUnlocked !== 0) document.getElementById("challTabButtons").style.display = "table"
-        for (var i=1; i<=player.postChallUnlocked; i++) document.getElementById("postc"+i+"div").style.display = "inline-block"
+        for (var i=1; i<9; i++) {
+            if (player.postChallUnlocked >= i) document.getElementById("postc"+i+"div").style.display = "inline-block"
+            else document.getElementById("postc"+i+"div").style.display = "none"
+        }
 
 
 
@@ -1781,6 +1784,7 @@ document.getElementById("importbtn").onclick = function () {
         achievementMult = 1
         challengeMult = 1
         unspentBonus = 1
+        infDimPow = 1
         postc8Mult = new Decimal(0)
         mult18 = new Decimal(1)
         ec10bonus = new Decimal(1)
@@ -1800,6 +1804,7 @@ document.getElementById("reset").onclick = function () {
         if (window.location.href.split("//")[1].length > 20) set_save('dimensionSave', defaultStart);
         else set_save('dimensionTestSave', defaultStart);
         player = defaultStart
+        infDimPow = 1;
         save_game();
         load_game();
         updateCosts();
