@@ -116,7 +116,7 @@ const allAchievements = {
   s23 : "Stop right there criminal scum!",
   s24 : "Real news",
   s25 : "Shhh... It's a secret",
-  s26 : "s26",
+  s26 : "You're a failure",
   s27 : "s27",
   s28 : "s28",
 };
@@ -129,12 +129,12 @@ const secretAchievementTooltips = {
     s16 : "Use standard, cancer, or bracket notation for 10 minutes with more than 1 eternity without refreshing.",
     s17 : "Input the konami code.",
     s18 : "You have a 1/100,000 chance of getting this achievement every second.",
-    s21 : "Purchase the secret time study",
+    s21 : "Purchase the secret time study.",
     s22 : "Buy one million Galaxies in total while using cancer notation.",
     s23 : "Open the console.",
     s24 : "Click on the news ticker that tells you to click on it.",
     s25 : "Discover a secret theme.",
-    s26 : "s26",
+    s26 : "Fail eternity challenges 10 times without refreshing. What are you doing with your life...",
     s27 : "s27",
     s28 : "s28",
   };

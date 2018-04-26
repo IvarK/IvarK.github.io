@@ -9,6 +9,7 @@ var justImported = false;
 var saved = 0;
 var painTimer = 0;
 var keySequence = 0;
+var failureCount = 0;
 var TIER_NAMES = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
 var DISPLAY_NAMES = [ null, "First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth" ];
 var player = {
@@ -2637,6 +2638,8 @@ document.getElementById("bigcrunch").onclick = function () {
                 document.getElementById("challfail").style.display = "block"
                 setTimeout(exitChallenge, 500)
                 giveAchievement("You're a mistake")
+                failureCount++
+                if (failureCount > 9) giveAchievement("You're a failure")
             }
         }
         if (autoS && auto) {
@@ -4398,6 +4401,8 @@ setInterval(function() {
         document.getElementById("challfail").style.display = "block"
         setTimeout(exitChallenge, 500)
         giveAchievement("You're a mistake")
+        failureCount++
+        if (failureCount > 9) giveAchievement("You're a failure")
     }
 
     document.getElementById("infinitiedBank").style.display = (player.infinitiedBank > 0) ? "block" : "none"
