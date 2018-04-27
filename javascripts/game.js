@@ -533,6 +533,11 @@ function updateDimensions() {
         document.getElementById("tickSpeedMax").style.visibility = "visible";
         document.getElementById("tickLabel").style.visibility = "visible";
         document.getElementById("tickSpeedAmount").style.visibility = "visible";
+    } else {
+        document.getElementById("tickSpeed").style.visibility = "hidden";
+        document.getElementById("tickSpeedMax").style.visibility = "hidden";
+        document.getElementById("tickLabel").style.visibility = "hidden";
+        document.getElementById("tickSpeedAmount").style.visibility = "hidden";
     }
 
     if (player.bestInfinityTime == 9999999999) {

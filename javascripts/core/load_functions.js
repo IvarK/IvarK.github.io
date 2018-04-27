@@ -710,3 +710,5 @@ function get_save(name) {
       }
   } catch(e) { console.log("Fuck IE"); }
 }
+
+setTimeout(onLoad, 100)
