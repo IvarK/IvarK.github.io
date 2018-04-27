@@ -117,7 +117,7 @@ const allAchievements = {
   s24 : "Real news",
   s25 : "Shhh... It's a secret",
   s26 : "You're a failure",
-  s27 : "s27",
+  s27 : "It's not called matter dimensions is it?",
   s28 : "s28",
 };
 const secretAchievementTooltips = {
@@ -135,7 +135,7 @@ const secretAchievementTooltips = {
     s24 : "Click on the news ticker that tells you to click on it.",
     s25 : "Discover a secret theme.",
     s26 : "Fail eternity challenges 10 times without refreshing. What are you doing with your life...",
-    s27 : "s27",
+    s27 : "Get Infinite matter.",
     s28 : "s28",
   };
 const allAchievementNums = Object.invert(allAchievements)
