@@ -4441,7 +4441,7 @@ setInterval(function() {
     if (player.tickspeed.lt(1e-26)) giveAchievement("Faster than a potato");
     if (player.tickspeed.lt(1e-55)) giveAchievement("Faster than a squared potato");
     if (Math.random() < 0.00001) giveAchievement("Do you feel lucky? Well do ya punk?")
-    if (player.matter.gte(2.586e15)) giveAchievement("It's not called matter dimensions is it?")
+    if ((player.matter.gte(2.586e15) && player.currentChallenge == "postc6") || player.matter.gte(Number.MAX_VALUE)) giveAchievement("It's not called matter dimensions is it?")
 
     document.getElementById("dilationTabbtn").style.display = (player.dilation.unlocked) ? "inline-block" : "none"
     updateDilationUpgradeButtons()
