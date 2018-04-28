@@ -118,7 +118,7 @@ const allAchievements = {
   s25 : "Shhh... It's a secret",
   s26 : "You're a failure",
   s27 : "It's not called matter dimensions is it?",
-  s28 : "s28",
+  s28 : "While you were away... Nothing happened.",
 };
 const secretAchievementTooltips = {
     s11 : "Click on this achievement.",
@@ -136,7 +136,7 @@ const secretAchievementTooltips = {
     s25 : "Discover a secret theme.",
     s26 : "Fail eternity challenges 10 times without refreshing. What are you doing with your life...",
     s27 : "Get Infinite matter.",
-    s28 : "s28",
+    s28 : "Get 0 offline gains.",
   };
 const allAchievementNums = Object.invert(allAchievements)
 // to retrieve by value: Object.keys(allAchievements).find(key => allAchievements[key] === "L4D: Left 4 Dimensions");

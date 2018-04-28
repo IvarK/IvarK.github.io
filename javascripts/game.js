@@ -5151,6 +5151,7 @@ function simulateTime(seconds, real) {
     if (popupString.length == 20) {
         popupString = popupString.slice(0, -1);
         popupString+= "... Nothing happened."
+        giveAchievement("While you were away... Nothing happened.")
     }
 
     document.getElementById("offlinePopup").innerHTML = popupString
