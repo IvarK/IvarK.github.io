@@ -2328,17 +2328,23 @@ function fromValue(value) {
       value = temp.toString()
   }
   if (value.includes(" ")) {
-    let FormatList = [' K',' M',' B']
-    for (let i=0;i<3;i++) {
-        if (value.includes(FormatList[i])) return Decimal.fromMantissaExponent(parseFloat(value), i*3+3)
-        //return parseFloat(value) + "e" + (i*3+3)
-    }
     const prefixes = [['', 'U', 'D', 'T', 'Qa', 'Qt', 'Sx', 'Sp', 'O', 'N'],
     ['', 'Dc', 'Vg', 'Tg', 'Qd', 'Qi', 'Se', 'St', 'Og', 'Nn'],
     ['', 'Ce', 'Dn', 'Tc', 'Qe', 'Qu', 'Sc', 'Si', 'Oe', 'Ne']]
     const prefixes2 = ['', 'MI', 'MC', 'NA', 'PC', 'FM', ' ']
     let e = 0;
     let m,k,l;
+    if (value.split(" ")[1].length < 5) {
+        for (l=101;l>0;l--) {
+            if (value.includes(FormatList[l])) {
+                e += l*3
+                console.log("caught!"+l)
+                
+                break
+            }
+        }
+        return Decimal.fromMantissaExponent(parseInt(value.split(" ")[0]), e)
+    }
     for (let i=1;i<5;i++) {
         if (value.includes(prefixes2[i])) {
             m = value.split(prefixes2[i])[1]
@@ -2350,6 +2356,7 @@ function fromValue(value) {
             }
             break;
         }
+        return Decimal.fromMantissaExponent(value.split, e*3)
     }
     for (let i=1;i<=5;i++) {
         if (value.includes(prefixes2[i])) {
