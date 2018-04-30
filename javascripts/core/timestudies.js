@@ -341,7 +341,9 @@ function importStudyTree(input) {
 function studyTreeSaveButton(num) {
     if (shiftDown) {
         localStorage.setItem("studyTree"+num, player.timestudy.studies + "|" + player.eternityChallUnlocked);
-    } else {
-        if (localStorage.getItem("studyTree"+num) !== null && localStorage.getItem("studyTree"+num) !== "|0") importStudyTree(localStorage.getItem("studyTree"+num));
+        $.notify("Study tree "+num+" saved", "info")
+    } else if (localStorage.getItem("studyTree"+num) !== null && localStorage.getItem("studyTree"+num) !== "|0") {
+        importStudyTree(localStorage.getItem("studyTree"+num));
+        $.notify("Study tree "+num+" loaded", "info")
     }
 }
