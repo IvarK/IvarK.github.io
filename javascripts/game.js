@@ -1150,6 +1150,7 @@ function updateInfCosts() {
     }
 
     if (document.getElementById("timestudies").style.display == "block" && document.getElementById("eternitystore").style.display == "block") {
+        document.getElementById("11").innerHTML = "Tickspeed affects 1st Time Dimension with reduced effect<span>Currently: "+shortenMoney(Decimal.fromMantissaExponent(10 -player.tickspeed.dividedBy(1000).pow(0.005).times(0.95).plus(player.tickspeed.dividedBy(1000).pow(0.0003).times(0.05)).mantissa, Math.abs(player.tickspeed.dividedBy(1000).pow(0.005).times(0.95).plus(player.tickspeed.dividedBy(1000).pow(0.0003).times(0.05)).e)).min("1e2500"))+"x<span>Cost: 1 Time Theorem"
         document.getElementById("32").innerHTML = "You gain x"+Math.max(player.resets, 1)+" more infinitied stat (based on dimension boosts)<p>Cost: 2 Time Theorems"
         document.getElementById("51").innerHTML = "You gain "+shortenCosts(1e15)+"x more IP<span>Cost: 3 Time Theorems"
         document.getElementById("71").innerHTML = "Sacrifice affects all other normal dimensions with reduced effect<span>Currently: "+shortenMoney(calcTotalSacrificeBoost().pow(0.25).max(1).min("1e210000"))+"x<span>Cost: 4 Time Theorems"
@@ -1871,6 +1872,7 @@ function gainedInfinityPoints() {
     if (player.timestudy.studies.includes(143)) ret = ret.times(Decimal.pow(15, Math.log(player.thisInfinityTime+1)*Math.pow(player.thisInfinityTime+1, 0.125)))
     if (player.achievements.includes("r116")) ret = ret.times(Decimal.pow(2, Math.log10(getInfinitied()+1)))
     if (player.achievements.includes("r125")) ret = ret.times(Decimal.pow(2, Math.log(player.thisInfinityTime+1)*Math.pow(player.thisInfinityTime+1, 0.11)))
+    if (player.dilation.upgrades.includes(7)) ret = ret.times(player.dilation.dilatedTime.pow(1000))
     return ret.floor()
 }
 
@@ -4087,7 +4089,7 @@ function unlockDilation() {
 
  const DIL_UPG_COSTS = [null, [1e4, 10], [1e6, 100], [1e7, 20],
                               5e6,        1e9,         5e7,
-                              9e99,        1e10,         1e11]
+                              2e12,        1e10,         1e11]
 
 
 function buyDilationUpgrade(id, costInc) {
@@ -4134,7 +4136,7 @@ function updateDilationUpgradeCosts() {
     document.getElementById("dil4").innerHTML = "Gain twice as many free galaxies.<br>Cost: " + shortenCosts(DIL_UPG_COSTS[4]) + " dilated time"
     document.getElementById("dil5").innerHTML = "Time Dimensions are affected by replicanti multiplier ^ 0.1.<br>Cost: " + shortenCosts(DIL_UPG_COSTS[5]) + " dilated time"
     document.getElementById("dil6").innerHTML = "Normal dimension gain a multiplier based on dilated time, unaffected by time dilation.<br>Cost: " + shortenCosts(DIL_UPG_COSTS[6]) + " dilated time"
-    //dil7
+    document.getElementById("dil7").innerHTML = "Gain a multiplier to IP based on dilated time.<br>Currently: "+shortenMoney(player.dilation.dilatedTime.pow(1000))+"x<br>Cost: " + shortenCosts(DIL_UPG_COSTS[7]) + " dilated time"
     document.getElementById("dil8").innerHTML = "Pick all the study paths from the first split.<br>Cost: " + shortenCosts(DIL_UPG_COSTS[8]) + " dilated time"
     document.getElementById("dil9").innerHTML = "Reduce the dilation penalty. (^ 1.05 after reduction) <br>Cost: " + shortenCosts(DIL_UPG_COSTS[9]) + " dilated time"
 }
