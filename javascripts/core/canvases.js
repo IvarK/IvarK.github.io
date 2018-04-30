@@ -42,8 +42,8 @@ function drawAnimations(ts){
                 particles["particle"+i].goalX = Math.ceil(Math.random() * canvas3.width);
                 particles["particle"+i].goalY = Math.ceil(Math.random() * canvas3.height);
                 particles["particle"+i].direction = Math.ceil(Math.random() * 8);
-                particles["particle"+i].velocityX = Math.ceil((Math.random() - 0.5) * 20)
-                particles["particle"+i].velocityY = Math.ceil((Math.random() - 0.5) * 25)
+                particles["particle"+i].velocityX = Math.ceil((Math.random() - 0.5) * 10)
+                particles["particle"+i].velocityY = Math.ceil((Math.random() - 0.5) * 10)
                 if (particles["particle"+i].velocityX < 0) particles["particle"+i].velocityX -= 5
                 else particles["particle"+i].velocityX += 5
                 if (particles["particle"+i].velocityY < 0) particles["particle"+i].velocityY -= 5
@@ -55,8 +55,8 @@ function drawAnimations(ts){
                 particles["particle"+i].goalX = Math.ceil(Math.random() * canvas3.width);
                 particles["particle"+i].goalY = Math.ceil(Math.random() * canvas3.height);
                 particles["particle"+i].direction = Math.ceil(Math.random() * 8);
-                particles["particle"+i].velocityX = Math.ceil((Math.random() - 0.5) * 20)
-                particles["particle"+i].velocityY = Math.ceil((Math.random() - 0.5) * 20)
+                particles["particle"+i].velocityX = Math.ceil((Math.random() - 0.5) * 10)
+                particles["particle"+i].velocityY = Math.ceil((Math.random() - 0.5) * 10)
                 if (particles["particle"+i].velocityX < 0) particles["particle"+i].velocityX -= 5
                 else particles["particle"+i].velocityX += 5
                 if (particles["particle"+i].velocityY < 0) particles["particle"+i].velocityY -= 5
