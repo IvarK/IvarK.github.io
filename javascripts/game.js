@@ -540,7 +540,7 @@ function updateDimensions() {
         if (player.galaxies >= 100 + ECTimesCompleted("eterc5") * 5 || player.currentEternityChall === "eterc5") galString += "Distant Antimatter Galaxies (";
         else galString += "Antimatter Galaxies (";
         galString += player.galaxies;
-        if (player.replicanti.galaxies > 0) galString += " + "+player.replicanti.galaxies;
+        if (extraGals > 0) galString += " + "+extraGals;
         if (player.dilation.freeGalaxies > 0) galString += " + "+player.dilation.freeGalaxies;
         galString += "): requires " + getGalaxyRequirement()
         if (player.currentChallenge == "challenge4") galString +=  " Sixth Dimensions";
