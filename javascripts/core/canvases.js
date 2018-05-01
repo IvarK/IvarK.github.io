@@ -75,11 +75,15 @@ function drawAnimations(ts){
 function drawTreeBranch(num1, num2) {
     if (document.getElementById("timestudies").style.display === "none") return
     var name1 = parseInt(num1);
-    var isECname = false;
-    if (isNaN(parseInt(num2))) {
+    var isECName = false;
+    var isDilStudyName = false;
+    if (num2.includes("ec")) {
         var a = num2.split("c")[1];
         var name2 = parseInt(a.split("u")[0]);
-        var isECname = true;
+        var isECName = true;
+    } else if (num2.includes("dilstudy")) {
+        var isDilStudyName = true;
+        var name2 = parseInt(num2.split("y")[1]);
     } else {
         var name2 = parseInt(num2)
     }
@@ -91,9 +95,11 @@ function drawTreeBranch(num1, num2) {
     var y2 = end.top + (start.height / 2) + (document.documentElement.scrollTop || document.body.scrollTop);
     ctx.lineWidth=15;
     ctx.beginPath();
-    if ((player.timestudy.studies.includes(name1) && player.timestudy.studies.includes(name2) && !isECname) || (player.timestudy.studies.includes(name1) && player.eternityChallUnlocked === name2)) {
-        if (name2 < 20) {
+    if ((player.timestudy.studies.includes(name1) && player.timestudy.studies.includes(name2) && !isECName) || (player.timestudy.studies.includes(name1) && (player.eternityChallUnlocked === name2 && isECName)) || (player.dilation.studies.includes(name2-1) && (player.dilation.studies.includes(name2) && isDilStudyName))) {
+        if (name2 < 20 && isECName) {
             ctx.strokeStyle="#490066";
+        } else if (name2 < 20) {
+            ctx.strokeStyle="#64DD17";
         } else if (name2 == 71 || name2 == 81 || name2 == 91 || name2 == 101 || name1 == 101) {
             ctx.strokeStyle="#22aa48";
         } else if (name2 == 72 || name2 == 82 || name2 == 92 || name2 == 102 || name1 == 102) {
@@ -220,8 +226,13 @@ function drawStudyTree() {
     drawTreeBranch("232", "ec11unl")
     drawTreeBranch("233", "ec12unl")
     drawTreeBranch("234", "ec12unl")
-    drawTreeBranch("ec11unl", "dilationunlock")
-    drawTreeBranch("ec12unl", "dilationunlock")
+    drawTreeBranch("ec11unl", "dilstudy1")
+    drawTreeBranch("ec12unl", "dilstudy1")
+    drawTreeBranch("dilstudy1", "dilstudy2")
+    drawTreeBranch("dilstudy2", "dilstudy3")
+    drawTreeBranch("dilstudy3", "dilstudy4")
+    drawTreeBranch("dilstudy4", "dilstudy5")
+    drawTreeBranch("dilstudy5", "dilstudy6")
     if (shiftDown && document.getElementById("eternitystore").style.display !== "none" && document.getElementById("timestudies").style.display !== "none") {
         for (i=0; i<all.length; i++) {
             var start = document.getElementById(all[i]).getBoundingClientRect();

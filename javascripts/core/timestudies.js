@@ -88,6 +88,21 @@ function buyTimeStudy(name, cost, check) {
   }
 }
 
+function buyDilationStudy(name, cost) {
+    if (player.timestudy.theorem >= cost && canBuyDilationStudy(name) && !player.dilation.studies.includes(name)) {
+        if (name === 1) {
+            showEternityTab("dilation")
+            document.getElementById("dilstudy1").innerHTML = "Unlock time dilation<span>Cost: 5000 Time Theorems"
+        }
+        player.dilation.studies.push(name)
+        player.timestudy.theorem -= cost
+        document.getElementById("dilstudy"+name).className = "dilationupgbought"
+        updateTheoremButtons()
+        updateTimeStudyButtons()
+        drawStudyTree()
+    }
+  }
+
 function hasRow(row) {
   for (var i=0; i<player.timestudy.studies.length; i++) {
       if (Math.floor(player.timestudy.studies[i]/10) == row) return true
@@ -164,6 +179,13 @@ function canBuyStudy(name) {
       break;
   }
 }
+
+function canBuyDilationStudy(name) {
+    if (name == 1 && ECTimesCompleted("eterc11") >= 5 && ECTimesCompleted("eterc12") >= 5) return true
+    if (player.dilation.studies.includes(name-1) && player.timestudy.theorem >= parseInt(document.getElementById("dilstudy"+name).innerHTML.split("Cost: ")[1].replace(/[, ]+/g, ""))) return true
+    else return false
+}
+
 var all = [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 201, 211, 212, 213, 214, 221, 222, 223, 224, 225, 226, 227, 228, 231, 232, 233, 234]
 var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 400, 730, 300, 900, 120, 150, 200, 120, 900, 900, 900, 900, 900, 900, 900, 900, 500, 500, 500, 500]
 function updateTimeStudyButtons() {
@@ -210,11 +232,11 @@ function updateTimeStudyButtons() {
       }
   }
 
-  if (player.dilation.unlocked) document.getElementById("dilationunlock").className = "dilationupgbought"
-  else if (player.timestudy.theorem < 5000 || 
-      ECTimesCompleted("eterc12") !== 5 ||
-      ECTimesCompleted("eterc11") !== 5) document.getElementById("dilationunlock").className = "dilationupglocked"
-  else document.getElementById("dilationunlock").className = "dilationbtn"
+  for (i=1; i<7; i++) {
+    if (player.dilation.studies.includes(i)) document.getElementById("dilstudy"+i).className = "dilationupgbought"
+    else if (canBuyDilationStudy(i)) document.getElementById("dilstudy"+i).className = "dilationupg"
+    else document.getElementById("dilstudy"+i).className = "timestudylocked"
+  }
 }
 
 function studiesUntil(id) {

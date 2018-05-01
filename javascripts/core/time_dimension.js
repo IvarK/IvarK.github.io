@@ -75,7 +75,7 @@ function getTimeDimensionDescription(tier) {
 
   let description = shortenDimensions(player['timeDimension'+tier].amount);
 
-  if (tier < 4) {
+  if (tier < 8) {
       description += '  (+' + formatValue(player.options.notation, getTimeDimensionRateOfChange(tier), 2, 2) + '%/s)';
   }
 
@@ -87,12 +87,27 @@ function updateTimeDimensions() {
     for (let tier = 1; tier <= 4; ++tier) {
       document.getElementById("timeD"+tier).innerHTML = DISPLAY_NAMES[tier] + " Time Dimension x" + shortenMoney(getTimeDimensionPower(tier));
       document.getElementById("timeAmount"+tier).innerHTML = getTimeDimensionDescription(tier);
-  }
+    }
+    if (player.dilation.studies.includes(2)) {
+      for (let tier = 5; tier <= 8; ++tier) {
+        if (player.dilation.studies.includes(tier-3)) {
+          document.getElementById("timeD"+tier).innerHTML = DISPLAY_NAMES[tier] + " Time Dimension x" + shortenMoney(getTimeDimensionPower(tier));
+          document.getElementById("timeAmount"+tier).innerHTML = getTimeDimensionDescription(tier);
+        }
+      }
+    }
+    for (let tier = 1; tier <= 8; ++tier) {
+      if (player.dilation.studies.includes(tier-3) || tier < 5) {
+        document.getElementById("timeRow"+tier).style.display = "table-row"
+      } else {
+        document.getElementById("timeRow"+tier).style.display = "none"
+      }
+    }
   }
 }
 
-var timeDimCostMults = [null, 3, 9, 27, 81]
-var timeDimStartCosts = [null, 1, 5, 100, 1000]
+var timeDimCostMults = [null, 3, 9, 27, 81, 243, 749, 2187, 6561]
+var timeDimStartCosts = [null, 1, 5, 100, 1000, "1e3000", "1e4000", "1e5000", "1e6000"]
 function buyTimeDimension(tier) {
 
   var dim = player["timeDimension"+tier]
@@ -108,13 +123,16 @@ function buyTimeDimension(tier) {
   if (dim.cost.gte("1e1300")) {
       dim.cost = Decimal.pow(timeDimCostMults[tier]*2.2, dim.bought).times(timeDimStartCosts[tier])
   }
+  if (tier > 4) {
+    dim.cost = Decimal.pow(timeDimCostMults[tier]*100, dim.bought).times(timeDimStartCosts[tier])
+}
   dim.power = dim.power.times(2)
   updateEternityUpgrades()
   return true
 }
 
 function resetTimeDimensions() {
-  for (var i=1; i<5; i++) {
+  for (var i=1; i<9; i++) {
       var dim = player["timeDimension"+i]
       dim.amount = new Decimal(dim.bought)
   }
@@ -122,5 +140,5 @@ function resetTimeDimensions() {
 }
 
 function buyMaxTimeDimensions() {
-  for(var i=1; i<5; i++) while(buyTimeDimension(i)) continue
+  for(var i=1; i<9; i++) while(buyTimeDimension(i)) continue
 }

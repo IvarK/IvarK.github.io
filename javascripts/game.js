@@ -186,6 +186,30 @@ var player = {
         power: new Decimal(1),
         bought: 0
     },
+    timeDimension5: {
+        cost: new Decimal("1e3000"),
+        amount: new Decimal(0),
+        power: new Decimal(1),
+        bought: 0
+    },
+    timeDimension6: {
+        cost: new Decimal("1e4000"),
+        amount: new Decimal(0),
+        power: new Decimal(1),
+        bought: 0
+    },
+    timeDimension7: {
+        cost: new Decimal("1e5000"),
+        amount: new Decimal(0),
+        power: new Decimal(1),
+        bought: 0
+    },
+    timeDimension8: {
+        cost: new Decimal("1e6000"),
+        amount: new Decimal(0),
+        power: new Decimal(1),
+        bought: 0
+    },
     offlineProd: 0,
     offlineProdCost: 1e7,
     challengeTarget: 0,
@@ -228,7 +252,7 @@ var player = {
     dimlife: true,
     dead: true,
     dilation: {
-        unlocked: false,
+        studies: [],
         active: false,
         tachyonParticles: new Decimal(0),
         dilatedTime: new Decimal(0),
@@ -663,7 +687,7 @@ function updateCosts() {
         document.getElementById("infMax"+i).innerHTML = "Cost: " + shortenCosts(player["infinityDimension"+i].cost) + " IP"
     }
 
-    for (var i=1; i<=4; i++) {
+    for (var i=1; i<=8; i++) {
 
         document.getElementById("timeMax"+i).innerHTML = "Cost: " + shortenDimensions(player["timeDimension"+i].cost) + " EP"
     }
@@ -1201,8 +1225,8 @@ function updateInfCosts() {
         document.getElementById("ec11unl").innerHTML = "Eternity Challenge 11<span>Requirement: Use only the Normal Dimension path<span>Cost: 1 Time Theorem"
         document.getElementById("ec12unl").innerHTML = "Eternity Challenge 12<span>Requirement: Use only the Time Dimension path<span>Cost: 1 Time Theorem"
     
-        if (player.dilation.unlocked) document.getElementById("dilationunlock").innerHTML = "Unlock time dilation<span>Cost: 5000 Time Theorems"
-        else document.getElementById("dilationunlock").innerHTML = "Unlock time dilation<span>Requirement: 5 Eternity Challenge 11 and 12 completions<span>Cost: 5000 Time Theorems"
+        if (player.dilation.studies.includes(1)) document.getElementById("dilstudy1").innerHTML = "Unlock time dilation<span>Cost: 5000 Time Theorems"
+        else document.getElementById("dilstudy1").innerHTML = "Unlock time dilation<span>Requirement: 5 Eternity Challenge 11 and 12 completions<span>Cost: 5000 Time Theorems"
     }
 }
 
@@ -1625,6 +1649,10 @@ function galaxyReset() {
         timeDimension2: player.timeDimension2,
         timeDimension3: player.timeDimension3,
         timeDimension4: player.timeDimension4,
+        timeDimension5: player.timeDimension5,
+        timeDimension6: player.timeDimension6,
+        timeDimension7: player.timeDimension7,
+        timeDimension8: player.timeDimension8,
         eternityPoints: player.eternityPoints,
         eternities: player.eternities,
         thisEternity: player.thisEternity,
@@ -2768,6 +2796,10 @@ document.getElementById("bigcrunch").onclick = function () {
         timeDimension2: player.timeDimension2,
         timeDimension3: player.timeDimension3,
         timeDimension4: player.timeDimension4,
+        timeDimension5: player.timeDimension5,
+        timeDimension6: player.timeDimension6,
+        timeDimension7: player.timeDimension7,
+        timeDimension8: player.timeDimension8,
         eternityPoints: player.eternityPoints,
         eternities: player.eternities,
         thisEternity: player.thisEternity,
@@ -3118,6 +3150,10 @@ function eternity(force) {
             timeDimension2: player.timeDimension2,
             timeDimension3: player.timeDimension3,
             timeDimension4: player.timeDimension4,
+            timeDimension5: player.timeDimension5,
+            timeDimension6: player.timeDimension6,
+            timeDimension7: player.timeDimension7,
+            timeDimension8: player.timeDimension8,
             eternityPoints: player.eternityPoints,
             eternities: player.eternities+1,
             thisEternity: 0,
@@ -3160,7 +3196,7 @@ function eternity(force) {
             dimlife: true,
             dead: true,
             dilation: {
-                unlocked: player.dilation.unlocked,
+                studies: player.dilation.studies,
                 active: false,
                 tachyonParticles: player.dilation.tachyonParticles,
                 dilatedTime: player.dilation.dilatedTime,
@@ -3381,6 +3417,10 @@ function startChallenge(name, target) {
       timeDimension2: player.timeDimension2,
       timeDimension3: player.timeDimension3,
       timeDimension4: player.timeDimension4,
+      timeDimension5: player.timeDimension5,
+      timeDimension6: player.timeDimension6,
+      timeDimension7: player.timeDimension7,
+      timeDimension8: player.timeDimension8,
       eternityPoints: player.eternityPoints,
       eternities: player.eternities,
       thisEternity: player.thisEternity,
@@ -3917,6 +3957,10 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
             timeDimension2: player.timeDimension2,
             timeDimension3: player.timeDimension3,
             timeDimension4: player.timeDimension4,
+            timeDimension5: player.timeDimension5,
+            timeDimension6: player.timeDimension6,
+            timeDimension7: player.timeDimension7,
+            timeDimension8: player.timeDimension8,
             eternityPoints: player.eternityPoints,
             eternities: player.eternities+1,
             thisEternity: 0,
@@ -3959,7 +4003,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
             dimlife: true,
             dead: true,
             dilation: {
-                unlocked: player.dilation.unlocked,
+                studies: player.dilation.studies,
                 active: false,
                 tachyonParticles: player.dilation.tachyonParticles,
                 dilatedTime: player.dilation.dilatedTime,
@@ -4052,7 +4096,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
 }
 
 function startDilatedEternity() {
-    if (!player.dilation.unlocked) return
+    if (!player.dilation.studies.includes(1)) return
     if (player.dilation.active) {
         eternity(true)
         return
@@ -4076,12 +4120,11 @@ function startDilatedEternity() {
 }
 
 function unlockDilation() {
-    if (player.dilation.unlocked) return
+    if (player.dilation.studies.includes(1)) return
     if (player.timestudy.theorem < 5000) return
     if (ECTimesCompleted("eterc12") !== 5) return
     if (ECTimesCompleted("eterc11") !== 5) return
     player.timestudy.theorem -= 5000
-    player.dilation.unlocked = true
     document.getElementById("dilationunlock").className = "dilationupgbought"
     updateTimeStudyButtons()
     showEternityTab("dilation")
@@ -4103,7 +4146,8 @@ function unlockDilation() {
 
  const DIL_UPG_COSTS = [null, [1e4, 10], [1e6, 100], [1e7, 20],
                               5e6,        1e9,         5e7,
-                              2e12,        1e10,         1e11]
+                              2e12,        1e10,         1e11,
+                                            1e13]
 
 
 function buyDilationUpgrade(id, costInc) {
@@ -4133,7 +4177,7 @@ function buyDilationUpgrade(id, costInc) {
 }
 
 function updateDilationUpgradeButtons() {
-    for (var i = 1; i <= 9; i++) {
+    for (var i = 1; i <= 10; i++) {
         if (i <= 3) {
             document.getElementById("dil"+i).className = ( new Decimal(DIL_UPG_COSTS[i][0]).times(Decimal.pow(DIL_UPG_COSTS[i][1],(player.dilation.rebuyables[i]))).gt(player.dilation.dilatedTime) ) ? "dilationupgrebuyablelocked" : "dilationupgrebuyable";
         } else if (player.dilation.upgrades.includes(i)) {
@@ -4154,6 +4198,7 @@ function updateDilationUpgradeCosts() {
     document.getElementById("dil7").innerHTML = "Gain a multiplier to IP based on dilated time.<br>Currently: "+shortenMoney(player.dilation.dilatedTime.pow(1000))+"x<br>Cost: " + shortenCosts(DIL_UPG_COSTS[7]) + " dilated time"
     document.getElementById("dil8").innerHTML = "Pick all the study paths from the first split.<br>Cost: " + shortenCosts(DIL_UPG_COSTS[8]) + " dilated time"
     document.getElementById("dil9").innerHTML = "Reduce the dilation penalty. (^ 1.05 after reduction) <br>Cost: " + shortenCosts(DIL_UPG_COSTS[9]) + " dilated time"
+    document.getElementById("dil10").innerHTML = "Generate time theorems every second based on tachyon particles.<br>Currently: "+shortenCosts(Math.floor(player.dilation.tachyonParticles.div(1000)))+"/s<br>Cost: " + shortenCosts(DIL_UPG_COSTS[10]) + " dilated time"
 }
 
 
@@ -4467,7 +4512,12 @@ setInterval(function() {
     if (Math.random() < 0.00001) giveAchievement("Do you feel lucky? Well do ya punk?")
     if ((player.matter.gte(2.586e15) && player.currentChallenge == "postc6") || player.matter.gte(Number.MAX_VALUE)) giveAchievement("It's not called matter dimensions is it?")
 
-    document.getElementById("dilationTabbtn").style.display = (player.dilation.unlocked) ? "inline-block" : "none"
+    if (player.dilation.upgrades.includes(10)) {
+        player.timestudy.theorem += parseInt(player.dilation.tachyonParticles.div(1000).toString())
+        if (document.getElementById("timestudies").style.display != "none" && document.getElementById("eternitystore").style.display != "none") updateTimeStudyButtons()
+    }
+
+    document.getElementById("dilationTabbtn").style.display = (player.dilation.studies.includes(1)) ? "inline-block" : "none"
     updateDilationUpgradeButtons()
 
 }, 1000)
@@ -4606,7 +4656,7 @@ function gameLoop(diff) {
             document.getElementById("idtabbtn").style.display = "inline-block"
         }
 
-        if (tier <4) player["timeDimension"+tier].amount = player["timeDimension"+tier].amount.plus(getTimeDimensionProduction(tier+1).times(diff/100))
+        if (tier <8) player["timeDimension"+tier].amount = player["timeDimension"+tier].amount.plus(getTimeDimensionProduction(tier+1).times(diff/100))
     }
 
     if (player.infinitied > 0 && player.eternities < 1) {
@@ -4810,12 +4860,12 @@ function gameLoop(diff) {
         else document.getElementById("infMax"+tier).className = "unavailablebtn"
     }
 
-    for (var tier = 1; tier < 5; tier++) {
+    for (var tier = 1; tier < 9; tier++) {
         if (player.eternityPoints.gte(player["timeDimension"+tier].cost)) document.getElementById("timeMax"+tier).className = "storebtn"
         else document.getElementById("timeMax"+tier).className = "unavailablebtn"
     }
 
-    if (player.dilation.unlocked) player.dilation.dilatedTime = player.dilation.dilatedTime.plus(player.dilation.tachyonParticles*Math.pow(2, player.dilation.rebuyables[1])*diff/10)
+    if (player.dilation.studies.includes(1)) player.dilation.dilatedTime = player.dilation.dilatedTime.plus(player.dilation.tachyonParticles*Math.pow(2, player.dilation.rebuyables[1])*diff/10)
 
     if (player.dilation.nextThreshold.lte(player.dilation.dilatedTime)) {
         let thresholdMult = 5

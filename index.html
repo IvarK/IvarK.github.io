@@ -295,7 +295,24 @@
                 </table>
                 <table class="table" id="studytable">
                     <tr>
-                        <td><button class="timestudylocked" id="dilationunlock" onclick="unlockDilation()">Unlock time dilation<span>Requirement: 5 Eternity Challenge 11 and 12 completions<span>Cost: 5000 Time Theorems</button></td>
+                        <td><button class="timestudylocked" id="dilstudy1" onclick="buyDilationStudy(1, 5000)">Unlock time dilation<span>Requirement: 5 Eternity Challenge 11 and 12 completions<span>Cost: 5000 Time Theorems</button></td>
+                    </tr>
+                </table>
+                <table class="table" id="studytable">
+                    <tr>
+                        <td><button class="timestudylocked" id="dilstudy2" onclick="buyDilationStudy(2, 200000)">Unlock the 5th Time Dimension<span>Cost: 200,000 Time Theorems</button></td>
+                        <td><button class="timestudylocked" id="dilstudy3" onclick="buyDilationStudy(3, 250000)">Unlock the 6th Time Dimension<span>Cost: 250,000 Time Theorems</button></td>
+                    </tr>
+                </table>
+                <table class="table" id="studytable">
+                    <tr>
+                        <td><button class="timestudylocked" id="dilstudy4" onclick="buyDilationStudy(4, 300000)">Unlock the 7th Time Dimension<span>Cost: 300,000 Time Theorems</button></td>
+                        <td><button class="timestudylocked" id="dilstudy5" onclick="buyDilationStudy(5, 350000)">Unlock the 8th Time Dimension<span>Cost: 350,000 Time Theorems</button></td>
+                    </tr>
+                </table>
+                <table class="table" id="studytable">
+                    <tr>
+                        <td><button class="timestudylocked" id="dilstudy6" onclick="buyDilationStudy(6, 500000)">Unlock reality machines<span>Cost: 500,000 Time Theorems</button></td>
                     </tr>
                 </table>
                 <div style="height: 60px;"></div>
@@ -525,6 +542,17 @@
                         </td>
                         <td>
                             <button class="timestudy" id="dil9" onclick="buyDilationUpgrade(9)">Upgrade</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="timestudybought" style="filter: opacity(0)">Upgrade</button>
+                        </td>
+                        <td>
+                            <button class="timestudy" id="dil10" onclick="buyDilationUpgrade(10)">Upgrade</button>
+                        </td>
+                        <td>
+                            <button class="timestudybought" style="filter: opacity(0)">Upgrade</button>
                         </td>
                     </tr>
                 </table>
@@ -870,6 +898,50 @@
                                 </td>
                                 <td>
                                     <button id="timeMax4" style="color:black; width:195px; height:30px" class="storebtn" onclick="buyTimeDimension(4)">Cost: 10</button>
+                                </td>
+                            </tr>
+                            <tr id="timeRow5" style="font-size: 17px">
+                                <td id="timeD5">
+                                    Fifth Time Dimension x1
+                                </td>
+                                <td>
+                                    <div id="timeAmount5" align="left">0 (0)</div>
+                                </td>
+                                <td>
+                                    <button id="timeMax5" style="color:black; width:195px; height:30px" class="storebtn" onclick="buyTimeDimension(5)">Cost: 10</button>
+                                </td>
+                            </tr>
+                            <tr id="timeRow6" style="font-size: 17px">
+                                <td id="timeD6">
+                                    Sixth Time Dimension x1
+                                </td>
+                                <td>
+                                    <div id="timeAmount6" align="left">0 (0)</div>
+                                </td>
+                                <td>
+                                    <button id="timeMax6" style="color:black; width:195px; height:30px" class="storebtn" onclick="buyTimeDimension(6)">Cost: 10</button>
+                                </td>
+                            </tr>
+                            <tr id="timeRow7" style="font-size: 17px">
+                                <td id="timeD7">
+                                    Seventh Time Dimension x1
+                                </td>
+                                <td>
+                                    <div id="timeAmount7" align="left">0 (0)</div>
+                                </td>
+                                <td>
+                                    <button id="timeMax7" style="color:black; width:195px; height:30px" class="storebtn" onclick="buyTimeDimension(7)">Cost: 10</button>
+                                </td>
+                            </tr>
+                            <tr id="timeRow8" style="font-size: 17px">
+                                <td id="timeD8">
+                                    Eighth Time Dimension x1
+                                </td>
+                                <td>
+                                    <div id="timeAmount8" align="left">0 (0)</div>
+                                </td>
+                                <td>
+                                    <button id="timeMax8" style="color:black; width:195px; height:30px" class="storebtn" onclick="buyTimeDimension(8)">Cost: 10</button>
                                 </td>
                             </tr>
                         </table>

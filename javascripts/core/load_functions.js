@@ -87,7 +87,7 @@ if (player.infinitied > 0 && !player.challenges.includes("challenge1")) player.c
   if (player.dimlife === undefined) player.dimlife = false
   if (player.dead === undefined) player.dead = false
   if (player.dilation === undefined) player.dilation = {}
-  if (player.dilation.unlocked === undefined) player.dilation.unlocked = false
+  if (player.dilation.studies === undefined) player.dilation.studies = []
   if (player.dilation.active === undefined) player.dilation.active = false
   if (player.dilation.tachyonParticles === undefined) player.dilation.tachyonParticles = new Decimal(0)
   if (player.dilation.dilatedTime === undefined) player.dilation.dilatedTime = new Decimal(0)
@@ -96,6 +96,10 @@ if (player.infinitied > 0 && !player.challenges.includes("challenge1")) player.c
   if (player.dilation.freeGalaxies === undefined) player.dilation.freeGalaxies = 0
   if (player.dilation.upgrades === undefined) player.dilation.upgrades = []
   if (player.dilation.rebuyables === undefined) player.dilation.rebuyables =  { 1: 0, 2: 0, 3: 0 }
+  if (player.timeDimension5 === undefined) player.timeDimension5 = {cost: new Decimal("1e3000"), amount: new Decimal(0), power: new Decimal(1), bought: 0 }
+  if (player.timeDimension6 === undefined) player.timeDimension6 = {cost: new Decimal("1e4000"), amount: new Decimal(0), power: new Decimal(1), bought: 0 }
+  if (player.timeDimension7 === undefined) player.timeDimension7 = {cost: new Decimal("1e5000"), amount: new Decimal(0), power: new Decimal(1), bought: 0 }
+  if (player.timeDimension8 === undefined) player.timeDimension8 = {cost: new Decimal("1e6000"), amount: new Decimal(0), power: new Decimal(1), bought: 0 }
   setTheme(player.options.theme);
 
   sliderText.innerHTML = "Update rate: " + player.options.updateRate + "ms";
@@ -379,11 +383,6 @@ if (player.version < 5) {
       document.getElementById("replicantiunlock").style.display="inline-block"
   }
 
-  if (player.version < 7) {
-      player.infMultCost = player.infMultCost.dividedBy(10)
-      player.version = 7
-  }
-
   if (player.currentChallenge == "challenge12" || player.currentChallenge == "challenge9" || player.currentChallenge == "challenge5" ||
       player.currentChallenge == "postc1" || player.currentChallenge == "postc4" || player.currentChallenge == "postc5" || player.currentChallenge == "postc6" || player.currentChallenge == "postc8") document.getElementById("quickReset").style.display = "inline-block";
   else document.getElementById("quickReset").style.display = "none";
@@ -629,14 +628,26 @@ function transformSaveToDecimal() {
   player.timeDimension2.amount = new Decimal(player.timeDimension2.amount)
   player.timeDimension3.amount = new Decimal(player.timeDimension3.amount)
   player.timeDimension4.amount = new Decimal(player.timeDimension4.amount)
+  player.timeDimension5.amount = new Decimal(player.timeDimension5.amount)
+  player.timeDimension6.amount = new Decimal(player.timeDimension6.amount)
+  player.timeDimension7.amount = new Decimal(player.timeDimension7.amount)
+  player.timeDimension8.amount = new Decimal(player.timeDimension8.amount)
   player.timeDimension1.cost = new Decimal(player.timeDimension1.cost)
   player.timeDimension2.cost = new Decimal(player.timeDimension2.cost)
   player.timeDimension3.cost = new Decimal(player.timeDimension3.cost)
   player.timeDimension4.cost = new Decimal(player.timeDimension4.cost)
+  player.timeDimension5.cost = new Decimal(player.timeDimension5.cost)
+  player.timeDimension6.cost = new Decimal(player.timeDimension6.cost)
+  player.timeDimension7.cost = new Decimal(player.timeDimension7.cost)
+  player.timeDimension8.cost = new Decimal(player.timeDimension8.cost)
   player.timeDimension1.power = new Decimal(player.timeDimension1.power)
   player.timeDimension2.power = new Decimal(player.timeDimension2.power)
   player.timeDimension3.power = new Decimal(player.timeDimension3.power)
   player.timeDimension4.power = new Decimal(player.timeDimension4.power)
+  player.timeDimension5.power = new Decimal(player.timeDimension5.power)
+  player.timeDimension6.power = new Decimal(player.timeDimension6.power)
+  player.timeDimension7.power = new Decimal(player.timeDimension7.power)
+  player.timeDimension8.power = new Decimal(player.timeDimension8.power)
   player.timeShards = new Decimal(player.timeShards)
   player.eternityPoints = new Decimal(player.eternityPoints)
   player.tickThreshold = new Decimal(player.tickThreshold)
