@@ -3958,7 +3958,17 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
             eterc8repl: 40,
             dimlife: true,
             dead: true,
-            dilation: player.dilation,
+            dilation: {
+                unlocked: player.dilation.unlocked,
+                active: false,
+                tachyonParticles: player.dilation.tachyonParticles,
+                dilatedTime: player.dilation.dilatedTime,
+                totalTachyonParticles: player.dilation.totalTachyonParticles,
+                nextThreshold: player.dilation.nextThreshold,
+                freeGalaxies: player.dilation.freeGalaxies,
+                upgrades: player.dilation.upgrades,
+                rebuyables: player.dilation.rebuyables
+            },
             options: player.options
         };
 
