@@ -4115,6 +4115,7 @@ function buyDilationUpgrade(id, costInc) {
 
     updateDilationUpgradeCosts()
     updateDilationUpgradeButtons()
+    updateTimeStudyButtons()
 }
 
 function updateDilationUpgradeButtons() {
