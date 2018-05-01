@@ -4147,7 +4147,7 @@ function unlockDilation() {
  const DIL_UPG_COSTS = [null, [1e4, 10], [1e6, 100], [1e7, 20],
                               5e6,        1e9,         5e7,
                               2e12,        1e10,         1e11,
-                                            1e13]
+                                            5e15]
 
 
 function buyDilationUpgrade(id, costInc) {
