@@ -187,25 +187,25 @@ var player = {
         bought: 0
     },
     timeDimension5: {
-        cost: new Decimal("1e3000"),
+        cost: new Decimal("1e2400"),
         amount: new Decimal(0),
         power: new Decimal(1),
         bought: 0
     },
     timeDimension6: {
-        cost: new Decimal("1e4000"),
+        cost: new Decimal("1e2600"),
         amount: new Decimal(0),
         power: new Decimal(1),
         bought: 0
     },
     timeDimension7: {
-        cost: new Decimal("1e5000"),
+        cost: new Decimal("1e2800"),
         amount: new Decimal(0),
         power: new Decimal(1),
         bought: 0
     },
     timeDimension8: {
-        cost: new Decimal("1e6000"),
+        cost: new Decimal("1e3000"),
         amount: new Decimal(0),
         power: new Decimal(1),
         bought: 0
