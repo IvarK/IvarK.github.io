@@ -27,13 +27,13 @@ function DimensionRateOfChange(tier) {
 function updateInfinityDimensions() {
   if (document.getElementById("infinitydimensions").style.display == "block" && document.getElementById("dimensions").style.display == "block") {
     for (let tier = 1; tier <= 8; ++tier) {
-        document.getElementById("infD"+tier).innerHTML = DISPLAY_NAMES[tier] + " Infinity Dimension x" + shortenMoney(DimensionPower(tier));
-        document.getElementById("infAmount"+tier).innerHTML = DimensionDescription(tier);
+        document.getElementById("infD"+tier).textContent = DISPLAY_NAMES[tier] + " Infinity Dimension x" + shortenMoney(DimensionPower(tier));
+        document.getElementById("infAmount"+tier).textContent = DimensionDescription(tier);
         var name = TIER_NAMES[tier];
         if (!player.infDimensionsUnlocked[tier-1]) {
             break;
         }
-  
+
         document.getElementById("infRow"+tier).style.display = "table-row";
         document.getElementById("infRow"+tier).style.visibility = "visible";
     }
@@ -107,7 +107,7 @@ function DimensionPower(tier) {
         mult.e = Math.floor(Math.pow(mult.e, 1.05))
       }
   }
-  
+
   return mult
 }
 
@@ -194,7 +194,7 @@ function buyManyInfinityDimension(tier) {
   dim.baseAmount += 10
 
   if (player.currentEternityChall == "eterc8") player.eterc8ids-=1
-  document.getElementById("eterc8ids").innerHTML = "You have "+player.eterc8ids+" purchases left."
+  document.getElementById("eterc8ids").textContent = "You have "+player.eterc8ids+" purchases left."
   return true
 }
 
@@ -224,10 +224,10 @@ function buyMaxInfDims(tier) {
 function switchAutoInf(tier) {
   if (player.infDimBuyers[tier-1]) {
       player.infDimBuyers[tier-1] = false
-      document.getElementById("infauto"+tier).innerHTML = "Auto: OFF"
+      document.getElementById("infauto"+tier).textContent = "Auto: OFF"
   } else {
       player.infDimBuyers[tier-1] = true
-      document.getElementById("infauto"+tier).innerHTML = "Auto: ON"
+      document.getElementById("infauto"+tier).textContent = "Auto: ON"
   }
 }
 
@@ -235,13 +235,13 @@ function toggleAllInfDims() {
   if (player.infDimBuyers[0]) {
       for (var i=1; i<9; i++) {
           player.infDimBuyers[i-1] = false
-          document.getElementById("infauto"+i).innerHTML = "Auto: OFF"
+          document.getElementById("infauto"+i).textContent = "Auto: OFF"
       }
   } else {
       for (var i=1; i<9; i++) {
           if (player.eternities - 10>=i) {
               player.infDimBuyers[i-1] = true
-              document.getElementById("infauto"+i).innerHTML = "Auto: ON"
+              document.getElementById("infauto"+i).textContent = "Auto: ON"
           }
       }
   }
@@ -249,8 +249,8 @@ function toggleAllInfDims() {
 
 function loadInfAutoBuyers() {
   for (var i=1; i<9; i++) {
-      if (player.infDimBuyers[i-1]) document.getElementById("infauto"+i).innerHTML = "Auto: ON"
-      else document.getElementById("infauto"+i).innerHTML = "Auto: OFF"
+      if (player.infDimBuyers[i-1]) document.getElementById("infauto"+i).textContent = "Auto: ON"
+      else document.getElementById("infauto"+i).textContent = "Auto: OFF"
   }
 }
 

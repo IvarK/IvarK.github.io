@@ -79,7 +79,7 @@ function buyTimeStudy(name, cost, check) {
           document.getElementById(""+name).className = "timestudybought"
       }
       if (name === 131) {
-          document.getElementById("replicantiresettoggle").innerHTML = "Auto galaxy OFF"
+          document.getElementById("replicantiresettoggle").textContent = "Auto galaxy OFF"
           player.replicanti.galaxybuyer = false
       }
       updateTheoremButtons()
@@ -182,7 +182,7 @@ function canBuyStudy(name) {
 
 function canBuyDilationStudy(name) {
     if (name == 1 && ECTimesCompleted("eterc11") >= 5 && ECTimesCompleted("eterc12") >= 5) return true
-    if (player.dilation.studies.includes(name-1) && player.timestudy.theorem >= parseInt(document.getElementById("dilstudy"+name).innerHTML.split("Cost: ")[1].replace(/[, ]+/g, ""))) return true
+    if (player.dilation.studies.includes(name-1) && player.timestudy.theorem >= parseInt(document.getElementById("dilstudy"+name).textContent.split("Cost: ")[1].replace(/[, ]+/g, ""))) return true
     else return false
 }
 

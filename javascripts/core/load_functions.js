@@ -102,7 +102,7 @@ if (player.infinitied > 0 && !player.challenges.includes("challenge1")) player.c
   if (player.timeDimension8 === undefined) player.timeDimension8 = {cost: new Decimal("1e6000"), amount: new Decimal(0), power: new Decimal(1), bought: 0 }
   setTheme(player.options.theme);
 
-  sliderText.innerHTML = "Update rate: " + player.options.updateRate + "ms";
+  sliderText.textContent = "Update rate: " + player.options.updateRate + "ms";
   slider.value = player.options.updateRate;
 
   if (player.secondAmount !== 0) {
@@ -221,7 +221,7 @@ if (player.infinitied > 0 && !player.challenges.includes("challenge1")) player.c
   if (player.seventhAmount !== 0|| player.eternities >= 30)
   if (player.resets > 3 && player.currentChallenge !== "challenge4") document.getElementById("eightRow").style.display = "table-row";
 
-  document.getElementById("totaltickgained").innerHTML = "You've gained "+shortenDimensions(player.totalTickGained)+" tickspeed upgrades."
+  document.getElementById("totaltickgained").textContent = "You've gained "+shortenDimensions(player.totalTickGained)+" tickspeed upgrades."
 
   if (typeof player.autobuyers[9].bulk !== "number") {
       player.autobuyers[9].bulk = 1
@@ -364,9 +364,9 @@ if (player.version < 5) {
   toggleEternityConf()
   toggleCommas()
   toggleCommas()
-  if (!player.replicanti.auto[0]) document.getElementById("replauto1").innerHTML = "Auto: OFF"
-  if (!player.replicanti.auto[1]) document.getElementById("replauto2").innerHTML = "Auto: OFF"
-  if (!player.replicanti.auto[2]) document.getElementById("replauto3").innerHTML = "Auto: OFF"
+  if (!player.replicanti.auto[0]) document.getElementById("replauto1").textContent = "Auto: OFF"
+  if (!player.replicanti.auto[1]) document.getElementById("replauto2").textContent = "Auto: OFF"
+  if (!player.replicanti.auto[2]) document.getElementById("replauto3").textContent = "Auto: OFF"
 
   loadAutoBuyerSettings();
   updateLastTenRuns()
@@ -388,10 +388,10 @@ if (player.version < 5) {
   else document.getElementById("quickReset").style.display = "none";
 
 
-  if (player.break == true) document.getElementById("break").innerHTML = "FIX INFINITY"
+  if (player.break == true) document.getElementById("break").textContent = "FIX INFINITY"
   document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shortenDimensions(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
 
-  document.getElementById("notation").innerHTML = "Notation: " + player.options.notation
+  document.getElementById("notation").textContent = "Notation: " + player.options.notation
 
   if (player.infinitied == 0 && player.eternities == 0) document.getElementById("infinityPoints2").style.display = "none"
 
@@ -495,7 +495,7 @@ if (player.version < 5) {
   // player.version is currently 11
   if (player.options.notation == "Default") {
       player.options.notation = "Brackets";
-      document.getElementById("notation").innerHTML = ("Notation: Brackets")
+      document.getElementById("notation").textContent = ("Notation: Brackets")
   }
 
   toggleCrunchMode()
@@ -507,9 +507,9 @@ if (player.version < 5) {
       document.getElementById("game").style.display = "none";
   }
   if (player.options.challConf) {
-      document.getElementById("challengeconfirmation").innerHTML = "Challenge confirmation OFF"
+      document.getElementById("challengeconfirmation").textContent = "Challenge confirmation OFF"
   } else {
-      document.getElementById("challengeconfirmation").innerHTML = "Challenge confirmation ON"
+      document.getElementById("challengeconfirmation").textContent = "Challenge confirmation ON"
   }
 
   document.getElementById("chartDurationInput").value = player.options.chart.duration;
@@ -519,7 +519,7 @@ if (player.version < 5) {
   if (player.options.chart.dips) document.getElementById("chartDipsOnOff").checked = true
   else document.getElementById("chartDipsOnOff").checked = false
 
-  if (!player.options.hotkeys) document.getElementById("hotkeys").innerHTML = "Enable hotkeys"
+  if (!player.options.hotkeys) document.getElementById("hotkeys").textContent = "Enable hotkeys"
   updateAutobuyers();
   setAchieveTooltip();
   updatePriorities();
@@ -693,10 +693,10 @@ function transformSaveToDecimal() {
 function loadAutoBuyerSettings() {
   for (var i=0; i<9; i++) {
       document.getElementById("priority" + (i+1)).selectedIndex = player.autobuyers[i].priority-1
-      if (i == 8 && player.autobuyers[i].target == 10) document.getElementById("toggleBtnTickSpeed").innerHTML = "Buys max"
-      else if (i == 8 && player.autobuyers[i].target !== 10) document.getElementById("toggleBtnTickSpeed").innerHTML = "Buys singles"
-      else if (player.autobuyers[i].target > 10) document.getElementById("toggleBtn" + (i+1)).innerHTML = "Buys until 10"
-      else document.getElementById("toggleBtn" + (i+1)).innerHTML = "Buys singles"
+      if (i == 8 && player.autobuyers[i].target == 10) document.getElementById("toggleBtnTickSpeed").textContent = "Buys max"
+      else if (i == 8 && player.autobuyers[i].target !== 10) document.getElementById("toggleBtnTickSpeed").textContent = "Buys singles"
+      else if (player.autobuyers[i].target > 10) document.getElementById("toggleBtn" + (i+1)).textContent = "Buys until 10"
+      else document.getElementById("toggleBtn" + (i+1)).textContent = "Buys singles"
 
   }
   document.getElementById("priority10").value = player.autobuyers[9].priority
