@@ -4198,7 +4198,7 @@ function updateDilationUpgradeCosts() {
     document.getElementById("dil7").innerHTML = "Gain a multiplier to IP based on dilated time.<br>Currently: "+shortenMoney(player.dilation.dilatedTime.pow(1000))+"x<br>Cost: " + shortenCosts(DIL_UPG_COSTS[7]) + " dilated time"
     document.getElementById("dil8").innerHTML = "Pick all the study paths from the first split.<br>Cost: " + shortenCosts(DIL_UPG_COSTS[8]) + " dilated time"
     document.getElementById("dil9").innerHTML = "Reduce the dilation penalty. (^ 1.05 after reduction) <br>Cost: " + shortenCosts(DIL_UPG_COSTS[9]) + " dilated time"
-    document.getElementById("dil10").innerHTML = "Generate time theorems every second based on tachyon particles.<br>Currently: "+shortenCosts(Math.floor(player.dilation.tachyonParticles.div(1000)))+"/s<br>Cost: " + shortenCosts(DIL_UPG_COSTS[10]) + " dilated time"
+    document.getElementById("dil10").innerHTML = "Generate time theorems based on tachyon particles.<br>Currently: "+shortenCosts(Math.floor(player.dilation.tachyonParticles.div(1000)))+"/s<br>Cost: " + shortenCosts(DIL_UPG_COSTS[10]) + " dilated time"
 }
 
 
@@ -4511,11 +4511,6 @@ setInterval(function() {
     if (player.tickspeed.lt(1e-55)) giveAchievement("Faster than a squared potato");
     if (Math.random() < 0.00001) giveAchievement("Do you feel lucky? Well do ya punk?")
     if ((player.matter.gte(2.586e15) && player.currentChallenge == "postc6") || player.matter.gte(Number.MAX_VALUE)) giveAchievement("It's not called matter dimensions is it?")
-
-    if (player.dilation.upgrades.includes(10)) {
-        player.timestudy.theorem += parseInt(player.dilation.tachyonParticles.div(1000).toString())
-        if (document.getElementById("timestudies").style.display != "none" && document.getElementById("eternitystore").style.display != "none") updateTimeStudyButtons()
-    }
 
     document.getElementById("dilationTabbtn").style.display = (player.dilation.studies.includes(1)) ? "inline-block" : "none"
     updateDilationUpgradeButtons()
@@ -5188,6 +5183,13 @@ function gameLoop(diff) {
     document.getElementById("sacrifice").textContent = "Dimensional Sacrifice ("+formatValue(player.options.notation, calcSacrificeBoost(), 2, 2)+"x)"
     if (isNaN(player.totalmoney)) player.totalmoney = new Decimal(10)
     if (player.timestudy.studies.includes(181)) player.infinityPoints = player.infinityPoints.plus(gainedInfinityPoints().times(diff/1000))
+    if (player.dilation.upgrades.includes(10)) {
+        player.timestudy.theorem += parseFloat(player.dilation.tachyonParticles.div(1000).times(diff/10).toString())
+        if (document.getElementById("timestudies").style.display != "none" && document.getElementById("eternitystore").style.display != "none") {
+            document.getElementById("timetheorems").innerHTML = "You have <span style='display:inline' class=\"TheoremAmount\">"+player.timestudy.theorem.toFixed(0)+"</span> Time "+ (player.timestudy.theorem == 1 ? "Theorem." : "Theorems.")
+            updateTimeStudyButtons()
+        }
+    }
 
     document.getElementById("infinityPoints1").innerHTML = "You have <span class=\"IPAmount1\">"+shortenDimensions(player.infinityPoints)+"</span> Infinity points."
     document.getElementById("infinityPoints2").innerHTML = "You have <span class=\"IPAmount2\">"+shortenDimensions(player.infinityPoints)+"</span> Infinity points."
