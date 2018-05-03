@@ -4478,7 +4478,7 @@ setInterval(function() {
         document.getElementById("eterc8ids").style.display = "none"
     }
 
-    if (player.currentEternityChall == "eterc12" && player.thisEternity >= 2 * (5 - ECTimesCompleted("eterc12"))) {
+    if (player.currentEternityChall == "eterc12" && player.thisEternity >= 2 * (5 - Math.min(ECTimesCompleted("eterc12"), 4))) {
         document.getElementById("challfail").style.display = "block"
         setTimeout(exitChallenge, 500)
         giveAchievement("You're a mistake")
@@ -4631,7 +4631,8 @@ function gameLoop(diff) {
 
     document.getElementById("dimTabButtons").style.display = "none"
 
-    player.totalTimePlayed += diff
+    if (player.currentEternityChall === "eterc12") player.totalTimePlayed += diff*1000
+    else player.totalTimePlayed += diff
     player.thisInfinityTime += diff
     player.thisEternity += diff
 
