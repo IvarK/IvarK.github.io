@@ -348,8 +348,8 @@ function exportStudyTree() {
 
 function importStudyTree(input) {
   if (typeof input !== 'string') var input = prompt()
+  if (input === "") return false
   var studiesToBuy = input.split("|")[0].split(",");
-  console.log(studiesToBuy)
   for (i=0; i<studiesToBuy.length; i++) {
       document.getElementById(studiesToBuy[i]).click();
   }
