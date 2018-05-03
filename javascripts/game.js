@@ -3230,11 +3230,11 @@ function eternity(force) {
             document.getElementById("tickLabel").style.visibility = "hidden";
             document.getElementById("tickSpeedAmount").style.visibility = "hidden";
             document.getElementById("fourthRow").style.display = "none";
+            document.getElementById("fifthRow").style.display = "none";
+            document.getElementById("sixthRow").style.display = "none";
+            document.getElementById("seventhRow").style.display = "none";
+            document.getElementById("eightRow").style.display = "none";
         }
-        document.getElementById("fifthRow").style.display = "none";
-        document.getElementById("sixthRow").style.display = "none";
-        document.getElementById("seventhRow").style.display = "none";
-        document.getElementById("eightRow").style.display = "none";
         document.getElementById("matter").style.display = "none";
         document.getElementById("quickReset").style.display = "none";
         if (player.infinitied >= 1 && !player.challenges.includes("challenge1")) player.challenges.push("challenge1");
