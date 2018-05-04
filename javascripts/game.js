@@ -2990,7 +2990,6 @@ function eternity(force) {
         if (player.dimlife && !force) giveAchievement("8 nobody got time for that")
         if (player.dead && !force) giveAchievement("You're already dead.")
         if (player.infinitied <= 1 && !force) giveAchievement("Do I really need to infinity")
-        if (player.infinitiedBank > 5000000000) giveAchievement("No ethical consumption");
         temp = []
         player.eternityPoints = player.eternityPoints.plus(gainedEternityPoints())
         addEternityTime(player.thisEternity, gainedEternityPoints())
@@ -3015,6 +3014,7 @@ function eternity(force) {
         }
         if (player.timestudy.studies.includes(191)) player.infinitiedBank += Math.floor(player.infinitied*0.05)
         if (player.achievements.includes("r131")) player.infinitiedBank += Math.floor(player.infinitied*0.05)
+        if (player.infinitiedBank > 5000000000) giveAchievement("No ethical consumption");
         if (player.dilation.active && !force) {
             let tachyonGain = Math.max(Math.pow(Decimal.log10(player.money) / 400, 1.5) * (Math.pow(3, player.dilation.rebuyables[3])) - player.dilation.totalTachyonParticles, 0)
             player.dilation.totalTachyonParticles = player.dilation.totalTachyonParticles.plus(tachyonGain)
