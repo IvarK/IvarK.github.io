@@ -6,6 +6,10 @@ body {
     filter: invert(100%);
 }
 
+.popup {
+    filter: invert(100%);
+}
+
 #theorembuybackground {
     border-color: #fff !important;
     background-color: #1f1f1f !important;

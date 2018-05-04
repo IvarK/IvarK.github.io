@@ -6,6 +6,10 @@ body {
     filter: invert(100%);
 }
 
+.popup {
+    filter: invert(100%);
+}
+
 * {
     border-radius: 0px !important;
 }
