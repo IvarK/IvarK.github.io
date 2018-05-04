@@ -42,14 +42,14 @@
         <div>
             <p>You have <span id="coinAmount" style="font-size:25px; color: black">0</span> antimatter.</p>
         </div>
-        
+
         <div style="position: relative">
             <button id="postInfinityButton" class="postinfcrunch">Big Crunch for x Infinity Points</button>
             <button id="newDimensionButton" class="newdim" onclick="newDimension()">Get x antimatter to unlock a new Dimension.</button>
             <button id="eternitybtn" class="eternitybtn" onclick="eternity()">Other times await.. I need to become Eternal</button>
         </div>
         <div id="coinsPerSec">You are getting 0 antimatter per second.</div>
-        
+
         <tr id="tickSpeedRow" style="visibility: hidden">
             <div id="tickLabel" style="visibility: hidden">Make the game 10% faster.</div>
             <button id="tickSpeed" style="color:black; visibility: hidden; height: 25px;width: 170px; font-size: 12px" class="storebtn">Cost: 1000</button>
@@ -326,7 +326,7 @@
                                     <a href="changelog.html" target="_newtab">Changelog   </a> |
                                     <a href="https://discord.gg/ST9NaXa" target="_newtab">Discord</a> |
                                     <a href="https://www.reddit.com/r/AntimatterDimensions/" target="_newtab">Subreddit</a>      |    <a href="https://ivark.github.io/savefixer/index.html" target="_newtab">Savefixer</a>
-                
+
                                 </div>
                             </td>
                         </tr>
@@ -853,7 +853,7 @@
                         <p id="totaltickgained">You've gained 0 tickspeed upgrades.</p>
                             <p>You have <span id="timeShardAmount" style="font-size:35px; color: black">0</span> time shards. Next tickspeed upgrade at <span id="tickThreshold" style="font-size:35px; color: black">0</span></p>
                         </div>
-                        
+
                         <div id="timeShardsPerSec">You are getting 0 Timeshards per second.</div>
                         <button id="maxTimeDimensions" class="storebtn" style="font-size: 12px" onclick="buyMaxTimeDimensions()">Max all</Button>
                         <table class="table" >
@@ -962,7 +962,7 @@
                 <div id="progressbar"><span id="progresspercent" ach-tooltip="Percentage until Infinity">0%</span></div>
             </div>
             <div id="footercontainer">
-                    
+
                 <table id="footer">
                     <tr>
                         <td>
@@ -972,7 +972,7 @@
                                 <a href="changelog.html" target="_newtab">Changelog   </a> |
                                 <a href="https://discord.gg/ST9NaXa" target="_newtab">Discord</a> |
                                 <a href="https://www.reddit.com/r/AntimatterDimensions/" target="_newtab">Subreddit</a>      |    <a href="https://ivark.github.io/savefixer/index.html" target="_newtab">Savefixer</a>
-            
+
                             </div>
                         </td>
                     </tr>
@@ -988,14 +988,14 @@
                     <td><div><button id="newsbtn" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:120%">Hide/show the news</button></div></td>
                 </tr>
                 <tr>
-                    <td><div><button id="save" class="storebtn" style="color:black; width: 200px; height: 55px; font-size: 20px">Save</button></div></td>
+					<td><div><button id="retry" onclick="toggleChallengeRetry()" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:120%">Automatically retry challenges</button></div></td>
                     <td><div><button id="exportbtn" class="storebtn" style="color:black; width: 200px; height: 55px; font-size: 20px">Export</button></div></td>
                     <td><div><button id="importbtn" class="storebtn" style="color:black; width: 200px; height: 55px; font-size: 20px">Import</button></div></td>
                 </tr>
                 <tr>
                     <td><div><button id="challengeconfirmation" class="storebtn" style="color:black; width: 200px; height: 55px; font-size: 15px">Challenge confirmation ON</button></div></td>
-                    <td><div><button id="retry" onclick="toggleChallengeRetry()" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:120%">Automatically retry challenges</button></div></td>
-                    <td><div><button id="commas" onclick="toggleCommas()" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:120%">Commas on large exponents ON</button></div></td>
+					<td><div><button id="save" class="storebtn" style="color:black; width: 200px; height: 55px; font-size: 20px">Save</button></div></td>
+					<td><div><button id="load" class="storebtn" style="color:black; width: 200px; height: 55px; font-size: 20px">Load</button></div></td>
                 </tr>
                 <tr id="cloudOptions">
                     <td><div><button onclick="playFabSaveCheck()" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:120%">Cloud save</button></div></td>
@@ -1004,21 +1004,21 @@
                 </tr>
                 <tr>
                     <td><div><button id="hotkeys" onclick="toggleHotkeys()" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:120%">Disable hotkeys</button></div></td>
-                    <td><div><button id="reset" class="storebtn" style="color:black; width: 200px; height: 55px; font-size: 20px">RESET THE GAME</button></div></td>
-                    <td><div><button id="eternityconf" onclick="toggleEternityConf()" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:120%; display: none">Eternity confirmation ON</button></div></td>
+					<td><div><button id="reset" class="storebtn" style="color:black; width: 200px; height: 55px; font-size: 20px">RESET THE GAME</button></div></td>
+                    <td><div><button id="commas" onclick="toggleCommas()" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:120%">Commas on large exponents ON</button></div></td>
                 </tr>
                 <tr>
-                    <td><div><button class="storebtn" style="width: 200px; height: 55px; opacity: 0;"></button></div></td>
+					<td><div><button id="eternityconf" onclick="toggleEternityConf()" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:120%; display: none">Eternity confirmation ON</button></div></td>
                     <td><div class="storebtn" style="color:black; width: 198px; height: 55px; font-size:130%; text-align: center;"><b id="updaterate">Update Rate: 50ms</b><input id="updaterateslider" style="width: 170px;" type="range" min="33" max="200" value="50" class="slider" ></div></td>
                     <td><div><button class="storebtn" style="width: 200px; height: 55px; opacity: 0;"></button></div></td>
                 </tr>
                 <tr>
-                    
-                    
+
+
                 </tr>
 
-                
-                
+
+
             </table>
             <div style="display: none;"><textarea id="exportOutput" style="color:black; width: 200px; height: 55px;"></textarea></div>
             <p>Hotkeys: 1-8 for buy 10 dimension, shift+1-8 for buy 1 dimension, T to buy max tickspeed, shift+T to buy one tickspeed, M for max all<br>S for sacrifice, D for dimension boost, G for galaxy, C for crunch, A for toggle autobuyers, R for replicanti galaxies, E for eternity.<br>You can hold shift while buying time studies to buy all up until that point and see each study's number.<br>Hotkeys do not work while holding control.</p>
@@ -1032,7 +1032,7 @@
                                 <a href="changelog.html" target="_newtab">Changelog   </a> |
                                 <a href="https://discord.gg/ST9NaXa" target="_newtab">Discord</a> |
                                 <a href="https://www.reddit.com/r/AntimatterDimensions/" target="_newtab">Subreddit</a>      |    <a href="https://ivark.github.io/savefixer/index.html" target="_newtab">Savefixer</a>
-            
+
                             </div>
                         </td>
                     </tr>
@@ -1135,7 +1135,7 @@
                                 <a href="changelog.html" target="_newtab">Changelog   </a> |
                                 <a href="https://discord.gg/ST9NaXa" target="_newtab">Discord</a> |
                                 <a href="https://www.reddit.com/r/AntimatterDimensions/" target="_newtab">Subreddit</a>      |    <a href="https://ivark.github.io/savefixer/index.html" target="_newtab">Savefixer</a>
-            
+
                             </div>
                         </td>
                     </tr>
@@ -1183,7 +1183,7 @@
                             <div id="To infinity!" class="achievement achievementlocked" style="background-image: url(images/9.png)" ach-tooltip="Reach Infinite antimatter. Reward: Start with 100 antimatter."><br></div>
                         </td>
                         <td>
-                            <div id="Fake News" class="achievement achievementlocked" style="background-image: url(images/25.png)" ach-tooltip="Encounter 50 different news messages."><br></div>                            
+                            <div id="Fake News" class="achievement achievementlocked" style="background-image: url(images/25.png)" ach-tooltip="Encounter 50 different news messages."><br></div>
                         </td>
                         <td>
                             <div id="The 9th Dimension is a lie" class="achievement achievementlocked" style="background-image: url(images/11.png)" ach-tooltip="Have exactly 99 Eighth Dimensions. Reward: Eighth Dimensions are 10% stronger."><br></div>
@@ -1218,7 +1218,7 @@
                             <div id="You didn't need it anyway" class="achievement achievementlocked" style="background-image: url(images/20.png)" ach-tooltip="Reach Infinite antimatter without having any 8th Dimensions. Reward: Dimensions 1-7 are 2% stronger."><br></div>
                         </td>
                         <td>
-                            <div id="Don't you dare to sleep" class="achievement achievementlocked" style="background-image: url(images/10.png)" ach-tooltip="Be offline for over 6 hours in a row."><br></div>                            
+                            <div id="Don't you dare to sleep" class="achievement achievementlocked" style="background-image: url(images/10.png)" ach-tooltip="Be offline for over 6 hours in a row."><br></div>
                         </td>
                         <td>
                             <div id="Claustrophobic" class="achievement achievementlocked" style="background-image: url(images/22.png)" ach-tooltip="Go Infinite with just 1 Antimatter Galaxy. Reward: Reduces starting tick interval by 2%."><br></div>
@@ -1232,7 +1232,7 @@
                     </tr>
                     <tr id="achRow4">
                         <td>
-                            <div id="Spreading Cancer" class="achievement achievementlocked" style="background-image: url(images/46.png)" ach-tooltip="Buy ten Galaxies in total while using cancer notation."><br></div>                            
+                            <div id="Spreading Cancer" class="achievement achievementlocked" style="background-image: url(images/46.png)" ach-tooltip="Buy ten Galaxies in total while using cancer notation."><br></div>
                         </td>
                         <td>
                             <div id="Supersanic" class="achievement achievementlocked" style="background-image: url(images/26.png)" ach-tooltip="Have antimatter/sec exceed your current antimatter above 1 Tg (1e63)."><br></div>
@@ -1325,7 +1325,7 @@
                                 <div id="NEW DIMENSIONS???" class="achievement achievementlocked" style="background-image: url(images/45.png)" ach-tooltip="Unlock the 4th Infinity Dimension. Reward: Your achievement bonus affects Infinity Dimensions."><br></div>
                             </td>
                             <td>
-                                <div id="One for each dimension" class="achievement achievementlocked" style="background-image: url(images/21.png)" ach-tooltip="Play for 8 days. Reward: Extremely small time multiplier."><br></div>                                
+                                <div id="One for each dimension" class="achievement achievementlocked" style="background-image: url(images/21.png)" ach-tooltip="Play for 8 days. Reward: Extremely small time multiplier."><br></div>
                             </td>
                             <td>
                                 <div id="How the antitables have turned" class="achievement achievementlocked" style="background-image: url(images/47.png)" ach-tooltip="Get 8th Dimension multiplier to be highest, 7th Dimension multiplier second highest etc. Reward: Each dimension gains a boost proportional to tier (8th dimension gets 8%, 7th gets 7%, etc.)"><br></div>
@@ -1558,16 +1558,16 @@
                                 <a href="changelog.html" target="_newtab">Changelog   </a> |
                                 <a href="https://discord.gg/ST9NaXa" target="_newtab">Discord</a> |
                                 <a href="https://www.reddit.com/r/AntimatterDimensions/" target="_newtab">Subreddit</a>      |    <a href="https://ivark.github.io/savefixer/index.html" target="_newtab">Savefixer</a>
-            
+
                             </div>
                         </td>
                     </tr>
                 </table>
             </div>
         </div>
-        
 
-        
+
+
         <div id="challenges" class="tab">
             <br>
             <button class="storebtn" style="font-size: 100%; width:200px" onclick="exitChallenge()">Exit Challenge</button><br><br>
@@ -1599,9 +1599,9 @@
                                 <span style="font-size: 110%">Buying anything halts your production, gradually coming back over 3 minutes.</span>
                                 <br>
                                 <br>
-                                
+
                                 <div class="outer">
-                                    
+
                                     <button id="challenge2" class="challengesbtn">Start</button>
                                     <br>
                                     <span>Reward: Second Dimension autobuyer</span>
@@ -1615,9 +1615,9 @@
                                 <span style="font-size: 110%">First dimension is heavily weakened but gets an exponentially increasing bonus that resets on reset.</span>
                                 <br>
                                 <br>
-                                
+
                                 <div class="outer">
-                                    
+
                                     <button id="challenge3" class="challengesbtn">Start</button>
                                     <br>
                                     <span>Reward: Third Dimension autobuyer</span>
@@ -1629,9 +1629,9 @@
                                 <span style="font-size: 110%">Buying a dimension automatically erases all lower tier dimensions, like a sacrifice without the boost.</span>
                                 <br>
                                 <br>
-                                
+
                                 <div class="outer">
-                                
+
                                     <button id="challenge8" class="challengesbtn">Start</button>
                                     <br>
                                     <span>Reward: Fourth Dimension autobuyer</span>
@@ -1645,9 +1645,9 @@
                                 <span style="font-size: 110%">Tickspeed starts at 7%.</span>
                                 <br>
                                 <br>
-                                
+
                                 <div class="outer">
-                                
+
                                     <button id="challenge6" class="challengesbtn">Start</button>
                                     <br>
                                     <span>Reward: Fifth Dimension autobuyer</span>
@@ -1659,9 +1659,9 @@
                                 <span style="font-size: 110%">Each dimension costs the dimension 2 before it, with modified prices</span>
                                 <br>
                                 <br>
-                                
+
                                 <div class="outer">
-                                
+
                                     <button id="challenge10" class="challengesbtn">Start</button>
                                     <br>
                                     <span>Reward: Sixth Dimension autobuyer</span>
@@ -1675,9 +1675,9 @@
                                 <span style="font-size: 110%">Multiplier per 10 dimensions is random from 0.30 and 10</span>
                                 <br>
                                 <br>
-                                
+
                                 <div class="outer">
-                                
+
                                     <button id="challenge9" class="challengesbtn">Start</button>
                                     <br>
                                     <span>Reward: Seventh Dimension autobuyer</span>
@@ -1689,9 +1689,9 @@
                                 <span style="font-size: 110%">Dimension Boost and galaxies are useless, sacrifice resets everything but is immensely more powerful</span>
                                 <br>
                                 <br>
-                                
+
                                 <div class="outer">
-                                    
+
                                     <button id="challenge11" class="challengesbtn">Start</button>
                                     <br>
                                     <span>Reward: Eighth Dimension autobuyer</span>
@@ -1705,9 +1705,9 @@
                                 <span style="font-size: 110%">Whenever you buy 10 of a dimension or tickspeed, everything else of equal cost will increase to its next cost step.</span>
                                 <br>
                                 <br>
-                                
+
                                 <div class="outer">
-                                
+
                                     <button id="challenge5" class="challengesbtn">Start</button>
                                     <br>
                                     <span>Reward: Tickspeed autobuyer</span>
@@ -1719,9 +1719,9 @@
                                 <span style="font-size: 110%">There are only 6 dimensions, with dimension boost and antimatter galaxy costs modified.</span>
                                 <br>
                                 <br>
-                                
+
                                 <div class="outer">
-                                    
+
                                     <button id="challenge4" class="challengesbtn">Start</button>
                                     <br>
                                     <span>Reward: Automated Dimension Boosts</span>
@@ -1735,9 +1735,9 @@
                                 <span style="font-size: 110%">There's normal matter which rises. If it exceeds your antimatter, it will dimension boost without giving the bonus.</span>
                                 <br>
                                 <br>
-                                
+
                                 <div class="outer">
-                                
+
                                     <button id="challenge12" class="challengesbtn">Start</button>
                                     <br>
                                     <span>Reward: Automated Galaxies</span>
@@ -1749,15 +1749,15 @@
                                 <span style="font-size: 110%">Each dimension produces the dimension 2 below it; first dimensions produce reduced antimatter.</span>
                                 <br>
                                 <br>
-                                
+
                                 <div class="outer">
-                                    
+
                                     <button id="challenge7" class="challengesbtn">Start</button>
                                     <br>
                                     <span>Reward: Automated Big Crunches</span>
                                 </div>
                             </div>
-                        </td>  
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -1790,7 +1790,7 @@
                                 </div>
                             </div>
                         </td>
-                        
+
                     </tr>
                     <tr>
                         <td>
@@ -1818,7 +1818,7 @@
                                     <span>Reward: All normal dimension multipliers become multiplier^1.05</span>
                                 </div>
                             </div>
-                        </td>    
+                        </td>
                     </tr>
                     <tr>
                         <td>
@@ -1846,7 +1846,7 @@
                                     <span>Reward: Tickspeed affects Infinity Dimensions with reduced effect</span>
                                 </div>
                             </div>
-                        </td>    
+                        </td>
                     </tr>
                     <tr>
                             <td>
@@ -1874,7 +1874,7 @@
                                         <span>Reward: You get a multiplier to dimensions 2-7 based on 1st and 8th dimension multipliers.</span>
                                     </div>
                                 </div>
-                            </td>    
+                            </td>
                         </tr>
                 </table>
 
@@ -2082,10 +2082,10 @@
                 </tr>
             </table>
         </div>
-       
-    
-       
-        
+
+
+
+
         <div id="infinity" class="tab" align="center" style="display: none">
             <br>
             <div id="infinityPoints1" style="color: black; font-size: 15px; width: 40%; margin: 0 auto">You have made x Infinity points.</div>
@@ -2178,7 +2178,7 @@
                 </table>
             </div>
         </div>
-        
+
         <div id="autobuyers" class="inftab">
             <br>
             <table class="table" style="margin: 0 auto">
@@ -2246,7 +2246,7 @@
                         </td>
                     </tr>
                     <tr>
-                        
+
                     </tr>
                 <tr>
                     <td>
@@ -2471,7 +2471,7 @@
                 <span style="font-size: 80%">Is active</span>
                 <input type="checkbox" onchange="updateAutobuyers()" id="13ison"></input>
             </div>
-            
+
             <div>
                 <table id="footer">
                     <tr>
@@ -2482,7 +2482,7 @@
                                 <a href="changelog.html" target="_newtab">Changelog   </a> |
                                 <a href="https://discord.gg/ST9NaXa" target="_newtab">Discord</a> |
                                 <a href="https://www.reddit.com/r/AntimatterDimensions/" target="_newtab">Subreddit</a>      |    <a href="https://ivark.github.io/savefixer/index.html" target="_newtab">Savefixer</a>
-            
+
                             </div>
                         </td>
                     </tr>
@@ -2537,7 +2537,7 @@
                         <td>
                             <button id="postinfi33" class="infinistorebtn1" onclick="buyInfinityUpgrade('autoBuyerUpgrade',1e15)">Autobuyers work twice as fast <br>Cost: 1 Qa IP</button>
                         </td>
-                        
+
                     </tr>
                     <tr>
                         <td>
@@ -2561,7 +2561,7 @@
                                     <a href="changelog.html" target="_newtab">Changelog   </a> |
                                     <a href="https://discord.gg/ST9NaXa" target="_newtab">Discord</a> |
                                     <a href="https://www.reddit.com/r/AntimatterDimensions/" target="_newtab">Subreddit</a>      |    <a href="https://ivark.github.io/savefixer/index.html" target="_newtab">Savefixer</a>
-                
+
                                 </div>
                             </td>
                         </tr>
@@ -2599,25 +2599,15 @@
                                 <a href="changelog.html" target="_newtab">Changelog   </a> |
                                 <a href="https://discord.gg/ST9NaXa" target="_newtab">Discord</a> |
                                 <a href="https://www.reddit.com/r/AntimatterDimensions/" target="_newtab">Subreddit</a>      |    <a href="https://ivark.github.io/savefixer/index.html" target="_newtab">Savefixer</a>
-            
+
                             </div>
                         </td>
                     </tr>
                 </table>
             </div>
         </div>
-        
+
         </div>
-    </div>
-    <div class="popup" id="loadCloud">
-        <div id="loadPopup">You have a cloud save with 69 infinities. Do you want to download it?</div>
-        <button class="storebtn" style="font-size: 15px" onclick="tooltipLoad()" style="display: inline">Yes</button>
-        <button class="storebtn" style="font-size: 15px" onclick="closeToolTip()" style="display: inline">No</button>
-    </div>
-    <div class="popup" id="saveCloud">
-        <div id="savePopup">You have a cloud save with 69 infinities. Do you want to overwrite it?</div>
-        <button class="storebtn" style="font-size: 15px" onclick="tooltipSave()" style="display: inline">Yes</button>
-        <button class="storebtn" style="font-size: 15px" onclick="closeToolTip()" style="display: inline">No</button>
     </div>
     <div class="popup" id="update">
         <div id="updatePopup">The last test.</div>
@@ -2630,7 +2620,56 @@
     <div class="popup" id="offlineprogress" style="width: 450px; height: 200px;">
         <div id="offlinePopup" style="height: 150px">You made X antimatter and stuff</div>
         <button class="storebtn" style="font-size: 15px" onclick="closeToolTip()" style="display: inline">Okay</button>
-    </div>
+	</div>
+	<div class="popup savemenu" id="loadmenu">
+		<button class="closebtn storebtn" onclick="closeToolTip()">&times;</button>
+		<div id="save1">
+			<strong>Save #1: <span class="save_selected">(selected)</span></strong>
+			<span class="save_antimatter"></span>
+			<button class="storebtn" style="font-size: 15px" onclick="change_save(0)" style="display: inline">Load</button>
+		</div>
+		<div id="save2">
+			<strong>Save #2: <span class="save_selected">(selected)</span></strong>
+			<span class="save_antimatter"></span>
+			<button class="storebtn" style="font-size: 15px" onclick="change_save(1)" style="display: inline">Load</button>
+		</div>
+		<div id="save3">
+			<strong>Save #3: <span class="save_selected">(selected)</span></strong>
+			<span class="save_antimatter"></span>
+			<button class="storebtn" style="font-size: 15px" onclick="change_save(2)" style="display: inline">Load</button>
+		</div>
+	</div>
+	<div class="popup savemenu" id="cloudloadconflict">
+		<strong>Your cloud save appears to be older than your local save. Please select which one you would like to keep.</strong>
+		<div id="local">
+			<strong>Save #<span class="save_id"></span> (local):</strong>
+			<span>Infinities: <span class="save_infinities"></span></span>
+			<span>Eternities: <span class="save_eternities"></span></span>
+			<button class="storebtn" style="font-size: 15px" style="display: inline">Load local</button>
+		</div>
+		<div id="cloud">
+			<strong>Save #<span class="save_id"></span> (cloud):</strong>
+			<span>Infinities: <span class="save_infinities"></span></span>
+			<span>Eternities: <span class="save_eternities"></span></span>
+			<button class="storebtn" style="font-size: 15px" style="display: inline">Load cloud</button>
+		</div>
+	</div>
+	<div class="popup savemenu" id="cloudsaveconflict">
+		<strong>Your local save appears to be older than your cloud save. Would you like to overwrite the cloud save?</strong>
+		<div id="local">
+			<strong>Save #<span class="save_id"></span> (local):</strong>
+			<span>Infinities: <span class="save_infinities"></span></span>
+			<span>Eternities: <span class="save_eternities"></span></span>
+		</div>
+		<div id="cloud">
+			<strong>Save #<span class="save_id"></span> (cloud):</strong>
+			<span>Infinities: <span class="save_infinities"></span></span>
+			<span>Eternities: <span class="save_eternities"></span></span>
+		</div>
+
+		<button class="storebtn yes" style="font-size: 15px" style="display: inline">Yes</button>
+		<button class="storebtn no" style="font-size: 15px" style="display: inline">No</button>
+	</div>
     <div id="TTbuttons" style="display:none;">
         <button class="timetheorembtn" onclick="maxTheorems()" style="margin-left:-266px; width:130px; height: 30px; font-size: 0.75rem; bottom: 77px;">Buy max Theorems</button>
         <button class="timetheorembtn" onclick="studyTreeSaveButton(1)" style="margin-left:166px; width:30px; height: 30px; font-size: 0.75rem; bottom: 77px;">1</button>

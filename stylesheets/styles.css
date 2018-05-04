@@ -33,7 +33,7 @@ button {
 #TTbuttons {
     font-family: Typewriter;
 }
-  
+
 #news {
     color: #000000;
     /*transition: transform 1s;*/
@@ -46,7 +46,7 @@ button {
 }
 
 .challengesbtn {
-    
+
     width:150px;
     height: 30px;
     color: black;
@@ -86,7 +86,7 @@ button {
     left: 0;
     bottom: 5px;
 }
-  
+
 .challengediv {
     display:table;
     text-align:center;
@@ -438,7 +438,7 @@ button {
     position: absolute;
     font-size: 12px;
     width: 150px;
-} 
+}
 
 .EPAmount2 {
     font-weight: bold;
@@ -631,7 +631,7 @@ button {
     position: relative;
     top: 50%;
     left: 40%;
-    
+
 }
 
 .crunchbtn:hover {
@@ -644,9 +644,10 @@ button {
 }
 
 .popup {
-    position: absolute;
-    left: 33%;
-    top: 33%;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translateX(-50%) translateY(-50%);
     border: 3px solid black;
     width: 300px;
     height: 120px;
@@ -659,6 +660,38 @@ button {
     padding: 10px;
     padding-bottom: 15px;
     display: none;
+}
+
+.savemenu {
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 300px;
+}
+
+.savemenu div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 10px;
+}
+
+.savemenu .closebtn {
+	width: 30px;
+	height: 30px;
+	font-size: 1.5rem;
+	line-height: 1.5rem;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+
+.savemenu .storebtn {
+	margin: 5px;
+}
+
+.save_selected {
+	display: none;
 }
 
 #footercontainer {
@@ -950,7 +983,7 @@ button {
     font-size: 0.85rem;
     position: fixed;
     left: 50%;
-    
+
     bottom: 5px;
     z-index: 1;
 }

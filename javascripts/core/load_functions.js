@@ -1,3 +1,10 @@
+var currentSave = 0;
+var saves = {
+  0: null,
+  1: null,
+  2: null
+};
+
 function onLoad() {
   if (player.totalmoney === undefined || isNaN(player.totalmoney)) player.totalmoney = player.money;
   if (player.options === undefined) {
@@ -548,32 +555,78 @@ if (player.version < 5) {
 
 }
 
+function load_cloud_save(saveId, cloudPlayer) {
+  saves[saveId] = cloudPlayer;
 
+  if (window.location.href.split("//")[1].length > 20) set_save('dimensionTestSave', saveId, cloudPlayer);
+  else set_save('dimensionSave', saveId, cloudPlayer);
 
-function loadFromString(string) {
-  var save = LZString.decompressFromEncodedURIComponent(string)
-  console.log("Save length: "+save.length)
-  if (save == "") player = JSON.parse(atob(string))
-  else player = JSON.parse(save)
-  onLoad()
+  if (currentSave == saveId) {
+    load_game();
+    updateChallenges();
+    transformSaveToDecimal();
+  }
+}
+
+function load_game(root) {
+  if (!root) {
+    if (window.location.href.split("//")[1].length > 20) var root = get_save('dimensionTestSave');
+    else var root = get_save('dimensionSave');
+  }
+
+  // Start: Migration for old save format
+  if (root && !root.saves) {
+    var _root = getRootSaveObject();
+    _root.saves[currentSave] = root;
+    root = _root;
+
+    player = root.saves[currentSave];
+    save_game();
+  }
+  // End: Migration
+
+  // If there's no save, insert default root object
+  if (!root) root = getRootSaveObject();
+
+  currentSave = root.current;
+  saves = root.saves;
+
+  if (saves[currentSave]) player = saves[currentSave];
+  onLoad();
 }
 
 
-function load_game() {
-  if (window.location.href.split("//")[1].length > 20) var save_data = get_save('dimensionTestSave');
-  else var save_data = get_save('dimensionSave');
-  if (!save_data) return;
-  player = save_data;
-  onLoad()
+function save_game(changed, silent) {
+  if (window.location.href.split("//")[1].length > 20) set_save('dimensionTestSave', currentSave, player);
+  else set_save('dimensionSave', currentSave, player);
+  if (!silent) $.notify(changed ? "Game loaded" : "Game saved", "info")
 }
 
+function change_save(saveId) {
+  // Save previous save to make sure no changes are lost
+  save_game(false, true);
 
-function save_game() {
-  if (window.location.href.split("//")[1].length > 20) set_save('dimensionTestSave', player);
-  else set_save('dimensionSave', player);
-  $.notify("Game saved", "info")
+  currentSave = saveId;
+
+  saved = 0;
+  totalMult = 1
+  currentMult = 1
+  infinitiedMult = 1
+  achievementMult = 1
+  challengeMult = 1
+  unspentBonus = 1
+  infDimPow = 1
+  postc8Mult = new Decimal(0)
+  mult18 = new Decimal(1)
+  ec10bonus = new Decimal(1)
+  player = saves[saveId] || defaultStart;
+  save_game(true);
+  load_game();
+  updateChallenges()
+  transformSaveToDecimal()
+
+  closeToolTip();
 }
-
 
 function transformSaveToDecimal() {
 
@@ -710,16 +763,22 @@ function loadAutoBuyerSettings() {
 
 }
 
-function set_save(name, value) {
-  localStorage.setItem(name, btoa(JSON.stringify(value, function(k, v) { return (v === Infinity) ? "Infinity" : v; })));
+function set_save(name, saveId, value) {
+	saves[saveId] = value;
+  localStorage.setItem(name, btoa(JSON.stringify(getRootSaveObject(), function(k, v) { return (v === Infinity) ? "Infinity" : v; })));
 }
 
 function get_save(name) {
   try {
-      if (localStorage.getItem("dimensionSave") !== null) {
-          return JSON.parse(atob(localStorage.getItem(name), function(k, v) { return (v === Infinity) ? "Infinity" : v; }));
-      }
-  } catch(e) { console.log("Fuck IE"); }
+    return JSON.parse(atob(localStorage.getItem(name)), function(k, v) { return (v === Infinity) ? "Infinity" : v; });
+  } catch(e) { console.log("Fuck IE", e); }
+}
+
+function getRootSaveObject() {
+  return {
+    current: currentSave,
+    saves: saves
+  };
 }
 
 setTimeout(onLoad, 100)

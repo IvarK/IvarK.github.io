@@ -1786,6 +1786,23 @@ document.getElementById("save").onclick = function () {
     save_game();
 };
 
+document.getElementById("load").onclick = function () {
+	for (var i = 0; i < 3; i++) {
+		var _break = player.break;
+		player.break = true;
+		document.querySelector("#save" + (i + 1) + " .save_antimatter").textContent = "Antimatter: " + shortenMoney(saves[i] ? new Decimal(saves[i].money) : 10);
+		player.break = _break;
+	}
+
+	document.querySelectorAll(".save_selected").forEach(function(el) {
+		el.style.display = "none";
+	});
+
+	document.querySelector("#save" + (currentSave + 1) + " .save_selected").style.display = "inline";
+
+    document.getElementById("loadmenu").style.display = "flex";
+};
+
 function verify_save(obj) {
     if (typeof obj != 'object') return false;
 
@@ -1794,7 +1811,7 @@ function verify_save(obj) {
 }
 
 document.getElementById("importbtn").onclick = function () {
-    var save_data = prompt("Input your save.");
+    var save_data = prompt("Input your save. (your current save file will be overwritten!)");
     if (save_data.constructor !== String) save_data = "";
     if (sha512_256(save_data.replace(/\s/g, '').toUpperCase()) === "80b7fdc794f5dfc944da6a445a3f21a2d0f7c974d044f2ea25713037e96af9e3") {
         document.getElementById("body").style.animation = "barrelRoll 5s 1";
@@ -1824,7 +1841,8 @@ document.getElementById("importbtn").onclick = function () {
             alert('could not load the save..');
             load_custom_game();
             return;
-        }
+		}
+
         saved = 0;
         totalMult = 1
         currentMult = 1
@@ -1849,8 +1867,8 @@ document.getElementById("importbtn").onclick = function () {
 
 document.getElementById("reset").onclick = function () {
     if (confirm("Do you really want to erase all your progress?")) {
-        if (window.location.href.split("//")[1].length > 20) set_save('dimensionSave', defaultStart);
-        else set_save('dimensionTestSave', defaultStart);
+        if (window.location.href.split("//")[1].length > 20) set_save('dimensionTestSave', currentSave, defaultStart);
+        else set_save('dimensionSave', currentSave, defaultStart);
         player = defaultStart
         infDimPow = 1;
         save_game();
