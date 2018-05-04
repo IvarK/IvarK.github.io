@@ -5948,7 +5948,7 @@ window.addEventListener('keydown', function(event) {
         document.getElementById("studytreeloadsavetext").textContent = "save:"
         drawStudyTree()
     }
-    if ((controlDown && shiftDown && event.keyCode == 74) || event.keyCode == 123) {
+    if ((controlDown && shiftDown && (event.keyCode == 67 || event.keyCode == 73 || event.keyCode == 74)) || event.keyCode == 123) {
         giveAchievement("Stop right there criminal scum!")
     }
 }, false);
