@@ -1274,6 +1274,44 @@ button {
     background: white;
 }
 
+.glyph {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height: 50px !important;
+    width: 50px !important;
+    background: black;
+    font-size: 1.5rem;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    font-family: Typewriter;
+}
+
+.glyph:hover {
+    background: white;
+}
+
+.glyph.normalglyph {
+    color: #22aa48;
+    border: 1px solid #22aa48;
+    box-shadow: inset #22aa48 0px 0px 10px 2px, #22aa48 0px 0px 10px 2px;
+    text-shadow: #22aa48 -1px 1px 2px;
+}
+
+.infinityglyph {
+    color: #B67F33;
+    border: 1px solid #B67F33;
+    box-shadow: inset #B67F33 0px 0px 10px 2px, #B67F33 0px 0px 10px 2px;
+    text-shadow: #B67F33 -1px 1px 2px;
+}
+
+.timeglyph {
+    color: #B241E3;
+    border: 1px solid #B241E3;
+    box-shadow: inset #B241E3 0px 0px 10px 2px, #B241E3 0px 0px 10px 2px;
+    text-shadow: #B241E3 -1px 1px 2px;
+}
+
 @keyframes glow {
     20% { text-shadow: 0 0 10px green; }
     100% { text-shadow: 0 0 10px white; }
