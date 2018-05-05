@@ -5965,6 +5965,8 @@ window.addEventListener('keyup', function(event) {
 window.onfocus = function() {
     controlDown = false;
     shiftDown = false;
+    document.getElementById("studytreeloadsavetext").textContent = "load:"
+    drawStudyTree()
 }
 
 window.addEventListener('keydown', function(event) {
