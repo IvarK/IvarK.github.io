@@ -5295,6 +5295,7 @@ var sliderText = document.getElementById("updaterate");
 slider.oninput = function() {
     player.options.updateRate = parseInt(this.value);
     sliderText.textContent = "Update rate: " + this.value + "ms"
+    if (player.options.updateRate === 200) giveAchievement("You should download some more RAM")
     clearInterval(gameLoopIntervalId);
     gameLoopIntervalId = setInterval(gameLoop, player.options.updateRate);
 }
