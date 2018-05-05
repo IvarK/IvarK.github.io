@@ -1789,8 +1789,9 @@ document.getElementById("save").onclick = function () {
 document.getElementById("load").onclick = function () {
 	for (var i = 0; i < 3; i++) {
 		var _break = player.break;
-		player.break = true;
-		document.querySelector("#save" + (i + 1) + " .save_antimatter").textContent = "Antimatter: " + shortenMoney(saves[i] ? new Decimal(saves[i].money) : 10);
+        player.break = true;
+        if (currentSave === i) document.querySelector("#save" + (i + 1) + " .save_antimatter").textContent = "Antimatter: " + shortenMoney(player.money);
+        else document.querySelector("#save" + (i + 1) + " .save_antimatter").textContent = "Antimatter: " + shortenMoney(saves[i] ? new Decimal(saves[i].money) : 10);
 		player.break = _break;
 	}
 
