@@ -1178,7 +1178,7 @@ function updateInfCosts() {
     }
 
     if (document.getElementById("timestudies").style.display == "block" && document.getElementById("eternitystore").style.display == "block") {
-        document.getElementById("11").innerHTML = "Tickspeed affects 1st Time Dimension with reduced effect<span>Currently: "+shortenMoney(Decimal.fromMantissaExponent(10 -player.tickspeed.dividedBy(1000).pow(0.005).times(0.95).plus(player.tickspeed.dividedBy(1000).pow(0.0003).times(0.05)).mantissa, Math.abs(player.tickspeed.dividedBy(1000).pow(0.005).times(0.95).plus(player.tickspeed.dividedBy(1000).pow(0.0003).times(0.05)).e)).min("1e2500"))+"x<span>Cost: 1 Time Theorem"
+        document.getElementById("11").innerHTML = "Tickspeed affects 1st Time Dimension with reduced effect<span>Currently: "+shortenMoney(Decimal.fromMantissaExponent(10 -player.tickspeed.dividedBy(1000).pow(0.005).times(0.95).plus(player.tickspeed.dividedBy(1000).pow(0.0003).times(0.05)).mantissa, Math.abs(player.tickspeed.dividedBy(1000).pow(0.005).times(0.95).plus(player.tickspeed.dividedBy(1000).pow(0.0003).times(0.05)).e)).min("1e2500").max(1))+"x<span>Cost: 1 Time Theorem"
         document.getElementById("32").innerHTML = "You gain x"+Math.max(player.resets, 1)+" more infinitied stat (based on dimension boosts)<p>Cost: 2 Time Theorems"
         document.getElementById("51").innerHTML = "You gain "+shortenCosts(1e15)+"x more IP<span>Cost: 3 Time Theorems"
         document.getElementById("71").innerHTML = "Sacrifice affects all other normal dimensions with reduced effect<span>Currently: "+shortenMoney(calcTotalSacrificeBoost().pow(0.25).max(1).min("1e210000"))+"x<span>Cost: 4 Time Theorems"
