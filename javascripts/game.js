@@ -4706,7 +4706,10 @@ function gameLoop(diff) {
     if (player.eternities == 0) {
         document.getElementById("eternityPoints2").style.display = "none"
         document.getElementById("eternitystorebtn").style.display = "none"
-        }
+    }
+    else {
+        document.getElementById("eternityPoints2").style.display = "inline-block"
+    }
 
 
     if (player.money.gte(Number.MAX_VALUE) && (!player.break || (player.currentChallenge != "" && player.money.gte(player.challengeTarget)))) {
