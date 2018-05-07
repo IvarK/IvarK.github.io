@@ -435,7 +435,7 @@ input {
     background: #949ea8 !important;
 }
 
-.timestudylocked:hover {
+.timestudylocked:hover, .eternitychallengestudylocked:hover {
     background: #E53935 !important;
 }
 
