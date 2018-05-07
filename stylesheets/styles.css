@@ -1025,8 +1025,8 @@ button {
     position: fixed;
     bottom: 80px;
     left: 50%;
-    margin-left: -114px;
     font-size: 15px;
+    transform: translateX(-50%);
 }
 
 #studytreeloadsavetext {
@@ -1034,18 +1034,18 @@ button {
     position: fixed;
     bottom: 82px;
     left: 50%;
-    margin-left: 135px;
+    margin-left: 160px;
     font-size: 10px;
 }
 
 #theorembuybackground {
     background: #E0E0E0;
-    width: 550px;
+    width: 600px;
     height: 110px;
     position: fixed;
     bottom: 0;
     left: 50%;
-    margin-left: -277px;
+    margin-left: -302px;
     border: 2px solid black;
     border-bottom: none;
     border-top-left-radius: 7px;
