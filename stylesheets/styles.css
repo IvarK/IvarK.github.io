@@ -1034,18 +1034,18 @@ button {
     position: fixed;
     bottom: 82px;
     left: 50%;
-    margin-left: 160px;
+    margin-left: 145px;
     font-size: 10px;
 }
 
 #theorembuybackground {
     background: #E0E0E0;
-    width: 600px;
+    width: 570px;
     height: 110px;
     position: fixed;
     bottom: 0;
     left: 50%;
-    margin-left: -302px;
+    margin-left: -287px;
     border: 2px solid black;
     border-bottom: none;
     border-top-left-radius: 7px;
