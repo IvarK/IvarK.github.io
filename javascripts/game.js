@@ -2374,7 +2374,7 @@ function priorityOrder() {
 
 function fromValue(value) {
   value = value.replace(/,/g, '')
-  if (value.toUpperCase().split("E").length > 2) {
+  if (value.toUpperCase().split("E").length > 2 && value.split(" ")[0] !== value) {
       var temp = new Decimal(0)
       temp.mantissa = parseFloat(value.toUpperCase().split("E")[0])
       temp.exponent = parseFloat(value.toUpperCase().split("E")[1]+"e"+value.toUpperCase().split("E")[2])
