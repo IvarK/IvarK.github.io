@@ -526,6 +526,20 @@ if (player.version < 5) {
   if (player.options.chart.dips) document.getElementById("chartDipsOnOff").checked = true
   else document.getElementById("chartDipsOnOff").checked = false
 
+  if (player.eternities < 30) {
+    document.getElementById("secondRow").style.display = "none";
+    document.getElementById("thirdRow").style.display = "none";
+    document.getElementById("tickSpeed").style.visibility = "hidden";
+    document.getElementById("tickSpeedMax").style.visibility = "hidden";
+    document.getElementById("tickLabel").style.visibility = "hidden";
+    document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+    document.getElementById("fourthRow").style.display = "none";
+    document.getElementById("fifthRow").style.display = "none";
+    document.getElementById("sixthRow").style.display = "none";
+    document.getElementById("seventhRow").style.display = "none";
+    document.getElementById("eightRow").style.display = "none";
+}
+
   if (!player.options.hotkeys) document.getElementById("hotkeys").textContent = "Enable hotkeys"
   updateAutobuyers();
   setAchieveTooltip();
