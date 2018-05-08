@@ -19,7 +19,6 @@ button {
     padding: 1px 6px;
 }
 
-
 #game {
     border: 2px solid black;
     border-radius: 4px;
@@ -1769,3 +1768,9 @@ screen and (max-width: 480px) {
     50% {transform: rotateZ(360deg);}
     100% {transform: rotateZ(360deg);}
 }
+
+@keyframes spin3d {
+    0%  {transform: rotate3d(5.2, -2.8, 1.4, 0deg);}
+    100% {transform: rotate3d(5.2, -2.8, 1.4, 360deg);}
+}
+
