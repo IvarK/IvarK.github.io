@@ -638,6 +638,7 @@ function change_save(saveId) {
   load_game();
   updateChallenges()
   transformSaveToDecimal()
+  showDimTab('antimatterdimensions')
 
   closeToolTip();
 }
