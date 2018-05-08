@@ -1752,6 +1752,7 @@ function galaxyReset() {
     if (player.achievements.includes("r78")) player.money = new Decimal(1e25).max(player.money);
     player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
     if (player.achievements.includes("r66")) player.tickspeed = player.tickspeed.times(0.98);
+    if (player.galaxies >= 540 && player.replicanti.galaxies == 0) giveAchievement("Unique snowflakes")
     updateTickSpeed();
 };
 
@@ -1962,6 +1963,7 @@ function setAchieveTooltip() {
     let layer = document.getElementById("But I wanted another prestige layer...")
     let fkoff = document.getElementById("What do I have to do to get rid of you")
     let minaj = document.getElementById("Popular music")
+    let infstuff = document.getElementById("I never liked infinity stuff anyway")
 
     apocAchieve.setAttribute('ach-tooltip', "Get over " + formatValue(player.options.notation, 1e80, 0, 0) + " antimatter.");
     noPointAchieve.setAttribute('ach-tooltip', "Buy a single First Dimension when you have over " + formatValue(player.options.notation, 1e150, 0, 0) + " of them. Reward: First Dimensions are 10% stronger.");
@@ -1986,6 +1988,7 @@ function setAchieveTooltip() {
     layer.setAttribute('ach-tooltip', "Get "+shortenMoney(Number.MAX_VALUE)+" EP.")
     fkoff.setAttribute('ach-tooltip', "Gain "+shortenCosts(new Decimal("1e22000"))+" IP without any time studies. Reward: Time dimensions are multiplied by the number of studies you have.")
     minaj.setAttribute('ach-tooltip', "Have 180 times more replicanti galaxies than normal galaxies. Reward: Replicanti galaxies divide your replicanti by "+shortenMoney(Number.MAX_VALUE)+" instead of resetting them to 1.")
+    infstuff.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal(1e140,000))+" IP without buying IDs or IP multipliers.")
 }
 
 document.getElementById("notation").onclick = function () {
@@ -4533,6 +4536,19 @@ setInterval(function() {
 
     document.getElementById("dilationTabbtn").style.display = (player.dilation.studies.includes(1)) ? "inline-block" : "none"
     updateDilationUpgradeButtons()
+
+    if (player.infinityDimension1.baseAmount == 0 &&
+        player.infinityDimension2.baseAmount == 0 &&
+        player.infinityDimension3.baseAmount == 0 &&
+        player.infinityDimension4.baseAmount == 0 &&
+        player.infinityDimension5.baseAmount == 0 &&
+        player.infinityDimension6.baseAmount == 0 &&
+        player.infinityDimension7.baseAmount == 0 &&
+        player.infinityDimension8.baseAmount == 0 &&
+        player.infMultCost.equals(10) &&
+        player.infinityPoints.gt(new Decimal("1e140000"))) {
+        giveAchievement("I never liked infinity stuff anyway")
+    }
 
 }, 1000)
 
