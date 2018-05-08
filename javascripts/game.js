@@ -1946,6 +1946,7 @@ function setAchieveTooltip() {
     var forgotAchieve = document.getElementById("I forgot to nerf that")
     var potato = document.getElementById("Faster than a potato")
     let potato2 = document.getElementById("Faster than a squared potato")
+    let potato3 = document.getElementById("Faster than a potato^345678")
     var dimensional = document.getElementById("Multidimensional")
     var IPBelongs = document.getElementById("All your IP are belong to us")
     var reference = document.getElementById("Yet another infinity reference")
@@ -1964,6 +1965,7 @@ function setAchieveTooltip() {
     let fkoff = document.getElementById("What do I have to do to get rid of you")
     let minaj = document.getElementById("Popular music")
     let infstuff = document.getElementById("I never liked infinity stuff anyway")
+    let when = document.getElementById("When is enough?")
 
     apocAchieve.setAttribute('ach-tooltip', "Get over " + formatValue(player.options.notation, 1e80, 0, 0) + " antimatter.");
     noPointAchieve.setAttribute('ach-tooltip', "Buy a single First Dimension when you have over " + formatValue(player.options.notation, 1e150, 0, 0) + " of them. Reward: First Dimensions are 10% stronger.");
@@ -1971,6 +1973,7 @@ function setAchieveTooltip() {
     sanic.setAttribute('ach-tooltip', "Have antimatter/sec exceed your current antimatter above " + formatValue(player.options.notation, 1e63, 0, 0));
     potato.setAttribute('ach-tooltip', "Get more than " + formatValue(player.options.notation, 1e29, 0, 0) + " ticks per second. Reward: Reduces starting tick interval by 2%.");
     potato2.setAttribute('ach-tooltip', "Get more than " + formatValue(player.options.notation, 1e58, 0, 0) + " ticks per second. Reward: Reduces starting tick interval by 2%.");
+    potato3.setAttribute('ach-tooltip', "Get over "+shortenCosts(new Decimal("1e8296272"))+" ticks per second")
     dimensional.setAttribute('ach-tooltip', "Reach " + formatValue(player.options.notation, 1e12, 0, 0) + " of all dimensions except 8th.");
     IPBelongs.setAttribute('ach-tooltip', "Big Crunch for "+shortenCosts(1e150)+" IP. Reward: Additional 4x multiplier to IP.")
     reference.setAttribute('ach-tooltip', "Get a x"+shortenDimensions(Number.MAX_VALUE)+" multiplier in a single sacrifice. Reward: Sacrifices are stronger.")
@@ -1988,7 +1991,8 @@ function setAchieveTooltip() {
     layer.setAttribute('ach-tooltip', "Get "+shortenMoney(Number.MAX_VALUE)+" EP.")
     fkoff.setAttribute('ach-tooltip', "Gain "+shortenCosts(new Decimal("1e22000"))+" IP without any time studies. Reward: Time dimensions are multiplied by the number of studies you have.")
     minaj.setAttribute('ach-tooltip', "Have 180 times more replicanti galaxies than normal galaxies. Reward: Replicanti galaxies divide your replicanti by "+shortenMoney(Number.MAX_VALUE)+" instead of resetting them to 1.")
-    infstuff.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal(1e140,000))+" IP without buying IDs or IP multipliers.")
+    infstuff.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal("1e140000"))+" IP without buying IDs or IP multipliers.")
+    when.setAttribute('ach-tooltip', "Get "+ shortenCosts( new Decimal("1e20000") ) +" replicanti")
 }
 
 document.getElementById("notation").onclick = function () {
@@ -4124,6 +4128,7 @@ function startDilatedEternity() {
         return
     }
     if (!confirm("You will start an eternity with all of your Dimension/Infinity Dimension/Time Dimension multiplier's exponents and tickspeed multiplier's exponent reduced to ^ 0.75. If you can eternity while dilated, you'll be rewarded with tachyon particles based on your antimatter and tachyon particles.")) return
+    giveAchievement("I told you already, time is relative")
     eternity(true)
     player.dilation.active = true;
     var totalMult = 1
@@ -4550,6 +4555,9 @@ setInterval(function() {
         giveAchievement("I never liked infinity stuff anyway")
     }
 
+    if (player.replicanti.amount.gt(new Decimal("1e20000"))) giveAchievement("When is enough?")
+    if (player.tickspeed.e < -8296272) giveAchievement("Faster than a potato^345678")
+
 }, 1000)
 
 function fact(v) {
@@ -4902,10 +4910,10 @@ function gameLoop(diff) {
     if (player.dilation.studies.includes(1)) player.dilation.dilatedTime = player.dilation.dilatedTime.plus(player.dilation.tachyonParticles*Math.pow(2, player.dilation.rebuyables[1])*diff/10)
 
     if (player.dilation.nextThreshold.lte(player.dilation.dilatedTime)) {
-        let thresholdMult = 5
-        for (var i = 0; i < player.dilation.rebuyables[2]; i++) {
-            thresholdMult *= Math.min( 1 - (Math.pow(0.8, i) / 10), 0.999)
-        }
+        let thresholdMult = 5 * Math.pow(0.875, player.dilation.rebuyables[2])
+        // for (var i = 0; i < player.dilation.rebuyables[2]; i++) {
+        //     thresholdMult *= Math.min( 1 - (Math.pow(0.8, i) / 10), 0.999)
+        // }
         player.dilation.nextThreshold = player.dilation.nextThreshold.times(thresholdMult)
         player.dilation.freeGalaxies += 1
         if (player.dilation.upgrades.includes(4)) player.dilation.freeGalaxies += 1
