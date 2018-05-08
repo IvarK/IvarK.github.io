@@ -1021,7 +1021,7 @@
 
             </table>
             <div style="display: none;"><textarea id="exportOutput" style="color:black; width: 200px; height: 55px;"></textarea></div>
-            <p>Hotkeys: 1-8 for buy 10 dimension, shift+1-8 for buy 1 dimension, T to buy max tickspeed, shift+T to buy one tickspeed, M for max all<br>S for sacrifice, D for dimension boost, G for galaxy, C for crunch, A for toggle autobuyers, R for replicanti galaxies, E for eternity.<br>You can hold shift while buying time studies to buy all up until that point and see each study's number.<br>Hotkeys do not work while holding control.</p>
+            <p>Hotkeys: 1-8 for buy 10 dimension, shift+1-8 for buy 1 dimension, T to buy max tickspeed, shift+T to buy one tickspeed, M for max all<br>S for sacrifice, D for dimension boost, G for galaxy, C for crunch, A for toggle autobuyers, R for replicanti galaxies, E for eternity.<br>You can hold shift while buying time studies to buy all up until that, point see each study's number, and save study trees.<br>Hotkeys do not work while holding control.</p>
             <div id="footercontainer">
                 <table id="footer">
                     <tr>
@@ -2697,13 +2697,13 @@
 		<button class="storebtn no" style="font-size: 15px" style="display: inline">No</button>
 	</div>
     <div id="TTbuttons" style="display:none;">
-        <button class="timetheorembtn" onclick="maxTheorems()" style="margin-left:-266px; width:130px; height: 30px; font-size: 0.75rem; bottom: 77px;">Buy max Theorems</button>
-        <button class="timetheorembtn" onclick="studyTreeSaveButton(1)" style="margin-left:166px; width:30px; height: 30px; font-size: 0.75rem; bottom: 77px;">1</button>
-        <button class="timetheorembtn" onclick="studyTreeSaveButton(2)" style="margin-left:201px; width:30px; height: 30px; font-size: 0.75rem; bottom: 77px;">2</button>
-        <button class="timetheorembtn" onclick="studyTreeSaveButton(3)" style="margin-left:236px; width:30px; height: 30px; font-size: 0.75rem; bottom: 77px;">3</button>
-        <button class="timetheorembtn" onclick="buyWithAntimatter()" id="theoremam" style="margin-left: -266px">Buy Time Theorems <br>Cost: 1e20000 antimatter</button>
+        <button class="timetheorembtn" onclick="maxTheorems()" style="margin-left:-276px; width:130px; height: 30px; font-size: 0.75rem; bottom: 77px;">Buy max Theorems</button>
+        <button class="timetheorembtn" onclick="studyTreeSaveButton(1)" style="margin-left:176px; width:30px; height: 30px; font-size: 0.75rem; bottom: 77px;">1</button>
+        <button class="timetheorembtn" onclick="studyTreeSaveButton(2)" style="margin-left:211px; width:30px; height: 30px; font-size: 0.75rem; bottom: 77px;">2</button>
+        <button class="timetheorembtn" onclick="studyTreeSaveButton(3)" style="margin-left:246px; width:30px; height: 30px; font-size: 0.75rem; bottom: 77px;">3</button>
+        <button class="timetheorembtn" onclick="buyWithAntimatter()" id="theoremam" style="margin-left: -276px">Buy Time Theorems <br>Cost: 1e20000 antimatter</button>
         <button class="timetheorembtn" onclick="buyWithIP()" id="theoremip" style="margin-left: -86px">Buy Time Theorems <br>Cost: 1 IP</button>
-        <button class="timetheorembtnlocked" onclick="buyWithEP()" id="theoremep" style="margin-left: 96px">Buy Time Theorems <br>Cost: 1 EP</button>
+        <button class="timetheorembtnlocked" onclick="buyWithEP()" id="theoremep" style="margin-left: 106px">Buy Time Theorems <br>Cost: 1 EP</button>
         <div id="theorembuybackground"></div>
         <p id="timetheorems" style="position: fixed;">You have 0 Time Theorems.</p>
         <p id="studytreeloadsavetext" style="position: fixed;">load:</p>
@@ -2731,6 +2731,7 @@
 <script type="text/javascript" src="javascripts/core/dimboost.js"></script>
 <script type="text/javascript" src="javascripts/core/timestudies.js"></script>
 <script type="text/javascript" src="javascripts/core/canvases.js"></script>
+<script type="text/javascript" src="javascripts/core/devtools.js"></script>
 <script type="text/javascript" src="javascripts/core/load_functions.js"></script>
 <script type="text/javascript" src="javascripts/core/kong.js"></script>
 <script type="text/javascript" src="javascripts/core/playfab.js"></script>

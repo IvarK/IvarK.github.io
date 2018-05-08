@@ -19,7 +19,6 @@ button {
     padding: 1px 6px;
 }
 
-
 #game {
     border: 2px solid black;
     border-radius: 4px;
@@ -1025,8 +1024,8 @@ button {
     position: fixed;
     bottom: 80px;
     left: 50%;
-    margin-left: -114px;
     font-size: 15px;
+    transform: translateX(-50%);
 }
 
 #studytreeloadsavetext {
@@ -1034,18 +1033,18 @@ button {
     position: fixed;
     bottom: 82px;
     left: 50%;
-    margin-left: 135px;
+    margin-left: 145px;
     font-size: 10px;
 }
 
 #theorembuybackground {
     background: #E0E0E0;
-    width: 550px;
+    width: 570px;
     height: 110px;
     position: fixed;
     bottom: 0;
     left: 50%;
-    margin-left: -277px;
+    margin-left: -287px;
     border: 2px solid black;
     border-bottom: none;
     border-top-left-radius: 7px;
@@ -1769,3 +1768,9 @@ screen and (max-width: 480px) {
     50% {transform: rotateZ(360deg);}
     100% {transform: rotateZ(360deg);}
 }
+
+@keyframes spin3d {
+    0%  {transform: rotate3d(5.2, -2.8, 1.4, 0deg);}
+    100% {transform: rotate3d(5.2, -2.8, 1.4, 360deg);}
+}
+
