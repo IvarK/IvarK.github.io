@@ -2769,7 +2769,7 @@ document.getElementById("bigcrunch").onclick = function () {
         infinitied: player.infinitied + infGain,
         infinitiedBank: player.infinitiedBank,
         totalTimePlayed: player.totalTimePlayed,
-        bestInfinityTime: (player.currentEternityChall !== "eterc12") ? Math.min(player.bestInfinityTime, player.thisInfinityTime) : player.bestInfinityTime,
+        bestInfinityTime: Math.min(player.bestInfinityTime, player.thisInfinityTime),
         thisInfinityTime: 0,
         resets: 0,
         galaxies: 0,
