@@ -1964,8 +1964,8 @@ function setAchieveTooltip() {
     let layer = document.getElementById("But I wanted another prestige layer...")
     let fkoff = document.getElementById("What do I have to do to get rid of you")
     let minaj = document.getElementById("Popular music")
-    let infstuff = document.getElementById("I never liked infinity stuff anyway")
-    let when = document.getElementById("When is enough?")
+    let infstuff = document.getElementById("I never liked this infinity stuff anyway")
+    let when = document.getElementById("When will it be enough?")
     let thisis = document.getElementById("This is what I have to do to get rid of you.")
 
     apocAchieve.setAttribute('ach-tooltip', "Get over " + formatValue(player.options.notation, 1e80, 0, 0) + " antimatter.");
@@ -4554,10 +4554,10 @@ setInterval(function() {
         player.infinityDimension8.baseAmount == 0 &&
         player.infMultCost.equals(10) &&
         player.infinityPoints.gt(new Decimal("1e140000"))) {
-        giveAchievement("I never liked infinity stuff anyway")
+        giveAchievement("I never liked this infinity stuff anyway")
     }
 
-    if (player.replicanti.amount.gt(new Decimal("1e20000"))) giveAchievement("When is enough?")
+    if (player.replicanti.amount.gt(new Decimal("1e20000"))) giveAchievement("When will it be enough?")
     if (player.tickspeed.e < -8296272) giveAchievement("Faster than a potato^345678")
     if (player.timestudy.studies.length == 0 && player.dilation.active && player.infinityPoints.e >= 20000) giveAchievement("This is what I have to do to get rid of you.")
 
