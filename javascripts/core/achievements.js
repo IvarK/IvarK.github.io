@@ -102,7 +102,7 @@ const allAchievements = {
   r135 : "Faster than a potato^345678",
   r136 : "I told you already, time is relative",
   r137 : "r137",
-  r138 : "r138",
+  r138 : "This is what I have to do to get rid of you.",
   s11 : "The first one's always free",
   s12 : "Just in case",
   s13 : "It pays to have respect",

@@ -1966,6 +1966,7 @@ function setAchieveTooltip() {
     let minaj = document.getElementById("Popular music")
     let infstuff = document.getElementById("I never liked infinity stuff anyway")
     let when = document.getElementById("When is enough?")
+    let thisis = document.getElementById("This is what I have to do to get rid of you.")
 
     apocAchieve.setAttribute('ach-tooltip', "Get over " + formatValue(player.options.notation, 1e80, 0, 0) + " antimatter.");
     noPointAchieve.setAttribute('ach-tooltip', "Buy a single First Dimension when you have over " + formatValue(player.options.notation, 1e150, 0, 0) + " of them. Reward: First Dimensions are 10% stronger.");
@@ -1993,6 +1994,7 @@ function setAchieveTooltip() {
     minaj.setAttribute('ach-tooltip', "Have 180 times more replicanti galaxies than normal galaxies. Reward: Replicanti galaxies divide your replicanti by "+shortenMoney(Number.MAX_VALUE)+" instead of resetting them to 1.")
     infstuff.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal("1e140000"))+" IP without buying IDs or IP multipliers.")
     when.setAttribute('ach-tooltip', "Get "+ shortenCosts( new Decimal("1e20000") ) +" replicanti")
+    thisis.setAttribute('ach-tooltip', "Get over "+shortenCosts(new Decimal('1e20000'))+" IP on a dilated run without time studies.")
 }
 
 document.getElementById("notation").onclick = function () {
@@ -4557,6 +4559,7 @@ setInterval(function() {
 
     if (player.replicanti.amount.gt(new Decimal("1e20000"))) giveAchievement("When is enough?")
     if (player.tickspeed.e < -8296272) giveAchievement("Faster than a potato^345678")
+    if (player.timestudy.studies.length == 0 && player.dilation.active && player.infinityPoints.e >= 20000) giveAchievement("This is what I have to do to get rid of you.")
 
 }, 1000)
 
