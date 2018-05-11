@@ -513,46 +513,46 @@
                 <table>
                     <tr>
                         <td>
-                            <button class="timestudy" id="dil1" onclick="buyDilationUpgrade(1)">Double time dilation gain<br>Cost: 1e4 dilated time</button>
+                            <button class="timestudy" id="dil1" onclick="buyDilationUpgrade(1)">Double time dilation gain.<br><span id="dil1cost">Cost: 1e5 dilated time</span></button>
                         </td>
                         <td>
-                            <button class="timestudy" id="dil2" onclick="buyDilationUpgrade(2)">Upgrade</button>
+                            <button class="timestudy" id="dil2" onclick="buyDilationUpgrade(2)">Decrease the galaxy threshold multiplier, but resets free galaxies and dilated time.<br><span id="dil2cost">Cost: 1e6 dilated time</span></button>
                         </td>
                         <td>
-                            <button class="timestudy" id="dil3" onclick="buyDilationUpgrade(3)">Upgrade</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button class="timestudy" id="dil4" onclick="buyDilationUpgrade(4)">Upgrade</button>
-                        </td>
-                        <td>
-                            <button class="timestudy" id="dil5" onclick="buyDilationUpgrade(5)">Upgrade</button>
-                        </td>
-                        <td>
-                            <button class="timestudy" id="dil6" onclick="buyDilationUpgrade(6)">Upgrade</button>
+                            <button class="timestudy" id="dil3" onclick="buyDilationUpgrade(3)">Triple the amount of Tachyon Particles gained.<br><span id="dil3cost">Cost: 1e7 dilated time</span></button>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <button class="timestudy" id="dil7" onclick="buyDilationUpgrade(7)">Upgrade</button>
+                            <button class="timestudy" id="dil4" onclick="buyDilationUpgrade(4)">Gain twice as many free galaxies.<br><span id="dil4cost">Cost: 5e6 dilated time</span></button>
                         </td>
                         <td>
-                            <button class="timestudy" id="dil8" onclick="buyDilationUpgrade(8)">Upgrade</button>
+                            <button class="timestudy" id="dil5" onclick="buyDilationUpgrade(5)">Time Dimensions are affected by replicanti multiplier ^ 0.1.<br><span id="dil5cost">Cost: 1e9 dilated time</span></button>
                         </td>
                         <td>
-                            <button class="timestudy" id="dil9" onclick="buyDilationUpgrade(9)">Upgrade</button>
+                            <button class="timestudy" id="dil6" onclick="buyDilationUpgrade(6)">Normal dimension gain a multiplier based on dilated time, unaffected by time dilation.<br><span id="dil6cost">Cost: 5e7 dilated time</span></button>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <button class="timestudybought" style="filter: opacity(0)">Upgrade</button>
+                            <button class="timestudy" id="dil7" onclick="buyDilationUpgrade(7)">Gain a multiplier to IP based on dilated time.<br><span id="dil7desc"></span><br><span id="dil7cost"></span></button>
                         </td>
                         <td>
-                            <button class="timestudy" id="dil10" onclick="buyDilationUpgrade(10)">Upgrade</button>
+                            <button class="timestudy" id="dil8" onclick="buyDilationUpgrade(8)">Pick all the study paths from the first split.<br><span id="dil8cost"></span></button>
                         </td>
                         <td>
-                            <button class="timestudybought" style="filter: opacity(0)">Upgrade</button>
+                            <button class="timestudy" id="dil9" onclick="buyDilationUpgrade(9)">Reduce the dilation penalty. (^ 1.05 after reduction)<br><span id="dil9cost"></span></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="timestudybought" style="filter: opacity(0)"></button>
+                        </td>
+                        <td>
+                            <button class="timestudy" id="dil10" onclick="buyDilationUpgrade(10)">Generate time theorems based on tachyon particles.<br><span id="dil10desc"></span><br><span id="dil10cost"></span></button>
+                        </td>
+                        <td>
+                            <button class="timestudybought" style="filter: opacity(0)"></button>
                         </td>
                     </tr>
                 </table>
@@ -1423,7 +1423,7 @@
                                 <div id="Long lasting relationship" class="achievement achievementlocked" style="background-image: url(images/75.png)" ach-tooltip="Have your Infinity power per second exceed your infinity power for 60 consecutive seconds during a single infinity."><br></div>
                             </td>
                             <td>
-                                <div id="You're a mistake" class="achievement achievementlocked" style="background-image: url(images/76.png)" ach-tooltip="Fail an Eternity challenge. Reward: A fading sense of accomplishment"><br></div>
+                                <div id="You're a mistake" class="achievement achievementlocked" style="background-image: url(images/76.png)" ach-tooltip="Fail an Eternity challenge. Reward: A fading sense of accomplishment."><br></div>
                             </td>
                             <td>
                                 <div id="I wish I had gotten 7 eternities" class="achievement achievementlocked" style="background-image: url(images/77.png)" ach-tooltip="Start an Infinity challenge inside an Eternity challenge."><br></div>
@@ -1446,7 +1446,7 @@
                                 <div id="You're already dead." class="achievement achievementlocked" style="background-image: url(images/82.png)" ach-tooltip="Eternity without buying dimensions 2-8."><br></div>
                             </td>
                             <td>
-                                <div id="5 more eternities until the update" class="achievement achievementlocked" style="background-image: url(images/83.png)" ach-tooltip="Complete 50 unique eternity challenge tiers"><br></div>
+                                <div id="5 more eternities until the update" class="achievement achievementlocked" style="background-image: url(images/83.png)" ach-tooltip="Complete 50 unique eternity challenge tiers."><br></div>
                             </td>
                             <td>
                                 <div id="Eternities are the new infinity" class="achievement achievementlocked" style="background-image: url(images/84.png)" ach-tooltip="Eternity in under 200ms."><br></div>
@@ -1475,13 +1475,13 @@
                                 <div id="I never liked this infinity stuff anyway" class="achievement achievementlocked" style="background-image: url(images/91.png)" ach-tooltip="Reach 1e140,000 IP without buying IDs or IP multipliers."><br></div>
                             </td>
                             <td>
-                                <div id="When will it be enough?" class="achievement achievementlocked" style="background-image: url(images/92.png)" ach-tooltip="Get 1e20,000 replicanti"><br></div>
+                                <div id="When will it be enough?" class="achievement achievementlocked" style="background-image: url(images/92.png)" ach-tooltip="Get 1e20,000 replicanti."><br></div>
                             </td>
                             <td>
-                                <div id="Faster than a potato^345678" class="achievement achievementlocked" style="background-image: url(images/93.png)" ach-tooltip="Get over 1e8,296,272 ticks per second"><br></div>
+                                <div id="Faster than a potato^345678" class="achievement achievementlocked" style="background-image: url(images/93.png)" ach-tooltip="Get over 1e8,296,272 ticks per second."><br></div>
                             </td>
                             <td>
-                                <div id="I told you already, time is relative" class="achievement achievementlocked" style="background-image: url(images/94.png)" ach-tooltip="Dilate time"><br></div>
+                                <div id="I told you already, time is relative" class="achievement achievementlocked" style="background-image: url(images/94.png)" ach-tooltip="Dilate time."><br></div>
                             </td>
                             <td>
                                 <div id="r137" class="achievement achievementlocked" style="background-image: url(images/95.png)" ach-tooltip="also related to time dilation"><br></div>
