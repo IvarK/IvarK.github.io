@@ -234,6 +234,7 @@ function updateAchievements() {
               document.getElementById(name).className = "achievementunlocked"
           } else {
               document.getElementById(name).className = "achievementhidden"
+              document.getElementById(name).setAttribute('ach-tooltip', (name[name.length-1] !== "?" || name[name.length-1] !== "!" || name[name.length-1] !== ".") ? name+"." : name)
           }
       }
       if (n == 8) {
