@@ -1314,10 +1314,12 @@ function updateMilestones() {
 function replicantiGalaxyAutoToggle() {
     if (player.replicanti.galaxybuyer) {
         player.replicanti.galaxybuyer = false
-        document.getElementById("replicantiresettoggle").textContent = "Auto galaxy OFF"
-    } else if (!player.timestudy.studies.includes(131)){
+        if (player.timestudy.studies.includes(131)) document.getElementById("replicantiresettoggle").textContent = "Auto galaxy OFF (disabled)"
+        else document.getElementById("replicantiresettoggle").textContent = "Auto galaxy OFF"
+    } else {
         player.replicanti.galaxybuyer = true
-        document.getElementById("replicantiresettoggle").textContent = "Auto galaxy ON"
+        if (player.timestudy.studies.includes(131)) document.getElementById("replicantiresettoggle").textContent = "Auto galaxy ON (disabled)"
+        else document.getElementById("replicantiresettoggle").textContent = "Auto galaxy ON"
     }
 }
 
@@ -3325,8 +3327,6 @@ function eternity(force) {
             showDimTab("timedimensions")
             loadAutoBuyerSettings()
         }
-        if (player.replicanti.galaxybuyer) document.getElementById("replicantiresettoggle").textContent = "Auto galaxy ON"
-        else document.getElementById("replicantiresettoggle").textContent = "Auto galaxy OFF"
         Marathon2 = 0;
     }
 }
@@ -4115,8 +4115,6 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
         playerInfinityUpgradesOnEternity()
         document.getElementById("eternityPoints2").innerHTML = "You have <span class=\"EPAmount2\">"+shortenDimensions(player.eternityPoints)+"</span> Eternity points."
         updateEternityChallenges()
-        if (player.replicanti.galaxybuyer) document.getElementById("replicantiresettoggle").textContent = "Auto galaxy ON"
-        else document.getElementById("replicantiresettoggle").textContent = "Auto galaxy OFF"
         Marathon2 = 0;
 
 
@@ -4922,7 +4920,6 @@ function gameLoop(diff) {
         player.dilation.nextThreshold = player.dilation.nextThreshold.times(thresholdMult)
         player.dilation.freeGalaxies += 1
         if (player.dilation.upgrades.includes(4)) player.dilation.freeGalaxies += 1
-        player.galaxies += 1
     }
 
 
