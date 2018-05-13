@@ -3630,11 +3630,11 @@ function canUnlockEC(idx, cost, study, study2) {
         break;
 
         case 11:
-        if (player.timestudy.studies.includes(71) && !player.timestudy.studies.includes(72) && !player.timestudy.studies.includes(73) && !player.timestudy.studies.includes(201)) return true
+        if (player.timestudy.studies.includes(71) && !player.timestudy.studies.includes(72) && !player.timestudy.studies.includes(73)) return true
         break;
 
         case 12:
-        if (player.timestudy.studies.includes(73) && !player.timestudy.studies.includes(71) && !player.timestudy.studies.includes(72) && !player.timestudy.studies.includes(201)) return true
+        if (player.timestudy.studies.includes(73) && !player.timestudy.studies.includes(71) && !player.timestudy.studies.includes(72)) return true
         break;
     }
 }
