@@ -1968,6 +1968,7 @@ function setAchieveTooltip() {
     let minaj = document.getElementById("Popular music")
     let infstuff = document.getElementById("I never liked this infinity stuff anyway")
     let when = document.getElementById("When will it be enough?")
+    let thinking = document.getElementById("Now you're thinking with dilation!")
     let thisis = document.getElementById("This is what I have to do to get rid of you.")
 
     apocAchieve.setAttribute('ach-tooltip', "Get over " + formatValue(player.options.notation, 1e80, 0, 0) + " antimatter.");
@@ -1976,7 +1977,7 @@ function setAchieveTooltip() {
     sanic.setAttribute('ach-tooltip', "Have antimatter/sec exceed your current antimatter above " + formatValue(player.options.notation, 1e63, 0, 0));
     potato.setAttribute('ach-tooltip', "Get more than " + formatValue(player.options.notation, 1e29, 0, 0) + " ticks per second. Reward: Reduces starting tick interval by 2%.");
     potato2.setAttribute('ach-tooltip', "Get more than " + formatValue(player.options.notation, 1e58, 0, 0) + " ticks per second. Reward: Reduces starting tick interval by 2%.");
-    potato3.setAttribute('ach-tooltip', "Get over "+shortenCosts(new Decimal("1e8296272"))+" ticks per second")
+    potato3.setAttribute('ach-tooltip', "Get more than "+shortenCosts(new Decimal("1e8296272"))+" ticks per second.")
     dimensional.setAttribute('ach-tooltip', "Reach " + formatValue(player.options.notation, 1e12, 0, 0) + " of all dimensions except 8th.");
     IPBelongs.setAttribute('ach-tooltip', "Big Crunch for "+shortenCosts(1e150)+" IP. Reward: Additional 4x multiplier to IP.")
     reference.setAttribute('ach-tooltip', "Get a x"+shortenDimensions(Number.MAX_VALUE)+" multiplier in a single sacrifice. Reward: Sacrifices are stronger.")
@@ -1990,13 +1991,14 @@ function setAchieveTooltip() {
     infiniteIP.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal("1e30008"))+" IP.")
     over9000.setAttribute('ach-tooltip', "Get a total sacrifice multiplier of "+shortenCosts(new Decimal("1e9000"))+". Reward: Sacrifice doesn't reset your dimensions.")
     dawg.setAttribute('ach-tooltip', "Have all your past 10 infinities be at least "+shortenMoney(Number.MAX_VALUE)+" times higher IP than the previous one. Reward: Your antimatter doesn't reset on dimboost/galaxy.")
-    eatass.setAttribute('ach-tooltip', "Get "+shortenCosts(1e100)+" IP without any infinities or first dimensions. Reward: IP multiplier based on time spent this infinity.")
-    layer.setAttribute('ach-tooltip', "Get "+shortenMoney(Number.MAX_VALUE)+" EP.")
-    fkoff.setAttribute('ach-tooltip', "Gain "+shortenCosts(new Decimal("1e22000"))+" IP without any time studies. Reward: Time dimensions are multiplied by the number of studies you have.")
+    eatass.setAttribute('ach-tooltip', "Reach "+shortenCosts(1e100)+" IP without any infinities or first dimensions. Reward: IP multiplier based on time spent this infinity.")
+    layer.setAttribute('ach-tooltip', "Reach "+shortenMoney(Number.MAX_VALUE)+" EP.")
+    fkoff.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal("1e22000"))+" IP without any time studies. Reward: Time dimensions are multiplied by the number of studies you have.")
     minaj.setAttribute('ach-tooltip', "Have 180 times more replicanti galaxies than normal galaxies. Reward: Replicanti galaxies divide your replicanti by "+shortenMoney(Number.MAX_VALUE)+" instead of resetting them to 1.")
-    infstuff.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal("1e140000"))+" IP without buying IDs or IP multipliers.")
-    when.setAttribute('ach-tooltip', "Get "+ shortenCosts( new Decimal("1e20000") ) +" replicanti")
-    thisis.setAttribute('ach-tooltip', "Get over "+shortenCosts(new Decimal('1e20000'))+" IP on a dilated run without time studies.")
+    infstuff.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal("1e140000"))+" IP without buying IDs or IP multipliers. Reward: You start eternities with all Infinity Challenges completed.")
+    when.setAttribute('ach-tooltip', "Reach "+shortenCosts( new Decimal("1e20000"))+" replicanti.")
+    when.setAttribute('ach-tooltip', "Eternity for "+shortenCosts( new Decimal("1e600"))+" EP in 1 minute or less while dilated.")
+    thisis.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal('1e20000'))+" IP without time any studies while dilated.")
 }
 
 document.getElementById("notation").onclick = function () {
@@ -3002,6 +3004,7 @@ function eternity(force) {
         if (player.dimlife && !force) giveAchievement("8 nobody got time for that")
         if (player.dead && !force) giveAchievement("You're already dead.")
         if (player.infinitied <= 1 && !force) giveAchievement("Do I really need to infinity")
+        if (gainedEternityPoints().gte("1e600") && player.thisEternity <= 600 && !force) giveAchievement("Now you're thinking with dilation!")
         temp = []
         player.eternityPoints = player.eternityPoints.plus(gainedEternityPoints())
         addEternityTime(player.thisEternity, gainedEternityPoints())
@@ -3071,7 +3074,7 @@ function eternity(force) {
             eightPow: new Decimal(1),
             sacrificed: new Decimal(0),
             achievements: player.achievements,
-            challenges: (player.eternities > 0) ? ["challenge1", "challenge2", "challenge3", "challenge4", "challenge5", "challenge6", "challenge7", "challenge8", "challenge9", "challenge10", "challenge11", "challenge12"] : [],
+            challenges: (player.eternities > 0 && player.achievements.includes("r133")) ? ["challenge1", "challenge2", "challenge3", "challenge4", "challenge5", "challenge6", "challenge7", "challenge8", "challenge9", "challenge10", "challenge11", "challenge12", "postc1", "postc2", "postc3", "postc4", "postc5", "postc6", "postc7", "postc8"] : (player.eternities > 0) ? ["challenge1", "challenge2", "challenge3", "challenge4", "challenge5", "challenge6", "challenge7", "challenge8", "challenge9", "challenge10", "challenge11", "challenge12"] : [],
             currentChallenge: "",
             infinityUpgrades: player.infinityUpgrades,
             infinityPoints: new Decimal(0),
@@ -3876,7 +3879,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
             eightPow: new Decimal(1),
             sacrificed: new Decimal(0),
             achievements: player.achievements,
-            challenges: ["challenge1", "challenge2", "challenge3", "challenge4", "challenge5", "challenge6", "challenge7", "challenge8", "challenge9", "challenge10", "challenge11", "challenge12"],
+            challenges: (player.eternities > 0 && player.achievements.includes("r133")) ? ["challenge1", "challenge2", "challenge3", "challenge4", "challenge5", "challenge6", "challenge7", "challenge8", "challenge9", "challenge10", "challenge11", "challenge12", "postc1", "postc2", "postc3", "postc4", "postc5", "postc6", "postc7", "postc8"] : (player.eternities > 0) ? ["challenge1", "challenge2", "challenge3", "challenge4", "challenge5", "challenge6", "challenge7", "challenge8", "challenge9", "challenge10", "challenge11", "challenge12"] : [],
             currentChallenge: "",
             infinityUpgrades: player.infinityUpgrades,
             infinityPoints: new Decimal(0),
