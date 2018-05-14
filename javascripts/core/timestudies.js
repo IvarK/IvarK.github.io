@@ -39,9 +39,29 @@ function buyWithEP() {
 }
 
 function maxTheorems() {
-  while (buyWithAntimatter()) continue
-  while (buyWithIP()) continue
+  var AMowned = player.timestudy.amcost.e / 20000 - 1
+  if (player.money.gte(player.timestudy.amcost)) {
+    player.timestudy.amcost.e = Math.floor(player.money.e / 20000 + 1) * 20000
+    player.timestudy.theorem += Math.floor(player.money.e / 20000) - AMowned
+    player.money = player.money.minus(Decimal.fromMantissaExponent(1, Math.floor(player.money.e / 20000) * 20000))
+  }
+  var IPowned = player.timestudy.ipcost.e / 100
+  if (player.infinityPoints.gte(player.timestudy.ipcost)) {
+    player.timestudy.ipcost.e = Math.floor(player.infinityPoints.e / 100 + 1) * 100
+    player.timestudy.theorem += Math.floor(player.infinityPoints.e / 100 + 1) - IPowned
+    player.infinityPoints = player.infinityPoints.minus(Decimal.fromMantissaExponent(1, Math.floor(player.infinityPoints.e / 100) * 100))
+  }
+  // this code is not really needed and I don't know math well enough to make it work
+  /*var EPowned = Math.floor(player.timestudy.epcost.log2())
+  if (player.eternityPoints.gte(player.timestudy.epcost)) {
+    player.timestudy.epcost = new Decimal(1).times(new Decimal(2).pow(Math.floor(player.eternityPoints.log2() + 1)))
+    player.timestudy.theorem += Math.floor(player.eternityPoints.log2() + 1) - EPowned
+  }*/
+  // the below line of code *should* be replaced with the above block, but it's not required
   while (buyWithEP()) continue
+  updateTheoremButtons()
+  updateTimeStudyButtons()
+  updateEternityUpgrades()
 }
 
 function updateTheoremButtons() {
