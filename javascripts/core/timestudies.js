@@ -271,7 +271,7 @@ function updateTimeStudyButtons() {
 function studiesUntil(id) {
   var col = id % 10;
   var row = Math.floor(id / 10);
-var path = [0,0];
+  var path = [0,0];
   for(var i=1;i<4;i++){
       if (player.timestudy.studies.includes(70+i)) path[0] = i;
       if (player.timestudy.studies.includes(120+i))path[1] = i;
@@ -281,7 +281,9 @@ var path = [0,0];
   }
   for (var i = 1; i < row; i++) {
       var chosenPath = path[i > 11 ? 1 : 0];
+      if (row > 6 && row < 11) var secondPath = col;
       if ((i > 6 && i < 11) || (i > 11 && i < 15)) buyTimeStudy(i * 10 + (chosenPath === 0 ? col : chosenPath), studyCosts[all.indexOf(i * 10 + (chosenPath === 0 ? col : chosenPath))], 0);
+      if ((i > 6 && i < 11) && player.timestudy.studies.includes(201)) buyTimeStudy(i * 10 + secondPath, studyCosts[all.indexOf(i * 10 + secondPath)], 0);
       else for (var j = 1; all.includes(i * 10 + j) ; j++) buyTimeStudy(i * 10 + j, studyCosts[all.indexOf(i * 10 + j)], 0);
   }
   buyTimeStudy(id, studyCosts[all.indexOf(id)], 0);
