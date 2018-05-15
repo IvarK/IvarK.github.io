@@ -642,7 +642,10 @@ function change_save(saveId) {
   updateChallenges()
   transformSaveToDecimal()
   showDimTab('antimatterdimensions')
-
+  showStatsTab('stats')
+  showChallengesTab('challenges')
+  showEternityTab('timestudies', true)
+  
   closeToolTip();
 }
 
