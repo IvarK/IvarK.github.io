@@ -2476,6 +2476,14 @@ function updatePriorities() {
     for (var x=0 ; x < autoBuyerArray().length; x++) {
         if (x < 9) autoBuyerArray()[x].priority = parseInt(document.getElementById("priority" + (x+1)).value)
     }
+    if (parseInt(document.getElementById("priority10").value) === 69
+    || parseInt(document.getElementById("priority11").value) === 69
+    || parseInt(fromValue(document.getElementById("priority12").value).toString()) === 69
+    || parseInt(document.getElementById("bulkDimboost").value) === 69
+    || parseInt(document.getElementById("overGalaxies").value) === 69
+    || parseInt(fromValue(document.getElementById("prioritySac").value).toString()) === 69
+    || parseInt(document.getElementById("bulkgalaxy").value) === 69
+    || parseInt(fromValue(document.getElementById("priority13").value).toString()) === 69) giveAchievement("Nice.");
     player.autobuyers[9].priority = parseInt(document.getElementById("priority10").value)
     player.autobuyers[10].priority = parseInt(document.getElementById("priority11").value)
     player.autobuyers[11].priority = fromValue(document.getElementById("priority12").value)
@@ -5278,7 +5286,6 @@ function simulateTime(seconds, real) {
     if (popupString.length == 20) {
         popupString = popupString.slice(0, -1);
         popupString+= "... Nothing happened."
-        giveAchievement("While you were away... Nothing happened.")
     }
 
     document.getElementById("offlinePopup").innerHTML = popupString

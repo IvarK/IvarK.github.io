@@ -118,7 +118,7 @@ const allAchievements = {
   s25 : "Shhh... It's a secret",
   s26 : "You're a failure",
   s27 : "It's not called matter dimensions is it?",
-  s28 : "While you were away... Nothing happened.",
+  s28 : "Nice.",
   s31 : "You should download some more RAM",
   s32 : "s32",
   s33 : "s33",
@@ -144,7 +144,7 @@ const secretAchievementTooltips = {
     s25 : "Discover a secret theme.",
     s26 : "Fail eternity challenges 10 times without refreshing. What are you doing with your life...",
     s27 : "Get Infinite matter.",
-    s28 : "Get 0 offline gains.",
+    s28 : "Don't act like you don't know what you did.",
     s31 : "Set your update rate to 200ms.",
     s32 : "s32",
     s33 : "s33",
@@ -234,7 +234,7 @@ function updateAchievements() {
               document.getElementById(name).className = "achievementunlocked"
           } else {
               document.getElementById(name).className = "achievementhidden"
-              document.getElementById(name).setAttribute('ach-tooltip', (name[name.length-1] !== "?" || name[name.length-1] !== "!" || name[name.length-1] !== ".") ? name+"." : name)
+              document.getElementById(name).setAttribute('ach-tooltip', (name[name.length-1] !== "?" && name[name.length-1] !== "!" && name[name.length-1] !== ".") ? name+"." : name)
           }
       }
       if (n == 8) {
