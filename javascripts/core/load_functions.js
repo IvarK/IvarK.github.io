@@ -230,6 +230,9 @@ if (player.infinitied > 0 && !player.challenges.includes("challenge1")) player.c
 
   document.getElementById("totaltickgained").textContent = "You've gained "+shortenDimensions(player.totalTickGained)+" tickspeed upgrades."
 
+  var IPminpeak = new Decimal(0)
+  var EPminpeak = new Decimal(0)
+
   if (typeof player.autobuyers[9].bulk !== "number") {
       player.autobuyers[9].bulk = 1
   }
