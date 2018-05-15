@@ -1,0 +1,27 @@
+html {
+    background: url('../images/s5-bg.jpg') repeat;
+    background-size: contain;
+    background-position-x: 50%;
+    background-position-y: 50%;
+    background-size: 150%;
+    background-color: white;
+    color: black !important;
+}
+
+body {
+    background: none !important;
+    filter: sepia(100%) hue-rotate(0deg) saturate(100%);
+}
+
+.container {
+    color: black !important;
+}
+
+.autoBuyerDiv {
+    background: #ddd !important;
+}
+
+.achievementlocked {
+    border: 2px solid #222 !important;
+    background-color: #333 !important;
+}

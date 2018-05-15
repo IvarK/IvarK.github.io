@@ -23,3 +23,12 @@ dev.spin3d = function() {
     if (document.getElementById("body").style.animation === "") document.getElementById("body").style.animation = "spin3d 2s infinite"
     else document.getElementById("body").style.animation = ""
 }
+
+dev.cancerize = function() {
+    player.options.theme = "S4";
+    player.options.secretThemeKey = "Cancer";
+    setTheme(player.options.theme);
+    player.options.notation = "Emojis"
+    document.getElementById("theme").textContent = "SO"
+    document.getElementById("notation").textContent = "BEAUTIFUL"
+}

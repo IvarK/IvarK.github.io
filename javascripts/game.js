@@ -321,6 +321,10 @@ function setTheme(name) {
         document.getElementById("theme").textContent="Current theme: " + player.options.secretThemeKey;
         Chart.defaults.global.defaultFontColor = 'black';
         normalDimChart.data.datasets[0].borderColor = '#000'
+    }  else if(name === "S5") {
+        document.getElementById("theme").textContent="Current theme: " + player.options.secretThemeKey;
+        Chart.defaults.global.defaultFontColor = 'black';
+        normalDimChart.data.datasets[0].borderColor = '#000'
     } else {
         document.getElementById("theme").textContent="Current theme: " + name;
     }
@@ -1837,6 +1841,10 @@ document.getElementById("importbtn").onclick = function () {
         setTheme(player.options.theme);
     } else if (sha512_256(save_data) === "ae0199482ecfa538a03eb37c67866e67a11f1832516c26c7939e971e514d40c5") {
         player.options.theme = "S4";
+        player.options.secretThemeKey = save_data;
+        setTheme(player.options.theme);
+    }  else if (sha512_256(save_data) === "7a668b64cdfe1bcdf7a38d3858429ee21290268de66b9784afba27dc5225ce28") {
+        player.options.theme = "S5";
         player.options.secretThemeKey = save_data;
         setTheme(player.options.theme);
     } else {
@@ -4571,16 +4579,6 @@ function fact(v) {
     do {ret *= v} while (--v > 1)
     return ret;
 }
-
-function testTrigger() {
-    player.options.theme = "S4";
-    player.options.secretThemeKey = "Cancer";
-    setTheme(player.options.theme);
-    player.options.notation = "Emojis"
-    document.getElementById("theme").textContent = "SO"
-    document.getElementById("notation").textContent = "BEAUTIFUL"
-}
-
 
 var postC2Count = 0;
 var IPminpeak = new Decimal(0)
