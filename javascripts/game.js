@@ -8035,7 +8035,7 @@ function simulateTime(seconds) {
         ticks = 1000;
     }
     let ticksDone = 0
-    for (i=0; i<ticks; i++) {
+    for (ticksDone=0; ticksDone<ticks; ticksDone++) {
         gameLoop(50+bonusDiff)
         ticksDone++;
     }
