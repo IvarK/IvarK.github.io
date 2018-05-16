@@ -2881,6 +2881,8 @@ document.getElementById("bigcrunch").onclick = function () {
         options: player.options
         };
 
+        if (player.bestInfinityTime <= 0.01) giveAchievement("Less than or equal to 0.001");
+
         if (!player.options.retryChallenge) player.currentChallenge = ""
 
         if (player.resets == 0 && player.currentChallenge == "") {
@@ -3011,6 +3013,7 @@ function eternity(force) {
         if (player.thisEternity<player.bestEternity && !force) {
             player.bestEternity = player.thisEternity
             if (player.bestEternity < 300) giveAchievement("That wasn't an eternity");
+            if (player.bestEternity <= 0.01) giveAchievement("Less than or equal to 0.001");
         }
         if (player.thisEternity < 2) giveAchievement("Eternities are the new infinity")
         if (player.currentEternityChall == "eterc6" && ECTimesCompleted("eterc6") < 5) player.dimensionMultDecrease = parseFloat((player.dimensionMultDecrease - 0.2).toFixed(1))

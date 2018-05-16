@@ -500,6 +500,7 @@ if (player.version < 5) {
             player["timeDimension"+i].cost = Decimal.pow(timeDimCostMults[i]*2.2, player["timeDimension"+i].bought).times(timeDimStartCosts[i])
           }
       }
+      if (player.bestEternity <= 0.01 || player.bestInfinityTime <= 0.01) giveAchievement("Less than or equal to 0.001");
   }
 
   // player.version is currently 11
@@ -645,7 +646,7 @@ function change_save(saveId) {
   showStatsTab('stats')
   showChallengesTab('challenges')
   showEternityTab('timestudies', true)
-  
+
   closeToolTip();
 }
 
