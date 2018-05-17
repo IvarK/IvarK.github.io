@@ -1547,7 +1547,8 @@ document.getElementById("secondSoftReset").onclick = function() {
     var bool = player.currentChallenge != "challenge11" && player.currentChallenge != "postc1" && player.currentChallenge != "postc7" && (player.break || player.money.lte(Number.MAX_VALUE))
     if (player.currentEternityChall == "eterc6") return
     if (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() && bool : player.eightAmount >= getGalaxyRequirement() && bool) {
-        galaxyReset()
+        if (player.eternities >= 7 && !shiftDown) maxBuyGalaxies(true);
+        else galaxyReset();
     }
 }
 
