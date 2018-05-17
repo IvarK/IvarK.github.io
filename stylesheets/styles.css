@@ -550,8 +550,8 @@ button {
     background-image: url("../images/achhidden.png") !important;
     background-color: #555;
     border: 2px solid #000;
-    width: 100px;
-    height: 100px;
+    width: 104px;
+    height: 104px;
     border-radius: 8px;
     margin: 0px auto;
     text-align: center;
@@ -563,8 +563,8 @@ button {
 .achievementlocked {
     background: #A3A3A3;
     border: 2px solid #B84B5F;
-    width: 100px;
-    height: 100px;
+    width: 104px;
+    height: 104px;
     border-radius: 8px;
     margin: 0px auto;
     text-align: center;
@@ -577,8 +577,8 @@ button {
     border: 2px solid #127A20;
     background: #5AC467;
     color: black;
-    width: 100px;
-    height: 100px;
+    width: 104px;
+    height: 104px;
     border-radius: 8px;
     margin: 0px auto;
     text-align: center;
