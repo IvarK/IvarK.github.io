@@ -296,6 +296,7 @@ function respecTimeStudies() {
           player.timestudy.theorem += studyCosts[i]
       }
   }
+  if (player.timestudy.studies.length === 0) giveAchievement("You do know how these work, right?")
   player.timestudy.studies = []
   switch(player.eternityChallUnlocked) {
       case 1:
