@@ -5355,10 +5355,10 @@ function dimBoolean() {
 }
 
 
-function maxBuyGalaxies() {
+function maxBuyGalaxies(manual) {
     if (player.currentEternityChall == "eterc6") return
     if (player.autobuyers[10].priority > player.galaxies) {
-        while(player.eightAmount >= getGalaxyRequirement() && player.autobuyers[10].priority > player.galaxies) {
+        while(player.eightAmount >= getGalaxyRequirement() && (player.autobuyers[10].priority > player.galaxies || manual)) {
             if (player.options.notation == "Emojis") player.spreadingCancer+=1;
             player.galaxies++
         }
@@ -6032,13 +6032,14 @@ window.addEventListener('keydown', function(event) {
         case 68: // D
             var name = TIER_NAMES[getShiftRequirement(0).tier]
             if (player[name + "Amount"] >= getShiftRequirement(0).amount) {
-                if (player.infinityUpgrades.includes("bulkBoost")) maxBuyDimBoosts(true);
+                if (player.infinityUpgrades.includes("bulkBoost") && !shiftDown) maxBuyDimBoosts(true);
                 else softReset(1)
             }
         break;
 
         case 71: // G
-            document.getElementById("secondSoftReset").onclick();
+            if (player.eternities >= 7 && !shiftDown) maxBuyGalaxies(true);
+            else galaxyReset();
         break;
 
         case 77: // M
