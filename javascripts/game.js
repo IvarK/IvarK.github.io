@@ -4422,10 +4422,14 @@ setInterval(function() {
     }
 
     if (player.replicanti.galaxybuyer !== undefined) document.getElementById("replicantiresettoggle").style.display = "inline-block"
+    else document.getElementById("replicantiresettoggle").style.display = "none"
 
     if (player.eternities > 0) document.getElementById("infmultbuyer").style.display = "inline-block"
+    else document.getElementById("infmultbuyer").style.display = "none"
     if (player.eternities > 4) document.getElementById("togglecrunchmode").style.display = "inline-block"
+    else document.getElementById("togglecrunchmode").style.display = "none"
     if (player.eternities > 8) document.getElementById("galaxybulk").style.display = "inline-block"
+    else document.getElementById("galaxybulk").style.display = "none"
 
     document.getElementById("replicantichance").className = (player.infinityPoints.gte(player.replicanti.chanceCost) && player.replicanti.chance < 1) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantiinterval").className = (player.infinityPoints.gte(player.replicanti.intervalCost) && ((player.replicanti.interval !== 50) || player.timestudy.studies.includes(22)) && (player.replicanti.interval !== 1)) ? "storebtn" : "unavailablebtn"
@@ -4444,6 +4448,11 @@ setInterval(function() {
             document.getElementById("infauto"+i).style.visibility = "visible"
         }
         document.getElementById("toggleallinfdims").style.visibility = "visible"
+    } else {
+        for (var i=1; i<9; i++) {
+            document.getElementById("infauto"+i).style.visibility = "hidden"
+        }
+        document.getElementById("toggleallinfdims").style.visibility = "hidden"
     }
 
     if (player.eternities !== 0) document.getElementById("eternityconf").style.display = "inline-block"
