@@ -4250,7 +4250,7 @@ function updateDilationUpgradeCosts() {
     document.getElementById("dil8cost").textContent = "Cost: " + shortenCosts(DIL_UPG_COSTS[8]) + " dilated time"
     document.getElementById("dil9cost").textContent = "Cost: " + shortenCosts(DIL_UPG_COSTS[9]) + " dilated time"
     document.getElementById("dil10cost").textContent = "Cost: " + shortenCosts(DIL_UPG_COSTS[10]) + " dilated time"
-    document.getElementById("dil10desc").textContent = "Currently: "+shortenCosts(Math.floor(player.dilation.tachyonParticles.div(2000).max(1)))+"/s"
+    document.getElementById("dil10desc").textContent = "Currently: "+shortenMoney(Math.floor(player.dilation.tachyonParticles.div(2000).max(1)))+"/s"
 }
 
 
