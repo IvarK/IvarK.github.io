@@ -187,25 +187,25 @@ var player = {
         bought: 0
     },
     timeDimension5: {
-        cost: new Decimal("1e2400"),
+        cost: new Decimal("1e2350"),
         amount: new Decimal(0),
         power: new Decimal(1),
         bought: 0
     },
     timeDimension6: {
-        cost: new Decimal("1e2600"),
+        cost: new Decimal("1e2650"),
         amount: new Decimal(0),
         power: new Decimal(1),
         bought: 0
     },
     timeDimension7: {
-        cost: new Decimal("1e2800"),
+        cost: new Decimal("1e3000"),
         amount: new Decimal(0),
         power: new Decimal(1),
         bought: 0
     },
     timeDimension8: {
-        cost: new Decimal("1e3000"),
+        cost: new Decimal("1e3400"),
         amount: new Decimal(0),
         power: new Decimal(1),
         bought: 0
@@ -4250,7 +4250,7 @@ function updateDilationUpgradeCosts() {
     document.getElementById("dil8cost").textContent = "Cost: " + shortenCosts(DIL_UPG_COSTS[8]) + " dilated time"
     document.getElementById("dil9cost").textContent = "Cost: " + shortenCosts(DIL_UPG_COSTS[9]) + " dilated time"
     document.getElementById("dil10cost").textContent = "Cost: " + shortenCosts(DIL_UPG_COSTS[10]) + " dilated time"
-    document.getElementById("dil10desc").textContent = "Currently: "+shortenCosts(Math.floor(player.dilation.tachyonParticles.div(1000).max(1)))+"/s"
+    document.getElementById("dil10desc").textContent = "Currently: "+shortenCosts(Math.floor(player.dilation.tachyonParticles.div(2000).max(1)))+"/s"
 }
 
 
@@ -5255,7 +5255,7 @@ function gameLoop(diff) {
     if (isNaN(player.totalmoney)) player.totalmoney = new Decimal(10)
     if (player.timestudy.studies.includes(181)) player.infinityPoints = player.infinityPoints.plus(gainedInfinityPoints().times(diff/1000))
     if (player.dilation.upgrades.includes(10)) {
-        player.timestudy.theorem += parseFloat(player.dilation.tachyonParticles.div(1000).times(diff/10).toString())
+        player.timestudy.theorem += parseFloat(player.dilation.tachyonParticles.div(2000).times(diff/10).toString())
         if (document.getElementById("timestudies").style.display != "none" && document.getElementById("eternitystore").style.display != "none") {
             if (player.timestudy.theorem>9999) document.getElementById("timetheorems").innerHTML = "You have <span style='display:inline' class=\"TheoremAmount\">"+shortenMoney(player.timestudy.theorem)+"</span> Time "+"Theorems."
             else document.getElementById("timetheorems").innerHTML = "You have <span style='display:inline' class=\"TheoremAmount\">"+player.timestudy.theorem.toFixed(0)+"</span> Time "+ (player.timestudy.theorem == 1 ? "Theorem." : "Theorems.")

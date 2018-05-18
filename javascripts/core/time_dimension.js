@@ -107,7 +107,7 @@ function updateTimeDimensions() {
 }
 
 var timeDimCostMults = [null, 3, 9, 27, 81, 243, 749, 2187, 6561]
-var timeDimStartCosts = [null, 1, 5, 100, 1000, "1e2400", "1e2600", "1e2800", "1e3000"]
+var timeDimStartCosts = [null, 1, 5, 100, 1000, "1e2350", "1e2650", "1e3000", "1e3400"]
 function buyTimeDimension(tier) {
 
   var dim = player["timeDimension"+tier]
