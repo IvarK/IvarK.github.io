@@ -6,8 +6,14 @@ function DimensionDescription(tier) {
 
   let description = shortenDimensions(player['infinityDimension'+tier].amount) + ' (' + player['infinityDimension'+tier].bought + ')';
 
-  if (tier < 8) {
-      description += '  (+' + formatValue(player.options.notation, DimensionRateOfChange(tier), 2, 2) + '%/s)';
+  if (ECTimesCompleted("eterc7")) {
+    if (tier < 9) {
+        description += '  (+' + formatValue(player.options.notation, DimensionRateOfChange(tier), 2, 2) + '%/s)';
+    }
+  } else {
+    if (tier < 8) {
+        description += '  (+' + formatValue(player.options.notation, DimensionRateOfChange(tier), 2, 2) + '%/s)';
+    }
   }
 
   return description;
@@ -15,7 +21,8 @@ function DimensionDescription(tier) {
 
 
 function DimensionRateOfChange(tier) {
-  let toGain = DimensionProduction(tier+1)
+  if (tier === 8) var toGain = getTimeDimensionProduction(1).pow(ECTimesCompleted("eterc7")*0.2).minus(1).max(0)
+  else var toGain = DimensionProduction(tier+1)
   var current = Decimal.max(player["infinityDimension"+tier].amount, 1);
   var change  = toGain.times(10).dividedBy(current);
   return change;
