@@ -6050,8 +6050,7 @@ window.addEventListener('keydown', function(event) {
         break;
 
         case 71: // G
-            if (player.eternities >= 7 && !shiftDown) maxBuyGalaxies(true);
-            else galaxyReset();
+            document.getElementById("secondSoftReset").onclick()
         break;
 
         case 77: // M
