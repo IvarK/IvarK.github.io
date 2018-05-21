@@ -237,6 +237,7 @@ var player = {
         secretThemeKey: 0,
         eternityconfirm: true,
         commas: true,
+        updateRate: 50,
         chart: {
             updateRate: 1000,
             duration: 10,
