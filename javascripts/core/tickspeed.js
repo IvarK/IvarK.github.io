@@ -5,12 +5,12 @@ function canBuyTickSpeed() {
 
 function getTickSpeedMultiplier() {
   if (player.currentChallenge == "postc3") return 1;
-  if (player.galaxies + player.replicanti.galaxies < 3) {
+  if (player.galaxies + player.replicanti.galaxies + player.dilation.freeGalaxies < 3) {
       let baseMultiplier = 0.9;
       if (player.galaxies == 0) baseMultiplier = 0.89
       if (player.currentChallenge == "challenge6" || player.currentChallenge == "postc1") baseMultiplier = 0.93;
       let perGalaxy = 0.02;
-      let galaxies = player.galaxies+player.replicanti.galaxies
+      let galaxies = player.galaxies+player.replicanti.galaxies+player.dilation.freeGalaxies
       if (player.timestudy.studies.includes(133)) galaxies += player.replicanti.galaxies/2
       if (player.timestudy.studies.includes(132)) galaxies += player.replicanti.galaxies*0.4
       if (player.timestudy.studies.includes(225)) galaxies += Math.floor(player.replicanti.amount.e / 1000)
@@ -27,7 +27,7 @@ function getTickSpeedMultiplier() {
       let baseMultiplier = 0.8
       if (player.currentChallenge == "challenge6" || player.currentChallenge == "postc1") baseMultiplier = 0.83
       let perGalaxy = 0.965
-      let galaxies = player.galaxies-2+player.replicanti.galaxies
+      let galaxies = player.galaxies-2+player.replicanti.galaxies+player.dilation.freeGalaxies
       if (player.timestudy.studies.includes(133)) galaxies += player.replicanti.galaxies/2
       if (player.timestudy.studies.includes(132)) galaxies += player.replicanti.galaxies*0.4
       if (player.timestudy.studies.includes(225)) galaxies += Math.floor(player.replicanti.amount.e / 1000)

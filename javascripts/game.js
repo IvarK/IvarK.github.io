@@ -427,23 +427,28 @@ function getInfinitied() {return Math.max(player.infinitied + player.infinitiedB
 
 
 
-
+function getGalaxyCostScalingStart() {
+    var n = 100 + ECTimesCompleted("eterc5")*5
+    if (player.timestudy.studies.includes(223)) n += 7
+    if (player.timestudy.studies.includes(224)) n += Math.floor(player.resets/2000)
+    return n
+}
 
 function getGalaxyRequirement() {
-    let amount = 80 + ((player.galaxies - player.dilation.freeGalaxies) * 60);
-    if (player.timestudy.studies.includes(42)) amount = 80 + ((player.galaxies - player.dilation.freeGalaxies) * 52)
-    if (player.currentChallenge == "challenge4") amount = 99 + ((player.galaxies - player.dilation.freeGalaxies) * 90)
+    let amount = 80 + ((player.galaxies) * 60);
+    if (player.timestudy.studies.includes(42)) amount = 80 + ((player.galaxies) * 52)
+    if (player.currentChallenge == "challenge4") amount = 99 + ((player.galaxies) * 90)
 
-    let galaxyCostScalingStart = 100 + ECTimesCompleted("eterc5")*5
-    if (player.timestudy.studies.includes(223)) galaxyCostScalingStart += 7
-    if (player.timestudy.studies.includes(224)) galaxyCostScalingStart += Math.floor(player.resets/2000)
+    let galaxyCostScalingStart = getGalaxyCostScalingStart()
     if (player.currentEternityChall == "eterc5") {
         amount += Math.pow(player.galaxies, 2) + player.galaxies
     }
-    else if ((player.galaxies - player.dilation.freeGalaxies) >= galaxyCostScalingStart) {
-        amount += Math.pow((player.galaxies - player.dilation.freeGalaxies)-(galaxyCostScalingStart-1),2)+(player.galaxies - player.dilation.freeGalaxies)-(galaxyCostScalingStart-1)
+    else if ((player.galaxies) >= galaxyCostScalingStart) {
+        amount += Math.pow((player.galaxies)-(galaxyCostScalingStart-1),2)+(player.galaxies)-(galaxyCostScalingStart-1)
     }
-
+    if (player.galaxies >= 800) {
+        amount = Math.floor(amount * Math.pow(1.002, (player.galaxies-800)))
+    }
 
     if (player.infinityUpgrades.includes("resetBoost")) amount -= 9;
     if (player.challenges.includes("postc5")) amount -= 1;
@@ -542,7 +547,8 @@ function updateDimensions() {
         if (player.timestudy.studies.includes(225)) extraGals += Math.floor(player.replicanti.amount.e / 1000)
         if (player.timestudy.studies.includes(226)) extraGals += Math.floor(player.replicanti.gal / 15)
         var galString = ""
-        if (player.galaxies >= 100 + ECTimesCompleted("eterc5") * 5 || player.currentEternityChall === "eterc5") galString += "Distant Antimatter Galaxies (";
+        if (player.galaxies >= 800) galString += "Remote Antimatter Galaxies (";
+        else if (player.galaxies >= getGalaxyCostScalingStart() || player.currentEternityChall === "eterc5") galString += "Distant Antimatter Galaxies (";
         else galString += "Antimatter Galaxies (";
         galString += player.galaxies;
         if (extraGals > 0) galString += " + "+extraGals;
@@ -550,7 +556,7 @@ function updateDimensions() {
         galString += "): requires " + getGalaxyRequirement()
         if (player.currentChallenge == "challenge4") galString +=  " Sixth Dimensions";
         else galString +=  " Eighth Dimensions";
-    document.getElementById("secondResetLabel").textContent = galString;
+        document.getElementById("secondResetLabel").textContent = galString;
     }
 
     if (canBuyTickSpeed() || player.currentEternityChall == "eterc9") {
@@ -2899,8 +2905,6 @@ document.getElementById("bigcrunch").onclick = function () {
             }
         }
 
-        player.galaxies += player.dilation.freeGalaxies
-
         if (player.replicanti.unl && !player.achievements.includes("r95")) player.replicanti.amount = new Decimal(1)
 
         player.replicanti.galaxies = (player.timestudy.studies.includes(33)) ? Math.floor(player.replicanti.galaxies/2) :0
@@ -3276,8 +3280,6 @@ function eternity(force) {
         clearInterval(player.interval);
         //updateInterval();
 
-        player.galaxies += player.dilation.freeGalaxies
-
         if (player.eternities <= 30) {
             document.getElementById("secondRow").style.display = "none";
             document.getElementById("thirdRow").style.display = "none";
@@ -3533,8 +3535,6 @@ function startChallenge(name, target) {
     if (player.achievements.includes("r83")) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
     clearInterval(player.interval);
     //updateInterval();
-
-    player.galaxies += player.dilation.freeGalaxies
 
     if (player.eternities < 30) {
         document.getElementById("secondRow").style.display = "none";
