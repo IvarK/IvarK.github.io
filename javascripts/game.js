@@ -4087,7 +4087,7 @@ function timeMult() {
     var mult = new Decimal(1)
     if (player.infinityUpgrades.includes("timeMult")) mult = mult.times(Math.pow(player.totalTimePlayed / 1200, 0.15));
     if (player.infinityUpgrades.includes("timeMult2")) mult = mult.times(Decimal.max(Math.pow(player.thisInfinityTime / 2400, 0.25), 1));
-    if (player.achievements.includes("r35")) mult = mult.times(Math.pow(player.totalTimePlayed / (600*60*48), 0.05));
+    if (player.achievements.includes("r76")) mult = mult.times(Math.pow(player.totalTimePlayed / (600*60*48), 0.05));
     return mult;
 }
 
@@ -4233,7 +4233,7 @@ function updateInfCosts() {
         else document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost.dividedBy(player.replicanti.amount.pow(0.3)))+" IP"
     } else {
         if (replGalOver !== 0) document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"+"+replGalOver+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP"
-        else document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP" 
+        else document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP"
     }
     document.getElementById("replicantiunlock").innerHTML = "Unlock Replicantis<br>Cost: "+shortenCosts(1e140)+" IP"
     let extraGals = 0
@@ -4597,6 +4597,16 @@ document.getElementById("secondSoftReset").onclick = function() {
     }
 }
 
+function setInitialDimensionPower () {
+  player.firstPow = getDimensionBoostPower().pow(player.resets)
+  player.secondPow = getDimensionBoostPower().pow(player.resets - 1).max(1)
+  player.thirdPow = getDimensionBoostPower().pow(player.resets - 2).max(1)
+  player.fourthPow = getDimensionBoostPower().pow(player.resets - 3).max(1)
+  player.fifthPow = getDimensionBoostPower().pow(player.resets - 4).max(1)
+  player.sixthPow = getDimensionBoostPower().pow(player.resets - 5).max(1)
+  player.seventhPow = getDimensionBoostPower().pow(player.resets - 6).max(1)
+  player.eightPow = getDimensionBoostPower().pow(player.resets - 7).max(1)
+}
 
 function galaxyReset() {
 
@@ -4756,14 +4766,8 @@ function galaxyReset() {
         player.eightBought = 1;
         player.resets = 4;
     }
-    player.firstPow = getDimensionBoostPower().pow(player.resets+ 1)
-    player.secondPow = getDimensionBoostPower().pow(player.resets)
-    player.thirdPow = getDimensionBoostPower().pow(player.resets - 1).max(1)
-    player.fourthPow = getDimensionBoostPower().pow(player.resets - 2).max(1)
-    player.fifthPow = getDimensionBoostPower().pow(player.resets - 3).max(1)
-    player.sixthPow = getDimensionBoostPower().pow(player.resets - 4).max(1)
-    player.seventhPow = getDimensionBoostPower().pow(player.resets - 5).max(1)
-    player.eightPow = getDimensionBoostPower().pow(player.resets - 6).max(1)
+
+    setInitialDimensionPower();
 
 
     if (player.options.notation == "Emojis") player.spreadingCancer+=1;
@@ -5867,14 +5871,7 @@ document.getElementById("bigcrunch").onclick = function () {
 
         player.replicanti.galaxies = (player.timestudy.studies.includes(33)) ? Math.floor(player.replicanti.galaxies/2) :0
 
-        player.firstPow = getDimensionBoostPower().pow(player.resets + 1)
-        player.secondPow = getDimensionBoostPower().pow(player.resets)
-        player.thirdPow = getDimensionBoostPower().pow(player.resets - 1).max(1)
-        player.fourthPow = getDimensionBoostPower().pow(player.resets - 2).max(1)
-        player.fifthPow = getDimensionBoostPower().pow(player.resets - 3).max(1)
-        player.sixthPow = getDimensionBoostPower().pow(player.resets - 4).max(1)
-        player.seventhPow = getDimensionBoostPower().pow(player.resets - 5).max(1)
-        player.eightPow = getDimensionBoostPower().pow(player.resets - 6).max(1)
+        setInitialDimensionPower();
 
 
         if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") document.getElementById("matter").style.display = "block";
@@ -6456,6 +6453,9 @@ function startChallenge(name, target) {
 
     if (player.replicanti.unl) player.replicanti.amount = new Decimal(1)
     player.replicanti.galaxies = 0
+
+    // even if we're in a challenge, apparently if it's challenge 2 we might have four resets anyway.
+    setInitialDimensionPower();
 
     IPminpeak = new Decimal(0)
     if (player.currentChallenge.includes("post")) player.break = true
