@@ -381,6 +381,7 @@ function exportStudyTree() {
 
 function importStudyTree(input) {
   if (typeof input !== 'string') var input = prompt()
+  if (input == "tree") giveAchievement("You followed the instructions")
   if (input === "") return false
   var studiesToBuy = input.split("|")[0].split(",");
   for (i=0; i<studiesToBuy.length; i++) {

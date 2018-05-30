@@ -125,7 +125,7 @@ const allAchievements = {
   s34 : "You do know how these work, right?",
   s35 : "Should we tell him about the buy max...",
   s36 : "Dip the antimatter",
-  s37 : "s37",
+  s37 : "You followed the instructions",
   s38 : "s38",
 };
 const secretAchievementTooltips = {
@@ -151,7 +151,7 @@ const secretAchievementTooltips = {
     s34 : "Respec with an empty study tree.",
     s35 : "Buy single tickspeed 1,000,000 times.",
     s36 : "Dip the antimatter",
-    s37 : "s37",
+    s37 : "Follow instructions",
     s38 : "s38",
   };
 const allAchievementNums = Object.invert(allAchievements)
