@@ -123,7 +123,7 @@ const allAchievements = {
   s32 : "Less than or equal to 0.001",
   s33 : "A sound financial decision",
   s34 : "You do know how these work, right?",
-  s35 : "Should we tell him about the buy max...",
+  s35 : "Should we tell them about buy max...",
   s36 : "Dip the antimatter",
   s37 : "s37",
   s38 : "s38",
@@ -150,7 +150,7 @@ const secretAchievementTooltips = {
     s33 : "Click on the donate link.",
     s34 : "Respec with an empty study tree.",
     s35 : "Buy single tickspeed 1,000,000 times.",
-    s36 : "Dip the antimatter",
+    s36 : "Dip the antimatter.",
     s37 : "s37",
     s38 : "s38",
   };
