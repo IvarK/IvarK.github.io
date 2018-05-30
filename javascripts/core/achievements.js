@@ -123,8 +123,8 @@ const allAchievements = {
   s32 : "Less than or equal to 0.001",
   s33 : "A sound financial decision",
   s34 : "You do know how these work, right?",
-  s35 : "s35",
-  s36 : "s36",
+  s35 : "Should we tell him about the buy max...",
+  s36 : "Dip the antimatter",
   s37 : "s37",
   s38 : "s38",
 };
@@ -149,8 +149,8 @@ const secretAchievementTooltips = {
     s32 : "Get a fastest infinity or eternity time of less than or equal to 0.001 seconds.",
     s33 : "Click on the donate link.",
     s34 : "Respec with an empty study tree.",
-    s35 : "s35",
-    s36 : "s36",
+    s35 : "Buy single tickspeed 1,000,000 times.",
+    s36 : "Dip the antimatter",
     s37 : "s37",
     s38 : "s38",
   };

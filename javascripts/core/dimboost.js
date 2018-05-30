@@ -149,6 +149,7 @@ function softReset(bulk) {
       dimlife: player.dimlife,
       dead: player.dead,
       dilation: player.dilation,
+      why: player.why,
       options: player.options
   };
   if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {

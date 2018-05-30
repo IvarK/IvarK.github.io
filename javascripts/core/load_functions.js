@@ -107,6 +107,7 @@ if (player.infinitied > 0 && !player.challenges.includes("challenge1")) player.c
   if (player.timeDimension6 === undefined) player.timeDimension6 = {cost: new Decimal("1e2650"), amount: new Decimal(0), power: new Decimal(1), bought: 0 }
   if (player.timeDimension7 === undefined) player.timeDimension7 = {cost: new Decimal("1e3000"), amount: new Decimal(0), power: new Decimal(1), bought: 0 }
   if (player.timeDimension8 === undefined) player.timeDimension8 = {cost: new Decimal("1e3400"), amount: new Decimal(0), power: new Decimal(1), bought: 0 }
+  if (player.why === undefined) player.why = 0
   setTheme(player.options.theme);
 
   sliderText.textContent = "Update rate: " + player.options.updateRate + "ms";
