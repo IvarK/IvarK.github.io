@@ -406,7 +406,7 @@ function updateMoney() {
     element.textContent = formatValue(player.options.notation, player.money, 2, 1);
     var element2 = document.getElementById("matter");
     if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1") element2.textContent = "There is " + formatValue(player.options.notation, player.matter, 2, 1) + " matter."
-    if (player.currentChallenge == "postc6") element2.textContentL = "There is " + formatValue(player.options.notation, Decimal.pow(player.matter,20), 2, 1) + " matter."; //TODO
+    if (player.currentChallenge == "postc6") element2.textContent = "There is " + formatValue(player.options.notation, Decimal.pow(player.matter,20), 2, 1) + " matter."; //TODO
 }
 
 function updateCoinPerSec() {
