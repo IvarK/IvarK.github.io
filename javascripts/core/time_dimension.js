@@ -34,7 +34,11 @@ function getTimeDimensionPower(tier) {
     if (player.timestudy.studies.includes(102)) replmult = replmult.times(Decimal.pow(5, player.replicanti.galaxies))
 
     if (player.dilation.upgrades.includes(5)) ret = ret.times(replmult.pow(0.1))
-}
+  }
+
+  if (ret.lt(1)) {
+    ret = new Decimal(1)
+  }
 
   if (player.dilation.active) {
     ret = Decimal.pow(10, Math.pow(ret.log10(), 0.75))
