@@ -787,7 +787,7 @@ function loadAutoBuyerSettings() {
 
 function set_save(name, saveId, value) {
 	saves[saveId] = value;
-  localStorage.setItem(name, btoa(JSON.stringify(getRootSaveObject(), function(k, v) { return (v === Infinity) ? "Infinity" : v; })));
+    localStorage.setItem(name, btoa(JSON.stringify(getRootSaveObject(), function(k, v) { return (v === Infinity) ? "Infinity" : v; })));
 }
 
 function get_save(name) {
