@@ -115,6 +115,13 @@ function DimensionPower(tier) {
       }
   }
 
+  if (player.dilation.active) {
+    mult = Decimal.pow(10, Math.pow(mult.log10(), 0.75))
+    if (player.dilation.upgrades.includes(9)) {
+      mult = Decimal.pow(10, Math.pow(mult.log10(), 1.05))
+    }
+  }
+
   return mult
 }
 

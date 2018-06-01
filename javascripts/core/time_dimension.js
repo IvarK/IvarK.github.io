@@ -37,10 +37,10 @@ function getTimeDimensionPower(tier) {
 }
 
   if (player.dilation.active) {
-      ret.e = Math.floor(Math.pow(ret.e, 0.75))
-      if (player.dilation.upgrades.includes(9)) {
-        ret.e = Math.floor(Math.pow(ret.e, 1.05))
-      }
+    ret = Decimal.pow(10, Math.pow(ret.log10(), 0.75))
+    if (player.dilation.upgrades.includes(9)) {
+      ret = Decimal.pow(10, Math.pow(ret.log10(), 1.05))
+    }
   }
 
 
