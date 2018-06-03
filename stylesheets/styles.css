@@ -1613,6 +1613,22 @@ br {
 }
 
 
+.floatingText {
+    position: absolute;
+    bottom: 20px;
+    left: 150px;
+    animation: float 1s 1;
+    color: green;
+    font-size: 1.5em;
+    opacity: 0;
+}
+
+.rel {
+    position: relative;
+}
+  
+
+
 
 
 @media print,
@@ -1772,5 +1788,11 @@ screen and (max-width: 480px) {
 @keyframes spin3d {
     0%  {transform: rotate3d(5.2, -2.8, 1.4, 0deg);}
     100% {transform: rotate3d(5.2, -2.8, 1.4, 360deg);}
+}
+
+@keyframes float {
+    0% { bottom: 0px; opacity: 0;}
+    50% {opacity: 1; }
+    100% { bottom: 75px; opacity: 0;}
 }
 

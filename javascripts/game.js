@@ -515,7 +515,7 @@ function updateDimensions() {
             if (!canBuyDimension(tier) && document.getElementById(name + "Row").style.display !== "table-row") {
                 break;
             }
-            document.getElementById(name + "D").textContent = DISPLAY_NAMES[tier] + " Dimension x" + formatValue(player.options.notation, getDimensionFinalMultiplier(tier), 1, 1);
+            document.getElementById(name + "D").childNodes[0].nodeValue = DISPLAY_NAMES[tier] + " Dimension x" + formatValue(player.options.notation, getDimensionFinalMultiplier(tier), 1, 1);
             document.getElementById(name + "Amount").textContent = getDimensionDescription(tier);
         }
 
@@ -705,6 +705,14 @@ function updateCosts() {
     }
 }
 
+function floatText(id, text) {
+    var el = $("#"+id)
+    el.append("<div class='floatingText'>"+text+"</div>")
+    setTimeout(function() {
+        el.children()[0].remove()
+    }, 1000)
+}
+
 
 
 
@@ -751,10 +759,8 @@ function updateChallenges() {
 
     }
 
-
-
-
 }
+
 
 function updateEternityChallenges() {
 
@@ -4601,7 +4607,7 @@ setInterval(function() {
     if (player.replicanti.amount.gt(new Decimal("1e20000"))) giveAchievement("When will it be enough?")
     if (player.tickspeed.e < -8296272) giveAchievement("Faster than a potato^345678")
     if (player.timestudy.studies.length == 0 && player.dilation.active && player.infinityPoints.e >= 20000) giveAchievement("This is what I have to do to get rid of you.")
-    if (player.why >= 1e6) giveAchievement("Should we tell him about the buy max...")
+    if (player.why >= 1e6) giveAchievement("Should we tell them about buy max...")
     if ( Math.max(document.documentElement.clientHeight, window.innerHeight || 0) <= 150 ) giveAchievement("Dip the antimatter")
 
 }, 1000)
