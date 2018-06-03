@@ -64,13 +64,14 @@ function getDimensionFinalMultiplier(tier) {
   if (player.currentChallenge == "postc4" && player.postC4Tier != tier) multiplier = multiplier.pow(0.25)
   if (player.challenges.includes("postc4")) multiplier = multiplier.pow(1.05);
   if (player.currentEternityChall == "eterc10") multiplier = multiplier.times(ec10bonus)
-  if (player.timestudy.studies.includes(193)) multiplier = multiplier.times(Decimal.pow(1.02, Math.min(player.eternities, 1.5e6)))
+  if (player.timestudy.studies.includes(193)) multiplier = multiplier.times(Decimal.pow(1.03, player.eternities).min("1e13000"))
   if (tier == 8 && player.timestudy.studies.includes(214)) multiplier = multiplier.times((calcTotalSacrificeBoost().pow(8)).min("1e46000").times(calcTotalSacrificeBoost().pow(1.1).min(new Decimal("1e125000"))))
+  if (multiplier.lt(1)) multiplier = new Decimal(1)
   if (player.dilation.active) {
-      multiplier.e = Math.floor(Math.pow(multiplier.e, 0.75))
-      if (player.dilation.upgrades.includes(9)) {
-        multiplier.e = Math.floor(Math.pow(multiplier.e, 1.05))
-      }
+    multiplier = Decimal.pow(10, Math.pow(multiplier.log10(), 0.75))
+    if (player.dilation.upgrades.includes(9)) {
+      multiplier = Decimal.pow(10, Math.pow(multiplier.log10(), 1.05))
+    }
   }
 
   if (player.dilation.upgrades.includes(6)) multiplier = multiplier.times(player.dilation.dilatedTime.pow(308))
@@ -561,9 +562,9 @@ function getDimensionProductionPerSecond(tier) {
     if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") ret = ret.times(player.chall2Pow)
     if (player.dilation.active) {
         let tick = new Decimal(player.tickspeed)
-        tick.e = Math.floor(Math.pow(Math.abs(tick.e), 0.75))
+        tick = Decimal.pow(10, Math.pow(Math.abs(tick.log10()), 0.75))
         if (player.dilation.upgrades.includes(9)) {
-            tick.e = Math.floor(Math.pow(Math.abs(tick.e), 1.05))
+            tick = Decimal.pow(10, Math.pow(Math.abs(tick.log10()), 1.05))
           }
         tick = new Decimal(1).dividedBy(tick)
         ret = Decimal.floor(player[TIER_NAMES[tier] + 'Amount']).times(getDimensionFinalMultiplier(tier)).times(1000).dividedBy(tick)

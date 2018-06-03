@@ -56,9 +56,12 @@ function DimensionProduction(tier) {
   if (player.challenges.includes("postc6")) {
       let tick = new Decimal(player.tickspeed)
       if (player.dilation.active) {
-          tick.e = Math.ceil(Math.pow(Math.abs(tick.e), 0.75))
-          tick = new Decimal(1).dividedBy(tick)
+        tick = Decimal.pow(10, Math.pow(Math.abs(tick.log10()), 0.75))
+        if (player.dilation.upgrades.includes(9)) {
+          tick = Decimal.pow(10, Math.pow(Math.abs(tick.log10()), 1.05))
+        }
       }
+      tick = new Decimal(1).dividedBy(tick)
       return ret.times(DimensionPower(tier)).dividedBy(tick.dividedBy(1000).pow(0.0005))
   }
   else return ret.times(DimensionPower(tier))
@@ -95,7 +98,7 @@ function DimensionPower(tier) {
       mult = mult.times(player.eternityPoints.plus(1))
   }
 
-  if (player.eternityUpgrades.includes(2)) mult = mult.times(Decimal.pow(Math.min(player.eternities, 125000)/300 + 1, Math.log(Math.min(player.eternities, 125000)*2+1)/Math.log(4)).times(new Decimal((player.eternities-125000)/300 + 1).times(Math.log((player.eternities- 125000)*2+1)/Math.log(4)).max(1)))
+  if (player.eternityUpgrades.includes(2)) mult = mult.times(Decimal.pow(Math.min(player.eternities, 100000)/200 + 1, Math.log(Math.min(player.eternities, 100000)*2+1)/Math.log(4)).times(new Decimal((player.eternities-100000)/200 + 1).times(Math.log((player.eternities- 100000)*2+1)/Math.log(4)).max(1)))
 
   if (player.eternityUpgrades.includes(3)) mult = mult.times(Decimal.pow(2,300/Math.max(infchallengeTimes, player.achievements.includes("r112") ? 6.1 : 7.5)))
 
@@ -108,11 +111,13 @@ function DimensionPower(tier) {
 
   if (ECTimesCompleted("eterc9") !== 0) mult = mult.times(player.timeShards.pow(ECTimesCompleted("eterc9")*0.1).plus(1).min(new Decimal("1e400")))
 
+  if (mult.lte(1)) mult = new Decimal(1)
+
   if (player.dilation.active) {
-      mult.e = Math.ceil(Math.pow(mult.e, 0.75))
-      if (player.dilation.upgrades.includes(9)) {
-        mult.e = Math.floor(Math.pow(mult.e, 1.05))
-      }
+    mult = Decimal.pow(10, Math.pow(mult.log10(), 0.75))
+    if (player.dilation.upgrades.includes(9)) {
+      mult = Decimal.pow(10, Math.pow(mult.log10(), 1.05))
+    }
   }
 
   return mult
