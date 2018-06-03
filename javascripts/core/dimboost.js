@@ -239,12 +239,12 @@ function getShiftRequirement(bulk) {
 }
 
 document.getElementById("softReset").onclick = function () {
-  auto = false;
   var name = TIER_NAMES[getShiftRequirement(0).tier]
-  if (player[name + "Amount"] >= getShiftRequirement(0).amount) {
-      if (player.infinityUpgrades.includes("bulkBoost")) maxBuyDimBoosts(true);
-      else softReset(1)
-  }
+  if ((!player.break && player.money.gt(Number.MAX_VALUE)) || player[name + "Amount"] < getShiftRequirement(0).amount) return;
+  auto = false;
+  if (player.infinityUpgrades.includes("bulkBoost")) maxBuyDimBoosts(true);
+  else softReset(1)
+  
   for (var tier = 1; tier<9; tier++) {
     var name = TIER_NAMES[tier];
     var mult = getDimensionBoostPower().pow(player.resets + 1 - tier)

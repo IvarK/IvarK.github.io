@@ -6061,11 +6061,7 @@ window.addEventListener('keydown', function(event) {
         break;
 
         case 68: // D
-            var name = TIER_NAMES[getShiftRequirement(0).tier]
-            if (player[name + "Amount"] >= getShiftRequirement(0).amount) {
-                if (player.infinityUpgrades.includes("bulkBoost") && !shiftDown) maxBuyDimBoosts(true);
-                else softReset(1)
-            }
+            document.getElementById("softReset").onclick()
         break;
 
         case 71: // G
