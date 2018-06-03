@@ -245,4 +245,9 @@ document.getElementById("softReset").onclick = function () {
       if (player.infinityUpgrades.includes("bulkBoost")) maxBuyDimBoosts(true);
       else softReset(1)
   }
+  for (var tier = 1; tier<9; tier++) {
+    var name = TIER_NAMES[tier];
+    var mult = getDimensionBoostPower().pow(player.resets + 1 - tier)
+    if (mult > 1) floatText(name + "D", "x" + shortenDimensions(mult))
+  }
 };
