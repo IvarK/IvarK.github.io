@@ -1619,7 +1619,7 @@ br {
     left: 150px;
     animation: float 1s 1;
     color: green;
-    font-size: 1.5em;
+    font-size: 1.2em;
     opacity: 0;
 }
 
@@ -1793,6 +1793,6 @@ screen and (max-width: 480px) {
 @keyframes float {
     0% { bottom: 0px; opacity: 0;}
     50% {opacity: 1; }
-    100% { bottom: 75px; opacity: 0;}
+    100% { bottom: 50px; opacity: 0;}
 }
 
