@@ -860,6 +860,7 @@ document.getElementById("maxall").onclick = function () {
     for (var tier=1; tier<9;tier++) {
         var name = TIER_NAMES[tier];
         var cost = player[name + 'Cost'].times(10 - dimBought(tier))
+        var multBefore = player[name + 'Pow']
         if (tier >= 3 && (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1")) {
             if (!canBuyDimension(tier)) continue
             if (player[TIER_NAMES[tier-2] + 'Amount'].lt(cost)) continue
@@ -955,6 +956,7 @@ document.getElementById("maxall").onclick = function () {
         if (player.currentChallenge == "postc1") clearDimensions(tier-1);
         player.postC4Tier = tier;
         onBuyDimension(tier)
+        floatText(name + "D", "x" + shortenDimensions(player[name + "Pow"].dividedBy(multBefore)))
     }
 }
 
