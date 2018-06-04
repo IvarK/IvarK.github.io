@@ -2698,7 +2698,7 @@ function checkForEndMe() {
 
 
 document.getElementById("bigcrunch").onclick = function () {
-    if ((player.bestInfinityTime > 600 || !player.break) && implosionCheck === 0) {
+    if ((player.bestInfinityTime > 600 || !player.break) && player.eternities === 0 && implosionCheck === 0) {
         implosionCheck = 1;
         document.getElementById("body").style.animation = "implode 2s 1";
         setTimeout(function(){ document.getElementById("body").style.animation = ""; }, 2000)
