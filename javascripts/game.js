@@ -10,6 +10,7 @@ var saved = 0;
 var painTimer = 0;
 var keySequence = 0;
 var failureCount = 0;
+var implosionCheck = 0;
 var TIER_NAMES = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
 var DISPLAY_NAMES = [ null, "First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth" ];
 var player = {
@@ -2697,6 +2698,14 @@ function checkForEndMe() {
 
 
 document.getElementById("bigcrunch").onclick = function () {
+    if ((player.bestInfinityTime > 600 || !player.break) && implosionCheck === 0) {
+        implosionCheck = 1;
+        document.getElementById("body").style.animation = "implode 2s 1";
+        setTimeout(function(){ document.getElementById("body").style.animation = ""; }, 2000)
+        setTimeout(function(){ document.getElementById("bigcrunch").onclick(); }, 1000)
+        return
+    }
+    implosionCheck = 0;
     var challNumber = parseInt(player.currentChallenge[player.currentChallenge.length-1])
     if (player.currentChallenge.length == 11) challNumber = parseInt("1"+player.currentChallenge[player.currentChallenge.length-1])
     if ((player.money.gte(Number.MAX_VALUE) && !player.currentChallenge.includes("post")) || (player.currentChallenge !== "" && player.money.gte(player.challengeTarget))) {

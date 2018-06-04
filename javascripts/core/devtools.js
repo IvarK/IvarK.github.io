@@ -65,3 +65,8 @@ dev.fixSave = function() {
     updateChallenges()
     transformSaveToDecimal()
 }
+
+dev.implode = function() {
+    document.getElementById("body").style.animation = "implode 2s 1";
+    setTimeout(function(){ document.getElementById("body").style.animation = ""; }, 2000)
+}

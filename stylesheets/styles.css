@@ -1796,3 +1796,9 @@ screen and (max-width: 480px) {
     100% { bottom: 50px; opacity: 0;}
 }
 
+@keyframes implode {
+    0% {transform:scale(1); filter:blur(0px)}
+    50% {transform:scale(0); filter:blur(5px)}
+    100% {transform:scale(1); filter:blur(0px)}
+}
+
