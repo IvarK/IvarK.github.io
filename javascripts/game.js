@@ -5401,7 +5401,7 @@ function dimBoolean() {
 
 
 function maxBuyGalaxies(manual) {
-    if (player.currentEternityChall == "eterc6" || player.currentChallenge != "challenge11" || player.currentChallenge != "postc1" || player.currentChallenge != "postc7") return
+    if (player.currentEternityChall == "eterc6" || player.currentChallenge == "challenge11" || player.currentChallenge == "postc1" || player.currentChallenge == "postc7") return
     if (player.autobuyers[10].priority > player.galaxies) {
         while(player.eightAmount >= getGalaxyRequirement() && (player.autobuyers[10].priority > player.galaxies || manual)) {
             if (player.options.notation == "Emojis") player.spreadingCancer+=1;
