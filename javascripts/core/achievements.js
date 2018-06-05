@@ -150,8 +150,8 @@ const secretAchievementTooltips = {
     s33 : "Click on the donate link.",
     s34 : "Respec with an empty study tree.",
     s35 : "Buy single tickspeed 1,000,000 times.",
-    s36 : "Dip the antimatter",
-    s37 : "Follow instructions",
+    s36 : "Dip the antimatter.",
+    s37 : "Follow instructions.",
     s38 : "s38",
   };
 const allAchievementNums = Object.invert(allAchievements)
