@@ -4485,9 +4485,13 @@ setInterval(function() {
     }
 
     if (player.eternities !== 0) document.getElementById("eternityconf").style.display = "inline-block"
+    else document.getElementById("eternityconf").style.display = "none"
     if (player.eternities >= 40) document.getElementById("replauto1").style.visibility = "visible"
+    else document.getElementById("replauto1").style.visibility = "hidden"
     if (player.eternities >= 60) document.getElementById("replauto2").style.visibility = "visible"
+    else document.getElementById("replauto2").style.visibility = "hidden"
     if (player.eternities >= 80) document.getElementById("replauto3").style.visibility = "visible"
+    else document.getElementById("replauto3").style.visibility = "hidden"
     if (player.eternities >= 100) document.getElementById("autoBuyerEter").style.display = "inline-block"
 
     if (player.eternities == 0) document.getElementById("pasteternities").style.display = "none"
