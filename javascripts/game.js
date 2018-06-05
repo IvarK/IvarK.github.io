@@ -706,9 +706,9 @@ function updateCosts() {
     }
 }
 
-function floatText(id, text) {
+function floatText(id, text, leftOffset = 150) {
     var el = $("#"+id)
-    el.append("<div class='floatingText'>"+text+"</div>")
+    el.append("<div class='floatingText' style='left: "+leftOffset+"px'>"+text+"</div>")
     setTimeout(function() {
         el.children()[0].remove()
     }, 1000)
@@ -2137,12 +2137,12 @@ function calcTotalSacrificeBoost() {
 }
 
 
-function sacrifice() {
+function sacrifice(auto = false) {
     if (player.eightAmount == 0) return false;
     if (player.resets < 5) return false
     if (player.currentEternityChall == "eterc3") return false
     if (player.currentChallenge == "challenge11" && (calcTotalSacrificeBoost().gte(Number.MAX_VALUE) || player.chall11Pow.gte(Number.MAX_VALUE))) return false
-
+    if (!auto) floatText("eightD", "x" + shortenMoney(calcSacrificeBoost()))
     if (calcSacrificeBoost().gte(Number.MAX_VALUE)) giveAchievement("Yet another infinity reference");
     player.eightPow = player.eightPow.times(calcSacrificeBoost())
     player.sacrificed = player.sacrificed.plus(player.firstAmount);
@@ -2168,6 +2168,7 @@ document.getElementById("sacrifice").onclick = function () {
             return false;
         }
     }
+
     auto = false;
     return sacrifice();
 }
@@ -5476,7 +5477,7 @@ function autoBuyerTick() {
 
     if (player.autoSacrifice%1 !== 0) {
         if (calcSacrificeBoost().gte(player.autoSacrifice.priority) && player.autoSacrifice.isOn) {
-            sacrifice()
+            sacrifice(true)
         }
     }
 
