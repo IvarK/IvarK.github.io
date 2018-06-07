@@ -62,7 +62,7 @@ function DimensionProduction(tier) {
         }
       }
       tick = new Decimal(1).dividedBy(tick)
-      return ret.times(DimensionPower(tier)).dividedBy(tick.dividedBy(1000).pow(0.0005))
+      return ret.times(DimensionPower(tier)).times(tick.times(1000).pow(0.0005))
   }
   else return ret.times(DimensionPower(tier))
 }
