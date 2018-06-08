@@ -31,8 +31,16 @@ function point(x, y, ctz){
     ctz.fill();
   }
 
+function animationOnOff(name) {
+    if (player.options.animations[name]) player.options.animations[name] = false;
+    else player.options.animations[name] = true;
+    if (name == "floatingText") document.getElementById("floatingTextAnimBtn").textContent = "Floating text: " + ((player.options.animations.floatingText) ? "ON" : "OFF")
+    else if (name == "bigCrunch") document.getElementById("bigCrunchAnimBtn").textContent = "Big crunch: " + ((player.options.animations.bigCrunch) ? "ON" : "OFF")
+    else if (name == "tachyonParticles") document.getElementById("tachyonParticleAnimBtn").textContent = "Tachyon particles: " + ((player.options.animations.tachyonParticles) ? "ON" : "OFF")
+}
+
 function drawAnimations(ts){
-    if (player.dilation.tachyonParticles.gte(1) && document.getElementById("eternitystore").style.display !== "none" && document.getElementById("dilation").style.display !== "none") {
+    if (player.dilation.tachyonParticles.gte(1) && document.getElementById("eternitystore").style.display !== "none" && document.getElementById("dilation").style.display !== "none" && player.options.animations.tachyonParticles) {
         ctx3.clearRect(0, 0, canvas.width, canvas.height);
         if (player.options.theme == "Dark" || player.options.theme == "Dark Metro") ctx3.fillStyle="#FFF";
         else ctx3.fillStyle="#000";

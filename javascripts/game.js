@@ -288,6 +288,12 @@ var player = {
             updateRate: 1000,
             duration: 10,
             warning: 0,
+        },
+        animations: {
+            floatingText: true,
+            bigCrunch: true,
+            eternity: true,
+            tachyonParticles: true,
         }
     }
 
@@ -396,7 +402,8 @@ function showTab(tabName) {
     }
     if (document.getElementById("timestudies").style.display != "none" && document.getElementById("eternitystore").style.display != "none") document.getElementById("TTbuttons").style.display = "block";
     else document.getElementById("TTbuttons").style.display = "none"
-    resizeCanvas()
+    resizeCanvas();
+    closeToolTip();
 }
 
 
@@ -707,6 +714,7 @@ function updateCosts() {
 }
 
 function floatText(id, text, leftOffset = 150) {
+    if (!player.options.animations.floatingText) return
     var el = $("#"+id)
     el.append("<div class='floatingText' style='left: "+leftOffset+"px'>"+text+"</div>")
     setTimeout(function() {
@@ -1813,6 +1821,7 @@ document.getElementById("save").onclick = function () {
 };
 
 document.getElementById("load").onclick = function () {
+    closeToolTip();
 	for (var i = 0; i < 3; i++) {
 		var _break = player.break;
         player.break = true;
@@ -1828,6 +1837,11 @@ document.getElementById("load").onclick = function () {
 	document.querySelector("#save" + (currentSave + 1) + " .save_selected").style.display = "inline";
 
     document.getElementById("loadmenu").style.display = "flex";
+};
+
+document.getElementById("animationoptionsbtn").onclick = function () {
+    closeToolTip();
+    document.getElementById("animationoptions").style.display = "flex";
 };
 
 function verify_save(obj) {
@@ -2699,7 +2713,7 @@ function checkForEndMe() {
 
 
 document.getElementById("bigcrunch").onclick = function () {
-    if ((player.bestInfinityTime > 600 || !player.break) && player.eternities === 0 && implosionCheck === 0) {
+    if ((player.bestInfinityTime > 600 && !player.break) && player.eternities === 0 && implosionCheck === 0 && player.options.animations.bigCrunch) {
         implosionCheck = 1;
         document.getElementById("body").style.animation = "implode 2s 1";
         setTimeout(function(){ document.getElementById("body").style.animation = ""; }, 2000)
@@ -4500,6 +4514,11 @@ setInterval(function() {
     else document.getElementById("challengetimesbtn").style.display = "none"
     if (player.infinitied > 0  || player.eternities > 0) document.getElementById("pastinfs").style.display = "inline-block"
     else document.getElementById("pastinfs").style.display = "none"
+
+    if (player.infinitied !== 0) document.getElementById("bigCrunchAnimBtn").style.display = "inline-block"
+    else document.getElementById("bigCrunchAnimBtn").style.display = "none"
+    if (!player.dilation.tachyonParticles.eq(0)) document.getElementById("tachyonParticleAnimBtn").style.display = "inline-block"
+    else document.getElementById("tachyonParticleAnimBtn").style.display = "none"
 
     if (player.eternities > 10 && player.currentEternityChall !== "eterc8") {
         for (var i=1;i<player.eternities-9 && i < 9; i++) {

@@ -1010,7 +1010,7 @@
                 <tr>
 					<td><div><button id="eternityconf" onclick="toggleEternityConf()" class="storebtn" style="color:black; width: 200px; height: 55px; font-size:120%; display: none">Eternity confirmation ON</button></div></td>
                     <td><div class="storebtn" style="color:black; width: 198px; height: 55px; font-size:130%; text-align: center;"><b id="updaterate">Update Rate: 50ms</b><input id="updaterateslider" style="width: 170px;" type="range" min="33" max="200" value="50" class="slider" ></div></td>
-                    <td><div><button class="storebtn" style="width: 200px; height: 55px; opacity: 0;"></button></div></td>
+                    <td><div><button id="animationoptionsbtn" class="storebtn" style="width: 200px; height: 55px; font-size:160%;">Animations</button></div></td>
                 </tr>
                 <tr>
 
@@ -2695,6 +2695,12 @@
 
 		<button class="storebtn yes" style="font-size: 15px" style="display: inline">Yes</button>
 		<button class="storebtn no" style="font-size: 15px" style="display: inline">No</button>
+    </div>
+    <div class="popup savemenu" id="animationoptions">
+        <button class="closebtn storebtn" onclick="closeToolTip()">&times;</button>
+		<button id="floatingTextAnimBtn" class="storebtn" onclick="animationOnOff('floatingText')" style="width: 200px; height: 55px; font-size: 15px" style="display: inline">ON</button>
+        <button id="bigCrunchAnimBtn" class="storebtn" onclick="animationOnOff('bigCrunch')" style="width: 200px; height: 55px; font-size: 15px" style="display: inline">ON</button>
+        <button id="tachyonParticleAnimBtn" class="storebtn" onclick="animationOnOff('tachyonParticles')" style="width: 200px; height: 55px; font-size: 15px" style="display: inline">ON</button>
 	</div>
     <div id="TTbuttons" style="display:none;">
         <button class="timetheorembtn" onclick="maxTheorems()" style="margin-left:-276px; width:130px; height: 30px; font-size: 0.75rem; bottom: 77px;">Buy max Theorems</button>
