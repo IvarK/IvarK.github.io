@@ -15,6 +15,7 @@ body {
 
 .container {
     color: black !important;
+    text-shadow: 0.5px 0.5px 0px black;
 }
 
 .autoBuyerDiv {
