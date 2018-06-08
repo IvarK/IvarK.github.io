@@ -537,6 +537,14 @@ if (player.version < 5) {
   else document.getElementById("chartOnOff").checked = false
   if (player.options.chart.dips) document.getElementById("chartDipsOnOff").checked = true
   else document.getElementById("chartDipsOnOff").checked = false
+ 
+  if (player.options.theme == "Dark" || player.options.theme == "Dark Metro") {
+    Chart.defaults.global.defaultFontColor = '#888';
+    normalDimChart.data.datasets[0].borderColor = '#888'
+  } else {
+    Chart.defaults.global.defaultFontColor = 'black';
+    normalDimChart.data.datasets[0].borderColor = '#000'
+  }
 
   if (player.eternities < 30) {
     document.getElementById("secondRow").style.display = "none";
