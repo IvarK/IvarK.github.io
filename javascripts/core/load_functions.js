@@ -113,6 +113,8 @@ if (player.infinitied > 0 && !player.challenges.includes("challenge1")) player.c
 
   sliderText.textContent = "Update rate: " + player.options.updateRate + "ms";
   slider.value = player.options.updateRate;
+  clearInterval(gameLoopIntervalId);
+  gameLoopIntervalId = setInterval(gameLoop, player.options.updateRate);
 
   if (player.secondAmount !== 0) {
       document.getElementById("thirdRow").style.display = "table-row";
