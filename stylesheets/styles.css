@@ -422,10 +422,10 @@ button {
 }
 
 .IP {
-    left:81.5%;
+    left: 80%;
     position: absolute;
     font-size: 12px;
-    width: 150px;
+    width: 210px;
 }
 
 .IPAmount2 {
@@ -433,10 +433,10 @@ button {
 }
 
 .EP {
-    right:81.5%;
+    right: 80%;
     position: absolute;
     font-size: 12px;
-    width: 150px;
+    width: 210px;
 }
 
 .EPAmount2 {

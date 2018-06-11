@@ -652,6 +652,8 @@ function change_save(saveId) {
   postc8Mult = new Decimal(0)
   mult18 = new Decimal(1)
   ec10bonus = new Decimal(1)
+  IPminpeak = new Decimal(0)
+  EPminpeak = new Decimal(0)
   player = saves[saveId] || defaultStart;
   save_game(true);
   load_game();
