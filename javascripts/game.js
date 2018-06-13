@@ -1,4 +1,5 @@
 //test
+var gameLoopIntervalId;
 var Marathon = 0;
 var Marathon2 = 0;
 var auto = false;
@@ -4835,7 +4836,7 @@ function gameLoop(diff) {
     var currentIPmin = gainedInfinityPoints().dividedBy(player.thisInfinityTime/600)
     if (currentIPmin.gt(IPminpeak)) IPminpeak = currentIPmin
     if (IPminpeak.lte("1e100000"))document.getElementById("postInfinityButton").innerHTML = "<b>Big Crunch for "+shortenDimensions(gainedInfinityPoints())+" Infinity Points</b><br>"+shortenDimensions(currentIPmin) + " IP/min"+"<br>Peaked at "+shortenDimensions(IPminpeak)+" IP/min"
-    else document.getElementById("postInfinityButton").innerHTML = "<b>Big Crunch for "+shortenDimensions(gainedInfinityPoints())+" Infinity Points</b><br>"
+    else document.getElementById("postInfinityButton").innerHTML = "Big Crunch for <b>"+shortenDimensions(gainedInfinityPoints())+"</b> Infinity Points."
 
     if (nextAt[player.postChallUnlocked] === undefined) document.getElementById("nextchall").textContent = " "
     else if (!player.achievements.includes("r133")) {
@@ -5321,8 +5322,6 @@ function gameLoop(diff) {
 
     player.lastUpdate = thisUpdate;
 }
-
-var gameLoopIntervalId;
 
 function simulateTime(seconds, real) {
 
