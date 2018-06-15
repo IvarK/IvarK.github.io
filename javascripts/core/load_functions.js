@@ -453,9 +453,9 @@ if (player.version < 5) {
           document.getElementById(""+player.timestudy.studies[i]).className = "timestudybought passivestudy"
       } else if (player.timestudy.studies[i] == 123 || player.timestudy.studies[i] == 133 || player.timestudy.studies[i] == 143) {
           document.getElementById(""+player.timestudy.studies[i]).className = "timestudybought idlestudy"
-      } else if (player.timestudy.studies[i] == 221 || player.timestudy.studies[i] == 224 || player.timestudy.studies[i] == 225 || player.timestudy.studies[i] == 228 || player.timestudy.studies[i] == 231 || player.timestudy.studies[i] == 233) {
+      } else if (player.timestudy.studies[i] == 221 || player.timestudy.studies[i] == 224 || player.timestudy.studies[i] == 225 || player.timestudy.studies[i] == 228 || player.timestudy.studies[i] == 231 || player.timestudy.studies[i] == 234) {
           document.getElementById(player.timestudy.studies[i]).className = "timestudybought darkstudy"
-      } else if (player.timestudy.studies[i] == 222 || player.timestudy.studies[i] == 223 || player.timestudy.studies[i] == 226 || player.timestudy.studies[i] == 227 || player.timestudy.studies[i] == 232 || player.timestudy.studies[i] == 234) {
+      } else if (player.timestudy.studies[i] == 222 || player.timestudy.studies[i] == 223 || player.timestudy.studies[i] == 226 || player.timestudy.studies[i] == 227 || player.timestudy.studies[i] == 232 || player.timestudy.studies[i] == 233) {
           document.getElementById(player.timestudy.studies[i]).className = "timestudybought lightstudy"
       } else {
           document.getElementById(""+player.timestudy.studies[i]).className = "timestudybought"
