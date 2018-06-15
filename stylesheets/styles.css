@@ -393,7 +393,7 @@ button {
     transition-duration: 0.2s;
     cursor: pointer;
     position: absolute;
-    left: 80%;
+    left: 75%;
     width: 210px;
     height: 70px;
     font-family: Typewriter;
@@ -422,7 +422,7 @@ button {
 }
 
 .IP {
-    left: 80%;
+    left: 75%;
     position: absolute;
     font-size: 12px;
     width: 210px;
@@ -433,7 +433,7 @@ button {
 }
 
 .EP {
-    right: 80%;
+    right: 75%;
     position: absolute;
     font-size: 12px;
     width: 210px;
@@ -449,7 +449,7 @@ button {
     transition-duration: 0.2s;
     cursor: pointer;
     position: absolute;
-    right: 80%;
+    right: 75%;
     width: 200px;
     height: 60px;
     font-family: Typewriter;
@@ -472,7 +472,7 @@ button {
     border-radius: 4px;
     transition-duration: 0.2s;
     position: absolute;
-    right: 80%;
+    right: 75%;
     width: 200px;
     height: 60px;
     color: #000000;
@@ -493,7 +493,7 @@ button {
     transition-duration: 0.2s;
     cursor: pointer;
     position: absolute;
-    right: 80%;
+    right: 75%;
     width: 210px;
     height: 70px;
     font-family: Typewriter;
