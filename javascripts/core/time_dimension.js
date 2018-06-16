@@ -129,7 +129,7 @@ function buyTimeDimension(tier) {
   }
   if (tier > 4) {
     dim.cost = Decimal.pow(timeDimCostMults[tier]*100, dim.bought).times(timeDimStartCosts[tier])
-}
+  }
   dim.power = dim.power.times(2)
   updateEternityUpgrades()
   return true

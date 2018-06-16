@@ -70,3 +70,34 @@ dev.implode = function() {
     document.getElementById("body").style.animation = "implode 2s 1";
     setTimeout(function(){ document.getElementById("body").style.animation = ""; }, 2000)
 }
+
+dev.updateCosts = function() {
+    for (var i=1; i<9; i++) {
+        var dim = player["timeDimension"+i]
+        if (dim.cost.gte(Number.MAX_VALUE)) {
+            dim.cost = Decimal.pow(timeDimCostMults[i]*1.5, dim.bought).times(timeDimStartCosts[i])
+        }
+        if (dim.cost.gte("1e1300")) {
+            dim.cost = Decimal.pow(timeDimCostMults[i]*2.2, dim.bought).times(timeDimStartCosts[i])
+        }
+        if (i > 4) {
+          dim.cost = Decimal.pow(timeDimCostMults[i]*100, dim.bought).times(timeDimStartCosts[i])
+        }
+    }
+}
+
+dev.testTDCosts = function() {
+    for (var i=1; i<9; i++) {
+        var timeDimStartCosts = [null, 1, 5, 100, 1000, "1e2350", "1e2650", "1e2900", "1e3300"]
+        var dim = player["timeDimension"+i]
+        if (dim.cost.gte(Number.MAX_VALUE)) {
+            dim.cost = Decimal.pow(timeDimCostMults[i]*1.5, dim.bought).times(timeDimStartCosts[i])
+        }
+        if (dim.cost.gte("1e1300")) {
+            dim.cost = Decimal.pow(timeDimCostMults[i]*2.2, dim.bought).times(timeDimStartCosts[i])
+        }
+        if (i > 4) {
+          dim.cost = Decimal.pow(timeDimCostMults[i]*100, dim.bought).times(timeDimStartCosts[i])
+        }
+    }
+}
