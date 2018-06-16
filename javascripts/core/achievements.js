@@ -126,7 +126,7 @@ const allAchievements = {
   s35 : "Should we tell them about buy max...",
   s36 : "Dip the antimatter",
   s37 : "You followed the instructions",
-  s38 : "s38",
+  s38 : "Professional bodybuilder",
 };
 const secretAchievementTooltips = {
     s11 : "Click on this achievement.",
@@ -152,7 +152,7 @@ const secretAchievementTooltips = {
     s35 : "Buy single tickspeed 1,000,000 times.",
     s36 : "Dip the antimatter.",
     s37 : "Follow instructions.",
-    s38 : "s38",
+    s38 : "Get all your dimension bulk buyers to 1e100.",
   };
 const allAchievementNums = Object.invert(allAchievements)
 // to retrieve by value: Object.keys(allAchievements).find(key => allAchievements[key] === "L4D: Left 4 Dimensions");

@@ -2322,11 +2322,13 @@ function updateAutobuyers() {
     }
 
     var maxedAutobuy = 0;
+    var e100autobuy = 0;
     for (let tier = 1; tier <= 8; ++tier) {
     document.getElementById("toggleBtn" + tier).style.display = "inline-block";
         if (player.autobuyers[tier-1].bulk >= 1e100) {
         player.autobuyers[tier-1].bulk = 1e100;
         document.getElementById("buyerBtn" + tier).textContent = shortenDimensions(player.autobuyers[tier-1].bulk)+"x bulk purchase";
+        e100autobuy++;
         }
         else {
         if (player.autobuyers[tier-1].interval <= 100) {
@@ -2359,8 +2361,11 @@ function updateAutobuyers() {
         document.getElementById("buyerBtnInf").style.display = "none"
         maxedAutobuy++;
     }
+
+    console.log(e100autobuy)
     if (maxedAutobuy >= 9) giveAchievement("Age of Automation");
     if (maxedAutobuy >= 12) giveAchievement("Definitely not worth it");
+    if (e100autobuy >= 8) giveAchievement("Professional bodybuilder");
 
     document.getElementById("buyerBtnTickSpeed").innerHTML = "40% smaller interval <br>Cost: " + player.autobuyers[8].cost + " IP"
     document.getElementById("buyerBtnDimBoost").innerHTML = "40% smaller interval <br>Cost: " + player.autobuyers[9].cost + " IP"
