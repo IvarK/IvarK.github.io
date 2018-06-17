@@ -4224,8 +4224,12 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
 
 function startDilatedEternity() {
     if (!player.dilation.studies.includes(1)) return
+    clearInterval(gameLoopIntervalId);
     if (player.dilation.active) {
         eternity(true)
+        setTimeout(function() {
+            gameLoopIntervalId = setInterval(gameLoop, player.options.updateRate);
+        }, 250)
         return
     }
     if (!confirm("You will start an eternity with all of your Dimension/Infinity Dimension/Time Dimension multiplier's exponents and tickspeed multiplier's exponent reduced to ^ 0.75. If you can eternity while dilated, you'll be rewarded with tachyon particles based on your antimatter and tachyon particles.")) return
@@ -4241,7 +4245,6 @@ function startDilatedEternity() {
     var postc8Mult = new Decimal(0)
     var mult18 = new Decimal(1)
     var ec10bonus = new Decimal(1)
-    clearInterval(gameLoopIntervalId);
     setTimeout(function() {
         gameLoopIntervalId = setInterval(gameLoop, player.options.updateRate);
     }, 250)
