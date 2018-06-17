@@ -14,6 +14,7 @@ var failureCount = 0;
 var implosionCheck = 0;
 var TIER_NAMES = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
 var DISPLAY_NAMES = [ null, "First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth" ];
+var forceHardReset = false;
 var player = {
     money: new Decimal(10),
     tickSpeedCost: new Decimal(1000),
@@ -1578,6 +1579,16 @@ document.getElementById("secondSoftReset").onclick = function() {
     }
 }
 
+function setInitialDimensionPower () {
+  player.firstPow = getDimensionBoostPower().pow(player.resets)
+  player.secondPow = getDimensionBoostPower().pow(player.resets - 1).max(1)
+  player.thirdPow = getDimensionBoostPower().pow(player.resets - 2).max(1)
+  player.fourthPow = getDimensionBoostPower().pow(player.resets - 3).max(1)
+  player.fifthPow = getDimensionBoostPower().pow(player.resets - 4).max(1)
+  player.sixthPow = getDimensionBoostPower().pow(player.resets - 5).max(1)
+  player.seventhPow = getDimensionBoostPower().pow(player.resets - 6).max(1)
+  player.eightPow = getDimensionBoostPower().pow(player.resets - 7).max(1)
+}
 
 function galaxyReset() {
 
@@ -1743,14 +1754,8 @@ function galaxyReset() {
         player.eightBought = 1;
         player.resets = 4;
     }
-    player.firstPow = getDimensionBoostPower().pow(player.resets+ 1)
-    player.secondPow = getDimensionBoostPower().pow(player.resets)
-    player.thirdPow = getDimensionBoostPower().pow(player.resets - 1).max(1)
-    player.fourthPow = getDimensionBoostPower().pow(player.resets - 2).max(1)
-    player.fifthPow = getDimensionBoostPower().pow(player.resets - 3).max(1)
-    player.sixthPow = getDimensionBoostPower().pow(player.resets - 4).max(1)
-    player.seventhPow = getDimensionBoostPower().pow(player.resets - 5).max(1)
-    player.eightPow = getDimensionBoostPower().pow(player.resets - 6).max(1)
+
+    setInitialDimensionPower();
 
 
     if (player.options.notation == "Emojis") player.spreadingCancer+=1;
@@ -1883,12 +1888,14 @@ document.getElementById("importbtn").onclick = function () {
         setTheme(player.options.theme);
     } else {
         save_data = JSON.parse(atob(save_data), function(k, v) { return (v === Infinity) ? "Infinity" : v; });
+        if(verify_save(save_data)) forceHardReset = true
+        if(verify_save(save_data)) document.getElementById("reset").click();
+        forceHardReset = false
         if (!save_data || !verify_save(save_data)) {
             alert('could not load the save..');
             load_custom_game();
             return;
 		}
-
         saved = 0;
         totalMult = 1
         currentMult = 1
@@ -2949,14 +2956,7 @@ document.getElementById("bigcrunch").onclick = function () {
 
         player.replicanti.galaxies = (player.timestudy.studies.includes(33)) ? Math.floor(player.replicanti.galaxies/2) :0
 
-        player.firstPow = getDimensionBoostPower().pow(player.resets + 1)
-        player.secondPow = getDimensionBoostPower().pow(player.resets)
-        player.thirdPow = getDimensionBoostPower().pow(player.resets - 1).max(1)
-        player.fourthPow = getDimensionBoostPower().pow(player.resets - 2).max(1)
-        player.fifthPow = getDimensionBoostPower().pow(player.resets - 3).max(1)
-        player.sixthPow = getDimensionBoostPower().pow(player.resets - 4).max(1)
-        player.seventhPow = getDimensionBoostPower().pow(player.resets - 5).max(1)
-        player.eightPow = getDimensionBoostPower().pow(player.resets - 6).max(1)
+        setInitialDimensionPower();
 
 
         if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") document.getElementById("matter").style.display = "block";
@@ -3570,6 +3570,9 @@ function startChallenge(name, target) {
 
     if (player.replicanti.unl) player.replicanti.amount = new Decimal(1)
     player.replicanti.galaxies = 0
+
+    // even if we're in a challenge, apparently if it's challenge 2 we might have four resets anyway.
+    setInitialDimensionPower();
 
     IPminpeak = new Decimal(0)
     if (player.currentChallenge.includes("post")) player.break = true
@@ -5340,6 +5343,7 @@ function simulateTime(seconds, real) {
         bonusDiff = (ticks - 1000) / 20;
         ticks = 1000;
     }
+    let ticksDone = 0
     for (ticksDone=0; ticksDone<ticks; ticksDone++) {
         gameLoop(50+bonusDiff)
         autoBuyerTick();
