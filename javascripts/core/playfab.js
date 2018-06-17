@@ -150,7 +150,7 @@ function loadFromPlayFabCallback(callback, data, error) {
       }
     } else {
       var root = getRootFromChunks(data.data.Data);
-      callback(root);
+      callback(root || {saves: []});
     }
     // End: Migration
 
@@ -176,14 +176,10 @@ function playFabLoadCheck() {
 
     for (var i = 0; i < 3; i++) {
       let saveId = i;
-      if (!cloudRoot.saves[saveId] || !saves[saveId]) {
-        return;
-      }
-
-      var cloudInfinitied = cloudRoot.saves[saveId].infinitied;
-      var cloudEternities = cloudRoot.saves[saveId].eternities;
-      var localInfinitied = saves[saveId].infinitied;
-      var localEternities = saves[saveId].eternities;
+      var cloudInfinitied = cloudRoot.saves[saveId] ? cloudRoot.saves[saveId].infinitied : 0;
+      var cloudEternities = cloudRoot.saves[saveId] ? cloudRoot.saves[saveId].eternities : 0;
+      var localInfinitied = saves[saveId] ? saves[saveId].infinitied : 0;
+      var localEternities = saves[saveId] ? saves[saveId].eternities : 0;
       if (cloudEternities < localEternities || (cloudEternities == localEternities && cloudInfinitied < localInfinitied)) {
         let el = cloudconflict.cloneNode(true);
         el.style.display = "flex";
@@ -226,10 +222,10 @@ function playFabSaveCheck() {
 
     for (var i = 0; i < 3; i++) {
       let saveId = i;
-      var cloudInfinitied = cloudRoot.saves[saveId].infinitied;
-      var cloudEternities = cloudRoot.saves[saveId].eternities;
-      var localInfinitied = saves[saveId].infinitied;
-      var localEternities = saves[saveId].eternities;
+      var cloudInfinitied = cloudRoot.saves[saveId] ? cloudRoot.saves[saveId].infinitied : 0;
+      var cloudEternities = cloudRoot.saves[saveId] ? cloudRoot.saves[saveId].eternities : 0;
+      var localInfinitied = saves[saveId] ? saves[saveId].infinitied : 0;
+      var localEternities = saves[saveId] ? saves[saveId].eternities : 0;
       if (cloudEternities > localEternities || (cloudEternities == localEternities && cloudInfinitied > localInfinitied)) {
         popupsWaiting++;
         let el = cloudconflict.cloneNode(true);
