@@ -4680,7 +4680,7 @@ setInterval(function() {
     if (player.tickspeed.e < -8296272) giveAchievement("Faster than a potato^345678")
     if (player.timestudy.studies.length == 0 && player.dilation.active && player.infinityPoints.e >= 20000) giveAchievement("This is what I have to do to get rid of you.")
     if (player.why >= 1e6) giveAchievement("Should we tell them about buy max...")
-    if ( Math.max(document.documentElement.clientHeight, window.innerHeight || 0) <= 150 ) giveAchievement("Dip the antimatter")
+    if ( Math.max(document.documentElement.clientHeight, window.innerHeight || 0) <= 150 || parent.document.body.clientHeight <= 150) giveAchievement("Dip the antimatter")
 
 }, 1000)
 
