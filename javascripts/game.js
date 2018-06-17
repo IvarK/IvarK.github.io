@@ -1919,7 +1919,34 @@ document.getElementById("importbtn").onclick = function () {
 
 
 document.getElementById("reset").onclick = function () {
-    if (confirm("Do you really want to erase all your progress?")) {
+    if (forceHardReset) {
+        if (window.location.href.split("//")[1].length > 20) set_save('dimensionTestSave', currentSave, defaultStart);
+        else set_save('dimensionSave', currentSave, defaultStart);
+        player = defaultStart
+        infDimPow = 1;
+        save_game();
+        load_game();
+        updateCosts();
+        clearInterval(player.interval);
+        //updateInterval();
+
+        document.getElementById("secondRow").style.display = "none";
+        document.getElementById("thirdRow").style.display = "none";
+        document.getElementById("tickSpeed").style.visibility = "hidden";
+        document.getElementById("tickSpeedMax").style.visibility = "hidden";
+        document.getElementById("tickLabel").style.visibility = "hidden";
+        document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+        document.getElementById("fourthRow").style.display = "none";
+        document.getElementById("fifthRow").style.display = "none";
+        document.getElementById("sixthRow").style.display = "none";
+        document.getElementById("seventhRow").style.display = "none";
+        document.getElementById("eightRow").style.display = "none";
+        showDimTab('antimatterdimensions')
+        updateTickSpeed();
+        updateDimensions();
+        updateChallenges();
+        updateAutobuyers();
+    } else if (confirm("Do you really want to erase all your progress?")) {
         if (window.location.href.split("//")[1].length > 20) set_save('dimensionTestSave', currentSave, defaultStart);
         else set_save('dimensionSave', currentSave, defaultStart);
         player = defaultStart
