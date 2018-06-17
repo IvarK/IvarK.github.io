@@ -2752,17 +2752,17 @@ function checkForEndMe() {
 
 
 document.getElementById("bigcrunch").onclick = function () {
-    if ((player.bestInfinityTime > 600 && !player.break) && player.eternities === 0 && implosionCheck === 0 && player.options.animations.bigCrunch) {
-        implosionCheck = 1;
-        document.getElementById("body").style.animation = "implode 2s 1";
-        setTimeout(function(){ document.getElementById("body").style.animation = ""; }, 2000)
-        setTimeout(function(){ document.getElementById("bigcrunch").onclick(); }, 1000)
-        return
-    }
-    implosionCheck = 0;
     var challNumber = parseInt(player.currentChallenge[player.currentChallenge.length-1])
     if (player.currentChallenge.length == 11) challNumber = parseInt("1"+player.currentChallenge[player.currentChallenge.length-1])
     if ((player.money.gte(Number.MAX_VALUE) && !player.currentChallenge.includes("post")) || (player.currentChallenge !== "" && player.money.gte(player.challengeTarget))) {
+        if ((player.bestInfinityTime > 600 && !player.break) && player.eternities === 0 && implosionCheck === 0 && player.options.animations.bigCrunch) {
+            implosionCheck = 1;
+            document.getElementById("body").style.animation = "implode 2s 1";
+            setTimeout(function(){ document.getElementById("body").style.animation = ""; }, 2000)
+            setTimeout(function(){ document.getElementById("bigcrunch").onclick(); }, 1000)
+            return
+        }
+        implosionCheck = 0;
         if (player.thisInfinityTime <= 72000) giveAchievement("That's fast!");
         if (player.thisInfinityTime <= 6000) giveAchievement("That's faster!")
         if (player.thisInfinityTime <= 600) giveAchievement("Forever isn't that long")
