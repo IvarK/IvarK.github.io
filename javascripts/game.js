@@ -2362,7 +2362,6 @@ function updateAutobuyers() {
         maxedAutobuy++;
     }
 
-    console.log(e100autobuy)
     if (maxedAutobuy >= 9) giveAchievement("Age of Automation");
     if (maxedAutobuy >= 12) giveAchievement("Definitely not worth it");
     if (e100autobuy >= 8) giveAchievement("Professional bodybuilder");

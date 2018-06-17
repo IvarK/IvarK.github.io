@@ -115,6 +115,7 @@ var timeDimStartCosts = [null, 1, 5, 100, 1000, "1e2350", "1e2650", "1e3000", "1
 function buyTimeDimension(tier) {
 
   var dim = player["timeDimension"+tier]
+  if (tier > 4 && !player.dilation.studies.includes(tier-4)) return false
   if (player.eternityPoints.lt(dim.cost)) return false
 
   player.eternityPoints = player.eternityPoints.minus(dim.cost)
