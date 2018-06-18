@@ -114,8 +114,6 @@ if (player.infinitied > 0 && !player.challenges.includes("challenge1")) player.c
   sliderText.textContent = "Update rate: " + player.options.updateRate + "ms";
   slider.value = player.options.updateRate;
 
-  setTimeout(function(){ slider.oninput(); }, 100);
-
   if (player.secondAmount !== 0) {
       document.getElementById("thirdRow").style.display = "table-row";
       document.getElementById("tickSpeed").style.visibility = "visible";
