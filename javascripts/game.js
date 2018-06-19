@@ -5930,6 +5930,10 @@ window.addEventListener('keydown', function(event) {
   }, false);
 
   window.addEventListener('keyup', function(event) {
+    if (event.keyCode === 70) {
+        $.notify("Paying respects", "info")
+        giveAchievement("It pays to have respect")
+    }
     if (!player.options.hotkeys || controlDown === true || document.activeElement.type === "text") return false
     switch (event.keyCode) {
         case 67: // C
@@ -5940,10 +5944,6 @@ window.addEventListener('keydown', function(event) {
         document.getElementById("eternitybtn").onclick();
         break;
 
-        case 70: // F
-            $.notify("Paying respects", "info")
-            giveAchievement("It pays to have respect")
-        break;
     }
   }, false);
 
