@@ -99,7 +99,7 @@ const allAchievements = {
   r132 : "Unique snowflakes",
   r133 : "I never liked this infinity stuff anyway",
   r134 : "When will it be enough?",
-  r135 : "Faster than a potato^345678",
+  r135 : "Faster than a potato^286078",
   r136 : "I told you already, time is relative",
   r137 : "Now you're thinking with dilation!",
   r138 : "This is what I have to do to get rid of you.",

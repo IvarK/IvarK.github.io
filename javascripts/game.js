@@ -2024,7 +2024,7 @@ function setAchieveTooltip() {
     var forgotAchieve = document.getElementById("I forgot to nerf that")
     var potato = document.getElementById("Faster than a potato")
     let potato2 = document.getElementById("Faster than a squared potato")
-    let potato3 = document.getElementById("Faster than a potato^345678")
+    let potato3 = document.getElementById("Faster than a potato^286078")
     var dimensional = document.getElementById("Multidimensional")
     var IPBelongs = document.getElementById("All your IP are belong to us")
     var reference = document.getElementById("Yet another infinity reference")
@@ -2053,7 +2053,7 @@ function setAchieveTooltip() {
     sanic.setAttribute('ach-tooltip', "Have antimatter/sec exceed your current antimatter above " + formatValue(player.options.notation, 1e63, 0, 0));
     potato.setAttribute('ach-tooltip', "Get more than " + formatValue(player.options.notation, 1e29, 0, 0) + " ticks per second. Reward: Reduces starting tick interval by 2%.");
     potato2.setAttribute('ach-tooltip', "Get more than " + formatValue(player.options.notation, 1e58, 0, 0) + " ticks per second. Reward: Reduces starting tick interval by 2%.");
-    potato3.setAttribute('ach-tooltip', "Get more than "+shortenCosts(new Decimal("1e8296272"))+" ticks per second.")
+    potato3.setAttribute('ach-tooltip', "Get more than "+shortenCosts(new Decimal("1e8296262"))+" ticks per second.")
     dimensional.setAttribute('ach-tooltip', "Reach " + formatValue(player.options.notation, 1e12, 0, 0) + " of all dimensions except 8th.");
     IPBelongs.setAttribute('ach-tooltip', "Big Crunch for "+shortenCosts(1e150)+" IP. Reward: Additional 4x multiplier to IP.")
     reference.setAttribute('ach-tooltip', "Get a x"+shortenDimensions(Number.MAX_VALUE)+" multiplier in a single sacrifice. Reward: Sacrifices are stronger.")
@@ -4686,7 +4686,7 @@ setInterval(function() {
     }
 
     if (player.replicanti.amount.gt(new Decimal("1e20000"))) giveAchievement("When will it be enough?")
-    if (player.tickspeed.e < -8296272) giveAchievement("Faster than a potato^345678")
+    if (player.tickspeed.e < -8296262) giveAchievement("Faster than a potato^286078")
     if (player.timestudy.studies.length == 0 && player.dilation.active && player.infinityPoints.e >= 20000) giveAchievement("This is what I have to do to get rid of you.")
     if (player.why >= 1e6) giveAchievement("Should we tell them about buy max...")
     if ( Math.max(document.documentElement.clientHeight, window.innerHeight || 0) <= 150 || parent.document.body.clientHeight <= 150) giveAchievement("Dip the antimatter")
