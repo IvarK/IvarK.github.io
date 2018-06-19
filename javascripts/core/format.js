@@ -40,7 +40,7 @@ function getAbbreviation(e) {
 }
 
 
-
+const inflog = Math.log10(Number.MAX_VALUE)
 function formatValue(notation, value, places, placesUnder1000) {
 
     if ((value <= Number.MAX_VALUE || (player.break && (player.currentChallenge == "" || !new Decimal(Number.MAX_VALUE).equals(player.challengeTarget)) )) && (value >= 1000)) {
@@ -62,7 +62,6 @@ function formatValue(notation, value, places, placesUnder1000) {
             return (matissa + "e" + power);
         }
         if (notation === "Infinity") {
-            const inflog = Math.log10(Number.MAX_VALUE)
             const pow = Decimal.log10(value)
             if (pow / inflog < 1000) var infPlaces = 4
             else var infPlaces = 3
