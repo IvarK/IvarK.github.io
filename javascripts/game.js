@@ -1572,7 +1572,6 @@ document.getElementById("toggleBtnTickSpeed").onclick = function () {
 document.getElementById("secondSoftReset").onclick = function() {
     if (player.currentEternityChall == "eterc6") return
     var bool = player.currentChallenge != "challenge11" && player.currentChallenge != "postc1" && player.currentChallenge != "postc7" && (player.break || player.money.lte(Number.MAX_VALUE))
-    if (player.currentEternityChall == "eterc6") return
     if (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() && bool : player.eightAmount >= getGalaxyRequirement() && bool) {
         if (player.eternities >= 7 && !shiftDown) maxBuyGalaxies(true);
         else galaxyReset();
@@ -5464,7 +5463,7 @@ function dimBoolean() {
 
 function maxBuyGalaxies(manual) {
     if (player.currentEternityChall == "eterc6" || player.currentChallenge == "challenge11" || player.currentChallenge == "postc1" || player.currentChallenge == "postc7") return
-    if (player.autobuyers[10].priority > player.galaxies) {
+    if (player.autobuyers[10].priority > player.galaxies || manual) {
         while(player.eightAmount >= getGalaxyRequirement() && (player.autobuyers[10].priority > player.galaxies || manual)) {
             if (player.options.notation == "Emojis") player.spreadingCancer+=1;
             player.galaxies++
