@@ -37,6 +37,7 @@ function animationOnOff(name) {
     if (name == "floatingText") document.getElementById("floatingTextAnimBtn").textContent = "Floating text: " + ((player.options.animations.floatingText) ? "ON" : "OFF")
     else if (name == "bigCrunch") document.getElementById("bigCrunchAnimBtn").textContent = "Big crunch: " + ((player.options.animations.bigCrunch) ? "ON" : "OFF")
     else if (name == "tachyonParticles") document.getElementById("tachyonParticleAnimBtn").textContent = "Tachyon particles: " + ((player.options.animations.tachyonParticles) ? "ON" : "OFF")
+    if (player.options.animations[name]) requestAnimationFrame(drawAnimations);
 }
 
 function drawAnimations(ts){
@@ -77,7 +78,8 @@ function drawAnimations(ts){
     }
     delta = (ts - lastTs) / 1000;
     lastTs = ts;
-    requestAnimationFrame(drawAnimations);
+    console.log("animating")
+    if (player.options.animations.tachyonParticles) requestAnimationFrame(drawAnimations);
 }
 
 function drawTreeBranch(num1, num2) {
