@@ -36,8 +36,8 @@ function getTimeDimensionPower(tier) {
     ret = ret.times(replmult.pow(0.1))
   }
 
-  if (ret.lt(1)) {
-    ret = new Decimal(1)
+  if (ret.lt(0)) {
+    ret = new Decimal(0)
   }
 
   if (player.dilation.active) {
