@@ -509,7 +509,15 @@ if (player.version < 5) {
       if (player.bestEternity <= 0.01 || player.bestInfinityTime <= 0.01) giveAchievement("Less than or equal to 0.001");
   }
 
-  // player.version is currently 11
+  if (player.version < 12.1) {
+    player.version = 12.1
+    if (player.achievements.includes("s36")) {
+        player.achievements.splice(player.achievements.indexOf("s36"), 1)
+        updateAchievements();
+    }
+  }
+
+  // player.version is currently 12.1
   if (player.options.notation == "Default") {
       player.options.notation = "Brackets";
       document.getElementById("notation").textContent = ("Notation: Brackets")
