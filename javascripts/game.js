@@ -1763,8 +1763,6 @@ function galaxyReset() {
     if (player.achievements.includes("r36")) player.tickspeed = player.tickspeed.times(0.98);
     if (player.achievements.includes("r45")) player.tickspeed = player.tickspeed.times(0.98);
     if (player.achievements.includes("r83")) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
-    clearInterval(player.interval);
-    //updateInterval();
 
     if (player.eternities < 30) {
         document.getElementById("secondRow").style.display = "none";
@@ -1926,8 +1924,6 @@ document.getElementById("reset").onclick = function () {
         save_game();
         load_game();
         updateCosts();
-        clearInterval(player.interval);
-        //updateInterval();
 
         document.getElementById("secondRow").style.display = "none";
         document.getElementById("thirdRow").style.display = "none";
@@ -1953,8 +1949,6 @@ document.getElementById("reset").onclick = function () {
         save_game();
         load_game();
         updateCosts();
-        clearInterval(player.interval);
-        //updateInterval();
 
         document.getElementById("secondRow").style.display = "none";
         document.getElementById("thirdRow").style.display = "none";
@@ -2994,8 +2988,6 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.achievements.includes("r45")) player.tickspeed = player.tickspeed.times(0.98);
         if (player.achievements.includes("r66")) player.tickspeed = player.tickspeed.times(0.98);
         if (player.achievements.includes("r83")) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
-        clearInterval(player.interval);
-        //updateInterval();
         if (player.eternities < 30) {
             document.getElementById("secondRow").style.display = "none";
             document.getElementById("thirdRow").style.display = "none";
@@ -3345,8 +3337,6 @@ function eternity(force) {
         document.getElementById("respec").className = "storebtn"
         if (player.achievements.includes("r36")) player.tickspeed = player.tickspeed.times(0.98);
         if (player.achievements.includes("r45")) player.tickspeed = player.tickspeed.times(0.98);
-        clearInterval(player.interval);
-        //updateInterval();
 
         if (player.eternities <= 30) {
             document.getElementById("secondRow").style.display = "none";
@@ -3607,8 +3597,6 @@ function startChallenge(name, target) {
     if (player.achievements.includes("r45")) player.tickspeed = player.tickspeed.times(0.98);
     if (player.achievements.includes("r66")) player.tickspeed = player.tickspeed.times(0.98);
     if (player.achievements.includes("r83")) player.tickspeed = player.tickspeed.times(Decimal.pow(0.95,player.galaxies));
-    clearInterval(player.interval);
-    //updateInterval();
 
     if (player.eternities < 30) {
         document.getElementById("secondRow").style.display = "none";
@@ -4149,7 +4137,6 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
         player.replicanti.galaxies = 0
         if (player.achievements.includes("r36")) player.tickspeed = player.tickspeed.times(0.98);
         if (player.achievements.includes("r45")) player.tickspeed = player.tickspeed.times(0.98);
-        clearInterval(player.interval);
         if (player.eternities < 30) {
             document.getElementById("secondRow").style.display = "none";
             document.getElementById("thirdRow").style.display = "none";

@@ -78,7 +78,6 @@ function drawAnimations(ts){
     }
     delta = (ts - lastTs) / 1000;
     lastTs = ts;
-    console.log("animating")
     if (player.options.animations.tachyonParticles) requestAnimationFrame(drawAnimations);
 }
 
