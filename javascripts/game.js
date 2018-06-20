@@ -1257,7 +1257,7 @@ function updateInfCosts() {
         document.getElementById("ec12unl").innerHTML = "Eternity Challenge 12<span>Requirement: Use only the Time Dimension path<span>Cost: 1 Time Theorem"
 
         if (player.dilation.studies.includes(1)) document.getElementById("dilstudy1").innerHTML = "Unlock time dilation<span>Cost: 5000 Time Theorems"
-        else document.getElementById("dilstudy1").innerHTML = "Unlock time dilation<span>Requirement: 5 Eternity Challenge 11 and 12 completions<span>Cost: 5000 Time Theorems"
+        else document.getElementById("dilstudy1").innerHTML = "Unlock time dilation<span>Requirement: 5 EC11 and EC12 completions and 13000 total theorems<span>Cost: 5000 Time Theorems"
     }
 }
 
