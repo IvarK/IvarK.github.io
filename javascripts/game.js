@@ -3076,8 +3076,8 @@ function respecToggle() {
     }
 }
 
-function eternity(force) {
-    if ((player.infinityPoints.gte(Number.MAX_VALUE) && (!player.options.eternityconfirm || confirm("Eternity will reset everything except achievements and challenge records. You will also gain an Eternity point and unlock various upgrades."))) || force === true) {
+function eternity(force, auto) {
+    if ((player.infinityPoints.gte(Number.MAX_VALUE) && (!player.options.eternityconfirm || auto || confirm("Eternity will reset everything except achievements and challenge records. You will also gain an Eternity point and unlock various upgrades."))) || force === true) {
         if (force) player.currentEternityChall = "";
         if (player.currentEternityChall !== "" && player.infinityPoints.lt(player.eternityChallGoal)) return false
         if (player.thisEternity<player.bestEternity && !force) {
@@ -5477,7 +5477,7 @@ function maxBuyDimBoosts(manual) {
 var timer = 0
 function autoBuyerTick() {
 
-    if (player.eternities >= 100 && player.eternityBuyer.isOn && gainedEternityPoints().gte(player.eternityBuyer.limit)) eternity()
+    if (player.eternities >= 100 && player.eternityBuyer.isOn && gainedEternityPoints().gte(player.eternityBuyer.limit)) eternity(false, true)
 
     if (player.autobuyers[11]%1 !== 0) {
     if (player.autobuyers[11].ticks*100 >= player.autobuyers[11].interval && player.money.gte(Number.MAX_VALUE)) {
