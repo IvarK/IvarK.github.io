@@ -967,7 +967,7 @@ document.getElementById("maxall").onclick = function () {
         if (player.currentChallenge == "postc1") clearDimensions(tier-1);
         player.postC4Tier = tier;
         onBuyDimension(tier)
-        floatText(name + "D", "x" + shortenDimensions(player[name + "Pow"].dividedBy(multBefore)))
+        floatText(name + "D", "x" + shortenMoney(player[name + "Pow"].dividedBy(multBefore)))
     }
 }
 
