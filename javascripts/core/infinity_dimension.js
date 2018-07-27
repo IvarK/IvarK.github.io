@@ -55,12 +55,12 @@ function DimensionProduction(tier) {
   if (player.currentEternityChall == "eterc7") ret = ret.dividedBy(player.tickspeed.dividedBy(1000))
   if (player.challenges.includes("postc6")) {
       let tick = new Decimal(player.tickspeed)
-      if (player.dilation.active) {
+//    if (player.dilation.active) {
         tick = Decimal.pow(10, Math.pow(Math.abs(tick.log10()), 0.75))
         if (player.dilation.upgrades.includes(9)) {
           tick = Decimal.pow(10, Math.pow(Math.abs(tick.log10()), 1.05))
         }
-      }
+//    }
       tick = new Decimal(1).dividedBy(tick)
       return ret.times(DimensionPower(tier)).times(tick.times(1000).pow(0.0005))
   }
