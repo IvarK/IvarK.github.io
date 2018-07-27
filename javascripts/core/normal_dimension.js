@@ -564,7 +564,7 @@ function getDimensionProductionPerSecond(tier) {
         let tick = new Decimal(player.tickspeed)
         tick = Decimal.pow(10, Math.pow(Math.max(3,Math.abs(tick.log10())), 0.75))
         if (player.dilation.upgrades.includes(9)) {
-            tick = Decimal.pow(10, Math.pow(Math.abs(tick.log10()), 1.05))
+            tick = Decimal.pow(10, Math.pow(Math.max(3,Math.abs(tick.log10())), 1.05))
           }
         tick = new Decimal(1).dividedBy(tick)
         ret = Decimal.floor(player[TIER_NAMES[tier] + 'Amount']).times(getDimensionFinalMultiplier(tier)).times(1000).dividedBy(tick)
