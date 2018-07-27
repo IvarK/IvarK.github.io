@@ -67,12 +67,12 @@ function getDimensionFinalMultiplier(tier) {
   if (player.timestudy.studies.includes(193)) multiplier = multiplier.times(Decimal.pow(1.03, player.eternities).min("1e13000"))
   if (tier == 8 && player.timestudy.studies.includes(214)) multiplier = multiplier.times((calcTotalSacrificeBoost().pow(8)).min("1e46000").times(calcTotalSacrificeBoost().pow(1.1).min(new Decimal("1e125000"))))
   if (multiplier.lt(1)) multiplier = new Decimal(1)
-  if (player.dilation.active) {
+//if (player.dilation.active) {
     multiplier = Decimal.pow(10, Math.pow(multiplier.log10(), 0.75))
     if (player.dilation.upgrades.includes(9)) {
       multiplier = Decimal.pow(10, Math.pow(multiplier.log10(), 1.05))
     }
-  }
+//}
 
   if (player.dilation.upgrades.includes(6)) multiplier = multiplier.times(player.dilation.dilatedTime.pow(308))
   return multiplier;
@@ -560,7 +560,7 @@ function getDimensionProductionPerSecond(tier) {
         else if (tier == 2) ret = player[TIER_NAMES[tier] + 'Amount'].floor().pow(1.5).times(getDimensionFinalMultiplier(tier)).dividedBy(player.tickspeed.dividedBy(1000))
     }
     if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") ret = ret.times(player.chall2Pow)
-    if (player.dilation.active) {
+ // if (player.dilation.active) {
         let tick = new Decimal(player.tickspeed)
         tick = Decimal.pow(10, Math.pow(Math.abs(tick.log10()), 0.75))
         if (player.dilation.upgrades.includes(9)) {
@@ -568,6 +568,6 @@ function getDimensionProductionPerSecond(tier) {
           }
         tick = new Decimal(1).dividedBy(tick)
         ret = Decimal.floor(player[TIER_NAMES[tier] + 'Amount']).times(getDimensionFinalMultiplier(tier)).times(1000).dividedBy(tick)
-    }
+ // }
     return ret;
 }
