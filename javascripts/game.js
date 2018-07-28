@@ -5151,7 +5151,7 @@ function gameLoop(diff) {
 	if (player.galaxies + player.replicanti.galaxies + player.dilation.freeGalaxies > 0) {
 		document.getElementById("gSacrifice").style.display = "inline-block"
 		document.getElementById("gSacrifice").innerHTML = "Galactic Sacrifice (" + formatValue(player.options.notation, getGSAmount(), 2, 0) + " IP)"
-		if (getGSAmount() > 0) document.getElementById("gSacrifice").className = "storebtn"
+		if (getGSAmount().gt(0)) document.getElementById("gSacrifice").className = "storebtn"
 		else document.getElementById("gSacrifice").className = "unavailablebtn"
 	} else {
 		document.getElementById("gSacrifice").style.display = "none"
