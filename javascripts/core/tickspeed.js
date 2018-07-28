@@ -4,7 +4,7 @@ function canBuyTickSpeed() {
 }
 
 function getTickSpeedMultiplier() {
-  if (player.currentChallenge == "postc3") return 1;
+  if (!player.challenges.includes(”postc3”)) return 1;
   if (player.galaxies + player.replicanti.galaxies + player.dilation.freeGalaxies < 3) {
       let baseMultiplier = 0.9;
       if (player.galaxies == 0) baseMultiplier = 0.89
@@ -59,7 +59,7 @@ function buyTickSpeed() {
   if (player.tickSpeedCost.gte(Number.MAX_VALUE)) player.tickspeedMultiplier = player.tickspeedMultiplier.times(player.tickSpeedMultDecrease);
   if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0
   player.tickspeed = player.tickspeed.times(getTickSpeedMultiplier());
-  if (player.challenges.includes("postc3") || player.currentChallenge == "postc3") player.postC3Reward = player.postC3Reward.times(1.05+(player.galaxies*0.005))
+  player.postC3Reward = player.postC3Reward.times(1.05+(player.galaxies*0.005))
   postc8Mult = new Decimal(1)
   player.why = player.why + 1
   return true;
@@ -82,7 +82,7 @@ function buyMaxTickSpeed() {
           else multiplySameCosts(player.tickSpeedCost)
           if (player.tickSpeedCost.gte(Number.MAX_VALUE)) player.tickspeedMultiplier = player.tickspeedMultiplier.times(player.tickSpeedMultDecrease);
           player.tickspeed = player.tickspeed.times(mult);
-          if (player.challenges.includes("postc3") || player.currentChallenge == "postc3") player.postC3Reward = player.postC3Reward.times(1.05+(player.galaxies*0.005))
+          player.postC3Reward = player.postC3Reward.times(1.05+(player.galaxies*0.005))
           postc8Mult = new Decimal(1)
           if (player.tickSpeedCost.gt(Number.MAX_VALUE)) buyMaxTickSpeed()
       }
@@ -96,7 +96,7 @@ function buyMaxTickSpeed() {
       var buying = Math.floor((Math.sqrt(Math.pow(b, 2) - (c *a *4))-b)/(2 * a))+1
       if (buying <= 0) return false
       player.tickspeed = player.tickspeed.times(Decimal.pow(mult, buying));
-      if (player.challenges.includes("postc3") || player.currentChallenge == "postc3") player.postC3Reward = player.postC3Reward.times(Decimal.pow(1.05+(player.galaxies*0.005), buying))
+      player.postC3Reward = player.postC3Reward.times(Decimal.pow(1.05+(player.galaxies*0.005), buying))
       for (var i = 0; i<buying-1; i++) {
           player.tickSpeedCost = player.tickSpeedCost.times(player.tickspeedMultiplier)
           player.tickspeedMultiplier = player.tickspeedMultiplier.times(player.tickSpeedMultDecrease)
