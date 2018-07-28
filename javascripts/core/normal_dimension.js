@@ -562,7 +562,7 @@ function getDimensionProductionPerSecond(tier) {
     if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") ret = ret.times(player.chall2Pow)
  // if (player.dilation.active) {
         let tick = new Decimal(player.tickspeed)
-        tick = Decimal.pow(10, Math.pow(Math.max(3,Math.abs(tick.log10())), player.dilation.active?0.75:0.8))
+        tick = Decimal.pow(10, Math.pow(Math.max(3,Math.abs(tick.log10())), 0.75))
         if (player.dilation.upgrades.includes(9)) {
             tick = Decimal.pow(10, Math.pow(Math.max(3,Math.abs(tick.log10())), 1.05))
           }
