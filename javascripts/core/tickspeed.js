@@ -4,7 +4,7 @@ function canBuyTickSpeed() {
 }
 
 function getTickSpeedMultiplier() {
-  if (!player.challenges.includes(”postc3”)) return 1;
+  if (!player.challenges.includes("postc3")) return 1;
   if (player.galaxies + player.replicanti.galaxies + player.dilation.freeGalaxies < 3) {
       let baseMultiplier = 0.9;
       if (player.galaxies == 0) baseMultiplier = 0.89
