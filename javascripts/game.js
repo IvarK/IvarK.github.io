@@ -5147,7 +5147,16 @@ function gameLoop(diff) {
         document.getElementById("confirmation").style.display = "none";
         document.getElementById("sacrifice").style.display = "none";
     }
-
+	
+	if (player.galaxies + player.replicanti.galaxies + player.dilation.freeGalaxies > 0) {
+		document.getElementById("gSacrifice").style.display = "inline-block"
+		document.getElementById("gSacrifice").innerHTML = "Galactic Sacrifice (" + formatValue(player.options.notation, getGSAmount(), 2, 0) " IP)
+		if (getGSAmount() > 0) document.getElementById("gSacrifice").className = "storebtn"
+		else document.getElementById("gSacrifice").className = "unavailablebtn"
+	} else {
+		document.getElementById("gSacrifice").style.display = "none"
+	}
+	
     if (player.infinitied > 0) document.getElementById("sacrifice").style.display = "inline-block";
 
     if (player.eightAmount > 0 && player.resets > 4 && player.currentEternityChall !== "eterc3") document.getElementById("sacrifice").className = "storebtn"
