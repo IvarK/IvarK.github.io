@@ -244,7 +244,7 @@ function updateAchievements() {
       }
   }
 
-  player.achPow = Decimal.pow(1.5, amount)
+  player.achPow = Decimal.pow(5, amount)
 
   document.getElementById("achmultlabel").textContent = "Current achievement multiplier on each Dimension: " + player.achPow.toFixed(1) + "x"
 
