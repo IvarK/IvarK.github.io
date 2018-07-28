@@ -4864,7 +4864,7 @@ function gameLoop(diff) {
         document.getElementById("eternityPoints2").style.display = "inline-block"
     }
   
-    if (player.money.gte(Number.MAX_VALUE) && (!player.break || (player.currentChallenge != "" && player.money.gte(player.challengeTarget)) || (player.money.gte(new Decimal("1e5000")) && !player.challenges.includes("postc3")))
+    if (player.money.gte(Number.MAX_VALUE) && (!player.break || (player.currentChallenge != "" && player.money.gte(player.challengeTarget)) || (player.money.gte(new Decimal("1e5000")) && !player.challenges.includes("postc3")))) {
         document.getElementById("bigcrunch").style.display = 'inline-block';
         if ((player.currentChallenge == "" || player.options.retryChallenge) && (player.bestInfinityTime <= 600 || player.break)) {}
         else showTab('emptiness');
