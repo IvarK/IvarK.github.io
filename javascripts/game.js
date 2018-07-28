@@ -5153,6 +5153,7 @@ function gameLoop(diff) {
 		document.getElementById("gSacrifice").innerHTML = "Galactic Sacrifice (" + formatValue(player.options.notation, getGSAmount(), 2, 0) + " IP)"
 		if (getGSAmount().gt(0)) document.getElementById("gSacrifice").className = "storebtn"
 		else document.getElementById("gSacrifice").className = "unavailablebtn"
+		document.getElementById("gSacrifice").setAttribute('ach-tooltip', ”Gain ” + formatValue(player.options.notation, getGSAmount(), 2, 0) + " IP”)
 	} else {
 		document.getElementById("gSacrifice").style.display = "none"
 	}
