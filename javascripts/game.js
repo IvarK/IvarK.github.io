@@ -5203,8 +5203,9 @@ function gameLoop(diff) {
         if (player.infinitied > 0) {
             document.getElementById("infinitybtn").style.display = "inline-block";
             document.getElementById("challengesbtn").style.display = "inline-block";
+        } else if (player.infinitePoints.gte(0) || player.infinityUpgrades.length != 0) {
+            document.getElementById("infinitybtn").style.display = "inline-block";
         }
-    }
 
     document.getElementById("epmult").className = player.eternityPoints.gte(player.epmultCost) ? "eternityupbtn" : "eternityupbtnlocked"
 
