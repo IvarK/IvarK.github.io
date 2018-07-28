@@ -2798,6 +2798,9 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.currentChallenge != "" && !player.challenges.includes(player.currentChallenge)) {
             player.challenges.push(player.currentChallenge);
         }
+	if (player.money.gte(new Decimal("1e5000")) && !player.challenges.includes("postc3")) {
+	    player.challenges.push("postc3")
+	}
         if (player.challenges.length > 12) giveAchievement("Infinitely Challenging");
         if (player.challenges.length == 20) giveAchievement("Anti-antichallenged");
         if (!player.break || player.currentChallenge != "") {
