@@ -5203,10 +5203,10 @@ function gameLoop(diff) {
         if (player.infinitied > 0) {
             document.getElementById("infinitybtn").style.display = "inline-block";
             document.getElementById("challengesbtn").style.display = "inline-block";
-        } else if (player.infinityPoints.gte(0) || player.infinityUpgrades.length != 0) {
+        } else if (player.infinityPoints.gt(0) || player.infinityUpgrades.length != 0) {
             document.getElementById("infinitybtn").style.display = "inline-block";
         }
-
+    }
     document.getElementById("epmult").className = player.eternityPoints.gte(player.epmultCost) ? "eternityupbtn" : "eternityupbtnlocked"
 
     if (player.infinityUpgrades.includes("bulkBoost")) document.getElementById("bulkdimboost").style.display = "inline"
