@@ -763,7 +763,7 @@ function updateChallenges() {
 	    
         if (player.money.gte(new Decimal("1e2000")) || Object.keys(player.eternityChalls).length > 0 || player.eternityChallUnlocked !== 0) document.getElementById("challTabButtons").style.display = "table"
         for (var i=1; i<9; i++) {
-            if (player.postChallUnlocked >= i) document.getElementById("postc"+i+"div").style.display = "inline-block"
+            if (player.postChallUnlocked >= i || i == 3) document.getElementById("postc"+i+"div").style.display = "inline-block"
             else document.getElementById("postc"+i+"div").style.display = "none"
         }
 
