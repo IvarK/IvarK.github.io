@@ -755,7 +755,12 @@ function updateChallenges() {
             document.getElementById(player.currentChallenge).className = "onchallengebtn"
             document.getElementById(player.currentChallenge).textContent = "Running"
         }
-
+        
+	if (!player.challenges.includes("postc3")) {
+	    document.getElementById("postc3").className = "onchallengebtn"
+	    document.getElementById("postc3").textContent = "Trapped in"
+	}
+	    
         if (player.money.gte(new Decimal("1e2000")) || Object.keys(player.eternityChalls).length > 0 || player.eternityChallUnlocked !== 0) document.getElementById("challTabButtons").style.display = "table"
         for (var i=1; i<9; i++) {
             if (player.postChallUnlocked >= i) document.getElementById("postc"+i+"div").style.display = "inline-block"
