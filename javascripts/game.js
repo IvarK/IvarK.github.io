@@ -5167,10 +5167,10 @@ function gameLoop(diff) {
 	
 	if (player.galaxies + player.replicanti.galaxies + player.dilation.freeGalaxies > 0) {
 		document.getElementById("gSacrifice").style.display = "inline-block"
-		document.getElementById("gSacrifice").innerHTML = "Galactic Sacrifice (" + formatValue(player.options.notation, getGSAmount(), 2, 0) + " IP)"
+		document.getElementById("gSacrifice").innerHTML = "Galactic Sacrifice (" + formatValue(player.options.notation, getGSAmount(), 2, 0) + " GP)"
 		if (getGSAmount().gt(0)) document.getElementById("gSacrifice").className = "storebtn"
 		else document.getElementById("gSacrifice").className = "unavailablebtn"
-		document.getElementById("gSacrifice").setAttribute('ach-tooltip', "Gain " + formatValue(player.options.notation, getGSAmount(), 2, 0) + " IP")
+		document.getElementById("gSacrifice").setAttribute('ach-tooltip', "Gain " + formatValue(player.options.notation, getGSAmount(), 2, 0) + " GP")
 	} else {
 		document.getElementById("gSacrifice").style.display = "none"
 	}
@@ -5185,7 +5185,6 @@ function gameLoop(diff) {
     } else {
         document.getElementById("postinftable").style.display = "none"
     }
-
 
     if (player.autobuyers[11].interval == 100) document.getElementById("abletobreak").style.display = "none"
 
@@ -5214,6 +5213,7 @@ function gameLoop(diff) {
             document.getElementById("challengesbtn").style.display = "inline-block";
         }
     }
+
     document.getElementById("epmult").className = player.eternityPoints.gte(player.epmultCost) ? "eternityupbtn" : "eternityupbtnlocked"
 
     if (player.infinityUpgrades.includes("bulkBoost")) document.getElementById("bulkdimboost").style.display = "inline"
