@@ -232,7 +232,7 @@ function getShiftRequirement(bulk) {
       amount += Math.pow(player.resets+bulk, 3) + player.resets+bulk
   }
 
-  if (player.infinityUpgrades.includes("resetBoost")) amount -= 9;
+  if (player.infinityUpgrades.includes("resetBoost")) amount -= 10;
   if (player.challenges.includes("postc5")) amount -= 1
 
   return { tier: tier, amount: amount };
