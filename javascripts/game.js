@@ -1734,6 +1734,7 @@ function galaxyReset() {
         dead: player.dead,
         dilation: player.dilation,
         why: player.why,
+	galaxyPoints: player.galaxyPoints,
         options: player.options
     };
 
