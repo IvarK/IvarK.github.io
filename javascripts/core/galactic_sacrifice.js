@@ -3,6 +3,7 @@ function getGSAmount() {
 }
 
 function galacticSacrifice() {
+    if (getGSAmount().lt(1)) return false
     player.infinityPoints = player.infinityPoints.add(getGSAmount())
     player.galaxies = -1
     galaxyReset()
