@@ -3593,6 +3593,7 @@ function startChallenge(name, target) {
       dead: player.dead,
       dilation: player.dilation,
       why: player.why,
+      galaxyPoints: 0,
       options: player.options
     };
 	if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -4155,6 +4156,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
                 rebuyables: player.dilation.rebuyables
             },
             why: player.why,
+	    galaxyPoints: 0,
             options: player.options
         };
 
