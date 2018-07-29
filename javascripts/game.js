@@ -3350,7 +3350,7 @@ function eternity(force, auto) {
                 rebuyables: player.dilation.rebuyables
             },
             why: player.why,
-	    galaxyPoints: 0
+	    galaxyPoints: 0,
             options: player.options
         };
         if (player.respec) respecTimeStudies()
