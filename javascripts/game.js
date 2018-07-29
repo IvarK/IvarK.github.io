@@ -5059,7 +5059,7 @@ function gameLoop(diff) {
         document.getElementById("tickSpeedMax").className = 'unavailablebtn';
     }
 
-    if (player.infinityPoints.gt(0) || player.eternities !== 0 || player.infinityUpgrades.length != 0) {
+    if (player.infinityPoints.gt(0) || player.eternities !== 0) {
         document.getElementById("infinitybtn").style.display = "block";
         document.getElementById("infi11").className = "infinistorebtn1"
         document.getElementById("infi21").className = "infinistorebtn2"
