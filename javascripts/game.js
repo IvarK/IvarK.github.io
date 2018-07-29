@@ -5186,6 +5186,7 @@ function gameLoop(diff) {
         document.getElementById("postinftable").style.display = "none"
     }
 
+
     if (player.autobuyers[11].interval == 100) document.getElementById("abletobreak").style.display = "none"
 
 
