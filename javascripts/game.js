@@ -270,6 +270,7 @@ var player = {
         }
     },
     why: 0,
+    galaxyPoints: 0,
     options: {
         newsHidden: false,
         notation: "Mixed scientific",
