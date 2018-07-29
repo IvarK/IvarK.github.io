@@ -2224,6 +2224,7 @@ document.getElementById("sacrifice").onclick = function () {
 }
 
 document.getElementById("gSacrifice").onclick = function () {
+    if (getGSAmount().lt(1)) return false
     if (!document.getElementById("confirmation").checked) {
         if (!confirm("Galactic Sacrifice will do a galaxy reset, and then remove all of your galaxies, in exchange of infinity points which can be use to buy many powerful upgrades, but it will take a lot of time to recover, are you sure you wanna do this?")) {
             return false;
