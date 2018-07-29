@@ -4,7 +4,7 @@ function getGSAmount() {
 
 function galacticSacrifice() {
     if (getGSAmount().lt(1)) return false
-    player.galaxyPoints = player.galaxyPoints.add(getGSAmount())
+    player.galaxyPoints += parseInt(getGSAmount().toString())
     player.galaxies = -1
     galaxyReset()
 }
