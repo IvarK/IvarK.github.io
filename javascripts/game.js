@@ -461,7 +461,7 @@ function getGalaxyRequirement() {
         amount = Math.floor(amount * Math.pow(1.002, (player.galaxies-799)))
     }
 
-    if (player.infinityUpgrades.includes("resetBoost")) amount -= 10;
+    if (player.infinityUpgrades.includes("resetBoost")) amount -= 9;
     if (player.challenges.includes("postc5")) amount -= 1;
 
     return amount;
