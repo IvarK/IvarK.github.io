@@ -2978,7 +2978,7 @@ document.getElementById("bigcrunch").onclick = function () {
             dead: player.dead,
             dilation: player.dilation,
             why: player.why,
-	    galaxyPoints: player.galaxyPoints,
+	    galaxyPoints: 0,
             options: player.options
         };
 
