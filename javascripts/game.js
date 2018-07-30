@@ -5765,6 +5765,9 @@ function init() {
     document.getElementById('challengesbtn').onclick=function () {
       showTab('challenges');
     };
+    document.getElementById('galaxybtn').onclick= function () {
+        showTab('galaxy')
+    }
     document.getElementById('infinitybtn').onclick = function () {
         showTab('infinity');
     };
