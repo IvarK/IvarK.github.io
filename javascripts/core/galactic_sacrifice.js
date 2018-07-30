@@ -8,3 +8,7 @@ function galacticSacrifice() {
     player.galaxies = -1
     galaxyReset()
 }
+
+function GSUnlocked() {
+    return player.galaxyPoints > 0
+}

@@ -611,7 +611,18 @@ function updateDimensions() {
         if (player.infinitiedBank > 0) document.getElementById("infinitied").textContent = "You have infinitied " + player.infinitied.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " times this eternity."
 
     }
-
+    
+    if (GSUnlocked()) {
+        document.getElementById("galaxybtn").style.display = "inline-block"
+        if (player.galaxyPoints == 1) {
+            document.getElementById("galaxyPoints").textContent = "You have 1 Galaxy point."
+        } else {
+            document.getElementById("galaxyPoints").innerHTML = "You have "+shortenDimensions(new Decimal(player.galaxyPoints))+" Galaxy points."
+        }
+    } else {
+        document.getElementById("galaxybtn").style.display = "none"
+    }
+    
     if (document.getElementById("stats").style.display == "block" && document.getElementById("statistics").style.display == "block") {
         document.getElementById("totalmoney").textContent = 'You have made a total of ' + shortenMoney(player.totalmoney) + ' antimatter.'
         document.getElementById("totalresets").textContent = 'You have done ' + player.resets + ' dimensional boosts/shifts.'
