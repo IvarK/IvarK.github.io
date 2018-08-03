@@ -9,7 +9,7 @@ function getGSAmount() {
 }
 
 let galUpgrade12 = function () {
-  return Math.pow(1 + (Date.now() - player.galacticSacrifice.last) / 60000, 0.5);
+  return 2 * Math.pow(1 + (Date.now() - player.galacticSacrifice.last) / 60000, 0.5);
 }
 
 let galUpgrade13 = function () {
