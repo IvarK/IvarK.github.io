@@ -13,7 +13,7 @@ let galUpgrade12 = function () {
 }
 
 let galUpgrade13 = function () {
-  return 1 + player.galacticSacrifice.galaxyPoints / 5;
+  return Math.pow(1 + player.galacticSacrifice.galaxyPoints / 5, 3);
 }
 
 let galUpgrade23 = function () {
