@@ -78,7 +78,7 @@ function galacticUpgradeButtonTypeDisplay () {
 }
 
 function buyGalaxyUpgrade (i) {
-  if (player.galacticSacrifice.upgrades.includes(i) || player.galacticSacrifice.galaxyPoints.lte(galUpgradeCosts[i])) {
+  if (player.galacticSacrifice.upgrades.includes(i) || player.galacticSacrifice.galaxyPoints.lt(galUpgradeCosts[i])) {
     return false;
   } else {
     player.galacticSacrifice.upgrades.push(i);
