@@ -454,7 +454,12 @@ function getGalaxyCostScalingStart() {
 function getGalaxyRequirement() {
     let amount = 60 + ((player.galaxies) * 60);
     if (player.timestudy.studies.includes(42)) amount = 60 + ((player.galaxies) * 52)
-    if (player.galacticSacrifice.upgrades.includes(22)) amount = 60 + ((player.galaxies) * 40)
+    if (player.galacticSacrifice.upgrades.includes(22)) {
+      amount = 60 + ((player.galaxies) * 30);
+      if (player.galaxies > 0) {
+        amount -= 20;
+      }
+    }
     if (player.currentChallenge == "challenge4") amount = 99 + ((player.galaxies) * 90)
 
     let galaxyCostScalingStart = getGalaxyCostScalingStart()

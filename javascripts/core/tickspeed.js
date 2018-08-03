@@ -44,6 +44,14 @@ function getTickSpeedMultiplier() {
   }
 }
 
+function getPostC3RewardMult () {
+  if (player.galacticSacrifice.upgrades.includes(22)) {
+    return 1.05+(player.galaxies*0.025);
+  } else {
+    return 1.05+(player.galaxies*0.005);
+  }
+}
+
 function buyTickSpeed() {
   if (!canBuyTickSpeed()) {
       return false;
@@ -59,7 +67,7 @@ function buyTickSpeed() {
   if (player.tickSpeedCost.gte(Number.MAX_VALUE)) player.tickspeedMultiplier = player.tickspeedMultiplier.times(player.tickSpeedMultDecrease);
   if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0
   player.tickspeed = player.tickspeed.times(getTickSpeedMultiplier());
-  player.postC3Reward = player.postC3Reward.times(1.05+(player.galaxies*0.005))
+  player.postC3Reward = player.postC3Reward.times(getPostC3RewardMult())
   postc8Mult = new Decimal(1)
   player.why = player.why + 1
   return true;
@@ -82,7 +90,7 @@ function buyMaxTickSpeed() {
           else multiplySameCosts(player.tickSpeedCost)
           if (player.tickSpeedCost.gte(Number.MAX_VALUE)) player.tickspeedMultiplier = player.tickspeedMultiplier.times(player.tickSpeedMultDecrease);
           player.tickspeed = player.tickspeed.times(mult);
-          player.postC3Reward = player.postC3Reward.times(1.05+(player.galaxies*0.005))
+          player.postC3Reward = player.postC3Reward.times(getPostC3RewardMult())
           postc8Mult = new Decimal(1)
           if (player.tickSpeedCost.gt(Number.MAX_VALUE)) buyMaxTickSpeed()
       }
@@ -96,7 +104,7 @@ function buyMaxTickSpeed() {
       var buying = Math.floor((Math.sqrt(Math.pow(b, 2) - (c *a *4))-b)/(2 * a))+1
       if (buying <= 0) return false
       player.tickspeed = player.tickspeed.times(Decimal.pow(mult, buying));
-      player.postC3Reward = player.postC3Reward.times(Decimal.pow(1.05+(player.galaxies*0.005), buying))
+      player.postC3Reward = player.postC3Reward.times(Decimal.pow(getPostC3RewardMult(), buying))
       for (var i = 0; i<buying-1; i++) {
           player.tickSpeedCost = player.tickSpeedCost.times(player.tickspeedMultiplier)
           player.tickspeedMultiplier = player.tickspeedMultiplier.times(player.tickSpeedMultDecrease)
