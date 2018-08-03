@@ -270,7 +270,12 @@ var player = {
         }
     },
     why: 0,
-    galaxyPoints: 0,
+    galacticSacrifice: {
+      galaxyPoints: new Decimal(0),
+      last: Date.now(),
+      times: 0,
+      upgrades: []
+    },
     options: {
         newsHidden: false,
         notation: "Mixed scientific",
@@ -448,7 +453,8 @@ function getGalaxyCostScalingStart() {
 
 function getGalaxyRequirement() {
     let amount = 60 + ((player.galaxies) * 60);
-    if (player.timestudy.studies.includes(42)) amount = 80 + ((player.galaxies) * 52)
+    if (player.timestudy.studies.includes(42)) amount = 60 + ((player.galaxies) * 52)
+    if (player.galacticSacrifice.upgrades.includes(22)) amount = 60 + ((player.galaxies) * 40)
     if (player.currentChallenge == "challenge4") amount = 99 + ((player.galaxies) * 90)
 
     let galaxyCostScalingStart = getGalaxyCostScalingStart()
@@ -611,18 +617,18 @@ function updateDimensions() {
         if (player.infinitiedBank > 0) document.getElementById("infinitied").textContent = "You have infinitied " + player.infinitied.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " times this eternity."
 
     }
-    
+
     if (GSUnlocked()) {
         document.getElementById("galaxybtn").style.display = "inline-block"
-        if (player.galaxyPoints == 1) {
+        if (player.galacticSacrifice.galaxyPoints.eq(1)) {
             document.getElementById("galaxyPoints").textContent = "You have 1 Galaxy point."
         } else {
-            document.getElementById("galaxyPoints").innerHTML = "You have "+shortenDimensions(new Decimal(player.galaxyPoints))+" Galaxy points."
+            document.getElementById("galaxyPoints").innerHTML = "You have "+shortenDimensions(new Decimal(player.galacticSacrifice.galaxyPoints))+" Galaxy points."
         }
     } else {
         document.getElementById("galaxybtn").style.display = "none"
     }
-    
+
     if (document.getElementById("stats").style.display == "block" && document.getElementById("statistics").style.display == "block") {
         document.getElementById("totalmoney").textContent = 'You have made a total of ' + shortenMoney(player.totalmoney) + ' antimatter.'
         document.getElementById("totalresets").textContent = 'You have done ' + player.resets + ' dimensional boosts/shifts.'
@@ -672,6 +678,8 @@ function updateDimensions() {
             if (player.offlineProd == 50) document.getElementById("offlineProd").innerHTML = "Generates "+player.offlineProd+"% of your best IP/min from last 10 infinities, works offline<br>Currently: "+shortenMoney(bestRunIppm.times(player.offlineProd/100)) +" IP/min"
         }
     }
+
+    galacticUpgradeSpanDisplay();
 
     if (document.getElementById("eternityupgrades").style.display == "block" && document.getElementById("eternitystore").style.display == "block") {
         document.getElementById("eter1").innerHTML = "Infinity Dimensions multiplier based on unspent EP (x+1)<br>Currently: "+shortenMoney(player.eternityPoints.plus(1))+"x<br>Cost: 5 EP"
@@ -767,12 +775,12 @@ function updateChallenges() {
             document.getElementById(player.currentChallenge).className = "onchallengebtn"
             document.getElementById(player.currentChallenge).textContent = "Running"
         }
-        
-	if (!player.challenges.includes("postc3")) {
-	    document.getElementById("postc3").className = "onchallengebtn"
-	    document.getElementById("postc3").textContent = "Trapped in"
-	}
-	    
+
+      	if (!player.challenges.includes("postc3")) {
+      	    document.getElementById("postc3").className = "onchallengebtn"
+      	    document.getElementById("postc3").textContent = "Trapped in"
+      	}
+
         if (player.money.gte(new Decimal("1e2000")) || Object.keys(player.eternityChalls).length > 0 || player.eternityChallUnlocked !== 0) document.getElementById("challTabButtons").style.display = "table"
         for (var i=1; i<9; i++) {
             if (player.postChallUnlocked >= i || i == 3) document.getElementById("postc"+i+"div").style.display = "inline-block"
@@ -1745,7 +1753,7 @@ function galaxyReset() {
         dead: player.dead,
         dilation: player.dilation,
         why: player.why,
-	galaxyPoints: player.galaxyPoints,
+	      galacticSacrifice: player.galacticSacrifice,
         options: player.options
     };
 
@@ -2207,6 +2215,11 @@ function sacrifice(auto = false) {
     if (player.currentChallenge == "challenge11" && (calcTotalSacrificeBoost().gte(Number.MAX_VALUE) || player.chall11Pow.gte(Number.MAX_VALUE))) return false
     if (!auto) floatText("eightD", "x" + shortenMoney(calcSacrificeBoost()))
     if (calcSacrificeBoost().gte(Number.MAX_VALUE)) giveAchievement("Yet another infinity reference");
+    if (player.galacticSacrifice.upgrades.includes(11)) {
+      player.secondPow = player.secondPow.times(calcSacrificeBoost())
+      player.fourthPow = player.fourthPow.times(calcSacrificeBoost())
+      player.sixthPow = player.sixthPow.times(calcSacrificeBoost())
+    }
     player.eightPow = player.eightPow.times(calcSacrificeBoost())
     player.sacrificed = player.sacrificed.plus(player.firstAmount);
     if (player.currentChallenge != "challenge11") {
@@ -2245,7 +2258,7 @@ document.getElementById("gSacrifice").onclick = function () {
     }
 
     return galacticSacrifice();
-}	
+}
 
 function updateAutobuyers() {
     var autoBuyerDim1 = new Autobuyer (1)
@@ -2812,9 +2825,9 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.currentChallenge != "" && !player.challenges.includes(player.currentChallenge)) {
             player.challenges.push(player.currentChallenge);
         }
-	if (player.money.gte(new Decimal("1e5000")) && !player.challenges.includes("postc3")) {
-	    player.challenges.push("postc3")
-	}
+      	if (player.money.gte(new Decimal("1e5000")) && !player.challenges.includes("postc3")) {
+      	    player.challenges.push("postc3")
+      	}
         if (player.challenges.length > 12) giveAchievement("Infinitely Challenging");
         if (player.challenges.length == 20) giveAchievement("Anti-antichallenged");
         if (!player.break || player.currentChallenge != "") {
@@ -2989,7 +3002,12 @@ document.getElementById("bigcrunch").onclick = function () {
             dead: player.dead,
             dilation: player.dilation,
             why: player.why,
-	    galaxyPoints: 0,
+	          galacticSacrifice: player.achievements.includes('r36') ? player.galacticSacrifice : {
+              galaxyPoints: new Decimal(0),
+              last: Date.now(),
+              times: 0,
+              upgrades: []
+            },
             options: player.options
         };
 
@@ -3361,7 +3379,12 @@ function eternity(force, auto) {
                 rebuyables: player.dilation.rebuyables
             },
             why: player.why,
-	    galaxyPoints: 0,
+	          galacticSacrifice: {
+              galaxyPoints: new Decimal(0),
+              last: Date.now(),
+              times: 0,
+              upgrades: []
+            },
             options: player.options
         };
         if (player.respec) respecTimeStudies()
@@ -3469,7 +3492,7 @@ function exitChallenge() {
 }
 
 function startChallenge(name, target) {
-  if(player.options.challConf || name == "" ? true : (name.includes("post")) ? confirm("You will start over with just your infinity upgrades, and achievements. You need to reach a set goal with special conditions. NOTE: The rightmost infinity upgrade column doesn't work on challenges.") : confirm("You will start over with just your infinity upgrades, and achievements. You need to reach infinity with special conditions. NOTE: The rightmost infinity upgrade column doesn't work on challenges.")) {
+  if(player.options.challConf || name == "" ? true : (name.includes("post")) ? confirm("You will start over with just your infinity upgrades, and achievements. You need to reach a set goal with special conditions. NOTE: The rightmost infinity upgrade column doesn't work on challenges, and you will lose all your galaxy points.") : confirm("You will start over with just your infinity upgrades, and achievements. You need to reach infinity with special conditions. NOTE: The rightmost infinity upgrade column doesn't work on challenges.")) {
     if (player.currentChallenge != "") document.getElementById(player.currentChallenge).textContent = "Start"
     player = {
         money: new Decimal(10),
@@ -3604,7 +3627,12 @@ function startChallenge(name, target) {
       dead: player.dead,
       dilation: player.dilation,
       why: player.why,
-      galaxyPoints: 0,
+      galacticSacrifice: {
+        galaxyPoints: new Decimal(0),
+        last: Date.now(),
+        times: 0,
+        upgrades: []
+      },
       options: player.options
     };
 	if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -4167,7 +4195,12 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
                 rebuyables: player.dilation.rebuyables
             },
             why: player.why,
-	    galaxyPoints: 0,
+	          galacticSacrifice: {
+              galaxyPoints: new Decimal(0),
+              last: Date.now(),
+              times: 0,
+              upgrades: []
+            },
             options: player.options
         };
 
@@ -4881,7 +4914,7 @@ function gameLoop(diff) {
     else {
         document.getElementById("eternityPoints2").style.display = "inline-block"
     }
-  
+
     if (player.money.gte(Number.MAX_VALUE) && (!player.break || (player.currentChallenge != "" && player.money.gte(player.challengeTarget)) || (player.money.gte(new Decimal("1e5000")) && !player.challenges.includes("postc3")))) {
         document.getElementById("bigcrunch").style.display = 'inline-block';
         if ((player.currentChallenge == "" || player.options.retryChallenge) && (player.bestInfinityTime <= 600 || player.break)) {}
@@ -5167,8 +5200,9 @@ function gameLoop(diff) {
         document.getElementById("infi43").className = "infinistorebtnlocked"
         document.getElementById("infi44").className = "infinistorebtnlocked"
         document.getElementById("infiMult").className = "infinistorebtnlocked"
-
     }
+
+    galacticUpgradeButtonTypeDisplay();
 
     if (player.autobuyers[11]%1 === 0 || player.autobuyers[11].interval>100) document.getElementById("break").className = "infinistorebtnlocked"
     else document.getElementById("break").className = "infinistorebtn2"
@@ -5181,7 +5215,7 @@ function gameLoop(diff) {
         document.getElementById("confirmation").style.display = "none";
         document.getElementById("sacrifice").style.display = "none";
     }
-	
+
 	if (player.galaxies + player.replicanti.galaxies + player.dilation.freeGalaxies > 0) {
 		document.getElementById("gSacrifice").style.display = "inline-block"
 		document.getElementById("gSacrifice").innerHTML = "Galactic Sacrifice (" + formatValue(player.options.notation, getGSAmount(), 2, 0) + " GP)"
@@ -5191,7 +5225,7 @@ function gameLoop(diff) {
 	} else {
 		document.getElementById("gSacrifice").style.display = "none"
 	}
-	
+
     if (player.infinitied > 0) document.getElementById("sacrifice").style.display = "inline-block";
 
     if (player.eightAmount > 0 && player.resets > 4 && player.currentEternityChall !== "eterc3") document.getElementById("sacrifice").className = "storebtn"

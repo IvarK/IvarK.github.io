@@ -6,9 +6,14 @@ function getDimensionBoostPower() {
   if (player.challenges.includes("postc7")) ret = 4
   if (player.currentChallenge == "postc7" || player.timestudy.studies.includes(81)) ret = 10
 
+  if (player.galacticSacrifice.upgrades.includes(23)) {
+    ret *= galUpgrade23() / 2;
+  }
+
   if (player.achievements.includes("r101")) ret = ret*1.01
   if (player.timestudy.studies.includes(83)) ret = Decimal.pow(1.0004, player.totalTickGained).times(ret);
   if (player.timestudy.studies.includes(231)) ret = Decimal.pow(player.resets, 0.3).times(ret)
+
   return Decimal.fromValue(ret)
 }
 
@@ -150,7 +155,7 @@ function softReset(bulk) {
       dead: player.dead,
       dilation: player.dilation,
       why: player.why,
-      galaxyPoints: player.galaxyPoints,
+      galacticSacrifice: player.galacticSacrifice,
       options: player.options
   };
   if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -225,8 +230,12 @@ function getShiftRequirement(bulk) {
   }
 
   let mult = 15
+  if (player.galacticSacrifice.upgrades.includes(21)) mult = 5
+  /*
+  remove for now
   if (player.timestudy.studies.includes(211)) mult -= 5
   if (player.timestudy.studies.includes(222)) mult -= 2
+  */
 
   if (tier == 8) amount += Math.ceil((player.resets+bulk - 4) * mult);
   if (player.currentEternityChall == "eterc5") {
@@ -245,7 +254,7 @@ document.getElementById("softReset").onclick = function () {
   auto = false;
   if (player.infinityUpgrades.includes("bulkBoost")) maxBuyDimBoosts(true);
   else softReset(1)
-  
+
   for (var tier = 1; tier<9; tier++) {
     var name = TIER_NAMES[tier];
     var mult = getDimensionBoostPower().pow(player.resets + 1 - tier)

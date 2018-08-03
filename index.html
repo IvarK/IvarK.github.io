@@ -1223,7 +1223,7 @@
                             <div id="Don't you dare to sleep" class="achievement achievementlocked" style="background-image: url(images/10.png)" ach-tooltip="Be offline for over 6 hours in a row."><br></div>
                         </td>
                         <td>
-                            <div id="Claustrophobic" class="achievement achievementlocked" style="background-image: url(images/22.png)" ach-tooltip="Go Infinite with just 1 Antimatter Galaxy. Reward: Reduces starting tick interval by 2%."><br></div>
+                            <div id="Claustrophobic" class="achievement achievementlocked" style="background-image: url(images/22.png)" ach-tooltip="Go Infinite with just 1 Antimatter Galaxy. Reward: Reduce starting tick interval by 2% and keep galaxy upgrades on infinity."><br></div>
                         </td>
                         <td>
                             <div id="That's fast!" class="achievement achievementlocked" style="background-image: url(images/23.png)" ach-tooltip="Go infinite in under 2 hours. Reward: Start with 1000 antimatter."><br></div>
@@ -2115,20 +2115,39 @@
             <br>
             <div id="galaxyPoints" style="color: #4169E1; font-size: 15px; width: 40%; margin: 0 auto">You have x galaxy points.</div>
 	        <br>
-			<table class="table style="margin: 0 auto">
+			<table class="table" style="margin: 0 auto">
 				<tr>
 				    <td>
-                        <button id="galaxy11" class="infinistorebtn1">Sacrifice boosts first dimension as well<br>Cost: 1 GP</button>
-                    </td>
-                    <td>
-                        <button id="galaxy21" class="infinistorebtn2">This upgrade intentionally left empty</button>
-                    </td>
-                    <td>
-                        <button id="galaxy31" class="infinistorebtn3">This upgrade intentionally left empty</button>
-                    </td>
-                    <td>
-                        <button id="galaxy41" class="infinistorebtn4">This upgrade intentionally left empty</button>
-                    </td>
+                <button id="galaxy11" class="infinistorebtn1" onclick="buyGalaxyUpgrade(11)">Sacrifice boosts all even dimensions<br>Cost: 1 GP</button>
+            </td>
+            <td>
+                <button id="galaxy12" class="infinistorebtn2" onclick="buyGalaxyUpgrade(12)">Multiplier to dimensions based on time since last galactic sacrifice<br>Currently: <span id='galspan12'>x</span>x<br>Cost: 3 GP</button>
+            </td>
+            <td>
+                <button id="galaxy13" class="infinistorebtn3" onclick="buyGalaxyUpgrade(13)">Multiplier to dimensions based on galaxy points<br>Currently: <span id='galspan13'>x</span>x<br>Cost: 20 GP</button>
+            </td>
+				</tr>
+        <tr>
+				    <td>
+                <button id="galaxy21" class="infinistorebtn1" onclick="buyGalaxyUpgrade(21)">Boost cost increase is 5 eighth dimensions<br>Cost: 1 GP</button>
+            </td>
+            <td>
+                <button id="galaxy22" class="infinistorebtn2" onclick="buyGalaxyUpgrade(22)">Galaxies after the first cost only 40 more eighth dimensions each<br>Cost: 5 GP</button>
+            </td>
+            <td>
+                <button id="galaxy23" class="infinistorebtn3" onclick="buyGalaxyUpgrade(23)">Boosts are stronger based on galaxy points<br>Currently: <span id='galspan23'>x</span>x<br>Cost: 100 GP</button>
+            </td>
+				</tr>
+        <tr>
+				    <td>
+                <button id="galaxy31" class="infinistorebtn1" onclick="buyGalaxyUpgrade(31)">Dimensions multipliers are increased (x^1.05)<br>Cost: 2 GP</button>
+            </td>
+            <td>
+                <button id="galaxy32" class="infinistorebtn2" onclick="buyGalaxyUpgrade(32)">Multiplier to galactic sacrifice based on total antimatter<br>Currently: <span id='galspan32'>x</span>x<br>Cost: 8 GP</button>
+            </td>
+            <td>
+                <button id="galaxy33" class="infinistorebtn3" onclick="buyGalaxyUpgrade(33)">Per-ten multiplier is stronger based on galaxy points<br>Currently: <span id='galspan33'>x</span>x<br>Cost: 1000 GP</button>
+            </td>
 				</tr>
 			</table>
         </div>

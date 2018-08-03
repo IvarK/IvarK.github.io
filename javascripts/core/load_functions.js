@@ -109,7 +109,21 @@ if (player.infinitied > 0 && !player.challenges.includes("challenge1")) player.c
   if (player.timeDimension8 === undefined) player.timeDimension8 = {cost: new Decimal("1e3350"), amount: new Decimal(0), power: new Decimal(1), bought: 0 }
   if (player.why === undefined) player.why = 0
   if (player.options.animations === undefined) player.options.animations = {floatingText: true, bigCrunch: true, eternity: true, tachyonParticles: true}
-  if (player.galaxyPoints === undefined) player.galaxyPoints = 0
+  if (player.galacticSacrifice === undefined) {
+    player.galacticSacrifice = {};
+  }
+  if (player.galacticSacrifice.galaxyPoints === undefined) {
+    player.galacticSacrifice.galaxyPoints = new Decimal(player.galaxyPoints || 0);
+  }
+  if (player.galacticSacrifice.times === undefined) {
+    player.galacticSacrifice.times = player.galaxyPoints || 0;
+  }
+  if (player.galacticSacrifice.last === undefined) {
+    player.galacticSacrifice.last = Date.now();
+  }
+  if (player.galacticSacrifice.upgrades === undefined) {
+    player.galacticSacrifice.upgrades = [];
+  }
   setTheme(player.options.theme);
 
   sliderText.textContent = "Update rate: " + player.options.updateRate + "ms";
@@ -544,7 +558,7 @@ if (player.version < 5) {
   else document.getElementById("chartOnOff").checked = false
   if (player.options.chart.dips) document.getElementById("chartDipsOnOff").checked = true
   else document.getElementById("chartDipsOnOff").checked = false
- 
+
   if (player.options.theme == "Dark" || player.options.theme == "Dark Metro") {
     Chart.defaults.global.defaultFontColor = '#888';
     normalDimChart.data.datasets[0].borderColor = '#888'
@@ -565,7 +579,7 @@ if (player.version < 5) {
     document.getElementById("sixthRow").style.display = "none";
     document.getElementById("seventhRow").style.display = "none";
     document.getElementById("eightRow").style.display = "none";
-}
+  }
 
   if (!player.options.hotkeys) document.getElementById("hotkeys").textContent = "Enable hotkeys"
   updateAutobuyers();
@@ -785,6 +799,8 @@ function transformSaveToDecimal() {
   player.dilation.dilatedTime = new Decimal(player.dilation.dilatedTime)
   player.dilation.totalTachyonParticles = new Decimal(player.dilation.totalTachyonParticles)
   player.dilation.nextThreshold = new Decimal(player.dilation.nextThreshold)
+
+  player.galacticSacrifice.galaxyPoints = new Decimal(player.galacticSacrifice.galaxyPoints)
 }
 
 
