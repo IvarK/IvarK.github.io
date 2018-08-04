@@ -1,4 +1,5 @@
 //test
+var diffMultiplier = 1
 var gameLoopIntervalId;
 var Marathon = 0;
 var Marathon2 = 0;
@@ -4773,6 +4774,7 @@ function gameLoop(diff) {
     diff = diff / 100;
     if (diff < 0) diff = 1;
     if (player.currentEternityChall === "eterc12") diff = diff / 1000;
+    diff = diff * diffMultiplier
     if (player.thisInfinityTime < -10) player.thisInfinityTime = Infinity
     if (player.bestInfinityTime < -10) player.bestInfinityTime = Infinity
     if (diff > player.autoTime && !player.break) player.infinityPoints = player.infinityPoints.plus(player.autoIP.times(diff/player.autoTime))
