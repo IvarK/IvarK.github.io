@@ -160,7 +160,7 @@ function softReset(bulk) {
   };
   if (player.galacticSacrifice.upgrades.includes(11)) {
       TIER_NAMES.forEach(function(name)  {
-          player[name+"Cost"] = player[name+"Cost"].div(10)
+          if (name !== null) player[name+"Cost"] = player[name+"Cost"].div(10)
       })
   }
   if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {

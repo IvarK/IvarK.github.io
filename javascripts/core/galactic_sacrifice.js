@@ -83,6 +83,11 @@ function buyGalaxyUpgrade (i) {
   } else {
     player.galacticSacrifice.upgrades.push(i);
     player.galacticSacrifice.galaxyPoints = player.galacticSacrifice.galaxyPoints.minus(galUpgradeCosts[i]);
+    if (i == 11) {
+      TIER_NAMES.forEach(function(name) {
+          if (name !== null) player[name+"Cost"] = player[name+"Cost"].div(10)
+      })
+    }
     return true;
   }
 }
