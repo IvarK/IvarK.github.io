@@ -580,7 +580,7 @@ function getDimensionProductionPerSecond(tier) {
             tick = Decimal.pow(10, Math.pow((tick.log10()*-1)+3, 1.05))
           }
         tick = new Decimal(1).dividedBy(tick)
-        ret = Decimal.floor(player[TIER_NAMES[tier] + 'Amount']).times(getDimensionFinalMultiplier(tier)).times(1000).dividedBy(tick)
+        ret = Decimal.floor(player[TIER_NAMES[tier] + 'Amount']).times(getDimensionFinalMultiplier(tier)).dividedBy(tick)
  // }
     return ret;
 }
