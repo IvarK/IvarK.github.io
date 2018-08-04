@@ -1,6 +1,6 @@
 function getGSAmount() {
   let galaxies = player.galaxies + player.replicanti.galaxies + player.dilation.freeGalaxies;
-  let ret = new Decimal(galaxies * player.eightAmount.div(50).toNumber());
+  let ret = new Decimal(galaxies * player.eightAmount.div(20).toNumber());
   if (player.galacticSacrifice.upgrades.includes(32)) {
     return ret.times(galUpgrade32()).floor();
   } else {
