@@ -158,6 +158,11 @@ function softReset(bulk) {
       galacticSacrifice: player.galacticSacrifice,
       options: player.options
   };
+  if (player.galacticSacrifice.upgrades.includes(11)) {
+      TIER_NAMES.forEach(function(name)  {
+          player[name+"Cost"] = player[name+"Cost"].div(10)
+      })
+  }
   if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
       player.thirdCost = new Decimal(100)
       player.fourthCost = new Decimal(500)

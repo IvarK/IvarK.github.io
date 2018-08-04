@@ -2220,12 +2220,6 @@ function sacrifice(auto = false) {
     if (player.currentEternityChall == "eterc3") return false
     if (player.currentChallenge == "challenge11" && (calcTotalSacrificeBoost().gte(Number.MAX_VALUE) || player.chall11Pow.gte(Number.MAX_VALUE))) return false
     if (!auto) floatText("eightD", "x" + shortenMoney(calcSacrificeBoost()))
-    if (calcSacrificeBoost().gte(Number.MAX_VALUE)) giveAchievement("Yet another infinity reference");
-    if (player.galacticSacrifice.upgrades.includes(11)) {
-      player.secondPow = player.secondPow.times(calcSacrificeBoost())
-      player.fourthPow = player.fourthPow.times(calcSacrificeBoost())
-      player.sixthPow = player.sixthPow.times(calcSacrificeBoost())
-    }
     player.eightPow = player.eightPow.times(calcSacrificeBoost())
     player.sacrificed = player.sacrificed.plus(player.firstAmount);
     if (player.currentChallenge != "challenge11") {
