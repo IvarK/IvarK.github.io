@@ -227,22 +227,21 @@ if (player.currentChallenge == "postc2") {
 
 function getShiftRequirement(bulk) {
   let amount = 20;
+  let mult = player.galacticSacrifice.upgrades.includes(21)?5:15
   if (player.currentChallenge == "challenge4") {
       tier = Math.min(player.resets + bulk + 4, 6)
-      if (tier == 6) amount += Math.max(player.resets+bulk - player.galacticSacrifice.upgrades.includes(21)?4:2, 0) * 20;
+      if (tier == 6) amount += Math.max(player.resets+bulk - (player.galacticSacrifice.upgrades.includes(21)?4:2), 0) * mult+5;
   } else {
       tier = Math.min(player.resets + bulk + 4, 8)
   }
-
-  let mult = 15
-  if (player.galacticSacrifice.upgrades.includes(21)) mult = 5
+  
   /*
   remove for now
   if (player.timestudy.studies.includes(211)) mult -= 5
   if (player.timestudy.studies.includes(222)) mult -= 2
   */
 
-  if (tier == 8) amount += Math.ceil(Math.max(player.resets+bulk - player.galacticSacrifice.upgrades.includes(21)?6:4, 0) * mult);
+  if (tier == 8) amount += Math.ceil(Math.max(player.resets+bulk - (player.galacticSacrifice.upgrades.includes(21)?6:4), 0) * mult);
   if (player.currentEternityChall == "eterc5") {
       amount += Math.pow(player.resets+bulk, 3) + player.resets+bulk
   }
