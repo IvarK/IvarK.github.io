@@ -229,7 +229,7 @@ function getShiftRequirement(bulk) {
   let amount = 20;
   if (player.currentChallenge == "challenge4") {
       tier = Math.min(player.resets + bulk + 4, 6)
-      if (tier == 6) amount += (player.resets+bulk - 2) * 20;
+      if (tier == 6) amount += Math.max(player.resets+bulk - player.galacticSacrifice.upgrades.includes(21)?4:2, 0) * 20;
   } else {
       tier = Math.min(player.resets + bulk + 4, 8)
   }
@@ -242,7 +242,7 @@ function getShiftRequirement(bulk) {
   if (player.timestudy.studies.includes(222)) mult -= 2
   */
 
-  if (tier == 8) amount += Math.ceil((player.resets+bulk - 4) * mult);
+  if (tier == 8) amount += Math.ceil(Math.max(player.resets+bulk - player.galacticSacrifice.upgrades.includes(21)?6:4, 0) * mult);
   if (player.currentEternityChall == "eterc5") {
       amount += Math.pow(player.resets+bulk, 3) + player.resets+bulk
   }
