@@ -1787,6 +1787,12 @@ function galaxyReset() {
         player.resets = 4;
     }
 
+    if (player.galacticSacrifice.upgrades.includes(11)) {
+      TIER_NAMES.forEach(function(name)  {
+          if (name !== null) player[name+"Cost"] = player[name+"Cost"].div(100)
+      })
+    }
+	
     setInitialDimensionPower();
 
 
