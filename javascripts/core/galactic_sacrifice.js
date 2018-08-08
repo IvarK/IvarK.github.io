@@ -26,7 +26,7 @@ let galUpgrade32 = function () {
 }
 
 let galUpgrade33 = function () {
-  return 2 + Math.log10(player.galacticSacrifice.galaxyPoints)*0.15;
+  return 2 + Math.log10(player.galacticSacrifice.galaxyPoints)*0.25;
 }
 
 function galacticSacrifice() {
@@ -39,7 +39,7 @@ function galacticSacrifice() {
     galaxyReset()
 }
 
-function GSUnlocked() {
+function GSUnlocked() {q
     return player.galacticSacrifice && player.galacticSacrifice.times > 0;
 }
 
