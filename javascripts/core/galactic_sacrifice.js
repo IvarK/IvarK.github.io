@@ -39,7 +39,7 @@ function galacticSacrifice() {
     galaxyReset()
 }
 
-function GSUnlocked() {q
+function GSUnlocked() {
     return player.galacticSacrifice && player.galacticSacrifice.times > 0;
 }
 
