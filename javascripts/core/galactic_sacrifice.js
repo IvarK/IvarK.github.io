@@ -26,7 +26,7 @@ let galUpgrade32 = function () {
 }
 
 let galUpgrade33 = function () {
-  return 2 + Math.log10(player.galacticSacrifice.galaxyPoints)*0.5;
+  return 2 + Math.log10(player.galacticSacrifice.galaxyPoints);
 }
 
 function galacticSacrifice() {
