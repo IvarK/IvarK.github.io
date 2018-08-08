@@ -1,6 +1,6 @@
 function getGSAmount() {
   let galaxies = player.galaxies + player.replicanti.galaxies + player.dilation.freeGalaxies;
-  let ret = new Decimal(Math.max(galaxies * player.resets - (player.currentChallenge=="challenge4"?2:4), 0));
+  let ret = new Decimal(Math.max(galaxies * (player.resets - (player.currentChallenge=="challenge4"?2:4)), 0));
   if (player.galacticSacrifice.upgrades.includes(32)) {
     return ret.times(galUpgrade32()).floor();
   } else {
