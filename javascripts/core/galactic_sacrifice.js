@@ -21,7 +21,7 @@ let galUpgrade23 = function () {
 }
 
 let galUpgrade32 = function () {
-  return (player.totalmoney || player.money).pow(0.003);
+  return (player.totalmoney || player.money).pow(0.003).add(1);
 }
 
 let galUpgrade33 = function () {
