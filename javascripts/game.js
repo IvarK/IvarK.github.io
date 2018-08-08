@@ -404,6 +404,8 @@ function showTab(tabName) {
     }
     if (document.getElementById("timestudies").style.display != "none" && document.getElementById("eternitystore").style.display != "none") document.getElementById("TTbuttons").style.display = "block";
     else document.getElementById("TTbuttons").style.display = "none"
+    if (document.getElementById("antimatterdimensions").style.display != "none" && document.getElementById("dimensions").style.display != "none") document.getElementById("progress").style.display = "block";
+    else document.getElementById("progress").style.display = "none"
     resizeCanvas();
     closeToolTip();
 }
@@ -5663,6 +5665,8 @@ function showDimTab(tabName) {
             tab.style.display = 'none';
         }
     }
+    if (tabName === 'antimatterdimensions') document.getElementById("progress").style.display = "block"
+    else document.getElementById("progress").style.display = "none"
 }
 
 function showChallengesTab(tabName) {

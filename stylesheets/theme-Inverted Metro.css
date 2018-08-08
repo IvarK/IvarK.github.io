@@ -10,6 +10,11 @@ body {
     filter: invert(100%);
 }
 
+#progressbar {
+    color: white !important;
+    background-color: #ED85DF !important;
+}
+
 * {
     border-radius: 0px !important;
 }
