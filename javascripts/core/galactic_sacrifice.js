@@ -9,6 +9,29 @@ function getGSAmount() {
   }
 }
 
+function decreaseDimCosts () {
+  if (player.galacticSacrifice.upgrades.includes(11)) {
+    TIER_NAMES.forEach(function(name)  {
+        if (name !== null) player[name+"Cost"] = player[name+"Cost"].div(galUpgrade11())
+    });
+  }
+}
+
+let galUpgrade11 = function () {
+  let x = player.infinitied;
+  let y;
+  if (x === 0) {
+    y = 2;
+  } else if (x < 5) {
+    y = x + 2;
+  } else if (x < 100) {
+    y = Math.pow(x + 5, .5) + 5;
+  } else {
+    y = Math.pow(Math.log(x), Math.log(x) / 10) + 15;
+  }
+  return Decimal.pow(10, y);
+}
+
 let galUpgrade12 = function () {
   return 2 * Math.pow(1 + (Date.now() - player.galacticSacrifice.last) / 60000, 0.5);
 }
@@ -44,11 +67,13 @@ function GSUnlocked() {
 }
 
 function galacticUpgradeSpanDisplay () {
+  document.getElementById('galspan11').innerHTML = shortenDimensions(galUpgrade11());
   document.getElementById('galspan12').innerHTML = galUpgrade12().toFixed(2);
   document.getElementById('galspan13').innerHTML = formatValue(player.options.notation, galUpgrade13(), 2, 2);
   document.getElementById('galspan23').innerHTML = (galUpgrade23()/2).toFixed(2);
   document.getElementById('galspan32').innerHTML = galUpgrade32().toFixed(2);
   document.getElementById('galspan33').innerHTML = (galUpgrade33()/2).toFixed(2);
+  document.getElementById("galcost33").innerHTML = shortenCosts(1e3);
 }
 
 let galUpgradeCosts = {

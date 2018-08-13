@@ -1787,12 +1787,8 @@ function galaxyReset() {
         player.resets = 4;
     }
 
-    if (player.galacticSacrifice.upgrades.includes(11)) {
-      TIER_NAMES.forEach(function(name)  {
-          if (name !== null) player[name+"Cost"] = player[name+"Cost"].div(100)
-      })
-    }
-	
+    decreaseDimCosts();
+
     setInitialDimensionPower();
 
 
@@ -3035,6 +3031,7 @@ document.getElementById("bigcrunch").onclick = function () {
 
         player.replicanti.galaxies = (player.timestudy.studies.includes(33)) ? Math.floor(player.replicanti.galaxies/2) :0
 
+        decreaseDimCosts();
         setInitialDimensionPower();
 
 
@@ -3659,6 +3656,7 @@ function startChallenge(name, target) {
     if (player.replicanti.unl) player.replicanti.amount = new Decimal(1)
     player.replicanti.galaxies = 0
 
+    decreaseDimCosts();
     // even if we're in a challenge, apparently if it's challenge 2 we might have four resets anyway.
     setInitialDimensionPower();
 

@@ -158,11 +158,7 @@ function softReset(bulk) {
       galacticSacrifice: player.galacticSacrifice,
       options: player.options
   };
-  if (player.galacticSacrifice.upgrades.includes(11)) {
-      TIER_NAMES.forEach(function(name)  {
-          if (name !== null) player[name+"Cost"] = player[name+"Cost"].div(100)
-      })
-  }
+  decreaseDimCosts();
   if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
       player.thirdCost = new Decimal(100)
       player.fourthCost = new Decimal(500)
@@ -234,7 +230,7 @@ function getShiftRequirement(bulk) {
   } else {
       tier = Math.min(player.resets + bulk + 4, 8)
   }
-  
+
   /*
   remove for now
   if (player.timestudy.studies.includes(211)) mult -= 5
