@@ -3071,6 +3071,12 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.infinitied >= 10) giveAchievement("That's a lot of infinites");
         if (player.infinitied >= 1 && !player.challenges.includes("challenge1")) player.challenges.push("challenge1");
 
+        if (player.achievements.includes('r33')) {
+            let newPoints = Math.floor(Math.pow(player.infinitied, 2) / 100);
+            player.galacticSacrifice.galaxyPoints = player.galacticSacrifice.galaxyPoints.max(newPoints);
+            player.galacticSacrifice.times = Math.max(player.galacticSacrifice.times, newPoints);
+        }
+
 
         updateAutobuyers();
         if (player.challenges.includes("challenge1")) player.money = new Decimal(100)
@@ -3495,7 +3501,7 @@ function exitChallenge() {
 }
 
 function startChallenge(name, target) {
-  if(player.options.challConf || name == "" ? true : (name.includes("post")) ? confirm("You will start over with just your infinity upgrades, and achievements. You need to reach a set goal with special conditions. NOTE: The rightmost infinity upgrade column doesn't work on challenges, and you will lose all your galaxy points.") : confirm("You will start over with just your infinity upgrades, and achievements. You need to reach infinity with special conditions. NOTE: The rightmost infinity upgrade column doesn't work on challenges.")) {
+  if (player.options.challConf || name == "" ? true : confirm("You will start over with just your infinity upgrades, and achievements. You need to reach a set goal with special conditions. NOTE: The rightmost infinity upgrade column doesn't work on challenges.")) {
     if (player.currentChallenge != "") document.getElementById(player.currentChallenge).textContent = "Start"
     player = {
         money: new Decimal(10),
@@ -3630,7 +3636,7 @@ function startChallenge(name, target) {
       dead: player.dead,
       dilation: player.dilation,
       why: player.why,
-      galacticSacrifice: {
+      galacticSacrifice: player.achievements.includes('r36') ? player.galacticSacrifice : {
         galaxyPoints: new Decimal(0),
         last: Date.now(),
         times: 0,
@@ -3700,6 +3706,12 @@ function startChallenge(name, target) {
     } catch (err) {console.log("Couldn't load Kongregate API")}
 
     if (player.infinitied >= 10) giveAchievement("That's a lot of infinites");
+
+    if (player.achievements.includes('r33')) {
+        let newPoints = Math.floor(Math.pow(player.infinitied, 2) / 100);
+        player.galacticSacrifice.galaxyPoints = player.galacticSacrifice.galaxyPoints.max(newPoints);
+        player.galacticSacrifice.times = Math.max(player.galacticSacrifice.times, newPoints);
+    }
 
     document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
 

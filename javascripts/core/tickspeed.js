@@ -45,11 +45,13 @@ function getTickSpeedMultiplier() {
 }
 
 function getPostC3RewardMult () {
-  if (player.galacticSacrifice.upgrades.includes(22)) {
-    return 1.05+(player.galaxies*0.025);
-  } else {
-    return 1.05+(player.galaxies*0.005);
-  }
+  let perGalaxy = 0.005;
+  if (player.galacticSacrifice.upgrades.includes(22)) perGalaxy *= 5;
+  if (player.infinityUpgrades.includes("galaxyBoost")) perGalaxy *= 2;
+  if (player.infinityUpgrades.includes("postGalaxy")) perGalaxy *= 1.5;
+  if (player.challenges.includes("postc5")) perGalaxy *= 1.1;
+  if (player.achievements.includes("r86")) perGalaxy *= 1.01;
+  return 1.05+(player.galaxies*perGalaxy);
 }
 
 function buyTickSpeed() {
