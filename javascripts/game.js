@@ -3074,7 +3074,6 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.achievements.includes('r33')) {
             let newPoints = Math.floor(Math.pow(player.infinitied, 2) / 100);
             player.galacticSacrifice.galaxyPoints = player.galacticSacrifice.galaxyPoints.max(newPoints);
-            player.galacticSacrifice.times = Math.max(player.galacticSacrifice.times, newPoints);
         }
 
 
@@ -3710,7 +3709,6 @@ function startChallenge(name, target) {
     if (player.achievements.includes('r33')) {
         let newPoints = Math.floor(Math.pow(player.infinitied, 2) / 100);
         player.galacticSacrifice.galaxyPoints = player.galacticSacrifice.galaxyPoints.max(newPoints);
-        player.galacticSacrifice.times = Math.max(player.galacticSacrifice.times, newPoints);
     }
 
     document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
