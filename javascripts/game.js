@@ -2179,6 +2179,8 @@ function resetDimensions() {
     player.seventhCost = new Decimal(1e18)
     player.eightCost = new Decimal(1e24)
     player.eightPow = new Decimal(player.chall11Pow)
+
+    decreaseDimCosts();
 }
 
 function calcSacrificeBoost() {
@@ -3005,12 +3007,7 @@ document.getElementById("bigcrunch").onclick = function () {
             dead: player.dead,
             dilation: player.dilation,
             why: player.why,
-	          galacticSacrifice: player.achievements.includes('r36') ? player.galacticSacrifice : {
-              galaxyPoints: new Decimal(0),
-              last: Date.now(),
-              times: 0,
-              upgrades: []
-            },
+	          galacticSacrifice: newGalacticDataOnInfinity(),
             options: player.options
         };
 
@@ -3637,12 +3634,7 @@ function startChallenge(name, target) {
       dead: player.dead,
       dilation: player.dilation,
       why: player.why,
-      galacticSacrifice: player.achievements.includes('r36') ? player.galacticSacrifice : {
-        galaxyPoints: new Decimal(0),
-        last: Date.now(),
-        times: 0,
-        upgrades: []
-      },
+      galacticSacrifice: newGalacticDataOnInfinity(),
       options: player.options
     };
 	if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -6056,7 +6048,7 @@ setInterval( function() {
     else infinitiedMult = 1+Math.log10(getInfinitied()+1)*10
     achievementMult = Math.max(Math.pow((player.achievements.length-30-getSecretAchAmount()), 3)/40,1)
     challengeMult = Decimal.max(10*3000/worstChallengeTime, 1)
-    unspentBonus = player.infinityPoints.dividedBy(2).pow(1.5).plus(1)
+    unspentBonus = player.infinityPoints.pow(2 + player.infinityPoints.ln()).plus(1)
     mult18 = getDimensionFinalMultiplier(1).times(getDimensionFinalMultiplier(8)).pow(0.02)
     if (player.currentEternityChall == "eterc10") {
         ec10bonus = Decimal.pow(getInfinitied(), 1000).max(1)

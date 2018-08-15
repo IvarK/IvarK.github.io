@@ -86,6 +86,24 @@ function galacticUpgradeSpanDisplay () {
   document.getElementById("galcost33").innerHTML = shortenCosts(1e3);
 }
 
+function newGalacticDataOnInfinity () {
+  if (player.achievements.includes('r36')) {
+    return {
+      galaxyPoints: player.galacticSacrifice.galaxyPoints.plus(getGSAmount()),
+      last: Date.now(),
+      times: player.galacticSacrifice.times,
+      upgrades: player.galacticSacrifice.upgrades
+    }
+  } else {
+    return {
+      galaxyPoints: new Decimal(0),
+      last: Date.now(),
+      times: 0,
+      upgrades: []
+    }
+  }
+}
+
 let galUpgradeCosts = {
   11: 1,
   12: 3,
