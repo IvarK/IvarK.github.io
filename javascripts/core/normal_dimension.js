@@ -5,10 +5,6 @@ function getDimensionFinalMultiplier(tier) {
   let multiplier = new Decimal(player[name + 'Pow']);
 
   if (player.currentEternityChall == "eterc11") return player.infinityPower.pow(7).max(1).times(getDimensionBoostPower().pow(player.resets - tier + 1).max(1))
-  if (player.currentChallenge == "challenge7") {
-      if (tier == 4) multiplier = multiplier.pow(1.4)
-      if (tier == 2) multiplier = multiplier.pow(1.7)
-  }
 
   multiplier = multiplier.times(player.achPow);
   multiplier = multiplier.times(kongDimMult)
@@ -568,12 +564,8 @@ function dimMults() {
 
 function getDimensionProductionPerSecond(tier) {
     let ret = Decimal.floor(player[TIER_NAMES[tier] + 'Amount']).times(getDimensionFinalMultiplier(tier)).times(1000).dividedBy(player.tickspeed)
-    if (player.currentChallenge == "challenge7") {
-        if (tier == 4) ret = player[TIER_NAMES[tier] + 'Amount'].floor().pow(1.3).times(getDimensionFinalMultiplier(tier)).dividedBy(player.tickspeed.dividedBy(1000))
-        else if (tier == 2) ret = player[TIER_NAMES[tier] + 'Amount'].floor().pow(1.5).times(getDimensionFinalMultiplier(tier)).dividedBy(player.tickspeed.dividedBy(1000))
-    }
     if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") ret = ret.times(player.chall2Pow)
- // if (player.dilation.active) {
+    // if (player.dilation.active) {
         let tick = new Decimal(player.tickspeed)
         tick = Decimal.pow(10, Math.pow((tick.log10()*-1)+3, 0.75))
         if (player.dilation.upgrades.includes(9)) {
@@ -581,6 +573,6 @@ function getDimensionProductionPerSecond(tier) {
           }
         tick = new Decimal(1).dividedBy(tick)
         ret = Decimal.floor(player[TIER_NAMES[tier] + 'Amount']).times(getDimensionFinalMultiplier(tier)).dividedBy(tick)
- // }
+    // }
     return ret;
 }

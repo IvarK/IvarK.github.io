@@ -51,7 +51,11 @@ function getPostC3RewardMult () {
   if (player.infinityUpgrades.includes("postGalaxy")) perGalaxy *= 1.5;
   if (player.challenges.includes("postc5")) perGalaxy *= 1.1;
   if (player.achievements.includes("r86")) perGalaxy *= 1.01;
-  return 1.05+(player.galaxies*perGalaxy);
+  let galaxies = player.galaxies;
+  if (player.currentChallenge === 'challenge7') galaxies = Math.pow(galaxies, 2);
+  let ret = 1.05+(galaxies*perGalaxy);
+  if (player.currentChallenge === 'challenge6') ret -= 0.05
+  return ret;
 }
 
 function buyTickSpeed() {

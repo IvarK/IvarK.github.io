@@ -2220,8 +2220,9 @@ function sacrifice(auto = false) {
     if (player.eightAmount == 0) return false;
     if (player.resets < 5) return false
     if (player.currentEternityChall == "eterc3") return false
-    if (player.currentChallenge == "challenge11" && (calcTotalSacrificeBoost().gte(Number.MAX_VALUE) || player.chall11Pow.gte(Number.MAX_VALUE))) return false
+    if (player.currentChallenge == "challenge11" && (calcTotalSacrificeBoost().gte(new Decimal('1e8888')) || player.chall11Pow.gte(new Decimal('1e8888')))) return false
     if (!auto) floatText("eightD", "x" + shortenMoney(calcSacrificeBoost()))
+    if (calcSacrificeBoost().gte(Number.MAX_VALUE) && player.currentChallenge !== 'challenge11') giveAchievement("Yet another infinity reference");
     player.eightPow = player.eightPow.times(calcSacrificeBoost())
     player.sacrificed = player.sacrificed.plus(player.firstAmount);
     if (player.currentChallenge != "challenge11") {
@@ -2234,7 +2235,7 @@ function sacrifice(auto = false) {
 
     }
     if (calcTotalSacrificeBoost() >= 600) giveAchievement("The Gods are pleased");
-    if (calcTotalSacrificeBoost().gte("1e9000")) giveAchievement("IT'S OVER 9000");
+    if (calcTotalSacrificeBoost().gte("1e9000") && player.currentChallenge !== "challenge11") giveAchievement("IT'S OVER 9000");
 }
 
 
@@ -4424,7 +4425,7 @@ function calcPerSec(amount, pow, hasMult) {
 }
 
 document.getElementById("quickReset").onclick = function () {
-    if (player.resets == 0) player.resets--;
+    if (player.resets === 0 || player.currentChallenge === 'challenge5') player.resets--;
     else player.resets -= 2;
     softReset(1);
 }
@@ -5266,6 +5267,7 @@ function gameLoop(diff) {
         document.getElementById("statisticsbtn").style.display = "none";
         document.getElementById("achievementsbtn").style.display = "none";
         document.getElementById("challengesbtn").style.display = "none";
+        document.getElementById("galaxybtn").style.display = "none";
         document.getElementById("infinitybtn").style.display = "none";
         document.getElementById("tickSpeed").style.visibility = "hidden";
         document.getElementById("tickSpeedMax").style.visibility = "hidden";
