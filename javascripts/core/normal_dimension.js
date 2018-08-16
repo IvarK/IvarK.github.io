@@ -1,4 +1,4 @@
-function getDimensionFinalMultiplier(tier) {
+function getDimensionPreDilationMultiplier(tier) {
   //if (player.currentEternityChall == "eterc3" && tier > 4) return new Decimal(0)
   var name = TIER_NAMES[tier];
 
@@ -21,7 +21,6 @@ function getDimensionFinalMultiplier(tier) {
 
   if (hasInfinityMult(tier)) multiplier = multiplier.times(dimMults());
   if (tier == 1) {
-      if (player.infinityUpgrades.includes("unspentBonus")) multiplier = multiplier.times(unspentBonus);
       if (player.achievements.includes("r28")) multiplier = multiplier.times(1.1);
       if (player.achievements.includes("r31")) multiplier = multiplier.times(1.05);
       if (player.achievements.includes("r71")) multiplier = multiplier.times(3);
@@ -54,9 +53,6 @@ function getDimensionFinalMultiplier(tier) {
   multiplier = multiplier.times(player.postC3Reward)
   if (player.challenges.includes("postc8") && tier < 8 && tier > 1) multiplier = multiplier.times(mult18);
 
-  if (player.currentChallenge == "postc6") multiplier = multiplier.dividedBy(player.matter.max(1))
-  if (player.currentChallenge == "postc8") multiplier = multiplier.times(postc8Mult)
-
   if (player.currentChallenge == "postc4" && player.postC4Tier != tier) multiplier = multiplier.pow(0.25)
   if (player.currentEternityChall == "eterc10") multiplier = multiplier.times(ec10bonus)
   if (player.timestudy.studies.includes(193)) multiplier = multiplier.times(Decimal.pow(1.03, player.eternities).min("1e13000"))
@@ -72,7 +68,12 @@ function getDimensionFinalMultiplier(tier) {
   if (player.challenges.includes("postc4")) multiplier = multiplier.pow(1.05);
   if (player.galacticSacrifice.upgrades.includes(31)) multiplier = multiplier.pow(1.1);
 
-  if (multiplier.lt(1)) multiplier = new Decimal(1)
+  if (multiplier.lt(1)) multiplier = new Decimal(1);
+  return multiplier;
+}
+
+function getDimensionFinalMultiplier(tier) {
+  multiplier = getDimensionPreDilationMultiplier(tier);
 //if (player.dilation.active) {
     multiplier = Decimal.pow(10, Math.pow(multiplier.log10(), 0.75))
     if (player.dilation.upgrades.includes(9)) {
@@ -81,6 +82,16 @@ function getDimensionFinalMultiplier(tier) {
 //}
 
   if (player.dilation.upgrades.includes(6)) multiplier = multiplier.times(player.dilation.dilatedTime.pow(308))
+
+  // this is post-dilation since pg132 suggested it be there.
+  if (tier == 1) {
+      if (player.infinityUpgrades.includes("unspentBonus")) multiplier = multiplier.times(unspentBonus);
+  }
+  // penalties, thus post-dilation.
+  if (player.currentChallenge == "postc6") multiplier = multiplier.dividedBy(player.matter.max(1))
+  if (player.currentChallenge == "postc8") multiplier = multiplier.times(postc8Mult)
+
+  if (multiplier.lt(1)) multiplier = new Decimal(1);
   return multiplier;
 }
 
@@ -552,7 +563,7 @@ document.getElementById("eightMax").onclick = function () {
 function timeMult() {
     var mult = new Decimal(1)
     if (player.infinityUpgrades.includes("timeMult")) mult = mult.times(Math.pow(player.totalTimePlayed / 1200, 0.15));
-    if (player.infinityUpgrades.includes("timeMult2")) mult = mult.times(Decimal.max(Math.pow(player.thisInfinityTime / 2400, 0.25), 1));
+    if (player.infinityUpgrades.includes("timeMult2")) mult = mult.times(Decimal.max(Math.pow(player.thisInfinityTime / 2400, 3.00), 1));
     if (player.achievements.includes("r76")) mult = mult.times(Math.pow(player.totalTimePlayed / (600*60*48), 0.05));
     return mult;
 }

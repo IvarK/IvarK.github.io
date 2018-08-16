@@ -657,10 +657,11 @@ function updateDimensions() {
             document.getElementById("infi11").innerHTML = "Normal dimensions gain a multiplier based on time played <br>Currently: " + (Math.pow(0.5 * player.totalTimePlayed / 600, 0.15)).toFixed(2) + "x<br>Cost: 1 IP"
             document.getElementById("infi12").innerHTML = "First and Eighth Dimensions gain a multiplier based on infinitied stat<br>Currently: " + formatValue(player.options.notation, dimMults(), 1, 1) + "x<br>Cost: 1 IP"
             document.getElementById("infi13").innerHTML = "Third and Sixth Dimensions gain a multiplier based on infinitied stat<br>Currently: " + formatValue(player.options.notation, dimMults(), 1, 1) + "x<br>Cost: 1 IP"
-            document.getElementById("infi22").innerHTML = "Second and seventh Dimensions gain a multiplier based on infinitied stat<br>Currently: " + formatValue(player.options.notation, dimMults(), 1, 1) + "x<br>Cost: 1 IP"
+            document.getElementById("infi22").innerHTML = "Second and Seventh Dimensions gain a multiplier based on infinitied stat<br>Currently: " + formatValue(player.options.notation, dimMults(), 1, 1) + "x<br>Cost: 1 IP"
             document.getElementById("infi23").innerHTML = "Fourth and Fifth Dimensions gain a multiplier based on infinitied stat<br>Currently: " + formatValue(player.options.notation, dimMults(), 1, 1) + "x<br>Cost: 1 IP"
-            document.getElementById("infi31").innerHTML = "Normal dimensions gain a multiplier based on time spent in current infinity<br>Currently: " + Decimal.max(Math.pow(player.thisInfinityTime / 2400, 0.25), 1).toFixed(2) + "x<br>Cost: 3 IP"
-            document.getElementById("infi32").innerHTML = "Multiplier for unspent Infinity Points on 1st Dimension<br>Currently: " + formatValue(player.options.notation, player.infinityPoints.dividedBy(2).pow(1.5).plus(1), 2, 2) + "x<br>Cost: 5 IP"
+            document.getElementById("infi31").innerHTML = "Normal dimensions gain a multiplier based on time spent in current infinity<br>Currently: " + Decimal.max(Math.pow(player.thisInfinityTime / 2400, 3.00), 1).toFixed(2) + "x<br>Cost: 3 IP"
+            document.getElementById("infi32").innerHTML = "Post-dilation multiplier for unspent Infinity Points on 1st Dimension<br>Currently: " + formatValue(player.options.notation, player.infinityPoints.dividedBy(2).pow(1.5).plus(1), 2, 2) + "x<br>Cost: 5 IP"
+            document.getElementById("infi33").innerHTML = "Dimension boosts gain an extra multiplier based on infinities<br>Currently: " + (1.2 + 0.05 * player.infinityPoints.max(1).log(10)).toFixed(2) + "x<br>Cost: 7 IP"
             document.getElementById("infi34").innerHTML = "Infinity Point generation based on fastest infinity <br>Currently: "+shortenDimensions(player.infMult.times(kongIPMult))+" every " + timeDisplay(player.bestInfinityTime*10) + "<br>Cost: 10 IP"
         }
         else if (document.getElementById("postinf").style.display == "block") {
@@ -4289,6 +4290,15 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
     }
 }
 
+function getUnspentIPBonus () {
+  let x = player.infinityPoints;
+  if (x.lt(100)) {
+      return x.pow(2.5).div(1.7).plus(1);
+  } else {
+      return Decimal.pow(x.plus(1).log(10) + 1, 10);
+  }
+}
+
 function startDilatedEternity() {
     if (!player.dilation.studies.includes(1)) return
     clearInterval(gameLoopIntervalId);
@@ -6041,6 +6051,7 @@ var unspentBonus = 1
 var postc8Mult = new Decimal(0)
 var mult18 = 1
 var ec10bonus = new Decimal(1)
+
 setInterval( function() {
     totalMult = Math.pow(player.totalmoney.e+1, 0.5)
     currentMult = Math.pow(player.money.e+1, 0.5)
@@ -6048,7 +6059,7 @@ setInterval( function() {
     else infinitiedMult = 1+Math.log10(getInfinitied()+1)*10
     achievementMult = Math.max(Math.pow((player.achievements.length-30-getSecretAchAmount()), 3)/40,1)
     challengeMult = Decimal.max(10*3000/worstChallengeTime, 1)
-    unspentBonus = player.infinityPoints.pow(2 + player.infinityPoints.ln()).plus(1)
+    unspentBonus = getUnspentIPBonus();
     mult18 = getDimensionFinalMultiplier(1).times(getDimensionFinalMultiplier(8)).pow(0.02)
     if (player.currentEternityChall == "eterc10") {
         ec10bonus = Decimal.pow(getInfinitied(), 1000).max(1)
