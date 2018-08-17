@@ -4363,7 +4363,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
 function getUnspentIPBonus () {
   // starts out really strong, then becomes balanced but noticable (given the existance of dilation)
   let x = player.infinityPoints;
-  let y = Math.max(Decimal.min(8, Math.pow(x.max(1).log(10), .25) * 4), 1);
+  let y = Math.max(Decimal.min(8, Math.pow(x.max(1).log(10), 1 / 3) * 3), 1);
   return x.pow(y).plus(1);
 }
 
