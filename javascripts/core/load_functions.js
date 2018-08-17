@@ -54,7 +54,7 @@ if (player.options.notation === undefined) player.options.notation = "Standard";
   if (player.costMultipliers === undefined) player.costMultipliers = [new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15)]
   if (player.tickspeedMultiplier === undefined) player.tickspeedMultiplier = new Decimal(10)
   if (player.partInfinityPoint === undefined) player.partInfinityPoint = 0
-  if (player.challengeTimes === undefined) player.challengeTimes = [600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31]
+  if (player.challengeTimes === undefined) player.challengeTimes = [600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31]
   if (player.infchallengeTimes === undefined) player.infchallengeTimes = [600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31]
   if (player.lastTenRuns === undefined) player.lastTenRuns = [[600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1]]
   if (player.infMult === undefined) player.infMult = new Decimal(1)
@@ -142,6 +142,10 @@ if (player.options.notation === undefined) player.options.notation = "Standard";
       document.getElementById("tickSpeedAmount").style.visibility = "visible";
   }
   if (player.options.notation == "Mixed") player.options.notation = "Mixed scientific"
+
+  while (player.challengeTimes.length < 13) {
+      player.challengeTimes.push(600*60*24*31);
+  }
 
   if (player.infinityPower === undefined) {
       player.infinityPower = new Decimal(1)

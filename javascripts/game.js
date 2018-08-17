@@ -533,7 +533,7 @@ var worstChallengeTime = 1
 
 function updateWorstChallengeTime() {
     worstChallengeTime = 1
-    for (var i=0; i<10; i++) {
+    for (var i=0; i<13; i++) {
         if (player.challengeTimes[i] > worstChallengeTime) worstChallengeTime = player.challengeTimes[i]
     }
 }
@@ -691,18 +691,18 @@ function updateDimensions() {
             document.getElementById("infi34").innerHTML = "Infinity Point generation based on fastest infinity <br>Currently: "+shortenDimensions(player.infMult.times(kongIPMult))+" every " + timeDisplay(player.bestInfinityTime*10) + "<br>Cost: 10 IP"
         }
         else if (document.getElementById("postinf").style.display == "block") {
-            document.getElementById("postinfi11").innerHTML = "Power up all dimensions based on total antimatter produced<br>Currently: "+ totalMult.toFixed(2)+"x<br>Cost: "+shortenCosts(1e4)+" IP"
-            document.getElementById("postinfi21").innerHTML = "Power up all dimensions based on current antimatter<br>Currently: "+ currentMult.toFixed(2)+"x<br>Cost: "+shortenCosts(5e4)+" IP"
+            document.getElementById("postinfi11").innerHTML = "Power up all dimensions based on total antimatter produced<br>Currently: "+ formatValue(player.options.notation, totalMult, 2, 2)+"x<br>Cost: "+shortenCosts(1e4)+" IP"
+            document.getElementById("postinfi21").innerHTML = "Power up all dimensions based on current antimatter<br>Currently: "+ formatValue(player.options.notation, currentMult, 2, 2)+"x<br>Cost: "+shortenCosts(5e4)+" IP"
             document.getElementById("postinfi31").innerHTML = "Tickspeed cost multiplier increase <br>"+player.tickSpeedMultDecrease+"x -> "+(player.tickSpeedMultDecrease-1)+"x<br>Cost: "+shortenDimensions(player.tickSpeedMultDecreaseCost) +" IP"
             if (player.tickSpeedMultDecrease <= 2) document.getElementById("postinfi31").innerHTML = "Tickspeed cost multiplier increase <br>"+player.tickSpeedMultDecrease+"x"
-            document.getElementById("postinfi22").innerHTML = "Power up all dimensions based on achievements completed <br>Currently: "+achievementMult.toFixed(2)+"x<br>Cost: "+shortenCosts(1e6)+" IP"
-            document.getElementById("postinfi12").innerHTML = "Power up all dimensions based on amount infinitied <br>Currently: "+infinitiedMult.toFixed(2)+"x<br>Cost: "+shortenCosts(1e5)+" IP"
+            document.getElementById("postinfi22").innerHTML = "Power up all dimensions based on achievements completed <br>Currently: "+formatValue(player.options.notation, achievementMult, 2, 2)+"x<br>Cost: "+shortenCosts(1e6)+" IP"
+            document.getElementById("postinfi12").innerHTML = "Power up all dimensions based on amount infinitied <br>Currently: "+formatValue(player.options.notation, infinitiedMult, 2, 2)+"x<br>Cost: "+shortenCosts(1e5)+" IP"
             document.getElementById("postinfi41").innerHTML = "Makes galaxies 50% stronger <br>Cost: "+shortenCosts(5e11)+" IP"
-            document.getElementById("postinfi32").innerHTML = "Power up all dimensions based on slowest challenge run<br>Currently:"+challengeMult.toFixed(2)+"x<br>Cost: "+shortenCosts(1e7)+" IP"
+            document.getElementById("postinfi32").innerHTML = "Power up all dimensions based on slowest challenge run<br>Currently:"+formatValue(player.options.notation, challengeMult, 2, 2)+"x<br>Cost: "+shortenCosts(1e7)+" IP"
             document.getElementById("postinfi42").innerHTML = "Dimension cost multiplier increase <br>"+player.dimensionMultDecrease+"x -> "+(player.dimensionMultDecrease-1)+"x<br>Cost: "+shortenCosts(player.dimensionMultDecreaseCost) +" IP"
 
             document.getElementById("postinfi13").innerHTML = "You passively generate Infinitied stat based on your fastest infinity.<br>1 Infinity every "+timeDisplay(player.bestInfinityTime*5)+ " <br>Cost: "+shortenCosts(20e6)+" IP"
-            document.getElementById("postinfi23").innerHTML = "Option to bulk buy Dimension Boosts <br>Cost: "+shortenCosts(5e9)+" IP"
+            document.getElementById("postinfi23").innerHTML = "Option to bulk buy Dimension Boosts <br>Cost: "+shortenCosts(5e6)+" IP"
             document.getElementById("postinfi33").innerHTML = "Autobuyers work twice as fast <br>Cost:"+shortenCosts(1e15)+" IP"
             if (player.dimensionMultDecrease <= 3) document.getElementById("postinfi42").innerHTML = "Dimension cost multiplier increase <br>"+player.dimensionMultDecrease.toFixed(1)+"x"
 
@@ -923,7 +923,7 @@ function glowText(id) {
 
 document.getElementById("maxall").onclick = function () {
     if (!player.break && player.money.gt(Number.MAX_VALUE)) return false;
-    buyMaxTickSpeed();
+    if (player.currentChallenge !== 'challenge14') buyMaxTickSpeed();
 
     for (var tier=1; tier<9;tier++) {
         var name = TIER_NAMES[tier];
@@ -2456,6 +2456,7 @@ function updateAutobuyers() {
         document.getElementById("intervalTickSpeed").textContent = "Current interval: " + (player.autobuyers[8].interval/1000).toFixed(2) + " seconds"
         document.getElementById("intervalDimBoost").textContent = "Current interval: " + (player.autobuyers[9].interval/1000).toFixed(2) + " seconds"
         document.getElementById("intervalGalaxies").textContent = "Current interval: " + (player.autobuyers[10].interval/1000).toFixed(2) + " seconds"
+        document.getElementById("intervalInf").textContent = "Current interval: " + (player.autobuyers[11].interval/1000).toFixed(2) + " seconds"
         document.getElementById("intervalSac").textContent = "Current interval: " + (player.autobuyers[12].interval/1000).toFixed(2) + " seconds"
         document.getElementById("intervalGalSac").textContent = "Current interval: " + (player.autobuyers[13].interval/1000).toFixed(2) + " seconds"
     }
@@ -2510,7 +2511,7 @@ function updateAutobuyers() {
     }
 
     if (maxedAutobuy >= 9) giveAchievement("Age of Automation");
-    if (maxedAutobuy >= 12) giveAchievement("Definitely not worth it");
+    if (maxedAutobuy >= 14) giveAchievement("Definitely not worth it");
     if (e100autobuy >= 8) giveAchievement("Professional bodybuilder");
 
     document.getElementById("buyerBtnTickSpeed").innerHTML = "40% smaller interval <br>Cost: " + player.autobuyers[8].cost + " IP"
@@ -2744,8 +2745,10 @@ document.getElementById("challengetime2").textContent = "Challenge  " + 2 + " ti
     document.getElementById("challengetime10").textContent = "Challenge " + 10 + " time record: " + timeDisplayShort(player.challengeTimes[2])
     document.getElementById("challengetime11").textContent = "Challenge " + 11 + " time record: " + timeDisplayShort(player.challengeTimes[10])
     document.getElementById("challengetime12").textContent = "Challenge " + 12 + " time record: " + timeDisplayShort(player.challengeTimes[5])
+    document.getElementById("challengetime13").textContent = "Challenge " + 13 + " time record: " + timeDisplayShort(player.challengeTimes[11])
+    document.getElementById("challengetime14").textContent = "Challenge " + 14 + " time record: " + timeDisplayShort(player.challengeTimes[12])
 	var temp = 0
-	for (var i=0; i<11; i++) {
+	for (var i=0; i<13; i++) {
 		temp += player.challengeTimes[i]
 	}
 	document.getElementById("challengetimesum").textContent = "Sum of challenge time records is " + timeDisplayShort(temp)
@@ -5337,7 +5340,7 @@ function gameLoop(diff) {
         if (player.infinityPoints.gte(20e6)) document.getElementById("postinfi13").className = "infinistorebtn1"
         else document.getElementById("postinfi13").className = "infinistorebtnlocked"
 
-        if (player.infinityPoints.gte(5e9)) document.getElementById("postinfi23").className = "infinistorebtn1"
+        if (player.infinityPoints.gte(5e6)) document.getElementById("postinfi23").className = "infinistorebtn1"
         else document.getElementById("postinfi23").className = "infinistorebtnlocked"
 
         if (player.infinityPoints.gte(1e15)) document.getElementById("postinfi33").className = "infinistorebtn1"
@@ -5798,8 +5801,12 @@ function autoBuyerTick() {
         if (priority[i].ticks*100 >= priority[i].interval || priority[i].interval == 100) {
             if ((priority[i].isOn && canBuyDimension(priority[i].tier)) ) {
                 if (priority[i] == player.autobuyers[8] ) {
-                    if (priority[i].target == 10) buyMaxTickSpeed()
-                    else buyTickSpeed()
+                    if (priority[i].target == 10) {
+                      if (player.currentChallenge !== 'challenge14') buyMaxTickSpeed();
+                    }
+                    else {
+                      buyTickSpeed()
+                    }
                 } else {
                     if (priority[i].target > 10) {
 
@@ -6223,7 +6230,7 @@ setInterval( function() {
     currentMult = Math.pow(player.money.e+1, 2)
     if (player.timestudy.studies.includes(31)) infinitiedMult = 1 + Math.pow(Math.log10(getInfinitied()+1)*100, 4)
     else infinitiedMult = 1+Math.log10(getInfinitied()+1)*100
-    achievementMult = Math.max(Math.pow((player.achievements.length-30-getSecretAchAmount()), 5)/40,1)
+    achievementMult = Math.max(Math.pow((player.achievements.length-10-getSecretAchAmount()), 5)/40,1)
     challengeMult = Decimal.max(Math.pow(10*3000/worstChallengeTime, 2), 1)
     unspentBonus = getUnspentIPBonus();
     mult18 = getDimensionFinalMultiplier(1).times(getDimensionFinalMultiplier(8)).pow(0.02)
