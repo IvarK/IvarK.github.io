@@ -405,6 +405,9 @@ if (player.version < 5) {
   if (!player.replicanti.auto[1]) document.getElementById("replauto2").textContent = "Auto: OFF"
   if (!player.replicanti.auto[2]) document.getElementById("replauto3").textContent = "Auto: OFF"
 
+  while (player.autobuyers.length < 14) {
+      player.autobuyers.push(player.autobuyers.length + 1);
+  }
   loadAutoBuyerSettings();
   updateLastTenRuns()
   updateLastTenEternities()
@@ -548,10 +551,6 @@ if (player.version < 5) {
   if (player.options.notation == "Default") {
       player.options.notation = "Brackets";
       document.getElementById("notation").textContent = ("Notation: Brackets")
-  }
-
-  while (player.autobuyers.length < 14) {
-      player.autobuyers.push(player.autobuyers.length + 1);
   }
 
   if (player.version < 13 || !player.options.ngminusminus) {
