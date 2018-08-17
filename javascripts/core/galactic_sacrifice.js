@@ -12,8 +12,8 @@ function getGSAmount() {
 }
 
 function thatsFastReward () {
-  if (player.bestInfinityTime <= 18000) {
-    return 180000 / player.bestInfinityTime;
+  if (player.bestInfinityTime >= 18000) {
+    return Math.max(180000 / player.bestInfinityTime, 1);
   } else {
     return 10 * (1 + Math.pow(Math.log10(18000 / player.bestInfinityTime), 2));
   }

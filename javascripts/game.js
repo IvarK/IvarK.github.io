@@ -260,6 +260,10 @@ var player = {
     },
     eterc8ids: 50,
     eterc8repl: 40,
+    tickBoughtThisInf: {
+      current: 0,
+      pastResets: [{'resets': 0, 'bought': 0}]
+    },
     dimlife: true,
     dead: true,
     dilation: {
@@ -594,7 +598,7 @@ function updateDimensions() {
         document.getElementById("secondResetLabel").textContent = galString;
     }
 
-    if (canBuyTickSpeed() || player.currentEternityChall == "eterc9") {
+    if (canSeeTickSpeed()) {
         var tickmult = getTickSpeedMultiplier()
         if (tickmult < 1e-9) document.getElementById("tickLabel").textContent = "Divide the tick interval by " + shortenDimensions(1 / tickmult) + '.'
         else {
@@ -607,11 +611,17 @@ function updateDimensions() {
         document.getElementById("tickSpeedMax").style.visibility = "visible";
         document.getElementById("tickLabel").style.visibility = "visible";
         document.getElementById("tickSpeedAmount").style.visibility = "visible";
+        if (player.currentChallenge === 'challenge14') {
+            document.getElementById("tickSpeedPurchases").style.visibility = "visible";
+        } else {
+            document.getElementById("tickSpeedPurchases").style.visibility = "hidden";
+        }
     } else {
         document.getElementById("tickSpeed").style.visibility = "hidden";
         document.getElementById("tickSpeedMax").style.visibility = "hidden";
         document.getElementById("tickLabel").style.visibility = "hidden";
         document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+        document.getElementById("tickSpeedPurchases").style.visibility = "hidden";
     }
 
     if (player.bestInfinityTime == 9999999999) {
@@ -665,14 +675,14 @@ function updateDimensions() {
 
     if (document.getElementById("infinity").style.display == "block") {
         if (document.getElementById("preinf").style.display == "block") {
-            document.getElementById("infi11").innerHTML = "Normal dimensions gain a multiplier based on time played <br>Currently: " + timeMultNum.toFixed(2) + "x<br>Cost: 1 IP"
+            document.getElementById("infi11").innerHTML = "Normal dimensions gain a multiplier based on time played <br>Currently: " + formatValue(player.options.notation, timeMultNum, 2, 2) + "x<br>Cost: 1 IP"
             document.getElementById("infi12").innerHTML = "First and Eighth Dimensions gain a multiplier based on infinitied stat<br>Currently: " + formatValue(player.options.notation, dimMults(), 1, 1) + "x<br>Cost: 1 IP"
             document.getElementById("infi13").innerHTML = "Third and Sixth Dimensions gain a multiplier based on infinitied stat<br>Currently: " + formatValue(player.options.notation, dimMults(), 1, 1) + "x<br>Cost: 1 IP"
             document.getElementById("infi22").innerHTML = "Second and Seventh Dimensions gain a multiplier based on infinitied stat<br>Currently: " + formatValue(player.options.notation, dimMults(), 1, 1) + "x<br>Cost: 1 IP"
             document.getElementById("infi23").innerHTML = "Fourth and Fifth Dimensions gain a multiplier based on infinitied stat<br>Currently: " + formatValue(player.options.notation, dimMults(), 1, 1) + "x<br>Cost: 1 IP"
-            document.getElementById("infi31").innerHTML = "Normal dimensions gain a multiplier based on time spent in current infinity<br>Currently: " + timeMultNum2.toFixed(2) + "x<br>Cost: 3 IP"
-            document.getElementById("infi32").innerHTML = "Post-dilation multiplier for unspent Infinity Points on 1st Dimension<br>Currently: " + formatValue(getUnspentIPBonus(), 2, 2) + "x<br>Cost: 5 IP"
-            document.getElementById("infi33").innerHTML = "Dimension boosts gain an extra multiplier based on infinities<br>Currently: " + getResetMult().toFixed(2) + "x<br>Cost: 7 IP"
+            document.getElementById("infi31").innerHTML = "Normal dimensions gain a multiplier based on time spent in current infinity<br>Currently: " + formatValue(player.options.notation, timeMultNum2, 2, 2) + "x<br>Cost: 3 IP"
+            document.getElementById("infi32").innerHTML = "Multiplier for unspent Infinity Points on 1st Dimension<br>Currently: " + formatValue(player.options.notation, getUnspentIPBonus(), 2, 2) + "x<br>Cost: 5 IP"
+            document.getElementById("infi33").innerHTML = "Dimension boosts gain an extra multiplier based on infinities<br>Currently: " + formatValue(player.options.notation, getResetMult(), 2, 2) + "x<br>Cost: 7 IP"
             document.getElementById("infi34").innerHTML = "Infinity Point generation based on fastest infinity <br>Currently: "+shortenDimensions(player.infMult.times(kongIPMult))+" every " + timeDisplay(player.bestInfinityTime*10) + "<br>Cost: 10 IP"
         }
         else if (document.getElementById("postinf").style.display == "block") {
@@ -1773,6 +1783,11 @@ function galaxyReset() {
         eternityBuyer: player.eternityBuyer,
         eterc8ids: player.eterc8ids,
         eterc8repl: player.eterc8repl,
+        tickBoughtThisInf: {
+          current: player.tickBoughtThisInf.current,
+          pastResets: [{'resets': 0,
+          'bought': player.tickBoughtThisInf.current}]
+        },
         dimlife: player.dimlife,
         dead: player.dead,
         dilation: player.dilation,
@@ -1824,6 +1839,7 @@ function galaxyReset() {
         document.getElementById("tickSpeedMax").style.visibility = "hidden";
         document.getElementById("tickLabel").style.visibility = "hidden";
         document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+        document.getElementById("tickSpeedPurchases").style.visibility = "hidden";
         document.getElementById("fourthRow").style.display = "none";
         document.getElementById("fifthRow").style.display = "none";
         document.getElementById("sixthRow").style.display = "none";
@@ -1986,6 +2002,7 @@ document.getElementById("reset").onclick = function () {
         document.getElementById("tickSpeedMax").style.visibility = "hidden";
         document.getElementById("tickLabel").style.visibility = "hidden";
         document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+        document.getElementById("tickSpeedPurchases").style.visibility = "hidden";
         document.getElementById("fourthRow").style.display = "none";
         document.getElementById("fifthRow").style.display = "none";
         document.getElementById("sixthRow").style.display = "none";
@@ -2011,6 +2028,7 @@ document.getElementById("reset").onclick = function () {
         document.getElementById("tickSpeedMax").style.visibility = "hidden";
         document.getElementById("tickLabel").style.visibility = "hidden";
         document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+        document.getElementById("tickSpeedPurchases").style.visibility = "hidden";
         document.getElementById("fourthRow").style.display = "none";
         document.getElementById("fifthRow").style.display = "none";
         document.getElementById("sixthRow").style.display = "none";
@@ -3025,6 +3043,10 @@ document.getElementById("bigcrunch").onclick = function () {
             eternityBuyer: player.eternityBuyer,
             eterc8ids: player.eterc8ids,
             eterc8repl: player.eterc8repl,
+            tickBoughtThisInf: {
+              current: 0,
+              pastResets: [{'resets': 0, 'bought': 0}]
+            },
             dimlife: player.dimlife,
             dead: player.dead,
             dilation: player.dilation,
@@ -3074,6 +3096,7 @@ document.getElementById("bigcrunch").onclick = function () {
             document.getElementById("tickSpeedMax").style.visibility = "hidden";
             document.getElementById("tickLabel").style.visibility = "hidden";
             document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+            document.getElementById("tickSpeedPurchases").style.visibility = "hidden";
             document.getElementById("fourthRow").style.display = "none";
             document.getElementById("fifthRow").style.display = "none";
             document.getElementById("sixthRow").style.display = "none";
@@ -3424,6 +3447,10 @@ function eternity(force, auto) {
             eternityBuyer: player.eternityBuyer,
             eterc8ids: 50,
             eterc8repl: 40,
+            tickBoughtThisInf: {
+              current: 0,
+              pastResets: [{'resets': 0, 'bought': 0}]
+            },
             dimlife: true,
             dead: true,
             dilation: {
@@ -3463,6 +3490,7 @@ function eternity(force, auto) {
             document.getElementById("tickSpeedMax").style.visibility = "hidden";
             document.getElementById("tickLabel").style.visibility = "hidden";
             document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+            document.getElementById("tickSpeedPurchases").style.visibility = "hidden";
             document.getElementById("fourthRow").style.display = "none";
             document.getElementById("fifthRow").style.display = "none";
             document.getElementById("sixthRow").style.display = "none";
@@ -3690,6 +3718,10 @@ function startChallenge(name, target) {
       eternityBuyer: player.eternityBuyer,
       eterc8ids: player.eterc8ids,
       eterc8repl: player.eterc8repl,
+      tickBoughtThisInf: {
+        current: 0,
+        pastResets: [{'resets': 0, 'bought': 0}]
+      },
       dimlife: player.dimlife,
       dead: player.dead,
       dilation: player.dilation,
@@ -3733,6 +3765,7 @@ function startChallenge(name, target) {
         document.getElementById("tickSpeedMax").style.visibility = "hidden";
         document.getElementById("tickLabel").style.visibility = "hidden";
         document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+        document.getElementById("tickSpeedPurchases").style.visibility = "hidden";
         document.getElementById("fourthRow").style.display = "none";
     }
     document.getElementById("fifthRow").style.display= "none";
@@ -4260,6 +4293,10 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
             eternityBuyer: player.eternityBuyer,
             eterc8ids: 50,
             eterc8repl: 40,
+            tickBoughtThisInf: {
+              current: 0,
+              pastResets: [{'resets': 0, 'bought': 0}]
+            },
             dimlife: true,
             dead: true,
             dilation: {
@@ -4294,6 +4331,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
             document.getElementById("tickSpeedMax").style.visibility = "hidden";
             document.getElementById("tickLabel").style.visibility = "hidden";
             document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+            document.getElementById("tickSpeedPurchases").style.visibility = "hidden";
             document.getElementById("fourthRow").style.display = "none";
         }
         document.getElementById("fifthRow").style.display = "none";
@@ -4499,6 +4537,18 @@ function calcPerSec(amount, pow, hasMult) {
 document.getElementById("quickReset").onclick = function () {
     if (player.resets === 0 || player.currentChallenge === 'challenge5') player.resets--;
     else player.resets -= 2;
+    while (player.tickBoughtThisInf.pastResets.length > 0) {
+      let entry = player.tickBoughtThisInf.pastResets.pop()
+      if (entry.resets <= player.resets) {
+        // it has fewer resets than we do, put it back and we're done.
+        player.tickBoughtThisInf.pastResets.push(entry);
+        break;
+      } else {
+        // we will have at least this many resets, set our remaining tickspeed upgrades
+        // and then throw the entry away
+        player.tickBoughtThisInf.current = entry.current;
+      }
+    }
     softReset(1);
 }
 
@@ -5191,7 +5241,7 @@ function gameLoop(diff) {
 
 
 
-    if (canAfford(player.tickSpeedCost)) {
+    if (player.money.gte(player.tickSpeedCost) && canBuyTickSpeed()) {
         document.getElementById("tickSpeed").className = 'storebtn';
         document.getElementById("tickSpeedMax").className = 'storebtn';
     } else {
@@ -5345,6 +5395,7 @@ function gameLoop(diff) {
         document.getElementById("tickSpeedMax").style.visibility = "hidden";
         document.getElementById("tickLabel").style.visibility = "hidden";
         document.getElementById("tickSpeedAmount").style.visibility = "hidden";
+        document.getElementById("tickSpeedPurchases").style.visibility = "hidden";
     } else {
         document.getElementById("dimensionsbtn").style.display = "inline-block";
         document.getElementById("optionsbtn").style.display = "inline-block";

@@ -77,9 +77,6 @@ function getDimensionPreDilationMultiplier(tier) {
 }
 
 function getDimensionFinalMultiplier(tier) {
-  if (player.currentChallenge === 'challenge14') {
-    return new Decimal(0);
-  }
   multiplier = getDimensionPreDilationMultiplier(tier);
 //if (player.dilation.active) {
     multiplier = Decimal.pow(10, Math.pow(multiplier.log10(), 0.75))

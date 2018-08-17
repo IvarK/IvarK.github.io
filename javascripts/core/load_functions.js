@@ -43,8 +43,12 @@ if (player.options.notation === undefined) player.options.notation = "Standard";
   if (player.firstAmount !== 0) document.getElementById("secondRow").style.display = "table-row";
   if (player.challenges === undefined) player.challenges = []
   if (player.currentChallenge === undefined) player.currentChallenge = ""
-if (player.infinitied > 0 && !player.challenges.includes("challenge1")) player.challenges.push("challenge1")
+  if (player.infinitied > 0 && !player.challenges.includes("challenge1")) player.challenges.push("challenge1")
   if (player.matter === undefined) player.matter = new Decimal(0)
+  if (player.tickBoughtThisInf === undefined) player.tickBoughtThisInf = {
+    current: 0,
+    pastResets: [{'resets': player.resets, 'bought': 0}]
+  }
   if (player.autobuyers === undefined) player.autobuyers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
   if (player.costMultipliers === undefined) player.costMultipliers = [new Decimal(1e3), new Decimal(1e4), new Decimal(1e5), new Decimal(1e6), new Decimal(1e8), new Decimal(1e10), new Decimal(1e12), new Decimal(1e15)]
   if (player.tickspeedMultiplier === undefined) player.tickspeedMultiplier = new Decimal(10)

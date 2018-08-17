@@ -30,6 +30,10 @@ function softReset(bulk) {
   if (!player.break && player.money.gt(Number.MAX_VALUE)) return;
   player.resets+=bulk;
   if (bulk >= 750) giveAchievement("Costco sells dimboosts now");
+  player.tickBoughtThisInf.pastResets.push({
+    'resets': player.resets,
+    'bought': player.tickBoughtThisInf.current
+  });
   player = {
       money: player.achievements.includes("r111") ? player.money : new Decimal(10),
       tickSpeedCost: new Decimal(1000),
@@ -167,6 +171,7 @@ function softReset(bulk) {
       eternityBuyer: player.eternityBuyer,
       eterc8ids: player.eterc8ids,
       eterc8repl: player.eterc8repl,
+      tickBoughtThisInf: player.tickBoughtThisInf,
       dimlife: player.dimlife,
       dead: player.dead,
       dilation: player.dilation,
