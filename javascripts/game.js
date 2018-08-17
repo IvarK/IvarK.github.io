@@ -3607,6 +3607,11 @@ function exitChallenge() {
     }
 }
 
+function inQuickResetChallenge () {
+  return (player.currentChallenge == "challenge12" || player.currentChallenge == "challenge9" || player.currentChallenge == "challenge5" || player.currentChallenge == "challenge14" ||
+      player.currentChallenge == "postc1" || player.currentChallenge == "postc4" || player.currentChallenge == "postc5" || player.currentChallenge == "postc6" || player.currentChallenge == "postc8");
+}
+
 function startChallenge(name, target) {
   if (player.options.challConf || name == "" ? true : confirm("You will start over with just your infinity upgrades, and achievements. You need to reach a set goal with special conditions. NOTE: The rightmost infinity upgrade column doesn't work on challenges.")) {
     if (player.currentChallenge != "") document.getElementById(player.currentChallenge).textContent = "Start"
@@ -3806,7 +3811,7 @@ function startChallenge(name, target) {
     if (player.currentChallenge == "challenge13" || player.currentChallenge == "postc1") document.getElementById("chall13Mult").style.display = "block";
     else document.getElementById("chall13Mult").style.display = "none";
 
-    if (name == "challenge12" || name == "challenge9" || name == "challenge5" || player.currentChallenge == "postc1" || player.currentChallenge == "postc4" || player.currentChallenge == "postc5" || player.currentChallenge == "postc6" || player.currentChallenge == "postc8") document.getElementById("quickReset").style.display = "inline-block";
+    if (inQuickResetChallenge()) document.getElementById("quickReset").style.display = "inline-block";
     else document.getElementById("quickReset").style.display = "none";
 
     showTab('dimensions');

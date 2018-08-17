@@ -420,8 +420,7 @@ if (player.version < 5) {
       document.getElementById("replicantiunlock").style.display="inline-block"
   }
 
-  if (player.currentChallenge == "challenge12" || player.currentChallenge == "challenge9" || player.currentChallenge == "challenge5" ||
-      player.currentChallenge == "postc1" || player.currentChallenge == "postc4" || player.currentChallenge == "postc5" || player.currentChallenge == "postc6" || player.currentChallenge == "postc8") document.getElementById("quickReset").style.display = "inline-block";
+  if (inQuickResetChallenge()) document.getElementById("quickReset").style.display = "inline-block";
   else document.getElementById("quickReset").style.display = "none";
 
 
@@ -551,12 +550,12 @@ if (player.version < 5) {
       document.getElementById("notation").textContent = ("Notation: Brackets")
   }
 
+  while (player.autobuyers.length < 14) {
+      player.autobuyers.push(player.autobuyers.length + 1);
+  }
+
   if (player.version < 13 || !player.options.ngminusminus) {
       player.version = 13
-      if (player.autobuyers.length < 14) {
-          player.autobuyers.push(13);
-          player.autobuyers.push(14);
-      }
       // fixing autobuyers
       if (player.autobuyers[10].interval) {
         player.autobuyers[10].interval = Math.max(player.autobuyers[10].interval / 2.5, 100);
