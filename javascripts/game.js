@@ -6156,5 +6156,5 @@ setInterval( function() {
         ec10bonus = new Decimal(1)
     }
     timeMultNum = Math.pow(player.totalTimePlayed / 1200, 0.3);
-    timeMultNum2 = Math.max(Math.pow(player.thisInfinityTime / 2400, 3), 1)
+    timeMultNum2 = Math.max(Math.pow(player.thisInfinityTime / 2400, 1.5), 1)
 }, 100)
