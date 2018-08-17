@@ -589,7 +589,8 @@
                 <p></p>
                 <input id="confirmation" type="checkbox" style="width:20px; height: 18px; display: none" ach-tooltip="No confirmation when doing Dimensional Sacrifice" onchange="sacrificeConf()">
                 <button id="sacrifice" class="storebtn" style="font-size:12px; width: 320px; display: none" ach-tooltip="">Dimensional Sacrifice</button>
-		<button id="gSacrifice" class="storebtn" style="font-size:12px; width: 320px; display: none" ach-tooltip="">Galactic Sacrifice</button>
+                <input id="gConfirmation" type="checkbox" style="width:20px; height: 18px; display: none" ach-tooltip="No confirmation when doing Galactic Sacrifice" onchange="gSacrificeConf()">
+                <button id="gSacrifice" class="storebtn" style="font-size:12px; width: 320px; display: none" ach-tooltip="">Galactic Sacrifice</button>
                 <button id="maxall" class="storebtn" style="font-size: 12px">Max all (M)</Button>
                 <span id="chall2Pow"></span>
                 <span id="chall3Pow"></span>
@@ -1792,7 +1793,7 @@
                     <tr>
                         <td>
                             <div class= "challengediv">
-                                <span style="font-size: 110%">Per-ten multiplier is always 1x, but you get a multiplier to all dimensions given by product of dimensions bought.</span>
+                                <span style="font-size: 110%">Per-ten multiplier is always 1x, but product of dimensions bought multiplies all dimensions.</span>
                                 <br>
                                 <br>
 
@@ -1806,7 +1807,7 @@
                         </td>
                         <td>
                             <div class= "challengediv">
-                                <span style="font-size: 110%">You can only get 1000 tickspeed upgrades. This count does not reset on resets.</span>
+                                <span style="font-size: 110%">You can only get 308 tickspeed upgrades. This count does not reset on resets.</span>
                                 <br>
                                 <br>
 
@@ -2552,9 +2553,10 @@
                     <td>
                         <div class="autoBuyerDiv" id="autoBuyerSac">
                             <div>Automatic Sacrifice</div>
-                            <div id="intervalSac" style="font-size: 80%">Current interval: 0.10 seconds</div>
+                            <button class="autobuyerbtn" id="buyerBtnSac">46% smaller interval<br>Cost: 2 points</button>
+                            <div style="font-size: 80%"id="intervalSac">Current interval: 15 seconds</div>
                             <div id="iplimit"><span>Sacrifice when the multiplier is over:</span>
-                            <input type="text" onchange="updatePriorities()" id="prioritySac"></input></div>
+                            <input type="text" onchange="updatePriorities()" id="priority13"></input></div>
                             <br>
                             <span style="font-size: 80%">Is active</span>
                             <input type="checkbox" onchange="updateAutobuyers()" id="13ison"></input>
@@ -2563,9 +2565,10 @@
                     <td>
                         <div class="autoBuyerDiv" id="autoBuyerGalSac">
                             <div>Automatic Galaxy Sacrifice</div>
-                            <div id="intervalSac" style="font-size: 80%">Current interval: 0.10 seconds</div>
+                            <button class="autobuyerbtn" id="buyerBtnGalSac">46% smaller interval<br>Cost: 2 points</button>
+                            <div style="font-size: 80%"id="intervalGalSac">Current interval: 15 seconds</div>
                             <div id="iplimit"><span>Galactic sacrifice when GP gain is over:</span>
-                            <input type="text" onchange="updatePriorities()" id="priorityGalSac"></input></div>
+                            <input type="text" onchange="updatePriorities()" id="priority14"></input></div>
                             <br>
                             <span style="font-size: 80%">Is active</span>
                             <input type="checkbox" onchange="updateAutobuyers()" id="14ison"></input>
@@ -2575,7 +2578,7 @@
                         <div class="autoBuyerDiv" id="autoBuyerEter">
                             <div>Automatic Eternity</div>
                             <div><span>Amount of EP to wait until reset:</span>
-                            <input type="text" onchange="updatePriorities()" id="priority13"></input></div>
+                            <input type="text" onchange="updatePriorities()" id="priority15"></input></div>
                             <br>
                             <span style="font-size: 80%">Is active</span>
                             <input type="checkbox" onchange="updateAutobuyers()"  id="eternityison"></input>

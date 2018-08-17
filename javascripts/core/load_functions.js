@@ -19,6 +19,7 @@ function onLoad() {
 if (player.options.notation === undefined) player.options.notation = "Standard";
   if (player.options.newsHidden === undefined) player.options.newsHidden = false;
   if (player.options.sacrificeConfirmation === undefined) player.options.sacrificeConfirmation = true;
+  if (player.options.gSacrificeConfirmation === undefined) player.options.gSacrificeConfirmation = true;
   if (player.options.retryChallenge === undefined) player.options.retryChallenge = false;
   if (player.options.bulkOn === undefined) player.options.bulkOn = true
   if (player.options.cloud === undefined) player.options.cloud = true
@@ -259,6 +260,7 @@ if (player.options.notation === undefined) player.options.notation = "Standard";
   }
 
   if (player.options.sacrificeConfirmation == false) document.getElementById("confirmation").checked = "true"
+  if (player.options.gSacrificeConfirmation == false) document.getElementById("gConfirmation").checked = "true"
   if (player.version === undefined) { // value will need to be adjusted when update goes live
       for (var i = 0; i < player.autobuyers.length; i++) {
           if (player.autobuyers[i]%1 !== 0) player.infinityPoints = player.infinityPoints + player.autobuyers[i].cost - 1
@@ -840,9 +842,10 @@ function loadAutoBuyerSettings() {
   document.getElementById("priority12").value = player.autobuyers[11].priority
   document.getElementById("overGalaxies").value = player.overXGalaxies
   document.getElementById("bulkDimboost").value = player.autobuyers[9].bulk
-  document.getElementById("prioritySac").value = player.autoSacrifice.priority
+  document.getElementById("priority13").value = player.autobuyers[12].priority
+  document.getElementById("priority14").value = player.autobuyers[13].priority
   document.getElementById("bulkgalaxy").value = player.autobuyers[10].bulk
-  document.getElementById("priority13").value = player.eternityBuyer.limit
+  document.getElementById("priority15").value = player.eternityBuyer.limit
 
 }
 

@@ -59,7 +59,11 @@ let galUpgrade23 = function () {
 }
 
 let galUpgrade32 = function () {
-  return (player.totalmoney || player.money).pow(0.003).add(1);
+  let x = (player.totalmoney || player.money);
+  if (!player.break) {
+    x = x.min(Number.MAX_VALUE);
+  }
+  return x.pow(0.003).add(1);
 }
 
 let galUpgrade33 = function () {

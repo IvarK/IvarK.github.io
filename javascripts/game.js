@@ -295,6 +295,7 @@ var player = {
         scientific: false,
         challConf: false,
         sacrificeConfirmation: true,
+        gSacrificeConfirmation: true,
         retryChallenge: false,
         bulkOn: true,
         cloud: true,
@@ -540,6 +541,10 @@ function updateWorstChallengeTime() {
 
 function sacrificeConf() {
     player.options.sacrificeConfirmation = !player.options.sacrificeConfirmation
+}
+
+function gSacrificeConf() {
+    player.options.gSacrificeConfirmation = !player.options.gSacrificeConfirmation
 }
 
 
@@ -1083,7 +1088,7 @@ function buyEPMult() {
     if (player.eternityPoints.gte(player.epmultCost)) {
         player.epmult = player.epmult.times(5)
         player.eternityBuyer.limit = player.eternityBuyer.limit.times(5)
-        document.getElementById("priority13").value = formatValue("Scientific", player.eternityBuyer.limit, 2, 0);
+        document.getElementById("priority15").value = formatValue("Scientific", player.eternityBuyer.limit, 2, 0);
         player.eternityPoints = player.eternityPoints.minus(player.epmultCost)
         let count = player.epmult.ln()/Math.log(5)
         if (player.epmultCost.gte(new Decimal("1e4000"))) player.epmultCost = Decimal.pow(1000, count + Math.pow(count-1334, 1.2)).times(500)
@@ -1554,6 +1559,14 @@ document.getElementById("buyerBtnGalaxies").onclick = function () {
 
 document.getElementById("buyerBtnInf").onclick = function () {
     buyAutobuyer(11);
+}
+
+document.getElementById("buyerBtnSac").onclick = function () {
+    buyAutobuyer(12);
+}
+
+document.getElementById("buyerBtnGalSac").onclick = function () {
+    buyAutobuyer(13);
 }
 
 toggleAutobuyerTarget = function(id) {
@@ -2294,7 +2307,7 @@ document.getElementById("sacrifice").onclick = function () {
 
 document.getElementById("gSacrifice").onclick = function () {
     if (getGSAmount().lt(1)) return false
-    if (!document.getElementById("confirmation").checked) {
+    if (!document.getElementById("gConfirmation").checked) {
         if (!confirm("Galactic Sacrifice will do a galaxy reset, and then remove all of your galaxies, in exchange of galaxy points which can be use to buy many overpowered upgrades, but it will take a lot of time to recover, are you sure you wanna do this?")) {
             return false;
         }
@@ -2333,10 +2346,10 @@ function updateAutobuyers() {
     autoBuyerTickspeed.interval = 5000
     autoBuyerInf.interval = 60000
 
-    autoSacrifice.interval = 100
+    autoSacrifice.interval = 15000
     autoSacrifice.priority = 5
 
-    autoGalSacrifice.interval = 100
+    autoGalSacrifice.interval = 15000
     autoGalSacrifice.priority = 5
 
     autoBuyerDim1.tier = 1
@@ -2429,7 +2442,8 @@ function updateAutobuyers() {
         document.getElementById("intervalDimBoost").textContent = "Current interval: " + (player.autobuyers[9].interval/2000).toFixed(2) + " seconds"
         document.getElementById("intervalGalaxies").textContent = "Current interval: " + (player.autobuyers[10].interval/2000).toFixed(2) + " seconds"
         document.getElementById("intervalInf").textContent = "Current interval: " + (player.autobuyers[11].interval/2000).toFixed(2) + " seconds"
-        document.getElementById("intervalSac").textContent = "Current interval: 0.05 seconds"
+        document.getElementById("intervalSac").textContent = "Current interval: " + (player.autobuyers[12].interval/2000).toFixed(2) + " seconds"
+        document.getElementById("intervalGalSac").textContent = "Current interval: " + (player.autobuyers[13].interval/2000).toFixed(2) + " seconds"
     } else {
         document.getElementById("interval1").textContent = "Current interval: " + (player.autobuyers[0].interval/1000).toFixed(2) + " seconds"
         document.getElementById("interval2").textContent = "Current interval: " + (player.autobuyers[1].interval/1000).toFixed(2) + " seconds"
@@ -2442,8 +2456,8 @@ function updateAutobuyers() {
         document.getElementById("intervalTickSpeed").textContent = "Current interval: " + (player.autobuyers[8].interval/1000).toFixed(2) + " seconds"
         document.getElementById("intervalDimBoost").textContent = "Current interval: " + (player.autobuyers[9].interval/1000).toFixed(2) + " seconds"
         document.getElementById("intervalGalaxies").textContent = "Current interval: " + (player.autobuyers[10].interval/1000).toFixed(2) + " seconds"
-        document.getElementById("intervalInf").textContent = "Current interval: " + (player.autobuyers[11].interval/1000).toFixed(2) + " seconds"
-        document.getElementById("intervalSac").textContent = "Current interval: 0.10 seconds"
+        document.getElementById("intervalSac").textContent = "Current interval: " + (player.autobuyers[12].interval/1000).toFixed(2) + " seconds"
+        document.getElementById("intervalGalSac").textContent = "Current interval: " + (player.autobuyers[13].interval/1000).toFixed(2) + " seconds"
     }
 
     var maxedAutobuy = 0;
@@ -2486,6 +2500,14 @@ function updateAutobuyers() {
         document.getElementById("buyerBtnInf").style.display = "none"
         maxedAutobuy++;
     }
+    if (player.autobuyers[12].interval <= 100) {
+        document.getElementById("buyerBtnSac").style.display = "none"
+        maxedAutobuy++;
+    }
+    if (player.autobuyers[13].interval <= 100) {
+        document.getElementById("buyerBtnGalSac").style.display = "none"
+        maxedAutobuy++;
+    }
 
     if (maxedAutobuy >= 9) giveAchievement("Age of Automation");
     if (maxedAutobuy >= 12) giveAchievement("Definitely not worth it");
@@ -2495,6 +2517,8 @@ function updateAutobuyers() {
     document.getElementById("buyerBtnDimBoost").innerHTML = "40% smaller interval <br>Cost: " + player.autobuyers[9].cost + " IP"
     document.getElementById("buyerBtnGalaxies").innerHTML = "40% smaller interval <br>Cost: " + player.autobuyers[10].cost + " IP"
     document.getElementById("buyerBtnInf").innerHTML = "40% smaller interval <br>Cost: " + player.autobuyers[11].cost + " IP"
+    document.getElementById("buyerBtnSac").innerHTML = "40% smaller interval <br>Cost: " + player.autobuyers[12].cost + " IP"
+    document.getElementById("buyerBtnGalSac").innerHTML = "40% smaller interval <br>Cost: " + player.autobuyers[13].cost + " IP"
 
 
     for (var i=0; i<8; i++) {
@@ -2631,9 +2655,10 @@ function updatePriorities() {
     || parseInt(fromValue(document.getElementById("priority12").value).toString()) === 69
     || parseInt(document.getElementById("bulkDimboost").value) === 69
     || parseInt(document.getElementById("overGalaxies").value) === 69
-    || parseInt(fromValue(document.getElementById("prioritySac").value).toString()) === 69
     || parseInt(document.getElementById("bulkgalaxy").value) === 69
-    || parseInt(fromValue(document.getElementById("priority13").value).toString()) === 69) giveAchievement("Nice.");
+    || parseInt(fromValue(document.getElementById("priority13").value).toString()) === 69
+    || parseInt(fromValue(document.getElementById("priority14").value).toString()) === 69
+    || parseInt(fromValue(document.getElementById("priority15").value).toString()) === 69) giveAchievement("Nice.");
     player.autobuyers[9].priority = parseInt(document.getElementById("priority10").value)
     player.autobuyers[10].priority = parseInt(document.getElementById("priority11").value)
     player.autobuyers[11].priority = fromValue(document.getElementById("priority12").value)
@@ -2644,12 +2669,12 @@ function updatePriorities() {
     }
     player.autobuyers[9].bulk = (isNaN(bulk)) ? 1 : bulk
     player.overXGalaxies = parseInt(document.getElementById("overGalaxies").value)
-    player.autobuyers[12].priority = fromValue(document.getElementById("prioritySac").value)
+    player.autobuyers[12].priority = fromValue(document.getElementById("priority13").value)
     if (isNaN(player.autobuyers[12].priority) || player.autobuyers[12].priority === null || player.autobuyers[12].priority === undefined || player.autobuyers[12].priority <= 1) player.autobuyers[12].priority = Decimal.fromNumber(1.01)
-    player.autobuyers[13].priority = fromValue(document.getElementById("priorityGalSac").value)
+    player.autobuyers[13].priority = fromValue(document.getElementById("priority14").value)
     if (isNaN(player.autobuyers[13].priority) || player.autobuyers[13].priority === null || player.autobuyers[13].priority === undefined || player.autobuyers[13].priority <= 1) player.autobuyers[13].priority = Decimal.fromNumber(1)
     player.autobuyers[10].bulk = parseFloat(document.getElementById("bulkgalaxy").value)
-    const eterValue = fromValue(document.getElementById("priority13").value)
+    const eterValue = fromValue(document.getElementById("priority15").value)
     if (!isNaN(eterValue)) player.eternityBuyer.limit = eterValue
 
     priorityOrder()
@@ -3132,11 +3157,11 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.achievements.includes("r55")) player.money = new Decimal(1e10);
         if (player.achievements.includes("r78")) player.money = new Decimal(1e25);
         if (player.challenges.length >= 2) giveAchievement("Daredevil");
-        if (player.challenges.length == 12) giveAchievement("AntiChallenged");
+        if (player.challenges.length == 14) giveAchievement("AntiChallenged");
         resetInfDimensions();
         player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
         updateTickSpeed();
-        if (player.challenges.length == 20) giveAchievement("Anti-antichallenged");
+        if (player.challenges.length == 22) giveAchievement("Anti-antichallenged");
         IPminpeak = new Decimal(0)
 
 
@@ -5357,12 +5382,14 @@ function gameLoop(diff) {
     }
 
 	if (player.galaxies + player.replicanti.galaxies + player.dilation.freeGalaxies > 0) {
+    document.getElementById("gConfirmation").style.display = "inline-block";
 		document.getElementById("gSacrifice").style.display = "inline-block"
 		document.getElementById("gSacrifice").innerHTML = "Galactic Sacrifice (" + formatValue(player.options.notation, getGSAmount(), 2, 0) + " GP)"
 		if (getGSAmount().gt(0)) document.getElementById("gSacrifice").className = "storebtn"
 		else document.getElementById("gSacrifice").className = "unavailablebtn"
 		document.getElementById("gSacrifice").setAttribute('ach-tooltip', "Gain " + formatValue(player.options.notation, getGSAmount(), 2, 0) + " GP")
 	} else {
+    document.getElementById("gConfirmation").style.display = "none";
 		document.getElementById("gSacrifice").style.display = "none"
 	}
 
