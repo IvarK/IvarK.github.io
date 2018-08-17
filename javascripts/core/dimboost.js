@@ -154,6 +154,8 @@ function softReset(bulk) {
       totalTickGained: player.totalTickGained,
       offlineProd: player.offlineProd,
       offlineProdCost: player.offlineProdCost,
+      extraDimPowerIncrease: player.extraDimPowerIncrease,
+      dimPowerIncreaseCost: player.dimPowerIncreaseCost,
       challengeTarget: player.challengeTarget,
       autoSacrifice: player.autoSacrifice,
       replicanti: player.replicanti,
@@ -241,10 +243,18 @@ if (player.currentChallenge == "postc2") {
   }
 }
 
+function getDimboostCostIncrease () {
+  let ret = player.galacticSacrifice.upgrades.includes(21)?5:15
+  if (player.infinityUpgrades.includes('dimboostCost')) {
+    ret -= 1;
+  }
+  return ret;
+}
+
 
 function getShiftRequirement(bulk) {
   let amount = 20;
-  let mult = player.galacticSacrifice.upgrades.includes(21)?5:15
+  let mult = getDimboostCostIncrease();
   if (player.currentChallenge == "challenge4") {
       tier = Math.min(player.resets + bulk + 4, 6)
       if (tier == 6) amount += Math.max(player.resets+bulk - (player.galacticSacrifice.upgrades.includes(21)?4:2), 0) * mult+5;

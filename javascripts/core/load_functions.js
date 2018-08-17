@@ -59,6 +59,8 @@ if (player.options.notation === undefined) player.options.notation = "Standard";
   if (player.lastTenRuns === undefined) player.lastTenRuns = [[600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1]]
   if (player.infMult === undefined) player.infMult = new Decimal(1)
   if (player.infMultCost === undefined) player.infMultCost = new Decimal(100)
+  if (player.extraDimPowerIncrease === undefined) player.extraDimPowerIncrease = 0
+  if (player.dimPowerIncreaseCost === undefined) player.dimPowerIncreaseCost = 1e3
   if (player.tickSpeedMultDecrease === undefined) player.tickSpeedMultDecrease = 10
   if (player.tickSpeedMultDecreaseCost === undefined) player.tickSpeedMultDecreaseCost = 3e6
   if (player.dimensionMultDecrease === undefined) player.dimensionMultDecrease = 10

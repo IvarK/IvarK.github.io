@@ -5,6 +5,9 @@ function getGSAmount() {
   if (player.galacticSacrifice.upgrades.includes(32)) {
     ret = ret.times(galUpgrade32());
   }
+  if (player.infinityUpgrades.includes("galPointMult")) {
+    ret = ret.times(getPost01Mult())
+  }
   if (player.achievements.includes('r37')) {
     ret = ret.times(thatsFastReward());
   }
@@ -19,15 +22,22 @@ function thatsFastReward () {
   }
 }
 
+function getPost01Mult() {
+  return Math.min(Math.pow(player.infinitied + 1, .3), Math.pow(Math.log(player.infinitied + 3), 3))
+}
+
 function decreaseDimCosts () {
   if (player.galacticSacrifice.upgrades.includes(11)) {
-    TIER_NAMES.forEach(function(name)  {
-        if (name !== null) player[name+"Cost"] = player[name+"Cost"].div(galUpgrade11())
+    let upg = galUpgrade11();
+    TIER_NAMES.forEach(function(name) {
+        if (name !== null) player[name+"Cost"] = player[name+"Cost"].div(upg)
     });
+    if (player.achievements.includes('r48')) player.tickSpeedCost = player.tickSpeedCost.div(upg)
   } else if (player.achievements.includes('r21') && !player.galacticSacrifice.upgrades.includes(11)) {
     TIER_NAMES.forEach(function(name)  {
         if (name !== null) player[name+"Cost"] = player[name+"Cost"].div(10)
     });
+    if (player.achievements.includes('r48')) player.tickSpeedCost = player.tickSpeedCost.div(10)
   }
 }
 
@@ -56,6 +66,10 @@ let galUpgrade13 = function () {
 
 let galUpgrade23 = function () {
   return Math.max(2 + Math.log10(player.galacticSacrifice.galaxyPoints)*1.5, 2);
+}
+
+let galUpgrade31 = function () {
+  return 1.1 + .02 * player.extraDimPowerIncrease;
 }
 
 let galUpgrade32 = function () {
@@ -89,6 +103,7 @@ function galacticUpgradeSpanDisplay () {
   document.getElementById('galspan12').innerHTML = galUpgrade12().toFixed(2);
   document.getElementById('galspan13').innerHTML = formatValue(player.options.notation, galUpgrade13(), 2, 2);
   document.getElementById('galspan23').innerHTML = (galUpgrade23()/2).toFixed(2);
+  document.getElementById('galspan31').innerHTML = galUpgrade31().toFixed(2);
   document.getElementById('galspan32').innerHTML = galUpgrade32().toFixed(2);
   document.getElementById('galspan33').innerHTML = (galUpgrade33()/2).toFixed(2);
   document.getElementById("galcost33").innerHTML = shortenCosts(1e3);

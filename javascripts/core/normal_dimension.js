@@ -25,7 +25,7 @@ function getDimensionPreDilationMultiplier(tier) {
       if (player.infinityUpgrades.includes("unspentBonus")) multiplier = multiplier.times(unspentBonus);
       if (player.achievements.includes("r28")) multiplier = multiplier.times(1.1);
       if (player.achievements.includes("r31")) multiplier = multiplier.times(1.05);
-      if (player.achievements.includes("r71")) multiplier = multiplier.times(3);
+      if (player.achievements.includes("r71")) multiplier = multiplier.times(909);
       if (player.achievements.includes("r68")) multiplier = multiplier.times(1.5);
   }
 
@@ -70,7 +70,7 @@ function getDimensionPreDilationMultiplier(tier) {
   }
 
   if (player.challenges.includes("postc4")) multiplier = multiplier.pow(1.05);
-  if (player.galacticSacrifice.upgrades.includes(31)) multiplier = multiplier.pow(1.1);
+  if (player.galacticSacrifice.upgrades.includes(31)) multiplier = multiplier.pow(galUpgrade31());
 
   if (multiplier.lt(1)) multiplier = new Decimal(1);
   return multiplier;
@@ -200,11 +200,12 @@ function hasInfinityMult(tier) {
         if (player.currentChallenge == "challenge9" || player.currentChallenge == "postc1") dimMult = Math.pow(10/0.30,Math.random())*0.30
 
         if (player.infinityUpgrades.includes('dimMult')) dimMult *= 1.2;
-        if (player.achievements.includes("r58")) dimMult *= 1.01;
         dimMult += ECTimesCompleted("eterc3") * 0.8
         if (player.galacticSacrifice.upgrades.includes(33)) {
           dimMult *= galUpgrade33() / 2;
         }
+
+        if (player.achievements.includes("r58")) dimMult = Math.pow(dimMult, 1.0666);
         return dimMult;
     }
 
