@@ -37,6 +37,7 @@
             <div id='news'>.</div>
         </div>
         <div id="matter"></div>
+        <div id="chall13Mult"></div>
         <div style="position: relative"><div class="IP" id="infinityPoints2"></div></div>
         <div style="position: relative"><div class="EP" id="eternityPoints2"></div></div>
         <div>
@@ -1670,7 +1671,7 @@
                     <tr>
                         <td>
                             <div class= "challengediv">
-                                <span style="font-size: 110%">Tickspeed upgrades start out useless.</span>
+                                <span style="font-size: 110%">Tickspeed upgrades start out useless, but galaxies make them stronger as usual.</span>
                                 <br>
                                 <br>
 
@@ -1783,6 +1784,36 @@
                                     <button id="challenge7" class="challengesbtn">Start</button>
                                     <br>
                                     <span>Reward: Automated Big Crunches</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class= "challengediv">
+                                <span style="font-size: 110%">Per-ten multiplier is always 1x, but you get a multiplier to all dimensions given by product of dimensions bought.</span>
+                                <br>
+                                <br>
+
+                                <div class="outer">
+
+                                    <button id="challenge13" class="challengesbtn">Start</button>
+                                    <br>
+                                    <span>Reward: Automated Dimensional Sacrifice</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class= "challengediv">
+                                <span style="font-size: 110%">Normal dimensions don't produce anything (impossible placeholder challenge).</span>
+                                <br>
+                                <br>
+
+                                <div class="outer">
+
+                                    <button id="challenge14" class="challengesbtn">Start</button>
+                                    <br>
+                                    <span>Reward: Automated Galactic Sacrifice</span>
                                 </div>
                             </div>
                         </td>
@@ -2171,7 +2202,7 @@
                         <button id="infi11" class="infinistorebtn1">Production increase over time <br>currently:</button>
                     </td>
                     <td>
-                        <button id="infi21" class="infinistorebtn2">Increase the multiplier for buying 10 Dimensions <br>2x -> 2.2x<br>Cost: 1 IP</button>
+                        <button id="infi21" class="infinistorebtn2">Increase the multiplier for buying 10 Dimensions <br>2x -> 2.4x<br>Cost: 1 IP</button>
                     </td>
                     <td>
                         <button id="infi31" class="infinistorebtn3">Production increase over time in current infinity<br>Cost: 3 IP</button>
@@ -2252,15 +2283,6 @@
                 <button class="storebtn" id="toggleautobuyers" style="font-size: 100%; width: 150px; height: 40px; margin: 3px" onclick="toggleAutoBuyers()">Enable/disable autobuyers</button>
                 <button class="storebtn" id="togglebulk" style="font-size: 100%; width: 150px; height: 40px;margin: 3px" onclick="toggleBulk()">Disable bulk buy                     </button>
                 <button class="storebtn" id="togglecrunchmode" style="font-size: 100%; width: 150px; height: 40px;margin: 3px; display: none" onclick="toggleCrunchMode()">Auto crunch mode: amount</button>
-                <br>
-                <div class="autoBuyerDiv" id="autoBuyerEter">
-                    <div>Automatic Eternity</div>
-                    <div><span>Amount of EP to wait until reset:</span>
-                    <input type="text" onchange="updatePriorities()" id="priority13"></input></div>
-                    <br>
-                    <span style="font-size: 80%">Is active</span>
-                    <input type="checkbox" onchange="updateAutobuyers()"  id="eternityison"></input>
-                </div>
                 <tr>
                         <td>
                             <div class="autoBuyerDiv" id="autoBuyerDimBoost" style="font-size: 11px;">
@@ -2313,10 +2335,7 @@
                         </td>
                     </tr>
                     <tr>
-
-                    </tr>
-                <tr>
-                    <td>
+                      <td>
                         <div class="autoBuyerDiv" id="autoBuyer1">
                             <div>1st Dimension Autobuyer</div>
                             <button class="autobuyerbtn" id="buyerBtn1">46% smaller interval<br>Cost: 2 points</button>
@@ -2528,16 +2547,41 @@
                         </div>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <div class="autoBuyerDiv" id="autoBuyerSac">
+                            <div>Automatic Sacrifice</div>
+                            <div id="intervalSac" style="font-size: 80%">Current interval: 0.10 seconds</div>
+                            <div id="iplimit"><span>Sacrifice when the multiplier is over:</span>
+                            <input type="text" onchange="updatePriorities()" id="prioritySac"></input></div>
+                            <br>
+                            <span style="font-size: 80%">Is active</span>
+                            <input type="checkbox" onchange="updateAutobuyers()" id="13ison"></input>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="autoBuyerDiv" id="autoBuyerGalSac">
+                            <div>Automatic Galaxy Sacrifice</div>
+                            <div id="intervalSac" style="font-size: 80%">Current interval: 0.10 seconds</div>
+                            <div id="iplimit"><span>Galactic sacrifice when GP gain is over:</span>
+                            <input type="text" onchange="updatePriorities()" id="priorityGalSac"></input></div>
+                            <br>
+                            <span style="font-size: 80%">Is active</span>
+                            <input type="checkbox" onchange="updateAutobuyers()" id="14ison"></input>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="autoBuyerDiv" id="autoBuyerEter">
+                            <div>Automatic Eternity</div>
+                            <div><span>Amount of EP to wait until reset:</span>
+                            <input type="text" onchange="updatePriorities()" id="priority13"></input></div>
+                            <br>
+                            <span style="font-size: 80%">Is active</span>
+                            <input type="checkbox" onchange="updateAutobuyers()"  id="eternityison"></input>
+                        </div>
+                    </td>
+                </tr>
             </table>
-            <div class="autoBuyerDiv" id="autoBuyerSac">
-                <div>Automatic Sacrifice</div>
-                <div id="intervalSac" style="font-size: 80%">Current interval: 0.10 seconds</div>
-                <div id="iplimit"><span>Sacrifice when the multiplier is over:</span>
-                <input type="text" onchange="updatePriorities()" id="prioritySac"></input></div>
-                <br>
-                <span style="font-size: 80%">Is active</span>
-                <input type="checkbox" onchange="updateAutobuyers()" id="13ison"></input>
-            </div>
 
             <div>
                 <table id="footer">

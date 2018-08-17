@@ -54,7 +54,7 @@ function getPostC3RewardMult () {
   let galaxies = player.galaxies;
   if (player.currentChallenge === 'challenge7') galaxies = Math.pow(galaxies, 2);
   let ret = 1.05+(galaxies*perGalaxy);
-  if (player.currentChallenge === 'challenge6') ret -= 0.05
+  if (player.currentChallenge === 'challenge6' || player.currentChallenge === 'postc1') ret -= 0.05
   return ret;
 }
 

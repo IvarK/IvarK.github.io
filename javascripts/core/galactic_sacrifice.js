@@ -24,6 +24,10 @@ function decreaseDimCosts () {
     TIER_NAMES.forEach(function(name)  {
         if (name !== null) player[name+"Cost"] = player[name+"Cost"].div(galUpgrade11())
     });
+  } else if (player.achievements.includes('r21') && !player.galacticSacrifice.upgrades.includes(11)) {
+    TIER_NAMES.forEach(function(name)  {
+        if (name !== null) player[name+"Cost"] = player[name+"Cost"].div(10)
+    });
   }
 }
 
@@ -35,9 +39,9 @@ let galUpgrade11 = function () {
   } else if (x < 5) {
     y = x + 2;
   } else if (x < 100) {
-    y = Math.pow(x + 5, .5) + 5;
+    y = Math.pow(x + 5, .5) + 4;
   } else {
-    y = Math.pow(Math.log(x), Math.log(x) / 10) + 15;
+    y = Math.pow(Math.log(x), Math.log(x) / 10) + 14;
   }
   return Decimal.pow(10, y);
 }
@@ -47,7 +51,7 @@ let galUpgrade12 = function () {
 }
 
 let galUpgrade13 = function () {
-  return Math.pow(1 + player.galacticSacrifice.galaxyPoints / 5, 3);
+  return player.galacticSacrifice.galaxyPoints.div(5).plus(1).pow(3);
 }
 
 let galUpgrade23 = function () {

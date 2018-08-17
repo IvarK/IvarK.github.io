@@ -429,6 +429,9 @@ if (player.version < 5) {
   if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") document.getElementById("matter").style.display = "inline-block";
   else document.getElementById("matter").style.display = "none";
 
+  if (player.currentChallenge == "challenge13" || player.currentChallenge == "postc1") document.getElementById("chall13Mult").style.display = "inline-block";
+  else document.getElementById("chall13Mult").style.display = "none";
+
 
 
   if (player.replicanti.galaxybuyer !== undefined) {
@@ -536,6 +539,21 @@ if (player.version < 5) {
   if (player.options.notation == "Default") {
       player.options.notation = "Brackets";
       document.getElementById("notation").textContent = ("Notation: Brackets")
+  }
+
+  if (player.version < 13 || !player.options.ngminusminus) {
+      player.version = 13
+      if (player.autobuyers.length < 14) {
+          player.autobuyers.push(13);
+          player.autobuyers.push(14);
+      }
+      // fixing autobuyers
+      if (player.autobuyers[10].interval) {
+        player.autobuyers[10].interval = Math.max(player.autobuyers[10].interval / 2.5, 100);
+      }
+      if (player.autobuyers[11].interval) {
+        player.autobuyers[11].interval = Math.max(player.autobuyers[11].interval / 5, 100);
+      }
   }
 
   toggleCrunchMode()
