@@ -1,3 +1,7 @@
+function getResetMult () {
+  return (1.2 + 0.05 * player.infinityPoints.max(1).log(10));
+}
+
 function getDimensionBoostPower() {
   if (player.currentChallenge == "challenge11" || player.currentChallenge == "postc1") return Decimal.fromNumber(1);
 
@@ -7,7 +11,7 @@ function getDimensionBoostPower() {
     ret *= galUpgrade23() / 2;
   }
 
-  if (player.infinityUpgrades.includes("resetMult")) ret = ret * (1.2 + 0.05 * player.infinityPoints.max(1).log(10));
+  if (player.infinityUpgrades.includes("resetMult")) ret *= getResetMult();
   if (player.achievements.includes("r101")) ret = ret*1.01
   if (player.timestudy.studies.includes(83)) ret = Decimal.pow(1.0004, player.totalTickGained).times(ret);
   if (player.timestudy.studies.includes(231)) ret = Decimal.pow(player.resets, 0.3).times(ret)
