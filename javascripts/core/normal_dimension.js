@@ -26,19 +26,20 @@ function getDimensionPreDilationMultiplier(tier) {
       if (player.achievements.includes("r28")) multiplier = multiplier.times(1.1);
       if (player.achievements.includes("r31")) multiplier = multiplier.times(1.05);
       if (player.achievements.includes("r71")) multiplier = multiplier.times(909);
-      if (player.achievements.includes("r68")) multiplier = multiplier.times(1.5);
+      if (player.achievements.includes("r68")) multiplier = multiplier.times(5);
+      if (player.achievements.includes("r64")) multiplier = multiplier.times(1000000);
   }
 
   multiplier = multiplier.times(timeMult());
   if (tier == 8 && player.achievements.includes("r23")) multiplier = multiplier.times(1.1);
   else if (player.achievements.includes("r34")) multiplier = multiplier.times(2);
   if (tier <= 4 && player.achievements.includes("r43")) multiplier = multiplier.times(1.25);
-  if (player.achievements.includes("r31")) multiplier = multiplier.times(productAllTotalBought().min(1).log10().pow(2))
+  if (player.achievements.includes("r31")) multiplier = multiplier.times(productAllTotalBought1().max(10).log10().pow(2))
   if (player.achievements.includes("r48")) multiplier = multiplier.times(1.1);
   if (player.achievements.includes("r72")) multiplier = multiplier.times(10); // tbd
   if (player.achievements.includes("r46")) multiplier = multiplier.times(productAllDims1())
-  if (player.achievements.includes("r74") && player.currentChallenge != "") multiplier = multiplier.times(1.4);
-  if (player.achievements.includes("r77")) multiplier = multiplier.times(1+tier/100);
+  if (player.achievements.includes("r74") && player.currentChallenge != "") multiplier = multiplier.times(40);
+  if (player.achievements.includes("r77")) multiplier = multiplier.times(1+tier/10);
   if (player.achievements.includes("r56") && player.thisInfinityTime < 1800) multiplier = multiplier.times(3600/(player.thisInfinityTime+1800));
   if (player.achievements.includes("r78") && player.thisInfinityTime < 3) multiplier = multiplier.times(3.3/(player.thisInfinityTime+0.3));
   if (player.achievements.includes("r65") && player.currentChallenge != "" && player.thisInfinityTime < 1800) multiplier = multiplier.times(Math.max(2400/(player.thisInfinityTime+600), 1))
@@ -96,7 +97,14 @@ function getDimensionFinalMultiplier(tier) {
   if (multiplier.lt(1)) multiplier = new Decimal(1);
   return multiplier;
 }
-
+function productAllTotalBought1 () {
+        var tiers = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
+        var ret = 1;
+        for (i = 1; i <= 8; i++) {
+            ret *= Math.max(player[tiers[i] + "TotalBought"], 1);
+        }
+        return ret;
+    }
 function productAllDims1(){
         var tiers = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
         var ret = 0;
