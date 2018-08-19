@@ -103,7 +103,7 @@ function productAllTotalBought1 () {
         for (i = 1; i <= 8; i++) {
             ret *= Math.max(player[tiers[i] + "TotalBought"], 1);
         }
-        if (ret.lte(10)) ret = 10
+        if (ret.lt(10)) ret = 10
         return Math.pow(ret.log10(),2);
     }
 function productAllDims1(){
