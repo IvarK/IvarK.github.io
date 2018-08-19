@@ -3607,6 +3607,8 @@ function eternity(force, auto) {
         if (player.achievements.includes("r85")) player.infMult = player.infMult.times(4);
         if (player.achievements.includes("r93")) player.infMult = player.infMult.times(4);
         if (player.achievements.includes("r104")) player.infinityPoints = new Decimal(2e25);
+	if (player.achievements.includes("r43")) player.infMult = player.infMult.times(1.25);
+	if (player.achievements.includes("r55")) player.infMult = player.infMult.times((6000/player.bestInfinityTime).log10())
         resetInfDimensions();
         updateChallenges();
         updateChallengeTimes()
