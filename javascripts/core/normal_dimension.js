@@ -35,7 +35,7 @@ function getDimensionPreDilationMultiplier(tier) {
   if (tier <= 4 && player.achievements.includes("r43")) multiplier = multiplier.times(1.25);
   if (player.achievements.includes("r31")) multiplier = multiplier.times(productAllTotalBought().min(1).log10().pow(2))
   if (player.achievements.includes("r48")) multiplier = multiplier.times(1.1);
-  if (player.achievements.includes("r72")) multiplier = multiplier.times(1.1); // tbd
+  if (player.achievements.includes("r72")) multiplier = multiplier.times(10); // tbd
   if (player.achievements.includes("r46")) multiplier = multiplier.times(productAllDims1())
   if (player.achievements.includes("r74") && player.currentChallenge != "") multiplier = multiplier.times(1.4);
   if (player.achievements.includes("r77")) multiplier = multiplier.times(1+tier/100);
