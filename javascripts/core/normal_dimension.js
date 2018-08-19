@@ -34,7 +34,7 @@ function getDimensionPreDilationMultiplier(tier) {
   if (tier == 8 && player.achievements.includes("r23")) multiplier = multiplier.times(1.1);
   else if (player.achievements.includes("r34")) multiplier = multiplier.times(2);
   if (tier <= 4 && player.achievements.includes("r43")) multiplier = multiplier.times(1.25);
-  //if (player.achievements.includes("r31")) multiplier = multiplier.times(productAllTotalBought1().max(10).log10().pow(2))
+  if (player.achievements.includes("r31")) multiplier = multiplier.times(productAllTotalBought1())
   if (player.achievements.includes("r48")) multiplier = multiplier.times(1.1);
   if (player.achievements.includes("r72")) multiplier = multiplier.times(10); // tbd
   if (player.achievements.includes("r46")) multiplier = multiplier.times(productAllDims1())
@@ -103,7 +103,8 @@ function productAllTotalBought1 () {
         for (i = 1; i <= 8; i++) {
             ret *= Math.max(player[tiers[i] + "TotalBought"], 1);
         }
-        return ret;
+        if (ret.lte(10)) ret = 10
+        return Math.pow(ret.log10(),2);
     }
 function productAllDims1(){
         var tiers = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
