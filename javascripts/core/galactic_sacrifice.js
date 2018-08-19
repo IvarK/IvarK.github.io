@@ -11,7 +11,7 @@ function getGSAmount() {
   if (player.achievements.includes('r37')) {
     ret = ret.times(thatsFastReward());
   }
-  if (player.achievements.includes("r62")) ret = ret.times(player.infinityPoints.log10())
+  if (player.achievements.includes("r62")) ret = ret.times(player.infinityPoints.log10().max(1))
   return ret.floor();
 }
 
