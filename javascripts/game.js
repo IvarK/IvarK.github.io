@@ -3608,7 +3608,7 @@ function eternity(force, auto) {
         if (player.achievements.includes("r93")) player.infMult = player.infMult.times(4);
         if (player.achievements.includes("r104")) player.infinityPoints = new Decimal(2e25);
 	if (player.achievements.includes("r43")) player.infMult = player.infMult.times(1.25);
-	if (player.achievements.includes("r55")) player.infMult = player.infMult.times((6000/player.bestInfinityTime).log10())
+	if (player.achievements.includes("r55")) player.infMult = player.infMult.times((6000/player.bestInfinityTime).log10().max(1))
         resetInfDimensions();
         updateChallenges();
         updateChallengeTimes()
@@ -4822,7 +4822,7 @@ setInterval(function() {
     document.getElementById("replicantiunlock").className = (player.infinityPoints.gte(1e140)) ? "storebtn" : "unavailablebtn"
     updateTheoremButtons()
 
-    if (getTickSpeedMultiplier() < 0.001) giveAchievement("Do you even bend time bro?")
+    if (getTickSpeedMultiplier() < 0.01) giveAchievement("Do you even bend time bro?")
 
     if (player.eternities > 9) document.getElementById("bulklabel").textContent = "Buy max dimboosts every X seconds:"
     else document.getElementById("bulklabel").textContent = "Bulk DimBoost Amount:"
