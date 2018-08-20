@@ -44,8 +44,8 @@ function getPostC3RewardMult () {
   return ret;
 }
 
-function getTickSpeedCostMultiplierIncrease () {
-  let ret = player.tickSpeedMultDecrease;
+function getTickSpeedCostMultiplierIncrease (adjust) {
+  let ret = player.tickSpeedMultDecrease + (adjust || 0);
   if (player.currentChallenge === 'postc2') {
     ret = Math.pow(ret, .5);
   } else if (player.challenges.includes('postc2')) {

@@ -296,8 +296,8 @@ function hasInfinityMult(tier) {
       return cost.gte(Number.MAX_VALUE) || player.currentChallenge === 'postc2';
     }
 
-    function getDimensionCostMultiplierIncrease () {
-      let ret = player.dimensionMultDecrease;
+    function getDimensionCostMultiplierIncrease (adjust) {
+      let ret = player.dimensionMultDecrease + (adjust || 0);
       if (player.currentChallenge === 'postc2') {
         ret = Math.pow(ret, .5);
       } else if (player.challenges.includes('postc2')) {
