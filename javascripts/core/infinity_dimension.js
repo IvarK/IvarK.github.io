@@ -188,7 +188,7 @@ function resetInfDimensions() {
 }
 
 var infCostMults = [null, 1e3, 1e6, 1e8, 1e10, 1e15, 1e20, 1e25, 1e30]
-var infPowerMults = [null, 50, 30, 10, 5, 5, 5, 5, 5]
+var infPowerMults = [null, 500, 300, 100, 50, 25, 10, 5, 5]
 
 function buyManyInfinityDimension(tier) {
   if (player.eterc8ids <= 0 && player.currentEternityChall == "eterc8") return false
