@@ -40,8 +40,8 @@ function getDimensionPreDilationMultiplier(tier) {
   if (player.achievements.includes("r46")) multiplier = multiplier.times(productAllDims1())
   if (player.achievements.includes("r74") && player.currentChallenge != "") multiplier = multiplier.times(40);
   if (player.achievements.includes("r77")) multiplier = multiplier.times(1+tier/10);
-  if (player.achievements.includes("r84")) multiplier = multiplier.times(player.money.pow(0.00004).plus(1));
-  else if (player.achievements.includes("r73")) multiplier = multiplier.times(player.money.pow(0.00002).plus(1));
+  if (player.achievements.includes("r84")) multiplier = multiplier.times(player.money.pow(0.0002).plus(1));
+  else if (player.achievements.includes("r73")) multiplier = multiplier.times(player.money.pow(0.0001).plus(1));
 
 
   if (player.timestudy.studies.includes(71) && tier !== 8) multiplier = multiplier.times(calcTotalSacrificeBoost().pow(0.25).min("1e210000"));
