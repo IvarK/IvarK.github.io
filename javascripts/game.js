@@ -1708,7 +1708,7 @@ function getIPMult () {
     if (player.achievements.includes("r93")) mult = mult.times(4);
     if (player.achievements.includes("r43")) mult = mult.times(1.25);
     if (player.achievements.includes("r55")) mult = mult.times(Math.max(Math.log10(6000/player.bestInfinityTime), 1));
-    if (player.achievements.includes("r41")) mult = mult.times(Math.power(Math.log10(player.spreadingCancer), .05);
+    if (player.achievements.includes("r41")) mult = mult.times(Math.pow(Math.log10(player.spreadingCancer), .05);
     return mult;
 }
 
