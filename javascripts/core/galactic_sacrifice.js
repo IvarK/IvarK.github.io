@@ -52,13 +52,13 @@ let galUpgrade11 = function () {
   } else if (x < 100) {
     y = Math.pow(x + 5, .5) + 4;
   } else {
-    y = Math.pow(Math.log(x), Math.log(x) / 10) + 14;
+    y = Math.pow(Math.log(x), Math.log(x) / 5) + 14;
   }
   return Decimal.pow(10, y);
 }
 
 let galUpgrade12 = function () {
-  return 2 * Math.pow(1 + (Date.now() - player.galacticSacrifice.last) / 60000, 0.5);
+  return Math.max(1, 2 * Math.pow(1 + (Date.now() - player.galacticSacrifice.last) / 60000, 0.5));
 }
 
 let galUpgrade13 = function () {
@@ -159,6 +159,7 @@ function buyGalaxyUpgrade (i) {
   if (player.galacticSacrifice.upgrades.includes(i) || player.galacticSacrifice.galaxyPoints.lt(galUpgradeCosts[i])) {
     return false;
   } else {
+    if (i == 21 && !player.galacticSacrifice.upgrades.includes(11)) return False
     player.galacticSacrifice.upgrades.push(i);
     player.galacticSacrifice.galaxyPoints = player.galacticSacrifice.galaxyPoints.minus(galUpgradeCosts[i]);
     if (i == 11) {
