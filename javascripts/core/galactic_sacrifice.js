@@ -52,7 +52,7 @@ let galUpgrade11 = function () {
   } else if (x < 100) {
     y = Math.pow(x + 5, .5) + 4;
   } else {
-    y = Math.pow(Math.log(x), Math.log(x) / 5) + 14;
+    y = Math.pow(Math.log(x), Math.log(x) / 8) + 14;
   }
   return Decimal.pow(10, y);
 }
