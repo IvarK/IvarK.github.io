@@ -209,6 +209,10 @@ function hasInfinityMult(tier) {
         }
     }
 
+    function infUpg12Pow() {
+        return 2.1 + .005 * Math.min(Math.max(player.infinitied, 0), 60)
+    }
+
 
     function canBuyDimension(tier) {
         if (tier == 9 ) {
@@ -233,7 +237,7 @@ function hasInfinityMult(tier) {
 
         if (player.currentChallenge == "challenge9" || player.currentChallenge == "postc4") dimMult = Math.pow(10/0.30,Math.random())*0.30
 
-        if (player.infinityUpgrades.includes('dimMult')) dimMult *= 1.2;
+        if (player.infinityUpgrades.includes('dimMult')) dimMult *= infUpg12Pow() / 2;
         dimMult += ECTimesCompleted("eterc3") * 0.8
         if (player.galacticSacrifice.upgrades.includes(33)) {
           dimMult *= galUpgrade33() / 2;
