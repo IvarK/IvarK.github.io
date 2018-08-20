@@ -11,7 +11,7 @@ function getGSAmount() {
   if (player.achievements.includes('r37')) {
     ret = ret.times(thatsFastReward());
   }
-  if (player.achievements.includes("r62")) ret = ret.times(player.infinityPoints.log10().max(1))
+  if (player.achievements.includes("r62")) ret = ret.times(Math.max(1, player.infinityPoints.log10()))
   return ret.floor();
 }
 
@@ -140,13 +140,20 @@ let galUpgradeCosts = {
   33: 1000
 }
 
+function canBuyGalUpgrade(num) {
+    return !player.galacticSacrifice.upgrades.includes(num) &&
+    player.galacticSacrifice.galaxyPoints.gte(galUpgradeCosts[num]) &&
+    (Math.floor(num / 10) === 1 || player.galacticSacrifice.upgrades.includes(num - 10));
+}
+
 function galacticUpgradeButtonTypeDisplay () {
   for (let i = 1; i <= 3; i++) {
     for (let j = 1; j <= 3; j++) {
       let e = document.getElementById('galaxy' + i + j);
-      if (player.galacticSacrifice.upgrades.includes(+(i + '' + j))) {
+      let num = +(i + '' + j);
+      if (player.galacticSacrifice.upgrades.includes(num)) {
         e.className = 'infinistorebtnbought'
-      } else if (player.galacticSacrifice.galaxyPoints.gte(galUpgradeCosts[i + '' + j]) && (i === 1 || player.galacticSacrifice.upgrades.includes(+((i - 1) + '' + j)))) {
+      } else if (canBuyGalUpgrade(num)) {
         e.className = 'infinistorebtn' + j;
       } else {
         e.className = 'infinistorebtnlocked'
@@ -156,10 +163,9 @@ function galacticUpgradeButtonTypeDisplay () {
 }
 
 function buyGalaxyUpgrade (i) {
-  if (player.galacticSacrifice.upgrades.includes(i) || player.galacticSacrifice.galaxyPoints.lt(galUpgradeCosts[i])) {
+  if (!canBuyGalUpgrade(i)) {
     return false;
   } else {
-    if (i == 21 && !player.galacticSacrifice.upgrades.includes(11)) return False
     player.galacticSacrifice.upgrades.push(i);
     player.galacticSacrifice.galaxyPoints = player.galacticSacrifice.galaxyPoints.minus(galUpgradeCosts[i]);
     if (i == 11) {

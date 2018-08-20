@@ -621,12 +621,14 @@ function updateDimensions() {
 
     if (canSeeTickSpeed()) {
         var tickmult = getTickSpeedMultiplier()
-        if (tickmult < 1e-9) document.getElementById("tickLabel").textContent = "Divide the tick interval by " + shortenDimensions(1 / tickmult) + '.'
+        if (tickmult < 1e-9) document.getElementById("tickLabel").textContent = "Divide the tick interval by " + shortenDimensions(1 / tickmult)
         else {
             var places = 0
             if (tickmult < 0.2) places = Math.floor(Math.log10(Math.round(1/tickmult)))
-            document.getElementById("tickLabel").textContent = 'Reduce the tick interval by ' + ((1 - tickmult) * 100).toFixed(places) + '%.'
+            document.getElementById("tickLabel").textContent = 'Reduce the tick interval by ' + ((1 - tickmult) * 100).toFixed(places) + '%'
         }
+
+        document.getElementById("tickLabel").textContent += ' and multiply all dimensions by ' + formatValue(player.options.notation, getPostC3RewardMult(), 3, 3);
 
         document.getElementById("tickSpeed").style.visibility = "visible";
         document.getElementById("tickSpeedMax").style.visibility = "visible";
@@ -704,7 +706,7 @@ function updateDimensions() {
             document.getElementById("infi31").innerHTML = "Normal dimensions gain a multiplier based on time spent in current infinity<br>Currently: " + formatValue(player.options.notation, timeMultNum2, 2, 2) + "x<br>Cost: 3 IP"
             document.getElementById("infi32").innerHTML = "Multiplier for unspent Infinity Points on 1st Dimension<br>Currently: " + formatValue(player.options.notation, getUnspentIPBonus(), 2, 2) + "x<br>Cost: 5 IP"
             document.getElementById("infi33").innerHTML = "Dimension boosts gain an extra multiplier based on infinities<br>Currently: " + formatValue(player.options.notation, getResetMult(), 2, 2) + "x<br>Cost: 7 IP"
-            document.getElementById("infi34").innerHTML = "Infinity Point generation based on fastest infinity <br>Currently: "+shortenDimensions(player.infMult.times(kongIPMult))+" every " + timeDisplay(player.bestInfinityTime*10) + "<br>Cost: 10 IP"
+            document.getElementById("infi34").innerHTML = "Infinity Point generation based on fastest infinity <br>Currently: "+shortenDimensions(getIPMult())+" every " + timeDisplay(player.bestInfinityTime*10) + "<br>Cost: 10 IP"
         }
         else if (document.getElementById("postinf").style.display == "block") {
             document.getElementById("postinfi01").innerHTML = "Multiplier to galaxy points based on infinities<br>Currently: "+formatValue(player.options.notation, getPost01Mult(), 2, 2)+"x<br>Cost: "+shortenCosts(1e3)+" IP"
@@ -1081,7 +1083,7 @@ document.getElementById("infiMult").onclick = function() {
         player.infMult = player.infMult.times(2);
         player.autoIP = player.autoIP.times(2);
         player.infMultCost = player.infMultCost.times(10)
-        document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
+        document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(getIPMult()) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
         if (player.autobuyers[11].priority !== undefined && player.autobuyers[11].priority !== null && player.autoCrunchMode == "amount") player.autobuyers[11].priority = player.autobuyers[11].priority.times(2);
         if (player.autoCrunchMode == "amount") document.getElementById("priority12").value = formatValue("Scientific", player.autobuyers[11].priority, 2, 0);
     }
@@ -1295,7 +1297,7 @@ document.getElementById("offlineProd").onclick = function() {
 
 function updateInfCosts() {
 
-    document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
+    document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(getIPMult()) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
     if (document.getElementById("replicantis").style.display == "block" && document.getElementById("infinity").style.display == "block") {
         if (player.replicanti.chance < 1) document.getElementById("replicantichance").innerHTML = "Replicate chance: "+Math.round(player.replicanti.chance*100)+"%<br>+"+1+"% Costs: "+shortenCosts(player.replicanti.chanceCost)+" IP"
         else document.getElementById("replicantichance").textContent = "Replicate chance: "+Math.round(player.replicanti.chance*100)+"%"
@@ -1698,6 +1700,15 @@ document.getElementById("secondSoftReset").onclick = function() {
         if (player.eternities >= 7 && !shiftDown) maxBuyGalaxies(true);
         else galaxyReset();
     }
+}
+
+function getIPMult () {
+    let mult = player.infMult.times(kongIPMult);
+    if (player.achievements.includes("r85")) mult = mult.times(4);
+    if (player.achievements.includes("r93")) mult = mult.times(4);
+    if (player.achievements.includes("r43")) mult = mult.times(1.25);
+    if (player.achievements.includes("r55")) mult = mult.times(Math.max(Math.log10(6000/player.bestInfinityTime), 1))
+    return mult;
 }
 
 function setInitialDimensionPower () {
@@ -2131,7 +2142,7 @@ function gainedInfinityPoints() {
     if (player.timestudy.studies.includes(111)) div = 285;
     else if (player.achievements.includes("r103")) div = 307.8;
 
-    var ret = Decimal.pow(10, player.money.e/div -0.75).times(player.infMult).times(kongIPMult)
+    var ret = Decimal.pow(10, player.money.e/div -0.75).times(getIPMult())
     if (player.timestudy.studies.includes(41)) ret = ret.times(Decimal.pow(1.2, player.galaxies + player.replicanti.galaxies))
     if (player.timestudy.studies.includes(51)) ret = ret.times(1e15)
     if (player.timestudy.studies.includes(141)) ret = ret.times(new Decimal(1e45).dividedBy(Decimal.pow(15, Math.log(player.thisInfinityTime+1)*Math.pow(player.thisInfinityTime+1, 0.125))).max(1))
@@ -2954,7 +2965,7 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.challenges.length > 14) giveAchievement("Infinitely Challenging");
         if (player.challenges.length == 22) giveAchievement("Anti-antichallenged");
         if (!player.break || player.currentChallenge != "") {
-            var add = new Decimal(player.infMult.times(kongIPMult))
+            var add = new Decimal(getIPMult())
             if (player.timestudy.studies.includes(51)) add = add.times(1e15)
             player.infinityPoints = player.infinityPoints.plus(add);
             addTime(player.thisInfinityTime, add)
@@ -3604,11 +3615,7 @@ function eternity(force, auto) {
         if (player.achievements.includes("r54")) player.money = new Decimal(2e5);
         if (player.achievements.includes("r55")) player.money = new Decimal(1e10);
         if (player.achievements.includes("r78")) player.money = new Decimal(1e25);
-        if (player.achievements.includes("r85")) player.infMult = player.infMult.times(4);
-        if (player.achievements.includes("r93")) player.infMult = player.infMult.times(4);
         if (player.achievements.includes("r104")) player.infinityPoints = new Decimal(2e25);
-	if (player.achievements.includes("r43")) player.infMult = player.infMult.times(1.25);
-	if (player.achievements.includes("r55")) player.infMult = player.infMult.times((6000/player.bestInfinityTime).log10().max(1))
         resetInfDimensions();
         updateChallenges();
         updateChallengeTimes()
@@ -3642,7 +3649,7 @@ function eternity(force, auto) {
         document.getElementById("eternitybtn").style.display = player.infinityPoints.gte(player.eternityChallGoal) ? "inline-block" : "none"
         document.getElementById("eternityPoints2").style.display = "inline-block"
         document.getElementById("eternitystorebtn").style.display = "inline-block"
-        document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
+        document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(getIPMult()) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
         updateEternityUpgrades()
         document.getElementById("totaltickgained").textContent = "You've gained "+player.totalTickGained.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" tickspeed upgrades."
         updateTickSpeed();
@@ -4455,8 +4462,6 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
         if (player.achievements.includes("r54")) player.money = new Decimal(2e5);
         if (player.achievements.includes("r55")) player.money = new Decimal(1e10);
         if (player.achievements.includes("r78")) player.money = new Decimal(1e25);
-        if (player.achievements.includes("r85")) player.infMult = player.infMult.times(4);
-        if (player.achievements.includes("r93")) player.infMult = player.infMult.times(4);
         if (player.achievements.includes("r104")) player.infinityPoints = new Decimal(2e25);
         resetInfDimensions();
         updateChallenges();
@@ -4486,7 +4491,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
         document.getElementById("eternitybtn").style.display = player.infinityPoints.gte(player.eternityChallGoal) ? "inline-block" : "none"
         document.getElementById("eternityPoints2").style.display = "inline-block"
         document.getElementById("eternitystorebtn").style.display = "inline-block"
-        document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
+        document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(getIPMult()) +"x<br>Cost: "+shortenCosts(getIPMult())+" IP"
         updateEternityUpgrades()
         document.getElementById("totaltickgained").textContent = "You've gained "+player.totalTickGained.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" tickspeed upgrades."
         updateTickSpeed();
@@ -5033,13 +5038,13 @@ function gameLoop(diff) {
     }
     if (player.infinityUpgrades.includes("passiveGen")) player.partInfinityPoint += diff / player.bestInfinityTime;
     if (player.partInfinityPoint >= 100) {
-        player.infinityPoints = player.infinityPoints.plus(player.infMult.times(kongIPMult * (player.partInfinityPoint/10)));
+        player.infinityPoints = player.infinityPoints.plus(getIPMult().times(player.partInfinityPoint/10));
         player.partInfinityPoint = 0;
     }
 
     if (player.partInfinityPoint >= 10) {
         player.partInfinityPoint -= 10;
-        player.infinityPoints = player.infinityPoints.plus(player.infMult.times(kongIPMult));
+        player.infinityPoints = player.infinityPoints.plus(getIPMult());
     }
 
 
@@ -5249,7 +5254,7 @@ function gameLoop(diff) {
         if (dif > 0) {
             player.infMult = player.infMult.times(Decimal.pow(2, dif))
             player.infMultCost = player.infMultCost.times(Decimal.pow(10, dif))
-            document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
+            document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(getIPMult()) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
             player.infinityPoints = player.infinityPoints.minus(player.infMultCost.dividedBy(10))
             if (player.autobuyers[11].priority !== undefined && player.autobuyers[11].priority !== null && player.autoCrunchMode == "amount") player.autobuyers[11].priority = player.autobuyers[11].priority.times(Decimal.pow(2, dif));
             if (player.autoCrunchMode == "amount") document.getElementById("priority12").value = player.autobuyers[11].priority

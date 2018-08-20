@@ -8,60 +8,38 @@ function canBuyTickSpeed() {
   return canSeeTickSpeed();
 }
 
+function getPurelyGalaxies (offset) {
+    let galaxies = player.galaxies+player.replicanti.galaxies+player.dilation.freeGalaxies-offset;
+    if (player.timestudy.studies.includes(133)) galaxies += player.replicanti.galaxies/2
+    if (player.timestudy.studies.includes(132)) galaxies += player.replicanti.galaxies*0.4
+    if (player.timestudy.studies.includes(225)) galaxies += Math.floor(player.replicanti.amount.e / 1000)
+    if (player.timestudy.studies.includes(226)) galaxies += Math.floor(player.replicanti.gal / 15)
+    galaxies += Math.min(player.replicanti.galaxies, player.replicanti.gal) * Math.max(Math.pow(Math.log10(player.infinityPower.plus(1).log10()+1), 0.03 * ECTimesCompleted("eterc8"))-1, 0)
+    if (player.currentChallenge === 'challenge7') galaxies = Math.pow(galaxies, 2);
+    return galaxies;
+}
+
+function getFinalGalaxies(offset) {
+    let galaxies = getPurelyGalaxies(offset);
+    if (player.galacticSacrifice.upgrades.includes(22)) galaxies *= 5;
+    if (player.infinityUpgrades.includes("galaxyBoost")) galaxies *= 2;
+    if (player.infinityUpgrades.includes("postGalaxy")) galaxies *= 1.5;
+    if (player.challenges.includes("postc5")) galaxies *= 1.1;
+    if (player.achievements.includes("r86")) galaxies *= 1.05;
+    if (player.achievements.includes("r45")) galaxies *= 1.02;
+    if (player.timestudy.studies.includes(212)) galaxies *= Math.min(Math.pow(player.timeShards.max(2).log2(), 0.005), 1.1)
+    if (player.timestudy.studies.includes(232)) galaxies *= Math.pow(1+player.galaxies/1000, 0.2)
+    return galaxies;
+}
+
 function getTickSpeedMultiplier() {
   if (!player.challenges.includes("postc3")) return 1;
-  if (player.galaxies + player.replicanti.galaxies + player.dilation.freeGalaxies < 3) {
-      let baseMultiplier = 0.9;
-      if (player.galaxies == 0) baseMultiplier = 0.89
-      if (player.currentChallenge == "challenge6" || player.currentChallenge == "postc1") baseMultiplier = 0.93;
-      let perGalaxy = 0.02;
-      let galaxies = player.galaxies+player.replicanti.galaxies+player.dilation.freeGalaxies
-      if (player.timestudy.studies.includes(133)) galaxies += player.replicanti.galaxies/2
-      if (player.timestudy.studies.includes(132)) galaxies += player.replicanti.galaxies*0.4
-      if (player.timestudy.studies.includes(225)) galaxies += Math.floor(player.replicanti.amount.e / 1000)
-      if (player.timestudy.studies.includes(226)) galaxies += Math.floor(player.replicanti.gal / 15)
-      galaxies += Math.min(player.replicanti.galaxies, player.replicanti.gal) * Math.max(Math.pow(Math.log10(player.infinityPower.plus(1).log10()+1), 0.03 * ECTimesCompleted("eterc8"))-1, 0)
-      if (player.infinityUpgrades.includes("galaxyBoost")) perGalaxy *= 2;
-      if (player.infinityUpgrades.includes("postGalaxy")) perGalaxy *= 1.5;
-      if (player.challenges.includes("postc5")) perGalaxy *= 1.1;
-      if (player.achievements.includes("r86")) perGalaxy *= 1.05;
-      if (player.acgievements.includes("r45")) perGalaxy *= 1.02;
-      if (player.timestudy.studies.includes(212)) perGalaxy *= Math.min(Math.pow(player.timeShards.max(2).log2(), 0.005), 1.1)
-
-      return baseMultiplier-(player.galaxies*perGalaxy);
-  } else {
-      let baseMultiplier = 0.8
-      if (player.currentChallenge == "challenge6" || player.currentChallenge == "postc1") baseMultiplier = 0.83
-      let perGalaxy = 0.965
-      let galaxies = player.galaxies-2+player.replicanti.galaxies+player.dilation.freeGalaxies
-      if (player.timestudy.studies.includes(133)) galaxies += player.replicanti.galaxies/2
-      if (player.timestudy.studies.includes(132)) galaxies += player.replicanti.galaxies*0.4
-      if (player.timestudy.studies.includes(225)) galaxies += Math.floor(player.replicanti.amount.e / 1000)
-      if (player.timestudy.studies.includes(226)) galaxies += Math.floor(player.replicanti.gal / 15)
-      galaxies +=  Math.min(player.replicanti.galaxies, player.replicanti.gal) * Math.max(Math.pow(Math.log10(player.infinityPower.plus(1).log10()+1), 0.03 * ECTimesCompleted("eterc8"))-1, 0)
-      if (player.infinityUpgrades.includes("galaxyBoost")) galaxies *= 2;
-      if (player.infinityUpgrades.includes("postGalaxy")) galaxies *= 1.5;
-      if (player.challenges.includes("postc5")) galaxies *= 1.1;
-      if (player.achievements.includes("r86")) galaxies *= 1.05;
-      if (player.achievements.includes("r45")) galaxies *= 1.02;
-      if (player.timestudy.studies.includes(212)) galaxies *= Math.min(Math.pow(player.timeShards.max(2).log2(), 0.005), 1.1)
-      if (player.timestudy.studies.includes(232)) galaxies *= Math.pow(1+player.galaxies/1000, 0.2)
-
-      return baseMultiplier * (Math.pow(perGalaxy, (galaxies-2)))
-  }
+  return Math.pow(.999, getFinalGalaxies(0));
 }
 
 function getPostC3RewardMult () {
   let perGalaxy = 0.005;
-  if (player.galacticSacrifice.upgrades.includes(22)) perGalaxy *= 5;
-  if (player.infinityUpgrades.includes("galaxyBoost")) perGalaxy *= 2;
-  if (player.infinityUpgrades.includes("postGalaxy")) perGalaxy *= 1.5;
-  if (player.challenges.includes("postc5")) perGalaxy *= 1.1;
-  if (player.achievements.includes("r86")) perGalaxy *= 1.05;
-  if (player.achievements.includes("r45")) perGalaxy *= 1.02;
-  let galaxies = player.galaxies;
-  if (player.currentChallenge === 'challenge7') galaxies = Math.pow(galaxies, 2);
-  let ret = 1.05+(galaxies*perGalaxy);
+  let ret = 1.05+getFinalGalaxies(0)*perGalaxy;
   if (player.currentChallenge === 'challenge6' || player.currentChallenge === 'postc1') ret -= 0.05
   return ret;
 }
@@ -138,9 +116,11 @@ function buyMaxTickSpeed() {
 
 function updateTickSpeed() {
   var exp = player.tickspeed.e;
-  if (exp > 1) document.getElementById("tickSpeedAmount").textContent = 'Tickspeed: ' + player.tickspeed.toFixed(0);
-  else {
+  if (exp > 1) {
+      document.getElementById("tickSpeedAmount").textContent = 'Tickspeed: ' + player.tickspeed.toFixed(0);
+  } else {
       document.getElementById("tickSpeedAmount").textContent = 'Tickspeed: ' + player.tickspeed.times(new Decimal(100).dividedBy(Decimal.pow(10, exp))).toFixed(0) + ' / ' + shorten(new Decimal(100).dividedBy(Decimal.pow(10, exp)));
   }
+  document.getElementById("tickSpeedAmount").textContent += ', Tickspeed multiplier: ' + formatValue(player.options.notation, player.postC3Reward, 3, 3);
   document.getElementById("tickSpeedPurchases").textContent = 'You have ' + (308 - player.tickBoughtThisInf.current) + ' tickspeed purchases left.';
 }

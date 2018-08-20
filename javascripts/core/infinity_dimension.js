@@ -77,7 +77,7 @@ function DimensionPower(tier) {
   mult = mult.times(kongAllDimMult)
   if (player.achievements.includes("r94") && tier == 1) mult = mult.times(2);
   if (player.achievements.includes("r75")) mult = mult.times(player.achPow);
-  if (player.achievements.includes("r66")) mult = mult.times(player.tickspeed.log10().divideby(29).min(1))
+  if (player.achievements.includes("r66")) mult = mult.times(Math.max(1, Math.abs(player.tickspeed.log10()) / 29))
   if (player.replicanti.unl && player.replicanti.amount.gt(1)) {
       var replmult = Decimal.pow(Decimal.log2(player.replicanti.amount), 2)
 
