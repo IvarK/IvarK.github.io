@@ -6319,8 +6319,8 @@ var timeMultNum2 = 1
 setInterval( function() {
     totalMult = Math.pow(player.totalmoney.e+1, 2)
     currentMult = Math.pow(player.money.e+1, 2)
-    if (player.timestudy.studies.includes(31)) infinitiedMult = 1 + Math.pow(Math.log10(getInfinitied()+1)*100, 4)
-    else infinitiedMult = 1+Math.log10(getInfinitied()+1)*100
+    if (player.timestudy.studies.includes(31)) infinitiedMult = 1 + Math.pow(Math.log10(getInfinitied()+1)*100, 8)
+    else infinitiedMult = Math.pow(1+Math.log10(getInfinitied()+1)*100,2)
     achievementMult = Math.max(Math.pow((player.achievements.length-10-getSecretAchAmount()), 5)/40,1)
     challengeMult = Decimal.max(Math.pow(10*3000/worstChallengeTime, 2), 1)
     unspentBonus = getUnspentIPBonus();
@@ -6331,6 +6331,6 @@ setInterval( function() {
     } else {
         ec10bonus = new Decimal(1)
     }
-    timeMultNum = Math.pow(player.totalTimePlayed / 1200, 0.3);
-    timeMultNum2 = Math.max(Math.pow(player.thisInfinityTime / 2400, 1.5), 1)
+    timeMultNum = Math.pow(player.totalTimePlayed / 1200, 0.5);
+    timeMultNum2 = Math.max(Math.pow(1 + player.thisInfinityTime / 2400, 1.5), 1)
 }, 100)
