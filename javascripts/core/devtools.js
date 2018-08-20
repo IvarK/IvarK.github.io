@@ -35,12 +35,12 @@ dev.cancerize = function() {
 
 dev.fixSave = function() {
     var save = JSON.stringify(player, function(k, v) { return (v === Infinity) ? "Infinity" : v; })
-  
+
     var fixed = save.replace(/NaN/gi, "10")
     var stillToDo = JSON.parse(fixed)
     for (var i=0; i<stillToDo.autobuyers.length; i++) stillToDo.autobuyers[i].isOn = false
     console.log(stillToDo)
-    
+
     var save_data = stillToDo
     if (!save_data || !verify_save(save_data)) {
         alert('could not load the save..');
@@ -56,7 +56,7 @@ dev.fixSave = function() {
     challengeMult = 1
     unspentBonus = 1
     infDimPow = 1
-    postc8Mult = new Decimal(0)
+    postc10Mult = new Decimal(0)
     mult18 = new Decimal(1)
     ec10bonus = new Decimal(1)
     player = save_data;

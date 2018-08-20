@@ -68,7 +68,7 @@ if (player.options.notation === undefined) player.options.notation = "Standard";
   if (player.overXGalaxies === undefined) player.overXGalaxies = 10;
   if (player.partInfinitied === undefined) player.partInfinitied = 0
   if (player.spreadingCancer === undefined) player.spreadingCancer = 0
-  if (player.postC4Tier === undefined) player.postC4Tier = 0
+  if (player.postC6Tier === undefined) player.postC6Tier = 0
   if (player.postC3Reward === undefined) player.postC3Reward = new Decimal(1)
   if (player.offlineProd === undefined) player.offlineProd = 0
   if (player.offlineProdCost === undefined) player.offlineProdCost = 1e7
@@ -252,7 +252,7 @@ if (player.options.notation === undefined) player.options.notation = "Standard";
   if (player.fifthAmount !== 0|| player.eternities >= 30)
   if (player.resets > 1) document.getElementById("sixthRow").style.display = "table-row";
   if (player.sixthAmount !== 0|| player.eternities >= 30)
-  if (player.resets > 2 && player.currentChallenge !== "challenge4" && player.currentChallenge !== "postc1") document.getElementById("seventhRow").style.display = "table-row";
+  if (player.resets > 2 && player.currentChallenge !== "challenge4" && player.currentChallenge !== "postc4") document.getElementById("seventhRow").style.display = "table-row";
   if (player.seventhAmount !== 0|| player.eternities >= 30)
   if (player.resets > 3 && player.currentChallenge !== "challenge4") document.getElementById("eightRow").style.display = "table-row";
 
@@ -440,10 +440,10 @@ if (player.version < 5) {
 
   if (player.infinitied == 0 && player.eternities == 0) document.getElementById("infinityPoints2").style.display = "none"
 
-  if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") document.getElementById("matter").style.display = "inline-block";
+  if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc4" || player.currentChallenge == "postc8") document.getElementById("matter").style.display = "inline-block";
   else document.getElementById("matter").style.display = "none";
 
-  if (player.currentChallenge == "challenge13" || player.currentChallenge == "postc1") document.getElementById("chall13Mult").style.display = "inline-block";
+  if (player.currentChallenge == "challenge13" || player.currentChallenge == "postc4") document.getElementById("chall13Mult").style.display = "inline-block";
   else document.getElementById("chall13Mult").style.display = "none";
 
 
@@ -699,7 +699,7 @@ function change_save(saveId) {
   challengeMult = 1
   unspentBonus = 1
   infDimPow = 1
-  postc8Mult = new Decimal(0)
+  postc10Mult = new Decimal(0)
   mult18 = new Decimal(1)
   ec10bonus = new Decimal(1)
   IPminpeak = new Decimal(0)

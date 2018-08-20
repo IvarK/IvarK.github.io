@@ -51,11 +51,11 @@ function getDimensionPreDilationMultiplier(tier) {
   if (player.timestudy.studies.includes(234) && tier == 1) multiplier = multiplier.times(calcTotalSacrificeBoost())
 
   multiplier = multiplier.times(player.postC3Reward)
-  if (player.challenges.includes("postc8") && tier < 8 && tier > 1) multiplier = multiplier.times(mult18);
+  if (player.challenges.includes("postc10") && tier < 8 && tier > 1) multiplier = multiplier.times(mult18);
 
-  if (player.currentChallenge === 'challenge13' || player.currentChallenge === "postc1") multiplier = multiplier.times(productAllTotalBought());
+  if (player.currentChallenge === 'challenge13' || player.currentChallenge === "postc4") multiplier = multiplier.times(productAllTotalBought());
 
-  if (player.currentChallenge == "postc4" && player.postC4Tier != tier) multiplier = multiplier.pow(0.25)
+  if (player.currentChallenge == "postc6" && player.postC6Tier != tier) multiplier = multiplier.pow(0.25)
   if (player.currentEternityChall == "eterc10") multiplier = multiplier.times(ec10bonus)
   if (player.timestudy.studies.includes(193)) multiplier = multiplier.times(Decimal.pow(1.03, player.eternities).min("1e13000"))
   if (tier == 8 && player.timestudy.studies.includes(214)) multiplier = multiplier.times((calcTotalSacrificeBoost().pow(8)).min("1e46000").times(calcTotalSacrificeBoost().pow(1.1).min(new Decimal("1e125000"))))
@@ -67,7 +67,7 @@ function getDimensionPreDilationMultiplier(tier) {
     multiplier = multiplier.times(galUpgrade13())
   }
 
-  if (player.challenges.includes("postc4")) multiplier = multiplier.pow(1.05);
+  if (player.challenges.includes("postc6")) multiplier = multiplier.pow(1.05);
   if (player.galacticSacrifice.upgrades.includes(31)) multiplier = multiplier.pow(galUpgrade31());
 
   if (multiplier.lt(1)) multiplier = new Decimal(1);
@@ -91,8 +91,8 @@ function getDimensionFinalMultiplier(tier) {
   if (player.dilation.upgrades.includes(6)) multiplier = multiplier.times(player.dilation.dilatedTime.pow(308))
 
   // penalties, thus post-dilation.
-  if (player.currentChallenge == "postc6") multiplier = multiplier.dividedBy(player.matter.max(1))
-  if (player.currentChallenge == "postc8") multiplier = multiplier.times(postc8Mult)
+  if (player.currentChallenge == "postc8") multiplier = multiplier.dividedBy(player.matter.max(1))
+  if (player.currentChallenge == "postc10") multiplier = multiplier.times(postc10Mult)
 
   if (multiplier.lt(1)) multiplier = new Decimal(1);
   return multiplier;
@@ -209,19 +209,19 @@ function hasInfinityMult(tier) {
         if (!player.break && player.money.gt(Number.MAX_VALUE)) return false;
         if (tier > player.resets + 4) return false;
         if (tier > 1 && player[TIER_NAMES[tier - 1] + 'Amount'] == 0 && player.eternities < 30) return false;
-        if ((player.currentChallenge == "challenge4" || player.currentChallenge == "postc1") && tier >= 7) return false
+        if ((player.currentChallenge == "challenge4" || player.currentChallenge == "postc4") && tier >= 7) return false
 
         return true;
     }
 
     function getDimensionPowerMultiplier(tier) {
-        if (player.currentChallenge === 'challenge13' || player.currentChallenge === "postc1") {
+        if (player.currentChallenge === 'challenge13' || player.currentChallenge === "postc4") {
             return 1;
         }
         let dimMult = 2;
 
 
-        if (player.currentChallenge == "challenge9" || player.currentChallenge == "postc1") dimMult = Math.pow(10/0.30,Math.random())*0.30
+        if (player.currentChallenge == "challenge9" || player.currentChallenge == "postc4") dimMult = Math.pow(10/0.30,Math.random())*0.30
 
         if (player.infinityUpgrades.includes('dimMult')) dimMult *= 1.2;
         dimMult += ECTimesCompleted("eterc3") * 0.8
@@ -265,8 +265,8 @@ function hasInfinityMult(tier) {
             giveAchievement("The 9th Dimension is a lie");
         }
 
-        player.postC4Tier = tier;
-        postc8Mult = new Decimal(1)
+        player.postC6Tier = tier;
+        postc10Mult = new Decimal(1)
         if (tier != 8) player.dimlife = false
         if (tier != 1) player.dead = false
 
@@ -287,7 +287,7 @@ function hasInfinityMult(tier) {
         var cost = player[name + 'Cost'];
         auto = false;
 
-        if (player.currentChallenge != "challenge10" && player.currentChallenge != "postc1") {
+        if (player.currentChallenge != "challenge10" && player.currentChallenge != "postc4") {
             if (!canBuyDimension(tier)) {
                 return false;
             }
@@ -304,14 +304,14 @@ function hasInfinityMult(tier) {
 
 
 
-        if (player.currentChallenge != "challenge10" && player.currentChallenge != "postc1") {
+        if (player.currentChallenge != "challenge10" && player.currentChallenge != "postc4") {
             if (!canAfford(cost)) {
                 return false;
             }
         }
 
 
-        if ((player.currentChallenge != "challenge10" && player.currentChallenge != "postc1") || tier < 3) {
+        if ((player.currentChallenge != "challenge10" && player.currentChallenge != "postc4") || tier < 3) {
             player.money = player.money.minus(cost);
         } else {
             player[TIER_NAMES[tier-2] + 'Amount'] = player[TIER_NAMES[tier-2] + 'Amount'].minus(cost)
@@ -322,15 +322,15 @@ function hasInfinityMult(tier) {
 
         if (dimBought(tier) === 0) {
             player[name + 'Pow']  = player[name + 'Pow'].times(getDimensionPowerMultiplier(tier));
-            if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5") player[name + 'Cost'] = player[name + 'Cost'].times(getDimensionCostMultiplier(tier));
-            else if (player.currentChallenge == "postc5") multiplyPC5Costs(player[name + 'Cost'], tier)
+            if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc7") player[name + 'Cost'] = player[name + 'Cost'].times(getDimensionCostMultiplier(tier));
+            else if (player.currentChallenge == "postc7") multiplyPC5Costs(player[name + 'Cost'], tier)
             else multiplySameCosts(cost);
             if (player[name + 'Cost'].gte(Number.MAX_VALUE)) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
             floatText(name+"D", "x" + shortenMoney(getDimensionPowerMultiplier(tier)))
         }
 
-        if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0;
-        if (player.currentChallenge == "challenge8" || player.currentChallenge == "postc1") clearDimensions(tier-1);
+        if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc4") player.chall2Pow = 0;
+        if (player.currentChallenge == "challenge8" || player.currentChallenge == "postc4") clearDimensions(tier-1);
 
         onBuyDimension(tier);
 
@@ -344,8 +344,8 @@ function hasInfinityMult(tier) {
 
         auto = false;
 
-        if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") && player.matter.equals(0)) player.matter = new Decimal(1);
-        if (player.currentChallenge != "challenge10" && player.currentChallenge != "postc1") {
+        if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc4" || player.currentChallenge == "postc6") && player.matter.equals(0)) player.matter = new Decimal(1);
+        if (player.currentChallenge != "challenge10" && player.currentChallenge != "postc4") {
             if (!canBuyDimension(tier)) {
                 return false;
             }
@@ -363,13 +363,13 @@ function hasInfinityMult(tier) {
 
 
 
-        if (player.currentChallenge != "challenge10" && player.currentChallenge != "postc1") {
+        if (player.currentChallenge != "challenge10" && player.currentChallenge != "postc4") {
             if (!canAfford(cost)) {
                 return false;
             }
         }
 
-        if ((player.currentChallenge != "challenge10" && player.currentChallenge != "postc1") || tier < 3) {
+        if ((player.currentChallenge != "challenge10" && player.currentChallenge != "postc4") || tier < 3) {
             player.money = player.money.minus(cost);
         } else {
             player[TIER_NAMES[tier-2] + 'Amount'] = player[TIER_NAMES[tier-2] + 'Amount'].minus(cost)
@@ -378,12 +378,12 @@ function hasInfinityMult(tier) {
         player[name + 'Amount'] = player[name + 'Amount'].plus(10 - dimBought(tier));
         recordBought(name, 10 - dimBought(tier));
         player[name + 'Pow']  = player[name + 'Pow'].times(getDimensionPowerMultiplier(tier));
-        if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5" ) player[name + 'Cost'] = player[name + 'Cost'].times((getDimensionCostMultiplier(tier)));
-        else if (player.currentChallenge == "postc5") multiplyPC5Costs(player[name + 'Cost'], tier)
+        if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc7" ) player[name + 'Cost'] = player[name + 'Cost'].times((getDimensionCostMultiplier(tier)));
+        else if (player.currentChallenge == "postc7") multiplyPC5Costs(player[name + 'Cost'], tier)
         else multiplySameCosts(player[name + 'Cost']);
         if (player[name + 'Cost'].gte(Number.MAX_VALUE)) player.costMultipliers[tier-1] = player.costMultipliers[tier-1].times(player.dimensionMultDecrease)
-        if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0;
-        if (player.currentChallenge == "challenge8" || player.currentChallenge == "postc1") clearDimensions(tier-1);
+        if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc4") player.chall2Pow = 0;
+        if (player.currentChallenge == "challenge8" || player.currentChallenge == "postc4") clearDimensions(tier-1);
         floatText(name+"D", "x" + shortenMoney(getDimensionPowerMultiplier(tier)))
         onBuyDimension(tier);
 
@@ -399,7 +399,7 @@ function hasInfinityMult(tier) {
         var cost = player[name + 'Cost'].times(10 - dimBought(tier))
         if (!player.break && player.money.gt(Number.MAX_VALUE)) return false;
 
-        if (tier >= 3 && (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1")) {
+        if (tier >= 3 && (player.currentChallenge == "challenge10" || player.currentChallenge == "postc4")) {
             if (!canBuyDimension(tier)) return false
             if (player[TIER_NAMES[tier-2] + 'Amount'].lt(cost)) return false
                 if (canBuyDimension(tier)) {
@@ -436,11 +436,11 @@ function hasInfinityMult(tier) {
                 if (player.money.lt(player[name + "Cost"].times(10))) return false
                 var x = bulk
 
-            if ((player.dimensionMultDecrease > 3 || player.currentChallenge == "postc5" || player.currentChallenge == "challenge5")) {
+            if ((player.dimensionMultDecrease > 3 || player.currentChallenge == "postc7" || player.currentChallenge == "challenge5")) {
                 while (player.money.gte(player[name + "Cost"].times(10)) && x > 0) {
                         player.money = player.money.minus(player[name + "Cost"].times(10))
-                        if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5") player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
-                        else if (player.currentChallenge == "postc5") multiplyPC5Costs(player[name + 'Cost'], tier)
+                        if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc7") player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
+                        else if (player.currentChallenge == "postc7") multiplyPC5Costs(player[name + 'Cost'], tier)
                         else multiplySameCosts(player[name + 'Cost'])
                         player[name + "Amount"] = Decimal.round(player[name + "Amount"].plus(10))
                         recordBought(name, 10)
@@ -454,8 +454,8 @@ function hasInfinityMult(tier) {
                     let failsafe = 0
                     while (player.money.gt(player[name + "Cost"].times(10)) && x > 0 && player[name + "Cost"].lte(Number.MAX_VALUE) && failsafe < 150) {
                         player.money = player.money.minus(player[name + "Cost"].times(10))
-                        if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5") player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
-                        else if (player.currentChallenge == "postc5") multiplyPC5Costs(player[name + 'Cost'], tier)
+                        if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc7") player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
+                        else if (player.currentChallenge == "postc7") multiplyPC5Costs(player[name + 'Cost'], tier)
                         else multiplySameCosts(player[name + 'Cost'])
                         player[name + "Amount"] = Decimal.round(player[name + "Amount"].plus(10))
                         recordBought(name, 10)
@@ -494,10 +494,10 @@ function hasInfinityMult(tier) {
                 }
             }
         }
-    if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") && player.matter.equals(0)) player.matter = new Decimal(1);
-    if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0;
-    if (player.currentChallenge == "postc1") clearDimensions(tier-1);
-    player.postC4Tier = tier;
+    initMatter();
+    if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc4") player.chall2Pow = 0;
+    if (player.currentChallenge == "postc4") clearDimensions(tier-1);
+    player.postC6Tier = tier;
     if (tier != 8) player.dimlife = false
     if (tier != 1) player.dead = false
 }
@@ -507,6 +507,10 @@ function canAfford(cost) {
     return ((cost.lt(new Decimal("1.79e308")) && !player.break) || player.break) && cost.lte(player.money);
 }
 
+function initMatter () {
+  if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc4" || player.currentChallenge == "postc8") && player.matter.equals(0)) player.matter = new Decimal(1);
+}
+
 
 document.getElementById("first").onclick = function () {
     if (buyOneDimension(1)) {
@@ -514,7 +518,7 @@ document.getElementById("first").onclick = function () {
         if (player.firstAmount >= 1e150) {
             giveAchievement("There's no point in doing that");
         }
-        if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1") && player.matter.equals(0)) player.matter = new Decimal(1);
+        initMatter();
     }
     if (player.firstAmount.lt(1)) {
         player.money = new Decimal("0")
@@ -526,67 +530,77 @@ document.getElementById("first").onclick = function () {
 
 document.getElementById("second").onclick = function () {
     buyOneDimension(2);
-    if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") && player.matter.equals(0)) player.matter = new Decimal(1);
+    initMatter();
 };
 
 document.getElementById("third").onclick = function () {
     buyOneDimension(3);
-    if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") && player.matter.equals(0))player.matter = new Decimal(1);
+    initMatter();
 };
 
 document.getElementById("fourth").onclick = function () {
     buyOneDimension(4);
-    if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") && player.matter.equals(0)) player.matter = new Decimal(1);
+    initMatter();
 };
 
 document.getElementById("fifth").onclick = function () {
     buyOneDimension(5);
+    initMatter();
 };
 
 document.getElementById("sixth").onclick = function () {
     buyOneDimension(6);
+    initMatter();
 };
 
 document.getElementById("seventh").onclick = function () {
     buyOneDimension(7);
+    initMatter();
 };
 
 document.getElementById("eight").onclick = function () {
     buyOneDimension(8);
+    initMatter();
 };
 
 document.getElementById("firstMax").onclick = function () {
     buyManyDimension(1);
-    if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1") && player.matter.equals(0)) player.matter = new Decimal(1);
+    initMatter();
 };
 
 document.getElementById("secondMax").onclick = function () {
     buyManyDimension(2);
-    if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1") && player.matter.equals(0)) player.matter = new Decimal(1);
+    initMatter();
 };
 
 document.getElementById("thirdMax").onclick = function () {
     buyManyDimension(3);
+    initMatter();
 };
 
 document.getElementById("fourthMax").onclick = function () {
     buyManyDimension(4);
+    initMatter();
 };
 
 document.getElementById("fifthMax").onclick = function () {
     buyManyDimension(5);
+    initMatter();
 };
 
 document.getElementById("sixthMax").onclick = function () {
     buyManyDimension(6);
+    initMatter();
 };
 
 document.getElementById("seventhMax").onclick = function () {
     buyManyDimension(7);
+    initMatter();
 };
 
 document.getElementById("eightMax").onclick = function () {
     buyManyDimension(8);
+    initMatter();
 };
 
 
@@ -605,7 +619,7 @@ function dimMults() {
 
 function getDimensionProductionPerSecond(tier) {
     let ret = Decimal.floor(player[TIER_NAMES[tier] + 'Amount']).times(getDimensionFinalMultiplier(tier)).times(1000).dividedBy(player.tickspeed)
-    if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") ret = ret.times(player.chall2Pow)
+    if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc4") ret = ret.times(player.chall2Pow)
     // if (player.dilation.active) {
         let tick = new Decimal(player.tickspeed)
         tick = Decimal.pow(10, Math.pow((tick.log10()*-1)+3, 0.75))

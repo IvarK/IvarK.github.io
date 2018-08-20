@@ -3,7 +3,7 @@ function getResetMult () {
 }
 
 function getDimensionBoostPower() {
-  if (player.currentChallenge == "challenge11" || player.currentChallenge == "postc1") return Decimal.fromNumber(1);
+  if (player.currentChallenge == "challenge11" || player.currentChallenge == "postc4") return Decimal.fromNumber(1);
 
   var ret = 2
 
@@ -16,9 +16,9 @@ function getDimensionBoostPower() {
   if (player.timestudy.studies.includes(83)) ret = Decimal.pow(1.0004, player.totalTickGained).times(ret);
   if (player.timestudy.studies.includes(231)) ret = Decimal.pow(player.resets, 0.3).times(ret)
 
-  if (player.currentChallenge == "postc7" || player.timestudy.studies.includes(81)) {
+  if (player.currentChallenge == "postc9" || player.timestudy.studies.includes(81)) {
     ret = Decimal.pow(ret, 3);
-  } else if (player.challenges.includes("postc7")) {
+  } else if (player.challenges.includes("postc9")) {
     ret = Decimal.pow(ret, 2);
   }
 
@@ -123,7 +123,7 @@ function softReset(bulk) {
       infinityPower: player.infinityPower,
       spreadingCancer: player.spreadingCancer,
       postChallUnlocked: player.postChallUnlocked,
-      postC4Tier: 1,
+      postC6Tier: 1,
       postC3Reward: new Decimal(1),
       infinityDimension1: player.infinityDimension1,
       infinityDimension2: player.infinityDimension2,
@@ -182,7 +182,7 @@ function softReset(bulk) {
       options: player.options
   };
   decreaseDimCosts();
-  if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
+  if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc4") {
       player.thirdCost = new Decimal(100)
       player.fourthCost = new Decimal(500)
       player.fifthCost = new Decimal(2500)
@@ -190,7 +190,7 @@ function softReset(bulk) {
       player.seventhCost = new Decimal(2e5)
       player.eightCost = new Decimal(4e6)
   }
-  if (player.currentChallenge == "postc1") player.costMultipliers = [new Decimal(1e3),new Decimal(5e3),new Decimal(1e4),new Decimal(1.2e4),new Decimal(1.8e4),new Decimal(2.6e4),new Decimal(3.2e4),new Decimal(4.2e4)];
+  if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc4") player.costMultipliers = [new Decimal(1e3),new Decimal(5e3),new Decimal(1e4),new Decimal(1.2e4),new Decimal(1.8e4),new Decimal(2.6e4),new Decimal(3.2e4),new Decimal(4.2e4)];
   if (player.resets == 1 && player.currentChallenge == "") {
       if (player.infinityUpgrades.includes("skipReset2")) player.resets++;
       if (player.infinityUpgrades.includes("skipReset3")) player.resets++;
@@ -199,7 +199,7 @@ function softReset(bulk) {
           if (player.galaxies == 0) player.galaxies = 1
       }
   }
-if (player.currentChallenge == "postc2") {
+if (player.currentChallenge == "postc5") {
       player.eightAmount = new Decimal(1);
       player.eightBought = 1;
   }
@@ -268,7 +268,7 @@ function getShiftRequirement(bulk) {
   }
 
   if (player.infinityUpgrades.includes("resetBoost")) amount -= 9;
-  if (player.challenges.includes("postc5")) amount -= 1
+  if (player.challenges.includes("postc7")) amount -= 1
 
   return { tier: tier, amount: amount };
 }

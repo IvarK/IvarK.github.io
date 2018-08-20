@@ -53,7 +53,7 @@ function DimensionProduction(tier) {
   var ret = dim.amount
   if (player.currentEternityChall == "eterc11") return ret
   if (player.currentEternityChall == "eterc7") ret = ret.dividedBy(player.tickspeed.dividedBy(1000))
-  if (player.challenges.includes("postc6")) {
+  if (player.challenges.includes("postc8")) {
       let tick = new Decimal(player.tickspeed)
 //    if (player.dilation.active) {
         tick = Decimal.pow(10, Math.pow(Math.abs(tick.log10()), 0.75))

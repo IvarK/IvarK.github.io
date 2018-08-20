@@ -105,7 +105,7 @@ var player = {
     infinityPower: new Decimal(1),
     spreadingCancer: 0,
     postChallUnlocked: 0,
-    postC4Tier: 0,
+    postC6Tier: 0,
     postC3Reward: new Decimal(1),
     eternityPoints: new Decimal(0),
     eternities: 0,
@@ -438,15 +438,15 @@ function updateMoney() {
     var element = document.getElementById("coinAmount");
     element.textContent = formatValue(player.options.notation, player.money, 2, 1);
     var element2 = document.getElementById("matter");
-    if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1") element2.textContent = "There is " + formatValue(player.options.notation, player.matter, 2, 1) + " matter."
-    if (player.currentChallenge == "postc6") element2.textContent = "There is " + formatValue(player.options.notation, Decimal.pow(player.matter,20), 2, 1) + " matter."; //TODO
+    if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc4") element2.textContent = "There is " + formatValue(player.options.notation, player.matter, 2, 1) + " matter."
+    if (player.currentChallenge == "postc8") element2.textContent = "There is " + formatValue(player.options.notation, Decimal.pow(player.matter,20), 2, 1) + " matter."; //TODO
     var element3 = document.getElementById("chall13Mult");
-    if (player.currentChallenge === "challenge13" || player.currentChallenge === "postc1") element3.innerHTML = formatValue(player.options.notation, productAllTotalBought(), 2, 1) + ' multiplier on all dimensions (product of bought).'
+    if (player.currentChallenge === "challenge13" || player.currentChallenge === "postc4") element3.innerHTML = formatValue(player.options.notation, productAllTotalBought(), 2, 1) + ' multiplier on all dimensions (product of bought).'
 }
 
 function updateCoinPerSec() {
     var element = document.getElementById("coinsPerSec");
-    if (player.currentChallenge == "challenge3" || player.currentChallenge == "postc1") {
+    if (player.currentChallenge == "challenge3" || player.currentChallenge == "postc4") {
       element.textContent = 'You are getting ' + shortenDimensions(getDimensionProductionPerSecond(1).times(player.chall3Pow)) + ' antimatter per second.'
     } else if (player.currentChallenge == "challenge7") {
       element.textContent = 'You are getting ' + (shortenDimensions(getDimensionProductionPerSecond(1).plus(getDimensionProductionPerSecond(2)))) + ' antimatter per second.'
@@ -507,7 +507,7 @@ function getGalaxyRequirement() {
     }
 
     if (player.infinityUpgrades.includes("resetBoost")) amount -= 9;
-    if (player.challenges.includes("postc5")) amount -= 1;
+    if (player.challenges.includes("postc7")) amount -= 1;
 
     return amount;
 }
@@ -833,14 +833,9 @@ function updateChallenges() {
             document.getElementById(player.currentChallenge).textContent = "Running"
         }
 
-      	if (!player.challenges.includes("postc3")) {
-      	    document.getElementById("postc3").className = "onchallengebtn"
-      	    document.getElementById("postc3").textContent = "Trapped in"
-      	}
-
-        if (player.money.gte(new Decimal("1e2000")) || Object.keys(player.eternityChalls).length > 0 || player.eternityChallUnlocked !== 0) document.getElementById("challTabButtons").style.display = "table"
-        for (var i=1; i<9; i++) {
-            if (player.postChallUnlocked >= i || i == 3) document.getElementById("postc"+i+"div").style.display = "inline-block"
+        if (player.money.gte(new Decimal("1e750")) || Object.keys(player.eternityChalls).length > 0 || player.eternityChallUnlocked !== 0) document.getElementById("challTabButtons").style.display = "table"
+        for (var i=1; i<11; i++) {
+            if (player.postChallUnlocked >= i) document.getElementById("postc"+i+"div").style.display = "inline-block"
             else document.getElementById("postc"+i+"div").style.display = "none"
         }
 
@@ -954,7 +949,7 @@ document.getElementById("maxall").onclick = function () {
         var name = TIER_NAMES[tier];
         var cost = player[name + 'Cost'].times(10 - dimBought(tier))
         var multBefore = player[name + 'Pow']
-        if (tier >= 3 && (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1")) {
+        if (tier >= 3 && (player.currentChallenge == "challenge10" || player.currentChallenge == "postc4")) {
             if (!canBuyDimension(tier)) continue
             if (player[TIER_NAMES[tier-2] + 'Amount'].lt(cost)) continue
                 if (canBuyDimension(tier)) {
@@ -988,11 +983,11 @@ document.getElementById("maxall").onclick = function () {
             }
             if (player.money.lt(player[name + "Cost"].times(10))) continue
 
-            if ((player.dimensionMultDecrease > 3 || player.currentChallenge == "postc5" || player.currentChallenge == "challenge5")) {
+            if ((player.dimensionMultDecrease > 3 || player.currentChallenge == "postc7" || player.currentChallenge == "challenge5")) {
                 while ((player.money.gte(player[name + "Cost"].times(10)) && player.money.lte(Number.MAX_VALUE)) || (player.money.gte(player[name + "Cost"].times(10)) && player.currentChallenge != "challenge5")) {
                         player.money = player.money.minus(player[name + "Cost"].times(10))
-                        if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5") player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
-                        else if (player.currentChallenge == "postc5") multiplyPC5Costs(player[name + 'Cost'], tier)
+                        if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc7") player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
+                        else if (player.currentChallenge == "postc7") multiplyPC5Costs(player[name + 'Cost'], tier)
                         else multiplySameCosts(player[name + 'Cost'])
                         player[name + "Amount"] = Decimal.round(player[name + "Amount"].plus(10))
                         recordBought(name, 10);
@@ -1004,8 +999,8 @@ document.getElementById("maxall").onclick = function () {
                 if (player[name + "Cost"].lt(Number.MAX_VALUE)) {
                     while (player.money.gte(player[name + "Cost"].times(10)) && player[name + "Cost"].lte(Number.MAX_VALUE)) {
                         player.money = player.money.minus(player[name + "Cost"].times(10))
-                        if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5") player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
-                        else if (player.currentChallenge == "postc5") multiplyPC5Costs(player[name + 'Cost'], tier)
+                        if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc7") player[name + "Cost"] = player[name + "Cost"].times(getDimensionCostMultiplier(tier))
+                        else if (player.currentChallenge == "postc7") multiplyPC5Costs(player[name + 'Cost'], tier)
                         else multiplySameCosts(player[name + 'Cost'])
                         player[name + "Amount"] = Decimal.round(player[name + "Amount"].plus(10))
                         recordBought(name, 10);
@@ -1044,10 +1039,10 @@ document.getElementById("maxall").onclick = function () {
 
         }
         }
-        if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") && player.matter.equals(0)) player.matter = new Decimal(1);
-        if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0;
-        if (player.currentChallenge == "postc1") clearDimensions(tier-1);
-        player.postC4Tier = tier;
+        if ((player.currentChallenge == "challenge12" || player.currentChallenge == "postc4" || player.currentChallenge == "postc8") && player.matter.equals(0)) player.matter = new Decimal(1);
+        if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc4") player.chall2Pow = 0;
+        if (player.currentChallenge == "postc4") clearDimensions(tier-1);
+        player.postC6Tier = tier;
         onBuyDimension(tier)
         floatText(name + "D", "x" + shortenMoney(player[name + "Pow"].dividedBy(multBefore)))
     }
@@ -1695,7 +1690,7 @@ document.getElementById("toggleBtnTickSpeed").onclick = function () {
 
 document.getElementById("secondSoftReset").onclick = function() {
     if (player.currentEternityChall == "eterc6") return
-    var bool = player.currentChallenge != "challenge11" && player.currentChallenge != "postc1" && player.currentChallenge != "postc7" && (player.break || player.money.lte(Number.MAX_VALUE))
+    var bool = player.currentChallenge != "challenge11" && player.currentChallenge != "postc4" && player.currentChallenge != "postc9" && (player.break || player.money.lte(Number.MAX_VALUE))
     if (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() && bool : player.eightAmount >= getGalaxyRequirement() && bool) {
         if (player.eternities >= 7 && !shiftDown) maxBuyGalaxies(true);
         else galaxyReset();
@@ -1816,7 +1811,7 @@ function galaxyReset() {
         infDimensionsUnlocked: player.infDimensionsUnlocked,
         infinityPower: player.infinityPower,
         postChallUnlocked: player.postChallUnlocked,
-        postC4Tier: 1,
+        postC6Tier: 1,
         postC3Reward: new Decimal(1),
         infinityDimension1: player.infinityDimension1,
         infinityDimension2: player.infinityDimension2,
@@ -1878,7 +1873,7 @@ function galaxyReset() {
         options: player.options
     };
 
-    if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
+    if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc4") {
         player.thirdCost = new Decimal(100)
         player.fourthCost = new Decimal(500)
         player.fifthCost = new Decimal(2500)
@@ -1886,6 +1881,7 @@ function galaxyReset() {
         player.seventhCost = new Decimal(2e5)
         player.eightCost = new Decimal(4e6)
     }
+    if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc4") player.costMultipliers = [new Decimal(1e3),new Decimal(5e3),new Decimal(1e4),new Decimal(1.2e4),new Decimal(1.8e4),new Decimal(2.6e4),new Decimal(3.2e4),new Decimal(4.2e4)];
 
     if (player.resets == 0 && player.currentChallenge == "") {
         if (player.infinityUpgrades.includes("skipReset1")) player.resets++;
@@ -1896,7 +1892,7 @@ function galaxyReset() {
             if (player.galaxies == 0) player.galaxies = 1
         }
     }
-    if (player.currentChallenge == "postc2") {
+    if (player.currentChallenge == "postc5") {
         player.eightAmount = new Decimal(1);
         player.eightBought = 1;
         player.resets = 4;
@@ -2052,7 +2048,7 @@ document.getElementById("importbtn").onclick = function () {
         challengeMult = 1
         unspentBonus = 1
         infDimPow = 1
-        postc8Mult = new Decimal(0)
+        postc10Mult = new Decimal(0)
         mult18 = new Decimal(1)
         ec10bonus = new Decimal(1)
         timeMultNum = 1
@@ -2305,7 +2301,7 @@ function resetDimensions() {
 
 function calcSacrificeBoost() {
     if (player.firstAmount == 0) return new Decimal(1);
-    if (player.challenges.includes("postc2")) {
+    if (player.challenges.includes("postc5")) {
         if (player.timestudy.studies.includes(228)) return player.firstAmount.dividedBy(player.sacrificed.max(1)).pow(0.013).max(1)
         if (player.achievements.includes("r88")) return player.firstAmount.dividedBy(player.sacrificed.max(1)).pow(0.011).max(1)
         return player.firstAmount.dividedBy(player.sacrificed.max(1)).pow(0.01).max(1)
@@ -2322,7 +2318,7 @@ function calcSacrificeBoost() {
 
 function calcTotalSacrificeBoost() {
     if (player.sacrificed == 0) return new Decimal(1);
-    if (player.challenges.includes("postc2")) {
+    if (player.challenges.includes("postc5")) {
         if (player.timestudy.studies.includes(228)) return player.sacrificed.pow(0.013).max(1)
         if (player.achievements.includes("r88")) return player.sacrificed.pow(0.011).max(1)
         else return player.sacrificed.pow(0.01)
@@ -2948,7 +2944,7 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.firstAmount == 1 && player.resets == 0 && player.galaxies == 0 && player.currentChallenge == "challenge12") giveAchievement("ERROR 909: Dimension not found")
         if (player.currentChallenge != "" && player.challengeTimes[challNumber-2] > player.thisInfinityTime) player.challengeTimes[challNumber-2] = player.thisInfinityTime
         if (player.currentChallenge.includes("post") && player.infchallengeTimes[challNumber-1] > player.thisInfinityTime) player.infchallengeTimes[challNumber-1] = player.thisInfinityTime
-        if (player.currentChallenge == "postc5" && player.thisInfinityTime <= 100) giveAchievement("Hevipelle did nothing wrong")
+        if (player.currentChallenge == "postc7" && player.thisInfinityTime <= 100) giveAchievement("Hevipelle did nothing wrong")
         if ((player.bestInfinityTime > 600 && !player.break) || (player.currentChallenge != "" && !player.options.retryChallenge)) showTab("dimensions")
         if (player.currentChallenge == "challenge5") {
             try {
@@ -2963,7 +2959,7 @@ document.getElementById("bigcrunch").onclick = function () {
       	    player.challenges.push("postc3")
       	}
         if (player.challenges.length > 14) giveAchievement("Infinitely Challenging");
-        if (player.challenges.length == 22) giveAchievement("Anti-antichallenged");
+        if (player.challenges.length == 24) giveAchievement("Anti-antichallenged");
         if (!player.break || player.currentChallenge != "") {
             var add = new Decimal(getIPMult())
             if (player.timestudy.studies.includes(51)) add = add.times(1e15)
@@ -3088,7 +3084,7 @@ document.getElementById("bigcrunch").onclick = function () {
             dimensionMultDecreaseCost: player.dimensionMultDecreaseCost,
             version: player.version,
             postChallUnlocked: player.postChallUnlocked,
-            postC4Tier: 1,
+            postC6Tier: 1,
             postC3Reward: new Decimal(1),
             overXGalaxies: player.overXGalaxies,
             spreadingCancer: player.spreadingCancer,
@@ -3155,7 +3151,7 @@ document.getElementById("bigcrunch").onclick = function () {
 
         if (player.challenges.length >= 2) giveAchievement("Daredevil");
         if (player.challenges.length == 14) giveAchievement("AntiChallenged");
-        if (player.challenges.length == 22) giveAchievement("Anti-antichallenged");
+        if (player.challenges.length == 24) giveAchievement("Anti-antichallenged");
 
         if (player.bestInfinityTime <= 0.01) giveAchievement("Less than or equal to 0.001");
 
@@ -3179,10 +3175,10 @@ document.getElementById("bigcrunch").onclick = function () {
         setInitialDimensionPower();
 
 
-        if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") document.getElementById("matter").style.display = "block";
+        if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc4" || player.currentChallenge == "postc8") document.getElementById("matter").style.display = "block";
         else document.getElementById("matter").style.display = "none";
 
-        if (player.currentChallenge == "challenge13" || player.currentChallenge == "postc1") document.getElementById("chall13Mult").style.display = "block";
+        if (player.currentChallenge == "challenge13" || player.currentChallenge == "postc4") document.getElementById("chall13Mult").style.display = "block";
         else document.getElementById("chall13Mult").style.display = "none";
 
         document.getElementById("replicantireset").innerHTML = "Reset replicanti amount, but get a free galaxy<br>"+player.replicanti.galaxies + " replicated galaxies created."
@@ -3280,7 +3276,8 @@ function getKeptChallenges () {
   "challenge10", "challenge11", "challenge12",
   "challenge13", "challenge14",
   "postc1", "postc2", "postc3", "postc4",
-  "postc5", "postc6", "postc7", "postc8"] :
+  "postc5", "postc6", "postc7", "postc8",
+  "postc9", "postc10"] :
   (player.eternities > 0) ?
   ["challenge1", "challenge2", "challenge3",
   "challenge4", "challenge5", "challenge6",
@@ -3434,7 +3431,7 @@ function eternity(force, auto) {
             dimensionMultDecreaseCost: player.eternities > 18 ? player.dimensionMultDecreaseCost : 1e8,
             version: player.version,
             postChallUnlocked: (player.achievements.includes("r133")) ? 8 : 0,
-            postC4Tier: 1,
+            postC6Tier: 1,
             postC3Reward: new Decimal(1),
             overXGalaxies: player.overXGalaxies,
             spreadingCancer: player.spreadingCancer,
@@ -3680,7 +3677,7 @@ function exitChallenge() {
 
 function inQuickResetChallenge () {
   return (player.currentChallenge == "challenge12" || player.currentChallenge == "challenge9" || player.currentChallenge == "challenge5" || player.currentChallenge == "challenge14" ||
-      player.currentChallenge == "postc1" || player.currentChallenge == "postc4" || player.currentChallenge == "postc5" || player.currentChallenge == "postc6" || player.currentChallenge == "postc8");
+      player.currentChallenge == "postc4" || player.currentChallenge == "postc6" || player.currentChallenge == "postc7" || player.currentChallenge == "postc8" || player.currentChallenge == "postc10");
 }
 
 function startChallenge(name, target) {
@@ -3771,7 +3768,7 @@ function startChallenge(name, target) {
       dimensionMultDecreaseCost: player.dimensionMultDecreaseCost,
       version: player.version,
       postChallUnlocked: player.postChallUnlocked,
-      postC4Tier: 1,
+      postC6Tier: 1,
       postC3Reward: new Decimal(1),
       overXGalaxies: player.overXGalaxies,
       spreadingCancer: player.spreadingCancer,
@@ -3835,7 +3832,7 @@ function startChallenge(name, target) {
       galacticSacrifice: newGalacticDataOnInfinity(),
       options: player.options
     };
-	if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
+	if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc4") {
         player.thirdCost = new Decimal(100)
         player.fourthCost = new Decimal(500)
         player.fifthCost = new Decimal(2500)
@@ -3843,8 +3840,8 @@ function startChallenge(name, target) {
         player.seventhCost = new Decimal(2e5)
         player.eightCost = new Decimal(4e6)
     }
-    if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") player.costMultipliers = [new Decimal(1e3),new Decimal(5e3),new Decimal(1e4),new Decimal(1.2e4),new Decimal(1.8e4),new Decimal(2.6e4),new Decimal(3.2e4),new Decimal(4.2e4)];
-    if (player.currentChallenge == "postc2") {
+    if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc4") player.costMultipliers = [new Decimal(1e3),new Decimal(5e3),new Decimal(1e4),new Decimal(1.2e4),new Decimal(1.8e4),new Decimal(2.6e4),new Decimal(3.2e4),new Decimal(4.2e4)];
+    if (player.currentChallenge == "postc5") {
         player.eightAmount = new Decimal(1);
         player.eightBought = 1;
         player.resets = 4;
@@ -3878,10 +3875,10 @@ function startChallenge(name, target) {
     document.getElementById("sixthRow").style.display= "none";
     document.getElementById("seventhRow").style.display= "none";
     document.getElementById("eightRow").style.display= "none";
-    if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") document.getElementById("matter").style.display = "block";
+    if (player.currentChallenge == "challenge12" || player.currentChallenge == "postc4" || player.currentChallenge == "postc8") document.getElementById("matter").style.display = "block";
     else document.getElementById("matter").style.display = "none";
 
-    if (player.currentChallenge == "challenge13" || player.currentChallenge == "postc1") document.getElementById("chall13Mult").style.display = "block";
+    if (player.currentChallenge == "challenge13" || player.currentChallenge == "postc4") document.getElementById("chall13Mult").style.display = "block";
     else document.getElementById("chall13Mult").style.display = "none";
 
     if (inQuickResetChallenge()) document.getElementById("quickReset").style.display = "inline-block";
@@ -4287,7 +4284,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
             dimensionMultDecreaseCost: player.eternities > 18 ? player.dimensionMultDecreaseCost : 1e8,
             version: player.version,
             postChallUnlocked: (player.achievements.includes("r133")) ? 8 : 0,
-            postC4Tier: 1,
+            postC6Tier: 1,
             postC3Reward: new Decimal(1),
             overXGalaxies: player.overXGalaxies,
             spreadingCancer: player.spreadingCancer,
@@ -4536,7 +4533,7 @@ function startDilatedEternity() {
     var achievementMult = 1
     var challengeMult = 1
     var unspentBonus = 1
-    var postc8Mult = new Decimal(0)
+    var postc10Mult = new Decimal(0)
     var mult18 = new Decimal(1)
     var ec10bonus = new Decimal(1)
     var timeMultNum = 1
@@ -4747,9 +4744,9 @@ setInterval(function() {
     } catch (err) {console.log("Couldn't load Kongregate API")}
 }, 10000)
 
-var nextAt = [new Decimal("1e2000"), new Decimal("1e5000"), new Decimal("1e12000"), new Decimal("1e14000"), new Decimal("1e18000"), new Decimal("1e20000"), new Decimal("1e23000"), new Decimal("1e28000")]
+var nextAt = [new Decimal("1e750"), new Decimal("1e1500"), new Decimal("1e2000"), new Decimal("1e3000"), new Decimal("1e5000"), new Decimal("1e14000"), new Decimal("1e18000"), new Decimal("1e20000"), new Decimal("1e23000"), new Decimal("1e28000")]
 
-var goals = [new Decimal("1e850"), new Decimal("1e10500"), new Decimal("1e5000"), new Decimal("1e13000"), new Decimal("1e11111"), new Decimal("2e22222"), new Decimal("1e10000"), new Decimal("1e27000")]
+var goals = [new Decimal("1e450"), new Decimal("1e750"), new Decimal("1e850"), new Decimal("1e1200"), new Decimal("1e10500"), new Decimal("1e13000"), new Decimal("1e11111"), new Decimal("2e22222"), new Decimal("1e10000"), new Decimal("1e27000")]
 setInterval(function() {
     if (getDimensionFinalMultiplier(1).gte(new Decimal("1e308")) &&
         getDimensionFinalMultiplier(2).gte(new Decimal("1e308")) &&
@@ -4781,11 +4778,11 @@ setInterval(function() {
         document.getElementById("Blink of an eye").style.display = "block"
         blink = true
     }
-    if (player.challenges.includes("postc1")) {
+    if (player.challenges.includes("postc4")) {
         let temp = 1
         for (var i=0; i < player.challenges.length; i++) {
             if (player.challenges[i].includes("post")) {
-                temp *= 1.3
+                temp *= 2
                 document.getElementById("infchallengesbtn").style.display = "inline-block"
             }
         }
@@ -4806,7 +4803,7 @@ setInterval(function() {
 
 
     if (player.eternities !== 0)document.getElementById("eternitystorebtn").style.display = "inline-block"
-    for (var i=1; i <=8; i++) {
+    for (var i=1; i <= 10; i++) {
         document.getElementById("postc"+i+"goal").textContent = "Goal: "+shortenCosts(goals[i-1])
     }
 
@@ -4969,7 +4966,7 @@ setInterval(function() {
     if (player.tickspeed.lt(1e-26)) giveAchievement("Faster than a potato");
     if (player.tickspeed.lt(1e-55)) giveAchievement("Faster than a squared potato");
     if (Math.random() < 0.00001) giveAchievement("Do you feel lucky? Well do ya punk?")
-    if ((player.matter.gte(2.586e15) && player.currentChallenge == "postc6") || player.matter.gte(Number.MAX_VALUE)) giveAchievement("It's not called matter dimensions is it?")
+    if ((player.matter.gte(2.586e15) && player.currentChallenge == "postc8") || player.matter.gte(Number.MAX_VALUE)) giveAchievement("It's not called matter dimensions is it?")
 
     document.getElementById("dilationTabbtn").style.display = (player.dilation.studies.includes(1)) ? "inline-block" : "none"
     updateDilationUpgradeButtons()
@@ -5000,7 +4997,7 @@ function fact(v) {
     return ret;
 }
 
-var postC2Count = 0;
+var postC5Count = 0;
 var IPminpeak = new Decimal(0)
 var EPminpeak = new Decimal(0)
 var replicantiTicks = 0
@@ -5017,23 +5014,21 @@ function gameLoop(diff) {
     if (player.thisInfinityTime < -10) player.thisInfinityTime = Infinity
     if (player.bestInfinityTime < -10) player.bestInfinityTime = Infinity
     if (diff > player.autoTime && !player.break) player.infinityPoints = player.infinityPoints.plus(player.autoIP.times(diff/player.autoTime))
-    /*if (player.currentChallenge == "postc6" && player.matter.gte(1)) player.matter = player.matter.plus(diff/10)
-    else */
     player.matter = player.matter.times(Decimal.pow((1.03 + player.resets/200 + player.galaxies/100), diff));
-    if (player.matter.gt(player.money) && (player.currentChallenge == "challenge12" || player.currentChallenge == "postc1")) {
+    if (player.matter.gt(player.money) && (player.currentChallenge == "challenge12" || player.currentChallenge == "postc4")) {
         if (player.resets > 0) player.resets--;
         softReset(0);
     }
 
-    if (player.currentChallenge == "postc8") postc8Mult = postc8Mult.times(Math.pow(0.000000046416, diff))
+    if (player.currentChallenge == "postc10") postc10Mult = postc10Mult.times(Math.pow(0.000000046416, diff))
 
     if (player.currentChallenge == "challenge3" || player.matter.gte(1)) player.chall3Pow = player.chall3Pow.times(Decimal.pow(1.00038, diff));
     player.chall2Pow = Math.min(player.chall2Pow + diff/1800, 1);
-    if (player.currentChallenge == "postc2") {
-        postC2Count++;
-        if (postC2Count >= 8 || diff > 80) {
+    if (player.currentChallenge == "postc5") {
+        postC5Count++;
+        if (postC5Count >= 8 || diff > 80) {
             sacrifice();
-            postC2Count = 0;
+            postC5Count = 0;
         }
     }
     if (player.infinityUpgrades.includes("passiveGen")) player.partInfinityPoint += diff / player.bestInfinityTime;
@@ -5084,7 +5079,7 @@ function gameLoop(diff) {
             }
         }
 
-        if (player.currentChallenge == "challenge3" || player.currentChallenge == "postc1") {
+        if (player.currentChallenge == "challenge3" || player.currentChallenge == "postc4") {
             player.money = player.money.plus(getDimensionProductionPerSecond(1).times(diff/10).times(player.chall3Pow));
             player.totalmoney = player.totalmoney.plus(getDimensionProductionPerSecond(1).times(diff/10).times(player.chall3Pow));
         } else {
@@ -5131,7 +5126,7 @@ function gameLoop(diff) {
     if (player.eternities > 0) document.getElementById("dimTabButtons").style.display = "inline-block"
 
     if (player.currentEternityChall !== "eterc7") player.infinityPower = player.infinityPower.plus(DimensionProduction(1).times(diff/10))
-    else if (player.currentChallenge !== "challenge4" && player.currentChallenge !== "postc1") player.seventhAmount = player.seventhAmount.plus(DimensionProduction(1).times(diff/10))
+    else if (player.currentChallenge !== "challenge4" && player.currentChallenge !== "postc4") player.seventhAmount = player.seventhAmount.plus(DimensionProduction(1).times(diff/10))
 
 
 
@@ -5185,8 +5180,8 @@ function gameLoop(diff) {
     if (nextAt[player.postChallUnlocked] === undefined) document.getElementById("nextchall").textContent = " "
     else if (!player.achievements.includes("r133")) {
         document.getElementById("nextchall").textContent = "Next challenge unlocks at "+ shortenCosts(nextAt[player.postChallUnlocked]) + " antimatter."
-        while (player.money.gte(nextAt[player.postChallUnlocked]) && player.challenges.includes("postc8") === false && player.postChallUnlocked != 8) {
-            if (player.postChallUnlocked != 8) player.postChallUnlocked += 1
+        while (player.money.gte(nextAt[player.postChallUnlocked]) && player.challenges.includes("postc10") === false && player.postChallUnlocked != 10) {
+            if (player.postChallUnlocked != 10) player.postChallUnlocked += 1
             if (player.eternities > 6) player.challenges.push("postc"+player.postChallUnlocked)
             updateChallenges()
         }
@@ -5307,7 +5302,7 @@ function gameLoop(diff) {
 
     for (let tier = 1; tier <= 8; ++tier) {
         var name = TIER_NAMES[tier];
-        if (player.currentChallenge != "challenge10" && player.currentChallenge != "postc1") {
+        if (player.currentChallenge != "challenge10" && player.currentChallenge != "postc4") {
             document.getElementById(name).className = canAfford(player[name + 'Cost']) ? 'storebtn' : 'unavailablebtn';
             document.getElementById(name + 'Max').className = canAfford(player[name + 'Cost'].times(10 - dimBought(tier))) ? 'storebtn' : 'unavailablebtn';
         } else {
@@ -5653,9 +5648,9 @@ function gameLoop(diff) {
         document.getElementById("secondSoftReset").className = 'storebtn';
     }
 
-    if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") document.getElementById("chall2Pow").style.display = "inline-block"
+    if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc4") document.getElementById("chall2Pow").style.display = "inline-block"
     else document.getElementById("chall2Pow").style.display = "none"
-    if (player.currentChallenge == "challenge3" || player.currentChallenge == "postc1") document.getElementById("chall3Pow").style.display = "inline-block"
+    if (player.currentChallenge == "challenge3" || player.currentChallenge == "postc4") document.getElementById("chall3Pow").style.display = "inline-block"
     else document.getElementById("chall3Pow").style.display = "none"
 
     document.getElementById("chall2Pow").textContent = (player.chall2Pow*100).toFixed(2) + "%"
@@ -5759,7 +5754,7 @@ function enableChartDips() {
 
 function updateChart(first) {
     if (first !== true && (player.infinitied >= 1 || player.eternities >= 1) && player.options.chart.on === true) {
-        if (player.currentChallenge == "challenge3" || player.currentChallenge == "postc1") {
+        if (player.currentChallenge == "challenge3" || player.currentChallenge == "postc4") {
             addData(normalDimChart, "0", getDimensionProductionPerSecond(1).times(player.chall3Pow));
         } else {
             addData(normalDimChart, "0", getDimensionProductionPerSecond(1));
@@ -5791,14 +5786,14 @@ function dimBoolean() {
     if (player[name + "Amount"] > getShiftRequirement(0)) return true
     if (player.eternities < 10 && player[name + "Amount"] < getShiftRequirement(player.autobuyers[9].bulk-1).amount) return false
     if (player.overXGalaxies <= player.galaxies) return true
-    if ((player.currentChallenge =="challenge4" || player.currentChallenge == "postc1") && player.autobuyers[9].priority < getShiftRequirement(0).amount && getShiftRequirement(0).tier == 6) return false
+    if ((player.currentChallenge =="challenge4" || player.currentChallenge == "postc4") && player.autobuyers[9].priority < getShiftRequirement(0).amount && getShiftRequirement(0).tier == 6) return false
     if (player.autobuyers[9].priority < getShiftRequirement(0).amount && getShiftRequirement(0).tier == 8) return false
     return true
 }
 
 
 function maxBuyGalaxies(manual) {
-    if (player.currentEternityChall == "eterc6" || player.currentChallenge == "challenge11" || player.currentChallenge == "postc1" || player.currentChallenge == "postc7") return
+    if (player.currentEternityChall == "eterc6" || player.currentChallenge == "challenge11" || player.currentChallenge == "postc4" || player.currentChallenge == "postc9") return
     if (player.autobuyers[10].priority > player.galaxies || manual) {
         while(player.eightAmount >= getGalaxyRequirement() && (player.autobuyers[10].priority > player.galaxies || manual)) {
             if (player.options.notation == "Emojis") player.spreadingCancer+=1;
@@ -6315,7 +6310,7 @@ var infinitiedMult = 1
 var achievementMult = 1
 var challengeMult = 1
 var unspentBonus = 1
-var postc8Mult = new Decimal(0)
+var postc10Mult = new Decimal(0)
 var mult18 = 1
 var ec10bonus = new Decimal(1)
 var timeMultNum = 1

@@ -24,7 +24,7 @@ function getFinalGalaxies(offset) {
     if (player.galacticSacrifice.upgrades.includes(22)) galaxies *= 5;
     if (player.infinityUpgrades.includes("galaxyBoost")) galaxies *= 2;
     if (player.infinityUpgrades.includes("postGalaxy")) galaxies *= 1.5;
-    if (player.challenges.includes("postc5")) galaxies *= 1.1;
+    if (player.challenges.includes("postc7")) galaxies *= 1.1;
     if (player.achievements.includes("r86")) galaxies *= 1.05;
     if (player.achievements.includes("r45")) galaxies *= 1.02;
     if (player.timestudy.studies.includes(212)) galaxies *= Math.min(Math.pow(player.timeShards.max(2).log2(), 0.005), 1.1)
@@ -40,7 +40,7 @@ function getTickSpeedMultiplier() {
 function getPostC3RewardMult () {
   let perGalaxy = 0.005;
   let ret = 1.05+getFinalGalaxies(0)*perGalaxy;
-  if (player.currentChallenge === 'challenge6' || player.currentChallenge === 'postc1') ret -= 0.05
+  if (player.currentChallenge === 'challenge6' || player.currentChallenge === 'postc4') ret -= 0.05
   return ret;
 }
 
@@ -55,13 +55,13 @@ function buyTickSpeed() {
 
   player.money = player.money.minus(player.tickSpeedCost);
   player.tickBoughtThisInf.current++;
-  if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5") player.tickSpeedCost = player.tickSpeedCost.times(player.tickspeedMultiplier);
+  if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc7") player.tickSpeedCost = player.tickSpeedCost.times(player.tickspeedMultiplier);
   else multiplySameCosts(player.tickSpeedCost)
   if (player.tickSpeedCost.gte(Number.MAX_VALUE)) player.tickspeedMultiplier = player.tickspeedMultiplier.times(player.tickSpeedMultDecrease);
-  if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0
+  if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc4") player.chall2Pow = 0
   player.tickspeed = player.tickspeed.times(getTickSpeedMultiplier());
   player.postC3Reward = player.postC3Reward.times(getPostC3RewardMult())
-  postc8Mult = new Decimal(1)
+  postc10Mult = new Decimal(1)
   player.why = player.why + 1
   return true;
 }
@@ -75,17 +75,17 @@ document.getElementById("tickSpeed").onclick = function () {
 function buyMaxTickSpeed() {
   if (!canBuyTickSpeed()) return false
   var mult = getTickSpeedMultiplier()
-  if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc1") player.chall2Pow = 0
-  if (player.currentChallenge == "challenge5" || player.currentChallenge == "postc5" || player.tickSpeedCost.lt(Number.MAX_VALUE) || player.tickSpeedMultDecrease > 2) {
-      while (player.money.gte(player.tickSpeedCost) && canBuyTickSpeed() && (player.tickSpeedCost.lt(Number.MAX_VALUE) || player.tickSpeedMultDecrease > 2 || player.currentChallenge == "postc5")) {
+  if (player.currentChallenge == "challenge2" || player.currentChallenge == "postc4") player.chall2Pow = 0
+  if (player.currentChallenge == "challenge5" || player.currentChallenge == "postc7" || player.tickSpeedCost.lt(Number.MAX_VALUE) || player.tickSpeedMultDecrease > 2) {
+      while (player.money.gte(player.tickSpeedCost) && canBuyTickSpeed() && (player.tickSpeedCost.lt(Number.MAX_VALUE) || player.tickSpeedMultDecrease > 2 || player.currentChallenge == "postc7")) {
           player.money = player.money.minus(player.tickSpeedCost);
           player.tickBoughtThisInf.current++;
-          if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc5") player.tickSpeedCost = player.tickSpeedCost.times(player.tickspeedMultiplier);
+          if (player.currentChallenge != "challenge5" && player.currentChallenge != "postc7") player.tickSpeedCost = player.tickSpeedCost.times(player.tickspeedMultiplier);
           else multiplySameCosts(player.tickSpeedCost)
           if (player.tickSpeedCost.gte(Number.MAX_VALUE)) player.tickspeedMultiplier = player.tickspeedMultiplier.times(player.tickSpeedMultDecrease);
           player.tickspeed = player.tickspeed.times(mult);
           player.postC3Reward = player.postC3Reward.times(getPostC3RewardMult())
-          postc8Mult = new Decimal(1)
+          postc10Mult = new Decimal(1)
           if (player.tickSpeedCost.gt(Number.MAX_VALUE)) buyMaxTickSpeed()
       }
   } else {
