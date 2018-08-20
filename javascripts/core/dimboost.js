@@ -10,7 +10,6 @@ function getDimensionBoostPower() {
   if (player.galacticSacrifice.upgrades.includes(23)) {
     ret *= galUpgrade23() / 2;
   }
-
   if (player.infinityUpgrades.includes("resetMult")) ret *= getResetMult();
   if (player.achievements.includes("r101")) ret = ret*1.01
   if (player.timestudy.studies.includes(83)) ret = Decimal.pow(1.0004, player.totalTickGained).times(ret);
@@ -244,6 +243,7 @@ if (player.currentChallenge == "postc5") {
 }
 
 function getDimboostCostIncrease () {
+  if (player.currentChallenge === 'postc1') return 15;
   let ret = player.galacticSacrifice.upgrades.includes(21)?5:15
   if (player.infinityUpgrades.includes('dimboostCost')) {
     ret -= 1;
