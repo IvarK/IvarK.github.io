@@ -9,9 +9,9 @@ function getDimensionPreDilationMultiplier(tier) {
   multiplier = multiplier.times(player.achPow);
   multiplier = multiplier.times(kongDimMult)
   multiplier = multiplier.times(kongAllDimMult)
-
+  let y = Math.max(7, Math.pow(player.galaxies, .7));
   if (player.currentEternityChall == "eterc9") multiplier = multiplier;
-  else multiplier = multiplier.times(player.infinityPower.pow(7).max(1))
+  else multiplier = multiplier.times(player.infinityPower.pow(y).max(1))
 
   if (player.infinityUpgrades.includes("totalMult")) multiplier = multiplier.times(totalMult)
   if (player.infinityUpgrades.includes("currentMult")) multiplier = multiplier.times(currentMult)
