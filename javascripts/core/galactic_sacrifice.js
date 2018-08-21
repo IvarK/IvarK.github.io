@@ -47,6 +47,8 @@ function decreaseDimCosts () {
 let galUpgrade11 = function () {
   let x = player.infinitied;
   let y;
+  let z = 10
+  if (player.challenges.includes("postc2")) z = 7.5
   if (x <= 0) {
     y = 2;
   } else if (x < 5) {
@@ -54,13 +56,13 @@ let galUpgrade11 = function () {
   } else if (x < 100) {
     y = Math.pow(x + 5, .5) + 4;
   } else {
-    y = Math.pow(Math.log(x), Math.log(x) / 10) + 14;
+    y = Math.pow(Math.log(x), Math.log(x) / z) + 14;
   }
   return Decimal.pow(10, y);
 }
 
 let galUpgrade12 = function () {
-  return Math.max(1, 2 * Math.pow(1 + (Date.now() - player.galacticSacrifice.last) / 60000, 0.5));
+  return Math.max(1, 2 * Math.pow(1 + Math.max(0,(Date.now() - player.galacticSacrifice.last)) / 60000, 0.5));
 }
 
 let galUpgrade13 = function () {
