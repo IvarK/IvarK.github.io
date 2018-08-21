@@ -305,7 +305,7 @@ function hasInfinityMult(tier) {
       if (player.currentChallenge === 'postc2') {
         ret = Math.pow(ret, .5);
       } else if (player.challenges.includes('postc2')) {
-        ret = Math.pow(ret, .95);
+        ret = Math.pow(ret, .9);
       }
       return ret;
     }
