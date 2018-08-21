@@ -1,7 +1,7 @@
 function getGSAmount() {
   let galaxies = player.galaxies + player.replicanti.galaxies + player.dilation.freeGalaxies;
   let y = 1.5 + Math.max(0, 0.01*(galaxies - 10))
-  if (!player.challenges.includes("postc1") y = 1.5
+  if (!player.challenges.includes("postc1")) y = 1.5
   let ret = new Decimal(Math.max(Math.pow(galaxies, y) * (player.resets - (player.currentChallenge=="challenge4"?2:4)), 0));
   ret = ret.times(1 + player.eightAmount/50)
   if (player.galacticSacrifice.upgrades.includes(32)) {
