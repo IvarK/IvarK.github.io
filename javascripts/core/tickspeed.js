@@ -49,8 +49,8 @@ function getTickSpeedCostMultiplierIncrease (adjust) {
   if (player.currentChallenge === 'postc2') {
     ret = Math.pow(ret, .5);
   } else if (player.challenges.includes('postc2')) {
-    ret = Math.pow(ret, .95);
-    ret = Math.pow(ret, 1 / (1 + player.galaxies / 200));
+    ret = Math.pow(ret, .9);
+    ret = Math.pow(ret, 1 / (1 + player.galaxies.pow(0.7) / 30));
   }
   return ret;
 }
