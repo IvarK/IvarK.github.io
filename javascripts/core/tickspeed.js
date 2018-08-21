@@ -23,9 +23,11 @@ function getFinalGalaxies(offset) {
     let galaxies = getPurelyGalaxies(offset);
     if (player.galacticSacrifice.upgrades.includes(22)) galaxies *= 5;
     if (player.infinityUpgrades.includes("galaxyBoost")) galaxies *= 2;
-    if (player.infinityUpgrades.includes("postGalaxy")) galaxies *= 1.5;
-    if (player.challenges.includes("postc7")) galaxies *= 1.1;
+    if (player.infinityUpgrades.includes("postGalaxy")) galaxies *= 1.7;
+    if (player.challenges.length > 14) galaxies *= .07*player.challenges.length
+    if (player.challenges.includes("postc7")) galaxies *= 1.3;
     if (player.achievements.includes("r86")) galaxies *= 1.05;
+    if (player.achievements.includes("r83")) galaxies *= 1.05;
     if (player.achievements.includes("r45")) galaxies *= 1.02;
     if (player.timestudy.studies.includes(212)) galaxies *= Math.min(Math.pow(player.timeShards.max(2).log2(), 0.005), 1.1)
     if (player.timestudy.studies.includes(232)) galaxies *= Math.pow(1+player.galaxies/1000, 0.2)
@@ -33,8 +35,8 @@ function getFinalGalaxies(offset) {
 }
 
 function getTickSpeedMultiplier() {
-  if (player.challenges.includes("postc3")) return Math.pow(.999, getFinalGalaxies(0))
-  if (player.currentChallenge === "postc3") return Math.pow(.999, getFinalGalaxies(0))
+  if (player.challenges.includes("postc3")) return Math.pow(.998, getFinalGalaxies(0))
+  if (player.currentChallenge === "postc3") return Math.pow(.998, getFinalGalaxies(0))
   return 1;
 }
 
@@ -52,7 +54,7 @@ function getTickSpeedCostMultiplierIncrease (adjust) {
     ret = Math.pow(ret, .5);
   } else if (player.challenges.includes('postc2')) {
     ret = Math.pow(ret, .9);
-    ret = Math.pow(ret, 1 / (1 + Math.pow(player.galaxies, 0.7) / 30));
+    ret = Math.pow(ret, 1 / (1 + Math.pow(player.galaxies, 0.7) / 10));
   }
   return ret;
 }
