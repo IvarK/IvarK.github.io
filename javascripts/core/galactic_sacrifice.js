@@ -49,6 +49,10 @@ let galUpgrade11 = function () {
   let y;
   let z = 10
   if (player.challenges.includes("postc2")) z = 7.5
+  if (player.challenges.includes("postc3")) z = 7.25
+  if (player.challenges.includes("postc4")) z = 7.05
+  if (player.challenges.includes("postc5")) z = 6.8
+  if (player.challenges.includes("postc10")) z = 6.5
   if (x <= 0) {
     y = 2;
   } else if (x < 5) {
