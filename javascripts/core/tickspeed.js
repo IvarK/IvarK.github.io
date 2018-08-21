@@ -33,8 +33,9 @@ function getFinalGalaxies(offset) {
 }
 
 function getTickSpeedMultiplier() {
-  if (!player.challenges.includes("postc3")) return 1;
-  return Math.pow(.999, getFinalGalaxies(0));
+  if (player.challenges.includes("postc3")) return Math.pow(.999, getFinalGalaxies(0))
+  if (player.currentChallenge === "postc3") return Math.pow(.999, getFinalGalaxies(0))
+  return 1;
 }
 
 function getPostC3RewardMult () {
