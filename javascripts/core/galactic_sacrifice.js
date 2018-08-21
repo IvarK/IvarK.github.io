@@ -1,6 +1,6 @@
 function getGSAmount() {
   let galaxies = player.galaxies + player.replicanti.galaxies + player.dilation.freeGalaxies;
-  let y = 1.5 + Math.max(0, 0.01*(galaxies - 10));
+  let y = 1.5 + Math.max(0, 0.02*(galaxies - 10)) + 0.005 * Math.max(0, Math.pow(galaxies-40 , 2));
   if (!player.challenges.includes("postc1")) y = 1.5
   let ret = new Decimal(Math.max(Math.pow(galaxies, y) * (player.resets - (player.currentChallenge=="challenge4"?2:4)), 0));
   ret = ret.times(1 + player.eightAmount/50)
@@ -48,11 +48,7 @@ let galUpgrade11 = function () {
   let x = player.infinitied;
   let y;
   let z = 10
-  if (player.challenges.includes("postc2")) z = 7.5
-  if (player.challenges.includes("postc3")) z = 7.25
-  if (player.challenges.includes("postc4")) z = 7.05
-  if (player.challenges.includes("postc5")) z = 6.8
-  if (player.challenges.includes("postc10")) z = 6.5
+  if (player.challenges.length > 14) z -= (player.challenges.length-8)/3
   if (x <= 0) {
     y = 2;
   } else if (x < 5) {
@@ -66,7 +62,7 @@ let galUpgrade11 = function () {
 }
 
 let galUpgrade12 = function () {
-  return Math.max(1, 2 * Math.pow(1 + Math.max(0,(Date.now() - player.galacticSacrifice.last)) / 60000, 0.5));
+  return 2 * Math.pow(1 + Math.max(0,(Date.now() - player.galacticSacrifice.last)) / 60000, 0.5);
 }
 
 let galUpgrade13 = function () {
