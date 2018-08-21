@@ -1217,12 +1217,12 @@ document.getElementById("postinfi03").onclick = function() {
 }
 
 document.getElementById("postinfi04").onclick = function() {
-    if (player.infinityPoints.gte(player.dimPowerIncreaseCost) && player.extraDimPowerIncrease < 20) {
+    if (player.infinityPoints.gte(player.dimPowerIncreaseCost) && player.extraDimPowerIncrease < 15) {
         player.infinityPoints = player.infinityPoints.minus(player.dimPowerIncreaseCost)
         player.dimPowerIncreaseCost = 1e3*Math.pow(4,player.extraDimPowerIncrease+1);
         player.extraDimPowerIncrease += 1;
         document.getElementById("postinfi04").innerHTML = "Dimension multipliers are further increased by g31 <br>x^" + galUpgrade31().toFixed(2) + ' -> ' + (galUpgrade31() + .02).toFixed(2) + '</br> Cost: ' + formatValue(player.options.notation, player.dimPowerIncreaseCost, 2, 2) + ' IP';
-        if (player.extraDimPowerIncrease >= 20) document.getElementById("postinfi04").innerHTML = "Dimension multipliers are further increased by g31 <br>x^" + galUpgrade31().toFixed(2);
+        if (player.extraDimPowerIncrease >= 15) document.getElementById("postinfi04").innerHTML = "Dimension multipliers are further increased by g31 <br>x^" + galUpgrade31().toFixed(2);
     }
 }
 
