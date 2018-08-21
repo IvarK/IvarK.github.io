@@ -40,6 +40,7 @@ function getTickSpeedMultiplier() {
 function getPostC3RewardMult () {
   let perGalaxy = 0.005;
   let ret = 1.05+getFinalGalaxies(0)*perGalaxy;
+  if (player.currentChallenge === "postc3") return 1;
   if (player.currentChallenge === 'challenge6' || player.currentChallenge === 'postc4') ret -= 0.05
   return ret;
 }
