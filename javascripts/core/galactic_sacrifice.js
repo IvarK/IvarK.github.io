@@ -1,6 +1,6 @@
 function getGSAmount() {
   let galaxies = player.galaxies + player.replicanti.galaxies + player.dilation.freeGalaxies;
-  let y = 1.5 + Math.max(0, 0.02*(galaxies - 10)) + 0.001 * Math.pow(Math.max(0, galaxies-40) , 2) + 0.00001 * Math.pow(Math.max(0, galaxies-70) , 3);
+  let y = 1.5 + Math.max(0, 0.025*(galaxies - 10)) + 0.0025 * Math.pow(Math.max(0, galaxies-40) , 2) + 0.00005 * Math.pow(Math.max(0, galaxies-70) , 3);
   if (!player.challenges.includes("postc1")) y = 1.5
   if (y>10) y = Math.pow(10*y , .5)
   let ret = new Decimal(Math.max(Math.pow(galaxies, y) * (player.resets - (player.currentChallenge=="challenge4"?2:4)), 0));
