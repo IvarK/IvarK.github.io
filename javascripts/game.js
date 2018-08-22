@@ -1708,6 +1708,10 @@ function getIPMult () {
     if (player.achievements.includes("r43")) mult = mult.times(1.25);
     if (player.achievements.includes("r55")) mult = mult.times(Math.max(Math.log10(6000/player.bestInfinityTime), 1));
     if (player.achievements.includes("r41")) mult = mult.times(Math.pow(Math.log10(player.spreadingCancer), .05));
+	let galaxies = player.galaxies + player.replicanti.galaxies + player.dilation.freeGalaxies;
+	if (galaxies < 5 && galaxies > 0) mult = mult.times(galaxies)
+	else if (galaxies < 50) mult = mult.times(Decimal.pow(galaxies+5,0.5)+2)
+	else mult = mult.times(Decimal.pow(galaxies,0.3)+7)
     return mult;
 }
 
