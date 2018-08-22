@@ -111,7 +111,7 @@ function galacticUpgradeSpanDisplay () {
   document.getElementById('galspan13').innerHTML = formatValue(player.options.notation, galUpgrade13(), 2, 2);
   document.getElementById('galspan23').innerHTML = (galUpgrade23()/2).toFixed(2);
   document.getElementById('galspan31').innerHTML = galUpgrade31().toFixed(2);
-  document.getElementById('galspan32').innerHTML = galUpgrade32().toFixed(2);
+  document.getElementById('galspan32').innerHTML = formatValue(player.options.notation, galUpgrade32(), 2, 2);
   document.getElementById('galspan33').innerHTML = (galUpgrade33()/2).toFixed(2);
   document.getElementById("galcost33").innerHTML = shortenCosts(1e3);
 }
