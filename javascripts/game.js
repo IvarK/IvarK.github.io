@@ -2137,12 +2137,17 @@ function breakInfinity() {
         giveAchievement("Limit Break")
     }
 }
-
+function galIP(){
+    let gal = player.galaxies
+    if (gal<5) return gal
+    if (gal<50) return 2 + Math.pow(5+gal, 0.6)
+    return Math.pow(gal,.4)+7
+}
 function gainedInfinityPoints() {
     let div = 308;
     if (player.timestudy.studies.includes(111)) div = 285;
     else if (player.achievements.includes("r103")) div = 307.8;
-
+    div -= galIP()
     var ret = Decimal.pow(10, player.money.e/div -0.75).times(getIPMult())
     if (player.timestudy.studies.includes(41)) ret = ret.times(Decimal.pow(1.2, player.galaxies + player.replicanti.galaxies))
     if (player.timestudy.studies.includes(51)) ret = ret.times(1e15)
