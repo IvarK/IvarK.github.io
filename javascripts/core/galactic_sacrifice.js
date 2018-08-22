@@ -5,9 +5,15 @@ function getGSAmount() {
   else y *= .08*player.challenges.length
   if (y>100) y = Math.pow(316.22*y,1/3)
   else if (y>10) y = Math.pow(10*y , .5)
+  
   let z = 1
-  if (player.challenges.length >14) z = 0.07*player.challenges.length
-  let ret = new Decimal(Math.max(Math.pow(galaxies, y) * (player.resets - (player.currentChallenge=="challenge4"?2:4)), 0));
+  if (player.challenges.length >17) {
+    z = 0.06*player.challenges.length
+    z += galaxies/100
+    z *= Math.log(galaxies+3)
+    
+  }
+  let ret = new Decimal(Math.max(Math.pow(galaxies, y) * Math.pow(Math.max(0,(player.resets - (player.currentChallenge=="challenge4"?2:4))),z), 0));
   ret = ret.times(1 + player.eightAmount/50)
   if (player.galacticSacrifice.upgrades.includes(32)) {
     ret = ret.times(galUpgrade32());
