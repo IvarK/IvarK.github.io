@@ -623,14 +623,14 @@ function updateDimensions() {
 
     if (canSeeTickSpeed()) {
         var tickmult = getTickSpeedMultiplier()
-        if (tickmult < 1e-9) document.getElementById("tickLabel").textContent = "Divide the tick interval by " + shortenDimensions(1 / tickmult)
+        if (tickmult < 1e-9) document.getElementById("tickLabel").textContent = "Divide tickspeed by " + shortenDimensions(1 / tickmult)
         else {
             var places = 0
             if (tickmult < 0.2) places = Math.floor(Math.log10(Math.round(1/tickmult)))
-            document.getElementById("tickLabel").textContent = 'Reduce the tick interval by ' + ((1 - tickmult) * 100).toFixed(places) + '%'
+            document.getElementById("tickLabel").textContent = 'Reduce tickspeed by ' + ((1 - tickmult) * 100).toFixed(places) + '%'
         }
 
-        document.getElementById("tickLabel").textContent += ' and multiply all dimensions by ' + formatValue(player.options.notation, getPostC3RewardMult(), 3, 3);
+        document.getElementById("tickLabel").textContent += ' and get ' + formatValue(player.options.notation, getPostC3RewardMult(), 3, 3) + 'x to all dims';
 
         document.getElementById("tickSpeed").style.visibility = "visible";
         document.getElementById("tickSpeedMax").style.visibility = "visible";
