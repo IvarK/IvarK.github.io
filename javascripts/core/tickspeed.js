@@ -25,7 +25,7 @@ function getFinalGalaxies(offset) {
     if (player.infinityUpgrades.includes("galaxyBoost")) galaxies *= 2;
     if (player.infinityUpgrades.includes("postGalaxy")) galaxies *= 1.7;
     if (player.challenges.length > 14) galaxies *= .07*player.challenges.length
-    if (player.challenges.includes("postc7")) galaxies *= 1.3;
+    if (player.challenges.includes("postc7")) galaxies *= 1.15;
     if (player.achievements.includes("r86")) galaxies *= 1.05;
     if (player.achievements.includes("r83")) galaxies *= 1.05;
     if (player.achievements.includes("r45")) galaxies *= 1.02;
