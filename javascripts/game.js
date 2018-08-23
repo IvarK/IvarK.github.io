@@ -5830,7 +5830,7 @@ function dimBoolean() {
     var name = TIER_NAMES[getShiftRequirement(0).tier]
     if (!player.autobuyers[9].isOn) return false
     if (player.autobuyers[9].ticks*100 < player.autobuyers[9].interval) return false
-    if (player[name + "Amount"].gte(getShiftRequirement(0).amount)) return true
+    if (player[name + "Amount"] > getShiftRequirement(0)) return true
     if (player.eternities < 10 && player[name + "Amount"] < getShiftRequirement(player.autobuyers[9].bulk-1).amount) return false
     if (player.overXGalaxies <= player.galaxies) return true
     if ((player.currentChallenge =="challenge4" || player.currentChallenge == "postc4") && player.autobuyers[9].priority < getShiftRequirement(0).amount && getShiftRequirement(0).tier == 6) return false
@@ -5909,10 +5909,12 @@ function autoBuyerTick() {
 
 
     if (player.autobuyers[9]%1 !== 0) {
-        if (player.autobuyers[9].isOn && dimBoolean()) {
+        if (player.autobuyers[9].isOn) {
             if (player.resets < 4) softReset(1)
-            else if (player.eternities < 10) softReset(player.autobuyers[9].bulk)
-            else if ((Math.round(timer * 100))%(Math.round(player.autobuyers[9].bulk * 100)) == 0 && player.eightAmount >= getShiftRequirement(0).amount) maxBuyDimBoosts()
+            else if (dimBoolean()) {
+                if (player.eternities < 10) softReset(player.autobuyers[9].bulk)
+                else if ((Math.round(timer * 100))%(Math.round(player.autobuyers[9].bulk * 100)) == 0 && player.eightAmount >= getShiftRequirement(0).amount) maxBuyDimBoosts()
+            }
             player.autobuyers[9].ticks = 0
         }
         player.autobuyers[9].ticks += 1;
