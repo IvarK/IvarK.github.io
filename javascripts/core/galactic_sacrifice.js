@@ -5,13 +5,13 @@ function getGSAmount() {
   else y *= .08*player.challenges.length
   if (y>100) y = Math.pow(316.22*y,1/3)
   else if (y>10) y = Math.pow(10*y , .5)
-  
+
   let z = 1
   if (player.challenges.length >17) {
     z = 0.06*player.challenges.length
     z += galaxies/100
     z *= Math.log(galaxies+3)
-    
+
   }
   let ret = new Decimal(Math.max(Math.pow(galaxies, y) * Math.pow(Math.max(0,(player.resets - (player.currentChallenge=="challenge4"?2:4))),z), 0));
   ret = ret.times(1 + player.eightAmount/50)
@@ -81,7 +81,7 @@ let galUpgrade13 = function () {
 }
 
 let galUpgrade23 = function () {
-  return Math.max(2 + Math.log10(player.galacticSacrifice.galaxyPoints)*1.5, 2);
+  return Math.max(2 + player.galacticSacrifice.galaxyPoints.log(10)*1.5, 2);
 }
 
 let galUpgrade31 = function () {
@@ -97,7 +97,7 @@ let galUpgrade32 = function () {
 }
 
 let galUpgrade33 = function () {
-  return Math.max(2 + Math.log10(player.galacticSacrifice.galaxyPoints)*0.5, 2)
+  return Math.max(2 + player.galacticSacrifice.galaxyPoints.log(10)*0.5, 2)
 }
 
 function galacticSacrifice() {
