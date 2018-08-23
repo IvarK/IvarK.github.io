@@ -114,15 +114,20 @@ function DimensionPower(tier) {
 //}
   // post-dilation
   if (player.replicanti.unl && player.replicanti.amount.gt(1)) {
-      var replmult = Decimal.pow(Decimal.log2(player.replicanti.amount), 2)
-
-      if (player.timestudy.studies.includes(21)) replmult = replmult.plus(Decimal.pow(player.replicanti.amount, 0.032))
-      if (player.timestudy.studies.includes(102)) replmult = replmult.times(Decimal.pow(5, player.replicanti.galaxies))
+      var replmult = getReplMult();
 
       mult = mult.times(replmult)
   }
 
   return mult
+}
+
+function getReplMult () {
+  let replmult = Decimal.pow(Decimal.log2(player.replicanti.amount), Math.pow(player.galaxies, .4))
+
+  if (player.timestudy.studies.includes(21)) replmult = replmult.plus(Decimal.pow(player.replicanti.amount, Math.pow(player.galaxies, .5) / 100))
+  if (player.timestudy.studies.includes(102)) replmult = replmult.times(Decimal.pow(5, player.replicanti.galaxies))
+  return replmult;
 }
 
 
