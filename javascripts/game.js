@@ -738,7 +738,7 @@ function updateDimensions() {
             formatValue(player.options.notation, player.offlineProdCost, 2, 2)+" IP";
             if (player.offlineProd == 50) document.getElementById("offlineProd").innerHTML = "Generates "+player.offlineProd+"% of your best IP/min from last 10 infinities, works offline<br>Currently: "+shortenMoney(bestRunIppm.times(player.offlineProd/100)) +" IP/min"
 			
-			document.getElementById("postinfir5").style = player.infinityDimension3.bought?"block":"none"
+			document.getElementById("postinfir5").style.display = player.infinityDimension3.bought?"block":"none"
         }
     }
 
@@ -5465,7 +5465,19 @@ function gameLoop(diff) {
 
         if (player.infinityPoints.gte(1e15)) document.getElementById("postinfi33").className = "infinistorebtn1"
         else document.getElementById("postinfi33").className = "infinistorebtnlocked"
-
+        
+        if (player.infinityPoints.gte(1e35)) document.getElementById("postinfi50").className = "infinistorebtn1"
+        else document.getElementById("postinfi50").className = "infinistorebtnlocked"
+        
+        if (player.infinityPoints.gte(1e37)) document.getElementById("postinfi51").className = "infinistorebtn1"
+        else document.getElementById("postinfi51").className = "infinistorebtnlocked"
+        
+        if (player.infinityPoints.gte(1e39)) document.getElementById("postinfi52").className = "infinistorebtn1"
+        else document.getElementById("postinfi52").className = "infinistorebtnlocked"
+        
+        if (player.infinityPoints.gte(1e41)) document.getElementById("postinfi53").className = "infinistorebtn1"
+        else document.getElementById("postinfi53").className = "infinistorebtnlocked"
+        
         if (player.infinityPoints.gte(player.offlineProdCost)) document.getElementById("offlineProd").className = "infinimultbtn"
         else document.getElementById("offlineProd").className = "infinistorebtnlocked"
 
