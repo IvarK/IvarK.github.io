@@ -248,6 +248,7 @@ function getDimboostCostIncrease () {
   if (player.infinityUpgrades.includes('dimboostCost')) {
     ret -= 1;
   }
+  if (player.infinityUpgrades.includes("postinfi50")) ret -= 0.5
   return ret;
 }
 
@@ -270,7 +271,7 @@ function getShiftRequirement(bulk) {
   if (player.infinityUpgrades.includes("resetBoost")) amount -= 9;
   if (player.challenges.includes("postc7")) amount -= 1
 
-  return { tier: tier, amount: amount };
+  return { tier: tier, amount: amount.ceil() };
 }
 
 document.getElementById("softReset").onclick = function () {

@@ -485,6 +485,7 @@ function getGalaxyCostIncrease() {
   if (player.infinityUpgrades.includes("galCost")) {
     ret -= 5;
   }
+  if (player.infinityUpgrades.includes("postinfi52")) ret -= 3
   return ret;
 }
 
@@ -736,6 +737,8 @@ function updateDimensions() {
             document.getElementById("offlineProd").innerHTML = "Generates "+player.offlineProd+"% > "+Math.max(Math.max(5, player.offlineProd + 5), Math.min(50, player.offlineProd + 5))+"% of your best IP/min from last 10 infinities, works offline<br>Currently: "+shortenMoney(bestRunIppm.times(player.offlineProd/100)) +"IP/min<br> Cost: "+
             formatValue(player.options.notation, player.offlineProdCost, 2, 2)+" IP";
             if (player.offlineProd == 50) document.getElementById("offlineProd").innerHTML = "Generates "+player.offlineProd+"% of your best IP/min from last 10 infinities, works offline<br>Currently: "+shortenMoney(bestRunIppm.times(player.offlineProd/100)) +" IP/min"
+			
+			document.getElementById("postinfir5").style = player.infinityDimension3.bought?"block":"none"
         }
     }
 

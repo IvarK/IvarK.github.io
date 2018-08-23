@@ -189,6 +189,7 @@ function resetInfDimensions() {
 
 var infCostMults = [null, 1e3, 1e6, 1e8, 1e10, 1e15, 1e20, 1e25, 1e30]
 var infPowerMults = [null, 500, 300, 100, 50, 25, 10, 5, 5]
+var infBaseCost = [null, 1e8, 1e9, 1e10, 1e20, 1e140, 1e200, 1e250,1e280]
 
 function buyManyInfinityDimension(tier) {
   if (player.eterc8ids <= 0 && player.currentEternityChall == "eterc8") return false
@@ -198,10 +199,18 @@ function buyManyInfinityDimension(tier) {
   if (player.eterc8ids == 0) return false
   player.infinityPoints = player.infinityPoints.minus(dim.cost)
   dim.amount = dim.amount.plus(10);
-  if (ECTimesCompleted("eterc12")) {
-      dim.cost = Decimal.round(dim.cost.times(Math.pow(infCostMults[tier], 1-ECTimesCompleted("eterc12")*0.008)))
+  if (!player.infinityUpgrades.includes("postinfi53")){
+      if (ECTimesCompleted("eterc12")) {
+          dim.cost = Decimal.round(dim.cost.times(Math.pow(infCostMults[tier], 1-ECTimesCompleted("eterc12")*0.008)))
+      } else {
+          dim.cost = Decimal.round(dim.cost.times(infCostMults[tier]))
+      }
   } else {
-      dim.cost = Decimal.round(dim.cost.times(infCostMults[tier]))
+      if (ECTimesCompleted("eterc12")){
+          dim.cost = infBaseCost[tier].times(Math.pow(infCostMults[tier]/10, (dim.baseAmount/10 + 1)*(1-ECTimesCompleted("eterc12")*0.008)))
+      } else {
+          dim.cost = infBaseCost[tier].times(Math.pow(infCostMults[tier]/10, (dim.baseAmount/10 +1)))
+      }
   }
   dim.power = dim.power.times(infPowerMults[tier])
   dim.baseAmount += 10

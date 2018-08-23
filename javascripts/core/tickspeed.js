@@ -29,6 +29,7 @@ function getFinalGalaxies(offset) {
     if (player.achievements.includes("r86")) galaxies *= 1.05;
     if (player.achievements.includes("r83")) galaxies *= 1.05;
     if (player.achievements.includes("r45")) galaxies *= 1.02;
+    if (player.infinityUpgrades.includes("postinfi51")) galaxies *= 1.1;
     if (player.timestudy.studies.includes(212)) galaxies *= Math.min(Math.pow(player.timeShards.max(2).log2(), 0.005), 1.1)
     if (player.timestudy.studies.includes(232)) galaxies *= Math.pow(1+player.galaxies/1000, 0.2)
     return galaxies;
