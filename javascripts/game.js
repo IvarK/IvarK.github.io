@@ -5472,16 +5472,16 @@ function gameLoop(diff) {
         if (player.infinityPoints.gte(1e15)) document.getElementById("postinfi33").className = "infinistorebtn1"
         else document.getElementById("postinfi33").className = "infinistorebtnlocked"
 
-        if (player.infinityPoints.gte(1e35)) document.getElementById("postinfi50").className = "infinistorebtn1"
+        if (player.infinityPoints.gte(1e40)) document.getElementById("postinfi50").className = "infinistorebtn1"
         else document.getElementById("postinfi50").className = "infinistorebtnlocked"
 
-        if (player.infinityPoints.gte(1e37)) document.getElementById("postinfi51").className = "infinistorebtn1"
+        if (player.infinityPoints.gte(1e45)) document.getElementById("postinfi51").className = "infinistorebtn1"
         else document.getElementById("postinfi51").className = "infinistorebtnlocked"
 
-        if (player.infinityPoints.gte(1e39)) document.getElementById("postinfi52").className = "infinistorebtn1"
+        if (player.infinityPoints.gte(1e50)) document.getElementById("postinfi52").className = "infinistorebtn1"
         else document.getElementById("postinfi52").className = "infinistorebtnlocked"
 
-        if (player.infinityPoints.gte(1e41)) document.getElementById("postinfi53").className = "infinistorebtn1"
+        if (player.infinityPoints.gte(1e60)) document.getElementById("postinfi53").className = "infinistorebtn1"
         else document.getElementById("postinfi53").className = "infinistorebtnlocked"
 
         if (player.infinityPoints.gte(player.offlineProdCost)) document.getElementById("offlineProd").className = "infinimultbtn"
