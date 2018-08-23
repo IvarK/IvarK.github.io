@@ -1286,6 +1286,22 @@ document.getElementById("postinfi42").onclick = function() {
     }
 }
 
+document.getElementById("postinfi50").onclick = function() {
+    buyInfinityUpgrade("postinfi50",1e35);
+}
+
+document.getElementById("postinfi51").onclick = function() {
+    buyInfinityUpgrade("postinfi51",1e37);
+}
+
+document.getElementById("postinfi52").onclick = function() {
+    buyInfinityUpgrade("postinfi52",1e39);
+}
+
+document.getElementById("postinfi50").onclick = function() {
+    buyInfinityUpgrade("postinfi53",1e41);
+}
+
 document.getElementById("offlineProd").onclick = function() {
     if (player.infinityPoints.gte(player.offlineProdCost) && player.offlineProd < 50) {
         player.infinityPoints = player.infinityPoints.minus(player.offlineProdCost)
