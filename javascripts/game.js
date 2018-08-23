@@ -728,12 +728,13 @@ function updateDimensions() {
             document.getElementById("postinfi41").innerHTML = "Makes galaxies 70% stronger <br>Cost: "+shortenCosts(5e11)+" IP"
             document.getElementById("postinfi32").innerHTML = "Power up all dimensions based on slowest challenge run<br>Currently:"+formatValue(player.options.notation, challengeMult, 2, 2)+"x<br>Cost: "+shortenCosts(1e7)+" IP"
             document.getElementById("postinfi42").innerHTML = "Dimension cost multiplier increase <br>"+getDimensionCostMultiplierIncrease().toFixed(2)+"x -> "+getDimensionCostMultiplierIncrease(-1).toFixed(2)+"x<br>Cost: "+formatValue(player.options.notation, player.dimensionMultDecreaseCost, 2, 2) +" IP"
-
+            document.getElementById("postinfi50").innerHTML = "Decrease dimboost cost increase by 0.5 <br>"+ getDimboostCostIncrease() " -> " + (getDimboostCostIncrease()-0.5)+ "<br> Cost: " +shortenCosts(1e35) + " IP"
             document.getElementById("postinfi13").innerHTML = "You passively generate Infinitied stat based on your fastest infinity.<br>1 Infinity every "+timeDisplay(player.bestInfinityTime*5)+ " <br>Cost: "+shortenCosts(20e6)+" IP"
             document.getElementById("postinfi23").innerHTML = "Option to bulk buy Dimension Boosts <br>Cost: "+shortenCosts(5e6)+" IP"
             document.getElementById("postinfi33").innerHTML = "Autobuyers work twice as fast <br>Cost:"+shortenCosts(1e15)+" IP"
             if (player.dimensionMultDecrease <= 3) document.getElementById("postinfi42").innerHTML = "Dimension cost multiplier increase <br>"+getDimensionCostMultiplierIncrease().toFixed(2)+"x"
-
+            
+	    
             document.getElementById("offlineProd").innerHTML = "Generates "+player.offlineProd+"% > "+Math.max(Math.max(5, player.offlineProd + 5), Math.min(50, player.offlineProd + 5))+"% of your best IP/min from last 10 infinities, works offline<br>Currently: "+shortenMoney(bestRunIppm.times(player.offlineProd/100)) +"IP/min<br> Cost: "+
             formatValue(player.options.notation, player.offlineProdCost, 2, 2)+" IP";
             if (player.offlineProd == 50) document.getElementById("offlineProd").innerHTML = "Generates "+player.offlineProd+"% of your best IP/min from last 10 infinities, works offline<br>Currently: "+shortenMoney(bestRunIppm.times(player.offlineProd/100)) +" IP/min"
