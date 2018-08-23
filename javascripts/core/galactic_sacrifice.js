@@ -13,7 +13,7 @@ function getGSAmount() {
     z *= Math.log(galaxies+3)
 
   }
-  let ret = new Decimal(Math.max(Math.pow(galaxies, y) * Math.pow(Math.max(0,(player.resets - (player.currentChallenge=="challenge4"?2:4))),z), 0));
+  let ret = Decimal.max(Decimal.pow(galaxies, y).times(Decimal.pow(Math.max(0,(player.resets - (player.currentChallenge=="challenge4"?2:4))),z)), 0);
   ret = ret.times(1 + player.eightAmount/50)
   if (player.galacticSacrifice.upgrades.includes(32)) {
     ret = ret.times(galUpgrade32());
