@@ -271,7 +271,7 @@ function getShiftRequirement(bulk) {
   if (player.infinityUpgrades.includes("resetBoost")) amount -= 9;
   if (player.challenges.includes("postc7")) amount -= 1
 
-  return { tier: tier, amount: amount.ceil() };
+  return { tier: tier, amount: Math.ceil(amount) };
 }
 
 document.getElementById("softReset").onclick = function () {
