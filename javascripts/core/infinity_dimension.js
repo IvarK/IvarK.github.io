@@ -207,9 +207,9 @@ function buyManyInfinityDimension(tier) {
       }
   } else {
       if (ECTimesCompleted("eterc12")){
-          dim.cost = infBaseCost[tier].times(Math.pow(infCostMults[tier]/10, (dim.baseAmount/10 + 1)*(1-ECTimesCompleted("eterc12")*0.008)))
+          dim.cost = new Decimal (infBaseCost[tier]).times(Math.pow(infCostMults[tier]/10, (dim.baseAmount/10 + 1)*(1-ECTimesCompleted("eterc12")*0.008)))
       } else {
-          dim.cost = infBaseCost[tier].times(Math.pow(infCostMults[tier]/10, (dim.baseAmount/10 +1)))
+          dim.cost = new Decimal (infBaseCost[tier]).times(Math.pow(infCostMults[tier]/10, (dim.baseAmount/10 +1)))
       }
   }
   dim.power = dim.power.times(infPowerMults[tier])
