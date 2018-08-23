@@ -1073,6 +1073,11 @@ function buyInfinityUpgrade(name, cost) {
     if (player.infinityPoints.gte(cost) && !player.infinityUpgrades.includes(name)) {
         player.infinityUpgrades.push(name);
         player.infinityPoints = player.infinityPoints.minus(cost);
+		if (name == "postinfi53") {
+			for (tier=1;tier<9;tier++) {
+				player["infinityDimension"+tier].cost = player["infinityDimension"+tier].cost.div(10)
+			}
+		}
         return true
     } else return false
 }
