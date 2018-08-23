@@ -231,12 +231,12 @@ var player = {
         amount: new Decimal(0),
         unl: false,
         chance: 0.01,
-        chanceCost: new Decimal(1e150),
+        chanceCost: new Decimal(1e90),
         interval: 1000,
-        intervalCost: new Decimal(1e140),
+        intervalCost: new Decimal(1e80),
         gal: 0,
         galaxies: 0,
-        galCost: new Decimal(1e170),
+        galCost: new Decimal(1e110),
         auto: [false, false, false]
     },
     timestudy: {
@@ -1334,7 +1334,7 @@ function updateInfCosts() {
             if (replGalOver !== 0) document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"+"+replGalOver+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP"
             else document.getElementById("replicantimax").innerHTML = "Max Replicanti galaxies: "+player.replicanti.gal+"<br>+1 Costs: "+shortenCosts(player.replicanti.galCost)+" IP"
         }
-        document.getElementById("replicantiunlock").innerHTML = "Unlock Replicantis<br>Cost: "+shortenCosts(1e140)+" IP"
+        document.getElementById("replicantiunlock").innerHTML = "Unlock Replicantis<br>Cost: "+shortenCosts(1e80)+" IP"
         let extraGals = 0
         if (player.timestudy.studies.includes(225)) extraGals += Math.floor(player.replicanti.amount.e / 1000)
         if (player.timestudy.studies.includes(226)) extraGals += Math.floor(player.replicanti.gal / 15)
@@ -1345,7 +1345,7 @@ function updateInfCosts() {
         document.getElementById("replicantiinterval").className = (player.infinityPoints.gte(player.replicanti.intervalCost) && ((player.replicanti.interval !== 50) || player.timestudy.studies.includes(22)) && (player.replicanti.interval !== 1)) ? "storebtn" : "unavailablebtn"
         document.getElementById("replicantimax").className = (player.infinityPoints.gte(player.replicanti.galCost)) ? "storebtn" : "unavailablebtn"
         document.getElementById("replicantireset").className = ((player.replicanti.galaxies < player.replicanti.gal && player.replicanti.amount.gte(Number.MAX_VALUE)) || (player.replicanti.galaxies < Math.floor(player.replicanti.gal * 1.5) && player.replicanti.amount.gte(Number.MAX_VALUE) && player.timestudy.studies.includes(131))) ? "storebtn" : "unavailablebtn"
-        document.getElementById("replicantiunlock").className = (player.infinityPoints.gte(1e140)) ? "storebtn" : "unavailablebtn"
+        document.getElementById("replicantiunlock").className = (player.infinityPoints.gte(1e80)) ? "storebtn" : "unavailablebtn"
     }
 
     if (document.getElementById("timestudies").style.display == "block" && document.getElementById("eternitystore").style.display == "block") {
@@ -1406,12 +1406,12 @@ function updateInfCosts() {
 // Replicanti stuff
 
 function unlockReplicantis() {
-    if (player.infinityPoints.gte(1e140)) {
+    if (player.infinityPoints.gte(1e80)) {
         document.getElementById("replicantidiv").style.display="inline-block"
         document.getElementById("replicantiunlock").style.display="none"
         player.replicanti.unl = true
         player.replicanti.amount = new Decimal(1)
-        player.infinityPoints = player.infinityPoints.minus(1e140)
+        player.infinityPoints = player.infinityPoints.minus(1e80)
     }
 }
 
@@ -3563,12 +3563,12 @@ function eternity(force, auto) {
                 amount: player.eternities > 48 ? new Decimal(1) : new Decimal(0),
                 unl: player.eternities > 48 ? true : false,
                 chance: 0.01,
-                chanceCost: new Decimal(1e150),
+                chanceCost: new Decimal(1e90),
                 interval: 1000,
-                intervalCost: new Decimal(1e140),
+                intervalCost: new Decimal(1e80),
                 gal: 0,
                 galaxies: 0,
-                galCost: new Decimal(1e170),
+                galCost: new Decimal(1e110),
                 galaxybuyer: (player.eternities > 1) ? player.replicanti.galaxybuyer : undefined,
                 auto: player.replicanti.auto
             },
@@ -4416,12 +4416,12 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
                 amount: player.eternities > 48 ? 1 : 0,
                 unl: player.eternities > 48 ? true : false,
                 chance: 0.01,
-                chanceCost: new Decimal(1e150),
+                chanceCost: new Decimal(1e90),
                 interval: 1000,
-                intervalCost: new Decimal(1e140),
+                intervalCost: new Decimal(1e80),
                 gal: 0,
                 galaxies: 0,
-                galCost: new Decimal(1e170),
+                galCost: new Decimal(1e110),
                 galaxybuyer: (player.eternities > 1) ? player.replicanti.galaxybuyer : undefined,
                 auto: player.replicanti.auto
             },
@@ -4864,7 +4864,7 @@ setInterval(function() {
     document.getElementById("replicantiinterval").className = (player.infinityPoints.gte(player.replicanti.intervalCost) && ((player.replicanti.interval !== 50) || player.timestudy.studies.includes(22)) && (player.replicanti.interval !== 1)) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantimax").className = (player.infinityPoints.gte(player.replicanti.galCost)) ? "storebtn" : "unavailablebtn"
     document.getElementById("replicantireset").className = (player.replicanti.galaxies < player.replicanti.gal && player.replicanti.amount.gte(Number.MAX_VALUE)) ? "storebtn" : "unavailablebtn"
-    document.getElementById("replicantiunlock").className = (player.infinityPoints.gte(1e140)) ? "storebtn" : "unavailablebtn"
+    document.getElementById("replicantiunlock").className = (player.infinityPoints.gte(1e80)) ? "storebtn" : "unavailablebtn"
     updateTheoremButtons()
 
     if (getTickSpeedMultiplier() < 0.01) giveAchievement("Do you even bend time bro?")

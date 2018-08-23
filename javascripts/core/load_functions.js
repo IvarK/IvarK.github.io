@@ -338,17 +338,18 @@ if (player.version < 5) {
       }
   }
 
-  if (player.replicanti === undefined) {
+  if (player.replicanti === undefined ||
+    Math.round(new Decimal(player.replicanti.chanceCost).log(10) - (+player.replicanti.chance) * 1500) !== 75) {
       player.replicanti = {
           amount: new Decimal(0),
           unl: false,
           chance: 0.01,
-          chanceCost: new Decimal(1e150),
+          chanceCost: new Decimal(1e90),
           interval: 1000,
-          intervalCost: new Decimal(1e140),
+          intervalCost: new Decimal(1e80),
           gal: 0,
           galaxies: 0,
-          galCost: new Decimal(1e170)
+          galCost: new Decimal(1e110)
       }
   }
   if (player.bestEternity === undefined) {
