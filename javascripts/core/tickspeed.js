@@ -42,9 +42,11 @@ function getTickSpeedMultiplier() {
 
 function getPostC3RewardMult () {
   let perGalaxy = 0.005;
+  if (player.challenges.length > 15) perGalaxy = -0.01+0.001*player.challenges.length
   let ret = 1.05+getFinalGalaxies(0)*perGalaxy;
   if (player.currentChallenge === "postc3") return 1;
   if (player.currentChallenge === 'challenge6' || player.currentChallenge === 'postc4') ret -= 0.05
+  if (player.challanges.includes("postc7")) ret = Math.pow(ret,2)
   return ret;
 }
 
