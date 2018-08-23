@@ -738,7 +738,7 @@ function updateDimensions() {
             formatValue(player.options.notation, player.offlineProdCost, 2, 2)+" IP";
             if (player.offlineProd == 50) document.getElementById("offlineProd").innerHTML = "Generates "+player.offlineProd+"% of your best IP/min from last 10 infinities, works offline<br>Currently: "+shortenMoney(bestRunIppm.times(player.offlineProd/100)) +" IP/min"
 			
-			document.getElementById("postinfir5").style.display = player.infinityDimension3.amount.gt(0)?"block":"none"
+			document.getElementById("postinfir5").style.display = (player.infinityDimension3.amount.gt(0)||player.eternities > 0)?"block":"none"
         }
     }
 
@@ -1298,7 +1298,7 @@ document.getElementById("postinfi52").onclick = function() {
     buyInfinityUpgrade("postinfi52",1e39);
 }
 
-document.getElementById("postinfi50").onclick = function() {
+document.getElementById("postinfi53").onclick = function() {
     buyInfinityUpgrade("postinfi53",1e41);
 }
 
