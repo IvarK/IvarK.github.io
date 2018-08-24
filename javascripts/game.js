@@ -5188,13 +5188,13 @@ function gameLoop(diff) {
 
     let gain;
     if (player.timeShards.gt(0)) {
-        if (player.timestudy.studies.includes(171)) gain = Math.ceil(new Decimal(player.timeShards).dividedBy(player.tickThreshold).log10() / Math.log10(1.25))
-        else gain = Math.ceil(new Decimal(player.timeShards).dividedBy(player.tickThreshold).log10() / Math.log10(1.33))
+        let tsMult = 1.15;
+        if (player.timestudy.studies.includes(171)) tsMult = 1.1;
+        gain = Math.ceil(new Decimal(player.timeShards).dividedBy(player.tickThreshold).log10() / Math.log10(tsMult))
         player.totalTickGained += gain
         player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), gain))
         player.postC3Reward = player.postC3Reward.times(Decimal.pow(getPostC3RewardMult(), gain))
-        if (player.timestudy.studies.includes(171)) player.tickThreshold = new Decimal(1).times(1.25).pow(player.totalTickGained)
-        else player.tickThreshold = new Decimal(1).times(1.33).pow(player.totalTickGained)
+        player.tickThreshold = new Decimal(1).times(tsMult).pow(player.totalTickGained)
         document.getElementById("totaltickgained").textContent = "You've gained "+player.totalTickGained.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" tickspeed upgrades."
         updateTickSpeed();
     }
