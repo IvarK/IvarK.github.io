@@ -230,6 +230,7 @@ if (player.currentChallenge == "postc5") {
 
 
   player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
+  player.postC3Reward = player.postC3Reward.times(Decimal.pow(getPostC3RewardMult(), player.totalTickGained))
   updateTickSpeed()
   if (player.challenges.includes("challenge1")) player.money = new Decimal(100).max(player.money)
   if (player.achievements.includes("r37")) player.money = new Decimal(1000).max(player.money);
