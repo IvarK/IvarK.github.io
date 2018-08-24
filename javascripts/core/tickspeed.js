@@ -41,6 +41,12 @@ function getTickSpeedMultiplier() {
   return 1;
 }
 
+function getPostC3Exp (){
+  let g = player.replicanti.galaxies;
+  if (g<7) return 1+g/5
+  return 2+Math.pow(g-5,0.5)/5
+}
+
 function getPostC3RewardMult () {
   let perGalaxy = 0.005;
   if (player.challenges.length > 15) perGalaxy = -0.01+0.001*player.challenges.length
@@ -48,7 +54,7 @@ function getPostC3RewardMult () {
   if (player.currentChallenge === "postc3") return 1;
   if (player.currentChallenge === 'challenge6' || player.currentChallenge === 'postc4') ret -= 0.05
   if (player.challenges.includes("postc7")) ret = Math.pow(ret,2)
-  ret = Math.pow(ret,1+player.replicanti.galaxies/5)
+  ret = Math.pow(ret,getPostC3Exp())
   return ret;
 }
 
