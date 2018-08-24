@@ -502,14 +502,15 @@ function getGalaxyRequirement() {
         amount += Math.pow(player.galaxies, 2) + player.galaxies
     }
 
-    /*
-    else if ((player.galaxies) >= galaxyCostScalingStart) {
-        amount += Math.pow((player.galaxies)-(galaxyCostScalingStart-1),2)+(player.galaxies)-(galaxyCostScalingStart-1)
+    
+    if ((player.galaxies) >= getGalaxyCostScalingStart()) {
+        amount += Math.pow((player.galaxies)-(galaxyCostScalingStart-1),1.5)+(player.galaxies)-(galaxyCostScalingStart-1)
     }
+    
     if (player.galaxies >= 800) {
-        amount = Math.floor(amount * Math.pow(1.002, (player.galaxies-799)))
+        amount = Math.floor(amount * Math.pow(1.001, (player.galaxies-799)))
     }
-    */
+    
 
     if (player.infinityUpgrades.includes("resetBoost")) amount -= 9;
     if (player.challenges.includes("postc7")) amount -= 1;
