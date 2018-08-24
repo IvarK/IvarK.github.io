@@ -149,8 +149,8 @@ if (player.options.notation === undefined) player.options.notation = "Standard";
       player.challengeTimes.push(600*60*24*31);
   }
 
-  while (player.infChallengeTimes.length < 10) {
-      player.infChallengeTimes.push(600*60*24*31);
+  while (player.infchallengeTimes.length < 10) {
+      player.infchallengeTimes.push(600*60*24*31);
   }
 
   if (player.infinityPower === undefined) {
