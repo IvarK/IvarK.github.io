@@ -60,6 +60,7 @@ let galUpgrade11 = function () {
   let y;
   let z = 10
   if (player.challenges.length > 14) z -= (player.challenges.length-8)/4
+  if (player.challenges.length >20) z += 0.1*player.challenges.length-1.5
   if (x <= 0) {
     y = 2;
   } else if (x < 5) {
