@@ -515,7 +515,7 @@ function getGalaxyRequirement() {
     if (player.infinityUpgrades.includes("resetBoost")) amount -= 9;
     if (player.challenges.includes("postc7")) amount -= 1;
 
-    return amount;
+    return Math.ceil(amount);
 }
 
 function getETA(cost) {
