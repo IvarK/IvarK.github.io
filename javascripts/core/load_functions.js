@@ -55,7 +55,7 @@ if (player.options.notation === undefined) player.options.notation = "Standard";
   if (player.tickspeedMultiplier === undefined) player.tickspeedMultiplier = new Decimal(10)
   if (player.partInfinityPoint === undefined) player.partInfinityPoint = 0
   if (player.challengeTimes === undefined) player.challengeTimes = [600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31]
-  if (player.infchallengeTimes === undefined) player.infchallengeTimes = [600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31]
+  if (player.infchallengeTimes === undefined) player.infchallengeTimes = [600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31, 600*60*24*31]
   if (player.lastTenRuns === undefined) player.lastTenRuns = [[600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1], [600*60*24*31, 1]]
   if (player.infMult === undefined) player.infMult = new Decimal(1)
   if (player.infMultCost === undefined) player.infMultCost = new Decimal(100)
@@ -147,6 +147,10 @@ if (player.options.notation === undefined) player.options.notation = "Standard";
 
   while (player.challengeTimes.length < 13) {
       player.challengeTimes.push(600*60*24*31);
+  }
+
+  while (player.infChallengeTimes.length < 10) {
+      player.infChallengeTimes.push(600*60*24*31);
   }
 
   if (player.infinityPower === undefined) {
