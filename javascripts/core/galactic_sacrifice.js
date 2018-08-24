@@ -91,7 +91,7 @@ let galUpgrade31 = function () {
 
 let galUpgrade32 = function () {
   let x = (player.totalmoney || player.money);
-  if (!player.break) {
+  if (!player.break && player.eternities === 0) {
     x = x.min(Number.MAX_VALUE);
   }
   return x.pow(0.003).add(1);

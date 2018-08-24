@@ -1974,6 +1974,7 @@ function galaxyReset() {
     if (player.achievements.includes("r55")) player.money = new Decimal(1e10).max(player.money);
     if (player.achievements.includes("r78")) player.money = new Decimal(1e25).max(player.money);
     player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
+    player.postC3Reward = player.postC3Reward.times(Decimal.pow(getPostC3RewardMult(), player.totalTickGained))
     if (player.achievements.includes("r66")) player.tickspeed = player.tickspeed.times(0.98);
     if (player.galaxies >= 540 && player.replicanti.galaxies == 0) giveAchievement("Unique snowflakes")
     updateTickSpeed();
@@ -3276,6 +3277,7 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.achievements.includes("r78")) player.money = new Decimal(1e25);
         resetInfDimensions();
         player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
+        player.postC3Reward = player.postC3Reward.times(Decimal.pow(getPostC3RewardMult(), player.totalTickGained))
         updateTickSpeed();
         IPminpeak = new Decimal(0)
 
@@ -3954,6 +3956,7 @@ function startChallenge(name, target) {
 
     resetInfDimensions();
     player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
+    player.postC3Reward = player.postC3Reward.times(Decimal.pow(getPostC3RewardMult(), player.totalTickGained))
     updateTickSpeed();
 
     if (player.resets == 0 && player.currentChallenge == "") {
@@ -5189,6 +5192,7 @@ function gameLoop(diff) {
         else gain = Math.ceil(new Decimal(player.timeShards).dividedBy(player.tickThreshold).log10() / Math.log10(1.33))
         player.totalTickGained += gain
         player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), gain))
+        player.postC3Reward = player.postC3Reward.times(Decimal.pow(getPostC3RewardMult(), gain))
         if (player.timestudy.studies.includes(171)) player.tickThreshold = new Decimal(1).times(1.25).pow(player.totalTickGained)
         else player.tickThreshold = new Decimal(1).times(1.33).pow(player.totalTickGained)
         document.getElementById("totaltickgained").textContent = "You've gained "+player.totalTickGained.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" tickspeed upgrades."
