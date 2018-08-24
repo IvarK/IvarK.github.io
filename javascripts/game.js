@@ -502,15 +502,15 @@ function getGalaxyRequirement() {
         amount += Math.pow(player.galaxies, 2) + player.galaxies
     }
 
-    
+
     if ((player.galaxies) >= getGalaxyCostScalingStart()) {
         amount += Math.pow((player.galaxies)-(galaxyCostScalingStart-1),1.5)+(player.galaxies)-(galaxyCostScalingStart-1)
     }
-    
+
     if (player.galaxies >= 800) {
         amount = Math.floor(amount * Math.pow(1.001, (player.galaxies-799)))
     }
-    
+
 
     if (player.infinityUpgrades.includes("resetBoost")) amount -= 9;
     if (player.challenges.includes("postc7")) amount -= 1;
@@ -612,7 +612,10 @@ function updateDimensions() {
         let extraGals = player.replicanti.galaxies
         if (player.timestudy.studies.includes(225)) extraGals += Math.floor(player.replicanti.amount.e / 1000)
         if (player.timestudy.studies.includes(226)) extraGals += Math.floor(player.replicanti.gal / 15)
-        var galString = "Antimatter Galaxies (";
+        var galString = ""
+        if (player.galaxies >= 800) galString += "Remote Antimatter Galaxies (";
+        else if (player.galaxies >= getGalaxyCostScalingStart() || player.currentEternityChall === "eterc5") galString += "Distant Antimatter Galaxies (";
+        else galString += "Antimatter Galaxies (";
         galString += player.galaxies;
         if (extraGals > 0) galString += " + "+extraGals;
         if (player.dilation.freeGalaxies > 0) galString += " + "+player.dilation.freeGalaxies;
