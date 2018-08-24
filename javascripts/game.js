@@ -734,10 +734,10 @@ function updateDimensions() {
             document.getElementById("postinfi42").innerHTML = "Dimension cost multiplier increase <br>"+getDimensionCostMultiplierIncrease().toFixed(2)+"x -> "+getDimensionCostMultiplierIncrease(-1).toFixed(2)+"x<br>Cost: "+formatValue(player.options.notation, player.dimensionMultDecreaseCost, 2, 2) +" IP"
             document.getElementById("postinfi50").innerHTML = "Decrease dimboost cost increase by 0.5 <br>"+ getDimboostCostIncrease()+ " -> " + (getDimboostCostIncrease()-0.5)+ "<br> Cost: " +shortenCosts(1e40) + " IP"
 	          if (player.infinityUpgrades.includes("postinfi50")) document.getElementById("postinfi50").innerHTML = "Deacrease dimboost cost increase by 0.5<br> Currently: " + getDimboostCostIncrease() + "<br> Cost: " + shortenCosts(1e40) + " IP"
-            document.getElementById("postinfi51").innerHTML = "Galaxies are 20% more effective <br> Cost: " +shortenCosts(1e45) + " IP"
-            document.getElementById("postinfi52").innerHTML = "Decrease galaxy cost increase by 3 <br>"+ getGalaxyCostIncrease()+ " -> " + (getGalaxyCostIncrease()-3)+ "<br> Cost: " +shortenCosts(1e50) + " IP"
-	          if (player.infinityUpgrades.includes("postinfi52")) "Decrease galaxy cost increase by 3 <br>"+ getGalaxyCostIncrease()+ "<br> Cost: " +shortenCosts(1e50) + " IP"
-            document.getElementById("postinfi53").innerHTML = "Divide ID cost increases by 10 <br> Cost: " +shortenCosts(1e60) + " IP"
+            document.getElementById("postinfi51").innerHTML = "Galaxies are 20% more effective <br> Cost: " +shortenCosts(1e42) + " IP"
+            document.getElementById("postinfi52").innerHTML = "Decrease galaxy cost increase by 3 <br>"+ getGalaxyCostIncrease()+ " -> " + (getGalaxyCostIncrease()-3)+ "<br> Cost: " +shortenCosts(1e44) + " IP"
+	          if (player.infinityUpgrades.includes("postinfi52")) "Decrease galaxy cost increase by 3 <br>"+ getGalaxyCostIncrease()+ "<br> Cost: " +shortenCosts(1e44) + " IP"
+            document.getElementById("postinfi53").innerHTML = "Divide ID cost increases by 10 <br> Cost: " +shortenCosts(1e48) + " IP"
             document.getElementById("postinfi13").innerHTML = "You passively generate Infinitied stat based on your fastest infinity.<br>1 Infinity every "+timeDisplay(player.bestInfinityTime*5)+ " <br>Cost: "+shortenCosts(20e6)+" IP"
             document.getElementById("postinfi23").innerHTML = "Option to bulk buy Dimension Boosts <br>Cost: "+shortenCosts(5e6)+" IP"
             document.getElementById("postinfi33").innerHTML = "Autobuyers work twice as fast <br>Cost:"+shortenCosts(1e15)+" IP"
@@ -1083,7 +1083,12 @@ function buyInfinityUpgrade(name, cost) {
         player.infinityPoints = player.infinityPoints.minus(cost);
 		if (name == "postinfi53") {
 			for (tier=1;tier<9;tier++) {
-				player["infinityDimension"+tier].cost = player["infinityDimension"+tier].cost.div(10)
+        let dim = player["infinityDimension"+tier]
+        if (ECTimesCompleted("eterc12")){
+            dim.cost = new Decimal (infBaseCost[tier]).times(Math.pow(infCostMults[tier]/10, (dim.baseAmount/10 + 1)*(1-ECTimesCompleted("eterc12")*0.008)))
+        } else {
+            dim.cost = new Decimal (infBaseCost[tier]).times(Math.pow(infCostMults[tier]/10, (dim.baseAmount/10 +1)))
+        }
 			}
 		}
         return true
@@ -1304,15 +1309,15 @@ document.getElementById("postinfi50").onclick = function() {
 }
 
 document.getElementById("postinfi51").onclick = function() {
-    buyInfinityUpgrade("postinfi51",1e45);
+    buyInfinityUpgrade("postinfi51",1e42);
 }
 
 document.getElementById("postinfi52").onclick = function() {
-    buyInfinityUpgrade("postinfi52",1e50);
+    buyInfinityUpgrade("postinfi52",1e44);
 }
 
 document.getElementById("postinfi53").onclick = function() {
-    buyInfinityUpgrade("postinfi53",1e60);
+    buyInfinityUpgrade("postinfi53",1e48);
 }
 
 document.getElementById("offlineProd").onclick = function() {
@@ -2869,7 +2874,7 @@ document.getElementById("challengetime2").textContent = "Challenge  " + 2 + " ti
 	document.getElementById("challengetimesum").textContent = "Sum of challenge time records is " + timeDisplayShort(temp)
 
 	temp = 0
-    for (var i=0; i<8; i++) {
+    for (var i=0; i<10; i++) {
         document.getElementById("infchallengetime"+(i+1)).textContent = "Infinity Challenge " + (i+1) + " time record: " + timeDisplayShort(player.infchallengeTimes[i])
 		temp += player.infchallengeTimes[i]
     }
@@ -2960,7 +2965,7 @@ function checkForEndMe() {
     if (temp <= 1800) giveAchievement("Not-so-challenging")
     if (temp <= 50) giveAchievement("End me")
     var temp2 = 0
-    for (var i=0; i<8;i++) {
+    for (var i=0; i<10;i++) {
         temp2 += player.infchallengeTimes[i]
     }
     infchallengeTimes = temp2
@@ -5487,13 +5492,13 @@ function gameLoop(diff) {
         if (player.infinityPoints.gte(1e40)) document.getElementById("postinfi50").className = "infinistorebtn1"
         else document.getElementById("postinfi50").className = "infinistorebtnlocked"
 
-        if (player.infinityPoints.gte(1e45)) document.getElementById("postinfi51").className = "infinistorebtn1"
+        if (player.infinityPoints.gte(1e42)) document.getElementById("postinfi51").className = "infinistorebtn1"
         else document.getElementById("postinfi51").className = "infinistorebtnlocked"
 
-        if (player.infinityPoints.gte(1e50)) document.getElementById("postinfi52").className = "infinistorebtn1"
+        if (player.infinityPoints.gte(1e44)) document.getElementById("postinfi52").className = "infinistorebtn1"
         else document.getElementById("postinfi52").className = "infinistorebtnlocked"
 
-        if (player.infinityPoints.gte(1e60)) document.getElementById("postinfi53").className = "infinistorebtn1"
+        if (player.infinityPoints.gte(1e48)) document.getElementById("postinfi53").className = "infinistorebtn1"
         else document.getElementById("postinfi53").className = "infinistorebtnlocked"
 
         if (player.infinityPoints.gte(player.offlineProdCost)) document.getElementById("offlineProd").className = "infinimultbtn"
