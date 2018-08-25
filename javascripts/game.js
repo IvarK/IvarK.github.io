@@ -225,7 +225,7 @@ var player = {
     offlineProd: 0,
     offlineProdCost: 1e7,
     extraDimPowerIncrease: 0,
-    dimPowerIncreaseCost: 1e3,
+    dimPowerIncreaseCost: new Decimal(1e3),
     challengeTarget: 0,
     replicanti: {
         amount: new Decimal(0),
@@ -1240,9 +1240,9 @@ document.getElementById("postinfi03").onclick = function() {
 document.getElementById("postinfi04").onclick = function() {
     if (player.infinityPoints.gte(player.dimPowerIncreaseCost) && player.extraDimPowerIncrease < 25) {
         player.infinityPoints = player.infinityPoints.minus(player.dimPowerIncreaseCost)
-        player.dimPowerIncreaseCost = 1e3*Math.pow(4,player.extraDimPowerIncrease+1);
+        player.dimPowerIncreaseCost = new Decimal(1e3).times(Decimal.pow(4,player.extraDimPowerIncrease+1));
         player.extraDimPowerIncrease += 1;
-        if (player.extraDimPowerIncrease > 15) player.dimPowerIncreaseCost = player.dimPowerIncreaseCost.times(Math.pow(125,player.extraDimPowerIncrease-5))
+        if (player.extraDimPowerIncrease > 15) player.dimPowerIncreaseCost = player.dimPowerIncreaseCost.times(Decimal.pow(125,player.extraDimPowerIncrease-5))
         document.getElementById("postinfi04").innerHTML = "Dimension multipliers are further increased by g31 <br>x^" + galUpgrade31().toFixed(2) + ' -> ' + (galUpgrade31() + .02).toFixed(2) + '</br> Cost: ' + formatValue(player.options.notation, player.dimPowerIncreaseCost, 2, 2) + ' IP';
         if (player.extraDimPowerIncrease >= 25) document.getElementById("postinfi04").innerHTML = "Dimension multipliers are further increased by g31 <br>x^" + galUpgrade31().toFixed(2);
     }
@@ -3572,7 +3572,7 @@ function eternity(force, auto) {
             offlineProd: player.eternities > 18 ? player.offlineProd : 0,
             offlineProdCost: player.eternities > 18 ? player.offlineProdCost : 1e7,
             extraDimPowerIncrease: player.eternities > 18 ? player.extraDimPowerIncrease : 0,
-            dimPowerIncreaseCost: player.eternities > 18 ? player.dimPowerIncreaseCost : 1e3,
+            dimPowerIncreaseCost: player.eternities > 18 ? player.dimPowerIncreaseCost : new Decimal(1e3),
             challengeTarget: 0,
             replicanti: {
                 amount: player.eternities > 48 ? new Decimal(1) : new Decimal(0),
@@ -4426,7 +4426,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
             offlineProd: player.eternities > 18 ? player.offlineProd : 0,
             offlineProdCost: player.eternities > 18 ? player.offlineProdCost : 1e7,
             extraDimPowerIncrease: player.eternities > 18 ? player.extraDimPowerIncrease : 0,
-            dimPowerIncreaseCost: player.eternities > 18 ? player.dimPowerIncreaseCost : 1e3,
+            dimPowerIncreaseCost: player.eternities > 18 ? player.dimPowerIncreaseCost : new Decimal(1e3),
             challengeTarget: 0,
             replicanti: {
                 amount: player.eternities > 48 ? 1 : 0,

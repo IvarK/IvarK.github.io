@@ -60,7 +60,7 @@ if (player.options.notation === undefined) player.options.notation = "Standard";
   if (player.infMult === undefined) player.infMult = new Decimal(1)
   if (player.infMultCost === undefined) player.infMultCost = new Decimal(100)
   if (player.extraDimPowerIncrease === undefined) player.extraDimPowerIncrease = 0
-  if (player.dimPowerIncreaseCost === undefined) player.dimPowerIncreaseCost = 1e3
+  if (player.dimPowerIncreaseCost === undefined) player.dimPowerIncreaseCost = new Decimal(1e3)
   if (player.tickSpeedMultDecrease === undefined) player.tickSpeedMultDecrease = 10
   if (player.tickSpeedMultDecreaseCost === undefined) player.tickSpeedMultDecreaseCost = 3e6
   if (player.dimensionMultDecrease === undefined) player.dimensionMultDecrease = 10
@@ -615,6 +615,11 @@ if (player.version < 5) {
   }
 
   if (!player.options.hotkeys) document.getElementById("hotkeys").textContent = "Enable hotkeys"
+  
+  if (typeof player.dimPowerIncreaseCost != "object") {
+      player.dimPowerIncreaseCost = new Decimal(1e3).times(Decimal.pow(4,player.extraDimPowerIncrease+1));
+      if (player.extraDimPowerIncrease > 15) player.dimPowerIncreaseCost = player.dimPowerIncreaseCost.times(Decimal.pow(125,player.extraDimPowerIncrease-5))
+  }
   updateAutobuyers();
   setAchieveTooltip();
   updatePriorities();
