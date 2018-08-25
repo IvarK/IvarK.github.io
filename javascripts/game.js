@@ -735,8 +735,8 @@ function updateDimensions() {
             document.getElementById("postinfi50").innerHTML = "Decrease dimboost cost increase by 0.5 <br>"+ getDimboostCostIncrease()+ " -> " + (getDimboostCostIncrease()-0.5)+ "<br> Cost: " +shortenCosts(1e25) + " IP"
 	          if (player.infinityUpgrades.includes("postinfi50")) document.getElementById("postinfi50").innerHTML = "Deacrease dimboost cost increase by 0.5<br> Currently: " + getDimboostCostIncrease() + "<br> Cost: " + shortenCosts(1e25) + " IP"
             document.getElementById("postinfi51").innerHTML = "Galaxies are 20% more effective <br> Cost: " +shortenCosts(1e29) + " IP"
-            document.getElementById("postinfi52").innerHTML = "Decrease galaxy cost increase by 3 <br>"+ getGalaxyCostIncrease()+ " -> " + (getGalaxyCostIncrease()-3)+ "<br> Cost: " +shortenCosts(1e44) + " IP"
-	          if (player.infinityUpgrades.includes("postinfi52")) "Decrease galaxy cost increase by 3 <br>"+ getGalaxyCostIncrease()+ "<br> Cost: " +shortenCosts(1e44) + " IP"
+            document.getElementById("postinfi52").innerHTML = "Decrease galaxy cost increase by 3 <br>"+ getGalaxyCostIncrease()+ " -> " + (getGalaxyCostIncrease()-3)+ "<br> Cost: " +shortenCosts(1e33) + " IP"
+	          if (player.infinityUpgrades.includes("postinfi52")) "Decrease galaxy cost increase by 3 <br>"+ getGalaxyCostIncrease()+ "<br> Cost: " +shortenCosts(1e33) + " IP"
             document.getElementById("postinfi53").innerHTML = "Divide ID cost increases by 10 <br> Cost: " +shortenCosts(1e48) + " IP"
             document.getElementById("postinfi13").innerHTML = "You passively generate Infinitied stat based on your fastest infinity.<br>1 Infinity every "+timeDisplay(player.bestInfinityTime*5)+ " <br>Cost: "+shortenCosts(20e6)+" IP"
             document.getElementById("postinfi23").innerHTML = "Option to bulk buy Dimension Boosts <br>Cost: "+shortenCosts(5e6)+" IP"
@@ -1313,7 +1313,7 @@ document.getElementById("postinfi51").onclick = function() {
 }
 
 document.getElementById("postinfi52").onclick = function() {
-    buyInfinityUpgrade("postinfi52",1e44);
+    buyInfinityUpgrade("postinfi52",1e33);
 }
 
 document.getElementById("postinfi53").onclick = function() {
@@ -5492,7 +5492,7 @@ function gameLoop(diff) {
         if (player.infinityPoints.gte(1e29)) document.getElementById("postinfi51").className = "infinistorebtn1"
         else document.getElementById("postinfi51").className = "infinistorebtnlocked"
 
-        if (player.infinityPoints.gte(1e44)) document.getElementById("postinfi52").className = "infinistorebtn1"
+        if (player.infinityPoints.gte(1e33)) document.getElementById("postinfi52").className = "infinistorebtn1"
         else document.getElementById("postinfi52").className = "infinistorebtnlocked"
 
         if (player.infinityPoints.gte(1e48)) document.getElementById("postinfi53").className = "infinistorebtn1"
