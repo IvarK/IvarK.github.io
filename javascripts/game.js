@@ -3010,9 +3010,6 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.currentChallenge != "" && !player.challenges.includes(player.currentChallenge)) {
             player.challenges.push(player.currentChallenge);
         }
-      	if (player.money.gte(new Decimal("1e5000")) && !player.challenges.includes("postc3")) {
-      	    player.challenges.push("postc3")
-      	}
         if (player.challenges.length > 14) giveAchievement("Infinitely Challenging");
         if (player.challenges.length == 24) giveAchievement("Anti-antichallenged");
         if (!player.break || player.currentChallenge != "") {
@@ -4803,7 +4800,7 @@ setInterval(function() {
     } catch (err) {console.log("Couldn't load Kongregate API")}
 }, 10000)
 
-var nextAt = [new Decimal("1e750"), new Decimal("1e1350"), new Decimal("1e2000"), new Decimal("1e3000"), new Decimal("1e5000"), new Decimal("1e14000"), new Decimal("1e18000"), new Decimal("1e20000"), new Decimal("1e23000"), new Decimal("1e28000")]
+var nextAt = [new Decimal("1e750"), new Decimal("1e1350"), new Decimal("1e2000"), new Decimal("1e3000"), new Decimal("1e4500"), new Decimal("1e14000"), new Decimal("1e18000"), new Decimal("1e20000"), new Decimal("1e23000"), new Decimal("1e28000")]
 
 var goals = [new Decimal("1e550"), new Decimal("1e950"), new Decimal("1e1200"), new Decimal("1e650"), new Decimal("1e10500"), new Decimal("1e13000"), new Decimal("1e11111"), new Decimal("2e22222"), new Decimal("1e10000"), new Decimal("1e27000")]
 setInterval(function() {
@@ -5216,7 +5213,7 @@ function gameLoop(diff) {
         document.getElementById("eternityPoints2").style.display = "inline-block"
     }
 
-    if (player.money.gte(Number.MAX_VALUE) && (!player.break || (player.currentChallenge != "" && player.money.gte(player.challengeTarget)) || (player.money.gte(new Decimal("1e5000")) && !player.challenges.includes("postc3")))) {
+    if (player.money.gte(Number.MAX_VALUE) && (!player.break || (player.currentChallenge != "" && player.money.gte(player.challengeTarget)))) {
         document.getElementById("bigcrunch").style.display = 'inline-block';
         if ((player.currentChallenge == "" || player.options.retryChallenge) && (player.bestInfinityTime <= 600 || player.break)) {}
         else showTab('emptiness');
