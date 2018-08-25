@@ -61,8 +61,8 @@ let galUpgrade11 = function () {
   let z = 10
   if (player.challenges.length > 14) z -= (player.challenges.length-8)/4
   if (player.challenges.length >20) z += 0.08*player.challenges.length-1.5
-  if (player.challenges.length <24&& player.challenges.length >14 && player.eternities >0 && player.infinitied < 1e7){
-    x = x + (1e5*(player.challenges.length))
+  if ( player.challenges.length >14 && player.eternities >0 && player.infinitied < 1e8){
+    x += 2e6
   }
   if (x <= 0) {
     y = 2;
