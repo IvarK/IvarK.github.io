@@ -5486,7 +5486,7 @@ function gameLoop(diff) {
         if (player.infinityPoints.gte(1e15)) document.getElementById("postinfi33").className = "infinistorebtn1"
         else document.getElementById("postinfi33").className = "infinistorebtnlocked"
 
-        if (player.infinityPoints.gte(1e40)) document.getElementById("postinfi50").className = "infinistorebtn1"
+        if (player.infinityPoints.gte(1e25)) document.getElementById("postinfi50").className = "infinistorebtn1"
         else document.getElementById("postinfi50").className = "infinistorebtnlocked"
 
         if (player.infinityPoints.gte(1e42)) document.getElementById("postinfi51").className = "infinistorebtn1"
