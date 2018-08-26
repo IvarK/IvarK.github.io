@@ -502,12 +502,12 @@ function getGalaxyRequirement() {
 
 
     if ((player.galaxies) >= getGalaxyCostScalingStart()) {
-        amount += Math.pow((player.galaxies)-(galaxyCostScalingStart-1),1.5)+(player.galaxies)-(galaxyCostScalingStart-1)
+        amount += Math.pow((player.galaxies) - (galaxyCostScalingStart - 1), 1.5) + (player.galaxies) - (galaxyCostScalingStart - 1)
     }
 
     if ((player.galaxies) >= getGalaxyCostScalingStart() * 2) {
         // 5 times worse scaling
-        amount += 5*(Math.pow((player.galaxies)-(galaxyCostScalingStart * 2-1),1.5)+(player.galaxies)-(galaxyCostScalingStart-1))
+        amount += 5 * (Math.pow((player.galaxies) - (galaxyCostScalingStart * 2 - 1), 1.5) + (player.galaxies) - (galaxyCostScalingStart * 2 - 1))
     }
 
     if (player.galaxies >= 800) {
@@ -5659,7 +5659,7 @@ function gameLoop(diff) {
     if (player.infinityUpgrades.includes("postinfi53")) document.getElementById("postinfi53").className = "infinistorebtnbought"
     if (player.infinityUpgrades.includes("postinfi60")) document.getElementById("postinfi60").className = "infinistorebtnbought"
     if (player.infinityUpgrades.includes("postinfi61")) document.getElementById("postinfi61").className = "infinistorebtnbought"
-    
+
     if (player.dimensionMultDecrease <= 3) document.getElementById("postinfi42").className = "infinistorebtnbought"
     if (player.offlineProd == 50) document.getElementById("offlineProd").className = "infinistorebtnbought"
 
