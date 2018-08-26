@@ -64,6 +64,10 @@ let galUpgrade11 = function () {
   if ( player.challenges.length >14 && player.eternities >0 && player.infinitied < 1e8){
     x += 2e6
   }
+  if (player.infinityUpgrades.includes("postinfi61")){
+    x += 1e8
+    z -= .75
+  }
   if (player.eternities > 0) z -= 0.5
   if (x <= 0) {
     y = 2;
