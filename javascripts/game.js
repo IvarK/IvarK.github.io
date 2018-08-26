@@ -737,7 +737,7 @@ function updateDimensions() {
             document.getElementById("postinfi51").innerHTML = "Galaxies are 20% more effective <br> Cost: " +shortenCosts(1e29) + " IP"
             document.getElementById("postinfi52").innerHTML = "Decrease galaxy cost increase by 3 <br>"+ getGalaxyCostIncrease()+ " -> " + (getGalaxyCostIncrease()-3)+ "<br> Cost: " +shortenCosts(1e33) + " IP"
 	          if (player.infinityUpgrades.includes("postinfi52")) "Decrease galaxy cost increase by 3 <br>"+ getGalaxyCostIncrease()+ "<br> Cost: " +shortenCosts(1e33) + " IP"
-            document.getElementById("postinfi53").innerHTML = "Divide ID cost increases by 10 <br> Cost: " +shortenCosts(1e48) + " IP"
+            document.getElementById("postinfi53").innerHTML = "Divide ID cost increases by 10 <br> Cost: " +shortenCosts(1e37) + " IP"
             document.getElementById("postinfi13").innerHTML = "You passively generate Infinitied stat based on your fastest infinity.<br>1 Infinity every "+timeDisplay(player.bestInfinityTime*5)+ " <br>Cost: "+shortenCosts(20e6)+" IP"
             document.getElementById("postinfi23").innerHTML = "Option to bulk buy Dimension Boosts <br>Cost: "+shortenCosts(5e6)+" IP"
             document.getElementById("postinfi33").innerHTML = "Autobuyers work twice as fast <br>Cost:"+shortenCosts(1e15)+" IP"
@@ -1317,7 +1317,7 @@ document.getElementById("postinfi52").onclick = function() {
 }
 
 document.getElementById("postinfi53").onclick = function() {
-    buyInfinityUpgrade("postinfi53",1e48);
+    buyInfinityUpgrade("postinfi53",1e37);
 }
 
 document.getElementById("offlineProd").onclick = function() {
@@ -5495,7 +5495,7 @@ function gameLoop(diff) {
         if (player.infinityPoints.gte(1e33)) document.getElementById("postinfi52").className = "infinistorebtn1"
         else document.getElementById("postinfi52").className = "infinistorebtnlocked"
 
-        if (player.infinityPoints.gte(1e48)) document.getElementById("postinfi53").className = "infinistorebtn1"
+        if (player.infinityPoints.gte(1e37)) document.getElementById("postinfi53").className = "infinistorebtn1"
         else document.getElementById("postinfi53").className = "infinistorebtnlocked"
 
         if (player.infinityPoints.gte(player.offlineProdCost)) document.getElementById("offlineProd").className = "infinimultbtn"
