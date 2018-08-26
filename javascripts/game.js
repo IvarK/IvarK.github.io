@@ -2196,8 +2196,8 @@ function galIP(){
 function getB60Mult(){
     let g = player.galaxies;
     if (g<96) return 1
-    if (player.eternities<1) return Math.pow(1.5,g-95)
-    return Math.pow(2,g-95)
+    if (player.eternities<1) return Math.pow(3,g-95)
+    return Math.pow(3.5,g-95)
 }
 
 function gainedInfinityPoints() {
