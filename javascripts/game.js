@@ -722,7 +722,7 @@ function updateDimensions() {
             document.getElementById("postinfi03").innerHTML = "Decrease galaxy cost increase by 5<br>Currently: " + getGalaxyCostIncrease() + ' -> ' + (getGalaxyCostIncrease() - 5) + "<br>Cost: "+shortenCosts(5e5)+" IP"
             if (player.infinityUpgrades.includes("galCost")) document.getElementById("postinfi03").innerHTML = "Decrease galaxy cost increase by 5<br>Currently: " + getGalaxyCostIncrease() + "<br>Cost: "+shortenCosts(5e5)+" IP"
             document.getElementById("postinfi04").innerHTML = "Dimension multipliers are further increased by g31 <br>x^" + galUpgrade31().toFixed(2) + ' -> ' + (galUpgrade31() + .02).toFixed(2) + '</br> Cost: ' + formatValue(player.options.notation, player.dimPowerIncreaseCost, 2, 2) + ' IP';
-            if (player.extraDimPowerIncrease >= 25) document.getElementById("postinfi04").innerHTML = "Dimension multipliers are further increased by g31 <br>x^" + galUpgrade31().toFixed(2);
+            if (player.extraDimPowerIncrease >= 40) document.getElementById("postinfi04").innerHTML = "Dimension multipliers are further increased by g31 <br>x^" + galUpgrade31().toFixed(2);
             document.getElementById("postinfi11").innerHTML = "Power up all dimensions based on total antimatter produced<br>Currently: "+ formatValue(player.options.notation, totalMult, 2, 2)+"x<br>Cost: "+shortenCosts(1e4)+" IP"
             document.getElementById("postinfi21").innerHTML = "Power up all dimensions based on current antimatter<br>Currently: "+ formatValue(player.options.notation, currentMult, 2, 2)+"x<br>Cost: "+shortenCosts(5e4)+" IP"
             document.getElementById("postinfi31").innerHTML = "Tickspeed cost multiplier increase <br>"+getTickSpeedCostMultiplierIncrease().toFixed(2)+"x -> "+getTickSpeedCostMultiplierIncrease(-1).toFixed(2)+"x<br>Cost: "+formatValue(player.options.notation, player.tickSpeedMultDecreaseCost, 2, 2) +" IP"
@@ -1241,7 +1241,7 @@ document.getElementById("postinfi04").onclick = function() {
         player.extraDimPowerIncrease += 1;
         if (player.extraDimPowerIncrease > 15) player.dimPowerIncreaseCost = player.dimPowerIncreaseCost.times(Decimal.pow(Decimal.pow(4,5),player.extraDimPowerIncrease-15))
         document.getElementById("postinfi04").innerHTML = "Dimension multipliers are further increased by g31 <br>x^" + galUpgrade31().toFixed(2) + ' -> ' + (galUpgrade31() + .02).toFixed(2) + '</br> Cost: ' + formatValue(player.options.notation, player.dimPowerIncreaseCost, 2, 2) + ' IP';
-        if (player.extraDimPowerIncrease >= 25) document.getElementById("postinfi04").innerHTML = "Dimension multipliers are further increased by g31 <br>x^" + galUpgrade31().toFixed(2);
+        if (player.extraDimPowerIncrease >= 40) document.getElementById("postinfi04").innerHTML = "Dimension multipliers are further increased by g31 <br>x^" + galUpgrade31().toFixed(2);
     }
 }
 
@@ -5614,7 +5614,7 @@ function gameLoop(diff) {
     if (player.infinityUpgrades.includes("galPointMult")) document.getElementById("postinfi01").className = "infinistorebtnbought"
     if (player.infinityUpgrades.includes("dimboostCost")) document.getElementById("postinfi02").className = "infinistorebtnbought"
     if (player.infinityUpgrades.includes("galCost")) document.getElementById("postinfi03").className = "infinistorebtnbought"
-    if (player.extraDimPowerIncrease >= 25) document.getElementById("postinfi04").className = "infinistorebtnbought"
+    if (player.extraDimPowerIncrease >= 40) document.getElementById("postinfi04").className = "infinistorebtnbought"
     if (player.infinityUpgrades.includes("totalMult")) document.getElementById("postinfi11").className = "infinistorebtnbought"
     if (player.infinityUpgrades.includes("currentMult")) document.getElementById("postinfi21").className = "infinistorebtnbought"
     if (player.tickSpeedMultDecrease <= 2) document.getElementById("postinfi31").className = "infinistorebtnbought"
