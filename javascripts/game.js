@@ -1320,7 +1320,7 @@ document.getElementById("postinfi53").onclick = function() {
     buyInfinityUpgrade("postinfi53",1e37);
 }
 
-document.getElementById("postinfi52").onclick = function() {
+document.getElementById("postinfi60").onclick = function() {
     buyInfinityUpgrade("postinfi60",1e50);
 }
 
