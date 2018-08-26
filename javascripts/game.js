@@ -748,8 +748,8 @@ function updateDimensions() {
           
 			document.getElementById("postinfir5").style.display = (player.infinityDimension3.amount.gt(0)||player.eternities > 0)?"":"none"
           
-            document.getElementById("postinfi60").innerHTML = "You gain more IP based on galaxies<br>(5^(galaxies-95)) <br>Currently: "+formatValue(player.options.notation,getB60Mult(),2,0))+"x <br>Cost: "+formatValue(player.options.notation,1e50,0,0)+" IP"
-            document.getElementById("postinfir6").style.display = (player.infinityDimension4.amount.gt(0)&&player.eternities > 0)?"":"none"
+            document.getElementById("postinfi60").innerHTML = "You gain more IP based on galaxies<br>(5^(galaxies-95)) <br>Currently: "+formatValue(player.options.notation,getB60Mult(),2,0)+"x <br>Cost: "+formatValue(player.options.notation,1e50,0,0)+" IP"
+            document.getElementById("postinfir6").style.display = (player.infinityDimension4.amount.gt(0)||player.eternities > 0)?"":"none"
         }
     }
 
