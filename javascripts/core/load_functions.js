@@ -616,8 +616,8 @@ if (player.version < 5) {
 
   if (!player.options.hotkeys) document.getElementById("hotkeys").textContent = "Enable hotkeys"
 
-  player.dimPowerIncreaseCost = new Decimal(1e3).times(Decimal.pow(4,player.extraDimPowerIncrease+1));
-  if (player.extraDimPowerIncrease > 15) player.dimPowerIncreaseCost = player.dimPowerIncreaseCost.times(Decimal.pow(64,player.extraDimPowerIncrease-5))
+  player.dimPowerIncreaseCost = new Decimal(1e3).times(Decimal.pow(4,Math.min(player.extraDimPowerIncrease,15)+1));
+  if (player.extraDimPowerIncrease > 15) player.dimPowerIncreaseCost = player.dimPowerIncreaseCost.times(Decimal.pow(Decimal.pow(4,5),player.extraDimPowerIncrease-15)
 
   updateAutobuyers();
   setAchieveTooltip();

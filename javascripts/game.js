@@ -1240,9 +1240,9 @@ document.getElementById("postinfi03").onclick = function() {
 document.getElementById("postinfi04").onclick = function() {
     if (player.infinityPoints.gte(player.dimPowerIncreaseCost) && player.extraDimPowerIncrease < 25) {
         player.infinityPoints = player.infinityPoints.minus(player.dimPowerIncreaseCost)
-        player.dimPowerIncreaseCost = new Decimal(1e3).times(Decimal.pow(4,player.extraDimPowerIncrease+1));
+        player.dimPowerIncreaseCost = new Decimal(1e3).times(Decimal.pow(4,Math.min(player.extraDimPowerIncrease,15)+1));
         player.extraDimPowerIncrease += 1;
-        if (player.extraDimPowerIncrease > 15) player.dimPowerIncreaseCost = player.dimPowerIncreaseCost.times(Decimal.pow(64,player.extraDimPowerIncrease-5))
+        if (player.extraDimPowerIncrease > 15) player.dimPowerIncreaseCost = player.dimPowerIncreaseCost.times(Decimal.pow(Decimal.pow(4,5),player.extraDimPowerIncrease-15))
         document.getElementById("postinfi04").innerHTML = "Dimension multipliers are further increased by g31 <br>x^" + galUpgrade31().toFixed(2) + ' -> ' + (galUpgrade31() + .02).toFixed(2) + '</br> Cost: ' + formatValue(player.options.notation, player.dimPowerIncreaseCost, 2, 2) + ' IP';
         if (player.extraDimPowerIncrease >= 25) document.getElementById("postinfi04").innerHTML = "Dimension multipliers are further increased by g31 <br>x^" + galUpgrade31().toFixed(2);
     }
