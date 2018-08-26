@@ -615,11 +615,10 @@ if (player.version < 5) {
   }
 
   if (!player.options.hotkeys) document.getElementById("hotkeys").textContent = "Enable hotkeys"
-  
-  if (typeof player.dimPowerIncreaseCost != "object") {
-      player.dimPowerIncreaseCost = new Decimal(1e3).times(Decimal.pow(4,player.extraDimPowerIncrease+1));
-      if (player.extraDimPowerIncrease > 15) player.dimPowerIncreaseCost = player.dimPowerIncreaseCost.times(Decimal.pow(125,player.extraDimPowerIncrease-5))
-  }
+
+  player.dimPowerIncreaseCost = new Decimal(1e3).times(Decimal.pow(4,player.extraDimPowerIncrease+1));
+  if (player.extraDimPowerIncrease > 15) player.dimPowerIncreaseCost = player.dimPowerIncreaseCost.times(Decimal.pow(64,player.extraDimPowerIncrease-5))
+
   updateAutobuyers();
   setAchieveTooltip();
   updatePriorities();
