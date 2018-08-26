@@ -1090,6 +1090,7 @@ function buyInfinityUpgrade(name, cost) {
             dim.cost = new Decimal (infBaseCost[tier]).times(Math.pow(infCostMults[tier]/10, (dim.baseAmount/10 +1)))
         }
 			}
+            updateInfinityDimensions()
 		}
         return true
     } else return false
@@ -1318,6 +1319,7 @@ document.getElementById("postinfi52").onclick = function() {
 
 document.getElementById("postinfi53").onclick = function() {
     buyInfinityUpgrade("postinfi53",1e37);
+    
 }
 
 document.getElementById("offlineProd").onclick = function() {
