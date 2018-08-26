@@ -205,21 +205,9 @@ function buyManyInfinityDimension(tier) {
   if (player.eterc8ids == 0) return false
   player.infinityPoints = player.infinityPoints.minus(dim.cost)
   dim.amount = dim.amount.plus(10);
-  if (!player.infinityUpgrades.includes("postinfi53")){
-      if (ECTimesCompleted("eterc12")) {
-          dim.cost = Decimal.round(dim.cost.times(Math.pow(infCostMults[tier], 1-ECTimesCompleted("eterc12")*0.008)))
-      } else {
-          dim.cost = Decimal.round(dim.cost.times(infCostMults[tier]))
-      }
-  } else {
-      if (ECTimesCompleted("eterc12")){
-          dim.cost = new Decimal (infBaseCost[tier]).times(Math.pow(infCostMults[tier]/10, (dim.baseAmount/10 + 1)*(1-ECTimesCompleted("eterc12")*0.008)))
-      } else {
-          dim.cost = new Decimal (infBaseCost[tier]).times(Math.pow(infCostMults[tier]/10, (dim.baseAmount/10 +1)))
-      }
-  }
   dim.power = dim.power.times(infPowerMults[tier])
   dim.baseAmount += 10
+  dim.cost = new Decimal(infBaseCost[tier]).times(Decimal.pow(infCostMults[tier]/(player.infinityUpgrades.includes("postinfi53")?10:1), (dim.baseAmount/10 + 1)*(ECTimesCompleted("eterc12")?1-ECTimesCompleted("eterc12")*0.008:1)))
 
   if (player.currentEternityChall == "eterc8") player.eterc8ids-=1
   document.getElementById("eterc8ids").textContent = "You have "+player.eterc8ids+" purchases left."
@@ -232,13 +220,7 @@ function buyMaxInfDims(tier) {
   if (player.infinityPoints.lt(dim.cost)) return false
   if (!player.infDimensionsUnlocked[tier-1]) return false
 
-  let costMult;
-  if (ECTimesCompleted("eterc12")) {
-      costMult = Math.pow(infCostMults[tier]/(player.infinityUpgrades.includes("postinfi53")?10:1), 1-ECTimesCompleted("eterc12")*0.008)
-  } else {
-      costMult = infCostMults[tier]/(player.infinityUpgrades.includes("postinfi53")?10:1)
-  }
-
+  let costMult = Math.pow(infCostMults[tier]/(player.infinityUpgrades.includes("postinfi53")?10:1), ECTimesCompleted("eterc12")?1-ECTimesCompleted("eterc12")*0.008:1);
   var toBuy = Math.floor((player.infinityPoints.e - dim.cost.e) / Math.log10(costMult))
   dim.cost = dim.cost.times(Decimal.pow(costMult, toBuy-1))
   player.infinityPoints = player.infinityPoints.minus(dim.cost)

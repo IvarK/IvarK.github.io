@@ -619,6 +619,12 @@ if (player.version < 5) {
   player.dimPowerIncreaseCost = new Decimal(1e3).times(Decimal.pow(4,Math.min(player.extraDimPowerIncrease,15)+1));
   if (player.extraDimPowerIncrease > 15) player.dimPowerIncreaseCost = player.dimPowerIncreaseCost.times(Decimal.pow(Decimal.pow(4,5),player.extraDimPowerIncrease-15))
 
+  for (tier=1;tier<9;tier++) {
+    let dim = player["infinityDimension"+tier]
+    dim.cost = new Decimal(infBaseCost[tier]).times(Decimal.pow(infCostMults[tier]/(player.infinityUpgrades.includes("postinfi53")?10:1), (dim.baseAmount/10 + 1)*(ECTimesCompleted("eterc12")?1-ECTimesCompleted("eterc12")*0.008:1)))
+  }
+  
+  updateInfinityDimensions()
   updateAutobuyers();
   setAchieveTooltip();
   updatePriorities();

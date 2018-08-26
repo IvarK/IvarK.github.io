@@ -1083,13 +1083,9 @@ function buyInfinityUpgrade(name, cost) {
         player.infinityPoints = player.infinityPoints.minus(cost);
 		if (name == "postinfi53") {
 			for (tier=1;tier<9;tier++) {
-        let dim = player["infinityDimension"+tier]
-        if (ECTimesCompleted("eterc12")){
-            dim.cost = new Decimal (infBaseCost[tier]).times(Math.pow(infCostMults[tier]/10, (dim.baseAmount/10 + 1)*(1-ECTimesCompleted("eterc12")*0.008)))
-        } else {
-            dim.cost = new Decimal (infBaseCost[tier]).times(Math.pow(infCostMults[tier]/10, (dim.baseAmount/10 +1)))
-        }
-			}
+                let dim = player["infinityDimension"+tier]
+                dim.cost = new Decimal(infBaseCost[tier]).times(Decimal.pow(infCostMults[tier]/(player.infinityUpgrades.includes("postinfi53")?10:1), (dim.baseAmount/10 + 1)*(ECTimesCompleted("eterc12")?1-ECTimesCompleted("eterc12")*0.008:1)))
+            }
             updateInfinityDimensions()
 		}
         return true
