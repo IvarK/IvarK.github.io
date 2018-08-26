@@ -505,9 +505,9 @@ function getGalaxyRequirement() {
         amount += Math.pow((player.galaxies) - (galaxyCostScalingStart - 1), 1.5) + (player.galaxies) - (galaxyCostScalingStart - 1)
     }
 
-    if ((player.galaxies) >= getGalaxyCostScalingStart() * 2) {
+    if ((player.galaxies) >= getGalaxyCostScalingStart() * 2.5) {
         // 5 times worse scaling
-        amount += 5 * (Math.pow((player.galaxies) - (galaxyCostScalingStart * 2 - 1), 1.5) + (player.galaxies) - (galaxyCostScalingStart * 2 - 1))
+        amount += 4 * (Math.pow((player.galaxies) - (galaxyCostScalingStart * 2.5 - 1), 1.5) + (player.galaxies) - (galaxyCostScalingStart * 2.5 - 1))
     }
 
     if (player.galaxies >= 800) {
