@@ -624,6 +624,8 @@ if (player.version < 5) {
     dim.cost = new Decimal(infBaseCost[tier]).times(Decimal.pow(infCostMults[tier]/(player.infinityUpgrades.includes("postinfi53")?50:1), (dim.baseAmount/10 + 1)*(ECTimesCompleted("eterc12")?1-ECTimesCompleted("eterc12")*0.008:1)))
   }
   
+  if (!player.eternities) player.infinityUpgrades = player.infinityUpgrades.filter(e => e !== 'postinfi60')
+  
   updateInfinityDimensions()
   updateAutobuyers();
   setAchieveTooltip();
