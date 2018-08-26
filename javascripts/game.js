@@ -473,9 +473,6 @@ function getGalaxyCostScalingStart() {
 function getGalaxyCostIncrease() {
   if (player.currentChallenge === 'postc1') return 60;
   let ret = 60;
-  if (player.timestudy.studies.includes(42)) {
-    ret = 52;
-  }
   if (player.galacticSacrifice.upgrades.includes(22)) {
     ret = 30;
   }
@@ -486,6 +483,7 @@ function getGalaxyCostIncrease() {
     ret -= 5;
   }
   if (player.infinityUpgrades.includes("postinfi52")) ret -= 3
+  if (player.timestudy.studies.includes(42)) ret *= 13/15
   return ret;
 }
 
@@ -748,7 +746,8 @@ function updateDimensions() {
           
 			document.getElementById("postinfir5").style.display = (player.infinityDimension3.amount.gt(0)||player.eternities > 0)?"":"none"
           
-            document.getElementById("postinfi60").innerHTML = "You gain more IP based on galaxies<br>(2^(galaxies-95)) <br>Currently: "+formatValue(player.options.notation,getB60Mult(),2,0)+"x <br>Cost: "+formatValue(player.options.notation,1e50,0,0)+" IP"
+            if (player.eternities > 0)   document.getElementById("postinfi60").innerHTML = "You gain more IP based on galaxies<br>(2^(galaxies-95)) <br>Currently: "+formatValue(player.options.notation,getB60Mult(),2,0)+"x <br>Cost: "+formatValue(player.options.notation,1e50,0,0)+" IP"
+	    else document.getElementById("postinfi60").innerHTML = "You gain more IP based on galaxies<br>(1.5^(galaxies-95)) <br>Currently: "+formatValue(player.options.notation,getB60Mult(),2,0)+"x <br>Cost: "+formatValue(player.options.notation,1e50,0,0)+" IP"
             document.getElementById("postinfir6").style.display = (player.infinityDimension4.amount.gt(0)||player.eternities > 0)?"":"none"
         }
     }
@@ -2197,6 +2196,7 @@ function galIP(){
 function getB60Mult(){
     let g = player.galaxies;
     if (g<96) return 1
+    if (player.eternities<1) return Math.pow(1.5,g-95)
     return Math.pow(2,g-95)
 }
 
