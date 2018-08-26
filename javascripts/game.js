@@ -1041,9 +1041,9 @@ document.getElementById("maxall").onclick = function () {
                     var buying = Math.floor((Math.sqrt(Math.pow(b, 2) - (c *a *4))-b)/(2 * a))+1
                     if (buying <= 0) return false
                     player[name+"Amount"] = Decimal.round(player[name+"Amount"].plus(10*buying))
-                    preInfBuy = Math.floor(1 + (308 - initCost[tier].log10()) / costMults[tier].log10())
+                    preInfBuy = Math.floor(1 + (308 - initCost[tier].log10()+ galUpgrade11().log10()) / costMults[tier].log10())
                     postInfBuy = player[name + 'Bought']/10+buying - preInfBuy - 1
-                    postInfInitCost = initCost[tier].times(Decimal.pow(costMults[tier], preInfBuy))
+                    postInfInitCost = initCost[tier].times(Decimal.pow(costMults[tier], preInfBuy)).div(galUpgrade11())
                     recordBought(name, 10*buying);
                     player[name + "Pow"] = player[name + "Pow"].times(Decimal.pow(getDimensionPowerMultiplier(tier), buying))
 
