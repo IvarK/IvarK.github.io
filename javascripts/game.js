@@ -1235,7 +1235,7 @@ document.getElementById("postinfi03").onclick = function() {
 }
 
 document.getElementById("postinfi04").onclick = function() {
-    if (player.infinityPoints.gte(player.dimPowerIncreaseCost) && player.extraDimPowerIncrease < 25) {
+    if (player.infinityPoints.gte(player.dimPowerIncreaseCost) && player.extraDimPowerIncrease < 40) {
         player.infinityPoints = player.infinityPoints.minus(player.dimPowerIncreaseCost)
         player.dimPowerIncreaseCost = new Decimal(1e3).times(Decimal.pow(4,Math.min(player.extraDimPowerIncrease,15)+1));
         player.extraDimPowerIncrease += 1;
