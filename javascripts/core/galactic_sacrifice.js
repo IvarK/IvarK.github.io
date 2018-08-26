@@ -78,6 +78,7 @@ let galUpgrade11 = function () {
   } else {
     y = Math.pow(Math.log(x), Math.log(x) / z) + 14;
   }
+  if (y>1000) y = Math.pow(1000*y,.5)
   return Decimal.pow(10, y);
 }
 
