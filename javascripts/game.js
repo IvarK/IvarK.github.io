@@ -737,7 +737,7 @@ function updateDimensions() {
             document.getElementById("postinfi51").innerHTML = "Galaxies are 20% more effective <br> Cost: " +shortenCosts(1e29) + " IP"
             document.getElementById("postinfi52").innerHTML = "Decrease galaxy cost increase by 3 <br>"+ getGalaxyCostIncrease()+ " -> " + (getGalaxyCostIncrease()-3)+ "<br> Cost: " +shortenCosts(1e33) + " IP"
 	          if (player.infinityUpgrades.includes("postinfi52")) "Decrease galaxy cost increase by 3 <br>"+ getGalaxyCostIncrease()+ "<br> Cost: " +shortenCosts(1e33) + " IP"
-            document.getElementById("postinfi53").innerHTML = "Divide ID cost increases by 10 <br> Cost: " +shortenCosts(1e37) + " IP"
+            document.getElementById("postinfi53").innerHTML = "Divide ID cost increases by 50 <br> Cost: " +shortenCosts(1e37) + " IP"
             document.getElementById("postinfi13").innerHTML = "You passively generate Infinitied stat based on your fastest infinity.<br>1 Infinity every "+timeDisplay(player.bestInfinityTime*5)+ " <br>Cost: "+shortenCosts(20e6)+" IP"
             document.getElementById("postinfi23").innerHTML = "Option to bulk buy Dimension Boosts <br>Cost: "+shortenCosts(5e6)+" IP"
             document.getElementById("postinfi33").innerHTML = "Autobuyers work twice as fast <br>Cost:"+shortenCosts(1e15)+" IP"
@@ -1084,7 +1084,7 @@ function buyInfinityUpgrade(name, cost) {
 		if (name == "postinfi53") {
 			for (tier=1;tier<9;tier++) {
                 let dim = player["infinityDimension"+tier]
-                dim.cost = new Decimal(infBaseCost[tier]).times(Decimal.pow(infCostMults[tier]/(player.infinityUpgrades.includes("postinfi53")?10:1), (dim.baseAmount/10 + 1)*(ECTimesCompleted("eterc12")?1-ECTimesCompleted("eterc12")*0.008:1)))
+                dim.cost = new Decimal(infBaseCost[tier]).times(Decimal.pow(infCostMults[tier]/(player.infinityUpgrades.includes("postinfi53")?50:1), (dim.baseAmount/10 + 1)*(ECTimesCompleted("eterc12")?1-ECTimesCompleted("eterc12")*0.008:1)))
             }
             updateInfinityDimensions()
 		}
