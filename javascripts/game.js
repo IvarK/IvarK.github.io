@@ -743,11 +743,11 @@ function updateDimensions() {
             document.getElementById("offlineProd").innerHTML = "Generates "+player.offlineProd+"% > "+Math.max(Math.max(5, player.offlineProd + 5), Math.min(50, player.offlineProd + 5))+"% of your best IP/min from last 10 infinities, works offline<br>Currently: "+shortenMoney(bestRunIppm.times(player.offlineProd/100)) +"IP/min<br> Cost: "+
             formatValue(player.options.notation, player.offlineProdCost, 2, 2)+" IP";
             if (player.offlineProd == 50) document.getElementById("offlineProd").innerHTML = "Generates "+player.offlineProd+"% of your best IP/min from last 10 infinities, works offline<br>Currently: "+shortenMoney(bestRunIppm.times(player.offlineProd/100)) +" IP/min"
-          
-			document.getElementById("postinfir5").style.display = (player.infinityDimension3.amount.gt(0)||player.eternities > 0)?"":"none"
-          
-            if (player.eternities > 0)   document.getElementById("postinfi60").innerHTML = "You gain more IP based on galaxies<br>(2^(galaxies-95)) <br>Currently: "+formatValue(player.options.notation,getB60Mult(),2,0)+"x <br>Cost: "+formatValue(player.options.notation,1e50,0,0)+" IP"
-	    else document.getElementById("postinfi60").innerHTML = "You gain more IP based on galaxies<br>(1.5^(galaxies-95)) <br>Currently: "+formatValue(player.options.notation,getB60Mult(),2,0)+"x <br>Cost: "+formatValue(player.options.notation,1e50,0,0)+" IP"
+
+			      document.getElementById("postinfir5").style.display = (player.infinityDimension3.amount.gt(0)||player.eternities > 0)?"":"none"
+
+            if (player.eternities > 0)   document.getElementById("postinfi60").innerHTML = "You gain more IP based on galaxies<br>(3.5^(galaxies-95)) <br>Currently: "+formatValue(player.options.notation,getB60Mult(),2,0)+"x <br>Cost: "+formatValue(player.options.notation,1e50,0,0)+" IP"
+	          else document.getElementById("postinfi60").innerHTML = "You gain more IP based on galaxies<br>(3^(galaxies-95)) <br>Currently: "+formatValue(player.options.notation,getB60Mult(),2,0)+"x <br>Cost: "+formatValue(player.options.notation,1e50,0,0)+" IP"
             document.getElementById("postinfir6").style.display = (player.infinityDimension4.amount.gt(0)||player.eternities > 0)?"":"none"
         }
     }
@@ -4815,7 +4815,7 @@ setInterval(function() {
 
 var nextAt = [new Decimal("1e750"), new Decimal("1e1350"), new Decimal("1e2000"), new Decimal("1e3000"), new Decimal("1e5000"), new Decimal("1e14000"), new Decimal("1e18000"), new Decimal("1e20000"), new Decimal("1e23000"), new Decimal("1e28000")]
 
-var goals = [new Decimal("1e550"), new Decimal("1e950"), new Decimal("1e1200"), new Decimal("1e650"), new Decimal("1e10500"), new Decimal("1e13000"), new Decimal("1e11111"), new Decimal("2e22222"), new Decimal("1e10000"), new Decimal("1e27000")]
+var goals = [new Decimal("1e550"), new Decimal("1e950"), new Decimal("1e1200"), new Decimal("1e650"), new Decimal("1e10500"), new Decimal("1e13000"), new Decimal("1e11111"), new Decimal("2e22222"), new Decimal("1e15000"), new Decimal("1e27000")]
 setInterval(function() {
     if (getDimensionFinalMultiplier(1).gte(new Decimal("1e308")) &&
         getDimensionFinalMultiplier(2).gte(new Decimal("1e308")) &&
@@ -5513,7 +5513,7 @@ function gameLoop(diff) {
 
         if (player.infinityPoints.gte(1e50)) document.getElementById("postinfi60").className = "infinistorebtn1"
         else document.getElementById("postinfi60").className = "infinistorebtnlocked"
-      
+
         if (player.infinityPoints.gte(player.offlineProdCost)) document.getElementById("offlineProd").className = "infinimultbtn"
         else document.getElementById("offlineProd").className = "infinistorebtnlocked"
 
