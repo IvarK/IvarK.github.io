@@ -60,12 +60,12 @@ let galUpgrade11 = function () {
   let y;
   let z = 10
   if (player.challenges.length > 14) z -= (player.challenges.length-8)/4
-  if (player.challenges.length >20) z += 0.08*player.challenges.length-1.5
+  if (player.challenges.length >20) z += 0.085*player.challenges.length-1.5
   if ( player.challenges.length >14 && player.eternities >0 && player.infinitied < 1e8){
     x += 2e6
   }
   if (player.infinityUpgrades.includes("postinfi61")){
-    x += 1e8
+    x += 1e7
     z -= .1
   }
   if (player.eternities > 0) z -= 0.5
