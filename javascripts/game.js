@@ -748,8 +748,8 @@ function updateDimensions() {
           
 			document.getElementById("postinfir5").style.display = (player.infinityDimension3.amount.gt(0)||player.eternities > 0)?"":"none"
           
-            document.getElementById("postinfi60").innerHTML = "You gain more IP based on galaxies<br>(5^(galaxies-95))<br>Currently: "+formatValue(player.options.notation,Decimal.pow(5,Math.max(player.galaxies-95,0),2,0))+"x<br>Cost: "+formatValue(player.options.notation,1e50,0,0)+" IP"
-            document.getElementById("postinfir6").style.display = (player.infinityDimension4.amount.gt(0)||player.eternities > 0)?"":"none"
+            document.getElementById("postinfi60").innerHTML = "You gain more IP based on galaxies<br>(5^(galaxies-95)) <br>Currently: "+formatValue(player.options.notation,getB60Mult(),2,0))+"x <br>Cost: "+formatValue(player.options.notation,1e50,0,0)+" IP"
+            document.getElementById("postinfir6").style.display = (player.infinityDimension4.amount.gt(0)&&player.eternities > 0)?"":"none"
         }
     }
 
@@ -2193,6 +2193,16 @@ function galIP(){
     if (gal<50) return 2 + Math.pow(5+gal, 0.6)
     return Math.pow(gal,.4)+7
 }
+
+function getB60Mult(){
+    let g = player.galaxies;
+    if (g<96) return 1
+    if (g<130) return Math.pow(5,g-95)
+    let exp = 25 + Math.pow(g-130,.5);
+    return Math.pow(5,exp)
+	
+}
+
 function gainedInfinityPoints() {
     let div = 308;
     if (player.timestudy.studies.includes(111)) div = 285;
@@ -2207,7 +2217,7 @@ function gainedInfinityPoints() {
     if (player.achievements.includes("r116")) ret = ret.times(Decimal.pow(2, Math.log10(getInfinitied()+1)))
     if (player.achievements.includes("r125")) ret = ret.times(Decimal.pow(2, Math.log(player.thisInfinityTime+1)*Math.pow(player.thisInfinityTime+1, 0.11)))
     if (player.dilation.upgrades.includes(7)) ret = ret.times(player.dilation.dilatedTime.pow(1000))
-    if (player.infinityUpgrades.includes("postinfi60")) ret = ret.times(Decimal.pow(5,Math.max(player.galaxies-95,0)))
+    if (player.infinityUpgrades.includes("postinfi60")) ret = ret.times(getB60Mult())
     return ret.floor()
 }
 
