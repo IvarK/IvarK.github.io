@@ -66,7 +66,7 @@ let galUpgrade11 = function () {
   }
   if (player.infinityUpgrades.includes("postinfi61")){
     x += 1e8
-    z -= .75
+    z -= .25
   }
   if (player.eternities > 0) z -= 0.5
   if (x <= 0) {
