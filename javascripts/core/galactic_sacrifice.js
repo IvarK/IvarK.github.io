@@ -61,7 +61,7 @@ let galUpgrade11 = function () {
   let z = 10
   if (player.challenges.length > 14) z -= (player.challenges.length-8)/4
   if (player.challenges.length >20) z += 0.085*player.challenges.length-1.5
-  if ( player.challenges.length >14 && player.eternities >0 && player.infinitied < 1e8){
+  if (player.challenges.length >14 && player.eternities >0 && player.infinitied < 1e8){
     x += 2e6
   }
   if (player.infinityUpgrades.includes("postinfi61")){
@@ -90,7 +90,7 @@ let galUpgrade13 = function () {
   let base = player.galacticSacrifice.galaxyPoints.div(5).plus(1).pow(3);
   let exp = 1;
   if (player.infinityUpgrades.includes("postinfi62")) exp = Math.pow(Math.log(player.resets+3),2)
-  return Math.pow(base,exp)
+  return base.pow(exp);
 }
 
 let galUpgrade23 = function () {
