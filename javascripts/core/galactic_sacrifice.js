@@ -87,7 +87,10 @@ let galUpgrade12 = function () {
 }
 
 let galUpgrade13 = function () {
-  return player.galacticSacrifice.galaxyPoints.div(5).plus(1).pow(3);
+  let base = player.galacticSacrifice.galaxyPoints.div(5).plus(1).pow(3);
+  let exp = 1;
+  if (player.infinityUpgrades.includes("postinfi62")) exp = Math.pow(Math.log(player.resets+3),2)
+  return Math.pow(base,exp)
 }
 
 let galUpgrade23 = function () {
