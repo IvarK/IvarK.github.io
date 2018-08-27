@@ -502,7 +502,12 @@ function getGalaxyRequirement() {
 
 
     if ((player.galaxies) >= getGalaxyCostScalingStart()) {
-        amount += Math.pow((player.galaxies)-(galaxyCostScalingStart-1),1.5)+(player.galaxies)-(galaxyCostScalingStart-1)
+        amount += Math.pow((player.galaxies) - (galaxyCostScalingStart - 1), 1.5) + (player.galaxies) - (galaxyCostScalingStart - 1)
+    }
+
+    if ((player.galaxies) >= getGalaxyCostScalingStart() * 2.5) {
+        // 5 times worse scaling
+        amount += 4 * (Math.pow((player.galaxies) - (galaxyCostScalingStart * 2.5 - 1), 1.5) + (player.galaxies) - (galaxyCostScalingStart * 2.5 - 1))
     }
 
     if (player.galaxies >= 800) {
@@ -717,8 +722,8 @@ function updateDimensions() {
             document.getElementById("postinfi01").innerHTML = "Multiplier to galaxy points based on infinities<br>Currently: "+formatValue(player.options.notation, getPost01Mult(), 2, 2)+"x<br>Cost: "+shortenCosts(1e3)+" IP"
             document.getElementById("postinfi02").innerHTML = "Decrease dimension boost cost increase by 1<br>Currently: "+ getDimboostCostIncrease() + ' -> ' + (getDimboostCostIncrease() - 1)+"<br>Cost: "+shortenCosts(2e4)+" IP"
             if (player.infinityUpgrades.includes("dimboostCost")) document.getElementById("postinfi02").innerHTML = "Decrease dimension boost cost increase by 1<br>Currently: "+ getDimboostCostIncrease()+"<br>Cost: "+shortenCosts(2e4)+" IP"
-            document.getElementById("postinfi03").innerHTML = "Decrease galaxy cost increase by 5<br>Currently: " + getGalaxyCostIncrease() + ' -> ' + (getGalaxyCostIncrease() - 5) + "<br>Cost: "+shortenCosts(5e5)+" IP"
-            if (player.infinityUpgrades.includes("galCost")) document.getElementById("postinfi03").innerHTML = "Decrease galaxy cost increase by 5<br>Currently: " + getGalaxyCostIncrease() + "<br>Cost: "+shortenCosts(5e5)+" IP"
+            document.getElementById("postinfi03").innerHTML = "Decrease galaxy cost increase by 5<br>Currently: " + getGalaxyCostIncrease().toFixed(2) + ' -> ' + (getGalaxyCostIncrease() - 5).toFixed(2) + "<br>Cost: "+shortenCosts(5e5)+" IP"
+            if (player.infinityUpgrades.includes("galCost")) document.getElementById("postinfi03").innerHTML = "Decrease galaxy cost increase by 5<br>Currently: " + getGalaxyCostIncrease().toFixed(2) + "<br>Cost: "+shortenCosts(5e5)+" IP"
             document.getElementById("postinfi04").innerHTML = "Dimension multipliers are further increased by g31 <br>x^" + galUpgrade31().toFixed(2) + ' -> ' + (galUpgrade31() + .02).toFixed(2) + '</br> Cost: ' + formatValue(player.options.notation, player.dimPowerIncreaseCost, 2, 2) + ' IP';
             if (player.extraDimPowerIncrease >= 40) document.getElementById("postinfi04").innerHTML = "Dimension multipliers are further increased by g31 <br>x^" + galUpgrade31().toFixed(2);
             document.getElementById("postinfi11").innerHTML = "Power up all dimensions based on total antimatter produced<br>Currently: "+ formatValue(player.options.notation, totalMult, 2, 2)+"x<br>Cost: "+shortenCosts(1e4)+" IP"
@@ -733,8 +738,8 @@ function updateDimensions() {
             document.getElementById("postinfi50").innerHTML = "Decrease dimboost cost increase by 0.5 <br>"+ getDimboostCostIncrease()+ " -> " + (getDimboostCostIncrease()-0.5)+ "<br> Cost: " +shortenCosts(1e25) + " IP"
 	          if (player.infinityUpgrades.includes("postinfi50")) document.getElementById("postinfi50").innerHTML = "Deacrease dimboost cost increase by 0.5<br> Currently: " + getDimboostCostIncrease() + "<br> Cost: " + shortenCosts(1e25) + " IP"
             document.getElementById("postinfi51").innerHTML = "Galaxies are 20% more effective <br> Cost: " +shortenCosts(1e29) + " IP"
-            document.getElementById("postinfi52").innerHTML = "Decrease galaxy cost increase by 3 <br>"+ getGalaxyCostIncrease()+ " -> " + (getGalaxyCostIncrease()-3)+ "<br> Cost: " +shortenCosts(1e33) + " IP"
-	          if (player.infinityUpgrades.includes("postinfi52")) "Decrease galaxy cost increase by 3 <br>"+ getGalaxyCostIncrease()+ "<br> Cost: " +shortenCosts(1e33) + " IP"
+            document.getElementById("postinfi52").innerHTML = "Decrease galaxy cost increase by 3 <br>"+ getGalaxyCostIncrease().toFixed(2)+ " -> " + (getGalaxyCostIncrease()-3).toFixed(2)+ "<br> Cost: " +shortenCosts(1e33) + " IP"
+	          if (player.infinityUpgrades.includes("postinfi52")) "Decrease galaxy cost increase by 3 <br>"+ getGalaxyCostIncrease().toFixed(2)+ "<br> Cost: " +shortenCosts(1e33) + " IP"
             document.getElementById("postinfi53").innerHTML = "Divide ID cost increases by 50 <br> Cost: " +shortenCosts(1e37) + " IP"
             document.getElementById("postinfi13").innerHTML = "You passively generate Infinitied stat based on your fastest infinity.<br>1 Infinity every "+timeDisplay(player.bestInfinityTime*5)+ " <br>Cost: "+shortenCosts(20e6)+" IP"
             document.getElementById("postinfi23").innerHTML = "Option to bulk buy Dimension Boosts <br>Cost: "+shortenCosts(5e6)+" IP"
@@ -743,12 +748,13 @@ function updateDimensions() {
             document.getElementById("offlineProd").innerHTML = "Generates "+player.offlineProd+"% > "+Math.max(Math.max(5, player.offlineProd + 5), Math.min(50, player.offlineProd + 5))+"% of your best IP/min from last 10 infinities, works offline<br>Currently: "+shortenMoney(bestRunIppm.times(player.offlineProd/100)) +"IP/min<br> Cost: "+
             formatValue(player.options.notation, player.offlineProdCost, 2, 2)+" IP";
             if (player.offlineProd == 50) document.getElementById("offlineProd").innerHTML = "Generates "+player.offlineProd+"% of your best IP/min from last 10 infinities, works offline<br>Currently: "+shortenMoney(bestRunIppm.times(player.offlineProd/100)) +" IP/min"
-          
-			document.getElementById("postinfir5").style.display = (player.infinityDimension3.amount.gt(0)||player.eternities > 0)?"":"none"
-          
-            if (player.eternities > 0)   document.getElementById("postinfi60").innerHTML = "You gain more IP based on galaxies<br>(2^(galaxies-95)) <br>Currently: "+formatValue(player.options.notation,getB60Mult(),2,0)+"x <br>Cost: "+formatValue(player.options.notation,1e50,0,0)+" IP"
-	    else document.getElementById("postinfi60").innerHTML = "You gain more IP based on galaxies<br>(1.5^(galaxies-95)) <br>Currently: "+formatValue(player.options.notation,getB60Mult(),2,0)+"x <br>Cost: "+formatValue(player.options.notation,1e50,0,0)+" IP"
+
+			      document.getElementById("postinfir5").style.display = (player.infinityDimension3.amount.gt(0)||player.eternities > 0)?"":"none"
+
+            if (player.eternities > 0)   document.getElementById("postinfi60").innerHTML = "You gain more IP based on galaxies<br>(3.5^(galaxies-95)) <br>Currently: "+formatValue(player.options.notation,getB60Mult(),2,0)+"x <br>Cost: "+formatValue(player.options.notation,1e50,0,0)+" IP"
+	          else document.getElementById("postinfi60").innerHTML = "You gain more IP based on galaxies<br>(3^(galaxies-95)) <br>Currently: "+formatValue(player.options.notation,getB60Mult(),2,0)+"x <br>Cost: "+formatValue(player.options.notation,1e50,0,0)+" IP"
             document.getElementById("postinfir6").style.display = (player.infinityDimension4.amount.gt(0)||player.eternities > 0)?"":"none"
+	    document.getElementById("postinfi61").innerHTML = "Make g11 better <br> Cost: " + formatValue(player.options.notation,new Decimal("1e450"), 2,0) + " IP"
         }
     }
 
@@ -1035,9 +1041,9 @@ document.getElementById("maxall").onclick = function () {
                     var buying = Math.floor((Math.sqrt(Math.pow(b, 2) - (c *a *4))-b)/(2 * a))+1
                     if (buying <= 0) return false
                     player[name+"Amount"] = Decimal.round(player[name+"Amount"].plus(10*buying))
-                    preInfBuy = Math.floor(1 + (308 - initCost[tier].log10()) / costMults[tier].log10())
+                    preInfBuy = Math.floor(1 + (308 - initCost[tier].log10()+ galUpgrade11().log10()) / costMults[tier].log10())
                     postInfBuy = player[name + 'Bought']/10+buying - preInfBuy - 1
-                    postInfInitCost = initCost[tier].times(Decimal.pow(costMults[tier], preInfBuy))
+                    postInfInitCost = initCost[tier].times(Decimal.pow(costMults[tier], preInfBuy)).div(galUpgrade11())
                     recordBought(name, 10*buying);
                     player[name + "Pow"] = player[name + "Pow"].times(Decimal.pow(getDimensionPowerMultiplier(tier), buying))
 
@@ -1321,6 +1327,10 @@ document.getElementById("postinfi53").onclick = function() {
 
 document.getElementById("postinfi60").onclick = function() {
     buyInfinityUpgrade("postinfi60",1e50);
+}
+
+document.getElementById("postinfi61").onclick = function() {
+    buyInfinityUpgrade("postinfi61",new Decimal("1e450"));
 }
 
 
@@ -4816,7 +4826,7 @@ setInterval(function() {
 
 var nextAt = [new Decimal("1e750"), new Decimal("1e1350"), new Decimal("1e2000"), new Decimal("1e3000"), new Decimal("1e5000"), new Decimal("1e14000"), new Decimal("1e18000"), new Decimal("1e20000"), new Decimal("1e23000"), new Decimal("1e28000")]
 
-var goals = [new Decimal("1e550"), new Decimal("1e950"), new Decimal("1e1200"), new Decimal("1e650"), new Decimal("1e10500"), new Decimal("1e13000"), new Decimal("1e11111"), new Decimal("2e22222"), new Decimal("1e10000"), new Decimal("1e27000")]
+var goals = [new Decimal("1e550"), new Decimal("1e950"), new Decimal("1e1200"), new Decimal("1e650"), new Decimal("1e10500"), new Decimal("1e13000"), new Decimal("1e11111"), new Decimal("2e22222"), new Decimal("1e15000"), new Decimal("1e27000")]
 setInterval(function() {
     if (getDimensionFinalMultiplier(1).gte(new Decimal("1e308")) &&
         getDimensionFinalMultiplier(2).gte(new Decimal("1e308")) &&
@@ -5514,7 +5524,10 @@ function gameLoop(diff) {
 
         if (player.infinityPoints.gte(1e50)) document.getElementById("postinfi60").className = "infinistorebtn1"
         else document.getElementById("postinfi60").className = "infinistorebtnlocked"
-      
+
+	if (player.infinityPoints.gte(new Decimal("1e450"))) document.getElementById("postinfi61").className = "infinistorebtn1"
+        else document.getElementById("postinfi61").className = "infinistorebtnlocked"
+
         if (player.infinityPoints.gte(player.offlineProdCost)) document.getElementById("offlineProd").className = "infinimultbtn"
         else document.getElementById("offlineProd").className = "infinistorebtnlocked"
 
@@ -5646,6 +5659,8 @@ function gameLoop(diff) {
     if (player.infinityUpgrades.includes("postinfi52")) document.getElementById("postinfi52").className = "infinistorebtnbought"
     if (player.infinityUpgrades.includes("postinfi53")) document.getElementById("postinfi53").className = "infinistorebtnbought"
     if (player.infinityUpgrades.includes("postinfi60")) document.getElementById("postinfi60").className = "infinistorebtnbought"
+    if (player.infinityUpgrades.includes("postinfi61")) document.getElementById("postinfi61").className = "infinistorebtnbought"
+
     if (player.dimensionMultDecrease <= 3) document.getElementById("postinfi42").className = "infinistorebtnbought"
     if (player.offlineProd == 50) document.getElementById("offlineProd").className = "infinistorebtnbought"
 
