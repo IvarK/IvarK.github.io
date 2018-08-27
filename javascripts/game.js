@@ -3640,7 +3640,7 @@ function eternity(force, auto) {
                 rebuyables: player.dilation.rebuyables
             },
             why: player.why,
-	          galacticSacrifice: player.eternities>6?player.galacticSacrifice:{
+	          galacticSacrifice: player.eternities>=6?player.galacticSacrifice:{
               galaxyPoints: new Decimal(0),
               last: Date.now(),
               times: 0,
