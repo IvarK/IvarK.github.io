@@ -755,6 +755,7 @@ function updateDimensions() {
 	          else document.getElementById("postinfi60").innerHTML = "You gain more IP based on galaxies<br>(3^(galaxies-95)) <br>Currently: "+formatValue(player.options.notation,getB60Mult(),2,0)+"x <br>Cost: "+formatValue(player.options.notation,1e50,0,0)+" IP"
             document.getElementById("postinfir6").style.display = (player.infinityDimension4.amount.gt(0)||player.eternities > 0)?"":"none"
 	    document.getElementById("postinfi61").innerHTML = "Make g11 better <br> Cost: " + formatValue(player.options.notation,new Decimal("1e450"), 2,0) + " IP"
+            document.getElementById("postinfi62").innerHTML = "Make g13 better based on dimboosts <br> Cost: " + formatValue(player.options.notation,new Decimal("1e700"), 2,0) + " IP"
         }
     }
 
@@ -1333,6 +1334,9 @@ document.getElementById("postinfi61").onclick = function() {
     buyInfinityUpgrade("postinfi61",new Decimal("1e450"));
 }
 
+document.getElementById("postinfi62").onclick = function() {
+    buyInfinityUpgrade("postinfi62",new Decimal("1e700"));
+}
 
 document.getElementById("offlineProd").onclick = function() {
     if (player.infinityPoints.gte(player.offlineProdCost) && player.offlineProd < 50) {
@@ -5528,6 +5532,9 @@ function gameLoop(diff) {
 	if (player.infinityPoints.gte(new Decimal("1e450"))) document.getElementById("postinfi61").className = "infinistorebtn1"
         else document.getElementById("postinfi61").className = "infinistorebtnlocked"
 
+	if (player.infinityPoints.gte(new Decimal("1e700"))) document.getElementById("postinfi62").className = "infinistorebtn1"
+        else document.getElementById("postinfi62").className = "infinistorebtnlocked"
+
         if (player.infinityPoints.gte(player.offlineProdCost)) document.getElementById("offlineProd").className = "infinimultbtn"
         else document.getElementById("offlineProd").className = "infinistorebtnlocked"
 
@@ -5660,6 +5667,7 @@ function gameLoop(diff) {
     if (player.infinityUpgrades.includes("postinfi53")) document.getElementById("postinfi53").className = "infinistorebtnbought"
     if (player.infinityUpgrades.includes("postinfi60")) document.getElementById("postinfi60").className = "infinistorebtnbought"
     if (player.infinityUpgrades.includes("postinfi61")) document.getElementById("postinfi61").className = "infinistorebtnbought"
+    if (player.infinityUpgrades.includes("postinfi62")) document.getElementById("postinfi62").className = "infinistorebtnbought"
 
     if (player.dimensionMultDecrease <= 3) document.getElementById("postinfi42").className = "infinistorebtnbought"
     if (player.offlineProd == 50) document.getElementById("offlineProd").className = "infinistorebtnbought"
