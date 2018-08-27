@@ -3364,6 +3364,7 @@ function respecToggle() {
 }
 
 function eternity(force, auto) {
+    if (!force && !player.infDimensionUnlocked[7]) return false
     if ((player.infinityPoints.gte(Number.MAX_VALUE) && (!player.options.eternityconfirm || auto || confirm("Eternity will reset everything except achievements and challenge records. You will also gain an Eternity point and unlock various upgrades."))) || force === true) {
         if (force) player.currentEternityChall = "";
         if (player.currentEternityChall !== "" && player.infinityPoints.lt(player.eternityChallGoal)) return false
