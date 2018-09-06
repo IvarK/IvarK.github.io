@@ -5719,7 +5719,7 @@ function isNotationParseable() {
     if (player.options.notation === "Scientific") {
         return true;
     } else if (player.options.notation === "Engineering") {
-        //return true;
+        return true;
     } else if (player.options.notation === "Letters") {
         return true;
     } else if (player.options.notation === "Logarithm") {
