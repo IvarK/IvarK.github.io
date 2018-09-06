@@ -4946,7 +4946,7 @@ function gameLoop(diff) {
             document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shorten(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
             player.infinityPoints = player.infinityPoints.minus(player.infMultCost.dividedBy(10))
             if (player.autobuyers[11].priority !== undefined && player.autobuyers[11].priority !== null && player.autoCrunchMode == "amount") player.autobuyers[11].priority = player.autobuyers[11].priority.times(Decimal.pow(2, dif));
-            if (player.autoCrunchMode == "amount") document.getElementById("priority12").value = player.autobuyers[11].priority
+            if (player.autoCrunchMode == "amount") document.getElementById("priority12").value = formatValue("Scientific", player.autobuyers[11].priority, 2, 0)
         }
     }
 
