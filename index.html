@@ -37,6 +37,7 @@
             <div id='news'>.</div>
         </div>
         <div id="matter"></div>
+        <div id="chall13Mult"></div>
         <div style="position: relative"><div class="IP" id="infinityPoints2"></div></div>
         <div style="position: relative"><div class="EP" id="eternityPoints2"></div></div>
         <div>
@@ -55,6 +56,7 @@
             <button id="tickSpeed" style="color:black; visibility: hidden; height: 25px;width: 170px; font-size: 12px" class="storebtn">Cost: 1000</button>
             <button id="tickSpeedMax" onclick="buyMaxTickSpeed()" style="color:black; visibility: hidden; height: 25px; font-size: 12px" class="storebtn">Buy Max</button>
             <div id="tickSpeedAmount" style="visibility: hidden">Tickspeed: 1000</div>
+            <div id="tickSpeedPurchases" style="visibility: hidden">You have 1000 tickspeed purchases left.</div>
         </tr>
         <p></p>
         <div style="position:absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; width: 360px; top: 19px">
@@ -66,6 +68,7 @@
             <button id="statisticsbtn" style="font-family: Typewriter; font-size: 20px" class="tabbtn">Statistics</button>
             <button id="achievementsbtn" style="font-family: Typewriter; font-size: 20px" class="tabbtn">Achievements</button>
             <button id="challengesbtn" style="font-family: Typewriter; font-size: 20px" class="tabbtn">Challenges</button>
+	          <button id="galaxybtn" style="font-family: Typewriter; font-size: 20px" class="galaxybtn">Galaxy</button>
             <button id="infinitybtn" style="font-family: Typewriter; font-size: 20px; display: none" class="infinitybtn">Infinity</button>
             <button id="eternitystorebtn" style="font-family: Typewriter; font-size: 20px; display: none" class="eternitytabbtn">Eternity</button>
             <button id="shopbtn" style="font-family: Typewriter; font-size: 20px" class="tabbtn">Shop</button>
@@ -123,7 +126,7 @@
                 <br>
                 <table class="table" id="studytable">
                     <tr>
-                        <td><button class="timestudy" id="21" onclick="buyTimeStudy(21, 3)">Replicanti multiplier formula is better (log2(x)^2 -> x^0.032)<span>Cost: 3 Time Theorems</button></td>
+                        <td><button class="timestudy" id="21" onclick="buyTimeStudy(21, 3)">Replicanti multiplier formula is better<span>Cost: 3 Time Theorems</button></td>
                         <td><button class="timestudy" id="22" onclick="buyTimeStudy(22, 2)">Replicanti interval limit 50ms -> 1ms<span>Cost: 2 Time Theorems</button></td>
                     </tr>
                 </table>
@@ -138,7 +141,7 @@
                 <table class="table" id="studytable">
                     <tr>
                         <td><button class="timestudy" id="41" onclick="buyTimeStudy(41, 4)">Each galaxy gives a 1.2x multiplier on IP gained. <span>Cost: 4 Time Theorems</button></td>
-                        <td><button class="timestudy" id="42" onclick="buyTimeStudy(42, 6)">Galaxy requirement goes up 52 8ths instead of 60.<span>Cost: 6 Time Theorems</button></td>
+                        <td><button class="timestudy" id="42" onclick="buyTimeStudy(42, 6)">Galaxy requirement base increase is multiplied by 13/15.<span>Cost: 6 Time Theorems</button></td>
                     </tr>
                 </table>
                 <br>
@@ -164,7 +167,7 @@
                         <td><button class="timestudy timedimstudy" id="73" onclick="buyTimeStudy(73, 5)">Sacrifice affects 3rd Time Dimension with greatly reduced effect<span id="73desc">Currently: 1x</span>Cost: 5 Time Theorems</button></td>
                     </tr>
                     <tr>
-                        <td><button class="timestudy normaldimstudy" id="81" onclick="buyTimeStudy(81, 4)">Dimensional boost power becomes 10x<span>Cost: 4 Time Theorems</button></td>
+                        <td><button class="timestudy normaldimstudy" id="81" onclick="buyTimeStudy(81, 4)">Dimensional boost power is cubed<span>Cost: 4 Time Theorems</button></td>
                         <td><button class="timestudy infdimstudy" id="82" onclick="buyTimeStudy(82, 6)">Dimensional boosts affect Infinity Dimensions<span id="82desc">Currently: 1x</span>Cost: 6 Time Theorems</button></td>
                         <td><button class="timestudy timedimstudy" id="83" onclick="buyTimeStudy(83, 5)">Dimensional boosts are 0.04% more effective for each tick upgrade gained from Time Dimensions<span>Cost: 5 Time Theorems</button></td>
                     </tr>
@@ -411,7 +414,7 @@
                     </tr>
                     <tr>
                         <td><button class="milestonerewardlocked" id="reward4" style="font-size: 12px">Unlock more big crunch autobuyer options.</button></td>
-                        <td><button class="milestonerewardlocked" id="reward5" style="font-size: 10px">You complete Infinity Challenges as soon as you unlock them (you get sacrifice autobuyer immediately)</button></td>
+                        <td><button class="milestonerewardlocked" id="reward5" style="font-size: 10px">You complete Infinity Challenges as soon as you unlock them, and you keeps galaxy upgrades&amp;points</button></td>
                     </tr>
                     <tr>
                         <td class="milestoneText">9 Eternities:</td>
@@ -586,6 +589,8 @@
                 <p></p>
                 <input id="confirmation" type="checkbox" style="width:20px; height: 18px; display: none" ach-tooltip="No confirmation when doing Dimensional Sacrifice" onchange="sacrificeConf()">
                 <button id="sacrifice" class="storebtn" style="font-size:12px; width: 320px; display: none" ach-tooltip="">Dimensional Sacrifice</button>
+                <input id="gConfirmation" type="checkbox" style="width:20px; height: 18px; display: none" ach-tooltip="No confirmation when doing Galactic Sacrifice" onchange="gSacrificeConf()">
+                <button id="gSacrifice" class="storebtn" style="font-size:12px; width: 320px; display: none" ach-tooltip="">Galactic Sacrifice</button>
                 <button id="maxall" class="storebtn" style="font-size: 12px">Max all (M)</Button>
                 <span id="chall2Pow"></span>
                 <span id="chall3Pow"></span>
@@ -728,7 +733,7 @@
             <div id="infinitydimensions" class="dimtab">
                 <span id="EC12Pow"></span>
                 <div>
-                    <p>You have <span id="infPowAmount" style="font-size:35px; color: black">0</span> infinity power. translated to <span id="infDimMultAmount" style="font-size:35px; color: black">0</span>x multiplier on all dimensions</p>
+                    <p>You have <span id="infPowAmount" style="font-size:35px; color: black">0</span> infinity power. raised to the <span id="infDimExponent" style="font-size:35px; color: black">0</span>th power and translated to <span id="infDimMultAmount" style="font-size:35px; color: black">0</span>x multiplier on all dimensions</p>
                 </div>
                 <div id="infPowPerSec">You are getting 0 antimatter per second.</div>
                 <table class="table" >
@@ -1076,6 +1081,8 @@
                 <div id="challengetime10"></div>
                 <div id="challengetime11"></div>
                 <div id="challengetime12"></div>
+                <div id="challengetime13"></div>
+                <div id="challengetime14"></div>
                 <br>
                 <div id="challengetimesum"></div>
             </div>
@@ -1089,6 +1096,8 @@
                 <div id="infchallengetime6"></div>
                 <div id="infchallengetime7"></div>
                 <div id="infchallengetime8"></div>
+                <div id="infchallengetime9"></div>
+                <div id="infchallengetime10"></div>
                 <br>
                 <div id="infchallengetimesum"></div>
             </div>
@@ -1177,7 +1186,7 @@
                     </tr>
                     <tr id="achRow2">
                         <td>
-                            <div id="To infinity!" class="achievement achievementlocked" style="background-image: url(images/9.png)" ach-tooltip="Reach Infinite antimatter. Reward: Start with 100 antimatter."><br></div>
+                            <div id="To infinity!" class="achievement achievementlocked" style="background-image: url(images/9.png)" ach-tooltip="Reach Infinite antimatter. Reward: Start with 100 antimatter and always have at least 10x lower dimension costs."><br></div>
                         </td>
                         <td>
                             <div id="Fake News" class="achievement achievementlocked" style="background-image: url(images/25.png)" ach-tooltip="Encounter 50 different news messages."><br></div>
@@ -1203,25 +1212,25 @@
                     </tr>
                     <tr id="achRow3">
                         <td>
-                            <div id="I forgot to nerf that" class="achievement achievementlocked" style="background-image: url(images/17.png)" ach-tooltip="Get any Dimension multiplier over 10 No (10e30). Reward: First Dimensions are 5% stronger."><br></div>
+                            <div id="I forgot to nerf that" class="achievement achievementlocked" style="background-image: url(images/17.png)" ach-tooltip="Get any Dimension multiplier over 10 No (10e30). Reward: First Dimensions are 5% stronger and multiplier to ND based on product of all dims."><br></div>
                         </td>
                         <td>
                             <div id="The Gods are pleased" class="achievement achievementlocked" style="background-image: url(images/18.png)" ach-tooltip="Get over 600x from Dimension Sacrifice in total. Reward: Sacrifice is slightly stronger."><br></div>
                         </td>
                         <td>
-                            <div id="That's a lot of infinites" class="achievement achievementlocked" style="background-image: url(images/19.png)" ach-tooltip="Reach Infinity 10 times."><br></div>
+                            <div id="That's a lot of infinites" class="achievement achievementlocked" style="background-image: url(images/19.png)" ach-tooltip="Reach Infinity 10 times. Reward: Start infinity with galaxy points based on your infinities (x^2/100)."><br></div>
                         </td>
                         <td>
-                            <div id="You didn't need it anyway" class="achievement achievementlocked" style="background-image: url(images/20.png)" ach-tooltip="Reach Infinite antimatter without having any 8th Dimensions. Reward: Dimensions 1-7 are 2% stronger."><br></div>
+                            <div id="You didn't need it anyway" class="achievement achievementlocked" style="background-image: url(images/20.png)" ach-tooltip="Reach Infinite antimatter without having any 8th Dimensions. Reward: Dimensions 1-7 are 2x stronger."><br></div>
                         </td>
                         <td>
                             <div id="Don't you dare to sleep" class="achievement achievementlocked" style="background-image: url(images/10.png)" ach-tooltip="Be offline for over 6 hours in a row."><br></div>
                         </td>
                         <td>
-                            <div id="Claustrophobic" class="achievement achievementlocked" style="background-image: url(images/22.png)" ach-tooltip="Go Infinite with just 1 Antimatter Galaxy. Reward: Reduces starting tick interval by 2%."><br></div>
+                            <div id="Claustrophobic" class="achievement achievementlocked" style="background-image: url(images/22.png)" ach-tooltip="Go Infinite with just 1 Antimatter Galaxy. Reward: Reduce starting tick interval by 2% and keep galaxy upgrades on infinity."><br></div>
                         </td>
                         <td>
-                            <div id="That's fast!" class="achievement achievementlocked" style="background-image: url(images/23.png)" ach-tooltip="Go infinite in under 2 hours. Reward: Start with 1000 antimatter."><br></div>
+                            <div id="That's fast!" class="achievement achievementlocked" style="background-image: url(images/23.png)" ach-tooltip="Go infinite in under 2 hours. Reward: Start with 1000 antimatter and get a multiplier to galaxy points based on fastest infinity (5 hours / x, 10x softcap)."><br></div>
                         </td>
                         <td>
                             <div id="I don't believe in Gods" class="achievement achievementlocked" style="background-image: url(images/24.png)" ach-tooltip="Buy a Galaxy without Sacrificing."><br></div>
@@ -1229,33 +1238,33 @@
                     </tr>
                     <tr id="achRow4">
                         <td>
-                            <div id="Spreading Cancer" class="achievement achievementlocked" style="background-image: url(images/46.png)" ach-tooltip="Buy ten Galaxies in total while using cancer notation."><br></div>
+                            <div id="Spreading Cancer" class="achievement achievementlocked" style="background-image: url(images/46.png)" ach-tooltip="Buy ten Galaxies in total while using cancer notation. Reward: Multiplier to IP based on number of galaxies bought in cancer notation."><br></div>
                         </td>
                         <td>
                             <div id="Supersanic" class="achievement achievementlocked" style="background-image: url(images/26.png)" ach-tooltip="Have antimatter/sec exceed your current antimatter above 1 Tg (1e63)."><br></div>
                         </td>
                         <td>
-                            <div id="Zero Deaths" class="achievement achievementlocked" style="background-image: url(images/27.png)" ach-tooltip="Get to Infinity without Dimension shifts, boosts or galaxies in a challenge. Reward: Dimensions 1-4 are 25% stronger."><br></div>
+                            <div id="Zero Deaths" class="achievement achievementlocked" style="background-image: url(images/27.png)" ach-tooltip="Get to Infinity without Dimension shifts, boosts or galaxies in a challenge. Reward: Dimensions 1-4 are 25% stronger and 1.25x to IP."><br></div>
                         </td>
                         <td>
                             <div id="Over in 30 seconds" class="achievement achievementlocked" style="background-image: url(images/28.png)" ach-tooltip="Have antimatter/sec exceed your current antimatter for 30 consecutive seconds."><br></div>
                         </td>
                         <td>
-                            <div id="Faster than a potato" class="achievement achievementlocked" style="background-image: url(images/29.png)" ach-tooltip="Get more than 100 Sx (100e21) ticks per second. Reward: Reduces starting tick interval by 2%."><br></div>
+                            <div id="Faster than a potato" class="achievement achievementlocked" style="background-image: url(images/29.png)" ach-tooltip="Get more than 100 Sx (100e21) ticks per second. Reward: Reduces starting tick interval by 2% and increase galaxy effectiveness by 2%."><br></div>
                         </td>
                         <td>
-                            <div id="Multidimensional" class="achievement achievementlocked" style="background-image: url(images/30.png)" ach-tooltip="Reach 1 Qd (1e12) of all dimensions except 8th."><br></div>
+                            <div id="Multidimensional" class="achievement achievementlocked" style="background-image: url(images/30.png)" ach-tooltip="Reach 1 Qd (1e12) of all dimensions except 8th. Multipler to ND based on log of dimensions."><br></div>
                         </td>
                         <td>
                             <div id="Daredevil" class="achievement achievementlocked" style="background-image: url(images/31.png)" ach-tooltip="Complete 2 challenges."><br></div>
                         </td>
                         <td>
-                            <div id="AntiChallenged" class="achievement achievementlocked" style="background-image: url(images/32.png)" ach-tooltip="Complete all the challenges. Reward: All dimensions are 10% stronger."><br></div>
+                            <div id="AntiChallenged" class="achievement achievementlocked" style="background-image: url(images/32.png)" ach-tooltip="Complete all the challenges. Reward: All dimensions are 10% stronger and tickspeed multiplier is also lowered."><br></div>
                         </td>
                     </tr>
                     <tr id="achRow5">
                         <td>
-                            <div id="Limit Break" class="achievement achievementlocked" style="background-image: url(images/33.png)" ach-tooltip="Break Infinity."><br></div>
+                            <div id="Limit Break" class="achievement achievementlocked" style="background-image: url(images/33.png)" ach-tooltip="Break Infinity. Reward: Multiplier to IP gain based on galaxies."><br></div>
                         </td>
                         <td>
                             <div id="Age of Automation" class="achievement achievementlocked" style="background-image: url(images/34.png)" ach-tooltip="Max any 9 autobuyers."><br></div>
@@ -1267,7 +1276,7 @@
                             <div id="That's faster!" class="achievement achievementlocked" style="background-image: url(images/36.png)" ach-tooltip="Infinity in 10 minutes or less. Reward: Start with 200000 antimatter."><br></div>
                         </td>
                         <td>
-                            <div id="Forever isn't that long" class="achievement achievementlocked" style="background-image: url(images/37.png)" ach-tooltip="Infinity in 1 minute or less. Reward: Start with 1e10 antimatter."><br></div>
+                            <div id="Forever isn't that long" class="achievement achievementlocked" style="background-image: url(images/37.png)" ach-tooltip="Infinity in 1 minute or less. Reward: Start with 1e10 antimatter and multipler to IP based on fastest infinity time."><br></div>
                         </td>
                         <td>
                             <div id="Many Deaths" class="achievement achievementlocked" style="background-image: url(images/38.png)" ach-tooltip="Complete the Second Dimension Autobuyer challenge in 3 minutes or less. Reward: All dimensions are stronger in first 3 minutes of infinity."><br></div>
@@ -1276,7 +1285,7 @@
                             <div id="Gift from the Gods" class="achievement achievementlocked" style="background-image: url(images/39.png)" ach-tooltip="Complete the Eighth Dimension Autobuyer challenge in 3 minutes or less. Reward: Dimensional sacrifices are a lot stronger."><br></div>
                         </td>
                         <td>
-                            <div id="Is this hell?" class="achievement achievementlocked" style="background-image: url(images/40.png)" ach-tooltip="Complete the Tickspeed Autobuyer challenge in 3 minutes or less. Reward: Boost per 10 dimensions +1%."><br></div>
+                            <div id="Is this hell?" class="achievement achievementlocked" style="background-image: url(images/40.png)" ach-tooltip="Complete the Tickspeed Autobuyer challenge in 3 minutes or less. Reward: Boost per 10 dimensions is x^(1 + 6.66%)."><br></div>
                         </td>
                     </tr>
                     <tr id="achRow6">
@@ -1284,39 +1293,39 @@
                             <div id="Bulked up" class="achievement achievementlocked" style="background-image: url(images/401.png)" ach-tooltip="Get all of your dimension bulk buyers to 512 or higher."><br></div>
                         </td>
                         <td>
-                            <div id="Oh hey, you're still here" class="achievement achievementlocked" style="background-image: url(images/402.png)" ach-tooltip="Reach 1e8 IP per minute."><br></div>
+                            <div id="Oh hey, you're still here" class="achievement achievementlocked" style="background-image: url(images/402.png)" ach-tooltip="Reach 1e8 IP per minute. Reward: Multiplier to GP based on log(IP)"><br></div>
                         </td>
                         <td>
                             <div id="A new beginning." class="achievement achievementlocked" style="background-image: url(images/403.png)" ach-tooltip="Begin generation of infinity power."><br></div>
                         </td>
                         <td>
-                            <div id="1 million is a lot" class="achievement achievementlocked" style="background-image: url(images/404.png)" ach-tooltip="Reach 1e6 infinity power."><br></div>
+                            <div id="1 million is a lot" class="achievement achievementlocked" style="background-image: url(images/404.png)" ach-tooltip="Reach 1e6 infinity power. Reward: First Dimensions are one million times stronger."><br></div>
                         </td>
                         <td>
                             <div id="Not-so-challenging" class="achievement achievementlocked" style="background-image: url(images/405.png)" ach-tooltip="Get the sum of all of your challenge times under 3 minutes. Reward: All dimensions are stronger in first 3 minutes of infinity, but only in challenges."><br></div>
                         </td>
                         <td>
-                            <div id="Faster than a squared potato" class="achievement achievementlocked" style="background-image: url(images/406.png)" ach-tooltip="Reach 1e52 ticks per second. Reward: -2% tickspeed."><br></div>
+                            <div id="Faster than a squared potato" class="achievement achievementlocked" style="background-image: url(images/406.png)" ach-tooltip="Reach 1e52 ticks per second. Reward: -2% tickspeed and multiplier to ID equal to the number of potato’s."><br></div>
                         </td>
                         <td>
-                            <div id="Infinitely Challenging" class="achievement achievementlocked" style="background-image: url(images/407.png)" ach-tooltip="Complete an infinity challenge."><br></div>
+                            <div id="Infinitely Challenging" class="achievement achievementlocked" style="background-image: url(images/407.png)" ach-tooltip="Complete an infinity challenge. Reward: Increase galaxy and g11 effectiveness based on IC's completed."><br></div>
                         </td>
                         <td>
-                            <div id="You did this again just for the achievement right?" class="achievement achievementlocked" style="background-image: url(images/408.png)" ach-tooltip="Complete the Third Dimension Autobuyer challenge in 10 seconds or less. Reward: First dimensions are 50% stronger."><br></div>
+                            <div id="You did this again just for the achievement right?" class="achievement achievementlocked" style="background-image: url(images/408.png)" ach-tooltip="Complete the Third Dimension Autobuyer challenge in 10 seconds or less. Reward: First dimensions are 5x stronger."><br></div>
                         </td>
                     </tr>
                     <tr id="achRow7">
                             <td>
-                                <div id="ERROR 909: Dimension not found" class="achievement achievementlocked" style="background-image: url(images/41.png)" ach-tooltip="Get to infinity with only a single first Dimension without Dimension Boosts, Shifts or Galaxies while in Automatic Galaxies Challenge. Reward: First Dimensions are 3 times stronger."><br></div>
+                                <div id="ERROR 909: Dimension not found" class="achievement achievementlocked" style="background-image: url(images/41.png)" ach-tooltip="Get to infinity with only a single first Dimension without Dimension Boosts, Shifts or Galaxies while in Automatic Galaxies Challenge. Reward: First Dimensions are 909 times stronger."><br></div>
                             </td>
                             <td>
-                                <div id="Can't hold all these infinities" class="achievement achievementlocked" style="background-image: url(images/42.png)" ach-tooltip="Get all Dimension multipliers over 1e308. Reward: All dimensions 10% stronger."><br></div>
+                                <div id="Can't hold all these infinities" class="achievement achievementlocked" style="background-image: url(images/42.png)" ach-tooltip="Get all Dimension multipliers over 1e308. Reward: All dimensions 10x stronger."><br></div>
                             </td>
                             <td>
                                 <div id="This achievement doesn't exist" class="achievement achievementlocked" style="background-image: url(images/43.png)" ach-tooltip="Get 9.9999e9999 antimatter. Reward: Dimensions are more powerful the more unspent antimatter you have."><br></div>
                             </td>
                             <td>
-                                <div id="End me" class="achievement achievementlocked" style="background-image: url(images/44.png)" ach-tooltip="Get the sum of all best challenge times under 5 seconds. Reward: All dimensions 40% stronger, but only in challenges."><br></div>
+                                <div id="End me" class="achievement achievementlocked" style="background-image: url(images/44.png)" ach-tooltip="Get the sum of all best challenge times under 5 seconds. Reward: All dimensions 40x stronger, but only in challenges."><br></div>
                             </td>
                             <td>
                                 <div id="NEW DIMENSIONS???" class="achievement achievementlocked" style="background-image: url(images/45.png)" ach-tooltip="Unlock the 4th Infinity Dimension. Reward: Your achievement bonus affects Infinity Dimensions."><br></div>
@@ -1325,7 +1334,7 @@
                                 <div id="One for each dimension" class="achievement achievementlocked" style="background-image: url(images/21.png)" ach-tooltip="Play for 8 days. Reward: Extremely small time multiplier."><br></div>
                             </td>
                             <td>
-                                <div id="How the antitables have turned" class="achievement achievementlocked" style="background-image: url(images/47.png)" ach-tooltip="Get 8th Dimension multiplier to be highest, 7th Dimension multiplier second highest etc. Reward: Each dimension gains a boost proportional to tier (8th dimension gets 8%, 7th gets 7%, etc.)"><br></div>
+                                <div id="How the antitables have turned" class="achievement achievementlocked" style="background-image: url(images/47.png)" ach-tooltip="Get 8th Dimension multiplier to be highest, 7th Dimension multiplier second highest etc. Reward: Each dimension gains a boost proportional to tier (8th dimension gets 80%, 7th gets 70%, etc.)"><br></div>
                             </td>
                             <td>
                                 <div id="Blink of an eye" class="achievement achievementlocked" style="background-image: url(images/48.gif)" ach-tooltip="Get to Infinity in under 200 milliseconds. Reward: Start with 1e25 antimatter and all dimensions are stronger in first 300ms of infinity."><br></div>
@@ -1333,10 +1342,10 @@
                         </tr>
                         <tr id="achRow8">
                             <td>
-                                <div id="Hevipelle did nothing wrong" class="achievement achievementlocked" style="background-image: url(images/49.png)" ach-tooltip="Beat Infinity Challenge 5 in 10 seconds or less."><br></div>
+                                <div id="Hevipelle did nothing wrong" class="achievement achievementlocked" style="background-image: url(images/49.png)" ach-tooltip="Beat Infinity Challenge 7 in 10 seconds or less."><br></div>
                             </td>
                             <td>
-                                <div id="Anti-antichallenged" class="achievement achievementlocked" style="background-image: url(images/50.png)" ach-tooltip="Complete 8 Infinity Challenges."><br></div>
+                                <div id="Anti-antichallenged" class="achievement achievementlocked" style="background-image: url(images/50.png)" ach-tooltip="Complete 10 Infinity Challenges."><br></div>
                             </td>
                             <td>
                                 <div id="YOU CAN GET 50 GALAXIES!??" class="achievement achievementlocked" style="background-image: url(images/51.png)" ach-tooltip="Get 50 galaxies. Reward: Tickspeed is 5% lower per galaxy."><br></div>
@@ -1348,7 +1357,7 @@
                                 <div id="All your IP are belong to us" class="achievement achievementlocked" style="background-image: url(images/53.png)" ach-tooltip="Big Crunch for 1e150 IP. Reward: Additional 4x multiplier to IP."><br></div>
                             </td>
                             <td>
-                                <div id="Do you even bend time bro?" class="achievement achievementlocked" style="background-image: url(images/54.png)" ach-tooltip="Reach -99.9% tickspeed per upgrade. Reward: Galaxies are 1% more powerful."><br></div>
+                                <div id="Do you even bend time bro?" class="achievement achievementlocked" style="background-image: url(images/54.png)" ach-tooltip="Reach -99% tickspeed per upgrade. Reward: Galaxies are 5% more powerful."><br></div>
                             </td>
                             <td>
                                 <div id="2 Million Infinities" class="achievement achievementlocked" style="background-image: url(images/55.png)" ach-tooltip="Infinity 2000000 times. Reward: Infinities more than 5 seconds long give 250 infinitied stat."><br></div>
@@ -1665,7 +1674,7 @@
                     <tr>
                         <td>
                             <div class= "challengediv">
-                                <span style="font-size: 110%">Tickspeed starts at 7%.</span>
+                                <span style="font-size: 110%">Tickspeed upgrades start out useless, but galaxies make them stronger as usual.</span>
                                 <br>
                                 <br>
 
@@ -1739,7 +1748,7 @@
                         </td>
                         <td>
                             <div class= "challengediv">
-                                <span style="font-size: 110%">There are only 6 dimensions, with dimension boost and antimatter galaxy costs modified.</span>
+                                <span style="font-size: 110%">There are only 6 dimensions, with dimension boost costs modified and antimatter galaxy costs far higher.</span>
                                 <br>
                                 <br>
 
@@ -1769,7 +1778,7 @@
                         </td>
                         <td>
                             <div class= "challengediv">
-                                <span style="font-size: 110%">Each dimension produces the dimension 2 below it; first dimensions produce reduced antimatter.</span>
+                                <span style="font-size: 110%">Each dimension produces the dimension 2 below it; first dimensions produce reduced antimatter. Galaxies are far more powerful.</span>
                                 <br>
                                 <br>
 
@@ -1782,6 +1791,36 @@
                             </div>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <div class= "challengediv">
+                                <span style="font-size: 110%">Per-ten multiplier is always 1x, but product of dimensions bought multiplies all dimensions.</span>
+                                <br>
+                                <br>
+
+                                <div class="outer">
+
+                                    <button id="challenge13" class="challengesbtn">Start</button>
+                                    <br>
+                                    <span>Reward: Automated Dimensional Sacrifice</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class= "challengediv">
+                                <span style="font-size: 110%">You can only get 308 tickspeed upgrades. This count does not reset on resets.</span>
+                                <br>
+                                <br>
+
+                                <div class="outer">
+
+                                    <button id="challenge14" class="challengesbtn">Start</button>
+                                    <br>
+                                    <span>Reward: Automated Galactic Sacrifice</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                 </table>
             </div>
             <div id="breakchallenges" class="challengeTab">
@@ -1789,56 +1828,55 @@
                     <tr>
                         <td>
                             <div class="infchallengediv" id="postc1div" style="height: 140px; display: none">
-                                <span>All previous challenges (except tickspeed challenge and automatic big crunch challenge) at once.</span>
+                                <span>No reductions on galaxy and dimboost cost increases, but infinity upgrades based on time or infinities are applied post-dilation.</span>
                                 <br>
                                 <br>
                                 <div class="outer">
-                                    <button id="postc1" class="challengesbtn" onclick="startChallenge('postc1', new Decimal('1e850'))">Start</button>
+                                    <button id="postc1" class="challengesbtn" onclick="startChallenge('postc1', new Decimal('1e550'))">Start</button>
                                     <br>
-                                    <span id="postc1goal" >Goal: 1e850</span><br>
-                                    <span>Reward: 1.3x on all Infinity Dimensions for each Infinity Challenge completed</span>
+                                    <span id="postc1goal" >Goal: 1e550</span><br>
+                                    <span>Reward: Infinity upgrades based on time or infinities are applied post-dilation. Also make the GP formula better based on galaxies.</span>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="infchallengediv" id="postc2div" style="height: 140px; display: none">
-                                <span>Automatically sacrifice every 8 ticks once you have 8th Dimension.</span>
+                                <span>Dimension and tickspeed cost multiplier increases start immediately, but are square-rooted.</span>
                                 <br>
                                 <br>
                                 <div class="outer">
-                                    <button id="postc2" class="challengesbtn" onclick="startChallenge('postc2', new Decimal('1e10500'))">Start</button>
+                                    <button id="postc2" class="challengesbtn" onclick="startChallenge('postc2', new Decimal('1e950'))">Start</button>
                                     <br>
-                                    <span id="postc2goal" >Goal: 1e10500</span><br>
-                                    <span>Reward: Sacrifice autobuyer and more powerful sacrifice</span>
+                                    <span id="postc2goal" >Goal: 1e950</span><br>
+                                    <span>Reward: Cost multiplier increases are x^.9, and tickspeed cost multiplier increase is further lowered based on galaxies.</span>
                                 </div>
                             </div>
                         </td>
-
                     </tr>
                     <tr>
                         <td>
                             <div class="infchallengediv" id="postc3div" style="height: 140px; display: none">
-                                <span>Tickspeed interval decrease is always at 0%, but every tickspeed purchase you get a static multiplier on all dimensions (increases with galaxies).</span>
+                                <span>Tickspeed multiplier to dimensions is always at 1x, but every tickspeed purchase decreases tickspeed based on galaxies.</span>
                                 <br>
                                 <br>
                                 <div class="outer">
-                                    <button id="postc3" class="challengesbtn" onclick="startChallenge('postc3', new Decimal('1e5000'))">Start</button>
+                                    <button id="postc3" class="challengesbtn" onclick="startChallenge('postc3', new Decimal('1e1200'))">Start</button>
                                     <br>
-                                    <span id="postc3goal" >Goal: 1e5000</span><br>
-                                    <span>Reward: Static multiplier on each tickspeed purchase</span>
+                                    <span id="postc3goal" >Goal: 1e1200</span><br>
+                                    <span>Reward: Every tickspeed purchase decreases tickspeed based on galaxies</span>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="infchallengediv" id="postc4div" style="height: 140px; display: none">
-                                <span>Only latest bought dimension production is normal, all other dimensions produce less.</span>
+                                <span>All previous challenges (except tickspeed challenge, automatic big crunch challenge, and automatic galactic sacrifice challenge) at once.</span>
                                 <br>
                                 <br>
                                 <div class="outer">
-                                    <button id="postc4" class="challengesbtn" onclick="startChallenge('postc4', new Decimal('1e13000'))">Start</button>
+                                    <button id="postc4" class="challengesbtn" onclick="startChallenge('postc4', new Decimal('1e650'))">Start</button>
                                     <br>
-                                    <span id="postc4goal" >Goal: 1e13000</span><br>
-                                    <span>Reward: All normal dimension multipliers become multiplier^1.05</span>
+                                    <span id="postc4goal" >Goal: 1e650</span><br>
+                                    <span>Reward: 2x on all Infinity Dimensions for each Infinity Challenge completed</span>
                                 </div>
                             </div>
                         </td>
@@ -1846,26 +1884,54 @@
                     <tr>
                         <td>
                             <div class="infchallengediv" id="postc5div" style="height: 140px; display: none">
-                                <span>When buying dimensions 1-4, everything with costs smaller or equal increases. When buying dimensions 5-8, everything with costs bigger or equal increases. When buying tickspeed, everything with the same cost increases.</span>
+                                <span>Automatically sacrifice every 8 ticks once you have 8th Dimension.<br>Tip: Don't try to do this if you can't reach the target even in normal runs!</span>
                                 <br>
                                 <br>
                                 <div class="outer">
-                                    <button id="postc5" class="challengesbtn" onclick="startChallenge('postc5', new Decimal('1e11111'))">Start</button>
+                                    <button id="postc5" class="challengesbtn" onclick="startChallenge('postc5', new Decimal('1e10500'))">Start</button>
                                     <br>
-                                    <span id="postc5goal" >Goal: 1e11111</span><br>
-                                    <span>Reward: Galaxies are 10% more powerful and reduce the requirements for them and dimensional boosts by 1</span>
+                                    <span id="postc5goal" >Goal: 1e10500</span><br>
+                                    <span>Reward: More powerful sacrifice</span>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="infchallengediv" id="postc6div" style="height: 140px; display: none">
+                                <span>Only latest bought dimension production is normal, all other dimensions produce less.</span>
+                                <br>
+                                <br>
+                                <div class="outer">
+                                    <button id="postc6" class="challengesbtn" onclick="startChallenge('postc6', new Decimal('1e13000'))">Start</button>
+                                    <br>
+                                    <span id="postc6goal" >Goal: 1e13000</span><br>
+                                    <span>Reward: All normal dimension multipliers become multiplier^1.05</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="infchallengediv" id="postc7div" style="height: 140px; display: none">
+                                <span>When buying dimensions 1-4, everything with costs smaller or equal increases. When buying dimensions 5-8, everything with costs bigger or equal increases. When buying tickspeed, everything with the same cost increases.</span>
+                                <br>
+                                <br>
+                                <div class="outer">
+                                    <button id="postc7" class="challengesbtn" onclick="startChallenge('postc7', new Decimal('1e11111'))">Start</button>
+                                    <br>
+                                    <span id="postc7goal" >Goal: 1e11111</span><br>
+                                    <span>Reward: Galaxies are 30% more powerful and reduce the requirements for them and dimensional boosts by 1</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="infchallengediv" id="postc8div" style="height: 140px; display: none">
                                 <span>There's an exponentially rising matter that divides the multiplier on all of your dimensions.</span>
                                 <br>
                                 <br>
                                 <div class="outer">
-                                    <button id="postc6" class="challengesbtn" onclick="startChallenge('postc6', new Decimal('2e22222'))">Start</button>
+                                    <button id="postc8" class="challengesbtn" onclick="startChallenge('postc8', new Decimal('2e22222'))">Start</button>
                                     <br>
-                                    <span id="postc6goal" >Goal: 2e22222</span><br>
+                                    <span id="postc8goal" >Goal: 2e22222</span><br>
                                     <span>Reward: Tickspeed affects Infinity Dimensions with reduced effect</span>
                                 </div>
                             </div>
@@ -1873,27 +1939,27 @@
                     </tr>
                     <tr>
                             <td>
-                                <div class="infchallengediv" id="postc7div" style="height: 140px; display: none">
-                                    <span>You can't get antimatter Galaxies, but dimensional boost multiplier 2.5x -> 10x</span>
+                                <div class="infchallengediv" id="postc9div" style="height: 140px; display: none">
+                                    <span>You can't get antimatter Galaxies, but dimensional boost multiplier is cubed</span>
                                     <br>
                                     <br>
                                     <div class="outer">
-                                        <button id="postc7" class="challengesbtn" onclick="startChallenge('postc7', new Decimal('1e10000'))">Start</button>
+                                        <button id="postc9" class="challengesbtn" onclick="startChallenge('postc9', new Decimal('1e15000'))">Start</button>
                                         <br>
-                                        <span id="postc7goal" >Goal: 1e10000</span><br>
-                                        <span>Reward: Dimensional boost multiplier 2.5x -> 4x</span>
+                                        <span id="postc9goal" >Goal: 1e15000</span><br>
+                                        <span>Reward: Dimensional boost multiplier is squared</span>
                                     </div>
                                 </div>
                             </td>
                             <td>
-                                <div class="infchallengediv" id="postc8div" style="height: 140px; display: none">
+                                <div class="infchallengediv" id="postc10div" style="height: 140px; display: none">
                                     <span>Your production is at 100% after purchasing anything, after that it rapidly drops down.</span>
                                     <br>
                                     <br>
                                     <div class="outer">
-                                        <button id="postc8" class="challengesbtn" onclick="startChallenge('postc8', new Decimal('1e27000'))">Start</button>
+                                        <button id="postc10" class="challengesbtn" onclick="startChallenge('postc10', new Decimal('1e27000'))">Start</button>
                                         <br>
-                                        <span id="postc8goal" >Goal: 1e27000</span><br>
+                                        <span id="postc10goal" >Goal: 1e27000</span><br>
                                         <span>Reward: You get a multiplier to dimensions 2-7 based on 1st and 8th dimension multipliers.</span>
                                     </div>
                                 </div>
@@ -2106,7 +2172,46 @@
             </table>
         </div>
 
-
+        <div id="galaxy" class="tab" align="center" style="display: none">
+            <br>
+            <div id="galaxyPoints" style="color: #4169E1; font-size: 15px; width: 40%; margin: 0 auto">You have x galaxy points.</div>
+	        <br>
+			<table class="table" style="margin: 0 auto">
+				<tr>
+				    <td>
+                <button id="galaxy11" class="infinistorebtn1" onclick="buyGalaxyUpgrade(11)">Normal dimensions are cheaper based on infinitied stat<br>Currently: <span id='galspan11'>x</span>x<br>Cost: 1 GP</button>
+            </td>
+            <td>
+                <button id="galaxy12" class="infinistorebtn2" onclick="buyGalaxyUpgrade(12)">Multiplier to dimensions based on time since last galactic sacrifice<br>Currently: <span id='galspan12'>x</span>x<br>Cost: 3 GP</button>
+            </td>
+            <td>
+                <button id="galaxy13" class="infinistorebtn3" onclick="buyGalaxyUpgrade(13)">Multiplier to dimensions based on galaxy points<br>Currently: <span id='galspan13'>x</span>x<br>Cost: 20 GP</button>
+            </td>
+				</tr>
+        <tr>
+				    <td>
+                <button id="galaxy21" class="infinistorebtn1" onclick="buyGalaxyUpgrade(21)">Boost cost increase is 5 eighth dimensions, and starts scaling 2 boosts later<br>Cost: 1 GP</button>
+            </td>
+            <td>
+                <button id="galaxy22" style="font-size:8px" class="infinistorebtn2" onclick="buyGalaxyUpgrade(22)">Galaxy buffs:<br>5x stronger<br>Reduced cost by 20 except for first one<br>Cost scalling reduced to 30<br>Cost: 5 GP</button>
+            </td>
+            <td>
+                <button id="galaxy23" class="infinistorebtn3" onclick="buyGalaxyUpgrade(23)">Boosts are stronger based on galaxy points<br>Currently: <span id='galspan23'>x</span>x<br>Cost: 100 GP</button>
+            </td>
+				</tr>
+        <tr>
+				    <td>
+                <button id="galaxy31" class="infinistorebtn1" onclick="buyGalaxyUpgrade(31)">Dimensions multipliers are increased<br>Currently: x^<span id='galspan31'>x</span></br>Cost: 2 GP</button>
+            </td>
+            <td>
+                <button id="galaxy32" class="infinistorebtn2" onclick="buyGalaxyUpgrade(32)">Multiplier to galactic sacrifice based on total antimatter<br>Currently: <span id='galspan32'>x</span>x<br>Cost: 8 GP</button>
+            </td>
+            <td>
+                <button id="galaxy33" class="infinistorebtn3" onclick="buyGalaxyUpgrade(33)">Per-ten multiplier is stronger based on galaxy points<br>Currently: <span id='galspan33'>x</span>x<br>Cost: <span id='galcost33'>1000</span> GP</button>
+            </td>
+				</tr>
+			</table>
+        </div>
 
 
         <div id="infinity" class="tab" align="center" style="display: none">
@@ -2127,7 +2232,7 @@
                         <button id="infi11" class="infinistorebtn1">Production increase over time <br>currently:</button>
                     </td>
                     <td>
-                        <button id="infi21" class="infinistorebtn2">Increase the multiplier for buying 10 Dimensions <br>2x -> 2.2x<br>Cost: 1 IP</button>
+                        <button id="infi21" class="infinistorebtn2">Increase the multiplier for buying 10 Dimensions <br>2x -> 2.1x<br>Cost: 1 IP</button>
                     </td>
                     <td>
                         <button id="infi31" class="infinistorebtn3">Production increase over time in current infinity<br>Cost: 3 IP</button>
@@ -2158,7 +2263,7 @@
                         <button id="infi23" class="infinistorebtn2">Fourth and Fifth Dimension power <br>xx</button>
                     </td>
                     <td>
-                        <button id="infi33" class="infinistorebtn3">Increase Dimension Boost multiplier <br>2x -> 2.5x<br>Cost: 7 IP</button>
+                        <button id="infi33" class="infinistorebtn3">Multiplier for each dimension boost <br>2x -> 2.5x<br>Cost: 7 IP</button>
                     </td>
                     <td>
                         <button id="infi43" class="infinistorebtn4">You start with the 7th dimension unlocked<br>Cost: 80 IP</button>
@@ -2208,15 +2313,6 @@
                 <button class="storebtn" id="toggleautobuyers" style="font-size: 100%; width: 150px; height: 40px; margin: 3px" onclick="toggleAutoBuyers()">Enable/disable autobuyers</button>
                 <button class="storebtn" id="togglebulk" style="font-size: 100%; width: 150px; height: 40px;margin: 3px" onclick="toggleBulk()">Disable bulk buy                     </button>
                 <button class="storebtn" id="togglecrunchmode" style="font-size: 100%; width: 150px; height: 40px;margin: 3px; display: none" onclick="toggleCrunchMode()">Auto crunch mode: amount</button>
-                <br>
-                <div class="autoBuyerDiv" id="autoBuyerEter">
-                    <div>Automatic Eternity</div>
-                    <div><span>Amount of EP to wait until reset:</span>
-                    <input type="text" onchange="updatePriorities()" id="priority13"></input></div>
-                    <br>
-                    <span style="font-size: 80%">Is active</span>
-                    <input type="checkbox" onchange="updateAutobuyers()"  id="eternityison"></input>
-                </div>
                 <tr>
                         <td>
                             <div class="autoBuyerDiv" id="autoBuyerDimBoost" style="font-size: 11px;">
@@ -2269,10 +2365,7 @@
                         </td>
                     </tr>
                     <tr>
-
-                    </tr>
-                <tr>
-                    <td>
+                      <td>
                         <div class="autoBuyerDiv" id="autoBuyer1">
                             <div>1st Dimension Autobuyer</div>
                             <button class="autobuyerbtn" id="buyerBtn1">46% smaller interval<br>Cost: 2 points</button>
@@ -2484,16 +2577,43 @@
                         </div>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <div class="autoBuyerDiv" id="autoBuyerSac">
+                            <div>Automatic Sacrifice</div>
+                            <button class="autobuyerbtn" id="buyerBtnSac">46% smaller interval<br>Cost: 2 points</button>
+                            <div style="font-size: 80%"id="intervalSac">Current interval: 15 seconds</div>
+                            <div id="iplimit"><span>Sacrifice when the multiplier is over:</span>
+                            <input type="text" onchange="updatePriorities()" id="priority13"></input></div>
+                            <br>
+                            <span style="font-size: 80%">Is active</span>
+                            <input type="checkbox" onchange="updateAutobuyers()" id="13ison"></input>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="autoBuyerDiv" id="autoBuyerGalSac">
+                            <div>Automatic Galaxy Sacrifice</div>
+                            <button class="autobuyerbtn" id="buyerBtnGalSac">46% smaller interval<br>Cost: 2 points</button>
+                            <div style="font-size: 80%"id="intervalGalSac">Current interval: 15 seconds</div>
+                            <div id="iplimit"><span>Galactic sacrifice when GP gain is over:</span>
+                            <input type="text" onchange="updatePriorities()" id="priority14"></input></div>
+                            <br>
+                            <span style="font-size: 80%">Is active</span>
+                            <input type="checkbox" onchange="updateAutobuyers()" id="14ison"></input>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="autoBuyerDiv" id="autoBuyerEter">
+                            <div>Automatic Eternity</div>
+                            <div><span>Amount of EP to wait until reset:</span>
+                            <input type="text" onchange="updatePriorities()" id="priority15"></input></div>
+                            <br>
+                            <span style="font-size: 80%">Is active</span>
+                            <input type="checkbox" onchange="updateAutobuyers()"  id="eternityison"></input>
+                        </div>
+                    </td>
+                </tr>
             </table>
-            <div class="autoBuyerDiv" id="autoBuyerSac">
-                <div>Automatic Sacrifice</div>
-                <div id="intervalSac" style="font-size: 80%">Current interval: 0.10 seconds</div>
-                <div id="iplimit"><span>Sacrifice when the multiplier is over:</span>
-                <input type="text" onchange="updatePriorities()" id="prioritySac"></input></div>
-                <br>
-                <span style="font-size: 80%">Is active</span>
-                <input type="checkbox" onchange="updateAutobuyers()" id="13ison"></input>
-            </div>
 
             <div>
                 <table id="footer">
@@ -2516,19 +2636,19 @@
             <br>
             <div id="abletobreak">You need to get Automated Big Crunch interval to 0.1 to be able to break infinity</div>
                 <br>
+                <table id="breaktable" class="table" style="margin: 0 auto">
+                  <tr>
+                    <td>
+                        <button id="break" class="infinistorebtn2" onclick="breakInfinity()" ach-tooltip="Cost multipliers post-infinity will begin increasing faster, but so will the Infinity Point gain">BREAK INFINITY</button>
+                    </td>
+                  </tr>
+                </table>
+                <br>
                 <table id="postinftable" class="table" style="margin: 0 auto">
                     <tr>
                         <td>
-                            <button class="infinistorebtnbought" style="opacity: 0"></button>
+                            <button id="postinfi01" class="infinistorebtn1">Multiplier to galaxy points based on infinities <br>Currently:<br>Cost: 1 K IP</button>
                         </td>
-                        <td>
-                            <button id="break" class="infinistorebtn2" onclick="breakInfinity()" ach-tooltip="Cost multipliers post-infinity will begin increasing faster, but so will the Infinity Point gain">BREAK INFINITY</button>
-                        </td>
-                        <td>
-                            <button class="infinistorebtnbought" style="opacity: 0"></button>
-                        </td>
-                    </tr>
-                    <tr>
                         <td>
                             <button id="postinfi11" class="infinistorebtn1">Production based on total antimatter produced <br>Currently:<br>Cost: 10 K IP</button>
                         </td>
@@ -2536,10 +2656,13 @@
                             <button id="postinfi21" class="infinistorebtn1">Production based on current antimatter<br>Currently: <br>Cost: 50 K IP</button>
                         </td>
                         <td>
-                            <button id="postinfi41" class="infinistorebtn1">Double the power of Galaxies<br>Currently: <br>Cost: 500 K IP</button>
+                            <button id="postinfi41" class="infinistorebtn1">Galaxies are 70% more effective<br>Currently: <br>Cost: 500 K IP</button>
                         </td>
                     </tr>
                     <tr>
+                        <td>
+                            <button id="postinfi02" class="infinistorebtn1">Decrease dimboost cost increase by 1 <br>Currently:<br>Cost: 20 K IP</button>
+                        </td>
                         <td>
                             <button id="postinfi12" class="infinistorebtn1">Increase the production of all dimensions by amount infinitied <br>Currently:<br>Cost: 100 K IP</button>
                         </td>
@@ -2552,27 +2675,58 @@
                     </tr>
                     <tr>
                         <td>
-                            <button id="postinfi13" class="infinistorebtn1" onclick="buyInfinityUpgrade('infinitiedGeneration',20e6)">You passively generate Infinitied stat based on your fastest infinity.<br>1 every <br>Cost: 20 M IP</button>
+                            <button id="postinfi03" class="infinistorebtn1">Decrease galaxy cost increase by 5<br>Currently:<br>Cost: 500 K IP</button>
                         </td>
                         <td>
-                            <button id="postinfi23" class="infinistorebtn1" onclick="buyInfinityUpgrade('bulkBoost',5e9)">Option to bulk buy Dimension Boosts <br>Cost: </button>
+                            <button id="postinfi13" class="infinistorebtn1">You passively generate Infinitied stat based on your fastest infinity.<br>1 every <br>Cost: 20 M IP</button>
                         </td>
                         <td>
-                            <button id="postinfi33" class="infinistorebtn1" onclick="buyInfinityUpgrade('autoBuyerUpgrade',1e15)">Autobuyers work twice as fast <br>Cost: 1 Qa IP</button>
+                            <button id="postinfi23" class="infinistorebtn1">Option to bulk buy Dimension Boosts <br>Cost: </button>
+                        </td>
+                        <td>
+                            <button id="postinfi33" class="infinistorebtn1">Autobuyers work twice as fast <br>Cost: 1 Qa IP</button>
                         </td>
 
                     </tr>
                     <tr>
                         <td>
-                            <button id="postinfi31" class="infinimultbtn">Tickspeed cost multiplier increase <br>10x -> 9x<br>Cost: 300 K IP</button>
+                            <button id="postinfi04" class="infinistorebtn1">Dimension multipliers are further increased by g31 <br>x^1.1 -> x^1.12<br>Cost: 1 K IP</button>
                         </td>
                         <td>
-                            <button id="postinfi42" class="infinimultbtn">Dimension cost multiplier increase <br>10x -> 9x<br>Cost: 10 M IP</button>
+                            <button id="postinfi31" class="infinistorebtn1">Tickspeed cost multiplier increase <br>10x -> 9x<br>Cost: 300 K IP</button>
                         </td>
                         <td>
-                            <button id="offlineProd" class="infinimultbtn">Dimension cost multiplier increase <br>10x -> 9x<br>Cost: 10 M IP</button>
+                            <button id="postinfi42" class="infinistorebtn1">Dimension cost multiplier increase <br>10x -> 9x<br>Cost: 10 M IP</button>
+                        </td>
+                        <td>
+                            <button id="offlineProd" class="infinistorebtn1">Dimension cost multiplier increase <br>10x -> 9x<br>Cost: 10 M IP</button>
                         </td>
                     </tr>
+		    <tr id="postinfir5">
+                        <td>
+                            <button id="postinfi50" class="infinistorebtn1">Decrease dimboost cost increase by 0.5 <br>4 -> 3.5<br>Cost: 1e25 IP</button>
+			</td>
+			<td>
+                            <button id="postinfi51" class="infinistorebtn1">Galaxies are 20% more effective <br>Cost: 1e29 IP</button>
+			</td>
+			<td>
+                            <button id="postinfi52" class="infinistorebtn1">Decrease galaxy cost increase by 3 <br>25 -> 22<br>Cost: 1e33 IP</button>
+			</td>
+			<td>
+                            <button id="postinfi53" class="infinistorebtn1">Divide ID cost increases by 50 <br>Cost: 1e37 IP</button>
+			</td>
+                    </tr>
+                  <tr id="postinfir6">
+                    <td>
+                      <button id="postinfi60" class="infinistorebtn1">You gain more IP based on galaxies<br>(5^(galaxies-95))<br>Currently: 1x<br>Cost: 1e50 IP</button>
+                    </td>
+	            <td>
+		      <button id="postinfi61" class="infinistorebtn1"> Make g11 better <br> Cost: 1e450 IP </button>
+		    </td>
+		    <td>
+		      <button id="postinfi62" class="infinistorebtn1"> Make g13 better based on dimboosts <br> Cost: 1e700 IP </button>
+		    </td>
+                  </tr>
                 </table>
                 <div>
                     <table id="footer">
@@ -2596,7 +2750,7 @@
             <button class="storebtn" id="replicantiunlock" onclick="unlockReplicantis()" style="width:200px; height: 80px">Unlock Replicantis<br>Cost: 1e140 IP</button>
             <div id="replicantidiv" style="display: none; width: 1000px">
                 <div id="eterc8repl" style="display: none;"></div>
-                <p style="font-size: 15px">You have <span id="replicantiamount" style="font-size:23px; color: black">0</span> replicanti. Translated to <span id="replicantimult" style="font-size:23px; color: black">0</span>x multiplier on all infinity dimensions</p>
+                <p style="font-size: 15px">You have <span id="replicantiamount" style="font-size:23px; color: black">0</span> replicanti. Translated to <span id="replicantimult" style="font-size:23px; color: black">0</span>x post-dilation multiplier on all infinity dimensions</p>
                 <br>
                 <button class="storebtn" id="replicantichance" onclick="upgradeReplicantiChance()" style="width:180px; height: 50px; font-size: 10px">Replicate chance: 1%<br>+1% Costs: 1e6969 IP</button>
                 <button class="storebtn" id="replicantiinterval" onclick="upgradeReplicantiInterval()" style="width:180px; height: 50px; font-size: 10px">Interval: 1000ms<br>-> 900 Costs: 1e6969 IP</button>
@@ -2742,6 +2896,7 @@
 <script type="text/javascript" src="javascripts/core/newsticker.js"></script>
 <script type="text/javascript" src="javascripts/core/kong.js"></script>
 <script type="text/javascript" src="javascripts/core/playfab.js"></script>
+<script type="text/javascript" src="javascripts/core/galactic_sacrifice.js"></script>
 <script type="text/javascript" src="javascripts/game.js?85"></script>
 
 

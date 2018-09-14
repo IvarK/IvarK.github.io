@@ -40,12 +40,12 @@ function getTimeDimensionPower(tier) {
     ret = new Decimal(0)
   }
 
-  if (player.dilation.active) {
+//if (player.dilation.active) {
     ret = Decimal.pow(10, Math.pow(ret.log10(), 0.75))
     if (player.dilation.upgrades.includes(9)) {
       ret = Decimal.pow(10, Math.pow(ret.log10(), 1.05))
     }
-  }
+//}
 
 
   return ret

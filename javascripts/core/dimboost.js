@@ -1,14 +1,26 @@
+function getResetMult () {
+  return (1.2 + 0.05 * player.infinityPoints.max(1).log(10));
+}
+
 function getDimensionBoostPower() {
-  if (player.currentChallenge == "challenge11" || player.currentChallenge == "postc1") return Decimal.fromNumber(1);
+  if (player.currentChallenge == "challenge11" || player.currentChallenge == "postc4") return Decimal.fromNumber(1);
 
   var ret = 2
-  if (player.infinityUpgrades.includes("resetMult")) ret = 2.5
-  if (player.challenges.includes("postc7")) ret = 4
-  if (player.currentChallenge == "postc7" || player.timestudy.studies.includes(81)) ret = 10
 
+  if (player.galacticSacrifice.upgrades.includes(23)) {
+    ret *= galUpgrade23() / 2;
+  }
+  if (player.infinityUpgrades.includes("resetMult")) ret *= getResetMult();
   if (player.achievements.includes("r101")) ret = ret*1.01
   if (player.timestudy.studies.includes(83)) ret = Decimal.pow(1.0004, player.totalTickGained).times(ret);
   if (player.timestudy.studies.includes(231)) ret = Decimal.pow(player.resets, 0.3).times(ret)
+
+  if (player.currentChallenge == "postc9" || player.timestudy.studies.includes(81)) {
+    ret = Decimal.pow(ret, 3);
+  } else if (player.challenges.includes("postc9")) {
+    ret = Decimal.pow(ret, 2);
+  }
+
   return Decimal.fromValue(ret)
 }
 
@@ -17,6 +29,10 @@ function softReset(bulk) {
   if (!player.break && player.money.gt(Number.MAX_VALUE)) return;
   player.resets+=bulk;
   if (bulk >= 750) giveAchievement("Costco sells dimboosts now");
+  player.tickBoughtThisInf.pastResets.push({
+    'resets': player.resets,
+    'bought': player.tickBoughtThisInf.current
+  });
   player = {
       money: player.achievements.includes("r111") ? player.money : new Decimal(10),
       tickSpeedCost: new Decimal(1000),
@@ -37,6 +53,10 @@ function softReset(bulk) {
       secondBought: 0,
       thirdBought: 0,
       fourthBought: 0,
+      firstTotalBought: 0,
+      secondTotalBought: 0,
+      thirdTotalBought: 0,
+      fourthTotalBought: 0,
       fifthAmount: new Decimal(0),
       sixthAmount: new Decimal(0),
       seventhAmount: new Decimal(0),
@@ -45,6 +65,10 @@ function softReset(bulk) {
       sixthBought: 0,
       seventhBought: 0,
       eightBought: 0,
+      fifthTotalBought: 0,
+      sixthTotalBought: 0,
+      seventhTotalBought: 0,
+      eightTotalBought: 0,
       sacrificed: new Decimal(0),
       achievements: player.achievements,
       challenges: player.challenges,
@@ -98,7 +122,7 @@ function softReset(bulk) {
       infinityPower: player.infinityPower,
       spreadingCancer: player.spreadingCancer,
       postChallUnlocked: player.postChallUnlocked,
-      postC4Tier: 1,
+      postC6Tier: 1,
       postC3Reward: new Decimal(1),
       infinityDimension1: player.infinityDimension1,
       infinityDimension2: player.infinityDimension2,
@@ -129,6 +153,8 @@ function softReset(bulk) {
       totalTickGained: player.totalTickGained,
       offlineProd: player.offlineProd,
       offlineProdCost: player.offlineProdCost,
+      extraDimPowerIncrease: player.extraDimPowerIncrease,
+      dimPowerIncreaseCost: player.dimPowerIncreaseCost,
       challengeTarget: player.challengeTarget,
       autoSacrifice: player.autoSacrifice,
       replicanti: player.replicanti,
@@ -146,13 +172,16 @@ function softReset(bulk) {
       eternityBuyer: player.eternityBuyer,
       eterc8ids: player.eterc8ids,
       eterc8repl: player.eterc8repl,
+      tickBoughtThisInf: player.tickBoughtThisInf,
       dimlife: player.dimlife,
       dead: player.dead,
       dilation: player.dilation,
       why: player.why,
+      galacticSacrifice: player.galacticSacrifice,
       options: player.options
   };
-  if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
+  decreaseDimCosts();
+  if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc4") {
       player.thirdCost = new Decimal(100)
       player.fourthCost = new Decimal(500)
       player.fifthCost = new Decimal(2500)
@@ -160,7 +189,7 @@ function softReset(bulk) {
       player.seventhCost = new Decimal(2e5)
       player.eightCost = new Decimal(4e6)
   }
-  if (player.currentChallenge == "postc1") player.costMultipliers = [new Decimal(1e3),new Decimal(5e3),new Decimal(1e4),new Decimal(1.2e4),new Decimal(1.8e4),new Decimal(2.6e4),new Decimal(3.2e4),new Decimal(4.2e4)];
+  if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc4") player.costMultipliers = [new Decimal(1e3),new Decimal(5e3),new Decimal(1e4),new Decimal(1.2e4),new Decimal(1.8e4),new Decimal(2.6e4),new Decimal(3.2e4),new Decimal(4.2e4)];
   if (player.resets == 1 && player.currentChallenge == "") {
       if (player.infinityUpgrades.includes("skipReset2")) player.resets++;
       if (player.infinityUpgrades.includes("skipReset3")) player.resets++;
@@ -169,7 +198,7 @@ function softReset(bulk) {
           if (player.galaxies == 0) player.galaxies = 1
       }
   }
-if (player.currentChallenge == "postc2") {
+if (player.currentChallenge == "postc5") {
       player.eightAmount = new Decimal(1);
       player.eightBought = 1;
   }
@@ -201,6 +230,7 @@ if (player.currentChallenge == "postc2") {
 
 
   player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), player.totalTickGained))
+  player.postC3Reward = player.postC3Reward.times(Decimal.pow(getPostC3RewardMult(), player.totalTickGained))
   updateTickSpeed()
   if (player.challenges.includes("challenge1")) player.money = new Decimal(100).max(player.money)
   if (player.achievements.includes("r37")) player.money = new Decimal(1000).max(player.money);
@@ -213,29 +243,36 @@ if (player.currentChallenge == "postc2") {
   }
 }
 
+function getDimboostCostIncrease () {
+  if (player.currentChallenge === 'postc1') return 15;
+  let ret = player.galacticSacrifice.upgrades.includes(21)?5:15
+  if (player.infinityUpgrades.includes('dimboostCost')) {
+    ret -= 1;
+  }
+  if (player.infinityUpgrades.includes("postinfi50")) ret -= 0.5
+  return ret;
+}
+
 
 function getShiftRequirement(bulk) {
   let amount = 20;
+  let mult = getDimboostCostIncrease();
   if (player.currentChallenge == "challenge4") {
       tier = Math.min(player.resets + bulk + 4, 6)
-      if (tier == 6) amount += (player.resets+bulk - 2) * 20;
+      if (tier == 6) amount += Math.max(player.resets+bulk - (player.galacticSacrifice.upgrades.includes(21)?4:2), 0) * mult+5;
   } else {
       tier = Math.min(player.resets + bulk + 4, 8)
   }
 
-  let mult = 15
-  if (player.timestudy.studies.includes(211)) mult -= 5
-  if (player.timestudy.studies.includes(222)) mult -= 2
-
-  if (tier == 8) amount += Math.ceil((player.resets+bulk - 4) * mult);
+  if (tier == 8) amount += Math.ceil(Math.max(player.resets+bulk - (player.galacticSacrifice.upgrades.includes(21)?6:4), 0) * mult);
   if (player.currentEternityChall == "eterc5") {
       amount += Math.pow(player.resets+bulk, 3) + player.resets+bulk
   }
 
   if (player.infinityUpgrades.includes("resetBoost")) amount -= 9;
-  if (player.challenges.includes("postc5")) amount -= 1
+  if (player.challenges.includes("postc7")) amount -= 1
 
-  return { tier: tier, amount: amount };
+  return { tier: tier, amount: Math.ceil(amount) };
 }
 
 document.getElementById("softReset").onclick = function () {
@@ -244,7 +281,7 @@ document.getElementById("softReset").onclick = function () {
   auto = false;
   if (player.infinityUpgrades.includes("bulkBoost")) maxBuyDimBoosts(true);
   else softReset(1)
-  
+
   for (var tier = 1; tier<9; tier++) {
     var name = TIER_NAMES[tier];
     var mult = getDimensionBoostPower().pow(player.resets + 1 - tier)

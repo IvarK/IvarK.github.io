@@ -531,6 +531,24 @@ button {
     border-radius: 4px;
 }
 
+.galaxybtn {
+    color: #4169E1;
+    background: #000000;
+    font-weight: bold;
+    border: 2px solid #1E90FF;
+    border-radius: 4px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+
+.galaxybtn:hover {
+    color: #FFFFFF;
+    background: #1E90FF;
+    font-weight: bold;
+    border: 2px solid #1E90FF;
+    border-radius: 4px;
+}
+
 .eternitytabbtn {
     color: #b341e0;
     background: black;

@@ -193,8 +193,7 @@ function giveAchievement(name) {
         kongregate.stats.submit('Achievements', player.achievements.length);
     } catch (err) {console.log("Couldn't load Kongregate API")}
     if (name == "All your IP are belong to us" || name == "MAXIMUM OVERDRIVE") {
-        player.infMult = player.infMult.times(4);
-        player.autoIP = player.autoIP.times(4);
+        // handled via getIPMult() now.
         if (player.autoCrunchMode == "amount" && player.autobuyers[11].priority != undefined) player.autobuyers[11].priority = player.autobuyers[11].priority.times(4);
     }
     updateAchievements();
@@ -244,7 +243,7 @@ function updateAchievements() {
       }
   }
 
-  player.achPow = Decimal.pow(1.5, amount)
+  player.achPow = Decimal.pow(5, amount)
 
   document.getElementById("achmultlabel").textContent = "Current achievement multiplier on each Dimension: " + player.achPow.toFixed(1) + "x"
 

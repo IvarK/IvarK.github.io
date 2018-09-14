@@ -56,6 +56,14 @@ button {
     background: #FF9800 !important;
 }
 
+.galaxybtn {
+  background: #000000 !important;
+}
+
+.galaxybtn:hover {
+  background: #1E90FF !important;
+}
+
 input {
     background-color: #455A64 !important;
     border: 1px solid black !important;
