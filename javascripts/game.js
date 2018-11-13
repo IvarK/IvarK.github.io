@@ -2778,10 +2778,7 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.currentChallenge == "postc5" && player.thisInfinityTime <= 100) giveAchievement("Hevipelle did nothing wrong")
         if ((player.bestInfinityTime > 600 && !player.break) || (player.currentChallenge != "" && !player.options.retryChallenge)) showTab("dimensions")
         if (player.currentChallenge == "challenge5") {
-            try {
-                kongregate.stats.submit('Challenge 9 time record (ms)', Math.floor(player.thisInfinityTime*100));
-
-            } catch (err) {console.log("Couldn't load Kongregate API")}
+            kong.submitStats('Challenge 9 time record (ms)', Math.floor(player.thisInfinityTime*100));
         }
         if (player.currentChallenge != "" && !player.challenges.includes(player.currentChallenge)) {
             player.challenges.push(player.currentChallenge);
@@ -3011,11 +3008,8 @@ document.getElementById("bigcrunch").onclick = function () {
 
         checkForEndMe()
 
-        try {
-            kongregate.stats.submit('Infinitied', getInfinitied());
-            kongregate.stats.submit('Fastest Infinity time (ms)', Math.floor(player.bestInfinityTime * 100))
-
-        } catch (err) {console.log("Couldn't load Kongregate API")}
+        kong.submitStats('Infinitied', getInfinitied());
+        kong.submitStats('Fastest Infinity time (ms)', Math.floor(player.bestInfinityTime * 100));
         giveAchievement("To infinity!");
         if (player.infinitied >= 10) giveAchievement("That's a lot of infinites");
         if (player.infinitied >= 1 && !player.challenges.includes("challenge1")) player.challenges.push("challenge1");
@@ -3397,9 +3391,7 @@ function eternity(force, auto) {
             document.getElementById("replicantidiv").style.display="inline-block"
             document.getElementById("replicantiunlock").style.display="none"
         }
-        try {
-            kongregate.stats.submit('Eternities', player.eternities);
-        } catch (err) {console.log("Couldn't load Kongregate API")}
+        kong.submitStats('Eternities', player.eternities);
         if (player.eternities > 2 && player.replicanti.galaxybuyer === undefined) player.replicanti.galaxybuyer = false
         document.getElementById("infinityPoints1").innerHTML = "You have <span class=\"IPAmount1\">"+shortenDimensions(player.infinityPoints)+"</span> Infinity points."
         document.getElementById("infinityPoints2").innerHTML = "You have <span class=\"IPAmount2\">"+shortenDimensions(player.infinityPoints)+"</span> Infinity points."
@@ -3630,10 +3622,8 @@ function startChallenge(name, target) {
     if (player.achievements.includes("r55")) player.money = new Decimal(1e10);
     if (player.achievements.includes("r78")) player.money = new Decimal(1e25);
     showTab("dimensions")
-    try {
-        kongregate.stats.submit('Infinitied', getInfinitied());
-        kongregate.stats.submit('Fastest Infinity time', Math.floor(player.bestInfinityTime / 10))
-    } catch (err) {console.log("Couldn't load Kongregate API")}
+    kong.submitStats('Infinitied', getInfinitied());
+    kong.submitStats('Fastest Infinity time', Math.floor(player.bestInfinityTime / 10))
 
     if (player.infinitied >= 10) giveAchievement("That's a lot of infinites");
 
@@ -4190,9 +4180,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
             document.getElementById("replicantidiv").style.display="none"
             document.getElementById("replicantiunlock").style.display="inline-block"
         }
-        try {
-            kongregate.stats.submit('Eternities', player.eternities);
-        } catch (err) {console.log("Couldn't load Kongregate API")}
+        kong.submitStats('Eternities', player.eternities);
         if (player.eternities > 2 && player.replicanti.galaxybuyer === undefined) player.replicanti.galaxybuyer = false
         document.getElementById("infinityPoints1").innerHTML = "You have <span class=\"IPAmount1\">"+shortenDimensions(player.infinityPoints)+"</span> Infinity points."
         document.getElementById("infinityPoints2").innerHTML = "You have <span class=\"IPAmount2\">"+shortenDimensions(player.infinityPoints)+"</span> Infinity points."
@@ -4429,11 +4417,9 @@ setInterval(function() {
 
 
 setInterval(function() {
-    try {
-        kongregate.stats.submit('Log10 of total antimatter', player.totalmoney.e);
-        kongregate.stats.submit('Log10 of Infinity Points', player.infinityPoints.e);
-        kongregate.stats.submit('Log10 of Eternity Points', player.eternityPoints.e);
-    } catch (err) {console.log("Couldn't load Kongregate API")}
+    kong.submitStats('Log10 of total antimatter', player.totalmoney.e);
+    kong.submitStats('Log10 of Infinity Points', player.infinityPoints.e);
+    kong.submitStats('Log10 of Eternity Points', player.eternityPoints.e);
 }, 10000)
 
 var nextAt = [new Decimal("1e2000"), new Decimal("1e5000"), new Decimal("1e12000"), new Decimal("1e14000"), new Decimal("1e18000"), new Decimal("1e20000"), new Decimal("1e23000"), new Decimal("1e28000")]
@@ -5741,7 +5727,7 @@ function init() {
     };
     document.getElementById("shopbtn").onclick = function () {
         showTab('shop')
-        updateKongPurchases()
+        kong.updatePurchases();
     }
     document.getElementById("eternitystorebtn").onclick = function () {
         showTab('eternitystore')
@@ -5757,12 +5743,7 @@ function init() {
     updateTickSpeed();
     updateAutobuyers();
     updateChallengeTimes()
-    try {
-        kongregateAPI.loadAPI(function () {
-            window.kongregate = kongregateAPI.getAPI();
-        });
-        updateKongPurchases()
-    } catch (err) {console.log("Couldn't load Kongregate API")}
+    kong.init();
 
     //if (typeof kongregate === 'undefined') document.getElementById("shopbtn").style.display = "none"
 
@@ -5813,13 +5794,12 @@ document.getElementById("hiddenheader").style.display = "none";
 window.onload = function() {
     startInterval()
     setTimeout(function() {
-        playFabLogin();
-        updateKongPurchases()
-        try {
-            if (kongregate.services.getGameAuthToken() === undefined) document.getElementById("shopbtn").style.display = "none"
-        } catch(e) {
-            console.log(e)
-            document.getElementById("shopbtn").style.display = "none"
+        if (kong.enabled) {
+            playFabLogin();
+            kong.updatePurchases();
+        }
+        else {
+            document.getElementById("shopbtn").style.display = "none";
         }
         document.getElementById("container").style.display = "block"
         document.getElementById("loading").style.display = "none"
