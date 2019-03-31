@@ -150,6 +150,7 @@ function softReset(bulk) {
       dead: player.dead,
       dilation: player.dilation,
       why: player.why,
+      shameLevel: player.shameLevel,
       options: player.options
   };
   if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {

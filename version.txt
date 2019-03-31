@@ -1,2 +1,2 @@
-{"version" : 11.5, "message" : "Refresh now for some more new gameplay stuff and Secret Achievements."}
+{"version" : 12.2, "message" : "Because the game is short and lacks challenge, it now runs 10 times slower to give a sense of pride and accomplishment on reaching new things.\nIf you don't like pride nor accomplishment you can import SHAME ON ME to disable this magnificent change.\nAlso due to the fact that this gives the game more than enough playtime I will quit working on the update."}
 
