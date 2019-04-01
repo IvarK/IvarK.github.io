@@ -1868,7 +1868,7 @@ document.getElementById("importbtn").onclick = function () {
         'faster than usual speed might break it, especially after a while. Probably make a backup first.' : ''))) {
           player.shameLevel++;
         }
-    } else if (sha512_256(save_data.replace(/\s/g, '').toUpperCase()) === "c40eb85aa3090b16d5ae1f290b932179528d1ec96b8a810ca8859cce517726d5") {
+    } else if (sha512_256(save_data.replace(/\s/g, '').toUpperCase()) === "290119c75da7596ec2db4fd6645e23673e9763c5afea83247ad0acbba224e50d") {
       player.shameLevel--;
     } else if (sha512_256(save_data.replace(/\s/g, '').toUpperCase()) === "80b7fdc794f5dfc944da6a445a3f21a2d0f7c974d044f2ea25713037e96af9e3") {
         document.getElementById("body").style.animation = "barrelRoll 5s 1";
