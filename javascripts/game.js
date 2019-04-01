@@ -1865,7 +1865,8 @@ document.getElementById("importbtn").onclick = function () {
     if (sha512_256(save_data.replace(/\s/g, '').toUpperCase()) === "3707d55a80956f97fdf236c932023277843ee1cc4fa2a364bc0858b8e81dcd9e") {
         if (confirm('If you do this, you will be burdened with shame forever.' +
         (player.shameLevel >= 1 ? ' Also (and this part is serious), running the game ' + 
-        'faster than usual speed might break it, especially after a while. Probably make a backup first.' : ''))) {
+        'faster than usual speed might break it, especially after a while. Probably make a backup first. ' +
+        'Remember, you can import WAITING IS FUN to make the game slower again.' : ''))) {
           player.shameLevel++;
         }
     } else if (sha512_256(save_data.replace(/\s/g, '').toUpperCase()) === "290119c75da7596ec2db4fd6645e23673e9763c5afea83247ad0acbba224e50d") {
