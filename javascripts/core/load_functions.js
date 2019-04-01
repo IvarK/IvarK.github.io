@@ -358,6 +358,8 @@ if (player.version < 5) {
       }
   }
 
+  if (player.shameLevel === undefined) player.shameLevel = 0;
+
   transformSaveToDecimal();
   updateCosts();
   updateTickSpeed();
