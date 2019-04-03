@@ -1,2 +1,2 @@
-{"version" : 12.3, "message" : "April fools was temporary, the slowdown was temporary, the red "Shame" messages were temporary, but your shame is eternal."}
+{"version" : 12.3, "message" : "April fools was temporary, the slowdown was temporary, the red \"Shame\" messages were temporary, but your shame is eternal."}
 
