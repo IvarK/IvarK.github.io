@@ -270,7 +270,6 @@ var player = {
         }
     },
     why: 0,
-    shameLevel: 0,
     options: {
         newsHidden: false,
         notation: "Mixed scientific",
@@ -1731,7 +1730,6 @@ function galaxyReset() {
         dead: player.dead,
         dilation: player.dilation,
         why: player.why,
-        shameLevel: player.shameLevel,
         options: player.options
     };
 
@@ -1862,13 +1860,7 @@ function verify_save(obj) {
 document.getElementById("importbtn").onclick = function () {
     var save_data = prompt("Input your save. (your current save file will be overwritten!)");
     if (save_data.constructor !== String) save_data = "";
-    if (sha512_256(save_data.replace(/\s/g, '').toUpperCase()) === "3707d55a80956f97fdf236c932023277843ee1cc4fa2a364bc0858b8e81dcd9e") {
-        if (confirm('If you do this, you will be burdened with shame forever. You currently have ' + player.shameLevel + ' shame.',)) {
-          player.shameLevel++;
-        }
-    } else if (sha512_256(save_data.replace(/\s/g, '').toUpperCase()) === "290119c75da7596ec2db4fd6645e23673e9763c5afea83247ad0acbba224e50d") {
-      player.shameLevel--;
-    } else if (sha512_256(save_data.replace(/\s/g, '').toUpperCase()) === "80b7fdc794f5dfc944da6a445a3f21a2d0f7c974d044f2ea25713037e96af9e3") {
+    if (sha512_256(save_data.replace(/\s/g, '').toUpperCase()) === "80b7fdc794f5dfc944da6a445a3f21a2d0f7c974d044f2ea25713037e96af9e3") {
         document.getElementById("body").style.animation = "barrelRoll 5s 1";
         giveAchievement("Do a barrel roll!")
         setTimeout(function(){ document.getElementById("body").style.animation = ""; }, 5000)
@@ -2964,7 +2956,6 @@ document.getElementById("bigcrunch").onclick = function () {
             dead: player.dead,
             dilation: player.dilation,
             why: player.why,
-            shameLevel: player.shameLevel,
             options: player.options
         };
 
@@ -3333,7 +3324,6 @@ function eternity(force, auto) {
                 rebuyables: player.dilation.rebuyables
             },
             why: player.why,
-            shameLevel: player.shameLevel,
             options: player.options
         };
         if (player.respec) respecTimeStudies()
@@ -3574,7 +3564,6 @@ function startChallenge(name, target) {
       dead: player.dead,
       dilation: player.dilation,
       why: player.why,
-      shameLevel: player.shameLevel,
       options: player.options
     };
 	if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -4135,7 +4124,6 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
                 rebuyables: player.dilation.rebuyables
             },
             why: player.why,
-            shameLevel: player.shameLevel,
             options: player.options
         };
 
@@ -4406,7 +4394,6 @@ function newDimension() {
     }
 }
 var blink = true
-var displayStack = [];
 setInterval(function() {
     $.getJSON('version.txt', function(data){
         //data is actual content of version.txt, so
@@ -4416,10 +4403,8 @@ setInterval(function() {
         //like this:
         if (data.version > player.version) {
             player.version = data.version
-            displayStack = data.message.split('\n').map((i) => ['updatePopup', i])
             document.getElementById("update").style.display = "block"
-            // actually just puts the first message in the tootip, we need variable renaming here
-            closeToolTip()
+            document.getElementById("updatePopup").innerHTML = data.message
             //or some more resilient method
             //like forced news bar with message running over and over
         }
@@ -4657,8 +4642,7 @@ setInterval(function() {
     if (player.seventhAmount > 1e12) giveAchievement("Multidimensional");
     if (player.tickspeed.lt(1e-26)) giveAchievement("Faster than a potato");
     if (player.tickspeed.lt(1e-55)) giveAchievement("Faster than a squared potato");
-    if (Math.random() < 0.00001) giveAchievement("Do you feel lucky? Well do ya punk?")
-    if (Math.random() < Math.pow(4, player.shameLevel - 4) - 1 / 256) $.notify('Shame' + Array(player.shameLevel).join('!'), 'error');
+    if (Math.random() < 0.00001) giveAchievement("Do you feel lucky? Well do ya punk?");
     if ((player.matter.gte(2.586e15) && player.currentChallenge == "postc6") || player.matter.gte(Number.MAX_VALUE)) giveAchievement("It's not called matter dimensions is it?")
 
     document.getElementById("dilationTabbtn").style.display = (player.dilation.studies.includes(1)) ? "inline-block" : "none"
@@ -4702,7 +4686,6 @@ function gameLoop(diff) {
     if (typeof diff === 'undefined') var diff = Math.min(thisUpdate - player.lastUpdate, 21600000);
     diff = diff / 100;
     if (diff < 0) diff = 1;
-    if (player.version === 12.2 && typeof player.shameLevel === 'number') diff *= Math.min(Math.pow(10, player.shameLevel - 1), 1);
     if (player.currentEternityChall === "eterc12") diff = diff / 1000;
     if (player.thisInfinityTime < -10) player.thisInfinityTime = Infinity
     if (player.bestInfinityTime < -10) player.bestInfinityTime = Infinity
@@ -5778,13 +5761,8 @@ function init() {
 
 
 function closeToolTip() {
-    if (displayStack.length > 0) {
-      let x = displayStack.shift();
-      document.getElementById(x[0]).innerHTML = x[1];
-    } else {
-      var elements = document.getElementsByClassName("popup")
-      for (var i=0; i<elements.length; i++) elements[i].style.display = "none"
-    }
+    var elements = document.getElementsByClassName("popup")
+    for (var i=0; i<elements.length; i++) elements[i].style.display = "none"
 }
 
 function tooltipLoad() {
