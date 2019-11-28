@@ -29,9 +29,10 @@ function get_save(name) {
 }
 
 function load_game() {
-    var save_data = get_save('dimensionSave');
+    const save_data = get_save('dimensionSave');
     if (!save_data) return;
-	player = save_data;
+    const save_to_use = save_data.saves[save_data.current]
+    player = save_to_use;
 }
 
 function showspoilers() {
