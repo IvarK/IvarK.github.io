@@ -1,4 +1,4 @@
-//time dimensions
+//Mask Dimensions
 
 function getTimeDimensionPower(tier) {
   if (player.currentEternityChall == "eterc11") return new Decimal(1)
@@ -89,13 +89,13 @@ function getTimeDimensionDescription(tier) {
 function updateTimeDimensions() {
   if (document.getElementById("timedimensions").style.display == "block" && document.getElementById("dimensions").style.display == "block") {
     for (let tier = 1; tier <= 4; ++tier) {
-      document.getElementById("timeD"+tier).textContent = DISPLAY_NAMES[tier] + " Time Dimension x" + shortenMoney(getTimeDimensionPower(tier));
+      document.getElementById("timeD"+tier).textContent = DISPLAY_NAMES[tier] + " Mask Dimension x" + shortenMoney(getTimeDimensionPower(tier));
       document.getElementById("timeAmount"+tier).textContent = getTimeDimensionDescription(tier);
     }
     if (player.dilation.studies.includes(2)) {
       for (let tier = 5; tier <= 8; ++tier) {
         if (player.dilation.studies.includes(tier-3)) {
-          document.getElementById("timeD"+tier).textContent = DISPLAY_NAMES[tier] + " Time Dimension x" + shortenMoney(getTimeDimensionPower(tier));
+          document.getElementById("timeD"+tier).textContent = DISPLAY_NAMES[tier] + " Mask Dimension x" + shortenMoney(getTimeDimensionPower(tier));
           document.getElementById("timeAmount"+tier).textContent = getTimeDimensionDescription(tier);
         }
       }

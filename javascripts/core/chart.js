@@ -6,7 +6,7 @@ var normalDimChart = new Chart(ctx2, {
     data: {
         labels: [],
         datasets: [{
-            label: ['Exponents of antimatter per second'],
+            label: ['Exponents of Toilet Paper per second'],
             data: [],
             backgroundColor: [
                 'rgba(0,0,0,1)'

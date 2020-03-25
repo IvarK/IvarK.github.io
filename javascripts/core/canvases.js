@@ -257,9 +257,9 @@ function drawStudyTree() {
                 console.log(all[i])
                 if (all[i] == 222 || all[i] == 223 || all[i] == 226 || all[i] == 227 || all[i] == 232 || all[i] == 233) name = "dark"
                 else if (all[i] == 221 || all[i] == 224 || all[i] == 225 || all[i] == 228 || all[i] == 231 || all[i] == 234) name = "light"
-                else if (tempName.includes("normaldimstudy")) name = "normal dims"
-                else if (tempName.includes("infdimstudy")) name = "infinity dims"
-                else if (tempName.includes("timedimstudy")) name = "time dims"
+                else if (tempName.includes("normaldimstudy")) name = "Paper dims"
+                else if (tempName.includes("infdimstudy")) name = "Sanitizer dims"
+                else if (tempName.includes("timedimstudy")) name = "Mask dims"
                 else if (tempName.includes("activestudy")) name = "active"
                 else if (tempName.includes("passivestudy")) name = "passive"
                 else if (tempName.includes("idlestudy")) name = "idle"
