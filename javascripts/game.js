@@ -2068,7 +2068,7 @@ function setAchieveTooltip() {
     layer.setAttribute('ach-tooltip', "Reach "+shortenMoney(Number.MAX_VALUE)+" EP.")
     fkoff.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal("1e22000"))+" IP without any time studies. Reward: Mask Dimensions are multiplied by the number of studies you have.")
     minaj.setAttribute('ach-tooltip', "Have 180 times more non-bonus Infected galaxies than normal galaxies. Reward: Infected galaxies divide your Infections by "+shortenMoney(Number.MAX_VALUE)+" instead of resetting them to 1.")
-    infstuff.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal("1e140000"))+" IP without buying IDs or IP multipliers. Reward: You start eternities with all Infinity Challenges unlocked and completed.")
+    infstuff.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal("1e140000"))+" IP without buying SDs or IP multipliers. Reward: You start eternities with all Infinity Challenges unlocked and completed.")
     when.setAttribute('ach-tooltip', "Reach "+shortenCosts( new Decimal("1e20000"))+" Infections. Reward: You gain Infections 2 times faster under "+shortenMoney(Number.MAX_VALUE)+" Infections.")
     thinking.setAttribute('ach-tooltip', "Eternity for "+shortenCosts( new Decimal("1e600"))+" EP in 1 minute or less while dilated.")
     thisis.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal('1e20000'))+" IP without any time studies while dilated.")

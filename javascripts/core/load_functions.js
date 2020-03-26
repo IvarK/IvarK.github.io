@@ -498,7 +498,7 @@ if (player.version < 5) {
           }
       }
   }
-  //updates TD costs to harsher scaling
+  //updates MD costs to harsher scaling
   if (player.version < 12) {
       player.version = 12
       for (i=1; i<5; i++) {
