@@ -13,7 +13,7 @@
   </div>
   <hr>
   <div style="text-align: center">
-  Toilet Paper Dimensions is an Idle Incremental game with multiple layers of unlocks, prestige, and achievements. The basic Goal is to reach infinity and receive an infinity point, which can be spent on various skills to increase your overall production.
+  Toilet Paper Dimensions is an Idle Incremental game with multiple layers of unlocks, prestige, and achievements. The basic Goal is to reach infinity and receive an Costco point, which can be spent on various skills to increase your overall production.
   </div>
   <hr>
   <div style="text-align: center">
@@ -46,7 +46,7 @@
   <br>
   <b>Cost & until 10:</b> You can buy a single quantity of each dimension with Toilet Paper when the cost button is highlighted.  Alternatively, if the Until 10 buttons is highlighted, you can buy whatever quantity gets you to that dimensions next dimension multiplier.
   <br>
-  <b>Max all:</b> Max all will buy max tickspeed (see below), then will buy until 10 of 8th dimension until it can't anymore, then 7th, and so on.
+  <b>Max all:</b> Max all will buy max Water Pressure (see below), then will buy until 10 of 8th dimension until it can't anymore, then 7th, and so on.
   <br>
   <b>Dimension base prices:</b> 10, 100, 10000, 1e6, 1e9, 1e13, 1e18, 1e24
   <br>
@@ -61,11 +61,11 @@
   <br>
   <b>Interval:</b> The length of time between ticks. This is lowered by purchasing tick interval reductions.
   <br>
-  <b>Cost:</b> The cost of Toilet Paper for reducing the tick interval by the % displayed above (Without Galaxies your base tickspeed decrease is 11% per purchase)
+  <b>Cost:</b> The cost of Toilet Paper for reducing the tick interval by the % displayed above (Without Galaxies your base Water Pressure decrease is 11% per purchase)
   <br>
   <b>Buy Max:</b> This will buy the maximum amount of tick interval decreases available with your current amount of Toilet Paper.
   <br>
-  Note that the actual tickspeed time is fake and the game always runs at 20 ticks per second.
+  Note that the actual Water Pressure time is fake and the game always runs at 20 ticks per second.
   </div>
   <hr id='div2hr'>
   <button onclick='changestate(3)' id='div3btn' class="storebtn">Dimension Shift/Boost</button>
@@ -85,7 +85,7 @@
   <br>
   Though it will have very little impact for the first few purchases, the increase is multiplicative and won’t take long to be visible.
   <br>
-  Your first galaxy will increase your tickspeed interval upgrade as if it were 10% originally, so you will have 12% after 1 galaxy.
+  Your first galaxy will increase your Water Pressure interval upgrade as if it were 10% originally, so you will have 12% after 1 galaxy.
   <br>
   Galaxies require 80+(galaxies*60) (base) Eighth Dimensions. (80+galaxies*60+(galaxies-99)^2*2 when above 100 non-Infected Galaxies)
   <br>
@@ -108,18 +108,18 @@
   <br>
   Eighth Dimension Autobuyer Challenge: m^0.05/n^0.04*j, where m is the current number of first dimensions you have and j is your previous sacrifice multiplier.
   <br>
-  After Infinity Challenge 2: n^m, where m is 0.01 at base and 0.011 with the "Yet another infinity reference" achievement.
+  After Costco Challenge 2: n^m, where m is 0.01 at base and 0.011 with the "Yet another Costco reference" achievement.
       <br>
     <b>Hotkey: S</b>
   </div>
   <hr id='div5hr'>
   <button onclick='changestate(6)' id='div6btn' class="storebtn">Infinity</button>
   <div style="text-align: left" id='div6' class='hidden'>
-  Once you have too much Toilet Paper for the world to handle (2^1024, or 1.7976931348623159e308) you’ll reach infinity and be able to perform a “Big Crunch”.
+  Once you have too much Toilet Paper for the world to handle (2^1024, or 1.7976931348623159e308) you’ll reach infinity and be able to perform a “Tax Deduction”.
   <br>
-  Each Infinity completed will give an Infinity Point. These can be spent on upgrades in the new infinity tab. You must purchase these upgrades from top to bottom.
+  Each Infinity completed will give an Costco point. These can be spent on upgrades in the new infinity tab. You must purchase these upgrades from top to bottom.
   <br>
-  The "x2 IP from all sources" upgrade can be bought multiple times, but each purchase requires 10 times as much IP. You must buy all 16 previous infinity upgrades to buy the first level.
+  The "x2 IP from all sources" upgrade can be bought multiple times, but each purchase requires 10 times as much IP. You must buy all 16 previous Costco Upgrades to buy the first level.
   <br>
   <b>When should I try to reach Infinity?</b> It's recommend to get 2 galaxies before attempting to reach it. On the way there, you should dimension boost as many times as you can.
   </div>
@@ -137,16 +137,16 @@
   <br>
   Each completed challenge will award an auto buyer.  You can run them multiple times (though only the first time grants a reward), and they can be exited at any time via the “Exit Challenge” button on the challenge tab.
   <br>
-  The rightmost row of Infinity Upgrades does not work in challenges.
+  The rightmost row of Costco Upgrades does not work in challenges.
   </div>
   <hr id='div8hr'>
   <button onclick='changestate(9)' id='div9btn' class="storebtn">Autobuyers</button>
   <div style="text-align: left" id='div9' class='hidden'>
   <b>Autobuyers:</b>
   <br>
-  Autobuyers (awarded by completing challenges) allow the automatic purchase of dimensions, dimension shifts/boosts, galaxies, tickspeed interval decreases, Big Crunches, and Dimensional Sacrifice (later). They are located under the infinty tab in "Autobuyers".
+  Autobuyers (awarded by completing challenges) allow the automatic purchase of dimensions, dimension shifts/boosts, galaxies, Water Pressure interval decreases, Tax Deductions, and Dimensional Sacrifice (later). They are located under the infinty tab in "Autobuyers".
   <br><br>
-  <b>Priority:</b> Priorities tell the game which autobuyer will buy if two are affordable in the same tick. Priority 1 is bought 1st, Priority 2 is bought 2nd, etc. Two equal priorities will pick their buying order randomly. <!-- While you cannot set these, big crunch has a priority of 0, galaxies have a priority of 10, dimboosts 11, and sacrifice (once unlocked) 11. -->
+  <b>Priority:</b> Priorities tell the game which autobuyer will buy if two are affordable in the same tick. Priority 1 is bought 1st, Priority 2 is bought 2nd, etc. Two equal priorities will pick their buying order randomly. <!-- While you cannot set these, Tax Deduction has a priority of 0, galaxies have a priority of 10, dimboosts 11, and sacrifice (once unlocked) 11. -->
   <br>
   <b>Autobuyer Speed:</b>The cooloff period before the autobuyer makes another puchase. This rounds up to the nearest 100ms, so 200ms and 101ms are the same speed.
   <br>
@@ -154,13 +154,13 @@
   <br>
   <b>Dimension Autobuyer Buy Quantity:</b> Autobuyers for dimensions can be set to buy a single, or until 10, on each cooldown. Bulk buy does not work when the autobuyer is set to singles.
   <br>
-  <b>Tickspeed Autobuyer Buy Quantity:</b> The tickspeed autobuyer can be set to buy a single or the max available on each cooldown.
+  <b>Water Pressure Autobuyer Buy Quantity:</b> The Water Pressure autobuyer can be set to buy a single or the max available on each cooldown.
   <br>
   <b>Automatic Dimboost Customization:</b> With the Dimboost autobuyer you can set the max amount of 8th dimensions to use for the autobuyer, the amount of galaxies before dimboosts are always autopurchased, and (when unlocked) the ability to buy dimboosts in bulk (at a fixed amount).
   <br>
   <b>Max Galaxies:</b> The highest amount of galaxies the galaxies autobuyer will buy.
   <br>
-  <b>IP on crunch:</b> Once you break Infinity, you can set how many IP you would like to wait for before crunching. It accepts e notation (12.34e5 is 1234000).
+  <b>IP on crunch:</b> Once you break Costco, you can set how many IP you would like to wait for before crunching. It accepts e notation (12.34e5 is 1234000).
   <br>
   <b>Sacrifice Autobuyer:</b> This autobuyer has a maxed timer from the start. You can set how much multiplier it waits for before sacrificing. It accepts e notation.
   <br>
@@ -172,7 +172,7 @@
   <hr id='div9hr'>
   <button onclick='changestate(10)' id='div10btn' class="storebtn">Breaking Infinity</button>
   <div style="text-align: left" id='div10' class='hidden'>
-  Originally Toilet Paper Dimensions was restricted by "Infinity". Since a significant update, you can now "Break Infinity" once your Big Crunch autobuyer has been maxed. This opens up a selection of new upgrades as well as the ability to gain more than 1 infinity point per run.
+  Originally Toilet Paper Dimensions was restricted by "Infinity". Since a significant update, you can now "Break Costco" once your Tax Deduction autobuyer has been maxed. This opens up a selection of new upgrades as well as the ability to gain more than 1 Costco point per run.
   <br>
   <b>Fixing Infinity:</b>You can revert the breaking at anytime by clicking fix infinity.
   <br>
@@ -183,16 +183,16 @@
   <div style="text-align: left" id='div11' class='hidden'>
   <b>Unlocking Sanitizer Dimensions:</b>Sanitizer Dimensions are unlocked by reaching a certain amount of Toilet Paper.
   <br>
-  <b>Sanitizer Dimension Cost:</b>Sanitizer Dimensions are only purchasable in sets of 10, and cost Infinity points.
+  <b>Sanitizer Dimension Cost:</b>Sanitizer Dimensions are only purchasable in sets of 10, and cost Costco points.
   <br>
   <b>Sanitizer Dimension Production:</b>Similar to the original dimensions, each Sanitizer Dimension produces the dimension above it. Dimension 3 produce 2, 2 produces 1.  Instead of Toilet Paper, Sanitizer Dimension produce Hand Sanitizer, which translates to an overall multiplier on all original dimensions.
   <br>
   Hand Sanitizer gives a boost to all dimensions equal to (power^7).
   </div>
   <hr id='div11hr'>
-  <button onclick='changestate(12)' id='div12btn' class="storebtn">Infinity Challenges</button>
+  <button onclick='changestate(12)' id='div12btn' class="storebtn">Costco Challenges</button>
   <div style="text-align: left" id='div12' class='hidden'>
-  Infinity Challenges are like regular challenges, but they have higher end goals and are generally harder than regular challenges (but have a different kind of reward).
+  Costco Challenges are like regular challenges, but they have higher end goals and are generally harder than regular challenges (but have a different kind of reward).
   <br>
   They unlock at set amounts of Toilet Paper - the ones unlocking later are (generally) more difficult.
   </div>
@@ -203,11 +203,11 @@
   <br>
   When Infections reach infinity, you can buy a galaxy. This will not increase the cost of normal galaxies. The amount of Infected Galaxies you can have is capped (upgradable). Once you reach infinity Infections, they will not continue growing.
   <br>
-  When offline, in an inactive tab, lagging, or a tickspeed under 50ms, Infections get calculated with an approximation. This can cause wildly varying results, especially at extremely low numbers (1-5).
+  When offline, in an inactive tab, lagging, or a Water Pressure under 50ms, Infections get calculated with an approximation. This can cause wildly varying results, especially at extremely low numbers (1-5).
   <br>
   When at low values (100-1000) (when none of the conditions above are true), there may be some minor variances in the expected amount of Infections gain.
   <br><b>Formulas:
-  <br>Sanitizer Dimension power increase:</b> log2(Infections)^2, plus Infections^0.032 if you have the relevant time study, times 5^galaxies if you have that time study.
+  <br>Sanitizer Dimension power increase:</b> log2(Infections)^2, plus Infections^0.032 if you have the relevant Amazon study, times 5^galaxies if you have that Amazon study.
   <br><b>Chance upgrade cost:</b>x(1e15) per upgrade
   <br><b>Speed upgrade cost:</b>x(1e10) per upgrade
   <br><b>Galaxy upgrade cost:</b>1e(170+n*25+n^2*5)
@@ -215,36 +215,36 @@
   <hr id='div13hr'>
   <button onclick='changestate(14)' id='div14btn' class="storebtn">Eternity</button>
   <div style="text-align: left" id='div14' class='hidden'>
-  Upon reaching infinity Infinity Points, you can eternity. Eternities will reset everything before this point except challenge times, achievements, and total Toilet Paper. You also unlock a new tab.
+  Upon reaching infinity Costco points, you can eternity. Corporate buyouts will reset everything before this point except challenge times, achievements, and total Toilet Paper. You also unlock a new tab.
   <br>
-  You can pass infinity Infinity Points whenever. You will recieve more Eternity Points the nore Infinity Points you had before going Eternal.
+  You can pass infinity Costco points whenever. You will recieve more Amazon points the nore Costco points you had before going Eternal.
   <br>
-  <b>EP gain formula:</b> floor(5^(floor(log10(IP))/308-0.7)*bonuses. The x10 EP time study gives the bonus before the outer floor.
+  <b>EP gain formula:</b> floor(5^(floor(log10(IP))/308-0.7)*bonuses. The x10 EP Amazon study gives the bonus before the outer floor.
   </div>
   <hr id='div14hr'>
   <button onclick='changestate(15)' id='div15btn' class="storebtn">Milestones</button>
   <div style="text-align: left" id='div15' class='hidden'>
-    To make eternities faster and more convenient, you will unlock various buffs as you get more eternities. These buffs are either making you start with something on eternity or unlock an autobuyer.
+    To make Corporate buyouts faster and more convenient, you will unlock various buffs as you get more Corporate buyouts. These buffs are either making you start with something on eternity or unlock an autobuyer.
     <br>
     For the buffs at the the start of an eternity, you will keep the relevant statistic on the run you unlock the milestone. (On 1 > 2, you will keep your autobuyers.)
     <br>
-    The last milestone is at 100 eternities and allows full automation.
+    The last milestone is at 100 Corporate buyouts and allows full automation.
     </div>
     <hr id='div15hr'>
     <button onclick='changestate(16)'id='div16btn' class="storebtn">Mask Dimensions</button>
   <div style="text-align: left" id='div16' class='hidden'>
-    After your first eternity, you unlock Mask Dimensions. You buy them with EP and they provide Mask Shards, which give free tickspeed upgrades (which don't increase the price). These free tickspeed upgrades stay on infinity (applying retroactively to your tickspeed mult through more galaxies).
+    After your first eternity, you unlock Mask Dimensions. You buy them with EP and they provide Mask Shards, which give free Water Pressure upgrades (which don't increase the price). These free Water Pressure upgrades stay tax deduction (applying retroactively to your Water Pressure mult through more galaxies).
     <br>
     Similarly to the other dimensions, a Mask Dimension 2 produces a Mask Dimension 1 and so on.
     <br>
-    Each tick threshold takes 33% more Mask Shards than the previous (25% with the relevant time study).
+    Each tick threshold takes 33% more Mask Shards than the previous (25% with the relevant Amazon study).
     </div>
     <hr id='div16hr'>
-  <button onclick='changestate(17)' id='div17btn' class="storebtn">Time Study</button>
+  <button onclick='changestate(17)' id='div17btn' class="storebtn">Amazon study</button>
   <div style="text-align: left" id='div17' class='hidden'>
-    A Time Study is a powerful post-eternity upgrade, which costs Time Theorems. Time Studies are laid out in a tree-like fashion, where you must buy preresiquites before continuing. There are sometimes choices to make with which Time Study to buy, as you cannot get all of them even if affordable.
+    A Amazon study is a powerful post-eternity upgrade, which costs Time Theorems. Amazon studies are laid out in a tree-like fashion, where you must buy preresiquites before continuing. There are sometimes choices to make with which Amazon study to buy, as you cannot get all of them even if affordable.
     <br>
-    Time Theorems are a limited resource which costs more for each one you buy. They can be bought with Toilet Paper, infinity points, and eternity points.
+    Time Theorems are a limited resource which costs more for each one you buy. They can be bought with Toilet Paper, Costco points, and Amazon points.
     <br>
     <b>Respecs:</b> A Respec allows you to reset the upgrades you have in the tree to retreive the Time Theorems spent on them. It can be done for free on eternity.
     <br>
@@ -253,7 +253,7 @@
     <hr id='div17hr'>
     <button onclick='changestate(18)' id='div18btn' class="storebtn">Time Dilation</button> 
 <div style="text-align: left" id='div18' class="hidden"> 
-Time dilation is unlocked when you purchase the 5,000 TT time study after beating both EC11 and EC12 five times, and after acquiring a total of 13,000 TT. Dilating time will start a new eternity, and all of your Dimension/Infinity/Mask Dimension multipliers’ exponents and tickspeed multipliers’ will be reduced to ^0.75.  
+Time dilation is unlocked when you purchase the 5,000 TT Amazon study after beating both EC11 and EC12 five times, and after acquiring a total of 13,000 TT. Dilating time will start a new eternity, and all of your Dimension/Infinity/Mask Dimension multipliers’ exponents and Water Pressure multipliers’ will be reduced to ^0.75.  
  <br>
   If you can reach 1.79e308 IP and eternity within a dilated eternity, you are rewarded with Tachyon Particles upon the dilated eternity. You can dilate as many times as you want. 
 <br> 

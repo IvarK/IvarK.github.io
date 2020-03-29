@@ -212,7 +212,7 @@ function hasInfinityMult(tier) {
                 case 5: giveAchievement("5 Dimension Toilet Paper Punch"); break;
                 case 6: giveAchievement("We couldn't afford 9"); break;
                 case 7: giveAchievement("Not a luck related achievement"); break;
-                case 8: giveAchievement("90 degrees to infinity"); break;
+                case 8: giveAchievement("90 degrees to Costco"); break;
             }
         }
     

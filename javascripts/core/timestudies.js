@@ -1,4 +1,4 @@
-// Time studies
+// Amazon studies
 
 function buyWithAntimatter() {
   if (player.money.gte(player.timestudy.amcost)) {
@@ -24,7 +24,7 @@ function buyWithIP() {
 
 function buyWithEP() {
   if (player.timeDimension1.bought < 1) {
-      alert("You need to buy at least 1 Mask Dimension before you can purchase theorems with Eternity points.")
+      alert("You need to buy at least 1 Mask Dimension before you can purchase theorems with Amazon points.")
       return false;
   }
   if (player.eternityPoints.gte(player.timestudy.epcost)) {

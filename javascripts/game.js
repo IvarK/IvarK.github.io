@@ -597,8 +597,8 @@ function updateDimensions() {
         document.getElementById("infinitied").textContent = ""
         document.getElementById("thisInfinity").textContent = ""
     } else {
-        document.getElementById("bestInfinity").textContent = "Your fastest Infinity is in " + timeDisplay(player.bestInfinityTime) + "."
-        document.getElementById("thisInfinity").textContent = "You have spent " + timeDisplay(player.thisInfinityTime) + " in this Infinity."
+        document.getElementById("bestInfinity").textContent = "Your fastest tax deduction is in " + timeDisplay(player.bestInfinityTime) + "."
+        document.getElementById("thisInfinity").textContent = "You have spent " + timeDisplay(player.thisInfinityTime) + " in this Costco."
         if (player.infinityPoints.equals(1)) {
             document.getElementById("infinityPoints1").textContent = "You have 1 Costco point."
             document.getElementById("infinityPoints2").textContent = "You have 1 Costco point."
@@ -644,8 +644,8 @@ function updateDimensions() {
         else if (document.getElementById("postinf").style.display == "block") {
             document.getElementById("postinfi11").innerHTML = "Power up all dimensions based on total Toilet Paper produced<br>Currently: "+ Math.pow(player.totalmoney.e+1, 0.5).toFixed(2)+"x<br>Cost: "+shortenCosts(1e4)+" CP"
             document.getElementById("postinfi21").innerHTML = "Power up all dimensions based on current Toilet Paper<br>Currently: "+ Math.pow(player.money.e+1, 0.5).toFixed(2)+"x<br>Cost: "+shortenCosts(5e4)+" CP"
-            document.getElementById("postinfi31").innerHTML = "Tickspeed cost multiplier increase <br>"+player.tickSpeedMultDecrease+"x -> "+(player.tickSpeedMultDecrease-1)+"x<br>Cost: "+shortenDimensions(player.tickSpeedMultDecreaseCost) +" CP"
-            if (player.tickSpeedMultDecrease <= 2) document.getElementById("postinfi31").innerHTML = "Tickspeed cost multiplier increase <br>"+player.tickSpeedMultDecrease+"x"
+            document.getElementById("postinfi31").innerHTML = "Water Pressure cost multiplier increase <br>"+player.tickSpeedMultDecrease+"x -> "+(player.tickSpeedMultDecrease-1)+"x<br>Cost: "+shortenDimensions(player.tickSpeedMultDecreaseCost) +" CP"
+            if (player.tickSpeedMultDecrease <= 2) document.getElementById("postinfi31").innerHTML = "Water Pressure cost multiplier increase <br>"+player.tickSpeedMultDecrease+"x"
             document.getElementById("postinfi22").innerHTML = "Power up all dimensions based on achievements completed <br>Currently: "+achievementMult.toFixed(2)+"x<br>Cost: "+shortenCosts(1e6)+" CP"
             document.getElementById("postinfi12").innerHTML = "Power up all dimensions based on tax deductions <br>Currently: "+(1+Math.log10(getInfinitied()+1)*10).toFixed(2)+"x<br>Cost: "+shortenCosts(1e5)+" CP"
             if (player.timestudy.studies.includes(31)) document.getElementById("postinfi12").innerHTML = "Power up all dimensions based on tax deductions <br>Currently: "+shortenMoney(Math.pow((Math.log10(getInfinitied()+1)*10).toFixed(2), 4))+"x<br>Cost: "+shortenCosts(1e5)+" CP"
@@ -1141,8 +1141,8 @@ document.getElementById("postinfi31").onclick = function() {
         player.infinityPoints = player.infinityPoints.minus(player.tickSpeedMultDecreaseCost)
         player.tickSpeedMultDecreaseCost *= 5
         player.tickSpeedMultDecrease--;
-        document.getElementById("postinfi31").innerHTML = "Tickspeed cost multiplier increase <br>"+player.tickSpeedMultDecrease+"x -> "+(player.tickSpeedMultDecrease-1)+"x<br>Cost: "+shortenCosts(player.tickSpeedMultDecreaseCost) +" CP"
-        if (player.tickSpeedMultDecrease <= 2) document.getElementById("postinfi31").innerHTML = "Tickspeed cost multiplier increase <br>"+player.tickSpeedMultDecrease+"x"
+        document.getElementById("postinfi31").innerHTML = "Water Pressure cost multiplier increase <br>"+player.tickSpeedMultDecrease+"x -> "+(player.tickSpeedMultDecrease-1)+"x<br>Cost: "+shortenCosts(player.tickSpeedMultDecreaseCost) +" CP"
+        if (player.tickSpeedMultDecrease <= 2) document.getElementById("postinfi31").innerHTML = "Water Pressure cost multiplier increase <br>"+player.tickSpeedMultDecrease+"x"
     }
 }
 
@@ -1235,13 +1235,13 @@ function updateInfCosts() {
         document.getElementById("212desc").textContent = "Currently: "+((Math.pow(player.timeShards.max(2).log2(), 0.005)-1)*100).toFixed(2)+"%"
         document.getElementById("214desc").textContent = "Currently: "+shortenMoney(((calcTotalSacrificeBoost().pow(8)).min("1e46000").times(calcTotalSacrificeBoost().pow(1.1)).div(calcTotalSacrificeBoost())).max(1).min(new Decimal("1e125000")))+"x"
 
-        if (player.etercreq !== 1) document.getElementById("ec1unl").innerHTML = "Amazon Challenge 1<span>Requirement: "+(ECTimesCompleted("eterc1")+1)*20000+" Eternities<span>Cost: 30 Time Theorems"
+        if (player.etercreq !== 1) document.getElementById("ec1unl").innerHTML = "Amazon Challenge 1<span>Requirement: "+(ECTimesCompleted("eterc1")+1)*20000+" Corporate buyouts<span>Cost: 30 Time Theorems"
         else document.getElementById("ec1unl").innerHTML = "Amazon Challenge 1<span>Cost: 30 Time Theorems"
-        if (player.etercreq !== 2) document.getElementById("ec2unl").innerHTML = "Amazon Challenge 2<span>Requirement: "+(1300+(ECTimesCompleted("eterc2")*150))+" Tickspeed upgrades gained from Mask Dimensions<span>Cost: 35 Time Theorems"
+        if (player.etercreq !== 2) document.getElementById("ec2unl").innerHTML = "Amazon Challenge 2<span>Requirement: "+(1300+(ECTimesCompleted("eterc2")*150))+" Water Pressure upgrades gained from Mask Dimensions<span>Cost: 35 Time Theorems"
         else document.getElementById("ec2unl").innerHTML = "Amazon Challenge 2<span>Cost: 35 Time Theorems"
         if (player.etercreq !== 3) document.getElementById("ec3unl").innerHTML = "Amazon Challenge 3<span>Requirement: "+(17300+(ECTimesCompleted("eterc3")*1250))+" 8th dimensions<span>Cost: 40 Time Theorems"
         else document.getElementById("ec3unl").innerHTML = "Amazon Challenge 3<span>Cost: 40 Time Theorems"
-        if (player.etercreq !== 4) document.getElementById("ec4unl").innerHTML = "Amazon Challenge 4<span>Requirement: "+(1e8 + (ECTimesCompleted("eterc4")*5e7)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" infinities<span>Cost: 70 Time Theorems"
+        if (player.etercreq !== 4) document.getElementById("ec4unl").innerHTML = "Amazon Challenge 4<span>Requirement: "+(1e8 + (ECTimesCompleted("eterc4")*5e7)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" tax deductions<span>Cost: 70 Time Theorems"
         else document.getElementById("ec4unl").innerHTML = "Amazon Challenge 4<span>Cost: 70 Time Theorems"
         if (player.etercreq !== 5) document.getElementById("ec5unl").innerHTML = "Amazon Challenge 5<span>Requirement: "+(160+(ECTimesCompleted("eterc5")*14))+" galaxies<span>Cost: 130 Time Theorems"
         else document.getElementById("ec5unl").innerHTML = "Amazon Challenge 5<span>Cost: 130 Time Theorems"
@@ -2022,7 +2022,7 @@ function setAchieveTooltip() {
     let potato3 = document.getElementById("Faster than a potato^286078")
     var dimensional = document.getElementById("Multidimensional")
     var IPBelongs = document.getElementById("All your IP are belong to us")
-    var reference = document.getElementById("Yet another infinity reference")
+    var reference = document.getElementById("Yet another Costco reference")
     let blink = document.getElementById("Blink of an eye")
     let exist = document.getElementById("This achievement doesn't exist")
     let exist2 = document.getElementById("This achievement doesn't exist II")
@@ -2030,15 +2030,15 @@ function setAchieveTooltip() {
     let speed = document.getElementById("Ludicrous Speed")
     let speed2 = document.getElementById("I brake for nobody")
     let overdrive = document.getElementById("MAXIMUM OVERDRIVE")
-    let minute = document.getElementById("Minute of infinity")
-    let infiniteIP = document.getElementById("Can you get infinite IP?")
+    let minute = document.getElementById("Minute of Costco")
+    let infiniteIP = document.getElementById("Can you get Costco IP?")
     let over9000 = document.getElementById("IT'S OVER 9000")
-    let dawg = document.getElementById("Yo dawg, I heard you liked infinities...")
+    let dawg = document.getElementById("Yo dawg, I heard you liked tax deductions...")
     let eatass = document.getElementById("Like feasting on a behind")
     let layer = document.getElementById("But I wanted another prestige layer...")
     let fkoff = document.getElementById("What do I have to do to get rid of you")
     let minaj = document.getElementById("Popular music")
-    let infstuff = document.getElementById("I never liked this infinity stuff anyway")
+    let infstuff = document.getElementById("I never liked this Costco stuff anyway")
     let when = document.getElementById("When will it be enough?")
     let thinking = document.getElementById("Now you're thinking with dilation!")
     let thisis = document.getElementById("This is what I have to do to get rid of you.")
@@ -2053,25 +2053,25 @@ function setAchieveTooltip() {
     dimensional.setAttribute('ach-tooltip', "Reach " + formatValue(player.options.notation, 1e12, 0, 0) + " of all dimensions except 8th.");
     IPBelongs.setAttribute('ach-tooltip', "Deduct taxes for "+shortenCosts(1e150)+" CP. Reward: Additional 4x multiplier to CP.")
     reference.setAttribute('ach-tooltip', "Get a x"+shortenDimensions(Number.MAX_VALUE)+" multiplier in a single sacrifice. Reward: Sacrifices are stronger.")
-    blink.setAttribute('ach-tooltip', "Get to Infinity in under 200 milliseconds. Reward: Start with " + formatValue(player.options.notation, 1e25, 0, 0) + " Toilet Paper and all dimensions are stronger in first 300ms of Infinity.");
+    blink.setAttribute('ach-tooltip', "Get to Costco in under 200 milliseconds. Reward: Start with " + formatValue(player.options.notation, 1e25, 0, 0) + " Toilet Paper and all dimensions are stronger in first 300ms of Costco.");
     spare.setAttribute('ach-tooltip', "Reach " +formatValue(player.options.notation, new Decimal("1e35000"), 0, 0)+" Toilet Paper. Reward: Dimensions are more powerful the more unspent Toilet Paper you have.");
     //exist.setAttribute('ach-tooltip', "Reach " + formatValue(player.options.notation, 9.9999e9999, 0, 0) + " Toilet Paper. Reward: Dimensions are more powerful the more unspent Toilet Paper you have."); (i like the 9 9s thing and no one will see it with a formatted value)
     //exist2.setAttribute('ach-tooltip', "Reach " + formatValue(player.options.notation, 1e35000, 0, 0) + " Toilet Paper. Reward: Dimensions are more powerful the more unspent Toilet Paper you have.")
-    speed.setAttribute('ach-tooltip', "Deduct taxes for "+shortenCosts(1e200)+" CP in 2 seconds or less. Reward: All dimensions are significantly stronger in first 5 seconds of infinity.")
-    speed2.setAttribute('ach-tooltip', "Deduct taxes for "+shortenCosts(1e250)+" CP in 20 seconds or less. Reward: All dimensions are significantly stronger in first 60 seconds of infinity.")
+    speed.setAttribute('ach-tooltip', "Deduct taxes for "+shortenCosts(1e200)+" CP in 2 seconds or less. Reward: All dimensions are significantly stronger in first 5 seconds of Costco.")
+    speed2.setAttribute('ach-tooltip', "Deduct taxes for "+shortenCosts(1e250)+" CP in 20 seconds or less. Reward: All dimensions are significantly stronger in first 60 seconds of Costco.")
     overdrive.setAttribute('ach-tooltip', "Deduct taxes with " + shortenCosts(1e300) + " CP/min. Reward: Additional 4x multiplier to CP.")
     minute.setAttribute('ach-tooltip', "Reach " + shortenCosts(1e260) + " Hand Sanitizer. Reward: Double Hand Sanitizer gain.")
     infiniteIP.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal("1e30008"))+" CP.")
     over9000.setAttribute('ach-tooltip', "Get a total sacrifice multiplier of "+shortenCosts(new Decimal("1e9000"))+". Reward: Sacrifice doesn't reset your dimensions.")
-    dawg.setAttribute('ach-tooltip', "Have all your past 10 infinities be at least "+shortenMoney(Number.MAX_VALUE)+" times higher CP than the previous one. Reward: Your Toilet Paper doesn't reset on dimboost/galaxy.")
-    eatass.setAttribute('ach-tooltip', "Reach "+shortenCosts(1e100)+" CP without any infinities or first dimensions. Reward: CP multiplier based on time spent this infinity.")
+    dawg.setAttribute('ach-tooltip', "Have all your past 10 tax deductions be at least "+shortenMoney(Number.MAX_VALUE)+" times higher CP than the previous one. Reward: Your Toilet Paper doesn't reset on dimboost/galaxy.")
+    eatass.setAttribute('ach-tooltip', "Reach "+shortenCosts(1e100)+" CP without any tax deductions or first dimensions. Reward: CP multiplier based on time spent this Costco.")
     layer.setAttribute('ach-tooltip', "Reach "+shortenMoney(Number.MAX_VALUE)+" AP.")
-    fkoff.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal("1e22000"))+" CP without any time studies. Reward: Mask Dimensions are multiplied by the number of studies you have.")
+    fkoff.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal("1e22000"))+" CP without any Amazon studies. Reward: Mask Dimensions are multiplied by the number of studies you have.")
     minaj.setAttribute('ach-tooltip', "Have 180 times more non-bonus Infected galaxies than normal galaxies. Reward: Infected galaxies divide your Infections by "+shortenMoney(Number.MAX_VALUE)+" instead of resetting them to 1.")
     infstuff.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal("1e140000"))+" CP without buying SDs or CP multipliers. Reward: You start Corporate buyouts with all Costco Challenges unlocked and completed.")
     when.setAttribute('ach-tooltip', "Reach "+shortenCosts( new Decimal("1e20000"))+" Infections. Reward: You gain Infections 2 times faster under "+shortenMoney(Number.MAX_VALUE)+" Infections.")
     thinking.setAttribute('ach-tooltip', "Eternity for "+shortenCosts( new Decimal("1e600"))+" AP in 1 minute or less while dilated.")
-    thisis.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal('1e20000'))+" CP without any time studies while dilated.")
+    thisis.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal('1e20000'))+" CP without any Amazon studies while dilated.")
 }
 
 document.getElementById("notation").onclick = function () {
@@ -2189,7 +2189,7 @@ function sacrifice(auto = false) {
     if (player.currentEternityChall == "eterc3") return false
     if (player.currentChallenge == "challenge11" && (calcTotalSacrificeBoost().gte(Number.MAX_VALUE) || player.chall11Pow.gte(Number.MAX_VALUE))) return false
     if (!auto) floatText("eightD", "x" + shortenMoney(calcSacrificeBoost()))
-    if (calcSacrificeBoost().gte(Number.MAX_VALUE)) giveAchievement("Yet another infinity reference");
+    if (calcSacrificeBoost().gte(Number.MAX_VALUE)) giveAchievement("Yet another Costco reference");
     player.eightPow = player.eightPow.times(calcSacrificeBoost())
     player.sacrificed = player.sacrificed.plus(player.firstAmount);
     if (player.currentChallenge != "challenge11") {
@@ -2673,13 +2673,13 @@ function updateLastTenRuns() {
         if (ippm.gt(tempBest)) tempBest = ippm
         var tempstring = shorten(ippm) + " CP/min"
         if (ippm<1) tempstring = shorten(ippm*60) + " CP/hour"
-        document.getElementById("run"+(i+1)).textContent = "The infinity "+(i+1)+" infinities ago took " + timeDisplayShort(player.lastTenRuns[i][0]) + " and gave " + shortenDimensions(player.lastTenRuns[i][1]) +" CP. "+ tempstring
+        document.getElementById("run"+(i+1)).textContent = "The tax deduction "+(i+1)+" tax deductions ago took " + timeDisplayShort(player.lastTenRuns[i][0]) + " and gave " + shortenDimensions(player.lastTenRuns[i][1]) +" CP. "+ tempstring
     }
 
     var ippm = tempIP.dividedBy(tempTime/600)
     var tempstring = shorten(ippm) + " CP/min"
     if (ippm<1) tempstring = shorten(ippm*60) + " CP/hour"
-    document.getElementById("averagerun").textContent = "Last 10 infinities average time: "+ timeDisplayShort(tempTime)+" Average CP gain: "+shortenDimensions(tempIP)+" CP. "+tempstring
+    document.getElementById("averagerun").textContent = "Last 10 tax deductions average time: "+ timeDisplayShort(tempTime)+" Average CP gain: "+shortenDimensions(tempIP)+" CP. "+tempstring
 
     if (tempBest.gte(1e8)) giveAchievement("Oh hey, you're still here");
     if (tempBest.gte(1e300)) giveAchievement("MAXIMUM OVERDRIVE");
@@ -2782,7 +2782,7 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.currentChallenge != "" && !player.challenges.includes(player.currentChallenge)) {
             player.challenges.push(player.currentChallenge);
         }
-        if (player.challenges.length > 12) giveAchievement("Infinitely Challenging");
+        if (player.challenges.length > 12) giveAchievement("Costco approved");
         if (player.challenges.length == 20) giveAchievement("Anti-antichallenged");
         if (!player.break || player.currentChallenge != "") {
             var add = new Decimal(player.infMult.times(kongIPMult))
@@ -2802,7 +2802,7 @@ document.getElementById("bigcrunch").onclick = function () {
             for (i=0; i<9; i++) {
                 if (player.lastTenRuns[i][1].gte(player.lastTenRuns[i+1][1].times(Number.MAX_VALUE))) n++;
             }
-            if (n == 9) giveAchievement("Yo dawg, I heard you liked infinities...")
+            if (n == 9) giveAchievement("Yo dawg, I heard you liked tax deductions...")
         }
         let infGain = 1;
         if (player.thisInfinityTime > 50 && player.achievements.includes("r87")) infGain = 250;
@@ -3008,9 +3008,9 @@ document.getElementById("bigcrunch").onclick = function () {
         checkForEndMe()
 
         kong.submitStats('Infinitied', getInfinitied());
-        kong.submitStats('Fastest Infinity time (ms)', Math.floor(player.bestInfinityTime * 100));
-        giveAchievement("To infinity!");
-        if (player.infinitied >= 10) giveAchievement("That's a lot of infinites");
+        kong.submitStats('fastest tax deduction time (ms)', Math.floor(player.bestInfinityTime * 100));
+        giveAchievement("To Costco!");
+        if (player.infinitied >= 10) giveAchievement("That's a lot of tax deductions");
         if (player.infinitied >= 1 && !player.challenges.includes("challenge1")) player.challenges.push("challenge1");
 
 
@@ -3080,14 +3080,14 @@ function eternity(force, auto) {
             if (player.bestEternity < 300) giveAchievement("That wasn't an eternity");
             if (player.bestEternity <= 0.01) giveAchievement("Less than or equal to 0.001");
         }
-        if (player.thisEternity < 2) giveAchievement("Eternities are the new infinity")
+        if (player.thisEternity < 2) giveAchievement("Amazons are the new Costcos")
         if (player.currentEternityChall == "eterc6" && ECTimesCompleted("eterc6") < 5) player.dimensionMultDecrease = parseFloat((player.dimensionMultDecrease - 0.2).toFixed(1))
         if (player.currentEternityChall == "eterc11" && ECTimesCompleted("eterc11") < 5) player.tickSpeedMultDecrease = parseFloat((player.tickSpeedMultDecrease - 0.07).toFixed(2))
         if (player.infinitied < 10 && !force) giveAchievement("Do you really need a guide for this?");
         if (Decimal.round(player.replicanti.amount) == 9) giveAchievement("We could afford 9");
         if (player.dimlife && !force) giveAchievement("8 nobody got time for that")
         if (player.dead && !force) giveAchievement("You're already dead.")
-        if (player.infinitied <= 1 && !force) giveAchievement("Do I really need to infinity")
+        if (player.infinitied <= 1 && !force) giveAchievement("Do I really need to Costco")
         if (gainedEternityPoints().gte("1e600") && player.thisEternity <= 600 && player.dilation.active && !force) giveAchievement("Now you're thinking with dilation!")
         temp = []
         player.eternityPoints = player.eternityPoints.plus(gainedEternityPoints())
@@ -3104,7 +3104,7 @@ function eternity(force, auto) {
                     eterchallscompletedtotal += player.eternityChalls["eterc"+i]
                 }
                 if (eterchallscompletedtotal >= 50) {
-                    giveAchievement("5 more eternities until the update");
+                    giveAchievement("5 more Corporate buyouts until the update");
                 }
             }
         }
@@ -3401,7 +3401,7 @@ function eternity(force, auto) {
         document.getElementById("eternitystorebtn").style.display = "inline-block"
         document.getElementById("infiMult").innerHTML = "Multiply Costco Points from all sources by 2 <br>currently: "+shorten(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" CP"
         updateEternityUpgrades()
-        document.getElementById("totaltickgained").textContent = "You've gained "+player.totalTickGained.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" tickspeed upgrades."
+        document.getElementById("totaltickgained").textContent = "You've gained "+player.totalTickGained.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" Water Pressure upgrades."
         updateTickSpeed();
         playerInfinityUpgradesOnEternity()
         document.getElementById("eternityPoints2").innerHTML = "You have <span class=\"EPAmount2\">"+shortenDimensions(player.eternityPoints)+"</span> Amazon Point"+((player.eternityPoints.eq(1)) ? "." : "s.")
@@ -3429,7 +3429,7 @@ function exitChallenge() {
 }
 
 function startChallenge(name, target) {
-  if(player.options.challConf || name == "" ? true : (name.includes("post")) ? confirm("You will start over with just your Costco Upgrades, and achievements. You need to reach a set goal with special conditions. NOTE: The rightmost infinity upgrade column doesn't work on challenges.") : confirm("You will start over with just your Costco Upgrades, and achievements. You need to reach infinity with special conditions. NOTE: The rightmost infinity upgrade column doesn't work on challenges.")) {
+  if(player.options.challConf || name == "" ? true : (name.includes("post")) ? confirm("You will start over with just your Costco Upgrades, and achievements. You need to reach a set goal with special conditions. NOTE: The rightmost Costco Upgrade column doesn't work on challenges.") : confirm("You will start over with just your Costco Upgrades, and achievements. You need to reach Costco with special conditions. NOTE: The rightmost Costco Upgrade column doesn't work on challenges.")) {
     if (player.currentChallenge != "") document.getElementById(player.currentChallenge).textContent = "Start"
     player = {
         money: new Decimal(10),
@@ -3622,9 +3622,9 @@ function startChallenge(name, target) {
     if (player.achievements.includes("r78")) player.money = new Decimal(1e25);
     showTab("dimensions")
     kong.submitStats('Infinitied', getInfinitied());
-    kong.submitStats('Fastest Infinity time', Math.floor(player.bestInfinityTime / 10))
+    kong.submitStats('fastest tax deduction time', Math.floor(player.bestInfinityTime / 10))
 
-    if (player.infinitied >= 10) giveAchievement("That's a lot of infinites");
+    if (player.infinitied >= 10) giveAchievement("That's a lot of tax deductions");
 
     document.getElementById("replicantireset").innerHTML = "Reset Infection amount, but get a free galaxy<br>"+player.replicanti.galaxies + " Infected galaxies created."
 
@@ -3641,7 +3641,7 @@ function startChallenge(name, target) {
             if (player.galaxies == 0) player.galaxies = 1
         }
     }
-    if (player.currentChallenge.includes("post") && player.currentEternityChall !== "") giveAchievement("I wish I had gotten 7 eternities")
+    if (player.currentChallenge.includes("post") && player.currentEternityChall !== "") giveAchievement("I wish I had gotten 7 Corporate buyouts")
     Marathon2 = 0;
 }
 }
@@ -3919,7 +3919,7 @@ document.getElementById("ec12unl").onclick = function() {
 
 function startEternityChallenge(name, startgoal, goalIncrease) {
     if (player.eternityChallUnlocked == 0 || parseInt(name.split("c")[1]) !== player.eternityChallUnlocked) return
-    if((player.options.challConf) || name == "" ? true :  (confirm("You will start over with just your time studies, amazon upgrades and achievements. You need to reach a set CP with special conditions."))) {
+    if((player.options.challConf) || name == "" ? true :  (confirm("You will start over with just your Amazon studies, amazon upgrades and achievements. You need to reach a set CP with special conditions."))) {
         player = {
             money: new Decimal(10),
             tickSpeedCost: new Decimal(1000),
@@ -4211,7 +4211,7 @@ function startDilatedEternity() {
         }, 250)
         return
     }
-    if (!confirm("Dilating time will start a new eternity, and all of your Dimension/Sanitizer Dimension/Mask Dimension multiplier's exponents and tickspeed multiplier's exponent will be reduced to ^ 0.75. If you can eternity while dilated, you'll be rewarded with tachyon particles based on your Toilet Paper and tachyon particles.")) {
+    if (!confirm("Dilating time will start a new eternity, and all of your Dimension/Sanitizer Dimension/Mask Dimension multiplier's exponents and Water Pressure multiplier's exponent will be reduced to ^ 0.75. If you can eternity while dilated, you'll be rewarded with tachyon particles based on your Toilet Paper and tachyon particles.")) {
         setTimeout(function() {
             gameLoopIntervalId = setInterval(gameLoop, player.options.updateRate);
         }, 250)
@@ -4389,7 +4389,7 @@ function newDimension() {
         else if (!player.infDimensionsUnlocked[6]) player.infDimensionsUnlocked[6] = true
         else if (!player.infDimensionsUnlocked[7]) {
             player.infDimensionsUnlocked[7] = true
-            giveAchievement("0 degrees from infinity")
+            giveAchievement("0 degrees from Costco")
         }
     }
 }
@@ -4418,7 +4418,7 @@ setInterval(function() {
 setInterval(function() {
     kong.submitStats('Log10 of total antimatter', player.totalmoney.e);
     kong.submitStats('Log10 of Costco Points', player.infinityPoints.e);
-    kong.submitStats('Log10 of Eternity Points', player.eternityPoints.e);
+    kong.submitStats('Log10 of Amazon Points', player.eternityPoints.e);
 }, 10000)
 
 var nextAt = [new Decimal("1e2000"), new Decimal("1e5000"), new Decimal("1e12000"), new Decimal("1e14000"), new Decimal("1e18000"), new Decimal("1e20000"), new Decimal("1e23000"), new Decimal("1e28000")]
@@ -4432,7 +4432,7 @@ setInterval(function() {
         getDimensionFinalMultiplier(5).gte(new Decimal("1e308")) &&
         getDimensionFinalMultiplier(6).gte(new Decimal("1e308")) &&
         getDimensionFinalMultiplier(7).gte(new Decimal("1e308")) &&
-        getDimensionFinalMultiplier(8).gte(new Decimal("1e308"))) giveAchievement("Can't hold all these infinities")
+        getDimensionFinalMultiplier(8).gte(new Decimal("1e308"))) giveAchievement("Can't hold all these tax deductions")
 
     if (getDimensionFinalMultiplier(1).lt(getDimensionFinalMultiplier(2)) &&
         getDimensionFinalMultiplier(2).lt(getDimensionFinalMultiplier(3)) &&
@@ -4473,7 +4473,7 @@ setInterval(function() {
     document.getElementById("kongip").textContent = "Double your CP gain from all sources (additive). Forever. Currently: x"+kongIPMult+", next: x"+(kongIPMult==1? 2: kongIPMult+2)
     document.getElementById("kongep").textContent = "Triple your AP gain from all sources (additive). Forever. Currently: x"+kongEPMult+", next: x"+(kongEPMult==1? 3: kongEPMult+3)
     document.getElementById("kongdim").textContent = "Double all your Paper dimension multipliers (multiplicative). Forever. Currently: x"+kongDimMult+", next: x"+(kongDimMult*2)
-    document.getElementById("kongalldim").textContent = "Double ALL the dimension multipliers (Normal, Infinity, Time) (multiplicative until 32x). Forever. Currently: x"+kongAllDimMult+", next: x"+((kongAllDimMult < 32) ? kongAllDimMult * 2 : kongAllDimMult + 32)
+    document.getElementById("kongalldim").textContent = "Double ALL the dimension multipliers (Normal, Sanitizer, Mask) (multiplicative until 32x). Forever. Currently: x"+kongAllDimMult+", next: x"+((kongAllDimMult < 32) ? kongAllDimMult * 2 : kongAllDimMult + 32)
     document.getElementById("eternityPoints2").innerHTML = "You have <span class=\"EPAmount2\">"+shortenDimensions(player.eternityPoints)+"</span> Amazon Point"+((player.eternityPoints.eq(1)) ? "." : "s.")
 
     document.getElementById("eternitybtn").style.display = (player.infinityPoints.gte(player.eternityChallGoal) && (player.infDimensionsUnlocked[7] || player.eternities > 24)) ? "inline-block" : "none"
@@ -4570,7 +4570,7 @@ setInterval(function() {
     document.getElementById("eterc3goal").textContent = "Goal: "+shortenCosts(new Decimal("1e600").times(new Decimal("1e75").pow(ECTimesCompleted("eterc3"))).max(new Decimal("1e575"))) + " CP"
     document.getElementById("eterc3completed").textContent = "Completed "+ECTimesCompleted("eterc3")+" times."
 
-    document.getElementById("eterc4goal").textContent = "Goal: "+shortenCosts(new Decimal("1e2750").times(new Decimal("1e550").pow(ECTimesCompleted("eterc4"))).max(new Decimal("1e2750"))) + " CP in "+Math.max((16 - (ECTimesCompleted("eterc4")*4)), 0)+" infinities or less."
+    document.getElementById("eterc4goal").textContent = "Goal: "+shortenCosts(new Decimal("1e2750").times(new Decimal("1e550").pow(ECTimesCompleted("eterc4"))).max(new Decimal("1e2750"))) + " CP in "+Math.max((16 - (ECTimesCompleted("eterc4")*4)), 0)+" tax deductions or less."
     document.getElementById("eterc4completed").textContent = "Completed "+ECTimesCompleted("eterc4")+" times."
 
     document.getElementById("eterc5goal").textContent = "Goal: "+shortenCosts(new Decimal("1e750").times(new Decimal("1e400").pow(ECTimesCompleted("eterc5"))).max(new Decimal("1e750"))) + " CP"
@@ -4628,14 +4628,14 @@ setInterval(function() {
     if (player.eternityPoints.gte(Number.MAX_VALUE)) giveAchievement("But I wanted another prestige layer...")
     if (player.infinityPoints.gte(1e100) && player.firstAmount.equals(0) && player.infinitied == 0 && player.resets <= 4 && player.galaxies <= 1 && player.replicanti.galaxies == 0) giveAchievement("Like feasting on a behind")
     if (player.infinityPoints.gte('9.99999e999')) giveAchievement("This achievement doesn't exist II");
-    if (player.infinityPoints.gte('1e30008')) giveAchievement("Can you get infinite IP?");
-    if (player.infinitied > 2e6) giveAchievement("2 Million Infinities")
+    if (player.infinityPoints.gte('1e30008')) giveAchievement("Can you get Costco IP?");
+    if (player.infinitied > 2e6) giveAchievement("2 Million tax deductions")
     if (player.money.gte("9.9999e9999")) giveAchievement("This achievement doesn't exist")
     if (player.money.gte("1e35000")) giveAchievement("I got a few to spare")
     if (player.infinityPower.gt(1)) giveAchievement("A new beginning.");
     if (player.infinityPower.gt(1e6)) giveAchievement("1 million is a lot"); //TBD
-    if (player.infinityPower.gt(1e260)) giveAchievement("Minute of infinity"); //TBD
-    if (player.totalTickGained >= 308) giveAchievement("Infinite time");
+    if (player.infinityPower.gt(1e260)) giveAchievement("Minute of Costco"); //TBD
+    if (player.totalTickGained >= 308) giveAchievement("Costco time");
     if (player.firstPow >= 10e30) giveAchievement("I forgot to nerf that")
     if (player.money >= 10e79) giveAchievement("Toilet Paper Apocalypse")
     if (player.totalTimePlayed >= 10 * 60 * 60 * 24 * 8) giveAchievement("One for each dimension")
@@ -4658,7 +4658,7 @@ setInterval(function() {
         player.infinityDimension8.baseAmount == 0 &&
         player.infMultCost.equals(10) &&
         player.infinityPoints.gt(new Decimal("1e140000"))) {
-        giveAchievement("I never liked this infinity stuff anyway")
+        giveAchievement("I never liked this Costco stuff anyway")
     }
 
     if (player.replicanti.amount.gt(new Decimal("1e20000"))) giveAchievement("When will it be enough?")
@@ -4822,7 +4822,7 @@ function gameLoop(diff) {
         player.tickspeed = player.tickspeed.times(Decimal.pow(getTickSpeedMultiplier(), gain))
         if (player.timestudy.studies.includes(171)) player.tickThreshold = new Decimal(1).times(1.25).pow(player.totalTickGained)
         else player.tickThreshold = new Decimal(1).times(1.33).pow(player.totalTickGained)
-        document.getElementById("totaltickgained").textContent = "You've gained "+player.totalTickGained.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" tickspeed upgrades."
+        document.getElementById("totaltickgained").textContent = "You've gained "+player.totalTickGained.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" Water Pressure upgrades."
         updateTickSpeed();
     }
 
@@ -4937,7 +4937,7 @@ function gameLoop(diff) {
 
 
     var estimate = Math.max((Math.log(Number.MAX_VALUE) - current) / est, 0)
-    document.getElementById("replicantiapprox").textContent ="Approximately "+ timeDisplay(estimate*10) + " until infinite Infections"
+    document.getElementById("replicantiapprox").textContent ="Approximately "+ timeDisplay(estimate*10) + " until Costco Infections"
 
     document.getElementById("replicantiamount").textContent = shortenDimensions(player.replicanti.amount)
     var replmult = Decimal.pow(Decimal.log2(Decimal.max(player.replicanti.amount, 1)), 2)
@@ -5244,7 +5244,7 @@ function gameLoop(diff) {
     document.getElementById("ec8reward").textContent = "Reward: Hand Sanitizer powers up Infected galaxies, Currently: " + (Math.max(Math.pow(Math.log10(player.infinityPower.plus(1).log10()+1), 0.03 * ECTimesCompleted("eterc8"))-1, 0) * 100).toFixed(2) + "%"
     document.getElementById("ec9reward").textContent = "Reward: Sanitizer Dimension multiplier based on Mask Shards, Currently: "+shortenMoney(player.timeShards.pow(ECTimesCompleted("eterc9")*0.1).min(new Decimal("1e400")))+"x "
     document.getElementById("ec10reward").textContent = "Reward: Mask Dimensions gain a multiplier from tax deductions, Currently: "+shortenMoney(new Decimal(Math.max(Math.pow(getInfinitied(), 0.9) * ECTimesCompleted("eterc10") * 0.000002+1, 1)).pow((player.timestudy.studies.includes(31)) ? 4 : 1))+"x "
-    document.getElementById("ec11reward").textContent = "Reward: Further reduce the tickspeed cost multiplier increase, Currently: "+player.tickSpeedMultDecrease.toFixed(2)+"x "
+    document.getElementById("ec11reward").textContent = "Reward: Further reduce the Water Pressure cost multiplier increase, Currently: "+player.tickSpeedMultDecrease.toFixed(2)+"x "
     document.getElementById("ec12reward").textContent = "Reward: Sanitizer Dimension cost multipliers are reduced. (x^"+(1-ECTimesCompleted("eterc12")*0.008)+")"
 
     // let extraGals = 0
