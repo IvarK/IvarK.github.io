@@ -142,7 +142,7 @@ const secretAchievementTooltips = {
     s23 : "Open the console.",
     s24 : "Click on the news ticker that tells you to click on it.",
     s25 : "Discover a secret theme.",
-    s26 : "Fail eternity challenges 10 times without refreshing. What are you doing with your life...",
+    s26 : "Fail Amazon Challenges 10 times without refreshing. What are you doing with your life...",
     s27 : "Get Infinite matter.",
     s28 : "Don't act like you don't know what you did.",
     s31 : "Set your update rate to 200ms.",

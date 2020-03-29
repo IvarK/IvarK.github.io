@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="icon.png">
     <meta name="Toilet Paper Dimensions" content="A game about huge numbers and watching them go up." charset="utf-8"/>
     <h1 id="hiddenheader" style="display: none">Toilet Paper Dimensions</h1>
-    <script type="text/javascript" src='https://cdn1.kongregate.com/javascripts/kongregate_api.js'></script>
+    <script type="text/javascrt" src='https://cdn1.kongregate.com/javascripts/kongregate_api.js'></script>
     <script type="text/javascript" src="javascripts/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="javascripts/notify.js"></script>
     <link rel="stylesheet" type="text/css" href="stylesheets/styles.css?3">
@@ -44,7 +44,7 @@
         </div>
 
         <div style="position: relative">
-            <button id="postInfinityButton" class="postinfcrunch">Big Crunch for x Infinity Points</button>
+            <button id="postInfinityButton" class="postinfcrunch">Deduct taxes for x Infinity Points</button>
             <button id="newDimensionButton" class="newdim" onclick="newDimension()">Get x Toilet Paper to unlock a new Dimension.</button>
             <button id="eternitybtn" class="eternitybtn" onclick="eternity()">Other times await.. I need to become Eternal</button>
         </div>
@@ -58,7 +58,7 @@
         </tr>
         <p></p>
         <div style="position:absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; width: 360px; top: 19px">
-            <button id="bigcrunch" style="font-family: Typewriter; font-size: 50px; width: 360px; height: 100px;" class="tabbtn">Big Crunch</button>
+            <button id="bigcrunch" style="font-family: Typewriter; font-size: 50px; width: 360px; height: 100px;" class="tabbtn">Deduct taxes</button>
         </div>
         <div>
             <button id="dimensionsbtn" style="font-family: Typewriter; font-size: 20px" class="tabbtn">Dimensions</button>
@@ -66,8 +66,8 @@
             <button id="statisticsbtn" style="font-family: Typewriter; font-size: 20px" class="tabbtn">Statistics</button>
             <button id="achievementsbtn" style="font-family: Typewriter; font-size: 20px" class="tabbtn">Achievements</button>
             <button id="challengesbtn" style="font-family: Typewriter; font-size: 20px" class="tabbtn">Challenges</button>
-            <button id="infinitybtn" style="font-family: Typewriter; font-size: 20px; display: none" class="infinitybtn">Infinity</button>
-            <button id="eternitystorebtn" style="font-family: Typewriter; font-size: 20px; display: none" class="eternitytabbtn">Eternity</button>
+            <button id="infinitybtn" style="font-family: Typewriter; font-size: 20px; display: none" class="infinitybtn">Costco</button>
+            <button id="eternitystorebtn" style="font-family: Typewriter; font-size: 20px; display: none" class="eternitytabbtn">Amazon</button>
             <button id="shopbtn" style="font-family: Typewriter; font-size: 20px" class="tabbtn">Shop</button>
         </div>
         <div id="emptiness" class="tab" style="font-size: 150%">
@@ -78,10 +78,10 @@
         <div id="shop" class="tab" style="font-size: 15px" >
             <div align="center">
                 <br>
-                <span id="kongip"> Double your IP gain from all sources. Forever. </span><br>
+                <span id="kongip"> Double your CP gain from all sources. Forever. </span><br>
                 <button class="greedbtn" onclick="kong.purchaseIP()">40 Kreds</button>
                 <br><br><br>
-                <span id="kongep"> Double your EP gain from all sources. Forever. </span><br>
+                <span id="kongep"> Double your AP gain from all sources. Forever. </span><br>
                 <button class="greedbtn" onclick="kong.purchaseEP()">50 Kreds</button>
                 <br><br><br>
                 <span id="kongdim"> Double all your dimension multipliers (dimensions 1-8). Forever. </span><br>
@@ -100,8 +100,8 @@
             <table class="table" align="center" style="margin: auto">
                 <tr>
                     <td><button class="secondarytabbtn" onclick="showEternityTab('timestudies')">Time studies</button></td>
-                    <td><button class="secondarytabbtn" onclick="showEternityTab('eternityupgrades')">Eternity upgrades</button></td>
-                    <td><button class="secondarytabbtn" onclick="showEternityTab('milestones')">Eternity milestones</button></td>
+                    <td><button class="secondarytabbtn" onclick="showEternityTab('eternityupgrades')">Amazon upgrades</button></td>
+                    <td><button class="secondarytabbtn" onclick="showEternityTab('milestones')">Amazon milestones</button></td>
                     <td><button class="secondarytabbtn" onclick="showEternityTab('dilation')" id="dilationTabbtn">Time dilation</button></td>
                 </tr>
             </table>
@@ -130,14 +130,14 @@
                 <table class="table" id="studytable">
                     <tr>
                         <td><button class="timestudy" id="33" onclick="buyTimeStudy(33, 2)">You keep half of your Infected galaxies on infinity<span>Cost: 2 Time Theorems</button></td>
-                        <td><button class="timestudy" id="31" onclick="buyTimeStudy(31, 3)">Powers up bonuses that are based on your infinitied stat (to the power of 4)<span>Cost: 3 Time Theorems</button></td>
-                        <td><button class="timestudy" id="32" onclick="buyTimeStudy(32, 2)"><span id="32desc">You gain x1 more infinitied stat (based on dimension boosts)</span>Cost: 2 Time Theorems</button></td>
+                        <td><button class="timestudy" id="31" onclick="buyTimeStudy(31, 3)">Powers up bonuses that are based on your tax deductions (to the power of 4)<span>Cost: 3 Time Theorems</button></td>
+                        <td><button class="timestudy" id="32" onclick="buyTimeStudy(32, 2)"><span id="32desc">You gain x1 more tax deductions (based on dimension boosts)</span>Cost: 2 Time Theorems</button></td>
                         <td style="opacity: 0;"><button class="timestudylocked"></button></td>
                     </tr>
                 </table>
                 <table class="table" id="studytable">
                     <tr>
-                        <td><button class="timestudy" id="41" onclick="buyTimeStudy(41, 4)">Each galaxy gives a 1.2x multiplier on IP gained. <span>Cost: 4 Time Theorems</button></td>
+                        <td><button class="timestudy" id="41" onclick="buyTimeStudy(41, 4)">Each galaxy gives a 1.2x multiplier on CP gained. <span>Cost: 4 Time Theorems</button></td>
                         <td><button class="timestudy" id="42" onclick="buyTimeStudy(42, 6)">Galaxy requirement goes up 52 8ths instead of 60.<span>Cost: 6 Time Theorems</button></td>
                     </tr>
                 </table>
@@ -145,14 +145,14 @@
                 <table class="table" id="studytable">
                     <tr>
                         <td style="opacity: 0;"><button class="timestudylocked"></button></td>
-                        <td><button class="timestudy" id="51" onclick="buyTimeStudy(51, 3)"><span id=51desc>You gain 1e15 times more IP</span>Cost: 3 Time Theorems</button></td>
-                        <td><button class="eternitychallengestudy" id="ec5unl">Eternity Challenge 5<span>Requirement: 200 galaxies<span>Cost: 100 Time Theorems</button></td>
+                        <td><button class="timestudy" id="51" onclick="buyTimeStudy(51, 3)"><span id=51desc>You gain 1e15 times more CP</span>Cost: 3 Time Theorems</button></td>
+                        <td><button class="eternitychallengestudy" id="ec5unl">Amazon Challenge 5<span>Requirement: 200 galaxies<span>Cost: 100 Time Theorems</button></td>
                     </tr>
                 </table>
                 <table class="table" id="studytable">
                     <tr>
                         <td style="opacity: 0;"><button class="timestudylocked"></button></td>
-                        <td><button class="timestudy" id="61" onclick="buyTimeStudy(61, 3)">You gain 10x more EP<span>Cost: 3 Time Theorems</button></td>
+                        <td><button class="timestudy" id="61" onclick="buyTimeStudy(61, 3)">You gain 10x more AP<span>Cost: 3 Time Theorems</button></td>
                         <td><button class="timestudy" id="62" onclick="buyTimeStudy(62, 3)">You gain Infections 3 times faster<span>Cost: 3 Time Theorems</button></td>
                     </tr>
                 </table>
@@ -182,43 +182,43 @@
                 <br>
                 <table class="table" id="studytable">
                     <tr>
-                        <td><button class="eternitychallengestudy" id="ec7unl">Eternity Challenge 7<span>Requirement: 1e550,000 Toilet Paper<span>Cost: 115 Time Theorems</button></td>
-                        <td><button class="timestudy" id="111" onclick="buyTimeStudy(111, 12)">Make the IP formula better<span>Cost: 12 Time Theorems</button></td>
+                        <td><button class="eternitychallengestudy" id="ec7unl">Amazon Challenge 7<span>Requirement: 1e550,000 Toilet Paper<span>Cost: 115 Time Theorems</button></td>
+                        <td><button class="timestudy" id="111" onclick="buyTimeStudy(111, 12)">Make the CP formula better<span>Cost: 12 Time Theorems</button></td>
                         <td style="opacity: 0;"><button class="timestudylocked"></button></td>
                     </tr>
                 </table>
                 <br>
                 <table class="table" id="studytable">
                     <tr>
-                        <td><button class="timestudy activestudy" id="121" onclick="buyTimeStudy(121, 9)">The worse your average EP/min is, the more EP you get<span id="121desc">Currently: 1x</span>Cost: 9 Time Theorems</button></td>
-                        <td><button class="timestudy passivestudy" id="122" onclick="buyTimeStudy(122, 9)">You gain 35x more EP<span>Cost: 9 Time Theorems</button></td>
-                        <td><button class="timestudy idlestudy" id="123" onclick="buyTimeStudy(123, 9)">You gain more EP based on time spent this eternity<span id="123desc">Currently: 1x</span>Cost: 9 Time Theorems</button></td>
+                        <td><button class="timestudy activestudy" id="121" onclick="buyTimeStudy(121, 9)">The worse your average AP/min is, the more AP you get<span id="121desc">Currently: 1x</span>Cost: 9 Time Theorems</button></td>
+                        <td><button class="timestudy passivestudy" id="122" onclick="buyTimeStudy(122, 9)">You gain 35x more AP<span>Cost: 9 Time Theorems</button></td>
+                        <td><button class="timestudy idlestudy" id="123" onclick="buyTimeStudy(123, 9)">You gain more AP based on time spent this eternity<span id="123desc">Currently: 1x</span>Cost: 9 Time Theorems</button></td>
                     </tr>
                 </table>
                 <table class="table" id="studytable">
                     <tr>
-                        <td><button class="eternitychallengestudy" id="ec6unl">Eternity Challenge 6<span>Requirement: 40 Infected galaxies<span>Cost: 100 Time Theorems</button></td>
+                        <td><button class="eternitychallengestudy" id="ec6unl">Amazon Challenge 6<span>Requirement: 40 Infected galaxies<span>Cost: 100 Time Theorems</button></td>
                         <td><button class="timestudy activestudy" id="131" onclick="buyTimeStudy(131, 5)">Automatic Infected galaxies are disabled, but you can get 50% more<span>Cost: 5 Time Theorems</button></td>
                         <td><button class="timestudy passivestudy" id="132" onclick="buyTimeStudy(132, 5)">Infected galaxies are 40% more effective<span>Cost: 5 Time Theorems</button></td>
                         <td><button class="timestudy idlestudy" id="133" onclick="buyTimeStudy(133, 5)">Infections are 10x slower until infinity, but their galaxies are 50% stronger<span>Cost: 5 Time Theorems</button></td>
-                        <td><button class="eternitychallengestudy" id="ec8unl">Eternity Challenge 8<span>Cost: 100 Time Theorems</button></td>
+                        <td><button class="eternitychallengestudy" id="ec8unl">Amazon Challenge 8<span>Cost: 100 Time Theorems</button></td>
                     </tr>
                 </table>
                 <table class="table" id="studytable">
                     <tr>
-                        <td><button class="timestudy activestudy" id="141" onclick="buyTimeStudy(141, 4)">Multiplier to IP, decaying over this infinity<span id="141desc">Currently 1x</span>Cost: 4 Time Theorems</button></td>
-                        <td><button class="timestudy passivestudy" id="142" onclick="buyTimeStudy(142, 4)"><span id="142desc">You gain 1e25x more IP</span>Cost: 4 Time Theorems</button></td>
-                        <td><button class="timestudy idlestudy" id="143" onclick="buyTimeStudy(143, 4)">Multiplier to IP, increasing over this infinity<span id="143desc">Currently 1x</span>Cost: 4 Time Theorems</button></td>
+                        <td><button class="timestudy activestudy" id="141" onclick="buyTimeStudy(141, 4)">Multiplier to CP, decaying over this infinity<span id="141desc">Currently 1x</span>Cost: 4 Time Theorems</button></td>
+                        <td><button class="timestudy passivestudy" id="142" onclick="buyTimeStudy(142, 4)"><span id="142desc">You gain 1e25x more CP</span>Cost: 4 Time Theorems</button></td>
+                        <td><button class="timestudy idlestudy" id="143" onclick="buyTimeStudy(143, 4)">Multiplier to CP, increasing over this infinity<span id="143desc">Currently 1x</span>Cost: 4 Time Theorems</button></td>
                     </tr>
                 </table>
                 <br>
                 <table class="table" id="studytable">
                     <tr>
                         <td style="opacity: 0;"><button class="timestudylocked"></button></td>
-                        <td><button class="eternitychallengestudy" id="ec9unl">Eternity Challenge 9<span>Requirement: 1e6000 Hand Sanitizer<span>Cost: 100 Time Theorems</button></td>
+                        <td><button class="eternitychallengestudy" id="ec9unl">Amazon Challenge 9<span>Requirement: 1e6000 Hand Sanitizer<span>Cost: 100 Time Theorems</button></td>
                         <td><button class="timestudy" id="151" onclick="buyTimeStudy(151, 8)"><span id="151desc">1e4x multiplier on all Mask Dimensions</span>Cost: 8 Time Theorems</button></td>
                         <td style="opacity: 0;"><button class="timestudylocked"></button></td>
-                        <td><button class="eternitychallengestudy" id="ec4unl">Eternity Challenge 4<span>Requirement: 100,000,000 infinities<span>Cost: 85 Time Theorems</button></td>
+                        <td><button class="eternitychallengestudy" id="ec4unl">Amazon Challenge 4<span>Requirement: 100,000,000 infinities<span>Cost: 85 Time Theorems</button></td>
                     </tr>
                 </table>
                 <table class="table" id="studytable">
@@ -234,24 +234,24 @@
                 </table>
                 <table class="table" id="studytable">
                     <tr>
-                        <td><button class="eternitychallengestudy" id="ec1unl">Eternity Challenge 1<span>Requirement: 25,000 Eternities<span>Cost: 20 Time Theorems</button></td>
-                        <td><button class="eternitychallengestudy" id="ec2unl" style="font-size: 10px;">Eternity Challenge 2<span>Requirement: 1,300 Time upgrades gained from Mask Dimensions<span>Cost: 25 Time Theorems</button></td>
-                        <td><button class="eternitychallengestudy" id="ec3unl">Eternity Challenge 3<span>Requirement: 30 dicks in your ass<span>Cost: 30 Time Theorems</button></td>
+                        <td><button class="eternitychallengestudy" id="ec1unl">Amazon Challenge 1<span>Requirement: 25,000 Corporate buyouts<span>Cost: 20 Time Theorems</button></td>
+                        <td><button class="eternitychallengestudy" id="ec2unl" style="font-size: 10px;">Amazon Challenge 2<span>Requirement: 1,300 Time upgrades gained from Mask Dimensions<span>Cost: 25 Time Theorems</button></td>
+                        <td><button class="eternitychallengestudy" id="ec3unl">Amazon Challenge 3<span>Requirement: 30 dicks in your ass<span>Cost: 30 Time Theorems</button></td>
                     </tr>
                 </table>
                 <table class="table" id="studytable">
                     <tr>
-                        <td><button class="timestudy" id="181" onclick="buyTimeStudy(181, 200)">You gain 1% of your IP gained on crunch each second.<span>Cost: 200 Time Theorems</button></td>
+                        <td><button class="timestudy" id="181" onclick="buyTimeStudy(181, 200)">You gain 1% of your CP gained on crunch each second.<span>Cost: 200 Time Theorems</button></td>
                     </tr>
                     <tr>
-                        <td><button class="eternitychallengestudy" id="ec10unl">Eternity Challenge 10<span>Requirement: 1e100 EP<span>Cost: 200 Time Theorems</button></td>
+                        <td><button class="eternitychallengestudy" id="ec10unl">Amazon Challenge 10<span>Requirement: 1e100 AP<span>Cost: 200 Time Theorems</button></td>
                     </tr>
                 </table>
                 <table class="table" id="studytable">
                     <tr>
                         <td><button class="timestudy" id="191" onclick="buyTimeStudy(191, 400)">After eternity you permanently keep 5% of your infinities<span>Cost: 400 Time Theorems</button></td>
                         <td><button class="timestudy" id="192" onclick="buyTimeStudy(192, 730)" style="font-size: 10px;"><span id="192desc">You can get beyond 1.8e308 Infections, but the interval is increased the more you have</span>Cost: 730 Time Theorems</button></td>
-                        <td><button class="timestudy" id="193" onclick="buyTimeStudy(193, 300)">Paper dimension boost based on eternities<span id="193desc">Currently: 1x</span>Cost: 300 Time Theorems</button></td>
+                        <td><button class="timestudy" id="193" onclick="buyTimeStudy(193, 300)">Paper dimension boost based on Corporate buyouts<span id="193desc">Currently: 1x</span>Cost: 300 Time Theorems</button></td>
                     </tr>
                 </table>
                 <table class="table" id="studytable">
@@ -289,13 +289,13 @@
                 </table>
                 <table class="table" id="studytable">
                     <tr>
-                        <td><button class="eternitychallengestudy" id="ec11unl">Eternity Challenge 11<span>Requirement: Use only the Paper dimension path<span>Cost: 1 Time Theorem</button></td>
-                        <td><button class="eternitychallengestudy" id="ec12unl">Eternity Challenge 12<span>Requirement: Use only the Sanitizer Dimension path<span>Cost: 1 Time Theorem</button></td>
+                        <td><button class="eternitychallengestudy" id="ec11unl">Amazon Challenge 11<span>Requirement: Use only the Paper dimension path<span>Cost: 1 Time Theorem</button></td>
+                        <td><button class="eternitychallengestudy" id="ec12unl">Amazon Challenge 12<span>Requirement: Use only the Sanitizer Dimension path<span>Cost: 1 Time Theorem</button></td>
                     </tr>
                 </table>
                 <table class="table" id="studytable">
                     <tr>
-                        <td><button class="timestudylocked" id="dilstudy1" onclick="buyDilationStudy(1, 5000)">Unlock time dilation<span>Requirement: 5 Eternity Challenge 11 and 12 completions<span>Cost: 5000 Time Theorems</button></td>
+                        <td><button class="timestudylocked" id="dilstudy1" onclick="buyDilationStudy(1, 5000)">Unlock time dilation<span>Requirement: 5 Amazon Challenge 11 and 12 completions<span>Cost: 5000 Time Theorems</button></td>
                     </tr>
                 </table>
                 <table class="table" id="studytable">
@@ -338,24 +338,24 @@
                 <table class="table" style="margin: 0 auto">
                     <tr>
                         <td>
-                            <button id="eter1" class="eternityupbtn" onclick="buyEternityUpgrade(1, 5)">Sanitizer Dimensions multiplier equal to unspent EP to the power of 5.<br>Currently: x<br>Cost: 5 EP</button>
+                            <button id="eter1" class="eternityupbtn" onclick="buyEternityUpgrade(1, 5)">Sanitizer Dimensions multiplier equal to unspent AP to the power of 5.<br>Currently: x<br>Cost: 5 AP</button>
                         </td>
                         <td>
-                            <button id="eter2" class="eternityupbtn" onclick="buyEternityUpgrade(2, 10)">You gain Sanitizer Dimension multiplier based on eternities (x^log4(2x))<br>Currently: x<br>Cost: 10 EP</button>
+                            <button id="eter2" class="eternityupbtn" onclick="buyEternityUpgrade(2, 10)">You gain Sanitizer Dimension multiplier based on Corporate buyouts (x^log4(2x))<br>Currently: x<br>Cost: 10 AP</button>
                         </td>
                         <td>
-                            <button id="eter3" class="eternityupbtn" onclick="buyEternityUpgrade(3, 50e3)">Sanitizer Dimensions multiplier based on sum of Infinity Challenge times<br>Currently: Xx<br>Cost: 50 K EP</button>
+                            <button id="eter3" class="eternityupbtn" onclick="buyEternityUpgrade(3, 50e3)">Sanitizer Dimensions multiplier based on sum of Costco Challenge times<br>Currently: Xx<br>Cost: 50 K AP</button>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <button id="eter4" class="eternityupbtn" onclick="buyEternityUpgrade(4, 1e16)">Your achievement bonus affects Mask Dimensions<br>Cost: 1e16 EP</button>
+                            <button id="eter4" class="eternityupbtn" onclick="buyEternityUpgrade(4, 1e16)">Your achievement bonus affects Mask Dimensions<br>Cost: 1e16 AP</button>
                         </td>
                         <td>
-                            <button id="eter5" class="eternityupbtn" onclick="buyEternityUpgrade(5, 1e40)">Mask Dimensions are multiplied by your unspent time theorems<br>Cost: 1e40 EP</button>
+                            <button id="eter5" class="eternityupbtn" onclick="buyEternityUpgrade(5, 1e40)">Mask Dimensions are multiplied by your unspent time theorems<br>Cost: 1e40 AP</button>
                         </td>
                         <td>
-                            <button id="eter6" class="eternityupbtn" onclick="buyEternityUpgrade(6, 1e50)">Mask Dimensions are multiplied by days played<br>Cost: 1e50 EP</button>
+                            <button id="eter6" class="eternityupbtn" onclick="buyEternityUpgrade(6, 1e50)">Mask Dimensions are multiplied by days played<br>Cost: 1e50 AP</button>
                         </td>
                     </tr>
                     <tr>
@@ -363,14 +363,14 @@
                             <div class="eternityupbtnbought" style="opacity: 0"></div>
                         </td>
                         <td>
-                            <button id="epmult" class="eternityupbtn" onclick="buyEPMult()">You gain 5 times more EP<p>Cost: 500 EP</button>
+                            <button id="epmult" class="eternityupbtn" onclick="buyEPMult()">You gain 5 times more AP<p>Cost: 500 AP</button>
                         </td>
                         <td>
                             <div class="eternityupbtnbought" style="opacity: 0"></div>
                         </td>
                     </tr>
                 </table>
-                <div><button class="storebtn" onclick="buyMaxEPMult()" style="height: 25px; width: 190px; font-size:10px; margin-top: -3px;">Max EP mult</button></div>
+                <div><button class="storebtn" onclick="buyMaxEPMult()" style="height: 25px; width: 190px; font-size:10px; margin-top: -3px;">Max AP mult</button></div>
                 <div id="footercontainer">
                     <table id="footer">
                         <tr>
@@ -391,99 +391,99 @@
                 <table class="table" align="center" style="margin: auto" id="milestones">
                     <tr>
                         <td class="milestoneText">1 Eternity:</td>
-                        <td class="milestoneText">2 Eternities:</td>
+                        <td class="milestoneText">2 Corporate buyouts:</td>
                     </tr>
                     <tr>
-                        <td><button class="milestonerewardlocked" id="reward0">Unlock IP multiplier autobuyer</button></td>
+                        <td><button class="milestonerewardlocked" id="reward0">Unlock CP multiplier autobuyer</button></td>
                         <td><button class="milestonerewardlocked" id="reward1">You keep your autobuyers on Eternity</button></td>
                     </tr>
                     <tr>
-                        <td class="milestoneText">3 Eternities:</td>
-                        <td class="milestoneText">4 Eternities:</td>
+                        <td class="milestoneText">3 Corporate buyouts:</td>
+                        <td class="milestoneText">4 Corporate buyouts:</td>
                     </tr>
                     <tr>
                         <td><button class="milestonerewardlocked" id="reward2">Unlock Infected galaxy autobuyer</button></td>
-                        <td><button class="milestonerewardlocked" id="reward3">You keep your infinity upgrades on Eternity</button></td>
+                        <td><button class="milestonerewardlocked" id="reward3">You keep your Costco Upgrades on Eternity</button></td>
                     </tr>
                     <tr>
-                        <td class="milestoneText">5 Eternities:</td>
-                        <td class="milestoneText">7 Eternities:</td>
+                        <td class="milestoneText">5 Corporate buyouts:</td>
+                        <td class="milestoneText">7 Corporate buyouts:</td>
                     </tr>
                     <tr>
-                        <td><button class="milestonerewardlocked" id="reward4" style="font-size: 12px">Unlock more big crunch autobuyer options.</button></td>
-                        <td><button class="milestonerewardlocked" id="reward5" style="font-size: 10px">You complete Infinity Challenges as soon as you unlock them (you get sacrifice autobuyer immediately)</button></td>
+                        <td><button class="milestonerewardlocked" id="reward4" style="font-size: 12px">Unlock more tax deduction autobuyer options.</button></td>
+                        <td><button class="milestonerewardlocked" id="reward5" style="font-size: 10px">You complete Costco Challenges as soon as you unlock them (you get sacrifice autobuyer immediately)</button></td>
                     </tr>
                     <tr>
-                        <td class="milestoneText">9 Eternities:</td>
-                        <td class="milestoneText">10 Eternities:</td>
+                        <td class="milestoneText">9 Corporate buyouts:</td>
+                        <td class="milestoneText">10 Corporate buyouts:</td>
                     </tr>
                     <tr>
                         <td><button class="milestonerewardlocked" id="reward6">Unlock autobuy max galaxies</button></td>
                         <td><button class="milestonerewardlocked" id="reward7">Unlock autobuy max Dimensional Boosts</button></td>
                     </tr>
                     <tr>
-                        <td class="milestoneText">11 Eternities:</td>
-                        <td class="milestoneText">12 Eternities:</td>
+                        <td class="milestoneText">11 Corporate buyouts:</td>
+                        <td class="milestoneText">12 Corporate buyouts:</td>
                     </tr>
                     <tr>
                         <td><button class="milestonerewardlocked" id="reward8">Unlock autobuyer for First Sanitizer Dimension</button></td>
                         <td><button class="milestonerewardlocked" id="reward9">Unlock autobuyer for Second Sanitizer Dimension</button></td>
                     </tr>
                     <tr>
-                        <td class="milestoneText">13 Eternities:</td>
-                        <td class="milestoneText">14 Eternities:</td>
+                        <td class="milestoneText">13 Corporate buyouts:</td>
+                        <td class="milestoneText">14 Corporate buyouts:</td>
                     </tr>
                     <tr>
                         <td><button class="milestonerewardlocked" id="reward10">Unlock autobuyer for Third Sanitizer Dimension</button></td>
                         <td><button class="milestonerewardlocked" id="reward11">Unlock autobuyer for Fourth Sanitizer Dimension</button></td>
                     </tr>
                     <tr>
-                        <td class="milestoneText">15 Eternities:</td>
-                        <td class="milestoneText">16 Eternities:</td>
+                        <td class="milestoneText">15 Corporate buyouts:</td>
+                        <td class="milestoneText">16 Corporate buyouts:</td>
                     </tr>
                     <tr>
                         <td><button class="milestonerewardlocked" id="reward12">Unlock autobuyer for Fifth Sanitizer Dimension</button></td>
                         <td><button class="milestonerewardlocked" id="reward13">Unlock autobuyer for Sixth Sanitizer Dimension</button></td>
                     </tr>
                     <tr>
-                        <td class="milestoneText">17 Eternities:</td>
-                        <td class="milestoneText">18 Eternities:</td>
+                        <td class="milestoneText">17 Corporate buyouts:</td>
+                        <td class="milestoneText">18 Corporate buyouts:</td>
                     </tr>
                     <tr>
                         <td><button class="milestonerewardlocked" id="reward14">Unlock autobuyer for Seventh Sanitizer Dimension</button></td>
                         <td><button class="milestonerewardlocked" id="reward15">Unlock autobuyer for Eighth Sanitizer Dimension</button></td>
                     </tr>
                     <tr>
-                        <td class="milestoneText">20 Eternities:</td>
-                        <td class="milestoneText">25 Eternities:</td>
+                        <td class="milestoneText">20 Corporate buyouts:</td>
+                        <td class="milestoneText">25 Corporate buyouts:</td>
                     </tr>
                     <tr>
-                        <td><button class="milestonerewardlocked" id="reward16">You keep your Breaking infinity upgrades on Eternity</button></td>
+                        <td><button class="milestonerewardlocked" id="reward16">You keep your Breaking Costco Upgrades on Eternity</button></td>
                         <td><button class="milestonerewardlocked" id="reward17">You automatically unlock Sanitizer Dimensions upon reaching them</button></td>
                     </tr>
                     <tr>
-                        <td class="milestoneText">30 Eternities:</td>
-                        <td class="milestoneText">40 Eternities:</td>
+                        <td class="milestoneText">30 Corporate buyouts:</td>
+                        <td class="milestoneText">40 Corporate buyouts:</td>
                     </tr>
                     <tr>
                         <td><button class="milestonerewardlocked" id="reward18">Start with all Paper dimensions available for purchase</button></td>
                         <td><button class="milestonerewardlocked" id="reward19">Unlock autobuyer for Infection chance upgrade</button></td>
                     </tr>
                     <tr>
-                        <td class="milestoneText">50 Eternities:</td>
-                        <td class="milestoneText">60 Eternities:</td>
+                        <td class="milestoneText">50 Corporate buyouts:</td>
+                        <td class="milestoneText">60 Corporate buyouts:</td>
                     </tr>
                     <tr>
                         <td><button class="milestonerewardlocked" id="reward20">You start with Infections unlocked</button></td>
                         <td><button class="milestonerewardlocked" id="reward21">Unlock autobuyer for Infection interval upgrade</button></td>
                     </tr>
                     <tr>
-                        <td class="milestoneText">80 Eternities:</td>
-                        <td class="milestoneText">100 Eternities:</td>
+                        <td class="milestoneText">80 Corporate buyouts:</td>
+                        <td class="milestoneText">100 Corporate buyouts:</td>
                     </tr>
                     <tr>
                         <td><button class="milestonerewardlocked" id="reward22">Unlock autobuyer for Infected galaxy upgrade</button></td>
-                        <td><button class="milestonerewardlocked" id="reward23">Unlock autobuyer for Eternities</button></td>
+                        <td><button class="milestonerewardlocked" id="reward23">Unlock autobuyer for Corporate buyouts</button></td>
                     </tr>
                 </table>
                 <div>
@@ -535,7 +535,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <button class="timestudy" id="dil7" onclick="buyDilationUpgrade(7)">Gain a multiplier to IP based on dilated time.<br><span id="dil7desc"></span><br><span id="dil7cost"></span></button>
+                            <button class="timestudy" id="dil7" onclick="buyDilationUpgrade(7)">Gain a multiplier to CP based on dilated time.<br><span id="dil7desc"></span><br><span id="dil7cost"></span></button>
                         </td>
                         <td>
                             <button class="timestudy" id="dil8" onclick="buyDilationUpgrade(8)">Pick all the study paths from the first split.<br><span id="dil8cost"></span></button>
@@ -1043,7 +1043,7 @@
                 <td><button class="secondarytabbtn" onclick="showStatsTab('challengetimes')" id="challengetimesbtn" style="display:none" >Challenge records</button><td>
                 <td><button class="secondarytabbtn" onclick="showStatsTab('infchallengetimes')" id="infchallengesbtn" style="display:none">InfChallenge records</button><td>
                 <td><button class="secondarytabbtn" onclick="showStatsTab('lasttenruns')" id="pastinfs" style="display:none">Past Infinities</button><td>
-                <td><button class="secondarytabbtn" onclick="showStatsTab('lastteneternities')" id="pasteternities" >Past Eternities</button><td>
+                <td><button class="secondarytabbtn" onclick="showStatsTab('lasttenCorporate buyouts')" id="pasteternities" >Past Buyouts</button><td>
             </tr>
             <div id="stats" class="statstab">
                 <br>
@@ -1107,7 +1107,7 @@
                 <div id="averagerun"></div>
                 <br>
             </div>
-            <div id="lastteneternities" class="statstab">
+            <div id="lasttenCorporate buyouts" class="statstab">
                 <div id="eternityrun1"></div>
                 <div id="eternityrun2"></div>
                 <div id="eternityrun3"></div>
@@ -1255,7 +1255,7 @@
                     </tr>
                     <tr id="achRow5">
                         <td>
-                            <div id="Limit Break" class="achievement achievementlocked" style="background-image: url(images/33.png)" ach-tooltip="Break Infinity."><br></div>
+                            <div id="Limit Break" class="achievement achievementlocked" style="background-image: url(images/33.png)" ach-tooltip="Break Costco."><br></div>
                         </td>
                         <td>
                             <div id="Age of Automation" class="achievement achievementlocked" style="background-image: url(images/34.png)" ach-tooltip="Max any 9 autobuyers."><br></div>
@@ -1284,7 +1284,7 @@
                             <div id="Bulked up" class="achievement achievementlocked" style="background-image: url(images/401.png)" ach-tooltip="Get all of your dimension bulk buyers to 512 or higher."><br></div>
                         </td>
                         <td>
-                            <div id="Oh hey, you're still here" class="achievement achievementlocked" style="background-image: url(images/402.png)" ach-tooltip="Reach 1e8 IP per minute."><br></div>
+                            <div id="Oh hey, you're still here" class="achievement achievementlocked" style="background-image: url(images/402.png)" ach-tooltip="Reach 1e8 CP per minute."><br></div>
                         </td>
                         <td>
                             <div id="A new beginning." class="achievement achievementlocked" style="background-image: url(images/403.png)" ach-tooltip="Begin generation of Hand Sanitizer."><br></div>
@@ -1299,7 +1299,7 @@
                             <div id="Faster than a squared potato" class="achievement achievementlocked" style="background-image: url(images/406.png)" ach-tooltip="Reach 1e52 ticks per second. Reward: -2% tickspeed."><br></div>
                         </td>
                         <td>
-                            <div id="Infinitely Challenging" class="achievement achievementlocked" style="background-image: url(images/407.png)" ach-tooltip="Complete an infinity challenge."><br></div>
+                            <div id="Infinitely Challenging" class="achievement achievementlocked" style="background-image: url(images/407.png)" ach-tooltip="Complete a Costco Challenge."><br></div>
                         </td>
                         <td>
                             <div id="You did this again just for the achievement right?" class="achievement achievementlocked" style="background-image: url(images/408.png)" ach-tooltip="Complete the Third Dimension Autobuyer challenge in 10 seconds or less. Reward: First dimensions are 50% stronger."><br></div>
@@ -1333,10 +1333,10 @@
                         </tr>
                         <tr id="achRow8">
                             <td>
-                                <div id="Hevipelle did nothing wrong" class="achievement achievementlocked" style="background-image: url(images/49.png)" ach-tooltip="Beat Infinity Challenge 5 in 10 seconds or less."><br></div>
+                                <div id="Hevipelle did nothing wrong" class="achievement achievementlocked" style="background-image: url(images/49.png)" ach-tooltip="Beat Costco Challenge 5 in 10 seconds or less."><br></div>
                             </td>
                             <td>
-                                <div id="Anti-antichallenged" class="achievement achievementlocked" style="background-image: url(images/50.png)" ach-tooltip="Complete 8 Infinity Challenges."><br></div>
+                                <div id="Anti-antichallenged" class="achievement achievementlocked" style="background-image: url(images/50.png)" ach-tooltip="Complete 8 Costco Challenges."><br></div>
                             </td>
                             <td>
                                 <div id="YOU CAN GET 50 GALAXIES!??" class="achievement achievementlocked" style="background-image: url(images/51.png)" ach-tooltip="Get 50 galaxies. Reward: Tickspeed is 5% lower per galaxy."><br></div>
@@ -1345,27 +1345,27 @@
                                 <div id="I got a few to spare" class="achievement achievementlocked" style="background-image: url(images/52.png)" ach-tooltip="Reach 1e35000 Toilet Paper. Reward: Dimensions are more powerful the more unspent Toilet Paper you have."><br></div>
                             </td>
                             <td>
-                                <div id="All your IP are belong to us" class="achievement achievementlocked" style="background-image: url(images/53.png)" ach-tooltip="Big Crunch for 1e150 IP. Reward: Additional 4x multiplier to IP."><br></div>
+                                <div id="All your IP are belong to us" class="achievement achievementlocked" style="background-image: url(images/53.png)" ach-tooltip="Deduct taxes for 1e150 CP. Reward: Additional 4x multiplier to CP."><br></div>
                             </td>
                             <td>
                                 <div id="Do you even bend time bro?" class="achievement achievementlocked" style="background-image: url(images/54.png)" ach-tooltip="Reach -99.9% tickspeed per upgrade. Reward: Galaxies are 1% more powerful."><br></div>
                             </td>
                             <td>
-                                <div id="2 Million Infinities" class="achievement achievementlocked" style="background-image: url(images/55.png)" ach-tooltip="Infinity 2000000 times. Reward: Infinities more than 5 seconds long give 250 infinitied stat."><br></div>
+                                <div id="2 Million Infinities" class="achievement achievementlocked" style="background-image: url(images/55.png)" ach-tooltip="Infinity 2000000 times. Reward: Infinities more than 5 seconds long give 250 tax deductions."><br></div>
                             </td>
                             <td>
-                                <div id="Yet another infinity reference" class="achievement achievementlocked" style="background-image: url(images/56.png)" ach-tooltip="Get xInfinity multiplier in a single sacrifice. Reward: Sacrifices are stronger."><br></div>
+                                <div id="Yet another infinity reference" class="achievement achievementlocked" style="background-image: url(images/56.png)" ach-tooltip="Get xCostco multiplier in a single sacrifice. Reward: Sacrifices are stronger."><br></div>
                             </td>
                         </tr>
                         <tr id="achRow9">
                             <td>
-                                <div id="Ludicrous Speed" class="achievement achievementlocked" style="background-image: url(images/57.png)" ach-tooltip="Big Crunch for 1e200 IP in 2 seconds or less. Reward: All dimensions are significantly stronger in first 5 seconds of infinity."><br></div>
+                                <div id="Ludicrous Speed" class="achievement achievementlocked" style="background-image: url(images/57.png)" ach-tooltip="Deduct taxes for 1e200 CP in 2 seconds or less. Reward: All dimensions are significantly stronger in first 5 seconds of infinity."><br></div>
                             </td>
                             <td>
-                                <div id="I brake for nobody" class="achievement achievementlocked" style="background-image: url(images/58.png)" ach-tooltip="Big Crunch for 1e250 IP in 20 seconds or less. Reward: All dimensions are significantly stronger in first 60 seconds of infinity."><br></div>
+                                <div id="I brake for nobody" class="achievement achievementlocked" style="background-image: url(images/58.png)" ach-tooltip="Deduct taxes for 1e250 CP in 20 seconds or less. Reward: All dimensions are significantly stronger in first 60 seconds of infinity."><br></div>
                             </td>
                             <td>
-                                <div id="MAXIMUM OVERDRIVE" class="achievement achievementlocked" style="background-image: url(images/59.png)" ach-tooltip="Reach 1e300 IP/min. Reward: Additional 4x multiplier to IP."><br></div>
+                                <div id="MAXIMUM OVERDRIVE" class="achievement achievementlocked" style="background-image: url(images/59.png)" ach-tooltip="Reach 1e300 CP/min. Reward: Additional 4x multiplier to CP."><br></div>
                             </td>
                             <td>
                                 <div id="Minute of infinity" class="achievement achievementlocked" style="background-image: url(images/60.png)" ach-tooltip="Reach 1e260 Hand Sanitizer. Reward: Double Hand Sanitizer gain."><br></div>
@@ -1377,7 +1377,7 @@
                                 <div id="Time is relative" class="achievement achievementlocked" style="background-image: url(images/62.png)" ach-tooltip="Go Eternal."><br></div>
                             </td>
                             <td>
-                                <div id="Yes. This is hell." class="achievement achievementlocked" style="background-image: url(images/63.png)" ach-tooltip="Get the sum of Infinity Challenge times under 6.66 seconds."><br></div>
+                                <div id="Yes. This is hell." class="achievement achievementlocked" style="background-image: url(images/63.png)" ach-tooltip="Get the sum of Costco Challenge times under 6.66 seconds."><br></div>
                             </td>
                             <td>
                                 <div id="0 degrees from infinity" class="achievement achievementlocked" style="background-image: url(images/64.png)" ach-tooltip="Unlock the 8th Sanitizer Dimension."><br></div>
@@ -1391,10 +1391,10 @@
                                 <div id="This mile took an Eternity" class="achievement achievementlocked" style="background-image: url(images/66.png)" ach-tooltip="Get all eternity milestones."><br></div>
                             </td>
                             <td>
-                                <div id="This achievement doesn't exist II" class="achievement achievementlocked" style="background-image: url(images/67.png)" ach-tooltip="Reach 9.99999e999 IP. Reward: Gain more IP based on amount of Toilet Paper you had when crunching."><br></div>
+                                <div id="This achievement doesn't exist II" class="achievement achievementlocked" style="background-image: url(images/67.png)" ach-tooltip="Reach 9.99999e999 CP. Reward: Gain more CP based on amount of Toilet Paper you had when crunching."><br></div>
                             </td>
                             <td>
-                                <div id="That wasn't an eternity" class="achievement achievementlocked" style="background-image: url(images/68.png)" ach-tooltip="Eternity in under 30 seconds. Reward: Start eternities with 2e25 IP."><br></div>
+                                <div id="That wasn't an eternity" class="achievement achievementlocked" style="background-image: url(images/68.png)" ach-tooltip="Eternity in under 30 seconds. Reward: Start Corporate buyouts with 2e25 CP."><br></div>
                             </td>
                             <td>
                                 <div id="Infinite time" class="achievement achievementlocked" style="background-image: url(images/69.png)" ach-tooltip="Get 308 tickspeed upgrades (in one eternity) from Mask Dimensions. Reward: Mask Dimensions are affected slightly more by tickspeed."><br></div>
@@ -1403,7 +1403,7 @@
                                 <div id="The swarm" class="achievement achievementlocked" style="background-image: url(images/70.png)" ach-tooltip="Get 10 Infected galaxies in 15 seconds."><br></div>
                             </td>
                             <td>
-                                <div id="Do you really need a guide for this?" class="achievement achievementlocked" style="background-image: url(images/71.png)" ach-tooltip="Eternity with the infinitied stat under 10."><br></div>
+                                <div id="Do you really need a guide for this?" class="achievement achievementlocked" style="background-image: url(images/71.png)" ach-tooltip="Eternity with the tax deductions under 10."><br></div>
                             </td>
                             <td>
                                 <div id="We could afford 9" class="achievement achievementlocked" style="background-image: url(images/72.png)" ach-tooltip="Eternity with exactly 9 Infections."><br></div>
@@ -1411,7 +1411,7 @@
                         </tr>
                         <tr id="achRow11">
                             <td>
-                                <div id="Yo dawg, I heard you liked infinities..." class="achievement achievementlocked" style="background-image: url(images/73.png)" ach-tooltip="Have all your past 10 infinities be at least 1.79e308 times higher IP than the previous one. Reward: Your Toilet Paper doesn't reset on dimboost/galaxy"><br></div>
+                                <div id="Yo dawg, I heard you liked infinities..." class="achievement achievementlocked" style="background-image: url(images/73.png)" ach-tooltip="Have all your past 10 infinities be at least 1.79e308 times higher CP than the previous one. Reward: Your Toilet Paper doesn't reset on dimboost/galaxy"><br></div>
                             </td>
                             <td>
                                 <div id="Never again" class="achievement achievementlocked" style="background-image: url(images/74.png)" ach-tooltip="Max out your third Eternity upgrade. Reward: The limit is a bit higher."><br></div>
@@ -1420,13 +1420,13 @@
                                 <div id="Long lasting relationship" class="achievement achievementlocked" style="background-image: url(images/75.png)" ach-tooltip="Have your Hand Sanitizer per second exceed your Hand Sanitizer for 60 consecutive seconds during a single infinity."><br></div>
                             </td>
                             <td>
-                                <div id="You're a mistake" class="achievement achievementlocked" style="background-image: url(images/76.png)" ach-tooltip="Fail an Eternity challenge. Reward: A fading sense of accomplishment."><br></div>
+                                <div id="You're a mistake" class="achievement achievementlocked" style="background-image: url(images/76.png)" ach-tooltip="Fail an Amazon Challenge. Reward: A fading sense of accomplishment."><br></div>
                             </td>
                             <td>
-                                <div id="I wish I had gotten 7 eternities" class="achievement achievementlocked" style="background-image: url(images/77.png)" ach-tooltip="Start an Infinity challenge inside an Eternity challenge."><br></div>
+                                <div id="I wish I had gotten 7 eternities" class="achievement achievementlocked" style="background-image: url(images/77.png)" ach-tooltip="Start a Costco challenge inside an Amazon Challenge."><br></div>
                             </td>
                             <td>
-                                <div id="Do I really need to infinity" class="achievement achievementlocked" style="background-image: url(images/78.png)" ach-tooltip="Eternity with only 1 infinity. Reward: Multiplier to IP based on infinities."><br></div>
+                                <div id="Do I really need to infinity" class="achievement achievementlocked" style="background-image: url(images/78.png)" ach-tooltip="Eternity with only 1 infinity. Reward: Multiplier to CP based on infinities."><br></div>
                             </td>
                             <td>
                                 <div id="8 nobody got time for that" class="achievement achievementlocked" style="background-image: url(images/79.png)" ach-tooltip="Eternity without buying dimensions 1-7."><br></div>
@@ -1437,39 +1437,39 @@
                         </tr>
                         <tr id="achRow12">
                             <td>
-                                <div id="Can you get infinite IP?" class="achievement achievementlocked" style="background-image: url(images/81.png)" ach-tooltip="Reach 1e30008 IP."><br></div>
+                                <div id="Can you get infinite IP?" class="achievement achievementlocked" style="background-image: url(images/81.png)" ach-tooltip="Reach 1e30008 CP."><br></div>
                             </td>
                             <td>
                                 <div id="You're already dead." class="achievement achievementlocked" style="background-image: url(images/82.png)" ach-tooltip="Eternity without buying dimensions 2-8."><br></div>
                             </td>
                             <td>
-                                <div id="5 more eternities until the update" class="achievement achievementlocked" style="background-image: url(images/83.png)" ach-tooltip="Complete 50 unique eternity challenge tiers."><br></div>
+                                <div id="5 more eternities until the update" class="achievement achievementlocked" style="background-image: url(images/83.png)" ach-tooltip="Complete 50 unique Amazon Challenge tiers."><br></div>
                             </td>
                             <td>
                                 <div id="Eternities are the new infinity" class="achievement achievementlocked" style="background-image: url(images/84.png)" ach-tooltip="Eternity in under 200ms."><br></div>
                             </td>
                             <td>
-                                <div id="Like feasting on a behind" class="achievement achievementlocked" style="background-image: url(images/85.png)" ach-tooltip="Get 1e100 IP without any infinities, dimensions, or resets (not including upgrades). Reward: IP multiplier based on time spent this infinity."><br></div>
+                                <div id="Like feasting on a behind" class="achievement achievementlocked" style="background-image: url(images/85.png)" ach-tooltip="Get 1e100 CP without any infinities, dimensions, or resets (not including upgrades). Reward: CP multiplier based on time spent this infinity."><br></div>
                             </td>
                             <td>
                                 <div id="Popular music" class="achievement achievementlocked" style="background-image: url(images/86.png)" ach-tooltip="Have 180 times more non-bonus Infected galaxies than normal galaxies. Reward: Infected galaxies divide your Infections by 1.79e308 instead of resetting them to 1."><br></div>
                             </td>
                             <td>
-                                <div id="But I wanted another prestige layer..." class="achievement achievementlocked" style="background-image: url(images/87.png)" ach-tooltip="Reach 1e308 EP."><br></div>
+                                <div id="But I wanted another prestige layer..." class="achievement achievementlocked" style="background-image: url(images/87.png)" ach-tooltip="Reach 1e308 AP."><br></div>
                             </td>
                             <td>
-                                <div id="What do I have to do to get rid of you" class="achievement achievementlocked" style="background-image: url(images/88.png)" ach-tooltip="Reach 1e22000 IP without any time studies. Reward: Mask Dimensions are multiplied by the number of studies you have."><br></div>
+                                <div id="What do I have to do to get rid of you" class="achievement achievementlocked" style="background-image: url(images/88.png)" ach-tooltip="Reach 1e22000 CP without any time studies. Reward: Mask Dimensions are multiplied by the number of studies you have."><br></div>
                             </td>
                         </tr>
                         <tr id="achRow13">
                             <td>
-                                <div id="No ethical consumption" class="achievement achievementlocked" style="background-image: url(images/89.png)" ach-tooltip="Get 5 billion banked infinities. Reward: After eternity you permanently keep 5% of your infinities."><br></div>
+                                <div id="No ethical consumption" class="achievement achievementlocked" style="background-image: url(images/89.png)" ach-tooltip="Get 5 billion preemptive tax deductions. Reward: After eternity you permanently keep 5% of your infinities."><br></div>
                             </td>
                             <td>
                                 <div id="Unique snowflakes" class="achievement achievementlocked" style="background-image: url(images/90.png)" ach-tooltip="Have 540 galaxies without having any Infected galaxies."><br></div>
                             </td>
                             <td>
-                                <div id="I never liked this infinity stuff anyway" class="achievement achievementlocked" style="background-image: url(images/91.png)" ach-tooltip="Reach 1e140,000 IP without buying SDs or IP multipliers."><br></div>
+                                <div id="I never liked this infinity stuff anyway" class="achievement achievementlocked" style="background-image: url(images/91.png)" ach-tooltip="Reach 1e140,000 CP without buying SDs or CP multipliers."><br></div>
                             </td>
                             <td>
                                 <div id="When will it be enough?" class="achievement achievementlocked" style="background-image: url(images/92.png)" ach-tooltip="Reach 1e20,000 Infections. Reward: You gain Infections 2 times faster under 1.79e308 Infections."><br></div>
@@ -1481,10 +1481,10 @@
                                 <div id="I told you already, time is relative" class="achievement achievementlocked" style="background-image: url(images/94.png)" ach-tooltip="Dilate time."><br></div>
                             </td>
                             <td>
-                                <div id="Now you're thinking with dilation!" class="achievement achievementlocked" style="background-image: url(images/95.png)" ach-tooltip="Eternity for 1e600 EP in 1 minute or less while dilated."><br></div>
+                                <div id="Now you're thinking with dilation!" class="achievement achievementlocked" style="background-image: url(images/95.png)" ach-tooltip="Eternity for 1e600 AP in 1 minute or less while dilated."><br></div>
                             </td>
                             <td>
-                                <div id="This is what I have to do to get rid of you." class="achievement achievementlocked" style="background-image: url(images/96.png)" ach-tooltip="Reach 1e20000 IP without any time studies while dilated."><br></div>
+                                <div id="This is what I have to do to get rid of you." class="achievement achievementlocked" style="background-image: url(images/96.png)" ach-tooltip="Reach 1e20000 CP without any time studies while dilated."><br></div>
                             </td>
                         </tr>
                 </table>
@@ -1597,8 +1597,8 @@
             <table class="table" align="center" style="margin: auto; display: none" id="challTabButtons">
                 <tr>
                     <td><button class="secondarytabbtn" onclick="showChallengesTab('challenges')">Challenges</button></td>
-                    <td><button class="secondarytabbtn" onclick="showChallengesTab('breakchallenges')">Infinity Challenges</button></td>
-                    <td><button id="eterctabbtn" class="secondarytabbtn" onclick="showChallengesTab('eternitychallenges')">Eternity Challenges</button></td>
+                    <td><button class="secondarytabbtn" onclick="showChallengesTab('breakchallenges')">Costco Challenges</button></td>
+                    <td><button id="eterctabbtn" class="secondarytabbtn" onclick="showChallengesTab('eternitychallenges')">Amazon Challenges</button></td>
                 </tr>
             </table>
             <div id="nextchall"></div>
@@ -1777,7 +1777,7 @@
 
                                     <button id="challenge7" class="challengesbtn">Start</button>
                                     <br>
-                                    <span>Reward: Automated Big Crunches</span>
+                                    <span>Reward: Automated Tax deductions</span>
                                 </div>
                             </div>
                         </td>
@@ -1789,14 +1789,14 @@
                     <tr>
                         <td>
                             <div class="infchallengediv" id="postc1div" style="height: 140px; display: none">
-                                <span>All previous challenges (except tickspeed challenge and automatic big crunch challenge) at once.</span>
+                                <span>All previous challenges (except tickspeed challenge and automatic tax deductions challenge) at once.</span>
                                 <br>
                                 <br>
                                 <div class="outer">
                                     <button id="postc1" class="challengesbtn" onclick="startChallenge('postc1', new Decimal('1e850'))">Start</button>
                                     <br>
                                     <span id="postc1goal" >Goal: 1e850</span><br>
-                                    <span>Reward: 1.3x on all Sanitizer Dimensions for each Infinity Challenge completed</span>
+                                    <span>Reward: 1.3x on all Sanitizer Dimensions for each Costco Challenge completed</span>
                                 </div>
                             </div>
                         </td>
@@ -1903,7 +1903,7 @@
 
             </div>
             <div id="eternitychallenges" class="challengeTab">
-                <div>Complete Eternity Challenges again for a bigger reward, maximum of 5 times.</div>
+                <div>Complete Amazon Challenges again for a bigger reward, maximum of 5 times.</div>
                 <table  class="table" style="margin: 0 auto">
                     <tr>
                         <td>
@@ -1915,7 +1915,7 @@
                                     <button id="eterc1" class="challengesbtn" onclick="startEternityChallenge('eterc1', new Decimal('1e1800'), new Decimal('1e200'))">Start</button>
                                     <br>
                                     <span id="eterc1completed">Completed 0 Times.</span><br>
-                                    <span id="eterc1goal" >Goal: 1e2000 IP</span><br>
+                                    <span id="eterc1goal" >Goal: 1e2000 CP</span><br>
                                     <span id="ec1reward">Reward: Xx on all Mask Dimensions (based on time spent this Eternity)</span>
                                 </div>
                             </div>
@@ -1929,7 +1929,7 @@
                                     <button id="eterc2" class="challengesbtn" onclick="startEternityChallenge('eterc2', new Decimal('1e975'), new Decimal('1e175'))">Start</button>
                                     <br>
                                     <span id="eterc2completed">Completed 0 Times.</span><br>
-                                    <span id="eterc2goal" >Goal: 1e1000 IP</span><br>
+                                    <span id="eterc2goal" >Goal: 1e1000 CP</span><br>
                                     <span id="ec2reward">Reward: idk lol</span>
                                 </div>
                             </div>
@@ -1945,22 +1945,22 @@
                                     <button id="eterc3" class="challengesbtn" onclick="startEternityChallenge('eterc3', new Decimal('1e600'), new Decimal('1e75'))">Start</button>
                                     <br>
                                     <span id="eterc3completed">Completed 0 Times.</span><br>
-                                    <span id="eterc3goal" >Goal: 1e750 IP</span><br>
+                                    <span id="eterc3goal" >Goal: 1e750 CP</span><br>
                                     <span id="ec3reward">Reward: idk lol</span>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="eterchallengediv" id="eterc4div" style="height: 140px; display: none">
-                                <span>All infinitied stat multipliers and generators are disabled.</span>
+                                <span>All tax deduction multipliers and generators are disabled.</span>
                                 <br>
                                 <br>
                                 <div class="outer">
                                     <button id="eterc4" class="challengesbtn" onclick="startEternityChallenge('eterc4', new Decimal('1e2750'), new Decimal('1e550'))">Start</button>
                                     <br>
                                     <span id="eterc4completed">Completed 0 Times.</span><br>
-                                    <span id="eterc4goal" >Goal: 1e4250 IP in 20 infinities</span><br>
-                                    <span id="ec4reward">Reward: Sanitizer Dimension multiplier from unspent IP</span>
+                                    <span id="eterc4goal" >Goal: 1e4250 CP in 20 infinities</span><br>
+                                    <span id="ec4reward">Reward: Sanitizer Dimension multiplier from unspent CP</span>
                                 </div>
                             </div>
                         </td>
@@ -1975,7 +1975,7 @@
                                     <button id="eterc5" class="challengesbtn" onclick="startEternityChallenge('eterc5', new Decimal('1e750'), new Decimal('1e400'))">Start</button>
                                     <br>
                                     <span id="eterc5completed">Completed 0 Times.</span><br>
-                                    <span id="eterc5goal" >Goal: 1e3000 IP</span><br>
+                                    <span id="eterc5goal" >Goal: 1e3000 CP</span><br>
                                     <span id="ec5reward">Reward: Galaxy cost scaling starts 10 galaxies later</span>
                                 </div>
                             </div>
@@ -2006,7 +2006,7 @@
                                     <button id="eterc7" class="challengesbtn" onclick="startEternityChallenge('eterc7', new Decimal('1e2000'), new Decimal('1e530'))">Start</button>
                                     <br>
                                     <span id="eterc7completed">Completed 0 Times.</span><br>
-                                    <span id="eterc7goal" >Goal: 1e2700 IP</span><br>
+                                    <span id="eterc7goal" >Goal: 1e2700 CP</span><br>
                                     <span id="ec7reward">Reward: Sanitizer Dimension multiplier based on Mask Shards, Current: 0x</span>
                                 </div>
                             </div>
@@ -2037,14 +2037,14 @@
                                     <button id="eterc9" class="challengesbtn" onclick="startEternityChallenge('eterc9', new Decimal('1e1750'), new Decimal('1e250'))">Start</button>
                                     <br>
                                     <span id="eterc9completed">Completed 0 Times.</span><br>
-                                    <span id="eterc9goal" >Goal: 1e400 IP</span><br>
+                                    <span id="eterc9goal" >Goal: 1e400 CP</span><br>
                                     <span id="ec9reward">Reward: something good I hope</span>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="eterchallengediv" id="eterc10div" style="height: 140px; display: none">
-                                <span>Mask Dimensions and Sanitizer Dimensions are disabled, You gain an immense boost from infinitied stat to Paper dimensions<br>
+                                <span>Mask Dimensions and Sanitizer Dimensions are disabled, You gain an immense boost from tax deductions to Paper dimensions<br>
                                     (infinitied^1000) Currently: <span id="ec10span">xX</span>
                                 </span>
                                 <br>
@@ -2069,7 +2069,7 @@
                                     <button id="eterc11" class="challengesbtn" onclick="startEternityChallenge('eterc11', new Decimal('1e500'), new Decimal('1e200'))">Start</button>
                                     <br>
                                     <span id="eterc11completed">Completed 0 Times.</span><br>
-                                    <span id="eterc11goal" >Goal: 1e400 IP</span><br>
+                                    <span id="eterc11goal" >Goal: 1e400 CP</span><br>
                                     <span id="ec11reward">Reward: something good I hope</span>
                                 </div>
                             </div>
@@ -2111,12 +2111,12 @@
 
         <div id="infinity" class="tab" align="center" style="display: none">
             <br>
-            <div id="infinityPoints1" style="color: black; font-size: 15px; width: 40%; margin: 0 auto">You have made x Infinity points.</div>
+            <div id="infinityPoints1" style="color: black; font-size: 15px; width: 40%; margin: 0 auto">You have made x Costco points.</div>
             <br>
             <tr>
                 <td><button class="secondarytabbtn" onclick="showInfTab('preinf')">Upgrades</button><td>
                 <td><button class="secondarytabbtn" onclick="showInfTab('autobuyers')">Autobuyers</button><td>
-                <td><button id="postinfbtn" class="secondarytabbtn" onclick="showInfTab('postinf')" >Break Infinity</button><td>
+                <td><button id="postinfbtn" class="secondarytabbtn" onclick="showInfTab('postinf')" >Break Costco</button><td>
                 <td><button id="replicantitabbtn" class="secondarytabbtn" onclick="showInfTab('replicantis')">COVID-19</button><td>
             </tr>
             <div id="preinf" class="inftab">
@@ -2127,13 +2127,13 @@
                         <button id="infi11" class="infinistorebtn1">Production increase over time <br>currently:</button>
                     </td>
                     <td>
-                        <button id="infi21" class="infinistorebtn2">Increase the multiplier for buying 10 Dimensions <br>2x -> 2.2x<br>Cost: 1 IP</button>
+                        <button id="infi21" class="infinistorebtn2">Increase the multiplier for buying 10 Dimensions <br>2x -> 2.2x<br>Cost: 1 CP</button>
                     </td>
                     <td>
-                        <button id="infi31" class="infinistorebtn3">Production increase over time in current infinity<br>Cost: 3 IP</button>
+                        <button id="infi31" class="infinistorebtn3">Production increase over time on current deduction<br>Cost: 3 CP</button>
                     </td>
                     <td>
-                        <button id="infi41" class="infinistorebtn4">You start with the 5th dimension unlocked<br>Cost: 20 IP</button>
+                        <button id="infi41" class="infinistorebtn4">You start with the 5th dimension unlocked<br>Cost: 20 CP</button>
                     </td>
                 </tr>
                 <tr>
@@ -2147,7 +2147,7 @@
                         <button id="infi32" class="infinistorebtn3">Bonus per unspent Infinity Point <br>xx</button>
                     </td>
                     <td>
-                        <button id="infi42" class="infinistorebtn4">You start with the 6th dimension unlocked<br>Cost: 40 IP</button>
+                        <button id="infi42" class="infinistorebtn4">You start with the 6th dimension unlocked<br>Cost: 40 CP</button>
                     </td>
                 </tr>
                 <tr>
@@ -2158,32 +2158,32 @@
                         <button id="infi23" class="infinistorebtn2">Fourth and Fifth Dimension power <br>xx</button>
                     </td>
                     <td>
-                        <button id="infi33" class="infinistorebtn3">Increase Dimension Boost multiplier <br>2x -> 2.5x<br>Cost: 7 IP</button>
+                        <button id="infi33" class="infinistorebtn3">Increase Dimension Boost multiplier <br>2x -> 2.5x<br>Cost: 7 CP</button>
                     </td>
                     <td>
-                        <button id="infi43" class="infinistorebtn4">You start with the 7th dimension unlocked<br>Cost: 80 IP</button>
+                        <button id="infi43" class="infinistorebtn4">You start with the 7th dimension unlocked<br>Cost: 80 CP</button>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <button id="infi14" class="infinistorebtn1">Decrease the number of Dimensions needed for Dimensional Boosts and galaxies by 9<br>Cost: 1 IP</button>
+                        <button id="infi14" class="infinistorebtn1">Decrease the number of Dimensions needed for Dimensional Boosts and galaxies by 9<br>Cost: 1 CP</button>
                     </td>
                     <td>
-                        <button id="infi24" class="infinistorebtn2">Toilet Paper Galaxies are twice as effective<br>Cost: 2 IP</button>
+                        <button id="infi24" class="infinistorebtn2">Toilet Paper Galaxies are twice as effective<br>Cost: 2 CP</button>
                     </td>
                     <td>
                         <button id="infi34" class="infinistorebtn3">Infinity Point generation (based on fastest infinity) <br>xx</button>
                     </td>
                     <td>
-                        <button id="infi44" class="infinistorebtn4">You start with the 8th dimension unlocked, and a Galaxy<br>Cost: 500 IP</button>
+                        <button id="infi44" class="infinistorebtn4">You start with the 8th dimension unlocked, and a Galaxy<br>Cost: 500 CP</button>
                     </td>
                 </tr>
                 <tr>
                 </tr>
             </table>
             <br>
-            <div><button id="infiMult" class="infinimultbtn">Multiply infinity points from all sources by 2 <br>currently: <br>Cost: 100 IP</button></div>
-            <div><button id="infmultbuyer" class="storebtn" onclick="infMultAutoToggle()" style="display:none; height: 25px; width: 190px; font-size:10px; margin-top: 3px;">Autobuy IP mult ON</button></div>
+            <div><button id="infiMult" class="infinimultbtn">Multiply infinity points from all sources by 2 <br>currently: <br>Cost: 100 CP</button></div>
+            <div><button id="infmultbuyer" class="storebtn" onclick="infMultAutoToggle()" style="display:none; height: 25px; width: 190px; font-size:10px; margin-top: 3px;">Autobuy CP mult ON</button></div>
             <div>
                 <table id="footer">
                     <tr>
@@ -2210,8 +2210,8 @@
                 <button class="storebtn" id="togglecrunchmode" style="font-size: 100%; width: 150px; height: 40px;margin: 3px; display: none" onclick="toggleCrunchMode()">Auto crunch mode: amount</button>
                 <br>
                 <div class="autoBuyerDiv" id="autoBuyerEter">
-                    <div>Automatic Eternity</div>
-                    <div><span>Amount of EP to wait until reset:</span>
+                    <div>Automatic Buyout</div>
+                    <div><span>Amount of AP to wait until reset:</span>
                     <input type="text" onchange="updatePriorities()" id="priority13"></input></div>
                     <br>
                     <span style="font-size: 80%">Is active</span>
@@ -2257,10 +2257,10 @@
                         </td>
                         <td>
                             <div class="autoBuyerDiv" id="autoBuyerInf">
-                                <div>Automatic Big Crunch</div>
+                                <div>Automatic Tax deduction</div>
                                 <button class="autobuyerbtn" id="buyerBtnInf">46% smaller interval<br>Cost: 2 points</button>
                                 <div style="font-size: 80%"id="intervalInf">Current interval: 60 seconds</div>
-                                <div id="iplimit"><span id="limittext">Amount of IP to wait until reset:</span>
+                                <div id="iplimit"><span id="limittext">Amount of CP to wait until reset:</span>
                                 <input type="text" onchange="updatePriorities()" id="priority12"></input></div>
                                 <br>
                                 <span style="font-size: 80%">Is active</span>
@@ -2514,7 +2514,7 @@
         </div>
         <div id="postinf" class="inftab" align="center">
             <br>
-            <div id="abletobreak">You need to get Automated Big Crunch interval to 0.1 to be able to break infinity</div>
+            <div id="abletobreak">You need to get Automated Tax deduction interval to 0.1 to be able to break Costco</div>
                 <br>
                 <table id="postinftable" class="table" style="margin: 0 auto">
                     <tr>
@@ -2522,7 +2522,7 @@
                             <button class="infinistorebtnbought" style="opacity: 0"></button>
                         </td>
                         <td>
-                            <button id="break" class="infinistorebtn2" onclick="breakInfinity()" ach-tooltip="Cost multipliers post-infinity will begin increasing faster, but so will the Infinity Point gain">BREAK INFINITY</button>
+                            <button id="break" class="infinistorebtn2" onclick="breakInfinity()" ach-tooltip="Cost multipliers post-infinity will begin increasing faster, but so will the Costco Point gain">BREAK COSTCO</button>
                         </td>
                         <td>
                             <button class="infinistorebtnbought" style="opacity: 0"></button>
@@ -2530,47 +2530,47 @@
                     </tr>
                     <tr>
                         <td>
-                            <button id="postinfi11" class="infinistorebtn1">Production based on total Toilet Paper produced <br>Currently:<br>Cost: 10 K IP</button>
+                            <button id="postinfi11" class="infinistorebtn1">Production based on total Toilet Paper produced <br>Currently:<br>Cost: 10 K CP</button>
                         </td>
                         <td>
-                            <button id="postinfi21" class="infinistorebtn1">Production based on current Toilet Paper<br>Currently: <br>Cost: 50 K IP</button>
+                            <button id="postinfi21" class="infinistorebtn1">Production based on current Toilet Paper<br>Currently: <br>Cost: 50 K CP</button>
                         </td>
                         <td>
-                            <button id="postinfi41" class="infinistorebtn1">Double the power of Galaxies<br>Currently: <br>Cost: 500 K IP</button>
+                            <button id="postinfi41" class="infinistorebtn1">Double the power of Galaxies<br>Currently: <br>Cost: 500 K CP</button>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <button id="postinfi12" class="infinistorebtn1">Increase the production of all dimensions by amount infinitied <br>Currently:<br>Cost: 100 K IP</button>
+                            <button id="postinfi12" class="infinistorebtn1">Increase the production of all dimensions by amount infinitied <br>Currently:<br>Cost: 100 K CP</button>
                         </td>
                         <td>
                             <button id="postinfi22" class="infinistorebtn1">achievemult</button>
                         </td>
                         <td>
-                            <button id="postinfi32" class="infinistorebtn1">Increase the production of all dimensions based on slowest challenge run<br>Cost: 3 M IP</button>
+                            <button id="postinfi32" class="infinistorebtn1">Increase the production of all dimensions based on slowest challenge run<br>Cost: 3 M CP</button>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <button id="postinfi13" class="infinistorebtn1" onclick="buyInfinityUpgrade('infinitiedGeneration',20e6)">You passively generate Infinitied stat based on your fastest infinity.<br>1 every <br>Cost: 20 M IP</button>
+                            <button id="postinfi13" class="infinistorebtn1" onclick="buyInfinityUpgrade('infinitiedGeneration',20e6)">You passively generate tax deductions based on your fastest infinity.<br>1 every <br>Cost: 20 M CP</button>
                         </td>
                         <td>
                             <button id="postinfi23" class="infinistorebtn1" onclick="buyInfinityUpgrade('bulkBoost',5e9)">Option to bulk buy Dimension Boosts <br>Cost: </button>
                         </td>
                         <td>
-                            <button id="postinfi33" class="infinistorebtn1" onclick="buyInfinityUpgrade('autoBuyerUpgrade',1e15)">Autobuyers work twice as fast <br>Cost: 1 Qa IP</button>
+                            <button id="postinfi33" class="infinistorebtn1" onclick="buyInfinityUpgrade('autoBuyerUpgrade',1e15)">Autobuyers work twice as fast <br>Cost: 1 Qa CP</button>
                         </td>
 
                     </tr>
                     <tr>
                         <td>
-                            <button id="postinfi31" class="infinimultbtn">Tickspeed cost multiplier increase <br>10x -> 9x<br>Cost: 300 K IP</button>
+                            <button id="postinfi31" class="infinimultbtn">Tickspeed cost multiplier increase <br>10x -> 9x<br>Cost: 300 K CP</button>
                         </td>
                         <td>
-                            <button id="postinfi42" class="infinimultbtn">Dimension cost multiplier increase <br>10x -> 9x<br>Cost: 10 M IP</button>
+                            <button id="postinfi42" class="infinimultbtn">Dimension cost multiplier increase <br>10x -> 9x<br>Cost: 10 M CP</button>
                         </td>
                         <td>
-                            <button id="offlineProd" class="infinimultbtn">Dimension cost multiplier increase <br>10x -> 9x<br>Cost: 10 M IP</button>
+                            <button id="offlineProd" class="infinimultbtn">Dimension cost multiplier increase <br>10x -> 9x<br>Cost: 10 M CP</button>
                         </td>
                     </tr>
                 </table>
@@ -2593,14 +2593,14 @@
         </div>
         <div id="replicantis" class="inftab">
             <br>
-            <button class="storebtn" id="replicantiunlock" onclick="unlockReplicantis()" style="width:200px; height: 80px">Unlock Infections<br>Cost: 1e140 IP</button>
+            <button class="storebtn" id="replicantiunlock" onclick="unlockReplicantis()" style="width:200px; height: 80px">Unlock Infections<br>Cost: 1e140 CP</button>
             <div id="replicantidiv" style="display: none; width: 1000px">
                 <div id="eterc8repl" style="display: none;"></div>
                 <p style="font-size: 15px">You have <span id="replicantiamount" style="font-size:23px; color: black">0</span> Infections. Translated to <span id="replicantimult" style="font-size:23px; color: black">0</span>x multiplier on all Sanitizer Dimensions</p>
                 <br>
-                <button class="storebtn" id="replicantichance" onclick="upgradeReplicantiChance()" style="width:180px; height: 50px; font-size: 10px">Replicate chance: 1%<br>+1% Costs: 1e6969 IP</button>
-                <button class="storebtn" id="replicantiinterval" onclick="upgradeReplicantiInterval()" style="width:180px; height: 50px; font-size: 10px">Interval: 1000ms<br>-> 900 Costs: 1e6969 IP</button>
-                <button class="storebtn" id="replicantimax" onclick="upgradeReplicantiGalaxy()" style="width:180px; height: 50px; font-size: 10px">Max Infected galaxies: 0<br>+1 Costs: 1e6969 IP</button>
+                <button class="storebtn" id="replicantichance" onclick="upgradeReplicantiChance()" style="width:180px; height: 50px; font-size: 10px">Replicate chance: 1%<br>+1% Costs: 1e6969 CP</button>
+                <button class="storebtn" id="replicantiinterval" onclick="upgradeReplicantiInterval()" style="width:180px; height: 50px; font-size: 10px">Interval: 1000ms<br>-> 900 Costs: 1e6969 CP</button>
+                <button class="storebtn" id="replicantimax" onclick="upgradeReplicantiGalaxy()" style="width:180px; height: 50px; font-size: 10px">Max Infected galaxies: 0<br>+1 Costs: 1e6969 CP</button>
                 <br>
                 <button class="storebtn" id="replauto1" onclick="toggleReplAuto('chance')" style="width:180px; font-size: 10px; visibility: hidden">Auto: ON</button>
                 <button class="storebtn" id="replauto2" onclick="toggleReplAuto('interval')" style="width:180px; font-size: 10px; visibility: hidden">Auto: ON</button>
@@ -2667,13 +2667,13 @@
 		<div id="local">
 			<strong>Save #<span class="save_id"></span> (local):</strong>
 			<span>Infinities: <span class="save_infinities"></span></span>
-			<span>Eternities: <span class="save_eternities"></span></span>
+			<span>Corporate buyouts: <span class="save_Corporate buyouts"></span></span>
 			<button class="storebtn" style="font-size: 15px" style="display: inline">Load local</button>
 		</div>
 		<div id="cloud">
 			<strong>Save #<span class="save_id"></span> (cloud):</strong>
 			<span>Infinities: <span class="save_infinities"></span></span>
-			<span>Eternities: <span class="save_eternities"></span></span>
+			<span>Corporate buyouts: <span class="save_Corporate buyouts"></span></span>
 			<button class="storebtn" style="font-size: 15px" style="display: inline">Load cloud</button>
 		</div>
 	</div>
@@ -2682,12 +2682,12 @@
 		<div id="local">
 			<strong>Save #<span class="save_id"></span> (local):</strong>
 			<span>Infinities: <span class="save_infinities"></span></span>
-			<span>Eternities: <span class="save_eternities"></span></span>
+			<span>Corporate buyouts: <span class="save_Corporate buyouts"></span></span>
 		</div>
 		<div id="cloud">
 			<strong>Save #<span class="save_id"></span> (cloud):</strong>
 			<span>Infinities: <span class="save_infinities"></span></span>
-			<span>Eternities: <span class="save_eternities"></span></span>
+			<span>Corporate buyouts: <span class="save_Corporate buyouts"></span></span>
 		</div>
 
 		<button class="storebtn yes" style="font-size: 15px" style="display: inline">Yes</button>
@@ -2705,8 +2705,8 @@
         <button class="timetheorembtn" onclick="studyTreeSaveButton(2)" style="margin-left:211px; width:30px; height: 30px; font-size: 0.75rem; bottom: 77px;">2</button>
         <button class="timetheorembtn" onclick="studyTreeSaveButton(3)" style="margin-left:246px; width:30px; height: 30px; font-size: 0.75rem; bottom: 77px;">3</button>
         <button class="timetheorembtn" onclick="buyWithAntimatter()" id="theoremam" style="margin-left: -276px">Buy Time Theorems <br>Cost: 1e20000 Toilet Paper</button>
-        <button class="timetheorembtn" onclick="buyWithIP()" id="theoremip" style="margin-left: -86px">Buy Time Theorems <br>Cost: 1 IP</button>
-        <button class="timetheorembtnlocked" onclick="buyWithEP()" id="theoremep" style="margin-left: 106px">Buy Time Theorems <br>Cost: 1 EP</button>
+        <button class="timetheorembtn" onclick="buyWithIP()" id="theoremip" style="margin-left: -86px">Buy Time Theorems <br>Cost: 1 CP</button>
+        <button class="timetheorembtnlocked" onclick="buyWithEP()" id="theoremep" style="margin-left: 106px">Buy Time Theorems <br>Cost: 1 AP</button>
         <div id="theorembuybackground"></div>
         <p id="timetheorems" style="position: fixed;">You have 0 Time Theorems.</p>
         <p id="studytreeloadsavetext" style="position: fixed;">load:</p>

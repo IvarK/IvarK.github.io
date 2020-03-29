@@ -35,7 +35,7 @@ function animationOnOff(name) {
     if (player.options.animations[name]) player.options.animations[name] = false;
     else player.options.animations[name] = true;
     if (name == "floatingText") document.getElementById("floatingTextAnimBtn").textContent = "Floating text: " + ((player.options.animations.floatingText) ? "ON" : "OFF")
-    else if (name == "bigCrunch") document.getElementById("bigCrunchAnimBtn").textContent = "Big crunch: " + ((player.options.animations.bigCrunch) ? "ON" : "OFF")
+    else if (name == "bigCrunch") document.getElementById("bigCrunchAnimBtn").textContent = "Deduct taxes: " + ((player.options.animations.bigCrunch) ? "ON" : "OFF")
     else if (name == "tachyonParticles") document.getElementById("tachyonParticleAnimBtn").textContent = "Tachyon particles: " + ((player.options.animations.tachyonParticles) ? "ON" : "OFF")
     if (player.options.animations[name]) requestAnimationFrame(drawAnimations);
 }
