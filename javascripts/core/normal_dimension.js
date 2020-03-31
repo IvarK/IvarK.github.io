@@ -206,13 +206,13 @@ function hasInfinityMult(tier) {
         if (!player.break) {
             switch (tier) {
                 case 1: giveAchievement("You gotta start somewhere"); break;
-                case 2: giveAchievement("100 antimatter is a lot"); break;
+                case 2: giveAchievement("100 Toilet Paper is a lot"); break;
                 case 3: giveAchievement("Half life 3 confirmed"); break;
                 case 4: giveAchievement("L4D: Left 4 Dimensions"); break;
-                case 5: giveAchievement("5 Dimension Antimatter Punch"); break;
+                case 5: giveAchievement("5 Dimension Toilet Paper Punch"); break;
                 case 6: giveAchievement("We couldn't afford 9"); break;
                 case 7: giveAchievement("Not a luck related achievement"); break;
-                case 8: giveAchievement("90 degrees to infinity"); break;
+                case 8: giveAchievement("90 degrees to Costco"); break;
             }
         }
     

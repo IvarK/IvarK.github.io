@@ -400,13 +400,13 @@ if (player.version < 5) {
   else document.getElementById("quickReset").style.display = "none";
 
 
-  if (player.break == true) document.getElementById("break").textContent = "FIX INFINITY"
-  document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shortenDimensions(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
+  if (player.break == true) document.getElementById("break").textContent = "FIX COSTCO"
+  document.getElementById("infiMult").innerHTML = "Multiply Costco Points from all sources by 2 <br>currently: "+shortenDimensions(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
 
   document.getElementById("notation").textContent = "Notation: " + player.options.notation
 
   document.getElementById("floatingTextAnimBtn").textContent = "Floating text: " + ((player.options.animations.floatingText) ? "ON" : "OFF")
-  document.getElementById("bigCrunchAnimBtn").textContent = "Big crunch: " + ((player.options.animations.bigCrunch) ? "ON" : "OFF")
+  document.getElementById("bigCrunchAnimBtn").textContent = "Deduct taxes: " + ((player.options.animations.bigCrunch) ? "ON" : "OFF")
   document.getElementById("tachyonParticleAnimBtn").textContent = "Tachyon particles: " + ((player.options.animations.tachyonParticles) ? "ON" : "OFF")
 
   if (player.infinitied == 0 && player.eternities == 0) document.getElementById("infinityPoints2").style.display = "none"
@@ -436,7 +436,7 @@ if (player.version < 5) {
 
   clearOldAchieves()
 
-  document.getElementById("epmult").innerHTML = "You gain 5 times more EP<p>Currently: "+shortenDimensions(player.epmult)+"x<p>Cost: "+shortenDimensions(player.epmultCost)+" EP"
+  document.getElementById("epmult").innerHTML = "You gain 5 times more AP<p>Currently: "+shortenDimensions(player.epmult)+"x<p>Cost: "+shortenDimensions(player.epmultCost)+" AP"
 
   for (var i=0; i<player.timestudy.studies.length; i++) {
       if (player.timestudy.studies[i] == 71 || player.timestudy.studies[i] == 81 || player.timestudy.studies[i] == 91 || player.timestudy.studies[i] == 101) {
@@ -498,7 +498,7 @@ if (player.version < 5) {
           }
       }
   }
-  //updates TD costs to harsher scaling
+  //updates MD costs to harsher scaling
   if (player.version < 12) {
       player.version = 12
       for (i=1; i<5; i++) {

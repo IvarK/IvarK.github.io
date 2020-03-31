@@ -112,8 +112,8 @@ function buyMaxTickSpeed() {
 
 function updateTickSpeed() {
   var exp = player.tickspeed.e;
-  if (exp > 1) document.getElementById("tickSpeedAmount").textContent = 'Tickspeed: ' + player.tickspeed.toFixed(0);
+  if (exp > 1) document.getElementById("tickSpeedAmount").textContent = 'Water Pressure: ' + player.tickspeed.toFixed(0);
   else {
-      document.getElementById("tickSpeedAmount").textContent = 'Tickspeed: ' + player.tickspeed.times(new Decimal(100).dividedBy(Decimal.pow(10, exp))).toFixed(0) + ' / ' + shorten(new Decimal(100).dividedBy(Decimal.pow(10, exp)));
+      document.getElementById("tickSpeedAmount").textContent = 'Water Pressure: ' + player.tickspeed.times(new Decimal(100).dividedBy(Decimal.pow(10, exp))).toFixed(0) + ' / ' + shorten(new Decimal(100).dividedBy(Decimal.pow(10, exp)));
   }
 }
