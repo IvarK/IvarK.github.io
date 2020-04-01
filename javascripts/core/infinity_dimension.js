@@ -1,4 +1,4 @@
-//Sanitizer Dimensions
+//infinity dimensions
 
 
 function DimensionDescription(tier) {
@@ -34,7 +34,7 @@ function DimensionRateOfChange(tier) {
 function updateInfinityDimensions() {
   if (document.getElementById("infinitydimensions").style.display == "block" && document.getElementById("dimensions").style.display == "block") {
     for (let tier = 1; tier <= 8; ++tier) {
-        document.getElementById("infD"+tier).textContent = DISPLAY_NAMES[tier] + " Sanitizer Dimension x" + shortenMoney(DimensionPower(tier));
+        document.getElementById("infD"+tier).textContent = DISPLAY_NAMES[tier] + " Infinity Dimension x" + shortenMoney(DimensionPower(tier));
         document.getElementById("infAmount"+tier).textContent = DimensionDescription(tier);
         var name = TIER_NAMES[tier];
         if (!player.infDimensionsUnlocked[tier-1]) {

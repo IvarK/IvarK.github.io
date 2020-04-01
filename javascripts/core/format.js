@@ -126,7 +126,7 @@ function formatValue(notation, value, places, placesUnder1000) {
     } else if (value < 1000) {
         return (value).toFixed(placesUnder1000);
     } else {
-        return "Costco";
+        return "Infinite";
     }
 }
 
