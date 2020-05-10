@@ -569,7 +569,6 @@ function updateDimensions() {
         galString += "): requires " + getGalaxyRequirement()
         if (player.currentChallenge == "challenge4") galString +=  " Sixth Dimensions";
         else galString +=  " Eighth Dimensions";
-        document.getElementById("secondResetLabel").textContent = galString;
     }
 
     if (canBuyTickSpeed() || player.currentEternityChall == "eterc9") {
