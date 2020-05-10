@@ -448,7 +448,7 @@ function getGalaxyCostScalingStart() {
 }
 
 function getGalaxyRequirement() {
-    let amount = 80 + ((player.galaxies) * 60);
+    let amount = 8 + ((player.galaxies) * 4);
     if (player.timestudy.studies.includes(42)) amount = 80 + ((player.galaxies) * 52)
     if (player.currentChallenge == "challenge4") amount = 99 + ((player.galaxies) * 90)
 
@@ -569,7 +569,6 @@ function updateDimensions() {
         galString += "): requires " + getGalaxyRequirement()
         if (player.currentChallenge == "challenge4") galString +=  " Sixth Dimensions";
         else galString +=  " Eighth Dimensions";
-        document.getElementById("secondResetLabel").textContent = galString;
     }
 
     if (canBuyTickSpeed() || player.currentEternityChall == "eterc9") {
@@ -1575,7 +1574,7 @@ document.getElementById("toggleBtnTickSpeed").onclick = function () {
 document.getElementById("secondSoftReset").onclick = function() {
     if (player.currentEternityChall == "eterc6") return
     var bool = player.currentChallenge != "challenge11" && player.currentChallenge != "postc1" && player.currentChallenge != "postc7" && (player.break || player.money.lte(Number.MAX_VALUE))
-    if (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() && bool : player.eightAmount >= getGalaxyRequirement() && bool) {
+    if (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() && bool : player.resets >= getGalaxyRequirement() && bool) {
         if (player.eternities >= 7 && !shiftDown) maxBuyGalaxies(true);
         else galaxyReset();
     }
@@ -1943,7 +1942,7 @@ document.getElementById("reset").onclick = function () {
         updateDimensions();
         updateChallenges();
         updateAutobuyers();
-    } else if (confirm("Do you really want to erase all your progress?")) {
+    } else if (confirm("Do you really want to kill all your progress?")) {
         if (window.location.href.split("//")[1].length > 20) set_save('dimensionTestSave', currentSave, defaultStart);
         else set_save('dimensionSave', currentSave, defaultStart);
         player = defaultStart
@@ -5284,7 +5283,7 @@ function gameLoop(diff) {
         document.getElementById("softReset").className = 'unavailablebtn';
     }
 
-    if (player.eightAmount >= getGalaxyRequirement()) {
+    if (player.resets >= getGalaxyRequirement()) {
         document.getElementById("secondSoftReset").className = 'storebtn';
     } else {
         document.getElementById("secondSoftReset").className = 'unavailablebtn';
