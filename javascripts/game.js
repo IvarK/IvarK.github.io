@@ -448,7 +448,7 @@ function getGalaxyCostScalingStart() {
 }
 
 function getGalaxyRequirement() {
-    let amount = 80 + ((player.galaxies) * 60);
+    let amount = 8 + ((player.galaxies) * 4);
     if (player.timestudy.studies.includes(42)) amount = 80 + ((player.galaxies) * 52)
     if (player.currentChallenge == "challenge4") amount = 99 + ((player.galaxies) * 90)
 
@@ -5284,7 +5284,7 @@ function gameLoop(diff) {
         document.getElementById("softReset").className = 'unavailablebtn';
     }
 
-    if (player.eightAmount >= getGalaxyRequirement()) {
+    if (player.resets >= getGalaxyRequirement()) {
         document.getElementById("secondSoftReset").className = 'storebtn';
     } else {
         document.getElementById("secondSoftReset").className = 'unavailablebtn';
