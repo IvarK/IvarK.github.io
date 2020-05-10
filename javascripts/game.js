@@ -1575,7 +1575,7 @@ document.getElementById("toggleBtnTickSpeed").onclick = function () {
 document.getElementById("secondSoftReset").onclick = function() {
     if (player.currentEternityChall == "eterc6") return
     var bool = player.currentChallenge != "challenge11" && player.currentChallenge != "postc1" && player.currentChallenge != "postc7" && (player.break || player.money.lte(Number.MAX_VALUE))
-    if (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() && bool : player.eightAmount >= getGalaxyRequirement() && bool) {
+    if (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() && bool : player.resets >= getGalaxyRequirement() && bool) {
         if (player.eternities >= 7 && !shiftDown) maxBuyGalaxies(true);
         else galaxyReset();
     }
@@ -1943,7 +1943,7 @@ document.getElementById("reset").onclick = function () {
         updateDimensions();
         updateChallenges();
         updateAutobuyers();
-    } else if (confirm("Do you really want to erase all your progress?")) {
+    } else if (confirm("Do you really want to kill all your progress?")) {
         if (window.location.href.split("//")[1].length > 20) set_save('dimensionTestSave', currentSave, defaultStart);
         else set_save('dimensionSave', currentSave, defaultStart);
         player = defaultStart
