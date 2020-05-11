@@ -19,7 +19,7 @@ var player = {
     money: new Decimal(10),
     tickSpeedCost: new Decimal(1000),
     tickspeed: new Decimal(1000),
-    firstCost: new Decimal(10),
+    firstCost: new Decimal(0),
     secondCost: new Decimal(100),
     thirdCost: new Decimal(10000),
     fourthCost: new Decimal(1000000),
