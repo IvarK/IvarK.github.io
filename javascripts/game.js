@@ -568,7 +568,8 @@ function updateDimensions() {
         if (player.dilation.freeGalaxies > 0) galString += " + "+player.dilation.freeGalaxies;
         galString += "): requires " + getGalaxyRequirement()
         if (player.currentChallenge == "challenge4") galString +=  " Sixth Dimensions";
-        else galString +=  " Eighth Dimensions";
+        else galString +=  " Dimension Boosts";
+	document.getElementById("secondResetLabel").textContent = galString;
     }
 
     if (canBuyTickSpeed() || player.currentEternityChall == "eterc9") {
