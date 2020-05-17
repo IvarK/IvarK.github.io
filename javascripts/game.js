@@ -17,7 +17,7 @@ var DISPLAY_NAMES = [ null, "First", "Second", "Third", "Fourth", "Fifth", "Sixt
 var forceHardReset = false;
 var player = {
     money: new Decimal(10),
-    tickSpeedCost: new Decimal(1000),
+    tickSpeedCost: new Decimal(0),
     tickspeed: new Decimal(1000),
     firstCost: new Decimal(0),
     secondCost: new Decimal(0),
