@@ -17,16 +17,16 @@ var DISPLAY_NAMES = [ null, "First", "Second", "Third", "Fourth", "Fifth", "Sixt
 var forceHardReset = false;
 var player = {
     money: new Decimal(10),
-    tickSpeedCost: new Decimal(1000),
+    tickSpeedCost: new Decimal(0),
     tickspeed: new Decimal(1000),
-    firstCost: new Decimal(10),
-    secondCost: new Decimal(100),
-    thirdCost: new Decimal(10000),
-    fourthCost: new Decimal(1000000),
-    fifthCost: new Decimal(1e9),
-    sixthCost: new Decimal(1e13),
-    seventhCost: new Decimal(1e18),
-    eightCost: new Decimal(1e24),
+    firstCost: new Decimal(0),
+    secondCost: new Decimal(0),
+    thirdCost: new Decimal(00),
+    fourthCost: new Decimal(000000),
+    fifthCost: new Decimal(0),
+    sixthCost: new Decimal(0),
+    seventhCost: new Decimal(0),
+    eightCost: new Decimal(0),
     firstAmount: new Decimal(0),
     secondAmount: new Decimal(0),
     thirdAmount: new Decimal(0),
@@ -56,7 +56,7 @@ var player = {
     infinityUpgrades: [],
     challenges: [],
     currentChallenge: "",
-    infinityPoints: new Decimal(0),
+    infinityPoints: new Decimal(111010101010010),
     infinitied: 0,
     infinitiedBank: 0,
     totalTimePlayed: 0,
@@ -64,7 +64,7 @@ var player = {
     thisInfinityTime: 0,
     resets: 0,
     galaxies: 0,
-    tickDecrease: 0.9,
+    tickDecrease: 100,
     totalmoney: new Decimal(0),
     achPow: 1,
     newsArray: [],
@@ -104,58 +104,58 @@ var player = {
     bestEternity: 9999999999,
     eternityUpgrades: [],
     epmult: new Decimal(1),
-    epmultCost: new Decimal(500),
+    epmultCost: new Decimal(0),
     infinityDimension1 : {
-        cost: new Decimal(1e8),
+        cost: new Decimal(0),
         amount: new Decimal(0),
         bought: 0,
         power: new Decimal(1),
         baseAmount: 0
     },
     infinityDimension2 : {
-        cost: new Decimal(1e9),
+        cost: new Decimal(0),
         amount: new Decimal(0),
         bought: 0,
         power: new Decimal(1),
         baseAmount: 0
     },
     infinityDimension3 : {
-        cost: new Decimal(1e10),
+        cost: new Decimal(0),
         amount: new Decimal(0),
         bought: 0,
         power: new Decimal(1),
         baseAmount: 0
     },
     infinityDimension4 : {
-        cost: new Decimal(1e20),
+        cost: new Decimal(0),
         amount: new Decimal(0),
         bought: 0,
         power: new Decimal(1),
         baseAmount: 0
     },
     infinityDimension5 : {
-        cost: new Decimal(1e140),
+        cost: new Decimal(0),
         amount: new Decimal(0),
         bought: 0,
         power: new Decimal(1),
         baseAmount: 0
     },
     infinityDimension6 : {
-        cost: new Decimal(1e200),
+        cost: new Decimal(0),
         amount: new Decimal(0),
         bought: 0,
         power: new Decimal(1),
         baseAmount: 0
     },
     infinityDimension7 : {
-        cost: new Decimal(1e250),
+        cost: new Decimal(0),
         amount: new Decimal(0),
         bought: 0,
         power: new Decimal(1),
         baseAmount: 0
     },
     infinityDimension8 : {
-        cost: new Decimal(1e280),
+        cost: new Decimal(0),
         amount: new Decimal(0),
         bought: 0,
         power: new Decimal(1),
@@ -166,49 +166,49 @@ var player = {
     tickThreshold: new Decimal(1),
     totalTickGained: 0,
     timeDimension1: {
-        cost: new Decimal(1),
+        cost: new Decimal(0),
         amount: new Decimal(0),
         power: new Decimal(1),
         bought: 0
     },
     timeDimension2: {
-        cost: new Decimal(5),
+        cost: new Decimal(0),
         amount: new Decimal(0),
         power: new Decimal(1),
         bought: 0
     },
     timeDimension3: {
-        cost: new Decimal(100),
+        cost: new Decimal(0),
         amount: new Decimal(0),
         power: new Decimal(1),
         bought: 0
     },
     timeDimension4: {
-        cost: new Decimal(1000),
+        cost: new Decimal(0),
         amount: new Decimal(0),
         power: new Decimal(1),
         bought: 0
     },
     timeDimension5: {
-        cost: new Decimal("1e2350"),
+        cost: new Decimal("0"),
         amount: new Decimal(0),
         power: new Decimal(1),
         bought: 0
     },
     timeDimension6: {
-        cost: new Decimal("1e2650"),
+        cost: new Decimal("0"),
         amount: new Decimal(0),
         power: new Decimal(1),
         bought: 0
     },
     timeDimension7: {
-        cost: new Decimal("1e3000"),
+        cost: new Decimal("0"),
         amount: new Decimal(0),
         power: new Decimal(1),
         bought: 0
     },
     timeDimension8: {
-        cost: new Decimal("1e3350"),
+        cost: new Decimal("0"),
         amount: new Decimal(0),
         power: new Decimal(1),
         bought: 0
@@ -231,7 +231,7 @@ var player = {
     },
     timestudy: {
         theorem: 0,
-        amcost: new Decimal("1e20000"),
+        amcost: new Decimal("0"),
         ipcost: new Decimal(1),
         epcost: new Decimal(1),
         studies: [],
@@ -260,7 +260,7 @@ var player = {
         tachyonParticles: new Decimal(0),
         dilatedTime: new Decimal(0),
         totalTachyonParticles: new Decimal(0),
-        nextThreshold: new Decimal(1000),
+        nextThreshold: new Decimal(1),
         freeGalaxies: 0,
         upgrades: [],
         rebuyables: {
@@ -448,9 +448,7 @@ function getGalaxyCostScalingStart() {
 }
 
 function getGalaxyRequirement() {
-    let amount = 80 + ((player.galaxies) * 60);
-    if (player.timestudy.studies.includes(42)) amount = 80 + ((player.galaxies) * 52)
-    if (player.currentChallenge == "challenge4") amount = 99 + ((player.galaxies) * 90)
+    let amount = 0
 
     let galaxyCostScalingStart = getGalaxyCostScalingStart()
     if (player.currentEternityChall == "eterc5") {
@@ -568,8 +566,8 @@ function updateDimensions() {
         if (player.dilation.freeGalaxies > 0) galString += " + "+player.dilation.freeGalaxies;
         galString += "): requires " + getGalaxyRequirement()
         if (player.currentChallenge == "challenge4") galString +=  " Sixth Dimensions";
-        else galString +=  " Eighth Dimensions";
-        document.getElementById("secondResetLabel").textContent = galString;
+        else galString +=  " Dimension Boosts";
+	document.getElementById("secondResetLabel").textContent = galString;
     }
 
     if (canBuyTickSpeed() || player.currentEternityChall == "eterc9") {
@@ -1575,7 +1573,7 @@ document.getElementById("toggleBtnTickSpeed").onclick = function () {
 document.getElementById("secondSoftReset").onclick = function() {
     if (player.currentEternityChall == "eterc6") return
     var bool = player.currentChallenge != "challenge11" && player.currentChallenge != "postc1" && player.currentChallenge != "postc7" && (player.break || player.money.lte(Number.MAX_VALUE))
-    if (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() && bool : player.eightAmount >= getGalaxyRequirement() && bool) {
+    if (player.currentChallenge == "challenge4" ? player.sixthAmount >= getGalaxyRequirement() && bool : player.resets >= getGalaxyRequirement() && bool) {
         if (player.eternities >= 7 && !shiftDown) maxBuyGalaxies(true);
         else galaxyReset();
     }
@@ -1943,7 +1941,7 @@ document.getElementById("reset").onclick = function () {
         updateDimensions();
         updateChallenges();
         updateAutobuyers();
-    } else if (confirm("Do you really want to erase all your progress?")) {
+    } else if (confirm("Do you really want to kill all your progress?")) {
         if (window.location.href.split("//")[1].length > 20) set_save('dimensionTestSave', currentSave, defaultStart);
         else set_save('dimensionSave', currentSave, defaultStart);
         player = defaultStart
@@ -5284,7 +5282,7 @@ function gameLoop(diff) {
         document.getElementById("softReset").className = 'unavailablebtn';
     }
 
-    if (player.eightAmount >= getGalaxyRequirement()) {
+    if (player.resets >= getGalaxyRequirement()) {
         document.getElementById("secondSoftReset").className = 'storebtn';
     } else {
         document.getElementById("secondSoftReset").className = 'unavailablebtn';
