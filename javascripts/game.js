@@ -104,58 +104,58 @@ var player = {
     bestEternity: 9999999999,
     eternityUpgrades: [],
     epmult: new Decimal(1),
-    epmultCost: new Decimal(500),
+    epmultCost: new Decimal(0),
     infinityDimension1 : {
-        cost: new Decimal(1e8),
+        cost: new Decimal(0),
         amount: new Decimal(0),
         bought: 0,
         power: new Decimal(1),
         baseAmount: 0
     },
     infinityDimension2 : {
-        cost: new Decimal(1e9),
+        cost: new Decimal(0),
         amount: new Decimal(0),
         bought: 0,
         power: new Decimal(1),
         baseAmount: 0
     },
     infinityDimension3 : {
-        cost: new Decimal(1e10),
+        cost: new Decimal(0),
         amount: new Decimal(0),
         bought: 0,
         power: new Decimal(1),
         baseAmount: 0
     },
     infinityDimension4 : {
-        cost: new Decimal(1e20),
+        cost: new Decimal(0),
         amount: new Decimal(0),
         bought: 0,
         power: new Decimal(1),
         baseAmount: 0
     },
     infinityDimension5 : {
-        cost: new Decimal(1e140),
+        cost: new Decimal(0),
         amount: new Decimal(0),
         bought: 0,
         power: new Decimal(1),
         baseAmount: 0
     },
     infinityDimension6 : {
-        cost: new Decimal(1e200),
+        cost: new Decimal(0),
         amount: new Decimal(0),
         bought: 0,
         power: new Decimal(1),
         baseAmount: 0
     },
     infinityDimension7 : {
-        cost: new Decimal(1e250),
+        cost: new Decimal(0),
         amount: new Decimal(0),
         bought: 0,
         power: new Decimal(1),
         baseAmount: 0
     },
     infinityDimension8 : {
-        cost: new Decimal(1e280),
+        cost: new Decimal(0),
         amount: new Decimal(0),
         bought: 0,
         power: new Decimal(1),
@@ -166,49 +166,49 @@ var player = {
     tickThreshold: new Decimal(1),
     totalTickGained: 0,
     timeDimension1: {
-        cost: new Decimal(1),
+        cost: new Decimal(0),
         amount: new Decimal(0),
         power: new Decimal(1),
         bought: 0
     },
     timeDimension2: {
-        cost: new Decimal(5),
+        cost: new Decimal(0),
         amount: new Decimal(0),
         power: new Decimal(1),
         bought: 0
     },
     timeDimension3: {
-        cost: new Decimal(100),
+        cost: new Decimal(0),
         amount: new Decimal(0),
         power: new Decimal(1),
         bought: 0
     },
     timeDimension4: {
-        cost: new Decimal(1000),
+        cost: new Decimal(0),
         amount: new Decimal(0),
         power: new Decimal(1),
         bought: 0
     },
     timeDimension5: {
-        cost: new Decimal("1e2350"),
+        cost: new Decimal("0"),
         amount: new Decimal(0),
         power: new Decimal(1),
         bought: 0
     },
     timeDimension6: {
-        cost: new Decimal("1e2650"),
+        cost: new Decimal("0"),
         amount: new Decimal(0),
         power: new Decimal(1),
         bought: 0
     },
     timeDimension7: {
-        cost: new Decimal("1e3000"),
+        cost: new Decimal("0"),
         amount: new Decimal(0),
         power: new Decimal(1),
         bought: 0
     },
     timeDimension8: {
-        cost: new Decimal("1e3350"),
+        cost: new Decimal("0"),
         amount: new Decimal(0),
         power: new Decimal(1),
         bought: 0
@@ -231,7 +231,7 @@ var player = {
     },
     timestudy: {
         theorem: 0,
-        amcost: new Decimal("1e20000"),
+        amcost: new Decimal("0"),
         ipcost: new Decimal(1),
         epcost: new Decimal(1),
         studies: [],
@@ -260,7 +260,7 @@ var player = {
         tachyonParticles: new Decimal(0),
         dilatedTime: new Decimal(0),
         totalTachyonParticles: new Decimal(0),
-        nextThreshold: new Decimal(1000),
+        nextThreshold: new Decimal(1),
         freeGalaxies: 0,
         upgrades: [],
         rebuyables: {
@@ -448,9 +448,7 @@ function getGalaxyCostScalingStart() {
 }
 
 function getGalaxyRequirement() {
-    let amount = 8 + ((player.galaxies) * 4);
-    if (player.timestudy.studies.includes(42)) amount = 80 + ((player.galaxies) * 52)
-    if (player.currentChallenge == "challenge4") amount = 99 + ((player.galaxies) * 90)
+    let amount = 0
 
     let galaxyCostScalingStart = getGalaxyCostScalingStart()
     if (player.currentEternityChall == "eterc5") {
