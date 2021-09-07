@@ -200,7 +200,7 @@ function giveAchievement(name) {
 
 function updateAchievementAria(domObj, isSecret=false) {
   var isLocked = domObj.classList.contains("achievementlocked") || domObj.classList.contains("achievementhidden");
-  var label_text = (isLocked) ? "(Locked) " : "";
+  var label_text = (!isLocked) ? "(Completed) " : "";
   // Retrieve achievement row, trimming off the "r" or "s"
   label_text += allAchievementNums[domObj.id].substring(1) + ", ";
   label_text += domObj.id;
