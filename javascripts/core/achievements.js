@@ -201,6 +201,8 @@ function giveAchievement(name) {
 function updateAchievementAria(domObj, isSecret=false) {
   var isLocked = domObj.classList.contains("achievementlocked") || domObj.classList.contains("achievementhidden");
   var label_text = (isLocked) ? "(Locked) " : "";
+  // Retrieve achievement row, trimming off the "r" or "s"
+  label_text += allAchievementNums[domObj.id].substring(1) + ", ";
   label_text += domObj.id;
   // We only update labels with differing tooltips, which means that secret achievements should only be updated if they're unlocked.
   if(!isSecret || isSecret && !isLocked) {
