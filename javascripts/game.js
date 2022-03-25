@@ -1819,7 +1819,7 @@ document.getElementById("exportbtn").onclick = function () {
     let parent = output.parentElement;
 
     parent.style.display = "";
-    output.value = btoa(JSON.stringify(player, function(k, v) { return (v === Infinity) ? "Infinity" : v; }));
+    output.value = LZString.compressToBase64(JSON.stringify(player, function(k, v) { return (v === Infinity) ? "Infinity" : v; }));
 
     output.onblur = function() {
         parent.style.display = "none";
@@ -1905,7 +1905,11 @@ document.getElementById("importbtn").onclick = function () {
         player.options.secretThemeKey = save_data;
         setTheme(player.options.theme);
     } else {
-        save_data = JSON.parse(atob(save_data), function(k, v) { return (v === Infinity) ? "Infinity" : v; });
+        try {
+            save_data = JSON.parse(atob(save_data), function (k, v) { return (v === Infinity) ? "Infinity" : v })
+        } catch (e) {
+            save_data = JSON.parse(LZString.decompressFromBase64(save_data), function (k, v) { return v === Infinity ? "Infinity" : v })
+        }
         if(verify_save(save_data)) forceHardReset = true
         if(verify_save(save_data)) document.getElementById("reset").click();
         forceHardReset = false
