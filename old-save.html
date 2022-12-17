@@ -1,0 +1,44 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Old Antimatter Dimensions saves</title>
+</head>
+<body>
+    <div>Save 1:</div>
+    <textarea id="save-1"></textarea>
+    <button style="display: block" onclick="copySave(1)">Copy Save 1</button>
+    <div>Save 2:</div>
+    <textarea id="save-2"></textarea>
+    <button style="display: block" onclick="copySave(2)">Copy Save 2</button>
+    <div>Save 3:</div>
+    <textarea id="save-3"></textarea>
+    <button style="display: block" onclick="copySave(3)">Copy Save 3</button>
+    <script>
+        var rawSave = localStorage.getItem("dimensionSave");
+        if (rawSave !== null && !rawSave.startsWith("AntimatterDimensionsSavefile")) {
+            var fullSave = JSON.parse(atob(rawSave), function(k, v) { return (v === Infinity) ? "Infinity" : v; });
+            document.getElementById("save-1").textContent = btoa(JSON.stringify(fullSave.saves[0]));
+            document.getElementById("save-2").textContent = btoa(JSON.stringify(fullSave.saves[1]));
+            document.getElementById("save-3").textContent = btoa(JSON.stringify(fullSave.saves[2]));
+        }
+        else {
+            document.getElementById("save-1").textContent = "No save!";
+            document.getElementById("save-2").textContent = "No save!";
+            document.getElementById("save-3").textContent = "No save!";
+        }
+
+        function copySave(id) {
+            var copyText = document.getElementById("save-" + id);
+
+            // Select the text field
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+
+            // Copy the text inside the text field
+            navigator.clipboard.writeText(copyText.value);
+        }
+    </script>
+</body>
+</html>
