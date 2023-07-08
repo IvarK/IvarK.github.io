@@ -85,7 +85,7 @@ newsArray = [//always true
 ["What do you mean, more than two dimensions??? We're on a screen, clearly there are only 2 dimensions.", "player.thirdAmount.gt(0) || player.resets > 0", "b3"],
 ["How much is Infinity? -literally everyone at least once", "player.eightAmount.eq(190) || player.infinitied > 0", "b4"],
 ["Eh, the Fourth Dimension is alright...", "player.fourthAmount.gt(0) && player.fifthAmount.eq(0)", "b5"],
-["Antimatter people seem to be even more afraid of 13 then we are. They destroyed entire galaxies just to remove 13 from their percents.", "player.galaxies > 0 || player.infinitied > 0", "b8"],
+["Antimatter people seem to be even more afraid of 13 than we are. They destroyed entire galaxies just to remove 13 from their percents.", "player.galaxies > 0 || player.infinitied > 0", "b8"],
 ["To understand dimensional sacrifice, you do actually need a PhD in theoretical physics. Sorry!", "player.sacrificed.e >= 10 || player.resets >= 6", "b9"],
 ["A new group for the standardisation of numbers have come forward with a novel new format involving emoji's.", "player.spreadingCancer > 0", "b11"],
 ["Antimatter ice cream stand has recently opened- they have octillions of flavors!", "player.totalmoney.e >= 27", "b13"],
