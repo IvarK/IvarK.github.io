@@ -57,7 +57,7 @@ var player = {
     challenges: [],
     currentChallenge: "",
     infinityPoints: new Decimal(0),
-    infinitied: 0,
+    infinitied: new Decimal(0),
     infinitiedBank: 0,
     totalTimePlayed: 0,
     bestInfinityTime: 9999999999,
@@ -254,6 +254,8 @@ var player = {
     eterc8repl: 40,
     dimlife: true,
     dead: true,
+    ravagers: new Decimal(0),
+    devastated: 0,
     dilation: {
         studies: [],
         active: false,
@@ -1749,7 +1751,9 @@ function galaxyReset() {
         dead: player.dead,
         dilation: player.dilation,
         why: player.why,
-        options: player.options
+        options: player.options,
+        ravagers: player.ravagers,
+        devastated: player.devastated,
     };
 
     if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -2975,7 +2979,9 @@ document.getElementById("bigcrunch").onclick = function () {
             dead: player.dead,
             dilation: player.dilation,
             why: player.why,
-            options: player.options
+            options: player.options,
+            ravagers: new Decimal(0),
+            devastated: 0
         };
 
         if (player.bestInfinityTime <= 0.01) giveAchievement("Less than or equal to 0.001");
